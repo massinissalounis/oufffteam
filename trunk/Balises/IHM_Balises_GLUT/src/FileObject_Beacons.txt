@@ -1,0 +1,57 @@
+x y z 
+
+// Position des balises
+// Mettre les 3 balises les unes en dessous des autres avec le format x y z rayon
+BEACON_BLUE
+-25 1255 350 35
+785 1255 350 35
+375 -55 350 35
+
+
+// Balise bleue 1
+CYLINDER 0 0 255
+-25 1255 350
+35
+110
+
+CYLINDER 0 0 255
+-25 1255 490
+35
+20
+
+CYLINDER 200 200 200
+-25 1255 460
+35
+30
+
+// Balise bleue 2
+CYLINDER 0 0 255
+375 -55 350
+35
+110
+
+CYLINDER 0 0 255
+375 -55 490
+35
+20
+
+CYLINDER 200 200 200
+375 -55 460
+35
+30
+
+// Balise bleue 3
+CYLINDER 0 0 255
+785 1255 350
+35
+110
+
+CYLINDER 0 0 255
+785 1255 490
+35
+20
+
+CYLINDER 200 200 200
+785 1255 460
+35
+30

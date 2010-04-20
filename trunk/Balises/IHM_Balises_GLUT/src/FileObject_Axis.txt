@@ -1,0 +1,7 @@
+x y z 
+
+// Dessin des axes
+// Dessiner seulement l'axe suivant Oz (Ox et Oy seront dupliquer suivant ce model)
+// AXIS LongueurAxe RayonAxe LongueurFleche RayonFleche
+
+AXIS 150 10 50 25

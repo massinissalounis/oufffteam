@@ -1,0 +1,40 @@
+// Nom du fichier pour la Map
+MapFile = FileObject_Map.txt
+BeaconFile = FileObject_Beacons.txt
+AxisFile = FileObject_Axis.txt
+
+// Taille du robot (rayon et hauteur)
+RobotSize = 40
+RobotHeight = 50
+
+// Numéro de port pour le port RS232 (0 desactive le port et -1 lance la simulation du port RS232)
+// Attention un numero de port trop haut peut provoquer des erreurs. Regler le port pour utiliser
+// un com entre 1 et 9
+COM = 1
+
+// Vitesse du port
+PortSpeed = 19200
+
+// Activation ou non de la console (0: Sans console ou 1: avec console)
+UseConsole = 1
+
+// Affichage en plein ecran 
+FullScreen = 0
+
+// Model de la trame RS232 à utiliser
+// En premier x puis y puis angle par rapport a Ox
+TrameRS232 = @%d,%d,%d#
+
+
+// Caractéristiques du laser
+// Hauteur du laser par rapport à l'origine
+LaserHeight = 85
+
+// Vitesse du laser en Hz (une vitesse de 0 desactive le laser)
+LaserSpeed = 0.1
+
+// Coefficient de transparence du laser (entre 0 et 255)
+LaserAlpha = 128
+
+// Freq de rafraichissement max de la fenetre opeGL (en FPS)
+DisplayFreq = 25
