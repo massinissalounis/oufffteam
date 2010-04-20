@@ -1,0 +1,357 @@
+// Oufff Team 2007
+// Simulateur balises
+// Par PCrack
+
+#include <gtk/gtk.h>
+#include <glib.h>
+#include <stdlib.h>
+#include <math.h>
+#include <windows.h>
+
+#define L 3000
+#define l 2100
+
+typedef struct Predefined_Command{ 
+   int Number;
+   char *Name;
+   char *Command;
+   Predefined_Command *Next;
+}Predefined_Command;
+
+///////////////////////////////////////////////////////////////////////////////
+// PROTOTYPES
+///////////////////////////////////////////////////////////////////////////////
+
+void CreateGraphical (void); // Creation de la fenetre et des objets
+
+void OnDestroy(GtkWidget *pWidget, gpointer pData); // Sortie de l'application
+
+gboolean callback_label(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
+
+static gboolean realisation( GtkWidget *aire_de_dessin, GdkEventConfigure *event );
+
+static gboolean rafraichissement( GtkWidget *aire_de_dessin, GdkEventExpose *event );
+
+void inter_beacons_angles_calculation (GtkSpinButton *spinbutton, gpointer user_data);
+
+///////////////////////////////////////////////////////////////////////////////
+// VARIABLES GLOBALES
+///////////////////////////////////////////////////////////////////////////////
+
+GtkWidget *pTextView1; // Zone de texte de l'espion
+GtkWidget *pTextView2; // Zone de texte de la zone de commande
+GtkTextBuffer* pTextBuffer1; // Buffer de la zone de texte de l'espion
+
+Predefined_Command *Head=NULL;
+
+
+   GtkWidget *pWindow; // Fenetre
+   GtkWidget *pScrolled1; // Barre de defilement de la zone de l'espion
+   
+   
+   static GdkPixmap *pixmap = NULL;
+   
+   
+  GtkWidget *pSpin1; // Barre de defilement de la zone de resultats
+  GtkWidget *pSpin2; // Barre de defilement de la zone de resultats
+  GtkWidget *pSpin3; // Barre de defilement de la zone de resultat
+  GtkWidget *pSpin4; // Barre de defilement de la zone de resultats 
+  GtkWidget *pSpin5; // Barre de defilement de la zone de resultats
+   
+///////////////////////////////////////////////////////////////////////////////
+// MAIN
+///////////////////////////////////////////////////////////////////////////////
+
+int main(int argc, char **argv)
+{
+   // FENETRE GRAPHIQUE
+   // Initialisation de GTK+
+	gtk_init(&argc, &argv);
+   // Creation de la fenetre et des objets
+   CreateGraphical();
+
+   printf("Debut\n");   
+   
+   // Lancement de la boucle principale
+	gtk_main();
+
+	return EXIT_SUCCESS;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// FONCTIONS
+///////////////////////////////////////////////////////////////////////////////
+
+// Creation de la fenetre et des objets
+void CreateGraphical (void)
+{
+ //  GtkWidget *pWindow; // Fenetre
+   
+   GtkWidget *pTable1; // Table permettant de decouper la fenetre en 3
+   GtkWidget *pTable2; // Table permettant de decouper l'espace du controlleur
+   
+   GtkWidget *pLabel; // Label principal ( en haut de l'application )
+            
+   GtkWidget *pFrame1; // Decoration de l'espace du controlleur
+   GtkWidget *pFrame2; // Decoration de l'espace de l'espion
+   GtkWidget *pFrame3; // Decoration de la liste de commandes predefinies
+   GtkWidget *pFrame4; // Decoration de la zone de commande
+   GtkWidget *pFrame5; // Decoration de la zone de resultats
+GtkWidget *pFrame6;
+GtkWidget *pFrame7;
+
+
+   GtkWidget *pScrolled2; // Barre de defilement de la liste de commandes predefinies
+   GtkWidget *pScrolled3; // Barre de defilement de la zone de commande
+   GtkWidget *pScrolled4; // Barre de defilement de la zone de resultats
+ 
+  
+   GtkWidget *pTextView3; // Zone de texte de la zone de resultats
+   
+   GtkTextBuffer *pTextBuffer2; // Buffer de la zone de texte de la zone de commande
+   GtkTextBuffer *pTextBuffer3; // Buffer de la zone de texte de la zone de resultats
+
+   GtkWidget *pBox; // Box servant a centrer le bouton
+   
+   GtkWidget *pButton; // Bouton Send
+
+   GtkListStore *pListStore; // Buffer de liste de commandes predefinies
+   
+   GtkCellRenderer *pCellRenderer; // Type de la cellule de la liste
+   
+   GtkWidget *pListView; // Liste de commandes predefinies
+   
+   GtkTreeViewColumn *pColumn; // Colonne dans la liste de commandes predefinies
+
+   gchar* sUtf8; // Permet les conversions en UTF8
+   
+   
+   
+   
+   	GtkWidget *event_box;
+   	
+   	
+   
+   // FENETRE     
+   // Creation de la fenetre principale de l'application
+	pWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	// Titre de la fenetre principale
+   sUtf8 = g_locale_to_utf8("SIMULATEUR BALISES", -1, NULL, NULL, NULL);
+	gtk_window_set_title(GTK_WINDOW(pWindow), sUtf8);
+   g_free(sUtf8);
+	// Taille de la fenetre principale
+	gtk_window_set_default_size(GTK_WINDOW(pWindow), 640, 480);
+	// Ajout d'une bordure autour de la fenetre principale
+	gtk_container_set_border_width(GTK_CONTAINER(pWindow), 5);
+	// Position de la fenetre principale
+	gtk_window_set_position(GTK_WINDOW(pWindow), GTK_WIN_POS_CENTER_ON_PARENT);
+	gtk_window_set_resizable (GTK_WINDOW(pWindow),FALSE);
+
+	// Attachement du signal de destruction
+	g_signal_connect(G_OBJECT(pWindow), "destroy", G_CALLBACK(OnDestroy), NULL);
+	
+	
+
+	
+
+	// Creation de la table principale de 18 lignes 20 colonnes et insertion à l'interieur de la fenetre
+   pTable1=gtk_table_new(18,20,TRUE);
+   gtk_container_add(GTK_CONTAINER(pWindow), GTK_WIDGET(pTable1));
+
+   // LABLE PRINCIPAL ET DECORATIONS
+	// Creation du label de titre avec conversion en UTF8
+   sUtf8 = g_locale_to_utf8("<span size=\"12\"><b>SIMULATEUR BALISES</b></span>\nOufff TEAM 2007\nPCrack - Chronos - CBE", -1, NULL, NULL, NULL);
+   pLabel=gtk_label_new(sUtf8);
+   g_free(sUtf8);
+   gtk_label_set_use_markup(GTK_LABEL(pLabel), TRUE);
+	gtk_label_set_justify (GTK_LABEL(pLabel), GTK_JUSTIFY_CENTER);
+
+   // Creation des decorations pour marquer les zones avec conversion en UTF8
+	sUtf8 = g_locale_to_utf8("Terrain", -1, NULL, NULL, NULL);
+   pFrame1 = gtk_frame_new(sUtf8);
+   g_free(sUtf8);
+   	
+	sUtf8 = g_locale_to_utf8("Paramètres", -1, NULL, NULL, NULL);
+   pFrame2 = gtk_frame_new(sUtf8);
+   g_free(sUtf8);
+   
+  	sUtf8 = g_locale_to_utf8("x:", -1, NULL, NULL, NULL);
+   pFrame3 = gtk_frame_new(sUtf8);
+   g_free(sUtf8);
+   
+  	sUtf8 = g_locale_to_utf8("y:", -1, NULL, NULL, NULL);
+   pFrame4 = gtk_frame_new(sUtf8);
+   g_free(sUtf8);
+   
+  	sUtf8 = g_locale_to_utf8("alpha:", -1, NULL, NULL, NULL);
+   pFrame5 = gtk_frame_new(sUtf8);
+   g_free(sUtf8);
+   
+  	sUtf8 = g_locale_to_utf8("beta:", -1, NULL, NULL, NULL);
+   pFrame6 = gtk_frame_new(sUtf8);
+   g_free(sUtf8);
+   
+  	sUtf8 = g_locale_to_utf8("gamma:", -1, NULL, NULL, NULL);
+   pFrame7 = gtk_frame_new(sUtf8);
+   g_free(sUtf8);
+   
+   
+   GtkWidget *aire_de_dessin ;
+aire_de_dessin = gtk_drawing_area_new() ;
+
+g_signal_connect( G_OBJECT(aire_de_dessin), "realize", G_CALLBACK(realisation), NULL ) ;
+g_signal_connect( G_OBJECT(aire_de_dessin), "expose_event", G_CALLBACK(rafraichissement), NULL ) ;
+
+		// Création d'un GtkEventBox et insertion de celui-ci dans la fenêtre principale.
+	event_box=gtk_event_box_new();
+	gtk_container_add(GTK_CONTAINER(pFrame1), event_box);
+
+   gtk_container_add(GTK_CONTAINER(event_box), GTK_WIDGET(aire_de_dessin));
+   
+   gtk_widget_set_size_request (pTable1, 640, 480);
+
+   // Insertion des decorations principales dans la table principale
+   gtk_table_attach_defaults(GTK_TABLE(pTable1), pLabel, 0,20, 0, 2 );
+   gtk_table_attach_defaults(GTK_TABLE(pTable1), pFrame1, 0,12, 2, 18 );
+   gtk_table_attach_defaults(GTK_TABLE(pTable1), pFrame2, 12,20, 2, 18 );
+   
+
+   
+  // // PARTIE ESPION
+//   // Creation de la fenetre avec defilement et insertion dans le decoration du SPY
+//   pScrolled1 = gtk_scrolled_window_new(NULL, NULL);
+//   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(pScrolled1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+//   gtk_container_add(GTK_CONTAINER(pFrame2), pScrolled1);
+
+     // Creation de la zone de texte et insertion dans le fenetre de defilement associee
+//     pTextView1 = gtk_text_view_new();
+//    	gtk_container_set_border_width(GTK_CONTAINER(pScrolled1), 5);
+//     gtk_container_add(GTK_CONTAINER(pFrame2), pTextView1);
+//     pTextBuffer1 = gtk_text_view_get_buffer(GTK_TEXT_VIEW(pTextView1));
+     
+
+     // Creation de la table pour la partie Paramètres de 10 lignes 4 colonnes et insertion dans la decoration du controleur 
+     pTable2=gtk_table_new(10,4,TRUE);
+     gtk_container_set_border_width(GTK_CONTAINER(pTable2), 5);
+     gtk_container_add(GTK_CONTAINER(pFrame2), GTK_WIDGET(pTable2));
+
+     // Insertion des decorations dans la zone des paramètres
+     gtk_table_attach_defaults(GTK_TABLE(pTable2), pFrame3, 1,3, 1, 2 );
+     gtk_table_attach_defaults(GTK_TABLE(pTable2), pFrame4, 1,3, 2, 3 );
+     gtk_table_attach_defaults(GTK_TABLE(pTable2), pFrame5, 1,3, 4, 5 );
+     gtk_table_attach_defaults(GTK_TABLE(pTable2), pFrame6, 1,3, 5, 6 );
+     gtk_table_attach_defaults(GTK_TABLE(pTable2), pFrame7, 1,3, 6, 7 );    
+     
+     pSpin1 = gtk_spin_button_new_with_range (0.0, 2100.0, 0.1);
+     gtk_container_add(GTK_CONTAINER(pFrame3), GTK_WIDGET(pSpin1));
+     
+     pSpin2 = gtk_spin_button_new_with_range (0.0, 3000.0, 0.1);
+     gtk_container_add(GTK_CONTAINER(pFrame4), GTK_WIDGET(pSpin2));
+     
+     pSpin3 = gtk_spin_button_new_with_range (0.00, 360.00, 0.01);
+     gtk_container_add(GTK_CONTAINER(pFrame5), GTK_WIDGET(pSpin3));
+     
+     pSpin4 = gtk_spin_button_new_with_range (0.00, 360.00, 0.01);
+     gtk_container_add(GTK_CONTAINER(pFrame6), GTK_WIDGET(pSpin4));
+     
+     pSpin5 = gtk_spin_button_new_with_range (0.00, 360.00, 0.01);
+     gtk_container_add(GTK_CONTAINER(pFrame7), GTK_WIDGET(pSpin5));
+
+	g_signal_connect(G_OBJECT(pSpin1), "value-changed", G_CALLBACK(inter_beacons_angles_calculation ), NULL);
+	g_signal_connect(G_OBJECT(pSpin2), "value-changed", G_CALLBACK(inter_beacons_angles_calculation ), NULL);
+	g_signal_connect(G_OBJECT(pSpin3), "value-changed", G_CALLBACK(inter_beacons_angles_calculation ), NULL);
+	g_signal_connect(G_OBJECT(pSpin4), "value-changed", G_CALLBACK(inter_beacons_angles_calculation ), NULL);
+	g_signal_connect(G_OBJECT(pSpin5), "value-changed", G_CALLBACK(inter_beacons_angles_calculation ), NULL);
+
+
+
+	// On ajoute le signal "button_press_event" au GtkEventBox.
+	gtk_widget_add_events(event_box,GDK_BUTTON_PRESS_MASK);
+	
+	// On attache un CALLBACK au widget event_box.
+	g_signal_connect(G_OBJECT(event_box), "button_press_event", G_CALLBACK(callback_label), NULL);
+
+   // Affichage de toutes les fenetres
+	gtk_widget_show_all(pWindow);
+}
+
+// Sortie de l'application
+void OnDestroy(GtkWidget *pWidget, gpointer pData)
+{
+   // Arret de la boucle evenementielle
+   gtk_main_quit();
+}
+
+gboolean callback_label(GtkWidget *widget, GdkEventButton *event, gpointer user_data)
+{
+	printf("Le lien a ete clique\n");
+
+	/* Si vous désirez connaître quel type de clic à recu le label, regardez
+		event->type. Vous y trouverez sûrement votre bonheur.*/
+	return TRUE;
+}
+
+static gboolean realisation( GtkWidget *aire_de_dessin, GdkEventConfigure *event )
+{
+	pixmap = gdk_pixmap_new( aire_de_dessin->window, 
+			aire_de_dessin->allocation.width, aire_de_dessin->allocation.height, -1 );
+
+	gdk_draw_rectangle( pixmap, aire_de_dessin->style->white_gc, TRUE, 0, 0,
+			aire_de_dessin->allocation.width, aire_de_dessin->allocation.height );
+
+
+	gdk_draw_line( pixmap, aire_de_dessin->style->black_gc, 0, 0, 50,50 );
+
+	gdk_draw_rectangle( pixmap, aire_de_dessin->style->black_gc, TRUE, 50, 50, 100, 10 );
+
+	gdk_draw_arc( pixmap, aire_de_dessin->style->black_gc, TRUE, 101, 179, 100, 50, 0, 180*64 );
+
+	GdkPoint quadrilatere[4];
+	quadrilatere[0].x = 100	;
+	quadrilatere[0].y = 200;
+	quadrilatere[1].x = quadrilatere[0].x  - 100;
+	quadrilatere[1].y = quadrilatere[0].y;
+	quadrilatere[2].x = quadrilatere[1].x -  50;
+	quadrilatere[2].y = quadrilatere[0].y -  100;
+	quadrilatere[3].x = quadrilatere[0].x - 50;
+	quadrilatere[3].y = quadrilatere[2].y;
+	gdk_draw_polygon( pixmap, aire_de_dessin->style->black_gc, true, quadrilatere, 4 );
+
+
+	gtk_widget_queue_draw( aire_de_dessin );
+
+	return TRUE;
+}
+
+
+static gboolean rafraichissement( GtkWidget *aire_de_dessin, GdkEventExpose *event )
+{
+	gdk_draw_drawable( aire_de_dessin->window, 
+		aire_de_dessin->style->fg_gc[GTK_WIDGET_STATE(aire_de_dessin)],
+		pixmap, event->area.x, event->area.y, event->area.x, event->area.y, -1, -1 );
+	return FALSE;
+}
+
+void inter_beacons_angles_calculation (GtkSpinButton *spinbutton, gpointer user_data)
+{
+  double x=gtk_spin_button_get_value(GTK_SPIN_BUTTON(pSpin1));
+  double y=gtk_spin_button_get_value (GTK_SPIN_BUTTON(pSpin2));
+  
+  double u = sqrt( pow(L,2) + pow(l/2,2) );
+  double v = u;
+  double w = l;
+  
+  double a = sqrt( pow(L-y,2) + pow(x,2) );
+  double b = sqrt( pow(L-y,2) + pow(l-x,2) );
+  double c = sqrt ( pow(y,2) + pow((l/2)-x,2) );
+  
+  double alpha = acos( ( pow(a,2) + pow(b,2) - pow(w,2) ) / (2*a*b) );
+  double beta = acos( ( pow(b,2) + pow(c,2) - pow(u,2) ) / (2*b*c) );
+  double gamma = acos( ( pow(a,2) + pow(c,2) - pow(v,2) ) / (2*a*c) );
+  
+  printf("x= %f, y= %f\n",x,y);
+  
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(pSpin3),180*alpha/M_PI);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(pSpin4),180*beta/M_PI);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(pSpin5),180*gamma/M_PI);
+}
