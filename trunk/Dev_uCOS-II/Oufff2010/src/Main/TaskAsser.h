@@ -15,16 +15,16 @@
 
 #define KP_ANGLE 				50000.0		// Oscillations de 2s environ
 #define KI_ANGLE 				0.0
-#define KD_ANGLE 				250000.0
+#define KD_ANGLE 				350000.0
 #define IMAX_ANGLE 				1000.0
 
 #define VMAX_ANGLE				10000.0
 #define ACC_ANGLE				20000.0
 
 
-#define KP_DISTANCE 			500.0
+#define KP_DISTANCE 			1500.0
 #define KI_DISTANCE 			0.0
-#define KD_DISTANCE 			1000.0
+#define KD_DISTANCE 			12000.0
 #define IMAX_DISTANCE 			1000.0
 
 #define VMAX_DISTANCE			10000.0
@@ -37,7 +37,7 @@
 
 #define ANGLE_CONTROL_INIT 		OS_TRUE; //OS_FALSE;
 #define DISTANCE_CONTROL_INIT 	OS_TRUE; //OS_FALSE;
-#define DISTANCE_ALPHA_ONLY		100.0
+#define DISTANCE_ALPHA_ONLY		50.0
 
 // Vars -------------------------------------------------------------------------------------------
 StructPos TaskAsser_CurrentPos;							// Local var to read current pos
