@@ -309,7 +309,7 @@ void TaskAsser_Main(void *p_arg)
 	INT8U command = 0;
 	INT8U Err;
 	StructMsg *pCurrentMsg = NULL;
-
+	
 	BOOLEAN angle_control = ANGLE_CONTROL_INIT;
 	BOOLEAN distance_control = DISTANCE_CONTROL_INIT;
 
@@ -378,18 +378,18 @@ void TaskAsser_Main(void *p_arg)
 
 		// Compute error
 
-			// Compute distance : ABS value for vectorial considerations
+		// Compute distance : ABS value for vectorial considerations
 		error_distance = sqrt(pow(setpoint.x - TaskAsser_CurrentPos.x,2) + pow(setpoint.y - TaskAsser_CurrentPos.y,2));
 		// Calcul du produit scalaire
 		scalar_product = ( (setpoint.x - TaskAsser_CurrentPos.x)*cos(TaskAsser_CurrentPos.angle) + (setpoint.y - TaskAsser_CurrentPos.y)*sin(TaskAsser_CurrentPos.angle) ); 
 
-			// Compute angle
+		// Compute angle
 		if (  (distance_control == 0 && angle_control == 1 ) // Angle mode
 			||(distance_control == 1 && angle_control == 1 && error_distance <= DISTANCE_ALPHA_ONLY) ) // Mixed mode : final distance reached
-			{
+		{
 			error_angle = setpoint.angle - TaskAsser_CurrentPos.angle;
-				error_distance=0;
-			}
+			error_distance=0;
+		}
 		
 		if ( (distance_control == 1 && angle_control == 1 && error_distance <= DISTANCE_ALPHA_ONLY) ) // Mixed mode : final distance reached
 		{
@@ -398,33 +398,33 @@ void TaskAsser_Main(void *p_arg)
 
 		if(   (distance_control == 1 && angle_control == 0 && error_distance >= 10) // Distance mode
 			||(distance_control == 1 && angle_control == 1 && error_distance > DISTANCE_ALPHA_ONLY) ) // Mixed mode
-			{
-				// Calcul de la valeur absolue de l'angle à parcourir avec le produit scalaire
+		{
+			// Calcul de la valeur absolue de l'angle à parcourir avec le produit scalaire
 			error_angle = acos( scalar_product / error_distance );
-				error_debug_1= error_angle;
+			error_debug_1= error_angle;
 
-				// Calcul du sinus de l'angle à parcourir pour avoir le sens de rotation. Avec la produit vectoriel
+			// Calcul du sinus de l'angle à parcourir pour avoir le sens de rotation. Avec la produit vectoriel
 			signe_error_angle = ( ((setpoint.y - TaskAsser_CurrentPos.y)*cos(TaskAsser_CurrentPos.angle) - (setpoint.x - TaskAsser_CurrentPos.x)*sin(TaskAsser_CurrentPos.angle) ) / error_distance );
-				error_debug_2 = signe_error_angle;
+			error_debug_2 = signe_error_angle;
 
-				if ( signe_error_angle < 0.0 )
+			if ( signe_error_angle < 0.0 )
+			{
+				error_angle = -error_angle;		// Application du signe.
+			}
+				
+			// Détermination si l'on doit reculer plutôt qu'avancer.
+			if (error_angle <= -M_PI/2 && error_angle >= - M_PI)	//quart arrière droit
 				{
-					error_angle = -error_angle;		// Application du signe.
+				error_angle = error_angle + M_PI;		// on replace l'angle devant le robot
+				error_distance = - error_distance;		// on recule
 				}
 				
-				// Détermination si l'on doit reculer plutôt qu'avancer.
-				if (error_angle <= -M_PI/2 && error_angle >= - M_PI)	//quart arrière droit
-					{
-					error_angle = error_angle + M_PI;		// on replace l'angle devant le robot
-					error_distance = - error_distance;		// on recule
-					}
-					
-				if (error_angle <= M_PI && error_angle >= M_PI/2)		// quart arrière gauche
-					{
-					error_angle = error_angle - M_PI;		// on replace l'angle devant le robot
-					error_distance = - error_distance;		// on recule
-					}
-			}
+			if (error_angle <= M_PI && error_angle >= M_PI/2)		// quart arrière gauche
+				{
+				error_angle = error_angle - M_PI;		// on replace l'angle devant le robot
+				error_distance = - error_distance;		// on recule
+				}
+		}
 
 		// Slew rate or quad filter on errors
 //		error_angle = SLEWRATE_Compute(& angle_slewrate_data, error_angle);
