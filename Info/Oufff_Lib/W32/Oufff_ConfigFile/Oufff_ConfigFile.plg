@@ -1,0 +1,36 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Oufff_ConfigFile - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Philippe\LOCALS~1\Temp\RSP5F.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /I "../../include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/Oufff_ConfigFile.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\Mes_docs_philippe\Robotique\OufffTeam 2007-2008\info\cvs\Info\Oufff_Lib\src\Oufff_ConfigFile\Main.cpp"
+"D:\Mes_docs_philippe\Robotique\OufffTeam 2007-2008\info\cvs\Info\Oufff_Lib\src\Oufff_ConfigFile\Oufff_ConfigFile.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Philippe\LOCALS~1\Temp\RSP5F.tmp" 
+Creating temporary file "C:\DOCUME~1\Philippe\LOCALS~1\Temp\RSP60.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/Oufff_ConfigFile.pdb" /debug /machine:I386 /out:"Debug/Oufff_ConfigFile.exe" /pdbtype:sept 
+".\Debug\Main.obj"
+".\Debug\Oufff_ConfigFile.obj"
+]
+Creating command line "link.exe @C:\DOCUME~1\Philippe\LOCALS~1\Temp\RSP60.tmp"
+<h3>Output Window</h3>
+Compiling...
+Main.cpp
+d:\mes_docs_philippe\robotique\oufffteam 2007-2008\info\cvs\info\oufff_lib\src\oufff_configfile\main.cpp(23) : warning C4101: 'tp2' : unreferenced local variable
+Oufff_ConfigFile.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+Oufff_ConfigFile.exe - 0 error(s), 1 warning(s)
+</pre>
+</body>
+</html>

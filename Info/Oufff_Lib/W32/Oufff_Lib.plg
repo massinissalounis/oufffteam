@@ -1,0 +1,60 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Oufff_Lib - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\Philippe\AppData\Local\Temp\RSPDDC.tmp" with contents
+[
+/nologo /ML /W3 /GX /O2 /I "../include" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /Fp"Release/Oufff_Lib.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"D:\Documents\Robotique\OufffTeam 2007-2008\info\cvs\Info\Oufff_Lib\src\Oufff_RS232\Oufff_RS232.cpp"
+]
+Creating command line "cl.exe @C:\Users\Philippe\AppData\Local\Temp\RSPDDC.tmp" 
+Creating command line "link.exe -lib /nologo /out:"Release\Oufff_Lib.lib"  ".\Release\Oufff_RS232.obj" ".\Release\Oufff_ConfigFile.obj" "
+<h3>Output Window</h3>
+Compiling...
+Oufff_RS232.cpp
+Creating library...
+Creating temporary file "C:\Users\Philippe\AppData\Local\Temp\RSP10AB.bat" with contents
+[
+@echo off
+ExportDll.bat
+]
+Creating command line "C:\Users\Philippe\AppData\Local\Temp\RSP10AB.bat"
+
+-------------------- Export de la DLL dans la OufffLib --------------------
+Export du fichier Oufff_Lib.lib vers Oufff_Lib-1.0.0.lib :
+        1 fichier(s) copi‚(s).
+Export du fichier Oufff_Lib.h vers Oufff_Lib-1.0.0.h :
+        1 fichier(s) copi‚(s).
+Création du répertoire Oufff_Lib-1.0.0
+Un sous-r‚pertoire ou un fichier d:\Documents\Robotique\OufffTeam 2007-2008\info\cvs\Info\OufffLib\\Include\W32\Oufff_Lib-1.0.0 existe d‚j….
+Export des headers
+..\include\Oufff_ConfigFile.h
+..\include\Oufff_Lib.h
+..\include\Oufff_LibConfig.h
+..\include\Oufff_LibErrorCode.h
+..\include\Oufff_RS232.h
+        5 fichier(s) copi‚(s).
+Mise à jours des fichiers de bases...
+Création et copie des fichiers Oufff_Lib.lib et Oufff_Lib.h
+        1 fichier(s) copi‚(s).
+        1 fichier(s) copi‚(s).
+Un sous-r‚pertoire ou un fichier d:\Documents\Robotique\OufffTeam 2007-2008\info\cvs\Info\OufffLib\\Include\W32\Oufff_Lib existe d‚j….
+d:\Documents\Robotique\OufffTeam 2007-2008\info\cvs\Info\OufffLib\\Include\W32\Oufff_Lib-1.0.0\Oufff_ConfigFile.h
+d:\Documents\Robotique\OufffTeam 2007-2008\info\cvs\Info\OufffLib\\Include\W32\Oufff_Lib-1.0.0\Oufff_LibConfig.h
+d:\Documents\Robotique\OufffTeam 2007-2008\info\cvs\Info\OufffLib\\Include\W32\Oufff_Lib-1.0.0\Oufff_LibErrorCode.h
+d:\Documents\Robotique\OufffTeam 2007-2008\info\cvs\Info\OufffLib\\Include\W32\Oufff_Lib-1.0.0\Oufff_RS232.h
+        4 fichier(s) copi‚(s).
+----------------------------- Fin de l'export ----------------------------- 
+Appuyez sur une touche pour continuer... 
+
+
+
+<h3>Results</h3>
+Oufff_Lib.lib - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

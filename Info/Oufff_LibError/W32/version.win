@@ -1,0 +1,4 @@
+// File used to get DLL version. The version must be on the last line of the file !!!!
+// This string must be defined as "#VERSION#". Do not change this notation
+
+#2.0.0#

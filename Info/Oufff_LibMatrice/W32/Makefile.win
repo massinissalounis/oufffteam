@@ -1,0 +1,43 @@
+# Project: Oufff_LibMatrice
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = Release/error.o Release/global.o Release/main.o Release/Matrix.o $(RES)
+LINKOBJ  = Release/error.o Release/global.o Release/main.o Release/Matrix.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib" --no-export-all-symbols --add-stdcall-alias  
+INCS =  -I"C:/Dev-Cpp/include" 
+CXXINCS =  -I"C:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"C:/Dev-Cpp/include/c++/3.4.2/backward"  -I"C:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"C:/Dev-Cpp/include/c++/3.4.2"  -I"C:/Dev-Cpp/include" 
+BIN  = Release/Oufff_LibMatrice.dll
+CXXFLAGS = $(CXXINCS) -DBUILDING_DLL=1  
+CFLAGS = $(INCS) -DBUILDING_DLL=1  
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before Release/Oufff_LibMatrice.dll all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+DLLWRAP=dllwrap.exe
+DEFFILE=Release/libOufff_LibMatrice.def
+STATICLIB=Release/libOufff_LibMatrice.a
+
+$(BIN): $(LINKOBJ)
+	$(DLLWRAP) --output-def $(DEFFILE) --driver-name c++ --implib $(STATICLIB) $(LINKOBJ) $(LIBS) -o $(BIN)
+
+Release/error.o: ../src/error.cpp
+	$(CPP) -c ../src/error.cpp -o Release/error.o $(CXXFLAGS)
+
+Release/global.o: ../src/global.cpp
+	$(CPP) -c ../src/global.cpp -o Release/global.o $(CXXFLAGS)
+
+Release/main.o: ../src/main.cpp
+	$(CPP) -c ../src/main.cpp -o Release/main.o $(CXXFLAGS)
+
+Release/Matrix.o: ../src/Matrix.cpp
+	$(CPP) -c ../src/Matrix.cpp -o Release/Matrix.o $(CXXFLAGS)
