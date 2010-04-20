@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Oufff2010", "Oufff2010\Oufff2010.vcproj", "{9975D5FC-9398-47E1-A01B-DF2F8796760B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		ocore|Win32 = ocore|Win32
+		StarterKit|Win32 = StarterKit|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9975D5FC-9398-47E1-A01B-DF2F8796760B}.ocore|Win32.ActiveCfg = ocore|Win32
+		{9975D5FC-9398-47E1-A01B-DF2F8796760B}.ocore|Win32.Build.0 = ocore|Win32
+		{9975D5FC-9398-47E1-A01B-DF2F8796760B}.StarterKit|Win32.ActiveCfg = StarterKit|Win32
+		{9975D5FC-9398-47E1-A01B-DF2F8796760B}.StarterKit|Win32.Build.0 = StarterKit|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
