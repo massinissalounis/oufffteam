@@ -67,6 +67,71 @@ static  void  ADC_Config    (void);
 static  void PMP_Init       (void);
 
 ///////////////////////////////////////////////////////////
+// GP2 FUNCTIONS
+///////////////////////////////////////////////////////////
+
+void GP2_Init (void)
+{
+
+}
+
+void GP2_Read (void)
+{
+
+}
+
+///////////////////////////////////////////////////////////
+// SWITCH FUNCTIONS
+///////////////////////////////////////////////////////////
+
+void CLIC_Init (void)
+{
+	PORTSetPinsDigitalIn(IOPORT_G, BIT_0);
+	PORTSetPinsDigitalIn(IOPORT_A, BIT_7);
+	PORTSetPinsDigitalIn(IOPORT_C, BIT_2);
+	PORTSetPinsDigitalIn(IOPORT_C, BIT_4);
+}
+
+CPU_INT08U CLIC_state (CPU_INT08U clic)
+{
+	CPU_INT08U state = 0;
+
+    switch (clic) {
+        case CLIC_FRONT_LEFT:
+			if(PORTReadBits(IOPORT_G, BIT_0)!=0) state = 1;
+			break;
+
+        case CLIC_FRONT_RIGHT:
+			if(PORTReadBits(IOPORT_A, BIT_7)!=0) state = 1;
+			break;
+
+        case CLIC_REAR_LEFT:
+			if(PORTReadBits(IOPORT_C, BIT_2)!=0) state = 1;
+			break;
+
+        case CLIC_REAR_RIGHT:
+			if(PORTReadBits(IOPORT_C, BIT_4)!=0) state = 1;
+			break;
+
+        default:
+             break;
+    }
+	return state;
+}
+
+void START_Init (void)
+{
+	PORTSetPinsDigitalIn(IOPORT_F, BIT_1);
+}
+
+CPU_INT08U START_State (void)
+{
+	if(PORTReadBits(IOPORT_F, BIT_1)!=0) 
+		return 1;
+	else
+		return 0;
+}	
+///////////////////////////////////////////////////////////
 // PWM FUNCTIONS
 ///////////////////////////////////////////////////////////
 void PWM_M1_SetDC(INT16U Duty)
@@ -424,6 +489,10 @@ static  void  BSP_IO_Init (void)
 
 	// Motor direction
 	PORTSetPinsDigitalOut(IOPORT_C, BIT_1 | BIT_2);
+
+	CLIC_Init();
+	
+	START_Init();
 #endif
 }
 
@@ -583,6 +652,24 @@ void  UART_Init (void)
 
 /*
 *********************************************************************************************************
+*                                     BSP_ADCHandler()
+*
+* Description: This function handles ADC interrupts.
+*
+* Arguments  : None
+*
+* Returns    : None
+*********************************************************************************************************
+*/
+
+void  BSP_ADCHandler (void)
+{
+                                                                        /* Insert application code here                             */
+    mAD1ClearIntFlag();                                                 /* Clear the interrupt before exiting ISR                   */
+}
+
+/*
+*********************************************************************************************************
 *                                       ADC_Init()
 *
 * Description: This function performs the initialization for the ADC.
@@ -596,8 +683,6 @@ void  UART_Init (void)
 static  void  ADC_Init (void)
 {
     ADC_Config();                                                       /* Configure ADC settings                           */
-    ADC_IntInit();                                                      /* Configure the interrupt settings                 */
-    ADC_TmrInit();                                                      /* Initialize the timer used for the ADC            */
     EnableADC10();                                                      /* Enable the ADC                                   */
 }
 
@@ -615,30 +700,25 @@ static  void  ADC_Init (void)
 
 static  void  ADC_Config (void) 
 {
-    CPU_INT32U  config;
     CPU_INT32U  config1;
     CPU_INT32U  config2;
     CPU_INT32U  config3;
     CPU_INT32U  config4;
     CPU_INT32U  config5;
-    
-    
-    config  = ADC_CH0_NEG_SAMPLEA_NVREF
-            | ADC_CH0_POS_SAMPLEA_AN5;
-    
+      
     config1 = ADC_MODULE_ON
             | ADC_IDLE_STOP
             | ADC_FORMAT_INTG
-            | ADC_CLK_TMR
+            | ADC_CLK_AUTO
             | ADC_AUTO_SAMPLING_ON
             | ADC_SAMP_ON;
             
     config2 = ADC_VREF_AVDD_AVSS
             | ADC_OFFSET_CAL_DISABLE
             | ADC_SCAN_OFF
-            | ADC_SAMPLES_PER_INT_16
+            | ADC_SAMPLES_PER_INT_1
             | ADC_ALT_BUF_ON
-            | ADC_ALT_INPUT_ON;
+            | ADC_ALT_INPUT_OFF;
     
     config3 = ADC_SAMPLE_TIME_0
             | ADC_CONV_CLK_INTERNAL_RC
@@ -646,9 +726,8 @@ static  void  ADC_Config (void)
            
     config4 = SKIP_SCAN_ALL;
      
-    config5 = ENABLE_AN5_ANA;
-    
-    SetChanADC10(config);        
+    config5 = ENABLE_AN2_ANA | ENABLE_AN4_ANA | ENABLE_AN6_ANA | ENABLE_AN8_ANA | ENABLE_AN10_ANA | ENABLE_AN11_ANA;
+           
     OpenADC10(config1, config2, config3, config4, config5);
 }
 
@@ -671,23 +750,6 @@ static  void  ADC_IntInit (void)
     mAD1IntEnable(1);                                                   /* Enable interrupts                                        */
 }
         
-/*
-*********************************************************************************************************
-*                                     BSP_ADCHandler()
-*
-* Description: This function handles ADC interrupts.
-*
-* Arguments  : None
-*
-* Returns    : None
-*********************************************************************************************************
-*/
-
-void  BSP_ADCHandler (void)
-{
-                                                                        /* Insert application code here                             */
-    mAD1ClearIntFlag();                                                 /* Clear the interrupt before exiting ISR                   */
-}
 
 /*
 *********************************************************************************************************
@@ -704,8 +766,16 @@ void  BSP_ADCHandler (void)
 CPU_INT16U  ADC_GetVal (void)
 {
     CPU_INT08U  buffer;
+    CPU_INT32U  config;   
+
+    config  = ADC_CH0_NEG_SAMPLEA_NVREF
+            | ADC_CH0_POS_SAMPLEA_AN2;
+
+    SetChanADC10(config);
+
+	ConvertADC10(); 
     
-    
+    while (!BusyADC10());
     buffer = 8 * (~ReadActiveBufferADC10() & 0x1);                      /* Select non active buffer                                 */
     
     return (ReadADC10(buffer));                                         /* Return ADC reading                                       */
