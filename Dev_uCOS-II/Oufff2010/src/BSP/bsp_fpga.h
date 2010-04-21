@@ -15,6 +15,7 @@
 #define  QUADD_HI_REGISTER          0x000A
 #define  QUADG_LO_REGISTER          0x000B
 #define  QUADG_HI_REGISTER          0x000C
+#define  GPIO_REGISTER		        0x0010
 
 /*
 *********************************************************************************************************
