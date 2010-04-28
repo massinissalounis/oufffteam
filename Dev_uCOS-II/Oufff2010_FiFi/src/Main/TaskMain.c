@@ -20,6 +20,7 @@
 void TaskMain_GetNextAction()
 {
 	int i;
+	static int EscapeIndex = 0;
 
 	if (	(TaskMain_NextSetpointPos.x == TaskMain_ExpectedPos.x)
 		&&	(TaskMain_NextSetpointPos.y == TaskMain_ExpectedPos.y)
@@ -36,7 +37,7 @@ void TaskMain_GetNextAction()
 				TaskMain_GetNextActionForColorA();
 				break;
 
-			case c_Red:
+			case c_Yellow:
 				TaskMain_GetNextActionForColorB();
 				break;
 
@@ -53,14 +54,60 @@ void TaskMain_GetNextAction()
 			memcpy(	&TaskMain_NextSetpointPos, 
 					TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - TaskMain_MovingSeqRemainingSteps, 
 					sizeof(StructPos));
-		}
-		else
-		{
-			// There is not a moving seq, and expected point has not been reached
-			// We have to compute a new moving sequence
+			TaskMain_MovingSeqRemainingSteps--;
 
+			return;
 		}
 	}
+
+	// Divide moving into simple commands
+	TaskMain_GetCurrentPos();
+	LibMoving_DivideMvt(&TaskMain_CurrentPos, &TaskMain_ExpectedPos, TaskMain_MovingSeq, &TaskMain_MovingSeqRemainingSteps);
+	
+	// Check if we can move with new data
+	if(TaskMain_MovingSeqRemainingSteps <= 0)
+	{
+		// We are blocked we try an escape seq
+		switch(EscapeIndex)
+		{
+			// Go back
+			case 0:
+				LibMoving_MoveInMM(&TaskMain_GetCurrentPos, -150, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
+				TaskMain_MovingSeqRemainingSteps = 1;
+				EscapeIndex++;
+				break;
+
+			// Rotate
+			case 1:
+				LibMoving_RotateInDeg(&TaskMain_GetCurrentPos, -45, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
+				TaskMain_MovingSeqRemainingSteps = 1;
+				EscapeIndex++;
+				break;
+
+			// Move
+			case 2:
+				LibMoving_MoveInMM(&TaskMain_GetCurrentPos, -150, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
+				TaskMain_MovingSeqRemainingSteps = 1;
+				EscapeIndex++;
+				break;
+
+			// Rotate
+			case 3:
+				LibMoving_RotateInDeg(&TaskMain_GetCurrentPos, 90, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
+				TaskMain_MovingSeqRemainingSteps = 1;
+				EscapeIndex++;
+				break;
+
+			default:
+				EscapeIndex = 0;
+				break;
+		}
+	
+	}
+
+	// Get next postion with new data
+	TaskMain_GetNextAction();
+
 	return;
 }
 
@@ -68,7 +115,7 @@ void TaskMain_GetNextAction()
 void TaskMain_GetNextActionForColorA()
 {
 	static CurrentActionForColorA = 0;
-	StructPos *ptr = &TaskMain_NextSetpointPos;
+	StructPos *ptr = &TaskMain_ExpectedPos;
 
 	// Search for position
 	switch(CurrentActionForColorA)
@@ -98,7 +145,7 @@ void TaskMain_GetNextActionForColorA()
 void TaskMain_GetNextActionForColorB()
 {
 	static CurrentActionForColorB = 0;
-	StructPos *ptr = &TaskMain_NextSetpointPos;
+	StructPos *ptr = &TaskMain_ExpectedPos;
 
 	switch(CurrentActionForColorB)
 	{
@@ -138,7 +185,7 @@ void TaskMain_CheckForBumpers()
 	OS_FLAGS	CurrentBumpersFlag;
 		
 	// Check for current flag
-	CurrentBumpersFlag = OSFlagPend(AppFlags, APP_PARAM_APPFLAG_ALL_BUMPERS, OS_FLAG_WAIT_SET_ANY, 1, &Err);
+	CurrentBumpersFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ALL_BUMPERS, OS_FLAG_WAIT_SET_ANY, &Err);
 
 	if(0 != CurrentBumpersFlag)	
 	{
@@ -257,6 +304,27 @@ void TaskMain_StopMvt()
 // ------------------------------------------------------------------------------------------------
 BOOLEAN TaskMain_IsSetpointReached()
 {
+	#ifdef _TARGET_STARTER_KIT
+		static INT8U NbOfRead = 0;
+		INT8U Err;
+
+		NbOfRead++;
+		if(NbOfRead > 5)
+		{
+			NbOfRead = 0;
+			
+			// Ask for Mutex on position
+			OSMutexPend(Mut_AppCurrentPos, WAIT_FOREVER, &Err);
+	
+			// Modify current pos
+			memcpy(&AppCurrentPos, &TaskMain_NextSetpointPos, sizeof(StructPos));
+	
+			// Release Mutex
+			OSMutexPost(Mut_AppCurrentPos);
+
+		}
+	#endif
+
 	// Check for x and y
 	if(		(TaskMain_CurrentPos.x >= (TaskMain_NextSetpointPos.x - APP_PARAM_ERR_ON_POS)) 
 		&&	(TaskMain_CurrentPos.y >= (TaskMain_NextSetpointPos.y - APP_PARAM_ERR_ON_POS))
@@ -294,6 +362,9 @@ void TaskMain_Main(void *p_arg)
 	// Post msg to activate moving algo
 	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
 
+	// Wait for start signal
+	OSFlagPend(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_WAIT_SET_ALL, WAIT_FOREVER, &Err);
+
 	// Get CurrentPos for current color
 	TaskMain_GetNextAction();
 	
@@ -308,21 +379,24 @@ void TaskMain_Main(void *p_arg)
 		MsgToPost.Param2	= TaskMain_NextSetpointPos.y;
 		MsgToPost.Param3	= TaskMain_NextSetpointPos.angle;
 
-		// Change Current Pos
-		memcpy(&AppCurrentPos, &TaskMain_NextSetpointPos, sizeof(StructPos));
-
 		// Post new expected pos
 		AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
+
+		// Change Current Pos
+		memcpy(&AppCurrentPos, &TaskMain_NextSetpointPos, sizeof(StructPos));
 	}
 	OSMutexPost(Mut_AppCurrentPos);							// FIN SECTION CRITIQUE
 
-	// Wait for start signal
-	OSFlagPend(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_WAIT_SET_ALL, WAIT_FOREVER, &Err);
-
+	// MAIN LOOP ==================================================================================
 	do
 	{
-		LED_Toggle(1);
-		OSTimeDly(10);
+		#ifdef _TARGET_STARTER_KIT
+			LED_Toggle(1);
+			//OSTimeDly(10);
+		#endif
+
+		// Proc Release
+		OSTimeDly(1);
 
 		// Read Current position
 		TaskMain_GetCurrentPos();
@@ -331,7 +405,7 @@ void TaskMain_Main(void *p_arg)
 		TaskMain_CheckForBumpers();
 
 		// Check FLAGS for timer status
-		CurrentFlag = OSFlagPend(AppFlags, APP_PARAM_APPFLAG_TIMER_STATUS, OS_FLAG_WAIT_SET_ALL, 1, &Err);
+		CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_TIMER_STATUS, OS_FLAG_WAIT_SET_ALL, &Err);
 	
 		// if time is running, we check current postition
 		if((CurrentFlag & APP_PARAM_APPFLAG_TIMER_STATUS) == 0)
@@ -356,6 +430,7 @@ void TaskMain_Main(void *p_arg)
 
 	// We loop until timer is set
 	}while((CurrentFlag & APP_PARAM_APPFLAG_TIMER_STATUS) == 0);
+	// ===============================================================================================
 
 	// Time is up :
 	#ifdef _TARGET_STARTER_KIT

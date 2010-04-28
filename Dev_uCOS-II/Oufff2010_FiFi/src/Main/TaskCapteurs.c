@@ -51,6 +51,7 @@ void TaskCapteurs_Main(void *p_arg)
 		OSTimeDlyHMSM(0, 0, 0, 500);	LED_Off(2);	
 		OSTimeDlyHMSM(0, 0, 0, 500);	LED_Off(3);
 	#else
+	// Comment this part to disable start button detection
 		// We're waiting for Start button release
 		while(OS_TRUE == TaskCapteurs_IsStartButtonPressed())
 			OSTimeDly(1);	// Release proc

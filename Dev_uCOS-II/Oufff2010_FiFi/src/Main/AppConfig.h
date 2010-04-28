@@ -105,6 +105,9 @@
 //#define ODO_CALIBRATION
 #define APP_MOVING_SEQ_LEN						5			// Length of moving sequence table (used for evoluate movment)
 
+// Moving Algo : The first option set to OS_TRUE would be used
+#define APP_MOVING_ALGO_1_SIMPLE				OS_TRUE		// Activate Simple Moving Algo (without anticipation)
+
 #define APP_MOVING_ASSER_IN_POS_ENABLED			OS_TRUE		// Indicate if we use asser in pos
 #define APP_MOVING_ASSER_IN_ANGLE_ENABLED		OS_TRUE		// Indicate if we use asser in angle
 #define APP_MOVING_ASSER_IN_SPEED_ENABLED		OS_FALSE	// Indicate if we use asser in speed (Not used)
