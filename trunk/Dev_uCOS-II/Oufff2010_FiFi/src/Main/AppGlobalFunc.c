@@ -41,9 +41,11 @@ void AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
 			NextFreeIndex = CurrentIndex;
 
 		CurrentIndex++;
+		i++;
 	}
 
-	// If NextFreeIndex is set to -1, no free place are available, msg can't be sent
+	// If NextFreeIndex is set to -1, no free place are available, msg can't be sent 
+	// otherwise we create the msg
 	if(NextFreeIndex >= 0)
 	{
 		// Create Msg

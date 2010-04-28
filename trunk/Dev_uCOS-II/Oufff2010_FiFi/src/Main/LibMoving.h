@@ -27,4 +27,11 @@ void LibMoving_MoveToAngleInDeg(StructPos *OldPos, float AngleToGoInDeg, StructP
 	// AngleInDeg	: angle in degree we want to go
 	// NewPos		: pointer to the struct for containing new position
 
+void LibMoving_DivideMvt(StructPos *OldPos, StructPos *ExpectedPos, StructPos *NewMovingSeq, int *NewMovingSeqRemainingSteps);
+	// OldPos						: pointer to current postion
+	// ExpectedPos					: pointer to expected position
+	// NewMovingSeq					: pointer to table containing NewMovingSeq (Size of NewMovingSeq is defined by APP_MOVING_SEQ_LEN)
+	// NewMovingSeqRemainingSteps	: Nb of command set into MovingSeq
+	
+
 #endif // LIBMOVING

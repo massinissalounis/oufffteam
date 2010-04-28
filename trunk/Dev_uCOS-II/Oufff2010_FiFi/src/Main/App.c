@@ -271,6 +271,8 @@ void AppCreateIPCS()
 */
 void AppInitVar()
 {
+	int i;
+
 	// Vars
 	AppQueueMainEvent = NULL;												/* Queue for get TaskMain events				*/
 	AppQueueAsserEvent = NULL;												/* Queue for get Asser events					*/
@@ -286,7 +288,12 @@ void AppInitVar()
 #if APP_QUEUE_ASSER_SIZE > 0
 	memset(AppQueueAsserStk, 0, sizeof(void*)*APP_QUEUE_ASSER_SIZE);		/* Set Main Queue to NULL					*/
 #endif
-	memset(AppMsgStk, 0, sizeof(StructMsg) * (APP_QUEUE_ASSER_SIZE + APP_QUEUE_MAIN_SIZE));
+	memset(AppMsgStk, 0, sizeof(StructMsg) * APP_QUEUES_TOTAL_SIZE);
+	
+	// Clear Msg
+	for(i=0; i<APP_QUEUES_TOTAL_SIZE; i++)
+		AppMsgStk[i].IsRead = OS_TRUE;
+	
 	return;
 }
 
