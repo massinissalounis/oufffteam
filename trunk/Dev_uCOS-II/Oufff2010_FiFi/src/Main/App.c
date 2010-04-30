@@ -198,7 +198,7 @@ void AppCreateIPCS()
 #ifndef __DEBUG
 		putsUART2("Error : Unable to create MainQueue\n");
 		putsUART2("Restarting...\n");	
-		SoftReset();
+		//SoftReset();
 #else
 		putsUART2("DEBUG (App.c) : Error -> Unable to create MainQueue\n");
 		putsUART2("DEBUG (App.c) : Entering in sleeping mode...\n");	
@@ -216,7 +216,7 @@ void AppCreateIPCS()
 #ifndef __DEBUG
 		putsUART2("Error : Unable to create AsserQueue\n");
 		putsUART2("Restarting...\n");	
-		SoftReset();
+		//SoftReset();
 #else
 		putsUART2("DEBUG (App.c) : Error -> Unable to create AsserQueue\n");
 		putsUART2("DEBUG (App.c) : Entering in sleeping mode...\n");	
@@ -233,7 +233,7 @@ void AppCreateIPCS()
 #ifndef __DEBUG
 		putsUART2("Error : Unable to create CurrentPos Mutex\n");
 		putsUART2("Restarting...\n");	
-		SoftReset();
+		//SoftReset();
 #else
 		putsUART2("DEBUG (App.c) : Error -> Unable to create CurrentPos Mutex\n");
 		putsUART2("DEBUG (App.c) : Entering in sleeping mode...\n");	
@@ -249,7 +249,7 @@ void AppCreateIPCS()
 #ifndef __DEBUG
 		putsUART2("Error : Unable to create Appliction Flag\n");
 		putsUART2("Restarting...\n");	
-		SoftReset();
+		//SoftReset();
 #else
 		putsUART2("DEBUG (App.c) : Error -> Unable to create Appliction Flag\n");
 		putsUART2("DEBUG (App.c) : Entering in sleeping mode...\n");	

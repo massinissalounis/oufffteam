@@ -36,5 +36,4 @@ OS_EVENT	*Mut_AppCurrentPos;						// Mutex to limit access (RW) for CurrentPos v
 /***** FLAGS *****/
 OS_FLAG_GRP		*AppFlags;							// Contains all flags for the app							
 
-int	Test[21*30*3];
 #endif // APP_H
