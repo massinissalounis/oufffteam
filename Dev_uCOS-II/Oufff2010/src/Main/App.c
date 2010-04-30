@@ -127,7 +127,7 @@ void  AppTaskStart()
 
 	// --------------------------------------------------------------------------------------------
 	// Starts TaskCapteurs
-    OSTaskCreateExt( TaskCapteurs_Main,                                       
+/*    OSTaskCreateExt( TaskCapteurs_Main,                                       
 				    (void *)0,
                     (OS_STK *)&AppTaskCapteursStk[APP_TASK_CAPTEURS_STK_SIZE - 1],
                     APP_TASK_CAPTEURS_PRIO,
@@ -172,7 +172,7 @@ void  AppTaskStart()
 #if OS_TASK_NAME_SIZE > 13
     OSTaskNameSet(APP_TASK_MAIN_PRIO, "TaskTempo", &err);
 #endif
-
+*/
 
 	// All tasks are started
 	return;
