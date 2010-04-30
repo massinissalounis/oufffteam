@@ -31,15 +31,29 @@ StructPos setpoint;
 
 // Loop datas
 float error_distance;
+float scalar_product;
 float error_angle;
+float signe_error_angle;
 float error_filtered_distance;
 float error_filtered_angle;
+float raw_command_left;
+float raw_command_right;
 INT16S command_left;
 INT16S command_right;
 
 float error_debug_1;
 float error_debug_2;
 float error_debug_3;
+float index_old_debug;
+float error_old_debug;
+float error_current_debug;
+float D_debug;
+float P_debug;
+float I_debug;
+
+INT16S duty_left;
+INT16S duty_right;
+
 
 /////////////////////////////////////////////////////////////
 // MOTOR CONTROL
@@ -62,6 +76,8 @@ void right_motor_control (INT16S value)
 
 	abs_value = abs_value <<1; // full scale data
 
+	duty_right = abs_value;
+
 	PWM_M0_SetDC(abs_value);
 }
 
@@ -83,21 +99,23 @@ void left_motor_control (INT16S value)
 
 	abs_value = abs_value <<1; // full scale data
 
+	duty_left = abs_value;
+
 	PWM_M1_SetDC(abs_value);
 }
 
-INT16S motor_command_clipping(INT16S command)
+INT16S motor_command_clipping(float command)
 {
 	if(command > MAX_MOTOR_COMMAND)
 	{
 		command = MAX_MOTOR_COMMAND;
 	}
-	else if(command < -MAX_MOTOR_COMMAND)
+	else if(command < -MAX_MOTOR_COMMAND )
 	{
 		command = -MAX_MOTOR_COMMAND;
 	}
 
-	return command;
+	return (INT16S) command;
 }
 
 /////////////////////////////////////////////////////////////
@@ -197,6 +215,8 @@ float PID_Computation(PID_data * pid_data, float error)
 	float errDif;
 	int last;
 	
+	filtered_error = 0.0;
+	
 	//Compute Sum
 	//sum of all errors of the MAX_D_PERIOD previous period
 	pid_data->error_sum -= pid_data->error_old[pid_data->current_error_old]; // Substract oldest value
@@ -212,6 +232,22 @@ float PID_Computation(PID_data * pid_data, float error)
 		pid_data->error_sum = -pid_data->IMax;
 	}
 
+	//if we are at the begining of the rotating buffer
+	//we have to take a value at the end of it
+	if(PID_D_PERIOD > pid_data->current_error_old)
+	{
+		last = PID_SUM_NB_SAMPLES + pid_data->current_error_old - PID_D_PERIOD;
+	}
+	else
+	{
+		last = pid_data->current_error_old - PID_D_PERIOD;
+	}
+
+	//differential of the error over the period
+	errDif = error - pid_data->error_old[last];
+
+	error_debug_3 = errDif;
+
 	//stock last values of the error, so we can
 	//differentiate over a custom period
 	pid_data->error_old[pid_data->current_error_old]=error;
@@ -222,23 +258,18 @@ float PID_Computation(PID_data * pid_data, float error)
 		pid_data->current_error_old = 0; //restart at the beginning of the buffer
 	}
 
-	//if we are at the begining of the rotating buffer
-	//we have to take a value at the end of it
-	if(PID_D_PERIOD > pid_data->current_error_old)
-	{
-		last = PID_D_PERIOD + pid_data->current_error_old - PID_D_PERIOD;
-	}
-	else
-	{
-		last = pid_data->current_error_old - PID_D_PERIOD;
-	}
+	index_old_debug = pid_data->current_error_old;
+	error_old_debug = pid_data->error_old[last];
+	error_current_debug = error;
 
-	//differential of the error over the period
-	errDif = error - pid_data->error_old[last];
 
 	P = error * pid_data->Kp;
 	I = pid_data->error_sum * pid_data->Ki;
 	D = errDif * pid_data->Kd;
+
+	D_debug = D;
+	P_debug = P;
+	I_debug = I;
 
 	filtered_error = P + I + D;
 
@@ -260,6 +291,11 @@ void init_control_motion()
 	PID_Initialization();
 
 	SLEWRATE_Initialization();
+
+}
+
+void error_computation_angle_mode ( float *error_distance, float *error_angle )
+{
 
 }
 
@@ -314,8 +350,12 @@ void TaskAsser_Main(void *p_arg)
 		// MOTION CONTROL LOOP
 		
 		// Reset_datas
-		error_distance=0.0;
-		error_angle =0.0;
+		error_distance		= 0.0;
+		scalar_product		= 0.0;
+		error_angle			= 0.0;
+		signe_error_angle	= 0.0;
+
+		
 
 		error_filtered_distance=0.0;
 		error_filtered_angle=0.0;
@@ -323,47 +363,66 @@ void TaskAsser_Main(void *p_arg)
 		command_left =0;
 		command_right =0;
 
-		// Compute error
-		// angle
+
 		// SECTION CRITIQUE : Ask for Mutex on position
 		OSMutexPend(Mut_AppCurrentPos, WAIT_FOREVER, &Err);
 		{
-
-			// Compute distance : ABS value for vectorial considerations
-			error_distance = sqrt(pow(setpoint.x - AppCurrentPos.x,2) + pow(setpoint.y - AppCurrentPos.y,2));
-
-			// Compute angle
-			if( error_distance<5 || !distance_control) // Final distance reach --> just correct angle
-			{
-			error_angle = setpoint.angle - AppCurrentPos.angle;
-			}
-			else
-			{
-				error_angle = acos( ( (setpoint.x - AppCurrentPos.x)*cos(AppCurrentPos.angle) + (setpoint.y - AppCurrentPos.y)*sin(AppCurrentPos.angle) ) / error_distance  ) ;
-				error_debug_1= error_angle;
-			
-				error_debug_2 = ( ((setpoint.x - AppCurrentPos.x)*sin(AppCurrentPos.angle) + (setpoint.y - AppCurrentPos.y)*cos(AppCurrentPos.angle)) / error_distance ) ;
-			
-				if ( error_debug_2 > 0.0 )
-				{
-					error_angle = -error_angle;
-				}
-
-				if ( !(error_angle >= - M_PI/2 && error_angle <= M_PI/2 ) )
-				{
-					error_distance = - error_distance;
-					error_angle = error_angle - M_PI;
-				}
-			}
-
-			error_debug_3 = error_angle;
-
-			// Compute distance
-			//error_distance = sqrt(pow(setpoint.x - AppCurrentPos.x,2) + pow(setpoint.y - AppCurrentPos.y,2));
-
+			// Copy current pos
+			memcpy(&TaskAsser_CurrentPos, &AppCurrentPos, sizeof(StructPos));
 		}
+
 		//END SECTION CRITIQUE : Release Mutex
 		OSMutexPost(Mut_AppCurrentPos);
+
+		// Compute error
+
+			// Compute distance : ABS value for vectorial considerations
+		error_distance = sqrt(pow(setpoint.x - TaskAsser_CurrentPos.x,2) + pow(setpoint.y - TaskAsser_CurrentPos.y,2));
+		// Calcul du produit scalaire
+		scalar_product = ( (setpoint.x - TaskAsser_CurrentPos.x)*cos(TaskAsser_CurrentPos.angle) + (setpoint.y - TaskAsser_CurrentPos.y)*sin(TaskAsser_CurrentPos.angle) ); 
+
+			// Compute angle
+		if (  (distance_control == 0 && angle_control == 1 ) // Angle mode
+			||(distance_control == 1 && angle_control == 1 && error_distance <= DISTANCE_ALPHA_ONLY) ) // Mixed mode : final distance reached
+			{
+			error_angle = setpoint.angle - TaskAsser_CurrentPos.angle;
+				error_distance=0;
+			}
+		
+		if ( (distance_control == 1 && angle_control == 1 && error_distance <= DISTANCE_ALPHA_ONLY) ) // Mixed mode : final distance reached
+			{
+			error_distance = scalar_product;
+		}
+
+		if(   (distance_control == 1 && angle_control == 0 && error_distance >= 10) // Distance mode
+			||(distance_control == 1 && angle_control == 1 && error_distance > DISTANCE_ALPHA_ONLY) ) // Mixed mode
+			{
+				// Calcul de la valeur absolue de l'angle à parcourir avec le produit scalaire
+			error_angle = acos( scalar_product / error_distance );
+				error_debug_1= error_angle;
+			
+				// Calcul du sinus de l'angle à parcourir pour avoir le sens de rotation. Avec la produit vectoriel
+			signe_error_angle = ( ((setpoint.y - TaskAsser_CurrentPos.y)*cos(TaskAsser_CurrentPos.angle) - (setpoint.x - TaskAsser_CurrentPos.x)*sin(TaskAsser_CurrentPos.angle) ) / error_distance );
+				error_debug_2 = signe_error_angle;
+			
+				if ( signe_error_angle < 0.0 )
+				{
+					error_angle = -error_angle;		// Application du signe.
+				}
+
+				// Détermination si l'on doit reculer plutôt qu'avancer.
+				if (error_angle <= -M_PI/2 && error_angle >= - M_PI)	//quart arrière droit
+				{
+					error_angle = error_angle + M_PI;		// on replace l'angle devant le robot
+					error_distance = - error_distance;		// on recule
+				}
+
+				if (error_angle <= M_PI && error_angle >= M_PI/2)		// quart arrière gauche
+					{
+					error_angle = error_angle - M_PI;		// on replace l'angle devant le robot
+					error_distance = - error_distance;		// on recule
+		}
+			}
 
 		// Slew rate or quad filter on errors
 //		error_angle = SLEWRATE_Compute(& angle_slewrate_data, error_angle);
@@ -374,12 +433,12 @@ void TaskAsser_Main(void *p_arg)
 		if(distance_control) error_filtered_distance = PID_Computation(&distance_pid_data, error_distance);
 
 		// Command merge
-		command_right = error_filtered_distance + error_filtered_angle;
-		command_left = error_filtered_distance - error_filtered_angle;
+		raw_command_right = error_filtered_distance + error_filtered_angle;
+		raw_command_left = error_filtered_distance - error_filtered_angle;
 		
 		// command clipping
-		command_right = motor_command_clipping(command_right);
-		command_left = motor_command_clipping(command_left);
+		command_right = motor_command_clipping(raw_command_right);
+		command_left = motor_command_clipping(raw_command_left);
 
 		// Motor drive
 		right_motor_control (command_right);

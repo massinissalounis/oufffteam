@@ -121,19 +121,20 @@ void TaskMain_GetNextActionForColorA()
 	switch(CurrentActionForColorA)
 	{
 		// Initial position -----------------------------------------------------------------------
-		case 0:		ptr->x = 0000.0;	ptr->y = 0000.0;	ptr->angle	= 0000.0;	break;
+		case 0:		ptr->x = 0000.0;	ptr->y = 0000.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
 
 		// Loop -----------------------------------------------------------------------------------
-		case 1:		ptr->x = 0000.0;	ptr->y = 0000.0;	ptr->angle	= 0000.0;	break;
-		case 2:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= 0000.0;	break;
-		case 3:		break;		//	Make something	
-		case 4:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= 0045.0;	break;
-		case 5:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= 0045.0;	break;
+		case 1:		ptr->x = 0000.0;	ptr->y = 0000.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
+		case 2:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
+		case 3:		LED_Toggle(2);		break;		//	Make something	
+		case 4:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
+		case 5:		ptr->x = 0110.0;	ptr->y = 0010.0;	ptr->angle	= AppConvertDegInRad(0145.0);	break;
 
 		// Default --------------------------------------------------------------------------------
 		default:
 			CurrentActionForColorA = 1;
 			TaskMain_GetNextActionForColorA();
+			return;
 			break;
 	}
 
@@ -150,18 +151,19 @@ void TaskMain_GetNextActionForColorB()
 	switch(CurrentActionForColorB)
 	{
 		// Initial position -----------------------------------------------------------------------
-		case 0:		ptr->x = 0000.0;	ptr->y = 0000.0;	ptr->angle	= 0000.0;	break;
+		case 0:		ptr->x = 0000.0;	ptr->y = 0000.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
 
 		// Loop -----------------------------------------------------------------------------------
-		case 1:		ptr->x = 0000.0;	ptr->y = 0000.0;	ptr->angle	= 0000.0;	break;
-		case 2:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= 0000.0;	break;
-		case 3:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= 0045.0;	break;
-		case 4:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= 0000.0;	break;
+		case 1:		ptr->x = 0000.0;	ptr->y = 0000.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
+		case 2:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
+		case 3:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
+		case 4:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
 
 		// Default --------------------------------------------------------------------------------
 		default:
 			CurrentActionForColorB = 1;
 			TaskMain_GetNextActionForColorB();
+			return;
 			break;
 	}
 	CurrentActionForColorB++;
@@ -309,7 +311,7 @@ BOOLEAN TaskMain_IsSetpointReached()
 		INT8U Err;
 
 		NbOfRead++;
-		if(NbOfRead > 5)
+		if(NbOfRead > 0)
 		{
 			NbOfRead = 0;
 			
@@ -317,11 +319,12 @@ BOOLEAN TaskMain_IsSetpointReached()
 			OSMutexPend(Mut_AppCurrentPos, WAIT_FOREVER, &Err);
 	
 			// Modify current pos
-			memcpy(&AppCurrentPos, &TaskMain_NextSetpointPos, sizeof(StructPos));
+			AppCurrentPos.x		= TaskMain_NextSetpointPos.x;
+			AppCurrentPos.y		= TaskMain_NextSetpointPos.y;
+			AppCurrentPos.angle	= TaskMain_NextSetpointPos.angle;
 	
 			// Release Mutex
 			OSMutexPost(Mut_AppCurrentPos);
-
 		}
 	#endif
 
@@ -392,11 +395,10 @@ void TaskMain_Main(void *p_arg)
 	{
 		#ifdef _TARGET_STARTER_KIT
 			LED_Toggle(1);
-			//OSTimeDly(10);
 		#endif
 
 		// Proc Release
-		OSTimeDly(1);
+		OSTimeDly(10);
 
 		// Read Current position
 		TaskMain_GetCurrentPos();
@@ -413,6 +415,8 @@ void TaskMain_Main(void *p_arg)
 			// Check if we are arrived to setpoint
 			if(OS_TRUE == TaskMain_IsSetpointReached())
 			{
+//				LED_Toggle(2);
+
 				// Setpoint has been reached, we check for next action
 				TaskMain_GetNextAction();
 

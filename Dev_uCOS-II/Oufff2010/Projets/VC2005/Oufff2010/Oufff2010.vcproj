@@ -199,6 +199,7 @@
 		</Configuration>
 		<Configuration
 			Name="ocore|Win32"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			>
 			<Tool
@@ -270,7 +271,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\Main\AppGlobalFunc.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\Main\AppHooks.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\Main\LibMoving.c"
 				>
 			</File>
 			<File
@@ -312,11 +321,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\Main\AppGlobalFunc.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\Main\AppGlobalVars.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\Main\AppIncludes.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\Main\LibMoving.h"
 				>
 			</File>
 			<File
