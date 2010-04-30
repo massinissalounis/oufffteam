@@ -124,7 +124,7 @@ void  AppTaskStart()
 #if OS_TASK_NAME_SIZE > 13
     OSTaskNameSet(APP_TASK_ASSER_PRIO, "TaskAsser", &err);
 #endif
-/*
+
 	// --------------------------------------------------------------------------------------------
 	// Starts TaskCapteurs
     OSTaskCreateExt( TaskCapteurs_Main,                                       
@@ -173,7 +173,7 @@ void  AppTaskStart()
     OSTaskNameSet(APP_TASK_MAIN_PRIO, "TaskTempo", &err);
 #endif
 
-*/
+
 	// All tasks are started
 	return;
 }
@@ -271,14 +271,15 @@ void AppCreateIPCS()
 */
 void AppInitVar()
 {
+	int i;
+
 	// Vars
 	AppQueueMainEvent = NULL;												/* Queue for get TaskMain events				*/
 	AppQueueAsserEvent = NULL;												/* Queue for get Asser events					*/
-	AppMsgCurrentID = 0;													/* Set Current free ID to 0						*/
 	Mut_AppCurrentPos = NULL;												/* Mutex to limit access to AppCurrentPos var	*/
 	AppFlags = NULL;														/* Application Flags							*/
 	memset(&AppCurrentPos, 0, sizeof(StructPos));							/* Set AppCurrentPos to 0						*/
-	CurrentColor = c_NotSet;												/* Set CurrentColor to NotSet					*/
+	AppCurrentColor = c_NotSet;												/* Set CurrentColor to NotSet					*/
 
 	// Arrays
 #if APP_QUEUE_MAIN_SIZE > 0
@@ -287,7 +288,12 @@ void AppInitVar()
 #if APP_QUEUE_ASSER_SIZE > 0
 	memset(AppQueueAsserStk, 0, sizeof(void*)*APP_QUEUE_ASSER_SIZE);		/* Set Main Queue to NULL					*/
 #endif
-	memset(AppMsgStk, 0, sizeof(StructMsg) * (APP_QUEUE_ASSER_SIZE + APP_QUEUE_MAIN_SIZE));
+	memset(AppMsgStk, 0, sizeof(StructMsg) * APP_QUEUES_TOTAL_SIZE);
+	
+	// Clear Msg
+	for(i=0; i<APP_QUEUES_TOTAL_SIZE; i++)
+		AppMsgStk[i].IsRead = OS_TRUE;
+	
 	return;
 }
 

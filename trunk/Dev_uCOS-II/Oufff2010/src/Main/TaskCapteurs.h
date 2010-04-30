@@ -12,10 +12,6 @@
 
 #include <AppIncludes.h>
 
-void TaskCapteurs_Main(void *p_arg);
-	// Fonction principal du process de gestion des capteurs
-	// void *p_arg		: Arg for this task
-
 BOOLEAN TaskCapteurs_IsStartButtonPressed();
 	// Function to check StartButton stat
 	// Param : None
@@ -26,5 +22,12 @@ BOOLEAN TaskCapteurs_IsStartButtonPressed();
 void TaskCapteurs_CheckBumpers();
 	// Check for bumpers status.
 	// In case of collision, this function posts FLAGS to tell main task we are bumping
+
+void TaskCapteurs_ReadColor();
+	// Read current color and share it with other tasks
+
+void TaskCapteurs_Main(void *p_arg);
+	// Fonction principal du process de gestion des capteurs
+	// void *p_arg		: Arg for this task
 
 #endif // TASKCAPTEURS_H

@@ -287,8 +287,6 @@ void init_control_motion()
 	setpoint.y=0.0;
 	setpoint.angle=0.0;
 
-	memset(&TaskAsser_CurrentPos, 0, sizeof(StructPos));
-
 	// init PID
 	PID_Initialization();
 
@@ -339,8 +337,8 @@ void TaskAsser_Main(void *p_arg)
 					break;
 
 				case Msg_Asser_Algo:	
-					angle_control = (BOOLEAN)pCurrentMsg->Param1;		// Change type of asser to angle algo (if set)
-					distance_control = (BOOLEAN)pCurrentMsg->Param2;	// Change type of asser to distance algo (if set)
+					distance_control = (BOOLEAN)pCurrentMsg->Param1;	// Change type of asser to distance algo (if set)
+					angle_control = (BOOLEAN)pCurrentMsg->Param2;		// Change type of asser to angle algo (if set)
 					break;
 				
 				default :

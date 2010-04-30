@@ -56,6 +56,9 @@
 
 // Flag to check all Flags
 #define APP_PARAM_APPFLAG_ALL_BUMPERS			APP_PARAM_APPFLAG_BUMPER0 | APP_PARAM_APPFLAG_BUMPER1 | APP_PARAM_APPFLAG_BUMPER2 | APP_PARAM_APPFLAG_BUMPER3 | APP_PARAM_APPFLAG_BUMPER4 | APP_PARAM_APPFLAG_BUMPER5 | APP_PARAM_APPFLAG_BUMPER6 | APP_PARAM_APPFLAG_BUMPER7 
+
+#define APP_PARAM_ERR_ON_POS				1.00					// Error in mm for x and y for considering setpoint is reached
+#define APP_PARAM_ERR_ON_ANGLE				1.00 * M_PI / 180.0		// Error in rad for angle for considering setpoint is reached
 /*
 *********************************************************************************************************
 *                                            TASK PRIORITIES
@@ -90,6 +93,7 @@
 
 #define APP_QUEUE_MAIN_SIZE						0	/* Nb max of msg into MainQueue		(0=Not Used)	*/
 #define APP_QUEUE_ASSER_SIZE					8	/* Nb max of msg into AsserQueue	(0=Not Used)	*/
+#define APP_QUEUES_TOTAL_SIZE					APP_QUEUE_MAIN_SIZE + APP_QUEUE_ASSER_SIZE
 
 /*
 *********************************************************************************************************
@@ -99,7 +103,14 @@
 
 // POSITION MANAGER MODE
 //#define ODO_CALIBRATION
+#define APP_MOVING_SEQ_LEN						5			// Length of moving sequence table (used for evoluate movment)
 
+// Moving Algo : The first option set to OS_TRUE would be used
+#define APP_MOVING_ALGO_1_SIMPLE				OS_TRUE		// Activate Simple Moving Algo (without anticipation)
+
+#define APP_MOVING_ASSER_IN_POS_ENABLED			OS_TRUE		// Indicate if we use asser in pos
+#define APP_MOVING_ASSER_IN_ANGLE_ENABLED		OS_TRUE		// Indicate if we use asser in angle
+#define APP_MOVING_ASSER_IN_SPEED_ENABLED		OS_FALSE	// Indicate if we use asser in speed (Not used)
 /*
 *********************************************************************************************************
 *                                           LIB CONFIG
