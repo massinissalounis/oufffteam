@@ -59,7 +59,7 @@ static  void  PB_IntInit    (void);
 static  void  PB_Config     (void);
 static  void  PB_Init       (void);
 
-static  void  ADC_Init      (void);
+//static  void  ADC_Init      (void);
 static  void  ADC_TmrInit   (void);
 static  void  ADC_IntInit   (void);
 static  void  ADC_Config    (void);
@@ -680,8 +680,19 @@ void  BSP_ADCHandler (void)
 *********************************************************************************************************
 */
 
-static  void  ADC_Init (void)
+//static  void  ADC_Init (void)  CBE
+void  ADC_Init (void)
 {
+	//!!!!!!!! PORTB BIT_2 --> GP2_6 ne fonctionne pas !!!!!!!!!! CBE 29/04/2010
+	//Disable all comparators
+	DisableCN2;
+	DisableCN4;
+	DisableCN6;
+	DisableCN8;
+	DisableCN10;
+	DisableCN11;
+	PORTSetPinsAnalogIn(IOPORT_B, BIT_2 | BIT_4 | BIT_6 | BIT_8 | BIT_10 | BIT_11);	// Set AN pin as analog input.
+	CloseADC10();														// ensure the ADC is off before setting the configuration
     ADC_Config();                                                       /* Configure ADC settings                           */
     EnableADC10();                                                      /* Enable the ADC                                   */
 }
@@ -706,8 +717,7 @@ static  void  ADC_Config (void)
     CPU_INT32U  config4;
     CPU_INT32U  config5;
       
-    config1 = ADC_MODULE_ON
-            | ADC_IDLE_STOP
+    config1 = ADC_IDLE_STOP
             | ADC_FORMAT_INTG
             | ADC_CLK_AUTO
             | ADC_AUTO_SAMPLING_ON
@@ -724,10 +734,12 @@ static  void  ADC_Config (void)
             | ADC_CONV_CLK_INTERNAL_RC
             | ADC_CONV_CLK_Tcy2;
            
-    config4 = SKIP_SCAN_ALL;
-     
-    config5 = ENABLE_AN2_ANA | ENABLE_AN4_ANA | ENABLE_AN6_ANA | ENABLE_AN8_ANA | ENABLE_AN10_ANA | ENABLE_AN11_ANA;
-           
+    config4 = ENABLE_AN2_ANA | ENABLE_AN4_ANA | ENABLE_AN6_ANA | ENABLE_AN8_ANA | ENABLE_AN10_ANA | ENABLE_AN11_ANA;
+    
+	config5 = SKIP_SCAN_ALL;
+
+	// configure to sample AN4
+	SetChanADC10( ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN1 ); //|  ADC_CH0_NEG_SAMPLEB_NVREF | ADC_CH0_POS_SAMPLEB_AN5); // configure to sample AN4 & AN5
     OpenADC10(config1, config2, config3, config4, config5);
 }
 
@@ -737,7 +749,7 @@ static  void  ADC_Config (void)
 *
 * Description: This function intializes the ADC interrupt.
 *
-* Arguments  : None
+	* Arguments  : None
 *
 * Returns    : None
 *********************************************************************************************************
@@ -757,25 +769,46 @@ static  void  ADC_IntInit (void)
 *
 * Description: This function returns the ADC value.
 *
-* Arguments  : None
+* Arguments  : GP2 chanel to convert
 *
-* Returns    : None
+* Returns    : converted value
 *********************************************************************************************************
 */
 
-CPU_INT16U  ADC_GetVal (void)
+CPU_INT16U  ADC_GetVal (CPU_INT08U channel_to_convert)
 {
     CPU_INT08U  buffer;
     CPU_INT32U  config;   
 
-    config  = ADC_CH0_NEG_SAMPLEA_NVREF
-            | ADC_CH0_POS_SAMPLEA_AN2;
+	switch (channel_to_convert)
+		{
+		case 0: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN0; break;
+		case 1: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN1; break;
+		case 2: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN2; break;
+		case 3: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN3; break;
+		case 4: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN4; break;
+		case 5: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN5; break;
+		case 6: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN6; break;
+		case 7: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN7; break;
+		case 8: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN8; break;
+		case 9: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN9; break;
+		case 10: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN10; break;
+		case 11: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN11; break;
+		case 12: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN12; break;
+		case 13: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN13; break;
+		case 14: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN14; break;
+		case 15: config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN15; break;
+		config  = ADC_CH0_NEG_SAMPLEA_NVREF | ADC_CH0_POS_SAMPLEA_AN0;
+		}
 
-    SetChanADC10(config);
-
+	SetChanADC10(config);
+	//pour le changement de voie en entrée de l'adc, il faudra prévoir un temps pour que la tension se
+	//stabilise entre la comutation et l'échantillonnage. Le top se serait de changer de voie à la fin de la conversion précédente. 
+	//Ce qui laisse du temps avant la conversion suivante.    CBE
+	OSTimeDlyHMSM(0, 0, 0, 5);
+	
 	ConvertADC10(); 
-    
-    while (!BusyADC10());
+    while (!BusyADC10());	// timeaout ?? !!
     buffer = 8 * (~ReadActiveBufferADC10() & 0x1);                      /* Select non active buffer                                 */
     
     return (ReadADC10(buffer));                                         /* Return ADC reading                                       */

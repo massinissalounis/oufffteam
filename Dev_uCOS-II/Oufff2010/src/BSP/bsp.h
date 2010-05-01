@@ -34,10 +34,18 @@
 
 #define  UART2_BAUDRATE				115200
 
-#define CLIC_FRONT_LEFT				0
-#define CLIC_FRONT_RIGHT			1
-#define CLIC_REAR_LEFT				2
-#define CLIC_REAR_RIGHT				3
+#define CLIC_FRONT_LEFT				0		// connecteur 1
+#define CLIC_FRONT_RIGHT			1		// connecteur 2
+#define CLIC_REAR_LEFT				2		// connecteur 3
+#define CLIC_REAR_RIGHT				3		// connecteur 4
+
+#define GP2_1						11
+#define GP2_2						10
+#define GP2_3						8
+#define GP2_4						6
+#define GP2_5						4
+#define GP2_6						2		//ne fonctionne pas pour le moment !! CBE
+
 
 /*
 *********************************************************************************************************
@@ -59,12 +67,10 @@ void        BSP_Except_Handler  (void);
 void        BSP_InitIO          (void);
 void        BSP_IntDisableALL   (void);
 
-void PWM_M0_SetDC(INT16U Duty);
-void PWM_M1_SetDC(INT16U Duty);
+void 		PWM_M0_SetDC(INT16U Duty);
+void 		PWM_M1_SetDC(INT16U Duty);
 
 void        BSP_Dly             (CPU_INT32U  us);
-
-CPU_INT16U  ADC_GetVal          (void);
 
 void PMP_Write(CPU_INT16U address, CPU_INT08U data);
 CPU_INT08U PMP_Read(CPU_INT16U address);
@@ -72,3 +78,5 @@ CPU_INT08U PMP_Read(CPU_INT16U address);
 
 void TMR2_Init(void);
 
+void  ADC_Init (void);
+CPU_INT16U  ADC_GetVal (CPU_INT08U channel_to_convert);
