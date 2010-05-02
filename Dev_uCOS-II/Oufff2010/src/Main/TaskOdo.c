@@ -184,6 +184,8 @@ void TaskOdo_Main(void *p_arg)
 {
 	INT8U err;
 
+	putsUART2("OUFFF TEAM 2010 : Odo online\n");
+
 	init_position_manager(&AppCurrentPos);
 
 	SemOdo = OSSemCreate(0);

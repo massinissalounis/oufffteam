@@ -36,3 +36,4 @@
 #include    "bsp.h"
 #include	"bsp_fpga.h"
 #include	"AppCustomTypes.h"		// Custom Types
+#include 	"AppGlobalFunc.h"

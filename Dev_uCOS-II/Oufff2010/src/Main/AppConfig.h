@@ -31,7 +31,7 @@
 *                                            APP PARAMETERS
 *********************************************************************************************************
 */
-#define	APP_PARAM_GAME_DURATION					10		/* in sec: Time until the end of the game				*/
+#define	APP_PARAM_GAME_DURATION					90		/* in sec: Time until the end of the game				*/
 #define APP_PARAM_TEMPO_RESOLUTION				500		/* in ms (0 to 999): Delay before 2 ticks check in TaskTempo		*/
 
 #define APP_PARAM_APPFLAG_INITAL_VALUE		0x00000000	/* Initial value for AppFlags var */
@@ -55,10 +55,10 @@
 #define APP_PARAM_APPFLAG_NOT_USED			0xFFFF0000	/*  |16 to 32 | Not used			| Not used			| Not used			|	*/				
 
 // Flag to check all Flags
-#define APP_PARAM_APPFLAG_ALL_BUMPERS			APP_PARAM_APPFLAG_BUMPER0 | APP_PARAM_APPFLAG_BUMPER1 | APP_PARAM_APPFLAG_BUMPER2 | APP_PARAM_APPFLAG_BUMPER3 | APP_PARAM_APPFLAG_BUMPER4 | APP_PARAM_APPFLAG_BUMPER5 | APP_PARAM_APPFLAG_BUMPER6 | APP_PARAM_APPFLAG_BUMPER7 
+#define APP_PARAM_APPFLAG_ALL_BUMPERS		APP_PARAM_APPFLAG_BUMPER0 | APP_PARAM_APPFLAG_BUMPER1 | APP_PARAM_APPFLAG_BUMPER2 | APP_PARAM_APPFLAG_BUMPER3 | APP_PARAM_APPFLAG_BUMPER4 | APP_PARAM_APPFLAG_BUMPER5 | APP_PARAM_APPFLAG_BUMPER6 | APP_PARAM_APPFLAG_BUMPER7 
 
-#define APP_PARAM_ERR_ON_POS				1.00					// Error in mm for x and y for considering setpoint is reached
-#define APP_PARAM_ERR_ON_ANGLE				1.00 * M_PI / 180.0		// Error in rad for angle for considering setpoint is reached
+#define APP_PARAM_ERR_ON_POS				55.0						// Error in mm for x and y for considering setpoint is reached
+#define APP_PARAM_ERR_ON_ANGLE				2.00 * M_PI / 180.0		// Error in rad for angle for considering setpoint is reached
 /*
 *********************************************************************************************************
 *                                            TASK PRIORITIES

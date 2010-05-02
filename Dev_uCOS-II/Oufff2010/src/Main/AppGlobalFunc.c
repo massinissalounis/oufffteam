@@ -22,6 +22,8 @@ void AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
 {
 	static INT8U CurrentIndex = 0;
 	int i, NextFreeIndex;
+	char uart_buffer[13];
+	char * buffer_ptr;
 
 	// Check param
 	if((NULL == PtrQueue) || (NULL == PtrMsgToPost))
@@ -58,7 +60,10 @@ void AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
 		// Post Msg
 		OSQPost(PtrQueue, (void*)(AppMsgStk+NextFreeIndex));
 	}
-	
+	else
+	{
+			putsUART2("!!! Message Lost !!!\n");
+	}
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -71,8 +76,11 @@ float AppConvertRadInDeg(float ValueInRad)
 // ------------------------------------------------------------------------------------------------
 float AppConvertDegInRad(float ValueInDeg)
 {
+	float tmp;
 	// Conversion
-	return AppCheckAngleInRad((ValueInDeg * M_PI) / 180.0);
+	tmp = (ValueInDeg * M_PI) / 180.0;
+	tmp = AppCheckAngleInRad(tmp);
+	return tmp;
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -80,11 +88,11 @@ float AppCheckAngleInRad(float ValueToCheck)
 {
 	// Check if value is less than PI rad
 	while(ValueToCheck >= M_PI)
-		ValueToCheck = ValueToCheck - M_PI;
+		ValueToCheck = ValueToCheck - 2*M_PI;
 
 	// Check if value is more than -PI rad
 	while(ValueToCheck <= -M_PI)
-		ValueToCheck = ValueToCheck + M_PI;
+		ValueToCheck = ValueToCheck + 2*M_PI;
 
 	return ValueToCheck;
 }

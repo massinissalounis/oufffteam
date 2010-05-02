@@ -16,8 +16,8 @@ BOOLEAN TaskCapteurs_IsStartButtonPressed();
 	// Function to check StartButton stat
 	// Param : None
 	// Returned value :
-	//	- TRUE : StartButton has been pressed
-	//	- FALSE : StartButton has not been pressed yet
+	//	- TRUE : StartButton is beeing pressed
+	//	- FALSE : StartButton is not beeing pressed yet
 
 void TaskCapteurs_CheckBumpers();
 	// Check for bumpers status.

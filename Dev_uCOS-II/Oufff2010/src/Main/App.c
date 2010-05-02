@@ -61,6 +61,8 @@ int  main (void)
 	AppCreateIPCS();			/* Create IPCS objects										*/
 	AppTaskStart();				/* Start all tasks											*/
 
+	putsUART2("OUFFF TEAM 2010\n");
+
     OSStart();                  /* Start multitasking (i.e. give control to uC/OS-II)       */
 	/* This part would be never executed */
 }
@@ -90,8 +92,6 @@ void  AppTaskStart()
 #ifdef _TARGET_STARTER_KIT
 	LED_On(0);
 #endif
-
-	putsUART2("OUFFF TEAM 2010\n");
 
 	// --------------------------------------------------------------------------------------------
 	// Starts TaskOdo
@@ -127,7 +127,7 @@ void  AppTaskStart()
 
 	// --------------------------------------------------------------------------------------------
 	// Starts TaskCapteurs
-/*    OSTaskCreateExt( TaskCapteurs_Main,                                       
+    OSTaskCreateExt( TaskCapteurs_Main,                                       
 				    (void *)0,
                     (OS_STK *)&AppTaskCapteursStk[APP_TASK_CAPTEURS_STK_SIZE - 1],
                     APP_TASK_CAPTEURS_PRIO,
@@ -172,7 +172,7 @@ void  AppTaskStart()
 #if OS_TASK_NAME_SIZE > 13
     OSTaskNameSet(APP_TASK_MAIN_PRIO, "TaskTempo", &err);
 #endif
-*/
+
 
 	// All tasks are started
 	return;
