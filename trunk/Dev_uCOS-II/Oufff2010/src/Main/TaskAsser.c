@@ -287,6 +287,8 @@ void init_control_motion()
 	setpoint.y=0.0;
 	setpoint.angle=0.0;
 
+	memset(&TaskAsser_CurrentPos, 0, sizeof(StructPos));
+
 	// init PID
 	PID_Initialization();
 
@@ -307,9 +309,13 @@ void TaskAsser_Main(void *p_arg)
 	INT8U command = 0;
 	INT8U Err;
 	StructMsg *pCurrentMsg = NULL;
+	char uart_buffer[13];
+	char * buffer_ptr;
 	
 	BOOLEAN angle_control = ANGLE_CONTROL_INIT;
 	BOOLEAN distance_control = DISTANCE_CONTROL_INIT;
+
+	putsUART2("OUFFF TEAM 2010 : Asser online\n");
 
 	init_control_motion();
 
@@ -344,6 +350,17 @@ void TaskAsser_Main(void *p_arg)
 				default :
 					break;
 			}
+
+			putsUART2("TASK_ASSER : Received Mesg ---> X=");
+			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pCurrentMsg->Param1, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+			putsUART2(buffer_ptr);
+			putsUART2(" , Y=");
+			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pCurrentMsg->Param2, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+			putsUART2(buffer_ptr);
+			putsUART2(" , Angle=");
+			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) AppConvertRadInDeg(pCurrentMsg->Param3), (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+			putsUART2(buffer_ptr);
+			putsUART2("\n");
 		}
 			
 

@@ -40,9 +40,11 @@ typedef enum
 // Position -------------------------------------
 typedef struct
 {
-	float x;		/* Pos en x		*/
-	float y;		/* Pos en y		*/
-	float angle;	/* Angle		*/
+	float 	x;			// Pos en x
+	float 	y;			// Pos en y
+	float 	angle;		// Angle
+	BOOLEAN LockPos;	// Flag to lock previous position
+						// NB : If LockPos is set, other data is ignored
 }StructPos;
 
 // Msg ------------------------------------------

@@ -88,29 +88,29 @@ void CLIC_Init (void)
 {
 	PORTSetPinsDigitalIn(IOPORT_G, BIT_0);
 	PORTSetPinsDigitalIn(IOPORT_A, BIT_7);
-	PORTSetPinsDigitalIn(IOPORT_C, BIT_2);
+	PORTSetPinsDigitalIn(IOPORT_C, BIT_3);
 	PORTSetPinsDigitalIn(IOPORT_C, BIT_4);
 }
 
 CPU_INT08U CLIC_state (CPU_INT08U clic)
 {
-	CPU_INT08U state = 0;
+	CPU_INT08U state = 1;
 
     switch (clic) {
         case CLIC_FRONT_LEFT:
-			if(PORTReadBits(IOPORT_G, BIT_0)!=0) state = 1;
+			if(PORTReadBits(IOPORT_G, BIT_0)!=0) state = 0;
 			break;
 
         case CLIC_FRONT_RIGHT:
-			if(PORTReadBits(IOPORT_A, BIT_7)!=0) state = 1;
+			if(PORTReadBits(IOPORT_A, BIT_7)!=0) state = 0;
 			break;
 
         case CLIC_REAR_LEFT:
-			if(PORTReadBits(IOPORT_C, BIT_2)!=0) state = 1;
+			if(PORTReadBits(IOPORT_C, BIT_3)!=0) state = 0;
 			break;
 
         case CLIC_REAR_RIGHT:
-			if(PORTReadBits(IOPORT_C, BIT_4)!=0) state = 1;
+			if(PORTReadBits(IOPORT_C, BIT_4)!=0) state = 0;
 			break;
 
         default:
@@ -757,9 +757,9 @@ static  void  ADC_Config (void)
 
 static  void  ADC_IntInit (void)
 {
-    mAD1SetIntPriority(INT_PRIORITY_LEVEL_3);                           /* Set interrupt priority level to 3                        */
-    mAD1ClearIntFlag();                                                 /* Clear interrupt flag, just in case                       */
-    mAD1IntEnable(1);                                                   /* Enable interrupts                                        */
+//    mAD1SetIntPriority(INT_PRIORITY_LEVEL_3);                           /* Set interrupt priority level to 3                        */
+//    mAD1ClearIntFlag();                                                 /* Clear interrupt flag, just in case                       */
+//    mAD1IntEnable(1);                                                   /* Enable interrupts                                        */
 }
         
 
@@ -1021,7 +1021,7 @@ void  BSP_InitIO (void)
 
     LED_Init();                                                         /* Initialize LEDs                                  */
 //    PB_Init();                                                          /* Initialize the push buttons                      */
-//    ADC_Init();
+    ADC_Init();
 	PMP_Init();
 	UART_Init();
 	PWM_Init();

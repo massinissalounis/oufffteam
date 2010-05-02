@@ -24,10 +24,10 @@ void TaskMain_GetNextAction()
 
 	if (	(TaskMain_NextSetpointPos.x == TaskMain_ExpectedPos.x)
 		&&	(TaskMain_NextSetpointPos.y == TaskMain_ExpectedPos.y)
-		&&	(TaskMain_NextSetpointPos.angle == TaskMain_ExpectedPos.angle))
+		&&	(TaskMain_NextSetpointPos.angle == TaskMain_ExpectedPos.angle)
+		&&	(TaskMain_MovingSeqRemainingSteps == 0))
 	{
-		// Expected point has been reach, moving sequence must be delete
-		TaskMain_MovingSeqRemainingSteps = 0;
+		// Expected point has been reached, moving sequence must be deleted
 		memset(TaskMain_MovingSeq, 0, APP_MOVING_SEQ_LEN * sizeof(StructPos));
 
 		// we ask for a new point
@@ -44,12 +44,19 @@ void TaskMain_GetNextAction()
 			default:
 				break;
 		}
+
+		// Check if it's necessary to compute a new command
+		if(OS_TRUE == TaskMain_ExpectedPos.LockPos)
+		{
+			TaskMain_NextSetpointPos.LockPos = OS_TRUE;
+			return;
+		}
 	}
 	else
 	{
 		// Check if there are remaining steps to be done 
 		if((TaskMain_MovingSeqRemainingSteps > 0) && (TaskMain_MovingSeqRemainingSteps <= APP_MOVING_SEQ_LEN))
-	{
+		{
 			// We have a moving sequence activated, we use it
 			memcpy(	&TaskMain_NextSetpointPos, 
 					TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - TaskMain_MovingSeqRemainingSteps, 
@@ -61,7 +68,7 @@ void TaskMain_GetNextAction()
 	}
 
 	// Divide moving into simple commands
-		TaskMain_GetCurrentPos();
+	TaskMain_GetCurrentPos();
 	LibMoving_DivideMvt(&TaskMain_CurrentPos, &TaskMain_ExpectedPos, TaskMain_MovingSeq, &TaskMain_MovingSeqRemainingSteps);
 	
 	// Check if we can move with new data
@@ -86,13 +93,13 @@ void TaskMain_GetNextAction()
 
 			// Move
 			case 2:
-				LibMoving_MoveInMM(&TaskMain_GetCurrentPos, -150, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
+				LibMoving_MoveInMM(&TaskMain_GetCurrentPos, 150, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
 				TaskMain_MovingSeqRemainingSteps = 1;
 				EscapeIndex++;
 				break;
 
 			// Rotate
-			case 3:
+			case 3: 
 				LibMoving_RotateInDeg(&TaskMain_GetCurrentPos, 90, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
 				TaskMain_MovingSeqRemainingSteps = 1;
 				EscapeIndex++;
@@ -114,25 +121,23 @@ void TaskMain_GetNextAction()
 // ------------------------------------------------------------------------------------------------
 void TaskMain_GetNextActionForColorA()
 {
-	static CurrentActionForColorA = 0;
+	static CPU_INT08U CurrentActionForColorA = 0;
 	StructPos *ptr = &TaskMain_ExpectedPos;
+
+	// Activate Moving
+	ptr->LockPos = OS_FALSE;
 
 	// Search for position
 	switch(CurrentActionForColorA)
 	{	
-		// Initial position -----------------------------------------------------------------------
-		case 0:		ptr->x = 0000.0;	ptr->y = 0000.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
-
-		// Loop -----------------------------------------------------------------------------------
-		case 1:		ptr->x = 0000.0;	ptr->y = 0000.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
-		case 2:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
-		case 3:		LED_Toggle(2);		break;		//	Make something	
-		case 4:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
-		case 5:		ptr->x = 0110.0;	ptr->y = 0010.0;	ptr->angle	= AppConvertDegInRad(0145.0);	break;
+		case 0:		ptr->LockPos = OS_TRUE;		CurrentActionForColorA = 0;		return;					break;
+//		case 0:		ptr->x = 0125.0;	ptr->y = 0125.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
+//		case 1:		LibMoving_MoveInMM(TaskMain_CurrentPos, 1000, ptr);									break;
+//		case 2:		LibMoving_MoveInMM(TaskMain_CurrentPos, -950, ptr);									break;
 
 		// Default --------------------------------------------------------------------------------
 		default:
-			CurrentActionForColorA = 1;
+			CurrentActionForColorA = 0;
 			TaskMain_GetNextActionForColorA();
 			return;
 			break;
@@ -145,24 +150,26 @@ void TaskMain_GetNextActionForColorA()
 // ------------------------------------------------------------------------------------------------
 void TaskMain_GetNextActionForColorB()
 {
-	static CurrentActionForColorB = 0;
+	static CPU_INT08U CurrentActionForColorB = 0;
+	CPU_INT08U TempoColorB = 0;
 	StructPos *ptr = &TaskMain_ExpectedPos;
+
+	// Activate Moving
+	ptr->LockPos = OS_FALSE;
 
 	switch(CurrentActionForColorB)
 	{
-		// Initial position -----------------------------------------------------------------------
-		case 0:		ptr->x = 0000.0;	ptr->y = 0000.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
-
-		// Loop -----------------------------------------------------------------------------------
-		case 1:		ptr->x = 0000.0;	ptr->y = 0000.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
-		case 2:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
-		case 3:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
-		case 4:		ptr->x = 0010.0;	ptr->y = 0010.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
+		case 0:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
+		case 1:		ptr->x = 0200.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0090.0);	break;
+		case 2:		ptr->x = 0800.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
+		case 3:		ptr->x = 0800.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(-090.0);	break;
+		case 4:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
+		case 5:		ptr->x = 0125.0;	ptr->y = 0125.0;	ptr->angle	= AppConvertDegInRad(0225.0);	break;
+//		case 0:		ptr->x = 0125.0;	ptr->y = 0125.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
 
 		// Default --------------------------------------------------------------------------------
 		default:
-			CurrentActionForColorB = 1;
-			TaskMain_GetNextActionForColorB();
+			ptr->LockPos = OS_TRUE;	
 			return;
 			break;
 	}
@@ -353,6 +360,10 @@ void TaskMain_Main(void *p_arg)
 	INT8U		Err = 0;				// Var to get error status								
 	OS_FLAGS	CurrentFlag = 0;		// Var to read current flag								
 	StructMsg	MsgToPost;				// Var to post msg to other tasks						
+	char uart_buffer[13];
+	char * buffer_ptr;
+
+	putsUART2("OUFFF TEAM 2010 : Main online\n");
 
 	TaskMain_Init();
 
@@ -369,7 +380,23 @@ void TaskMain_Main(void *p_arg)
 	OSFlagPend(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_WAIT_SET_ALL, WAIT_FOREVER, &Err);
 
 	// Get CurrentPos for current color
-	TaskMain_GetNextAction();
+	if(AppCurrentColor == c_Blue)
+	{
+		TaskMain_NextSetpointPos.x 			= 0125.0;
+		TaskMain_NextSetpointPos.y 			= 0125.0;
+		TaskMain_NextSetpointPos.angle 		= AppConvertDegInRad(0045.0);
+		TaskMain_NextSetpointPos.LockPos 	= OS_FALSE;
+	}
+	else
+	{
+		TaskMain_NextSetpointPos.x 		= 0125.0;
+		TaskMain_NextSetpointPos.y 		= 0125.0;
+		TaskMain_NextSetpointPos.angle 	= AppConvertDegInRad(0045.0);
+		TaskMain_NextSetpointPos.LockPos 	= OS_FALSE;
+	}
+
+	memcpy(&TaskMain_ExpectedPos, &TaskMain_NextSetpointPos, sizeof(StructPos));
+
 	
 	// Define Current position to OdoTask and AsserTask
 	OSMutexPend(Mut_AppCurrentPos, WAIT_FOREVER, &Err);		// SECTION CRITIQUE
@@ -420,15 +447,32 @@ void TaskMain_Main(void *p_arg)
 				// Setpoint has been reached, we check for next action
 				TaskMain_GetNextAction();
 
-				// We send new pos to asser task
-				// Create msg for asser task for setting start pos
-				MsgToPost.Msg		= Msg_Asser_GoToXYA;
-				MsgToPost.Param1	= TaskMain_NextSetpointPos.x;
-				MsgToPost.Param2	= TaskMain_NextSetpointPos.y;
-				MsgToPost.Param3	= TaskMain_NextSetpointPos.angle;
-
-				// Post new expected pos
-				AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
+				if(OS_FALSE == TaskMain_NextSetpointPos.LockPos)
+				{
+					// We send new pos to asser task
+					// Create msg for asser task for setting start pos
+					MsgToPost.Msg		= Msg_Asser_GoToXYA;
+					MsgToPost.Param1	= TaskMain_NextSetpointPos.x;
+					MsgToPost.Param2	= TaskMain_NextSetpointPos.y;
+					MsgToPost.Param3	= TaskMain_NextSetpointPos.angle;
+	
+					// Test
+					OSTimeDlyHMSM(0, 0, 1, 0);		
+				
+					putsUART2("TASK_MAIN : Send Mesg ---> X=");
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskMain_NextSetpointPos.x, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					putsUART2(buffer_ptr);
+					putsUART2(" , Y=");
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskMain_NextSetpointPos.y, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					putsUART2(buffer_ptr);
+					putsUART2(" , Angle=");
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) AppConvertRadInDeg(TaskMain_NextSetpointPos.angle), (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					putsUART2(buffer_ptr);
+					putsUART2("\n");
+	
+					// Post new expected pos
+					AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
+				}
 			}
 		}
 
