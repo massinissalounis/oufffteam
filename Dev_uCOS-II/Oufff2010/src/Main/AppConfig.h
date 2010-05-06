@@ -55,10 +55,10 @@
 #define APP_PARAM_APPFLAG_NOT_USED			0xFFFF0000	/*  |16 to 32 | Not used			| Not used			| Not used			|	*/				
 
 // Flag to check all Flags
-#define APP_PARAM_APPFLAG_ALL_BUMPERS		APP_PARAM_APPFLAG_BUMPER0 | APP_PARAM_APPFLAG_BUMPER1 | APP_PARAM_APPFLAG_BUMPER2 | APP_PARAM_APPFLAG_BUMPER3 | APP_PARAM_APPFLAG_BUMPER4 | APP_PARAM_APPFLAG_BUMPER5 | APP_PARAM_APPFLAG_BUMPER6 | APP_PARAM_APPFLAG_BUMPER7 
+#define APP_PARAM_APPFLAG_ALL_BUMPERS		(APP_PARAM_APPFLAG_BUMPER0 | APP_PARAM_APPFLAG_BUMPER1 | APP_PARAM_APPFLAG_BUMPER2 | APP_PARAM_APPFLAG_BUMPER3 | APP_PARAM_APPFLAG_BUMPER4 | APP_PARAM_APPFLAG_BUMPER5 | APP_PARAM_APPFLAG_BUMPER6 | APP_PARAM_APPFLAG_BUMPER7)
 
 #define APP_PARAM_ERR_ON_POS				55.0						// Error in mm for x and y for considering setpoint is reached
-#define APP_PARAM_ERR_ON_ANGLE				2.00 * M_PI / 180.0		// Error in rad for angle for considering setpoint is reached
+#define APP_PARAM_ERR_ON_ANGLE				(2.00 * M_PI / 180.0)		// Error in rad for angle for considering setpoint is reached
 /*
 *********************************************************************************************************
 *                                            TASK PRIORITIES
@@ -93,7 +93,7 @@
 
 #define APP_QUEUE_MAIN_SIZE						0	/* Nb max of msg into MainQueue		(0=Not Used)	*/
 #define APP_QUEUE_ASSER_SIZE					8	/* Nb max of msg into AsserQueue	(0=Not Used)	*/
-#define APP_QUEUES_TOTAL_SIZE					APP_QUEUE_MAIN_SIZE + APP_QUEUE_ASSER_SIZE
+#define APP_QUEUES_TOTAL_SIZE					(APP_QUEUE_MAIN_SIZE + APP_QUEUE_ASSER_SIZE)
 
 /*
 *********************************************************************************************************
