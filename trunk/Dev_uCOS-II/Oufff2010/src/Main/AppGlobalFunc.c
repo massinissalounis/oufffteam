@@ -58,7 +58,10 @@ void AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
 		AppMsgStk[NextFreeIndex].Param3	=	PtrMsgToPost->Param3;	// Param3
 
 		// Post Msg
-		OSQPost(PtrQueue, (void*)(AppMsgStk+NextFreeIndex));
+		OSQPost(PtrQueue, (void*)(&(AppMsgStk[NextFreeIndex])));
+		#ifdef _TARGET_STARTER_KIT
+			LED_Toggle(2);
+		#endif
 	}
 	else
 	{

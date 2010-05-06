@@ -130,15 +130,19 @@ void TaskMain_GetNextActionForColorA()
 	// Search for position
 	switch(CurrentActionForColorA)
 	{	
-		case 0:		ptr->LockPos = OS_TRUE;		CurrentActionForColorA = 0;		return;					break;
+		case 0:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
+		case 1:		ptr->x = 0200.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0090.0);	break;
+		case 2:		ptr->x = 0800.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
+		case 3:		ptr->x = 0800.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(-090.0);	break;
+		case 4:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
+		case 5:		ptr->x = 0125.0;	ptr->y = 0125.0;	ptr->angle	= AppConvertDegInRad(0225.0);	break;
 //		case 0:		ptr->x = 0125.0;	ptr->y = 0125.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
 //		case 1:		LibMoving_MoveInMM(TaskMain_CurrentPos, 1000, ptr);									break;
 //		case 2:		LibMoving_MoveInMM(TaskMain_CurrentPos, -950, ptr);									break;
 
 		// Default --------------------------------------------------------------------------------
 		default:
-			CurrentActionForColorA = 0;
-			TaskMain_GetNextActionForColorA();
+			ptr->LockPos = OS_TRUE;	
 			return;
 			break;
 	}
@@ -318,7 +322,7 @@ BOOLEAN TaskMain_IsSetpointReached()
 		INT8U Err;
 
 		NbOfRead++;
-		if(NbOfRead > 0)
+		if(NbOfRead > 2)
 		{
 			NbOfRead = 0;
 			
@@ -442,8 +446,6 @@ void TaskMain_Main(void *p_arg)
 			// Check if we are arrived to setpoint
 			if(OS_TRUE == TaskMain_IsSetpointReached())
 			{
-//				LED_Toggle(2);
-
 				// Setpoint has been reached, we check for next action
 				TaskMain_GetNextAction();
 
