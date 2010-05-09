@@ -130,13 +130,19 @@ void TaskMain_GetNextActionForColorA()
 	// Search for position
 	switch(CurrentActionForColorA)
 	{	
-		case 0:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
-		case 1:		ptr->x = 0200.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0090.0);	break;
-		case 2:		ptr->x = 0800.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
-		case 3:		ptr->x = 0800.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(-090.0);	break;
-		case 4:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
-		case 5:		ptr->x = 0125.0;	ptr->y = 0125.0;	ptr->angle	= AppConvertDegInRad(0225.0);	break;
-//		case 0:		ptr->x = 0125.0;	ptr->y = 0125.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
+//		case 0:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
+//		case 1:		ptr->x = 0200.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0090.0);	break;
+//		case 2:		ptr->x = 0800.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
+//		case 3:		ptr->x = 0800.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(-090.0);	break;
+//		case 4:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
+//		case 5:		ptr->x = 0125.0;	ptr->y = 0125.0;	ptr->angle	= AppConvertDegInRad(0225.0);	break;
+		case 0:
+				ptr->x = 0125.0;	ptr->y = 0125.0;	
+				ptr->angle	= AppConvertDegInRad(0045.0);	break;
+		case 1:	
+				ptr->x = 01000.0;	ptr->y = 01000.0;	
+				ptr->angle	= AppConvertDegInRad(0045.0);	break;
+		case 2:		ptr->x = 0150.0;	ptr->y = 0150.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
 //		case 1:		LibMoving_MoveInMM(TaskMain_CurrentPos, 1000, ptr);									break;
 //		case 2:		LibMoving_MoveInMM(TaskMain_CurrentPos, -950, ptr);									break;
 
