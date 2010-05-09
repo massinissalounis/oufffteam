@@ -22,9 +22,9 @@
 #define ACC_ANGLE				20000.0
 
 
-#define KP_DISTANCE 			1500.0
-#define KI_DISTANCE 			0.0
-#define KD_DISTANCE 			12000.0
+#define KP_DISTANCE 			200.0  //1500.0
+#define KI_DISTANCE 			0.0    //0.0
+#define KD_DISTANCE 			000.0  //12000.0
 #define IMAX_DISTANCE 			1000.0
 
 #define VMAX_DISTANCE			10000.0
@@ -33,7 +33,7 @@
 #define PID_SUM_NB_SAMPLES 		10		// 1000 à l'origine CBE
 #define PID_D_PERIOD			1		//100 à l'origine CBE
 
-#define MAX_MOTOR_COMMAND 		7000	// doit être < à 32768
+#define MAX_MOTOR_COMMAND 		30000	// doit être < à 32768
 
 #define ANGLE_CONTROL_INIT 		OS_TRUE; //OS_FALSE;
 #define DISTANCE_CONTROL_INIT 	OS_TRUE; //OS_FALSE;

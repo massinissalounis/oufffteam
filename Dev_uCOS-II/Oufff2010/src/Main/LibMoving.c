@@ -81,7 +81,7 @@ void LibMoving_DivideMvt(StructPos *OldPos, StructPos *ExpectedPos, StructPos *N
 	TmpY = ExpectedPos->y - OldPos->y;
 
 
-	// Movment will be done in 3 steps
+	// Movement will be done in 3 steps
 	// First one: Turn to be in the correct direction
 	(NewMovingSeq + APP_MOVING_SEQ_LEN - 3)->x	 	= OldPos->x;
 	(NewMovingSeq + APP_MOVING_SEQ_LEN - 3)->y	 	= OldPos->y;
