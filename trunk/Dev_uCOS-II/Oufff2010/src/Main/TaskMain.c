@@ -28,7 +28,7 @@ void TaskMain_GetNextAction()
 		&&	(TaskMain_MovingSeqRemainingSteps == 0))
 	{
 		// Expected point has been reached, moving sequence must be deleted
-		memset(TaskMain_MovingSeq, 0, APP_MOVING_SEQ_LEN * sizeof(StructPos));
+		memset(TaskMain_MovingSeq, 0, APP_MOVING_SEQ_LEN * sizeof(struct StructPos));
 
 		// we ask for a new point
 		switch(AppCurrentColor)
@@ -46,10 +46,21 @@ void TaskMain_GetNextAction()
 		}
 
 		// Check if it's necessary to compute a new command
-		if(OS_TRUE == TaskMain_ExpectedPos.LockPos)
+		if(APP_FLAG_POS__NO_FLAG != TaskMain_ExpectedPos.Flag)
 		{
-			TaskMain_NextSetpointPos.LockPos = OS_TRUE;
-			return;
+			// Check Position Flag
+			if(APP_FLAG_POS__LOCK_IN_POS == TaskMain_ExpectedPos.Flag)
+			{
+				TaskMain_NextSetpointPos.Flag = TaskMain_ExpectedPos.Flag;		
+				return;
+			}
+
+			// Check Simple move Flag
+			if(APP_FLAG_POS__SIMPLE_MOVE == TaskMain_ExpectedPos.Flag)
+			{
+				memcpy(&TaskMain_NextSetpointPos, &TaskMain_ExpectedPos, sizeof(struct StructPos));
+				return;
+			}
 		}
 	}
 	else
@@ -60,16 +71,17 @@ void TaskMain_GetNextAction()
 			// We have a moving sequence activated, we use it
 			memcpy(	&TaskMain_NextSetpointPos, 
 					TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - TaskMain_MovingSeqRemainingSteps, 
-					sizeof(StructPos));
+					sizeof(struct StructPos));
 			TaskMain_MovingSeqRemainingSteps--;
 
 			return;
 		}
 	}
 
+	
 	// Divide moving into simple commands
 	TaskMain_GetCurrentPos();
-	LibMoving_DivideMvt(&TaskMain_CurrentPos, &TaskMain_ExpectedPos, TaskMain_MovingSeq, &TaskMain_MovingSeqRemainingSteps);
+	LibMoving_DivideMvt(&TaskMain_CurrentPos, &TaskMain_ExpectedPos, &TaskMain_MovingSeqRemainingSteps);
 	
 	// Check if we can move with new data
 	if(TaskMain_MovingSeqRemainingSteps <= 0)
@@ -79,28 +91,28 @@ void TaskMain_GetNextAction()
 		{
 			// Go back
 			case 0:
-				LibMoving_MoveInMM(&TaskMain_GetCurrentPos, -150, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
+				LibMoving_MoveInMM(&TaskMain_CurrentPos, -150, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
 				TaskMain_MovingSeqRemainingSteps = 1;
 				EscapeIndex++;
 				break;
 
 			// Rotate
 			case 1:
-				LibMoving_RotateInDeg(&TaskMain_GetCurrentPos, -45, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
+				LibMoving_RotateInDeg(&TaskMain_CurrentPos, -45, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
 				TaskMain_MovingSeqRemainingSteps = 1;
 				EscapeIndex++;
 				break;
 
 			// Move
 			case 2:
-				LibMoving_MoveInMM(&TaskMain_GetCurrentPos, 150, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
+				LibMoving_MoveInMM(&TaskMain_CurrentPos, 150, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
 				TaskMain_MovingSeqRemainingSteps = 1;
 				EscapeIndex++;
 				break;
 
 			// Rotate
 			case 3: 
-				LibMoving_RotateInDeg(&TaskMain_GetCurrentPos, 90, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
+				LibMoving_RotateInDeg(&TaskMain_CurrentPos, 90, TaskMain_MovingSeq + APP_MOVING_SEQ_LEN - 1);
 				TaskMain_MovingSeqRemainingSteps = 1;
 				EscapeIndex++;
 				break;
@@ -122,33 +134,29 @@ void TaskMain_GetNextAction()
 void TaskMain_GetNextActionForColorA()
 {
 	static CPU_INT08U CurrentActionForColorA = 0;
-	StructPos *ptr = &TaskMain_ExpectedPos;
+	struct StructPos *ptr = &TaskMain_ExpectedPos;
 
 	// Activate Moving
-	ptr->LockPos = OS_FALSE;
+	ptr->Flag = APP_FLAG_POS__NO_FLAG;
 
 	// Search for position
 	switch(CurrentActionForColorA)
 	{	
-//		case 0:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
-//		case 1:		ptr->x = 0200.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0090.0);	break;
-//		case 2:		ptr->x = 0800.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
-//		case 3:		ptr->x = 0800.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(-090.0);	break;
-//		case 4:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
-//		case 5:		ptr->x = 0125.0;	ptr->y = 0125.0;	ptr->angle	= AppConvertDegInRad(0225.0);	break;
-		case 0:
-				ptr->x = 0125.0;	ptr->y = 0125.0;	
-				ptr->angle	= AppConvertDegInRad(0045.0);	break;
-		case 1:	
-				ptr->x = 01000.0;	ptr->y = 01000.0;	
-				ptr->angle	= AppConvertDegInRad(0045.0);	break;
-		case 2:		ptr->x = 0150.0;	ptr->y = 0150.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
+		// Carre
+		case 0:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);		break;
+		case 1:		ptr->x = 0200.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0090.0);		break;
+		case 2:		ptr->x = 0800.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
+		case 3:		ptr->x = 0800.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(-090.0);		break;
+		case 4:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(-180.0);		break;
+		case 5:		ptr->x = 0130.0;	ptr->y = 0130.0;	ptr->angle	= AppConvertDegInRad(-135.0);		break;
+		
+
 //		case 1:		LibMoving_MoveInMM(TaskMain_CurrentPos, 1000, ptr);									break;
 //		case 2:		LibMoving_MoveInMM(TaskMain_CurrentPos, -950, ptr);									break;
 
 		// Default --------------------------------------------------------------------------------
 		default:
-			ptr->LockPos = OS_TRUE;	
+			ptr->Flag = APP_FLAG_POS__LOCK_IN_POS;
 			return;
 			break;
 	}
@@ -162,24 +170,29 @@ void TaskMain_GetNextActionForColorB()
 {
 	static CPU_INT08U CurrentActionForColorB = 0;
 	CPU_INT08U TempoColorB = 0;
-	StructPos *ptr = &TaskMain_ExpectedPos;
+	struct StructPos *ptr = &TaskMain_ExpectedPos;
 
 	// Activate Moving
-	ptr->LockPos = OS_FALSE;
+	ptr->Flag = APP_FLAG_POS__NO_FLAG;
 
 	switch(CurrentActionForColorB)
 	{
-		case 0:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
-		case 1:		ptr->x = 0200.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0090.0);	break;
-		case 2:		ptr->x = 0800.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0000.0);	break;
-		case 3:		ptr->x = 0800.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(-090.0);	break;
-		case 4:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
-		case 5:		ptr->x = 0125.0;	ptr->y = 0125.0;	ptr->angle	= AppConvertDegInRad(0225.0);	break;
-//		case 0:		ptr->x = 0125.0;	ptr->y = 0125.0;	ptr->angle	= AppConvertDegInRad(0045.0);	break;
+		// Test de Distance
+		case 0:		ptr->x = 0500.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
+		case 1:		ptr->x = 1750.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
+		case 2:		ptr->x = 0500.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
+		case 3:		ptr->x = 1750.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
+		case 4:		ptr->x = 0500.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
+		case 5:		ptr->x = 1750.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
+		case 6:		ptr->x = 0500.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
+		case 7:		ptr->x = 1750.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
+		case 8:		ptr->x = 0500.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
+		case 9:		ptr->x = 0130.0;	ptr->y = 0130.0;	ptr->angle	= AppConvertDegInRad(0225.0);		break;
+		
 
 		// Default --------------------------------------------------------------------------------
 		default:
-			ptr->LockPos = OS_TRUE;	
+			ptr->Flag = APP_FLAG_POS__LOCK_IN_POS;
 			return;
 			break;
 	}
@@ -190,9 +203,9 @@ void TaskMain_GetNextActionForColorB()
 // ------------------------------------------------------------------------------------------------
 void TaskMain_Init()
 {
-	memset(&TaskMain_CurrentPos, 0, sizeof(StructPos));				// Set local CurrentPos to 0						
-	memset(&TaskMain_ExpectedPos, 0, sizeof(StructPos));			// Set local ExpectedPos to 0						
-	memset(&TaskMain_NextSetpointPos, 0, sizeof(StructPos));		// Set local NextSetpointPos to 0						
+	memset(&TaskMain_CurrentPos, 0, sizeof(struct StructPos));				// Set local CurrentPos to 0						
+	memset(&TaskMain_ExpectedPos, 0, sizeof(struct StructPos));			// Set local ExpectedPos to 0						
+	memset(&TaskMain_NextSetpointPos, 0, sizeof(struct StructPos));		// Set local NextSetpointPos to 0						
 
 	return;
 }
@@ -278,7 +291,7 @@ void TaskMain_GetCurrentPos()
 	OSMutexPend(Mut_AppCurrentPos, WAIT_FOREVER, &Err);
 	
 	// Copy current pos
-	memcpy(&TaskMain_CurrentPos, &AppCurrentPos, sizeof(StructPos));
+	memcpy(&TaskMain_CurrentPos, &AppCurrentPos, sizeof(struct StructPos));
 	
 	// Release Mutex
 	OSMutexPost(Mut_AppCurrentPos);
@@ -395,17 +408,17 @@ void TaskMain_Main(void *p_arg)
 		TaskMain_NextSetpointPos.x 			= 0125.0;
 		TaskMain_NextSetpointPos.y 			= 0125.0;
 		TaskMain_NextSetpointPos.angle 		= AppConvertDegInRad(0045.0);
-		TaskMain_NextSetpointPos.LockPos 	= OS_FALSE;
+		TaskMain_NextSetpointPos.Flag 		= APP_FLAG_POS__NO_FLAG;
 	}
 	else
 	{
-		TaskMain_NextSetpointPos.x 		= 0125.0;
-		TaskMain_NextSetpointPos.y 		= 0125.0;
-		TaskMain_NextSetpointPos.angle 	= AppConvertDegInRad(0045.0);
-		TaskMain_NextSetpointPos.LockPos 	= OS_FALSE;
+		TaskMain_NextSetpointPos.x 			= 0125.0;
+		TaskMain_NextSetpointPos.y 			= 0125.0;
+		TaskMain_NextSetpointPos.angle 		= AppConvertDegInRad(0045.0);
+		TaskMain_NextSetpointPos.Flag 		= APP_FLAG_POS__NO_FLAG;
 	}
 
-	memcpy(&TaskMain_ExpectedPos, &TaskMain_NextSetpointPos, sizeof(StructPos));
+	memcpy(&TaskMain_ExpectedPos, &TaskMain_NextSetpointPos, sizeof(struct StructPos));
 
 	
 	// Define Current position to OdoTask and AsserTask
@@ -423,7 +436,7 @@ void TaskMain_Main(void *p_arg)
 		AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
 
 		// Change Current Pos
-		memcpy(&AppCurrentPos, &TaskMain_NextSetpointPos, sizeof(StructPos));
+		memcpy(&AppCurrentPos, &TaskMain_NextSetpointPos, sizeof(struct StructPos));
 	}
 	OSMutexPost(Mut_AppCurrentPos);							// FIN SECTION CRITIQUE
 
@@ -455,7 +468,7 @@ void TaskMain_Main(void *p_arg)
 				// Setpoint has been reached, we check for next action
 				TaskMain_GetNextAction();
 
-				if(OS_FALSE == TaskMain_NextSetpointPos.LockPos)
+				if(0 == (TaskMain_NextSetpointPos.Flag & APP_FLAG_POS__LOCK_IN_POS))
 				{
 					// We send new pos to asser task
 					// Create msg for asser task for setting start pos
@@ -503,3 +516,109 @@ void TaskMain_Main(void *p_arg)
 	return;
 }
 
+// ------------------------------------------------------------------------------------------------
+void LibMoving_MoveInMM(struct StructPos *OldPos, int dist, struct StructPos *NewPos)
+{
+	// Check params
+	if((NULL == OldPos) || (NULL == NewPos))
+		return;
+
+	// Compute new position
+	NewPos->x = OldPos->x + dist * cosf(OldPos->angle);
+	NewPos->y = OldPos->y + dist * sinf(OldPos->angle);
+	NewPos->angle = OldPos->angle;
+
+	NewPos->Flag = APP_FLAG_POS__SIMPLE_MOVE;
+	return;
+}
+
+// ------------------------------------------------------------------------------------------------
+void LibMoving_RotateInDeg(struct StructPos *OldPos, float AngleInDeg, struct StructPos *NewPos)
+{
+	// Check params
+	if((NULL == OldPos) || (NULL == NewPos))
+		return;
+
+	// Compute new angle
+	NewPos->x = OldPos->x;
+	NewPos->y = OldPos->y; 
+	NewPos->angle = OldPos->angle + AppConvertDegInRad(AngleInDeg);
+
+	NewPos->Flag = APP_FLAG_POS__SIMPLE_MOVE;
+	return;
+}
+
+// ------------------------------------------------------------------------------------------------
+void LibMoving_MoveToAngleInDeg(struct StructPos *OldPos, float AngleToGoInDeg, struct StructPos *NewPos)
+{
+	// Check params
+	if((NULL == OldPos) || (NULL == NewPos))
+		return;
+
+	// Compute new angle
+	NewPos->x = OldPos->x;
+	NewPos->y = OldPos->y; 
+	NewPos->angle = AppConvertDegInRad(AngleToGoInDeg);
+
+	return;
+}
+
+// ------------------------------------------------------------------------------------------------
+void LibMoving_DivideMvt(struct StructPos *OldPos, struct StructPos *ExpectedPos, int *NewMovingSeqRemainingSteps)
+{
+	// Check for parameters
+	if((NULL == OldPos) || (NULL == ExpectedPos) || (NULL == NewMovingSeqRemainingSteps))
+	{
+		if(NULL != NewMovingSeqRemainingSteps)
+			*NewMovingSeqRemainingSteps == -1;
+		
+		return;
+	}
+
+#ifdef APP_MOVING_ALGO_1_SIMPLE
+	// Simple Moving Algo
+	float TmpX = 0;
+	float TmpY = 0;
+
+	TmpX = ExpectedPos->x - OldPos->x;
+	TmpY = ExpectedPos->y - OldPos->y;
+
+	// If movement is too short for computation, we don't do anything
+	if((abs(TmpX) < APP_PARAM_ERR_ON_POS) && (abs(TmpY) < APP_PARAM_ERR_ON_POS))
+	{
+		// Third (last) one: Turn to the expected pos
+		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].x	 	= ExpectedPos->x;
+		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].y	 	= ExpectedPos->y;
+		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].angle 	= ExpectedPos->angle;
+	
+		// Set the nb of steps for this movment
+		*NewMovingSeqRemainingSteps = 1;
+	}
+
+	// Movment will be done in 3 steps
+	// First one: Turn to be in the correct direction
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).x	 	= OldPos->x;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).y	 	= OldPos->y;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).angle 	= atan2f(TmpY, TmpX);
+
+	// Second one: Go to the expected pos
+	TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2].x	 	= ExpectedPos->x;
+	TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2].y	 	= ExpectedPos->y;
+	TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2].angle 	= TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3].angle;
+
+	// Third (last) one: Turn to the expected pos
+	TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].x	 	= ExpectedPos->x;
+	TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].y	 	= ExpectedPos->y;
+	TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].angle 	= ExpectedPos->angle;
+
+	// Set the nb of steps for this movment
+	*NewMovingSeqRemainingSteps = 3;
+
+	// First algo has been set, don't try another one
+	return;
+#endif
+
+	// if we are here, that means that no moving algo has been set
+	*NewMovingSeqRemainingSteps = -1;
+	return;
+}

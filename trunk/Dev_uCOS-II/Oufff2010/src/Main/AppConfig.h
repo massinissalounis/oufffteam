@@ -111,6 +111,16 @@
 #define APP_MOVING_ASSER_IN_POS_ENABLED			OS_TRUE		// Indicate if we use asser in pos
 #define APP_MOVING_ASSER_IN_ANGLE_ENABLED		OS_TRUE		// Indicate if we use asser in angle
 #define APP_MOVING_ASSER_IN_SPEED_ENABLED		OS_FALSE	// Indicate if we use asser in speed (Not used)
+
+/*
+*********************************************************************************************************
+*                                           MOVING FLAGS
+*********************************************************************************************************
+*/
+#define APP_FLAG_POS__NO_FLAG					0x00		// No flag has been set
+#define APP_FLAG_POS__LOCK_IN_POS				0x01		// Robot stay in pos when it arrives to expeted pos
+#define APP_FLAG_POS__SIMPLE_MOVE				0x02		// There is no decomposition if this flag is et
+
 /*
 *********************************************************************************************************
 *                                           LIB CONFIG

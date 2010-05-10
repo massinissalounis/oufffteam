@@ -27,7 +27,7 @@ SLEWRATE_data angle_slewrate_data;
 SLEWRATE_data distance_slewrate_data;
 
 // General robot control datas
-StructPos setpoint;
+struct StructPos setpoint;
 
 // Loop datas
 float error_distance;
@@ -287,7 +287,7 @@ void init_control_motion()
 	setpoint.y=0.0;
 	setpoint.angle=0.0;
 
-	memset(&TaskAsser_CurrentPos, 0, sizeof(StructPos));
+	memset(&TaskAsser_CurrentPos, 0, sizeof(struct StructPos));
 
 	// init PID
 	PID_Initialization();
@@ -311,6 +311,7 @@ void TaskAsser_Main(void *p_arg)
 	StructMsg *pCurrentMsg = NULL;
 	char uart_buffer[13];
 	char * buffer_ptr;
+	float errors_sum;
 	
 	BOOLEAN angle_control = ANGLE_CONTROL_INIT;
 	BOOLEAN distance_control = DISTANCE_CONTROL_INIT;
@@ -351,7 +352,7 @@ void TaskAsser_Main(void *p_arg)
 					break;
 			}
 
-			putsUART2("TASK_ASSER : Received Mesg ---> X=");
+			/*putsUART2("TASK_ASSER : Received Mesg ---> X=");
 			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pCurrentMsg->Param1, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 			putsUART2(buffer_ptr);
 			putsUART2(" , Y=");
@@ -361,6 +362,7 @@ void TaskAsser_Main(void *p_arg)
 			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) AppConvertRadInDeg(pCurrentMsg->Param3), (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 			putsUART2(buffer_ptr);
 			putsUART2("\n");
+			*/
 		}
 			
 
@@ -371,6 +373,7 @@ void TaskAsser_Main(void *p_arg)
 		scalar_product		= 0.0;
 		error_angle			= 0.0;
 		signe_error_angle	= 0.0;
+		errors_sum			= 0.0;
 
 		
 
@@ -385,7 +388,7 @@ void TaskAsser_Main(void *p_arg)
 		OSMutexPend(Mut_AppCurrentPos, WAIT_FOREVER, &Err);
 		{
 			// Copy current pos
-			memcpy(&TaskAsser_CurrentPos, &AppCurrentPos, sizeof(StructPos));
+			memcpy(&TaskAsser_CurrentPos, &AppCurrentPos, sizeof(struct StructPos));
 		}
 
 		//END SECTION CRITIQUE : Release Mutex
@@ -449,6 +452,35 @@ void TaskAsser_Main(void *p_arg)
 		if(angle_control) error_filtered_angle = PID_Computation(&angle_pid_data, error_angle);
 		if(distance_control) error_filtered_distance = PID_Computation(&distance_pid_data, error_distance);
 
+		// Re-scale errors to fit on expected scale
+//		errors_sum = error_filtered_distance + error_filtered_angle;
+//		error_filtered_distance = ( error_filtered_distance * (float) MAX_MOTOR_COMMAND * (1.0 - ANGLE_VS_DISTANCE_RATIO) ) / errors_sum;
+//		error_filtered_angle = ( error_filtered_angle * (float) MAX_MOTOR_COMMAND * ANGLE_VS_DISTANCE_RATIO ) / errors_sum;
+
+		if (error_filtered_distance >= (float) MAX_MOTOR_COMMAND * (1.0 - ANGLE_VS_DISTANCE_RATIO))
+		{
+			error_filtered_distance = (float) MAX_MOTOR_COMMAND * (1.0 - ANGLE_VS_DISTANCE_RATIO);
+		}
+		else
+		{
+			if(error_filtered_distance <= -1.0 * (float) MAX_MOTOR_COMMAND * (1.0 - ANGLE_VS_DISTANCE_RATIO))
+			{
+				error_filtered_distance = -1.0 * (float) MAX_MOTOR_COMMAND * (1.0 - ANGLE_VS_DISTANCE_RATIO);
+			}
+		}
+
+		if (error_filtered_angle >= (float) MAX_MOTOR_COMMAND * ANGLE_VS_DISTANCE_RATIO)
+		{
+			error_filtered_angle = (float) MAX_MOTOR_COMMAND * ANGLE_VS_DISTANCE_RATIO;
+		}
+		else
+		{
+			if(error_filtered_angle <= -1.0 * (float) MAX_MOTOR_COMMAND * ANGLE_VS_DISTANCE_RATIO)
+			{
+				error_filtered_angle = -1.0 * (float) MAX_MOTOR_COMMAND * ANGLE_VS_DISTANCE_RATIO;
+			}
+		}
+	
 		// Command merge
 		raw_command_right = error_filtered_distance + error_filtered_angle;
 		raw_command_left = error_filtered_distance - error_filtered_angle;

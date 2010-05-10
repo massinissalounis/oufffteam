@@ -25,10 +25,10 @@ StructMsg	AppMsgStk[APP_QUEUES_TOTAL_SIZE];		// Stack to store msg for Asser and
 StructMsg	AppHighPrioMsg;							// Struct to store an high priority msg (e.g. the stop msg)
 
 /***** Structures *****/
-StructPos	AppCurrentPos;							// Contains current postion (set by TaskOdo, read by Main)
+struct StructPos	AppCurrentPos;					// Contains current postion (set by TaskOdo, read by Main)
 
 /***** Enums *****/
-EnumColor	AppCurrentColor;							// Var to contain Color
+EnumColor	AppCurrentColor;						// Var to contain Color
 
 /***** MUTEX / SEMAPHORES *****/
 OS_EVENT	*Mut_AppCurrentPos;						// Mutex to limit access (RW) for CurrentPos variable

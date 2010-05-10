@@ -26,7 +26,7 @@ extern StructMsg	AppMsgStk[APP_QUEUES_TOTAL_SIZE];		// Stack to store msg for As
 extern StructMsg	AppHighPrioMsg;							// Struct to store an high priority msg (e.g. the stop msg)
 
 /***** Structures *****/
-extern StructPos	AppCurrentPos;
+extern struct StructPos		AppCurrentPos;
 
 /***** Enums *****/
 extern EnumColor	AppCurrentColor;						// Var to contain Color

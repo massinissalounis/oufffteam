@@ -278,7 +278,7 @@ void AppInitVar()
 	AppQueueAsserEvent = NULL;												/* Queue for get Asser events					*/
 	Mut_AppCurrentPos = NULL;												/* Mutex to limit access to AppCurrentPos var	*/
 	AppFlags = NULL;														/* Application Flags							*/
-	memset(&AppCurrentPos, 0, sizeof(StructPos));							/* Set AppCurrentPos to 0						*/
+	memset(&AppCurrentPos, 0, sizeof(struct StructPos));					/* Set AppCurrentPos to 0						*/
 	AppCurrentColor = c_NotSet;												/* Set CurrentColor to NotSet					*/
 
 	// Arrays
