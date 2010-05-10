@@ -93,6 +93,7 @@ void  AppTaskStart()
 	LED_On(0);
 #endif
 
+#ifdef APP_TASK_ODO_ENABLED
 	// --------------------------------------------------------------------------------------------
 	// Starts TaskOdo
     OSTaskCreateExt( TaskOdo_Main,                                      
@@ -108,7 +109,9 @@ void  AppTaskStart()
 #if OS_TASK_NAME_SIZE > 13
     OSTaskNameSet(APP_TASK_ODO_PRIO, "TaskOdo", &err);
 #endif
+#endif
 
+#ifdef APP_TASK_ASSER_ENABLED
 	// --------------------------------------------------------------------------------------------
 	// Starts TaskAsser
     OSTaskCreateExt( TaskAsser_Main,                                      
@@ -124,7 +127,9 @@ void  AppTaskStart()
 #if OS_TASK_NAME_SIZE > 13
     OSTaskNameSet(APP_TASK_ASSER_PRIO, "TaskAsser", &err);
 #endif
+#endif
 
+#ifdef APP_TASK_CAPTEURS_ENABLED
 	// --------------------------------------------------------------------------------------------
 	// Starts TaskCapteurs
     OSTaskCreateExt( TaskCapteurs_Main,                                       
@@ -140,7 +145,9 @@ void  AppTaskStart()
 #if OS_TASK_NAME_SIZE > 13
     OSTaskNameSet(APP_TASK_CAPTEURS_PRIO, "TaskCapteurs", &err);
 #endif
+#endif
 
+#ifdef APP_TASK_MAIN_ENABLED
 	// --------------------------------------------------------------------------------------------
 	// Starts TaskMain
     OSTaskCreateExt( TaskMain_Main,                                       
@@ -156,7 +163,9 @@ void  AppTaskStart()
 #if OS_TASK_NAME_SIZE > 13
     OSTaskNameSet(APP_TASK_MAIN_PRIO, "TaskMain", &err);
 #endif
+#endif
 
+#ifdef APP_TASK_TEMPO_ENABLED
 	// --------------------------------------------------------------------------------------------
 	// Starts TaskTempo
     OSTaskCreateExt( TaskTempo_Main,                                       
@@ -172,7 +181,7 @@ void  AppTaskStart()
 #if OS_TASK_NAME_SIZE > 13
     OSTaskNameSet(APP_TASK_MAIN_PRIO, "TaskTempo", &err);
 #endif
-
+#endif
 
 	// All tasks are started
 	return;

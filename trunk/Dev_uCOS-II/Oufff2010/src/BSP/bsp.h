@@ -34,10 +34,10 @@
 
 #define  UART2_BAUDRATE				115200
 
-#define CLIC_FRONT_LEFT				0		// connecteur 1
-#define CLIC_FRONT_RIGHT			1		// connecteur 2
-#define CLIC_REAR_LEFT				2		// connecteur 3
-#define CLIC_REAR_RIGHT				3		// connecteur 4
+#define CLIC_1						0		// connecteur 1
+#define CLIC_2						1		// connecteur 2
+#define CLIC_3						2		// connecteur 3
+#define CLIC_4						3		// connecteur 4
 
 #define GP2_1						11
 #define GP2_2						10

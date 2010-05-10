@@ -94,23 +94,23 @@ void CLIC_Init (void)
 
 CPU_INT08U CLIC_state (CPU_INT08U clic)
 {
-	CPU_INT08U state = 1;
+	CPU_INT08U state = 0;
 
     switch (clic) {
-        case CLIC_FRONT_LEFT:
-			if(PORTReadBits(IOPORT_G, BIT_0)!=0) state = 0;
+        case CLIC_1:
+			if(PORTReadBits(IOPORT_G, BIT_0)==0) state = 1;
 			break;
 
-        case CLIC_FRONT_RIGHT:
-			if(PORTReadBits(IOPORT_A, BIT_7)!=0) state = 0;
+        case CLIC_2:
+			if(PORTReadBits(IOPORT_A, BIT_7)==0) state = 1;
 			break;
 
-        case CLIC_REAR_LEFT:
-			if(PORTReadBits(IOPORT_C, BIT_3)!=0) state = 0;
+        case CLIC_3:
+			if(PORTReadBits(IOPORT_C, BIT_3)==0) state = 1;
 			break;
 
-        case CLIC_REAR_RIGHT:
-			if(PORTReadBits(IOPORT_C, BIT_4)!=0) state = 0;
+        case CLIC_4:
+			if(PORTReadBits(IOPORT_C, BIT_4)==0) state = 1;
 			break;
 
         default:
@@ -610,10 +610,7 @@ void  UART_Init (void)
     CPU_INT08U  config;
     CPU_INT32U  config1;
     CPU_INT32U  config2;
-    
-    mPORTAClearBits(DEF_BIT_07);                                        // Turn off RA7 on startup.
-    mPORTASetPinsDigitalOut(DEF_BIT_07);                                // Make RA7 as output.
-    
+       
     config1 = UART_EN                                                   // UART module enabled                              
             | UART_IDLE_CON                                             // UART works in IDLE mode                          
             | UART_RX_TX                                                // Communication is done through the normal pins    

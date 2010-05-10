@@ -33,6 +33,7 @@ struct StructPos setpoint;
 float error_distance;
 float scalar_product;
 float error_angle;
+float error_angle_path2;
 float signe_error_angle;
 float error_filtered_distance;
 float error_filtered_angle;
@@ -296,9 +297,23 @@ void init_control_motion()
 
 }
 
-void error_computation_angle_mode ( float *error_distance, float *error_angle )
+float error_rescale (float error, float scaling_factor, float speed)
 {
+	float error_rescaled = error;
 
+	if (error >= (float) MAX_MOTOR_COMMAND * scaling_factor * speed)
+	{
+		error_rescaled = (float) MAX_MOTOR_COMMAND * scaling_factor * speed;
+	}
+	else
+	{
+		if(error <= -1.0 * (float) MAX_MOTOR_COMMAND * scaling_factor)
+		{
+			error_rescaled = -1.0 * (float) MAX_MOTOR_COMMAND * scaling_factor * speed;
+		}
+	}
+
+	return error_rescaled;
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -311,10 +326,10 @@ void TaskAsser_Main(void *p_arg)
 	StructMsg *pCurrentMsg = NULL;
 	char uart_buffer[13];
 	char * buffer_ptr;
-	float errors_sum;
 	
 	BOOLEAN angle_control = ANGLE_CONTROL_INIT;
 	BOOLEAN distance_control = DISTANCE_CONTROL_INIT;
+	float speed_ratio = SPEED_RATIO;
 
 	putsUART2("OUFFF TEAM 2010 : Asser online\n");
 
@@ -343,16 +358,22 @@ void TaskAsser_Main(void *p_arg)
 					setpoint.angle = pCurrentMsg->Param3;  		
 					break;
 
-				case Msg_Asser_Algo:	
+				case Msg_Asser_Algo:	// Define which algo we have to use
 					distance_control = (BOOLEAN)pCurrentMsg->Param1;	// Change type of asser to distance algo (if set)
 					angle_control = (BOOLEAN)pCurrentMsg->Param2;		// Change type of asser to angle algo (if set)
 					break;
-				
+						
+				case Msg_Asser_SetSpeed:	// Define new speed 
+					if(pCurrentMsg->Param1 > 1)
+						pCurrentMsg->Param1 = 1.0;	
+					speed_ratio = pCurrentMsg->Param1;
+					break;
+
 				default :
 					break;
 			}
 
-			/*putsUART2("TASK_ASSER : Received Mesg ---> X=");
+			putsUART2("TASK_ASSER : Received Mesg ---> X=");
 			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pCurrentMsg->Param1, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 			putsUART2(buffer_ptr);
 			putsUART2(" , Y=");
@@ -362,7 +383,6 @@ void TaskAsser_Main(void *p_arg)
 			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) AppConvertRadInDeg(pCurrentMsg->Param3), (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 			putsUART2(buffer_ptr);
 			putsUART2("\n");
-			*/
 		}
 			
 
@@ -372,8 +392,8 @@ void TaskAsser_Main(void *p_arg)
 		error_distance		= 0.0;
 		scalar_product		= 0.0;
 		error_angle			= 0.0;
+		error_angle_path2	= 0.0;
 		signe_error_angle	= 0.0;
-		errors_sum			= 0.0;
 
 		
 
@@ -406,6 +426,13 @@ void TaskAsser_Main(void *p_arg)
 			||(distance_control == 1 && angle_control == 1 && error_distance <= DISTANCE_ALPHA_ONLY) ) // Mixed mode : final distance reached
 		{
 			error_angle = setpoint.angle - TaskAsser_CurrentPos.angle;
+
+			// Condition for PI/-PI movement --> find the shortest movement to perform
+			if( TaskAsser_CurrentPos.angle>=0.0) error_angle_path2 = setpoint.angle - (TaskAsser_CurrentPos.angle - 2*M_PI);
+			else error_angle_path2 = setpoint.angle - (TaskAsser_CurrentPos.angle + 2*M_PI);
+
+			if(fabs(error_angle_path2)<fabs(error_angle)) error_angle = error_angle_path2;
+
 			error_distance=0;
 		}
 		
@@ -453,34 +480,9 @@ void TaskAsser_Main(void *p_arg)
 		if(distance_control) error_filtered_distance = PID_Computation(&distance_pid_data, error_distance);
 
 		// Re-scale errors to fit on expected scale
-//		errors_sum = error_filtered_distance + error_filtered_angle;
-//		error_filtered_distance = ( error_filtered_distance * (float) MAX_MOTOR_COMMAND * (1.0 - ANGLE_VS_DISTANCE_RATIO) ) / errors_sum;
-//		error_filtered_angle = ( error_filtered_angle * (float) MAX_MOTOR_COMMAND * ANGLE_VS_DISTANCE_RATIO ) / errors_sum;
+		error_filtered_distance = error_rescale (error_filtered_distance, (1.0 - ANGLE_VS_DISTANCE_RATIO), speed_ratio);
+		error_filtered_angle = error_rescale (error_filtered_angle, ANGLE_VS_DISTANCE_RATIO, speed_ratio);
 
-		if (error_filtered_distance >= (float) MAX_MOTOR_COMMAND * (1.0 - ANGLE_VS_DISTANCE_RATIO))
-		{
-			error_filtered_distance = (float) MAX_MOTOR_COMMAND * (1.0 - ANGLE_VS_DISTANCE_RATIO);
-		}
-		else
-		{
-			if(error_filtered_distance <= -1.0 * (float) MAX_MOTOR_COMMAND * (1.0 - ANGLE_VS_DISTANCE_RATIO))
-			{
-				error_filtered_distance = -1.0 * (float) MAX_MOTOR_COMMAND * (1.0 - ANGLE_VS_DISTANCE_RATIO);
-			}
-		}
-
-		if (error_filtered_angle >= (float) MAX_MOTOR_COMMAND * ANGLE_VS_DISTANCE_RATIO)
-		{
-			error_filtered_angle = (float) MAX_MOTOR_COMMAND * ANGLE_VS_DISTANCE_RATIO;
-		}
-		else
-		{
-			if(error_filtered_angle <= -1.0 * (float) MAX_MOTOR_COMMAND * ANGLE_VS_DISTANCE_RATIO)
-			{
-				error_filtered_angle = -1.0 * (float) MAX_MOTOR_COMMAND * ANGLE_VS_DISTANCE_RATIO;
-			}
-		}
-	
 		// Command merge
 		raw_command_right = error_filtered_distance + error_filtered_angle;
 		raw_command_left = error_filtered_distance - error_filtered_angle;
