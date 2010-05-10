@@ -14,7 +14,7 @@
 #include "TaskOdo.h"
 #include "AppGlobalVars.h"
 
-StructPos *pos;
+struct StructPos *pos;
 OS_EVENT *SemOdo;
 
 // Initialize data types
@@ -28,7 +28,7 @@ OS_EVENT *SemOdo;
 	CPU_INT16U QUADG_data_old;
 
 // ------------------------------------------------------------------------------------------------
-void init_position_manager(StructPos *p)
+void init_position_manager(struct StructPos *p)
 {
 	// init structures
 	pos=p;

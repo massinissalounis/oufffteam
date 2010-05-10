@@ -38,14 +38,14 @@ typedef enum
 
 // STRUCT ################################################################
 // Position -------------------------------------
-typedef struct
+ struct StructPos
 {
 	float 	x;			// Pos en x
 	float 	y;			// Pos en y
 	float 	angle;		// Angle
-	BOOLEAN LockPos;	// Flag to lock previous position
-						// NB : If LockPos is set, other data is ignored
-}StructPos;
+	int		Flag;		// Flag for this position
+						// Use APP_FLAG_POS__... to make a Flag value
+};
 
 // Msg ------------------------------------------
 typedef struct

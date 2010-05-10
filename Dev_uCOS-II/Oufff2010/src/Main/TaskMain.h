@@ -13,12 +13,12 @@
 #include <AppIncludes.h>
 
 // Vars -------------------------------------------------------------------------------------------
-StructPos TaskMain_CurrentPos;							// Local var to read current pos
-StructPos TaskMain_ExpectedPos;						// Local var to store pos we have to go
-StructPos TaskMain_NextSetpointPos;					// Local var to store pos we have to go
-StructPos TaskMain_MovingSeq[APP_MOVING_SEQ_LEN];	// Moving sequence (used for complex moving)
+struct StructPos TaskMain_CurrentPos;						// Local var to read current pos
+struct StructPos TaskMain_ExpectedPos;						// Local var to store pos we have to go
+struct StructPos TaskMain_NextSetpointPos;					// Local var to store pos we have to go
+struct StructPos TaskMain_MovingSeq[APP_MOVING_SEQ_LEN];	// Moving sequence (used for complex moving)
 													// Last point is stored to index APP_MOVING_SEQ_LEN-1, the point before is stored APP_MOVING_SEQ_LEN-2, etc...
-INT8U TaskMain_MovingSeqRemainingSteps;				// Interger to contain number of steps remaining in MovingSeq
+int TaskMain_MovingSeqRemainingSteps;				// Interger to contain number of steps remaining in MovingSeq
 
 // Functions --------------------------------------------------------------------------------------
 void TaskMain_GetNextAction();
@@ -58,4 +58,26 @@ void TaskMain_Main(void *p_arg);
 	// Fonction principale
 	// void *p_arg		: Arg for this task
 
+void LibMoving_MoveInMM(struct StructPos *OldPos, int dist, struct StructPos *NewPos);
+	// OldPos	: pointer to current position
+	// distance : in mm for the movement (>0 go forward, <0 go back)
+	// NewPos	: pointer to the struct for containing new position
+	// In this function, Flag of NewPos is set to APP_FLAG_POS__SIMPLE_MOVE, don't change it
+
+void LibMoving_RotateInDeg(struct StructPos *OldPos, float AngleInDeg, struct StructPos *NewPos);
+	// OldPos		: pointer to current position
+	// AngleInDeg	: angle in degree to do (>0 trigo, <0 horaire)
+	// NewPos		: pointer to the struct for containing new position
+	// In this function, Flag of NewPos is set to APP_FLAG_POS__SIMPLE_MOVE, don't change it
+
+void LibMoving_MoveToAngleInDeg(struct StructPos *OldPos, float AngleToGoInDeg, struct StructPos *NewPos);
+	// OldPos		: pointer to current position
+	// AngleInDeg	: angle in degree we want to go
+	// NewPos		: pointer to the struct for containing new position
+
+void LibMoving_DivideMvt(struct StructPos *OldPos, struct StructPos *ExpectedPos, int *NewMovingSeqRemainingSteps);
+	// OldPos						: pointer to current postion
+	// ExpectedPos					: pointer to expected position
+	// NewMovingSeqRemainingSteps	: Nb of command set into MovingSeq
+	
 #endif // TASKMAIN_H
