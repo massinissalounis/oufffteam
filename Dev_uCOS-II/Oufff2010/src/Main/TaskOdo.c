@@ -153,7 +153,7 @@ void position_manager_process()
 		}
 		else
 		{
-			if(pos->angle<-M_PI)
+			if(pos->angle<=-M_PI)
 			{
 				pos->angle = pos->angle + 2*M_PI; 
 			}

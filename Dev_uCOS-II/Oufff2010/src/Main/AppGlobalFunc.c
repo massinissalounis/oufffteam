@@ -94,7 +94,7 @@ float AppCheckAngleInRad(float ValueToCheck)
 		ValueToCheck = ValueToCheck - 2*M_PI;
 
 	// Check if value is more than -PI rad
-	while(ValueToCheck <= -M_PI)
+	while(ValueToCheck < -M_PI)
 		ValueToCheck = ValueToCheck + 2*M_PI;
 
 	return ValueToCheck;

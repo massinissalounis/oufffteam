@@ -24,7 +24,7 @@
 
 #define KP_DISTANCE 			200.0  //1500.0
 #define KI_DISTANCE 			0.0    //0.0
-#define KD_DISTANCE 			000.0  //12000.0
+#define KD_DISTANCE 			1500.0  //12000.0
 #define IMAX_DISTANCE 			1000.0
 
 #define VMAX_DISTANCE			1.0
@@ -40,6 +40,7 @@
 #define DISTANCE_ALPHA_ONLY		50.0
 
 #define ANGLE_VS_DISTANCE_RATIO	0.5 // n % used for angle on full scale
+#define SPEED_RATIO				1.0 // n % of maximum speed
 
 // Vars -------------------------------------------------------------------------------------------
 struct StructPos TaskAsser_CurrentPos;							// Local var to read current pos
