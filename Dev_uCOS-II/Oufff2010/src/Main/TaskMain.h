@@ -79,5 +79,13 @@ void LibMoving_DivideMvt(struct StructPos *OldPos, struct StructPos *ExpectedPos
 	// OldPos						: pointer to current postion
 	// ExpectedPos					: pointer to expected position
 	// NewMovingSeqRemainingSteps	: Nb of command set into MovingSeq
-	
+
+void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq);
+	// NumEscapeSeq					: Nb of seq to use for create escape seq
+	//		- APP_MOVING_ESCAPE_SEQ_AUTO
+	//		- APP_MOVING_ESCAPE_SEQ_RIGHT
+	//		- APP_MOVING_ESCAPE_SEQ_LEFT
+	//		- APP_MOVING_ESCAPE_SEQ_BACK
+
+
 #endif // TASKMAIN_H

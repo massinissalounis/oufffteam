@@ -44,10 +44,10 @@ void TaskCapteurs_CheckBumpers()
 
 	//GP2_2 : Back **************************************************
 	GP2Data  = ADC_GetVal (GP2_2);
-	//putsUART2("GP2_2 : ");
-	//buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-	//putsUART2(buffer_ptr);
-	//putsUART2("  ");
+//	putsUART2("GP2_2 : ");
+//	buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+//	putsUART2(buffer_ptr);
+//	putsUART2("  ");
 
 	// Check Value
 	if(GP2Data > APP_GP2D2_LIMIT_BACK)
@@ -90,7 +90,7 @@ void TaskCapteurs_CheckClicClic()
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC1, OS_FLAG_CLR, &Err); 
 
 	// CLIC_2 : Front Right *****************************************
-	if(CLIC_state(CLIC_2))		// Front Right
+	if(CLIC_state(CLIC_2))
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC2, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC2, OS_FLAG_CLR, &Err); 
@@ -141,13 +141,13 @@ void TaskCapteurs_Main(void *p_arg)
 	#else
 	// Comment this part to disable start button detection
 		// We're waiting for Start button release
-/*		while(OS_FALSE == TaskCapteurs_IsStartButtonPressed())
+		while(OS_FALSE == TaskCapteurs_IsStartButtonPressed())
 			OSTimeDly(1);	// Release proc
 
 		// We're waiting for start button activation
 		while(OS_TRUE == TaskCapteurs_IsStartButtonPressed())
 			OSTimeDly(1);	// Release proc 
-*/	#endif
+	#endif
 
 	// StartButton has been pressed
 	// We set the current color
