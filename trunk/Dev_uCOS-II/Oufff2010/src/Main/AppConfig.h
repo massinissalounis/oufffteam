@@ -39,10 +39,10 @@
 #define APP_INIT_YELLOW_POS_Y				125.0		// Initial position for blue robot
 #define APP_INIT_YELLOW_ANGLE				045.0		// Initial position for blue robot
 
-#define APP_INIT_ROBOT_SPEED				0.250		// Speed rate (0.0:No Move, 1.0: Full Speed)
+#define APP_INIT_ROBOT_SPEED				0.500		// Speed rate (0.0:No Move, 1.0: Full Speed)
 
 #define APP_GP2D2_LIMIT_FRONT				300			// Object detection around 200 mm
-#define APP_GP2D2_LIMIT_BACK				300			// Object detection around 200 mm
+#define APP_GP2D2_LIMIT_BACK				400			// Object detection around 200 mm
  
 
 #define APP_NOT_USED						0			// Not Used value
@@ -67,27 +67,27 @@
 #define APP_PARAM_TEMPO_RESOLUTION				500			//  in ms (0 to 999): Delay before 2 ticks check in TaskTempo		
 
 #define APP_PARAM_APPFLAG_INITAL_VALUE			0x00000000	//  Initial value for AppFlags var 
-// Value is defined as follow :								//	|Bit| Desctiption				| Value ON 			| Value OFF			|	
-#define APP_PARAM_APPFLAG_START_BUTTON			0x00000001	//	| 0	| Start Button				| Pressed			| Not Pressed		|	
-#define APP_PARAM_APPFLAG_BIT1					0x00000002	//	| 1 | Not Used					| -					| -					|	
-#define APP_PARAM_APPFLAG_BIT2					0x00000004	//	| 2 | Not Used					| -					| -					|	
-#define APP_PARAM_APPFLAG_BIT3					0x00000008	//	| 3 | Not Used					| -					| -					|	
-#define APP_PARAM_APPFLAG_BIT4					0x00000010	//	| 4 | Not Used					| -					| -					|	
-#define APP_PARAM_APPFLAG_BIT5					0x00000020	//	| 5 | Not Used					| -					| -					|	
-#define APP_PARAM_APPFLAG_BIT6					0x00000040	//	| 6 | Not Used					| -					| -					|	
-#define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running	|	
-#define APP_PARAM_APPFLAG_GP2D2_FRONT			0x00000100	//	| 8 | GP2D2 Front				| Active			| Inactive			|	
-#define APP_PARAM_APPFLAG_GP2D2_BACK			0x00000200	//	| 9 | GP2D2 Back				| Active			| Inactive			|	
-#define APP_PARAM_APPFLAG_BUMPER2				0x00000400	//	|10 | Bumpers 2 Status			| Active			| Inactive			|	
-#define APP_PARAM_APPFLAG_BUMPER3				0x00000800	//	|11 | Bumpers 3 Status			| Active			| Inactive			|	
-#define APP_PARAM_APPFLAG_BUMPER_CLIC4			0x00001000	//	|12 | Front Left				| Active			| Inactive			|	
-#define APP_PARAM_APPFLAG_BUMPER_CLIC3			0x00002000	//	|13 | Front Right				| Active			| Inactive			|	
-#define APP_PARAM_APPFLAG_BUMPER_CLIC2			0x00004000	//	|14 | Front Center				| Active			| Inactive			|	
-#define APP_PARAM_APPFLAG_BUMPER_CLIC1			0x00008000	//	|15 | Back Center				| Active			| Inactive			|	
-#define APP_PARAM_APPFLAG_NOT_USED				0xFFFF0000	//  |16 to 32 | Not used			| Not used			| Not used			|					
+// Value is defined as follow :								//	|Bit| Desctiption				| Value ON 			| Value OFF			| Connection	|	
+#define APP_PARAM_APPFLAG_START_BUTTON			0x00000001	//	| 0	| Start Button				| Pressed			| Not Pressed		| S				|
+#define APP_PARAM_APPFLAG_BIT1					0x00000002	//	| 1 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT2					0x00000004	//	| 2 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT3					0x00000008	//	| 3 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT4					0x00000010	//	| 4 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT5					0x00000020	//	| 5 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT6					0x00000040	//	| 6 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running	| NC			|	
+#define APP_PARAM_APPFLAG_GP2D2_FRONT			0x00000100	//	| 8 | GP2D2 Front				| Active			| Inactive			| GP2D2_1		|
+#define APP_PARAM_APPFLAG_GP2D2_BACK			0x00000200	//	| 9 | GP2D2 Back				| Active			| Inactive			| GP2D2_2		|
+#define APP_PARAM_APPFLAG_GP2D2_3				0x00000400	//	|10 | Bumpers 2 Status			| Active			| Inactive			| NC			|
+#define APP_PARAM_APPFLAG_GP2D2_4				0x00000800	//	|11 | Bumpers 3 Status			| Active			| Inactive			| NC			|	
+#define APP_PARAM_APPFLAG_BUMPER_CLIC1			0x00001000	//	|12 | Front Left				| Active			| Inactive			| NC			|
+#define APP_PARAM_APPFLAG_BUMPER_CLIC2			0x00002000	//	|13 | Front Right				| Active			| Inactive			| NC			|
+#define APP_PARAM_APPFLAG_BUMPER_CLIC3			0x00004000	//	|14 | Front Center				| Active			| Inactive			| CLIC_3		|
+#define APP_PARAM_APPFLAG_BUMPER_CLIC4			0x00008000	//	|15 | Rear Center				| Active			| Inactive			| CLIC_4		|
+#define APP_PARAM_APPFLAG_NOT_USED				0xFFFF0000	//  |16 to 32 | Not used			| Not used			| Not used			| -				|	
 
 // Flag to check all Flags
-#define APP_PARAM_APPFLAG_ALL_BUMPERS			(APP_PARAM_APPFLAG_GP2D2_FRONT | APP_PARAM_APPFLAG_GP2D2_BACK | APP_PARAM_APPFLAG_BUMPER2 | APP_PARAM_APPFLAG_BUMPER3 | APP_PARAM_APPFLAG_BUMPER_CLIC1 | APP_PARAM_APPFLAG_BUMPER_CLIC2 | APP_PARAM_APPFLAG_BUMPER_CLIC3 | APP_PARAM_APPFLAG_BUMPER_CLIC4)
+#define APP_PARAM_APPFLAG_ALL_BUMPERS			(APP_PARAM_APPFLAG_GP2D2_FRONT | APP_PARAM_APPFLAG_GP2D2_BACK | APP_PARAM_APPFLAG_GP2D2_3 | APP_PARAM_APPFLAG_GP2D2_4 | APP_PARAM_APPFLAG_BUMPER_CLIC1 | APP_PARAM_APPFLAG_BUMPER_CLIC2 | APP_PARAM_APPFLAG_BUMPER_CLIC3 | APP_PARAM_APPFLAG_BUMPER_CLIC4)
 
 #define APP_PARAM_ERR_ON_POS					55.0						// Error in mm for x and y for considering setpoint is reached
 #define APP_PARAM_ERR_ON_ANGLE					(2.00 * M_PI / 180.0)		// Error in rad for angle for considering setpoint is reached
@@ -143,6 +143,11 @@
 #define APP_MOVING_ASSER_IN_POS_ENABLED			OS_TRUE		// Indicate if we use asser in pos
 #define APP_MOVING_ASSER_IN_ANGLE_ENABLED		OS_TRUE		// Indicate if we use asser in angle
 #define APP_MOVING_ASSER_IN_SPEED_ENABLED		OS_FALSE	// Indicate if we use asser in speed (Not used)
+
+#define APP_MOVING_ESCAPE_SEQ_AUTO				0			// Escape sequence auto (select which seq is the most performent)
+#define APP_MOVING_ESCAPE_SEQ_RIGHT				1			// Escape sequence by the right
+#define APP_MOVING_ESCAPE_SEQ_LEFT				2			// Escape sequence by the left
+#define APP_MOVING_ESCAPE_SEQ_BACK				3			// Escape sequence by the back
 
 /*
 *********************************************************************************************************

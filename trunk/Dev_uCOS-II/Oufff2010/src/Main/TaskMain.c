@@ -139,16 +139,19 @@ void TaskMain_GetNextActionForColorA()
 	// Activate Moving
 	ptr->Flag = APP_FLAG_POS__NO_FLAG;
 
+	if(CurrentActionForColorA > 5)
+		CurrentActionForColorA = 0;
+
 	// Search for position
 	switch(CurrentActionForColorA)
 	{	
 		// Carre
-		case 0:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(0045.0);		break;
-		case 1:		ptr->x = 0200.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0090.0);		break;
-		case 2:		ptr->x = 0800.0;	ptr->y = 0800.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
-		case 3:		ptr->x = 0800.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(-090.0);		break;
-		case 4:		ptr->x = 0200.0;	ptr->y = 0200.0;	ptr->angle	= AppConvertDegInRad(-180.0);		break;
-		case 5:		ptr->x = 0130.0;	ptr->y = 0130.0;	ptr->angle	= AppConvertDegInRad(-135.0);		break;
+		case 0:		ptr->x = 0300.0;	ptr->y = 0300.0;	ptr->angle	= AppConvertDegInRad(0045.0);		break;
+		case 1:		ptr->x = 0300.0;	ptr->y = 0700.0;	ptr->angle	= AppConvertDegInRad(0090.0);		break;
+		case 2:		ptr->x = 0700.0;	ptr->y = 0700.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
+		case 3:		ptr->x = 0700.0;	ptr->y = 0300.0;	ptr->angle	= AppConvertDegInRad(-090.0);		break;
+		case 4:		ptr->x = 0300.0;	ptr->y = 0300.0;	ptr->angle	= AppConvertDegInRad(0045.0);		break;
+		case 5:		ptr->x = 0125.0;	ptr->y = 0125.0;	ptr->angle	= AppConvertDegInRad(0045.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;	break;
 		
 
 //		case 1:		LibMoving_MoveInMM(TaskMain_CurrentPos, 1000, ptr);									break;
@@ -224,7 +227,6 @@ void TaskMain_CheckForBumpers()
 	static BOOLEAN FlagGP2D2_2 = OS_FALSE;		// Flag for simple detection (GB2D2 2)
 	static BOOLEAN FlagGP2D2_3 = OS_FALSE;		// Flag for simple detection (GB2D2 3)
 	static BOOLEAN FlagGP2D2_4 = OS_FALSE;		// Flag for simple detection (GB2D2 4)
-	static BOOLEAN FlagGP2D2_5 = OS_FALSE;		// Flag for simple detection (GB2D2 5)
 	static BOOLEAN FlagClicClic_1 = OS_FALSE;	// Flag for simple detection (ClicClic 1)
 	static BOOLEAN FlagClicClic_2 = OS_FALSE;	// Flag for simple detection (ClicClic 2)
 	static BOOLEAN FlagClicClic_3 = OS_FALSE;	// Flag for simple detection (ClicClic 3)
@@ -237,105 +239,107 @@ void TaskMain_CheckForBumpers()
 	if((0 != CurrentBumpersFlag) || (OS_TRUE == FlagGlobal))	
 	{
 		// Otherwise, we have to check, where we have bumped and how to escape
-		// GP2D2 : Front
+		// GP2D2_1 : Front **************************************************************
 		if((CurrentBumpersFlag & APP_PARAM_APPFLAG_GP2D2_FRONT) == APP_PARAM_APPFLAG_GP2D2_FRONT)	
 		{
 			if(OS_FALSE == FlagGP2D2_1)
 			{
+				putsUART2("TaskMain: Collision -> GP2D2_FRONT\n");
 				FlagGP2D2_1 = OS_TRUE;
-				TaskMain_StopMvt();	
-				// TODO : Action à réaliser
-				TaskMain_NextSetpointPos.Flag = APP_FLAG_POS__LOCK_IN_POS;
+				TaskMain_StopMvt();
+				LibMoving_CreateEscapeSeq(APP_MOVING_ESCAPE_SEQ_AUTO);
 			}
 		}
 		else
+		{
 			FlagGP2D2_1 = OS_FALSE;
+		}
 		
-		// GP2D2 : Back
+		// GP2D2_2 : Back ***************************************************************
 		if((CurrentBumpersFlag & APP_PARAM_APPFLAG_GP2D2_BACK) == APP_PARAM_APPFLAG_GP2D2_BACK)	
 		{
 			if(OS_FALSE == FlagGP2D2_2)
 			{
+				putsUART2("TaskMain: Collision -> GP2D2_BACK\n");
 				FlagGP2D2_2 = OS_TRUE;
 				TaskMain_StopMvt();	
-				// TODO : Action à réaliser
-				TaskMain_NextSetpointPos.Flag = APP_FLAG_POS__LOCK_IN_POS;
+				LibMoving_CreateEscapeSeq(APP_MOVING_ESCAPE_SEQ_AUTO);
 			}
 		}
 		else
+		{
 			FlagGP2D2_2 = OS_FALSE;
-		
-		// Bumper 2
-		if((CurrentBumpersFlag & APP_PARAM_APPFLAG_BUMPER2) == APP_PARAM_APPFLAG_BUMPER2)	
-		{
-			// TODO : Action à réaliser
 		}
 		
-		// Bumper 3
-		if((CurrentBumpersFlag & APP_PARAM_APPFLAG_BUMPER3) == APP_PARAM_APPFLAG_BUMPER3)	
+		// GP2D2_3 : Not Used ***********************************************************
+		if((CurrentBumpersFlag & APP_PARAM_APPFLAG_GP2D2_3) == APP_PARAM_APPFLAG_GP2D2_3)	
 		{
 			// TODO : Action à réaliser
-		}
-		
-		// Clic 4 : Back Center
-		if((CurrentBumpersFlag & APP_PARAM_APPFLAG_BUMPER_CLIC4) == APP_PARAM_APPFLAG_BUMPER_CLIC4)	
-		{
-			if(OS_FALSE == FlagClicClic_4)
-			{
-				FlagClicClic_4 = OS_TRUE;
-				TaskMain_StopMvt();	
-				// TODO : Action à réaliser
-				TaskMain_NextSetpointPos.Flag = APP_FLAG_POS__LOCK_IN_POS;
-			}
 		}
 		else
-			FlagClicClic_4 = OS_FALSE;
+			FlagGP2D2_3 = OS_FALSE;
 
-		
-		// Clic 3 : Front Center
-		if((CurrentBumpersFlag & APP_PARAM_APPFLAG_BUMPER_CLIC3) == APP_PARAM_APPFLAG_BUMPER_CLIC3)	
+		// GP2D2_4 : Not Used ***********************************************************
+		if((CurrentBumpersFlag & APP_PARAM_APPFLAG_GP2D2_4) == APP_PARAM_APPFLAG_GP2D2_4)	
 		{
-			if(OS_FALSE == FlagClicClic_3)
-			{
-				FlagClicClic_3 = OS_TRUE;
-				TaskMain_StopMvt();	
-				// TODO : Action à réaliser
-				TaskMain_NextSetpointPos.Flag = APP_FLAG_POS__LOCK_IN_POS;
-			}
+			// TODO : Action à réaliser
 		}
 		else
-			FlagClicClic_3 = OS_FALSE;
-		
-		// Clic 2 : Front Right
-		if((CurrentBumpersFlag & APP_PARAM_APPFLAG_BUMPER_CLIC2) == APP_PARAM_APPFLAG_BUMPER_CLIC2)	
-		{
-			if(OS_FALSE == FlagClicClic_2)
-			{
-				FlagClicClic_2 = OS_TRUE;
-				TaskMain_StopMvt();	
-				// TODO : Action à réaliser
-				TaskMain_NextSetpointPos.Flag = APP_FLAG_POS__LOCK_IN_POS;
-			}
-		}
-		else
-			FlagClicClic_2 = OS_FALSE;
-		
-		// Clic 1 : Front Left
+			FlagGP2D2_4 = OS_FALSE;
+
+		// Clic 1 : Front Left **********************************************************
 		if((CurrentBumpersFlag & APP_PARAM_APPFLAG_BUMPER_CLIC1) == APP_PARAM_APPFLAG_BUMPER_CLIC1)	
 		{
-			if(OS_FALSE == FlagClicClic_1)
-			{
-				FlagClicClic_1 = OS_TRUE;
-				TaskMain_StopMvt();	
 				// TODO : Action à réaliser
-				TaskMain_NextSetpointPos.Flag = APP_FLAG_POS__LOCK_IN_POS;
-			}
 		}
 		else
 			FlagClicClic_1 = OS_FALSE;
 
+		// Clic 2 : Front Right *********************************************************
+		if((CurrentBumpersFlag & APP_PARAM_APPFLAG_BUMPER_CLIC2) == APP_PARAM_APPFLAG_BUMPER_CLIC2)	
+		{
+				// TODO : Action à réaliser
+		}
+		else
+			FlagClicClic_2 = OS_FALSE;
+		
+		// Clic 3 : Front Center ********************************************************
+		if((CurrentBumpersFlag & APP_PARAM_APPFLAG_BUMPER_CLIC3) == APP_PARAM_APPFLAG_BUMPER_CLIC3)	
+		{
+			if(OS_FALSE == FlagClicClic_3)
+			{
+				putsUART2("TaskMain: Collision -> CLIC_FRONT_CENTER\n");
+				FlagClicClic_3 = OS_TRUE;
+				TaskMain_StopMvt();	
+				LibMoving_CreateEscapeSeq(APP_MOVING_ESCAPE_SEQ_AUTO);
+			}
+		}
+		else
+		{
+			FlagClicClic_3 = OS_FALSE;
+		}
+		
+		// Clic 4 : Back Center *********************************************************
+		if((CurrentBumpersFlag & APP_PARAM_APPFLAG_BUMPER_CLIC4) == APP_PARAM_APPFLAG_BUMPER_CLIC4)	
+		{
+			if(OS_FALSE == FlagClicClic_4)
+			{
+				putsUART2("TaskMain: Collision -> CLIC_BACK_CENTER\n");
+				FlagClicClic_4 = OS_TRUE; 
+				TaskMain_StopMvt();	
+				LibMoving_CreateEscapeSeq(APP_MOVING_ESCAPE_SEQ_AUTO);
+			}
+		}
+		else
+		{
+			FlagClicClic_4 = OS_FALSE;
+		}
+
 		// Set value of FlagGlobal
-		FlagGlobal = FlagGP2D2_1 || FlagGP2D2_2 || FlagGP2D2_3 || FlagGP2D2_4 || FlagGP2D2_5 || FlagClicClic_1 || FlagClicClic_2 || FlagClicClic_3 || FlagClicClic_4;
+		FlagGlobal = FlagGP2D2_1 || FlagGP2D2_2 || FlagGP2D2_3 || FlagGP2D2_4 || FlagClicClic_1 || FlagClicClic_2 || FlagClicClic_3 || FlagClicClic_4;
+
+		if(OS_FALSE == FlagGlobal)
+			TaskMain_NextSetpointPos.Flag = APP_FLAG_POS__NO_FLAG;
 	}
 
 	return;
@@ -378,6 +382,10 @@ void TaskMain_StopMvt()
 	// Send STOP msg
 	OSQPostFront(AppQueueAsserEvent, (void*)(&AppHighPrioMsg));
 
+	// Block movement until next order
+	memcpy(&TaskMain_NextSetpointPos, &TaskMain_CurrentPos, sizeof(struct StructPos));
+	TaskMain_NextSetpointPos.Flag = APP_FLAG_POS__LOCK_IN_POS;
+
 	// Set all pending msg for AsserTask status to READ
 	for(i=0; i<(APP_QUEUES_TOTAL_SIZE); i++)
 	{
@@ -385,7 +393,7 @@ void TaskMain_StopMvt()
 			&&	((AppMsgStk[i].Msg - Msg_Asser_MsgType) < 100))
 		{
 			memset(&(AppMsgStk[i]), 0, sizeof(StructMsg));
-			AppMsgStk[i].IsRead = OS_FALSE;
+			AppMsgStk[i].IsRead = OS_TRUE;
 		}
 	}
 
@@ -530,14 +538,15 @@ void TaskMain_Main(void *p_arg)
 		// if time is running, we check current postition
 		if((CurrentFlag & APP_PARAM_APPFLAG_TIMER_STATUS) == 0)
 		{
-			// Check if we are arrived to setpoint
-			if(OS_TRUE == TaskMain_IsSetpointReached())
+			// Check if we can move
+			if(0 == (TaskMain_NextSetpointPos.Flag & APP_FLAG_POS__LOCK_IN_POS))
 			{
-				// Setpoint has been reached, we check for next action
-				TaskMain_GetNextAction();
-
-				if(0 == (TaskMain_NextSetpointPos.Flag & APP_FLAG_POS__LOCK_IN_POS))
+				// Check if we are arrived to setpoint
+				if(OS_TRUE == TaskMain_IsSetpointReached())
 				{
+					// Setpoint has been reached, we check for next action
+					TaskMain_GetNextAction();
+	
 					// We send new pos to asser task
 					// Create msg for asser task for setting start pos
 					MsgToPost.Msg		= Msg_Asser_GoToXYA;
@@ -545,9 +554,6 @@ void TaskMain_Main(void *p_arg)
 					MsgToPost.Param2	= TaskMain_NextSetpointPos.y;
 					MsgToPost.Param3	= TaskMain_NextSetpointPos.angle;
 	
-					// Test
-					OSTimeDlyHMSM(0, 0, 1, 0);		
-				
 					/*putsUART2("TASK_MAIN : Send Mesg ---> X=");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskMain_NextSetpointPos.x, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
@@ -671,14 +677,6 @@ void LibMoving_DivideMvt(struct StructPos *OldPos, struct StructPos *ExpectedPos
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).y	 	= OldPos->y;
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).angle 	= atan2f(TmpY, TmpX);
 
-	// Compute Angle
-	//TmpAngle = atan2f(TmpY, TmpX);
-	//TmpNewAngle = TmpAngle - (TmpAngle / fabs(TmpAngle))*2*M_PI;
-	//if(fabs(TmpAngle - OldPos->angle) < fabs(TmpNewAngle - OldPos->angle))
-	//	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).angle 	= TmpAngle;
-	//else
-	//	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).angle 	= TmpNewAngle;
-
 	// Second one: Go to the expected pos
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).x	 	= ExpectedPos->x;
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).y	 	= ExpectedPos->y;
@@ -688,13 +686,6 @@ void LibMoving_DivideMvt(struct StructPos *OldPos, struct StructPos *ExpectedPos
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).x	 	= ExpectedPos->x;
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).y	 	= ExpectedPos->y;
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).angle 	= ExpectedPos->angle;
-	// Compute Angle
-	//TmpAngle = ExpectedPos->angle;
-	//TmpNewAngle = TmpAngle - (TmpAngle / fabs(TmpAngle))*2*M_PI;
-	//if(fabs(TmpAngle - OldPos->angle) < fabs(TmpNewAngle - OldPos->angle))
-	//	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).angle 	= TmpAngle;
-	//else
-	//	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).angle 	= TmpNewAngle;
 
 	// Set the nb of steps for this movment
 	*NewMovingSeqRemainingSteps = 3;
@@ -706,4 +697,22 @@ void LibMoving_DivideMvt(struct StructPos *OldPos, struct StructPos *ExpectedPos
 	// if we are here, that means that no moving algo has been set
 	*NewMovingSeqRemainingSteps = -1;
 	return;
+}
+
+void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq)
+{
+	switch(NumEscapeSeq)
+	{
+		case APP_MOVING_ESCAPE_SEQ_RIGHT: // ********************************************
+			break;
+
+		case APP_MOVING_ESCAPE_SEQ_LEFT: // ********************************************
+			break;
+
+		case APP_MOVING_ESCAPE_SEQ_BACK: // ********************************************
+			break;
+
+		default:
+			break;
+	}
 }
