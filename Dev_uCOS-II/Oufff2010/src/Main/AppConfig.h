@@ -31,19 +31,18 @@
 *                                            GLOBAL SETTINGS
 *********************************************************************************************************
 */
-#define APP_INIT_BLUE_POS_X					125.0		// Initial position for blue robot
+#define APP_INIT_BLUE_POS_X					2875.0		// Initial position for blue robot
 #define APP_INIT_BLUE_POS_Y					125.0		// Initial position for blue robot
-#define APP_INIT_BLUE_ANGLE					045.0		// Initial position for blue robot
+#define APP_INIT_BLUE_ANGLE					135.0		// Initial position for blue robot
 
 #define APP_INIT_YELLOW_POS_X				125.0		// Initial position for blue robot
 #define APP_INIT_YELLOW_POS_Y				125.0		// Initial position for blue robot
 #define APP_INIT_YELLOW_ANGLE				045.0		// Initial position for blue robot
 
-#define APP_INIT_ROBOT_SPEED				0.500		// Speed rate (0.0:No Move, 1.0: Full Speed)
+#define APP_INIT_ROBOT_SPEED				0.600		// Speed rate (0.0:No Move, 1.0: Full Speed)
 
 #define APP_GP2D2_LIMIT_FRONT				300			// Object detection around 200 mm
 #define APP_GP2D2_LIMIT_BACK				400			// Object detection around 200 mm
- 
 
 #define APP_NOT_USED						0			// Not Used value
 
@@ -144,10 +143,14 @@
 #define APP_MOVING_ASSER_IN_ANGLE_ENABLED		OS_TRUE		// Indicate if we use asser in angle
 #define APP_MOVING_ASSER_IN_SPEED_ENABLED		OS_FALSE	// Indicate if we use asser in speed (Not used)
 
-#define APP_MOVING_ESCAPE_SEQ_AUTO				0			// Escape sequence auto (select which seq is the most performent)
-#define APP_MOVING_ESCAPE_SEQ_RIGHT				1			// Escape sequence by the right
-#define APP_MOVING_ESCAPE_SEQ_LEFT				2			// Escape sequence by the left
-#define APP_MOVING_ESCAPE_SEQ_BACK				3			// Escape sequence by the back
+#define APP_MOVING_ESCAPE_SEQ_STOP				0			// No escape sequence. In case of collision, do nothing and stay in pos
+#define APP_MOVING_ESCAPE_SEQ_FRONT_RIGHT		1			// Escape sequence by the right (to the front)
+#define APP_MOVING_ESCAPE_SEQ_FRONT_LEFT		2			// Escape sequence by the left (to the front)
+#define APP_MOVING_ESCAPE_SEQ_FRONT_BACK		3			// Escape sequence by the back (to the front)
+#define APP_MOVING_ESCAPE_SEQ_CHECK_CORN		4			// Escape sequence by the back (to the front)
+
+// Choose the default escape sequence to use
+#define APP_MOVING_ESCAPE_SEQ_FRONT_DEFAULT		APP_MOVING_ESCAPE_SEQ_STOP
 
 /*
 *********************************************************************************************************
@@ -155,9 +158,37 @@
 *********************************************************************************************************
 */
 #define APP_FLAG_POS__NO_FLAG					0x00		// No flag has been set
-#define APP_FLAG_POS__LOCK_IN_POS				0x01		// Robot stay in pos when it arrives to expeted pos
-#define APP_FLAG_POS__SIMPLE_MOVE				0x02		// There is no decomposition if this flag is et
+#define APP_FLAG_POS__LOCK_IN_POS				0x01		// Robot stay in pos when it arrives to expected pos
+#define APP_FLAG_POS__SIMPLE_MOVE				0x02		// There is no decomposition if this flag is set
+#define APP_FLAG_POS__CHECK_CORN				0x04		// Flag to indicate next order checks for corn (low speed)
 
+/*
+*********************************************************************************************************
+*                                           SENSORS FLAGS
+*********************************************************************************************************
+*/
+#define SENSORS_GPD2D_1						0x00				// GPD2D2_1 : Front sensor
+#define SENSORS_GPD2D_2						0x01				// GPD2D2_2 : Back sensor
+#define SENSORS_GPD2D_3						0x02				// GPD2D2_3 : Not Used
+#define SENSORS_GPD2D_4						0x03				// GPD2D2_4 : Not Used
+#define SENSORS_CLICCLIC_1					0x04				// CLICCLIC_1 : Not Used
+#define SENSORS_CLICCLIC_2					0x05				// CLICCLIC_2 : Not Used
+#define SENSORS_CLICCLIC_3					0x06				// CLICCLIC_3 : Front Sensor
+#define SENSORS_CLICCLIC_4					0x07				// CLICCLIC_4 : Back Sensor
+#define SENSORS_ALL							0x08				// Must be the highest value for block SENSORS_...
+
+#define SENSORS_NONE_ID						0x0000											// None
+#define SENSORS_GPD2D_1_ID					0x0001											// GPD2D2_1 : Front sensor
+#define SENSORS_GPD2D_2_ID					0x0002											// GPD2D2_2 : Back sensor
+#define SENSORS_GPD2D_3_ID					0x0004											// GPD2D2_3 : Not Used
+#define SENSORS_GPD2D_4_ID					0x0008											// GPD2D2_4 : Not Used
+#define SENSORS_CLICCLIC_1_ID				0x0010											// CLICCLIC_1 : Not Used
+#define SENSORS_CLICCLIC_2_ID				0x0020											// CLICCLIC_2 : Not Used
+#define SENSORS_CLICCLIC_3_ID				0x0040											// CLICCLIC_3 : Front Sensor
+#define SENSORS_CLICCLIC_4_ID				0x0080											// CLICCLIC_4 : Back Sensor
+#define SENSORS_BACK_ID						(SENSORS_GPD2D_2_ID + SENSORS_CLICCLIC_4_ID)	// Back Sensors (GPD2D2_2 + CLICCLIC_4)
+#define SENSORS_FRONT_ID					(SENSORS_GPD2D_1_ID + SENSORS_CLICCLIC_3_ID)	// Front Sensors (GPD2D2_1 + CLICCLIC_3)
+#define SENSORS_ALL_ID						0xFFFF
 /*
 *********************************************************************************************************
 *                                           LIB CONFIG
