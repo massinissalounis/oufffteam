@@ -18,7 +18,7 @@
 #include "AppGlobalVars.h"
 
 // ------------------------------------------------------------------------------------------------
-void AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
+BOOLEAN AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
 {
 	static INT8U CurrentIndex = 0;
 	int i, NextFreeIndex;
@@ -62,11 +62,16 @@ void AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
 		#ifdef _TARGET_STARTER_KIT
 			LED_Toggle(2);
 		#endif
+
+		return OS_TRUE;
 	}
 	else
 	{
-			putsUART2("!!! Message Lost !!!\n");
+		putsUART2("AppGlobalFunc : Queue Full !!!\n");
+		return OS_FALSE;
 	}
+
+	return OS_FALSE;
 }
 
 // ------------------------------------------------------------------------------------------------

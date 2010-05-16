@@ -37,10 +37,12 @@ void TaskCapteurs_CheckBumpers()
 	//putsUART2("  ");
 
 	// Check Value
+#ifdef APP_GP2D2_LIMIT_FRONT
 	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2D2_FRONT, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2D2_FRONT, OS_FLAG_CLR, &Err); 
+#endif
 
 	//GP2_2 : Back **************************************************
 	GP2Data  = ADC_GetVal (GP2_2);
@@ -50,10 +52,12 @@ void TaskCapteurs_CheckBumpers()
 //	putsUART2("  ");
 
 	// Check Value
+#ifdef APP_GP2D2_LIMIT_BACK
 	if(GP2Data > APP_GP2D2_LIMIT_BACK)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2D2_BACK, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2D2_BACK, OS_FLAG_CLR, &Err); 
+#endif
 
 	//GP2_3 : Not Used **********************************************
 	//GP2Data  = ADC_GetVal (GP2_3);
@@ -134,6 +138,10 @@ void TaskCapteurs_Main(void *p_arg)
 
 	putsUART2("OUFFF TEAM 2010 : Capteurs online\n");
 
+	// We set the current color
+	OSTimeDlyHMSM(0, 0, 0, 500);
+	TaskCapteurs_ReadColor();
+
 	#ifdef _TARGET_STARTER_KIT
 		OSTimeDlyHMSM(0, 0, 0, 500);	LED_Off(1);	
 		OSTimeDlyHMSM(0, 0, 0, 500);	LED_Off(2);	
@@ -150,8 +158,6 @@ void TaskCapteurs_Main(void *p_arg)
 	#endif
 
 	// StartButton has been pressed
-	// We set the current color
-	TaskCapteurs_ReadColor();
 	
 	OSFlagPost(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_SET, &Err); 
 

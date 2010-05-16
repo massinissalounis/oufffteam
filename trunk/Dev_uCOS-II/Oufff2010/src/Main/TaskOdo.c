@@ -217,7 +217,7 @@ void TaskOdo_Main(void *p_arg)
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pos->y, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2(",alpha : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (pos->angle*180.0/M_PI), (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (pos->angle*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2("\n");
 				}

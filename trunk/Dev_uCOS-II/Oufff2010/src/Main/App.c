@@ -52,6 +52,9 @@ void AppInitVar();					/* Function to initialize variables	*/
 
 int  main (void)
 {
+	unsigned char test_color = 1;
+	char 		uart_buffer[13];
+	char 		*buffer_ptr;
     CPU_INT08U  err;
 
     BSP_IntDisAll();			/* Disable all interrupts until we are ready to accept them */
@@ -62,6 +65,13 @@ int  main (void)
 	AppTaskStart();				/* Start all tasks											*/
 
 	putsUART2("OUFFF TEAM 2010\n");
+
+#ifndef APP_GP2D2_LIMIT_FRONT
+	putsUART2("WARNING !!!! GP2D2_Front disabled\n");
+#endif
+#ifndef APP_GP2D2_LIMIT_FRONT
+	putsUART2("WARNING !!!! GP2D2_Back disabled\n");
+#endif
 
     OSStart();                  /* Start multitasking (i.e. give control to uC/OS-II)       */
 	/* This part would be never executed */

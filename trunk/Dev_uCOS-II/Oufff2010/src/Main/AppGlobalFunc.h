@@ -10,10 +10,11 @@
 #ifndef APPGLOBALFUNC_H
 #define APPGLOBALFUNC_H 
 
-void AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost);
+BOOLEAN AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost);
 	// Generic funct to post a msg into a queue
 	// PtrQueue		: Pointer to Queue
 	// PtrMsgToPost	: Pointer to msg to post
+	// Returns OS_TRUE if msg is sent, OS_FALSE if msg is waiting for transmit
 
 float AppConvertRadInDeg(float ValueInRad);	
 	// Funct to convert an angle in Rad to an angle in Deg

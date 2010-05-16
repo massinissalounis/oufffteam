@@ -17,8 +17,8 @@ struct StructPos TaskMain_CurrentPos;						// Local var to read current pos
 struct StructPos TaskMain_ExpectedPos;						// Local var to store pos we have to go
 struct StructPos TaskMain_NextSetpointPos;					// Local var to store pos we have to go
 struct StructPos TaskMain_MovingSeq[APP_MOVING_SEQ_LEN];	// Moving sequence (used for complex moving)
-													// Last point is stored to index APP_MOVING_SEQ_LEN-1, the point before is stored APP_MOVING_SEQ_LEN-2, etc...
-int TaskMain_MovingSeqRemainingSteps;				// Interger to contain number of steps remaining in MovingSeq
+															// Last point is stored to index APP_MOVING_SEQ_LEN-1, the point before is stored APP_MOVING_SEQ_LEN-2, etc...
+int TaskMain_MovingSeqRemainingSteps;						// Interger to contain number of steps remaining in MovingSeq
 
 // Functions --------------------------------------------------------------------------------------
 void TaskMain_GetNextAction();
@@ -54,6 +54,12 @@ BOOLEAN TaskMain_IsSetpointReached();
 	// Return OS_TRUE if it's ok, OS_FALSE otherwise
 	// APP_PARAM_ERR_ON_POS and APP_PARAM_ERR_ON_ANGLE allow you to change precision for positionning
 
+void TaskMain_EnableSensors(int SensorID);
+	// Function to enable sensor 'SensorID'
+
+void TaskMain_DisableSensors(int SensorID);
+	// Function to disable sensor 'SensorID'
+
 void TaskMain_Main(void *p_arg);
 	// Fonction principale
 	// void *p_arg		: Arg for this task
@@ -86,6 +92,16 @@ void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq);
 	//		- APP_MOVING_ESCAPE_SEQ_RIGHT
 	//		- APP_MOVING_ESCAPE_SEQ_LEFT
 	//		- APP_MOVING_ESCAPE_SEQ_BACK
+	//		- APP_MOVING_ESCAPE_SEQ_STOP
+	//		- APP_MOVING_ESCAPE_SEQ_CHECK_CORN
+	// Use APP_MOVING_ESCAPE_SEQ_DEFAULT for default escape sequence
 
+void LibMoving_SetSpeed(float SpeedRate);
+	// Function to set robot speed
+	// SpeedRate is between 0.0 and 1.0
+
+void LibMoving_CheckCorn();
+	// Function to try to fall down corns.
+	// Robot will bump into corn, go back and try again. 
 
 #endif // TASKMAIN_H
