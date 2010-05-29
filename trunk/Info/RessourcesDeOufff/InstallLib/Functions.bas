@@ -7,6 +7,8 @@ Public Sub Step0()
     Dim StartPath As Integer
     Dim TestDir As Boolean
     
+    On Error Resume Next
+    
     FormStep1.ProgressBarScan.Max = 3
     FormStep1.ProgressBarScan = 0
 
