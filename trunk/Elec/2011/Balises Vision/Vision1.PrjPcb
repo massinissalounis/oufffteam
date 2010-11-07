@@ -72,18 +72,18 @@ AutoOpenOutJob=-1
 [Generic_SmartPDFSettings]
 ProjectMode=-1
 ZoomPrecision=50
-AddNetsInformation=-1
+AddNetsInformation=0
 AddNetPins=-1
 AddNetNetLabels=-1
 AddNetPorts=-1
-ExportBOM=-1
+ExportBOM=0
 TemplateFilename=
 TemplateStoreRelative=-1
 PCB_PrintColor=0
 SCH_PrintColor=0
-SCH_ShowNoErc=-1
-SCH_ShowParameter=-1
-SCH_ShowProbes=-1
+SCH_ShowNoErc=0
+SCH_ShowParameter=0
+SCH_ShowProbes=0
 OutputFileName=Vision1.PrjPcb=C:\Elec\oufffteam\2011\Balises Vision\Vision1.pdf
 SCH_ExpandLogicalToPhysical=0
 SCH_VariantName=[None]
