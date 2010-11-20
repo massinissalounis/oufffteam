@@ -1,27 +1,25 @@
-Circuit: * C:\Elec\oufffteam\2011\Balises IR\dc-dc converters\simus\sliding-mode buck.asc
+Circuit: * C:\oufffteam\SVN\Elec\2011\Balises IR\dc-dc converters\simus\sliding-mode buck.asc
 
 Direct Newton iteration for .op point succeeded.
 Ignoring empty pin current: Ix(u2:5)
 Ignoring empty pin current: Ix(u2:5)
-Heightened Def Con from 5.001e-005 +++++++++++++++to 5.001e-005
 Heightened Def Con from 5.001e-005 to 5.0012e-005
 
-Date: Sun Nov 07 15:06:18 2010
-Total elapsed time: 30.813 seconds.
+Date: Sat Nov 20 16:25:49 2010
+Total elapsed time: 36.766 seconds.
 
 tnom = 27
 temp = 27
 method = modified trap
-totiter = 663876
-traniter = 663856
-tranpoints = 161563
-accept = 116766
-rejected = 44814
+totiter = 662596
+traniter = 662576
+tranpoints = 161307
+accept = 116601
+rejected = 44707
 matrix size = 105
 fillins = 77
 solver = Normal
-Thread vector: 32.8/19.9[2] 14.8/9.0[2] 2.5/2.2[2] 1.5/1.5[1]  2592/500
-Matrix Compiler1: 8,24 Ko object code size  6.0/5.2/[2.0]
-Matrix Compiler2: 8,60 Ko object code size  2.9/4.3/[1.6]
+Matrix Compiler1: 8,24 Ko object code size  8.7/7.4/[3.7]
+Matrix Compiler2: 8,60 Ko object code size  4.3/6.6/[3.3]
 
 
