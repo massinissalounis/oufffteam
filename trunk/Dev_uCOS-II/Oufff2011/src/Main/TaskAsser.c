@@ -22,26 +22,18 @@
 // PID datas
 PID_data angle_pid_data;
 PID_data distance_pid_data;
+PID_data wheel_right_pid_data;
+PID_data wheel_left_pid_data;
 
 SLEWRATE_data angle_slewrate_data;
 SLEWRATE_data distance_slewrate_data;
+
+QUADRAMP_data distance_quadramp_data;
 
 // General robot control datas
 struct StructPos setpoint;
 
 // Loop datas
-float error_distance;
-float scalar_product;
-float error_angle;
-float error_angle_path2;
-float signe_error_angle;
-float error_filtered_distance;
-float error_filtered_angle;
-float raw_command_left;
-float raw_command_right;
-INT16S command_left;
-INT16S command_right;
-
 float error_debug_1;
 float error_debug_2;
 float error_debug_3;
@@ -51,10 +43,6 @@ float error_current_debug;
 float D_debug;
 float P_debug;
 float I_debug;
-
-INT16S duty_left;
-INT16S duty_right;
-
 
 /////////////////////////////////////////////////////////////
 // MOTOR CONTROL
@@ -77,8 +65,6 @@ void right_motor_control (INT16S value)
 
 	abs_value = abs_value <<1; // full scale data
 
-	duty_right = abs_value;
-
 	PWM_M0_SetDC(abs_value);
 }
 
@@ -100,8 +86,6 @@ void left_motor_control (INT16S value)
 
 	abs_value = abs_value <<1; // full scale data
 	
-	duty_left = abs_value;
-
 	PWM_M1_SetDC(abs_value);
 }
 
@@ -122,11 +106,83 @@ INT16S motor_command_clipping(float command)
 /////////////////////////////////////////////////////////////
 // FILTERS
 /////////////////////////////////////////////////////////////
-void QUADRAMP_Compute(void)
+void QUADRAMP_Initialization(QUADRAMP_data *data, float acc, float speed, float approach)
 {
+	data->acceleration_order=acc;
+	data->speed_order=speed;
+	
+	data->final_approach_limit=approach;
 
+	data->speed=0.0;
+	data->old_filtered_error=0.0;
 }
 
+float QUADRAMP_Compute(QUADRAMP_data *data, float error)
+{
+	float filtered_error=0.0;
+	
+	float break_distance=0.0;
+	float Tech= ASSER_SAMPLING*0.001; // ms conversion
+	
+	int tmp1;
+	float tmp2;
+	
+	int state=0; // 0: stop, 1: acc, 2: Vcte, 3: Decell, 4: final
+
+	// Phase detection
+	tmp1=abs(data->speed/data->acceleration_order); // break_time in loop times
+	tmp2=data->speed;
+	while(tmp1!=0)
+	{
+		break_distance+=data->speed*Tech;
+		tmp2-=data->acceleration_order;
+		tmp1--;
+	}
+
+	if(abs(error)>break_distance) // acc or Vcte
+	{
+		if(data->speed<data->speed_order) state = 1;
+		else state = 2;
+	}
+	else // Decell or Final
+	{
+		if(abs(error)<=data->final_approach_limit) state = 4;
+		else state = 3;
+	}
+	
+	switch(state)
+	{
+		case 0:
+			break;
+			
+		case 1:
+			data->speed+=(data->acceleration_order*Tech);
+			if(data->speed>data->speed_order) data->speed = data->speed_order;
+			filtered_error=data->old_filtered_error+(data->speed*Tech);
+			break;
+			
+		case 2:
+			filtered_error=data->old_filtered_error+(data->speed*Tech);
+			break;
+			
+		case 3:
+			data->speed-=(data->acceleration_order*Tech);
+			if(data->speed<=0.0) data->speed = 0.0;
+			filtered_error=data->old_filtered_error+(data->speed*Tech);
+			break;
+			
+		default:
+			break;	
+	}
+	
+	data->old_filtered_error=filtered_error;
+	
+	if(error<0.0) filtered_error=-filtered_error;
+	
+	return filtered_error;
+}
+
+/// SLEWRATEs to delete ? unused in the source code.
 void SLEWRATE_Initialization(void)
 {
 	angle_slewrate_data.max_acceleration=ACC_ANGLE;
@@ -198,15 +254,29 @@ void PID_Initialization(void)
 	distance_pid_data.Ki = KI_DISTANCE;
 	distance_pid_data.Kd = KD_DISTANCE;	
 	distance_pid_data.IMax = IMAX_DISTANCE;	
+	
+	wheel_left_pid_data.Kp = KP_WHEEL;
+	wheel_left_pid_data.Ki = KI_WHEEL;
+	wheel_left_pid_data.Kd = KD_WHEEL;	
+	wheel_left_pid_data.IMax = IMAX_WHEEL;
+	
+	wheel_right_pid_data.Kp = KP_WHEEL;
+	wheel_right_pid_data.Ki = KI_WHEEL;
+	wheel_left_pid_data.Kd = KD_WHEEL;	
+	wheel_left_pid_data.IMax = IMAX_WHEEL;	
 
 	for(i=0; i<PID_SUM_NB_SAMPLES; i++)
 	{
 		angle_pid_data.error_old[i]=0.0;
 		distance_pid_data.error_old[i]=0.0;
+		wheel_right_pid_data.error_old[i]=0.0;
+		wheel_left_pid_data.error_old[i]=0.0;
 	}
 
 	angle_pid_data.current_error_old = 0;
 	distance_pid_data.current_error_old = 0;
+	wheel_right_pid_data.current_error_old = 0;
+	wheel_left_pid_data.current_error_old = 0;
 }
 
 float PID_Computation(PID_data * pid_data, float error)
@@ -287,6 +357,8 @@ void init_control_motion()
 	setpoint.x=0.0;
 	setpoint.y=0.0;
 	setpoint.angle=0.0;
+	setpoint.right_encoder=0;
+	setpoint.left_encoder=0;
 
 	memset(&TaskAsser_CurrentPos, 0, sizeof(struct StructPos));
 
@@ -294,6 +366,8 @@ void init_control_motion()
 	PID_Initialization();
 
 	SLEWRATE_Initialization();
+	
+	QUADRAMP_Initialization(&distance_quadramp_data, DEFAULT_ACCELERATION, DEFAULT_SPEED, DISTANCE_ALPHA_ONLY);
 
 }
 
@@ -316,6 +390,208 @@ float error_rescale (float error, float scaling_factor, float speed)
 	return error_rescaled;
 }
 
+float angle_between_two_points(float setpoint_angle, float current_angle)
+{
+	float error_angle=0.0;
+	float error_angle_path2 =0.0;
+	
+	error_angle = setpoint_angle - current_angle;
+	
+	// Condition for PI/-PI movement --> find the shortest movement to perform
+	if( current_angle>=0.0) error_angle_path2 = setpoint_angle - (current_angle - 2*M_PI);
+	else error_angle_path2 = setpoint_angle - (current_angle + 2*M_PI);
+				
+	if(fabs(error_angle_path2)<fabs(error_angle)) error_angle = error_angle_path2;
+
+	return error_angle;
+}
+
+float distance_between_two_points( float x1, float y1, float x2, float y2)
+{
+	float distance=0.0;
+	
+	distance= sqrt(pow(x1 - x2,2) + pow(y1 - y2,2));
+	
+	return distance;
+}
+
+float scalar_product_between_robot_and_direction (float final_x, float final_y, float robot_x, float robot_y, float robot_angle) 
+{
+	float scalar_product=0.0;
+	
+	scalar_product= (final_x - robot_x)*cos(robot_angle) + (final_y - robot_y)*sin(robot_angle); 
+
+	return scalar_product;
+}
+
+float vector_product_between_robot_and_direction (float final_x, float final_y, float robot_x, float robot_y, float robot_angle) 
+{
+	float vector_product=0.0;
+	
+	vector_product= (final_y - robot_y)*cos(robot_angle) + (final_x - robot_x)*sin(robot_angle); 
+
+	return vector_product;
+}
+
+void distance_by_vector_projection_angle_between_robot_and_direction (float final_x, float final_y, float robot_x, float robot_y, float robot_angle, float *distance, float *angle)
+{
+	float scalar_product=0.0;
+	float angle_sign =0.0;
+	
+	scalar_product = scalar_product_between_robot_and_direction(setpoint.x, setpoint.y, TaskAsser_CurrentPos.x, TaskAsser_CurrentPos.y, TaskAsser_CurrentPos.angle);
+	*distance = distance_between_two_points( setpoint.x, setpoint.y, TaskAsser_CurrentPos.x, TaskAsser_CurrentPos.y);
+	
+	// Calcul de la valeur absolue de l'angle à parcourir avec le produit scalaire
+	*angle = acos( scalar_product / *distance );
+
+	// Calcul du sinus de l'angle à parcourir pour avoir le sens de rotation. Avec la produit vectoriel
+	angle_sign = vector_product_between_robot_and_direction(setpoint.x, setpoint.y, TaskAsser_CurrentPos.x, TaskAsser_CurrentPos.y, TaskAsser_CurrentPos.angle); // ATTENTION : on avait divisé par error_distance .. normalement ca ne sert à rien mais au cas ou ... / error_distance );
+
+	if ( angle_sign < 0.0 )
+	{
+		*angle = - *angle;		// Application du signe.
+	}
+						
+	// Détermination si l'on doit reculer plutôt qu'avancer.
+	if (*angle <= -M_PI/2 && *angle >= - M_PI)	//quart arrière droit
+	{
+		*angle = *angle + M_PI;		// on replace l'angle devant le robot
+		*distance = - *distance;		// on recule
+	}
+						
+	if (*angle <= M_PI && *angle >= M_PI/2)		// quart arrière gauche
+	{
+		*angle = *angle - M_PI;		// on replace l'angle devant le robot
+		*distance = - *distance;		// on recule
+	}
+}
+
+// Angle only in theta-alpha control
+/// Improvements : speed ratio control
+void mode_1_control_motion(struct StructPos *psetpoint, StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
+{
+	float error_angle=0.0;
+	float error_distance=0.0;
+	float error_filtered_angle=0.0;
+	
+	float speed_ratio = SPEED_RATIO;
+	
+	// Compute error
+	error_angle=angle_between_two_points(psetpoint->angle, pcurrent->angle);
+	
+	error_filtered_angle = PID_Computation(&angle_pid_data, error_angle);
+	
+	// Re-scale errors to fit on expected scale
+	error_filtered_angle = error_rescale (error_filtered_angle, ANGLE_VS_DISTANCE_RATIO, speed_ratio);
+
+	// Command merge
+	*raw_command_right = error_filtered_angle;
+	*raw_command_left = - error_filtered_angle;
+}
+
+// Distance only in theta-alpha control
+/// Improvements : parameter for the final approach distance
+/// Improvements : What is happening when error <10 ??? to check
+/// Improvements : Speed control ?
+/// Improvements : speed ratio management
+void mode_2_control_motion(struct StructPos *psetpoint, struct StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
+{
+	float error_angle=0.0;
+	float error_distance=0.0;
+	float error_filtered_distance=0.0;
+	
+	float speed_ratio = SPEED_RATIO;
+	
+	// Compute error
+	// Compute distance : ABS value for vectorial considerations
+	error_distance = distance_between_two_points( psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y);
+	if(error_distance>=10) // Final approach
+	{
+		distance_by_vector_projection_angle_between_robot_and_direction(psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y, pcurrent->angle, &error_distance, &error_angle);
+	}
+	
+	// PID filtering
+	error_filtered_distance = PID_Computation(&distance_pid_data, error_distance);
+
+	// Re-scale errors to fit on expected scale
+	error_filtered_distance = error_rescale (error_filtered_distance, (1.0 - ANGLE_VS_DISTANCE_RATIO), speed_ratio);
+
+	// Command merge
+	*raw_command_right = error_filtered_distance;
+	*raw_command_left = error_filtered_distance;
+}
+
+// Distance + Angle in theta-alpha control
+/// Improvements : parameter for the final approach distance
+void mode_3_control_motion(struct StructPos *psetpoint, struct StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
+{
+	float error_angle=0.0;
+	float error_distance=0.0;
+	float error_filtered_angle=0.0;
+	float error_filtered_distance=0.0;
+	
+	float speed_ratio = SPEED_RATIO;
+	
+	// Compute error
+	
+	// Compute distance : ABS value for vectorial considerations
+	error_distance = distance_between_two_points( psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y);
+				
+	if(error_distance<= DISTANCE_ALPHA_ONLY) // final distance reached
+	{
+		error_angle=angle_between_two_points(psetpoint->angle, pcurrent->angle);				
+		error_distance = scalar_product_between_robot_and_direction(psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y, pcurrent->angle);
+	}
+	else
+	{
+		distance_by_vector_projection_angle_between_robot_and_direction(psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y, pcurrent->angle, &error_distance, &error_angle);
+	}
+	
+	// QUADRAMP filter on errors
+	error_distance = QUADRAMP_Compute(&distance_quadramp_data, error_distance);
+	
+	// PID filter on errors
+	error_filtered_angle = PID_Computation(&angle_pid_data, error_angle);
+	error_filtered_distance = PID_Computation(&distance_pid_data, error_distance);
+
+	// Re-scale errors to fit on expected scale
+	error_filtered_distance = error_rescale (error_filtered_distance, (1.0 - ANGLE_VS_DISTANCE_RATIO), speed_ratio);
+	error_filtered_angle = error_rescale (error_filtered_angle, ANGLE_VS_DISTANCE_RATIO, speed_ratio);
+
+	// Command merge
+	*raw_command_right = error_filtered_distance + error_filtered_angle;
+	*raw_command_left = error_filtered_distance - error_filtered_angle;
+}
+
+// Pivot control motion in separated wheel control
+void mode_4_control_motion(struct StructPos *psetpoint, struct StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
+{
+	// setpoint.pivot_wheel // 0: left 1: right
+	// setpoint.pivot_angle
+	// CONVERSION_RAD_TO_MM
+	
+	// Fonction de conversion à faire par Fifi
+	// Donner dans le set point des positions de roues !
+	// Calculer la distance à parcourir par chacune des roues et la donner ... en inc ? en mm ? en rad avec un pivot ... à discuter avec Fifi.
+
+	int error_right_wheel=0;
+	int error_left_wheel=0;
+
+	int error_filtered_right_wheel=0;
+	int error_filtered_left_wheel=0;
+	
+	error_right_wheel = psetpoint->right_encoder - pcurrent->right_encoder;
+	error_left_wheel = psetpoint->left_encoder - pcurrent->left_encoder;
+	
+	error_filtered_right_wheel = PID_Computation(&wheel_right_pid_data, error_right_wheel);
+	error_filtered_left_wheel = PID_Computation(&wheel_left_pid_data, error_right_wheel);	
+
+	*raw_command_right = error_filtered_right_wheel;
+	*raw_command_left = error_filtered_left_wheel;
+}
+
+
+
 // ------------------------------------------------------------------------------------------------
 // TaskAsser_Main()
 // ------------------------------------------------------------------------------------------------
@@ -327,9 +603,15 @@ void TaskAsser_Main(void *p_arg)
 	char uart_buffer[13];
 	char * buffer_ptr;
 	
-	BOOLEAN angle_control = ANGLE_CONTROL_INIT;
-	BOOLEAN distance_control = DISTANCE_CONTROL_INIT;
-	float speed_ratio = SPEED_RATIO;
+	// Asser Datas
+	float raw_command_left;
+	float raw_command_right;
+	INT16S command_left;
+	INT16S command_right;
+	
+	int mode_control=0;
+
+//	float speed_ratio = SPEED_RATIO;
 
 	putsUART2("OUFFF TEAM 2010 : Asser online\n");
 
@@ -337,7 +619,7 @@ void TaskAsser_Main(void *p_arg)
 
 	while(OS_TRUE)
 	{
-		OSTimeDlyHMSM(0,0,0,10);
+		OSTimeDlyHMSM(0,0,0,ASSER_SAMPLING);
 	
 //		LED_Toggle(5);
 
@@ -359,14 +641,17 @@ void TaskAsser_Main(void *p_arg)
 					break;
 
 				case Msg_Asser_Algo:	// Define which algo we have to use
-					distance_control = (BOOLEAN)pCurrentMsg->Param1;	// Change type of asser to distance algo (if set)
-					angle_control = (BOOLEAN)pCurrentMsg->Param2;		// Change type of asser to angle algo (if set)
+					if(!(BOOLEAN)pCurrentMsg->Param1 && !(BOOLEAN)pCurrentMsg->Param2) mode_control =0; // No control
+					if(!(BOOLEAN)pCurrentMsg->Param1 && (BOOLEAN)pCurrentMsg->Param2) mode_control =1; // Angle only
+					if((BOOLEAN)pCurrentMsg->Param1 && !(BOOLEAN)pCurrentMsg->Param2) mode_control =2; // Distance only
+					if((BOOLEAN)pCurrentMsg->Param1 && (BOOLEAN)pCurrentMsg->Param2) mode_control =3; // Mixed mode
 					break;
 						
 				case Msg_Asser_SetSpeed:	// Define new speed 
 					if(pCurrentMsg->Param1 > 1)
 						pCurrentMsg->Param1 = 1.0;	
-					speed_ratio = pCurrentMsg->Param1;
+					//speed_ratio = pCurrentMsg->Param1;
+					//distance_quadramp_data.speed_order = xx;
 					break;
 
 				default :
@@ -389,20 +674,8 @@ void TaskAsser_Main(void *p_arg)
 		// MOTION CONTROL LOOP
 		
 		// Reset_datas
-		error_distance		= 0.0;
-		scalar_product		= 0.0;
-		error_angle			= 0.0;
-		error_angle_path2	= 0.0;
-		signe_error_angle	= 0.0;
-
-		
-
-		error_filtered_distance=0.0;
-		error_filtered_angle=0.0;
-
 		command_left =0;
 		command_right =0;
-
 
 		// SECTION CRITIQUE : Ask for Mutex on position
 		OSMutexPend(Mut_AppCurrentPos, WAIT_FOREVER, &Err);
@@ -414,78 +687,26 @@ void TaskAsser_Main(void *p_arg)
 		//END SECTION CRITIQUE : Release Mutex
 		OSMutexPost(Mut_AppCurrentPos);
 
-		// Compute error
-
-		// Compute distance : ABS value for vectorial considerations
-		error_distance = sqrt(pow(setpoint.x - TaskAsser_CurrentPos.x,2) + pow(setpoint.y - TaskAsser_CurrentPos.y,2));
-		// Calcul du produit scalaire
-		scalar_product = ( (setpoint.x - TaskAsser_CurrentPos.x)*cos(TaskAsser_CurrentPos.angle) + (setpoint.y - TaskAsser_CurrentPos.y)*sin(TaskAsser_CurrentPos.angle) ); 
-
-		// Compute angle
-		if (  (distance_control == 0 && angle_control == 1 ) // Angle mode
-			||(distance_control == 1 && angle_control == 1 && error_distance <= DISTANCE_ALPHA_ONLY) ) // Mixed mode : final distance reached
+		// Asser mode control
+		switch(mode_control)
 		{
-			error_angle = setpoint.angle - TaskAsser_CurrentPos.angle;
-
-			// Condition for PI/-PI movement --> find the shortest movement to perform
-			if( TaskAsser_CurrentPos.angle>=0.0) error_angle_path2 = setpoint.angle - (TaskAsser_CurrentPos.angle - 2*M_PI);
-			else error_angle_path2 = setpoint.angle - (TaskAsser_CurrentPos.angle + 2*M_PI);
-
-			if(fabs(error_angle_path2)<fabs(error_angle)) error_angle = error_angle_path2;
-
-			error_distance=0;
-		}
-		
-		if ( (distance_control == 1 && angle_control == 1 && error_distance <= DISTANCE_ALPHA_ONLY) ) // Mixed mode : final distance reached
-		{
-			error_distance = scalar_product;
-		}
-
-		if(   (distance_control == 1 && angle_control == 0 && error_distance >= 10) // Distance mode
-			||(distance_control == 1 && angle_control == 1 && error_distance > DISTANCE_ALPHA_ONLY) ) // Mixed mode
-		{
-			// Calcul de la valeur absolue de l'angle à parcourir avec le produit scalaire
-			error_angle = acos( scalar_product / error_distance );
-			error_debug_1= error_angle;
-
-			// Calcul du sinus de l'angle à parcourir pour avoir le sens de rotation. Avec la produit vectoriel
-			signe_error_angle = ( ((setpoint.y - TaskAsser_CurrentPos.y)*cos(TaskAsser_CurrentPos.angle) - (setpoint.x - TaskAsser_CurrentPos.x)*sin(TaskAsser_CurrentPos.angle) ) / error_distance );
-			error_debug_2 = signe_error_angle;
-
-			if ( signe_error_angle < 0.0 )
-			{
-				error_angle = -error_angle;		// Application du signe.
-			}
+			case 1: // Angle only
+				mode_1_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
+				break;
 				
-			// Détermination si l'on doit reculer plutôt qu'avancer.
-			if (error_angle <= -M_PI/2 && error_angle >= - M_PI)	//quart arrière droit
-				{
-				error_angle = error_angle + M_PI;		// on replace l'angle devant le robot
-				error_distance = - error_distance;		// on recule
-				}
+			case 2: //Distance only
+				mode_2_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
 				
-			if (error_angle <= M_PI && error_angle >= M_PI/2)		// quart arrière gauche
-				{
-				error_angle = error_angle - M_PI;		// on replace l'angle devant le robot
-				error_distance = - error_distance;		// on recule
-				}
+				break;
+			case 3:
+				mode_3_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
+				break;
+			case 4: // pivot
+				mode_4_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
+				break;
+			default:
+				break;
 		}
-
-		// Slew rate or quad filter on errors
-//		error_angle = SLEWRATE_Compute(& angle_slewrate_data, error_angle);
-//		error_distance = SLEWRATE_Compute(& distance_slewrate_data, error_distance);
-
-		// PID filter on errors
-		if(angle_control) error_filtered_angle = PID_Computation(&angle_pid_data, error_angle);
-		if(distance_control) error_filtered_distance = PID_Computation(&distance_pid_data, error_distance);
-
-		// Re-scale errors to fit on expected scale
-		error_filtered_distance = error_rescale (error_filtered_distance, (1.0 - ANGLE_VS_DISTANCE_RATIO), speed_ratio);
-		error_filtered_angle = error_rescale (error_filtered_angle, ANGLE_VS_DISTANCE_RATIO, speed_ratio);
-
-		// Command merge
-		raw_command_right = error_filtered_distance + error_filtered_angle;
-		raw_command_left = error_filtered_distance - error_filtered_angle;
 		
 		// command clipping
 		command_right = motor_command_clipping(raw_command_right);
@@ -494,6 +715,5 @@ void TaskAsser_Main(void *p_arg)
 		// Motor drive
 		right_motor_control (command_right);
 		left_motor_control (command_left);
-
 	}
 }

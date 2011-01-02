@@ -36,6 +36,10 @@ void init_position_manager(struct StructPos *p)
 	pos->x=0;
 	pos->y=0;
 	pos->angle=0;
+	
+	// For mode 4
+	pos->right_encoder=0;
+	pos->left_encoder=0;
 
 }
 
@@ -159,6 +163,9 @@ void position_manager_process()
 			}
 		}		
 	// FIN SECTION CRITIQUE
+	
+	pos->right_encoder=QUADD_data;;
+	pos->left_encoder=QUADG_data;
 	OSMutexPost(Mut_AppCurrentPos);
 
 	// Store increments for next computation
