@@ -165,8 +165,10 @@ void TaskCapteurs_Main(void *p_arg)
 	{
 		OSTimeDlyHMSM(0, 0, 0, 10);	
 
-		TaskCapteurs_CheckBumpers();			// Check for bumpers status
-		TaskCapteurs_CheckClicClic();			// Check for clic clic
-
+		// FiFi - 02/01/11 : Modif pour test asser
+		{
+			//TaskCapteurs_CheckBumpers();			// Check for bumpers status
+			//TaskCapteurs_CheckClicClic();			// Check for clic clic
+		}
 	}
 }
