@@ -468,7 +468,7 @@ void distance_by_vector_projection_angle_between_robot_and_direction (float fina
 
 // Angle only in theta-alpha control
 /// Improvements : speed ratio control
-void mode_1_control_motion(struct StructPos *psetpoint, StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
+void mode_1_control_motion(struct StructPos *psetpoint, struct StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
 {
 	float error_angle=0.0;
 	float error_distance=0.0;
