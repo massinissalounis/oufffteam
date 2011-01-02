@@ -33,6 +33,14 @@ void TaskTempo_Main(void *p_arg)
 	// Get current time
 	StopTime = OSTimeGet() + APP_PARAM_GAME_DURATION * OS_TICKS_PER_SEC;
 
+	// FiFi - 02/01/11 : Modif pour test asser
+	{
+		while(OS_TRUE)	
+		{	
+			OSTimeDlyHMSM(1, 0, 0, 0);		
+		}
+	}
+
 	do
 	{
 		OSTimeDlyHMSM(0, 0, 0, APP_PARAM_TEMPO_RESOLUTION);		// Delay before next TICKS read
