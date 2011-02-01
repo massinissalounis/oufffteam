@@ -44,6 +44,7 @@ ifeq ($(strip $(INTEGER_STDIO)),1)
 	-Dprintf=iprintf \
 	$(foreach pp,as f s sn vas vsn vf vs v,-D$(pp)printf=$(pp)iprintf) \
 	-Dscanf=iscanf \
+	-D__LINUX_ERRNO_EXTENSIONS__ \
 	$(foreach pp,f s vf v vs,-D$(pp)scanf=$(pp)iscanf)
 endif
 

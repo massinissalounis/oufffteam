@@ -1,5 +1,5 @@
-SUBDIRS=lpc2106-cmucam3 lpc2103-tcm8240 virtual-cam
-#SUBDIRS=lpc2106-cmucam3
+#SUBDIRS=lpc2106-cmucam3 lpc2103-tcm8240 virtual-cam
+SUBDIRS=lpc2106-cmucam3
 #SUBDIRS=virtual-cam
 
 # Build rules
