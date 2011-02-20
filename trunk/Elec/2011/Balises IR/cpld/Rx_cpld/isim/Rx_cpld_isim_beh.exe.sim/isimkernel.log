@@ -1,0 +1,10 @@
+Command line:
+   Rx_cpld_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  49707
+
+Sun Feb 20 14:54:14 2011
+
+
+ Elaboration Time: 0.109375 sec

@@ -1,0 +1,323 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="paths.js"></script><script src="eqns.js"></script><script>
+      var design = "RX_cpld";
+      var device = "XC2C128";
+      signals = new Array("LED1","LED2","N_PZ_28","N_PZ_33","N_PZ_6","PIC_Rx");
+      sigNegs = new Array("ON","ON","OFF","OFF","OFF","OFF");
+      sigTypes = new Array("","","","","","");
+
+      
+           iostyle["ADR0_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP12_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP22_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP13_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP23_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP10_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP20_SPECSIG"]=new Array("KPR");
+        
+           iostyle["ADR1_SPECSIG"]=new Array("KPR");
+        
+           iostyle["ADR2_SPECSIG"]=new Array("KPR");
+        
+           iostyle["ADR3_SPECSIG"]=new Array("KPR");
+        
+           iostyle["ADR4_SPECSIG"]=new Array("KPR");
+        
+           iostyle["ADR5_SPECSIG"]=new Array("KPR");
+        
+           iostyle["ADR6_SPECSIG"]=new Array("KPR");
+        
+           iostyle["ADR7_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP11_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP21_SPECSIG"]=new Array("KPR");
+        
+           iostyle["ADR8_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP27_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP211_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP111_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP210_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP110_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP29_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP19_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP28_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP18_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP215_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP14_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP115_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP214_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP114_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP213_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP113_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP212_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP112_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP24_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP15_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP25_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP16_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP26_SPECSIG"]=new Array("KPR");
+        
+           iostyle["TSOP17_SPECSIG"]=new Array("KPR");
+        
+        specSig["ADR0_SPECSIG"]=new Array("ADR<0>");
+      
+        specSig["ADR1_SPECSIG"]=new Array("ADR<1>");
+      
+        specSig["ADR2_SPECSIG"]=new Array("ADR<2>");
+      
+        specSig["ADR3_SPECSIG"]=new Array("ADR<3>");
+      
+        specSig["ADR4_SPECSIG"]=new Array("ADR<4>");
+      
+        specSig["ADR5_SPECSIG"]=new Array("ADR<5>");
+      
+        specSig["ADR6_SPECSIG"]=new Array("ADR<6>");
+      
+        specSig["ADR7_SPECSIG"]=new Array("ADR<7>");
+      
+        specSig["ADR8_SPECSIG"]=new Array("ADR<8>");
+      
+        specSig["TSOP215_SPECSIG"]=new Array("TSOP2<15>");
+      
+        specSig["TSOP114_SPECSIG"]=new Array("TSOP1<14>");
+      
+        specSig["TSOP110_SPECSIG"]=new Array("TSOP1<10>");
+      
+        specSig["TSOP112_SPECSIG"]=new Array("TSOP1<12>");
+      
+        specSig["TSOP18_SPECSIG"]=new Array("TSOP1<8>");
+      
+        specSig["TSOP214_SPECSIG"]=new Array("TSOP2<14>");
+      
+        specSig["TSOP210_SPECSIG"]=new Array("TSOP2<10>");
+      
+        specSig["TSOP212_SPECSIG"]=new Array("TSOP2<12>");
+      
+        specSig["TSOP28_SPECSIG"]=new Array("TSOP2<8>");
+      
+        specSig["TSOP16_SPECSIG"]=new Array("TSOP1<6>");
+      
+        specSig["TSOP12_SPECSIG"]=new Array("TSOP1<2>");
+      
+        specSig["TSOP14_SPECSIG"]=new Array("TSOP1<4>");
+      
+        specSig["TSOP10_SPECSIG"]=new Array("TSOP1<0>");
+      
+        specSig["TSOP26_SPECSIG"]=new Array("TSOP2<6>");
+      
+        specSig["TSOP22_SPECSIG"]=new Array("TSOP2<2>");
+      
+        specSig["TSOP24_SPECSIG"]=new Array("TSOP2<4>");
+      
+        specSig["TSOP20_SPECSIG"]=new Array("TSOP2<0>");
+      
+        specSig["TSOP211_SPECSIG"]=new Array("TSOP2<11>");
+      
+        specSig["TSOP213_SPECSIG"]=new Array("TSOP2<13>");
+      
+        specSig["TSOP29_SPECSIG"]=new Array("TSOP2<9>");
+      
+        specSig["TSOP15_SPECSIG"]=new Array("TSOP1<5>");
+      
+        specSig["TSOP11_SPECSIG"]=new Array("TSOP1<1>");
+      
+        specSig["TSOP17_SPECSIG"]=new Array("TSOP1<7>");
+      
+        specSig["TSOP25_SPECSIG"]=new Array("TSOP2<5>");
+      
+        specSig["TSOP115_SPECSIG"]=new Array("TSOP1<15>");
+      
+        specSig["TSOP113_SPECSIG"]=new Array("TSOP1<13>");
+      
+        specSig["TSOP19_SPECSIG"]=new Array("TSOP1<9>");
+      
+        specSig["TSOP111_SPECSIG"]=new Array("TSOP1<11>");
+      
+        specSig["TSOP27_SPECSIG"]=new Array("TSOP2<7>");
+      
+        specSig["TSOP23_SPECSIG"]=new Array("TSOP2<3>");
+      
+        specSig["TSOP21_SPECSIG"]=new Array("TSOP2<1>");
+      
+        specSig["TSOP13_SPECSIG"]=new Array("TSOP1<3>");
+      
+            pterms["FB1_0"]=new Array("/ADR4_SPECSIG","ADR2_SPECSIG","ADR1_SPECSIG","/TSOP215_SPECSIG","ADR3_SPECSIG","N_PZ_6");
+          
+            pterms["FB1_1"]=new Array("/ADR4_SPECSIG","/ADR2_SPECSIG","ADR1_SPECSIG","ADR3_SPECSIG","N_PZ_6","/TSOP211_SPECSIG");
+          
+            pterms["FB1_2"]=new Array("/ADR4_SPECSIG","ADR2_SPECSIG","/ADR1_SPECSIG","ADR3_SPECSIG","N_PZ_6","/TSOP213_SPECSIG");
+          
+            pterms["FB1_3"]=new Array("/ADR4_SPECSIG","/ADR2_SPECSIG","/ADR1_SPECSIG","ADR3_SPECSIG","N_PZ_6","/TSOP29_SPECSIG");
+          
+            pterms["FB1_4"]=new Array("ADR4_SPECSIG","ADR2_SPECSIG","/ADR1_SPECSIG","/ADR3_SPECSIG","N_PZ_6","/TSOP15_SPECSIG");
+          
+            pterms["FB1_5"]=new Array("ADR4_SPECSIG","/ADR2_SPECSIG","/ADR1_SPECSIG","/ADR3_SPECSIG","N_PZ_6","/TSOP11_SPECSIG");
+          
+            pterms["FB1_6"]=new Array("ADR4_SPECSIG","ADR2_SPECSIG","ADR1_SPECSIG","/ADR3_SPECSIG","N_PZ_6","/TSOP17_SPECSIG");
+          
+            pterms["FB1_7"]=new Array("/ADR4_SPECSIG","ADR2_SPECSIG","/ADR1_SPECSIG","/ADR3_SPECSIG","N_PZ_6","/TSOP25_SPECSIG");
+          
+            pterms["FB1_8"]=new Array("N_PZ_6","/ADR0_SPECSIG");
+          
+            pterms["FB1_9"]=new Array("ADR4_SPECSIG","ADR2_SPECSIG","ADR1_SPECSIG","ADR3_SPECSIG","N_PZ_6","/TSOP115_SPECSIG");
+          
+            pterms["FB1_10"]=new Array("ADR4_SPECSIG","ADR2_SPECSIG","/ADR1_SPECSIG","ADR3_SPECSIG","N_PZ_6","/TSOP113_SPECSIG");
+          
+            pterms["FB1_11"]=new Array("ADR4_SPECSIG","/ADR2_SPECSIG","/ADR1_SPECSIG","ADR3_SPECSIG","N_PZ_6","/TSOP19_SPECSIG");
+          
+            pterms["FB1_12"]=new Array("ADR4_SPECSIG","/ADR2_SPECSIG","ADR1_SPECSIG","ADR3_SPECSIG","N_PZ_6","/TSOP111_SPECSIG");
+          
+            pterms["FB1_13"]=new Array("/ADR4_SPECSIG","ADR2_SPECSIG","ADR1_SPECSIG","/ADR3_SPECSIG","N_PZ_6","/TSOP27_SPECSIG");
+          
+            pterms["FB1_14"]=new Array("/ADR4_SPECSIG","/ADR2_SPECSIG","ADR1_SPECSIG","/ADR3_SPECSIG","N_PZ_6","/TSOP23_SPECSIG");
+          
+            pterms["FB1_15"]=new Array("/ADR4_SPECSIG","/ADR2_SPECSIG","/ADR1_SPECSIG","/ADR3_SPECSIG","N_PZ_6","/TSOP21_SPECSIG");
+          
+            pterms["FB1_16"]=new Array("ADR4_SPECSIG","/ADR2_SPECSIG","ADR1_SPECSIG","/ADR3_SPECSIG","N_PZ_6","/TSOP13_SPECSIG");
+          
+            pterms["FB2_0"]=new Array("/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","ADR0_SPECSIG");
+          
+            pterms["FB2_1"]=new Array("ADR4_SPECSIG","ADR2_SPECSIG","ADR1_SPECSIG","ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP114_SPECSIG");
+          
+            pterms["FB2_2"]=new Array("ADR4_SPECSIG","/ADR2_SPECSIG","ADR1_SPECSIG","ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP110_SPECSIG");
+          
+            pterms["FB2_3"]=new Array("ADR4_SPECSIG","ADR2_SPECSIG","/ADR1_SPECSIG","ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP112_SPECSIG");
+          
+            pterms["FB2_4"]=new Array("ADR4_SPECSIG","/ADR2_SPECSIG","/ADR1_SPECSIG","ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP18_SPECSIG");
+          
+            pterms["FB2_5"]=new Array("/ADR4_SPECSIG","ADR2_SPECSIG","ADR1_SPECSIG","ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP214_SPECSIG");
+          
+            pterms["FB2_6"]=new Array("/ADR4_SPECSIG","/ADR2_SPECSIG","ADR1_SPECSIG","ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP210_SPECSIG");
+          
+            pterms["FB2_7"]=new Array("/ADR4_SPECSIG","ADR2_SPECSIG","/ADR1_SPECSIG","ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP212_SPECSIG");
+          
+            pterms["FB2_8"]=new Array("/ADR4_SPECSIG","/ADR2_SPECSIG","/ADR1_SPECSIG","ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP28_SPECSIG");
+          
+            pterms["FB2_9"]=new Array("ADR4_SPECSIG","ADR2_SPECSIG","ADR1_SPECSIG","/ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP16_SPECSIG");
+          
+            pterms["FB2_10"]=new Array("ADR4_SPECSIG","/ADR2_SPECSIG","ADR1_SPECSIG","/ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP12_SPECSIG");
+          
+            pterms["FB2_11"]=new Array("ADR4_SPECSIG","ADR2_SPECSIG","/ADR1_SPECSIG","/ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP14_SPECSIG");
+          
+            pterms["FB2_12"]=new Array("ADR4_SPECSIG","/ADR2_SPECSIG","/ADR1_SPECSIG","/ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP10_SPECSIG");
+          
+            pterms["FB2_13"]=new Array("/ADR4_SPECSIG","ADR2_SPECSIG","ADR1_SPECSIG","/ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP26_SPECSIG");
+          
+            pterms["FB2_14"]=new Array("/ADR4_SPECSIG","/ADR2_SPECSIG","ADR1_SPECSIG","/ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP22_SPECSIG");
+          
+            pterms["FB2_15"]=new Array("/ADR4_SPECSIG","ADR2_SPECSIG","/ADR1_SPECSIG","/ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP24_SPECSIG");
+          
+            pterms["FB2_16"]=new Array("/ADR4_SPECSIG","/ADR2_SPECSIG","/ADR1_SPECSIG","/ADR3_SPECSIG","/ADR8_SPECSIG","/ADR7_SPECSIG","/ADR6_SPECSIG","/ADR5_SPECSIG","/TSOP20_SPECSIG");
+          
+            pterms["FB3_46"]=new Array("/N_PZ_28","/N_PZ_33");
+          
+            pterms["FB4_19"]=new Array("/N_PZ_28","/N_PZ_33");
+          
+          d2["N_PZ_33"]=new Array("FB1_8","FB1_9","FB1_10","FB1_12","FB1_16","FB1_11","FB1_13","FB1_14","FB1_15");
+          
+          d2["N_PZ_28"]=new Array("FB1_6","FB1_4","FB1_5","FB1_0","FB1_2","FB1_7","FB1_1","FB1_3");
+          
+          d2["N_PZ_6"]=new Array("FB2_0","FB2_1","FB2_9","FB2_3","FB2_11","FB2_2","FB2_10","FB2_4","FB2_12","FB2_5","FB2_13","FB2_7","FB2_15","FB2_6","FB2_14","FB2_8","FB2_16");
+          
+          d2["LED1"]=new Array("GND");
+          
+          d1["LED2"]=new Array("FB3_46");
+          
+          d1["PIC_Rx"]=new Array("FB4_19");
+          
+
+      uimSignals = new Array();
+
+      uimSigNegs = new Array();
+
+      uimPterms = new Array();
+      
+
+      
+        function getEqnList() {
+          var str = "<html><head><link type='text/css' href='style.css' rel='stylesheet'></head><body class='pgBgnd'>";
+          str += "<center><h3>Equations</h3></center>";
+          str += "<table width='90%' align='center' border='1' cellpadding='0' cellspacing='0'>";
+          for (s=0; s<uimSignals.length; s++) {
+            str += "<tr><td>";
+            str += retUimEqn(uimSignals[s]);
+            str += "</td></tr>";
+          }
+          for (s=0; s<signals.length; s++) {
+            str += "<tr><td>";
+            str += retEqn(signals[s]);
+            str += "</td></tr>";
+          }
+
+          var legend = retLegend();
+		      if (legend != "") {
+		        str += "<tr><td>" + legend + "</td></tr>";
+		      }
+
+          str += "</table>";
+          str += "<form><span class='pgRef'>";
+
+          if (!parent.leftnav.IsNS()) {
+            str += "<table width='90%' align='center'>";
+            str += "<tr><td align='left'><input type='button' value='back to top' ";
+            str += "onclick='javascript:parent.leftnav.showEqnAll()' ";
+            str += "onmouseover=\"window.status='goto top of page'; return true;\" ";
+            str += "onmouseout=\"window.status=''\">";
+            str += "</td>";
+            str += "<td align='right'>";
+            str += "<input type='button' value='print page' ";
+            str += "onclick='javascript:window.print()' ";
+            str += "onmouseover=\"window.status='print page'; return true;\" ";
+            str += "onmouseout=\"window.status=''\">";
+            str += "</td>";
+            str += "</tr></table>";
+          }
+          else {
+            str += "<table width='90%' align='center'>";
+            str += "<tr><td align='left'><a href='javascript:parent.leftnav.showEqnAll()'>back to top</a>";
+            str += "</td>";
+            str += "<td align='right'>";
+            str += "<a href='javascript:window.print()'>";
+            str += "print page</a>";
+            str += "</td>";
+            str += "</tr></table>";
+          }
+
+          str += "</span></form>";
+          str += "</body></html>";
+          return str;
+        }
+      
+    </script>
+</head></html>

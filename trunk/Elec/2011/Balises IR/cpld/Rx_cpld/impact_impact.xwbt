@@ -1,0 +1,8 @@
+INTSTYLE=impact
+INFILE=C:\Elec\oufffteam\2011\Balises IR\cpld\Rx_cpld\impact.xsl
+OUTFILE=C:\Elec\oufffteam\2011\Balises IR\cpld\Rx_cpld\impact.xsl
+FAMILY=Multiple
+PART=Multiple
+WORKINGDIR=C:\Elec\oufffteam\2011\Balises IR\cpld\Rx_cpld
+LICENSE=iMPACT
+USER_INFO=iMPACT
