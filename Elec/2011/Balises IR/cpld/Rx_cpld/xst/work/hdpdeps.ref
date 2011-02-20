@@ -1,0 +1,8 @@
+V3 3
+FL "C:/Elec/oufffteam/2011/Balises IR/cpld/Rx_cpld/src/Rx_cpld.vhd" 2011/02/20.15:06:13 M.81d
+EN work/RX_cpld 1298210778 \
+      FL "C:/Elec/oufffteam/2011/Balises IR/cpld/Rx_cpld/src/Rx_cpld.vhd" \
+      PB ieee/std_logic_1164 1290154108 PB ieee/NUMERIC_STD 1290154109
+AR work/RX_cpld/basic_mux_RX_cpld 1298210779 \
+      FL "C:/Elec/oufffteam/2011/Balises IR/cpld/Rx_cpld/src/Rx_cpld.vhd" \
+      EN work/RX_cpld 1298210778

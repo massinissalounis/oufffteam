@@ -1,0 +1,155 @@
+MDF Database:  version 1.0
+MDF_INFO | RX_cpld | XC2C128-6-VQ100
+MACROCELL | 2 | 10 | LED1_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 0
+EQ | 1 | 
+   !LED1 = Gnd;	// (0 pt, 0 inp)
+
+MACROCELL | 2 | 12 | LED2_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 2 | N_PZ_28  | N_PZ_33
+INPUTMC | 2 | 0 | 13 | 0 | 9
+EQ | 1 | 
+   !LED2 = !N_PZ_28 & !N_PZ_33;	// (1 pt, 2 inp)
+
+MACROCELL | 0 | 13 | N_PZ_28_MC
+ATTRIBUTES | 536871680 | 0
+OUTPUTMC | 2 | 2 | 12 | 3 | 3
+INPUTS | 13 | ADR<4>  | ADR<2>  | ADR<1>  | ADR<3>  | N_PZ_6  | TSOP1<7>  | TSOP1<5>  | TSOP1<1>  | TSOP2<15>  | TSOP2<13>  | TSOP2<5>  | TSOP2<11>  | TSOP2<9>
+INPUTMC | 1 | 1 | 11
+INPUTP | 12 | 22 | 20 | 19 | 21 | 49 | 61 | 3 | 97 | 103 | 59 | 84 | 91
+EQ | 16 | 
+   N_PZ_28 = ADR<4> & ADR<2> & ADR<1> & !ADR<3> & N_PZ_6 & 
+	!TSOP1<7>
+	# ADR<4> & ADR<2> & !ADR<1> & !ADR<3> & N_PZ_6 & 
+	!TSOP1<5>
+	# ADR<4> & !ADR<2> & !ADR<1> & !ADR<3> & N_PZ_6 & 
+	!TSOP1<1>
+	# !ADR<4> & ADR<2> & ADR<1> & !TSOP2<15> & ADR<3> & 
+	N_PZ_6
+	# !ADR<4> & ADR<2> & !ADR<1> & ADR<3> & N_PZ_6 & 
+	!TSOP2<13>
+	# !ADR<4> & ADR<2> & !ADR<1> & !ADR<3> & N_PZ_6 & 
+	!TSOP2<5>
+	# !ADR<4> & !ADR<2> & ADR<1> & ADR<3> & N_PZ_6 & 
+	!TSOP2<11>
+	# !ADR<4> & !ADR<2> & !ADR<1> & ADR<3> & N_PZ_6 & 
+	!TSOP2<9>;	// (8 pt, 13 inp)
+
+MACROCELL | 1 | 11 | N_PZ_6_MC
+ATTRIBUTES | 536871680 | 0
+OUTPUTMC | 2 | 0 | 13 | 0 | 9
+INPUTS | 25 | ADR<8>  | ADR<7>  | ADR<6>  | ADR<5>  | ADR<0>  | ADR<4>  | ADR<2>  | ADR<1>  | ADR<3>  | TSOP1<14>  | TSOP1<6>  | TSOP1<12>  | TSOP1<4>  | TSOP1<10>  | TSOP1<2>  | TSOP1<8>  | TSOP1<0>  | TSOP2<14>  | TSOP2<6>  | TSOP2<12>  | TSOP2<4>  | TSOP2<10>  | TSOP2<2>  | TSOP2<8>  | TSOP2<0>
+INPUTP | 25 | 34 | 30 | 29 | 23 | 17 | 22 | 20 | 19 | 21 | 102 | 51 | 110 | 67 | 90 | 14 | 94 | 9 | 100 | 50 | 106 | 65 | 87 | 12 | 93 | 5
+EQ | 33 | 
+   N_PZ_6 = !ADR<8> & !ADR<7> & !ADR<6> & !ADR<5> & ADR<0>
+	# ADR<4> & ADR<2> & ADR<1> & ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP1<14>
+	# ADR<4> & ADR<2> & ADR<1> & !ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP1<6>
+	# ADR<4> & ADR<2> & !ADR<1> & ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP1<12>
+	# ADR<4> & ADR<2> & !ADR<1> & !ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP1<4>
+	# ADR<4> & !ADR<2> & ADR<1> & ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP1<10>
+	# ADR<4> & !ADR<2> & ADR<1> & !ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP1<2>
+	# ADR<4> & !ADR<2> & !ADR<1> & ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP1<8>
+	# ADR<4> & !ADR<2> & !ADR<1> & !ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP1<0>
+	# !ADR<4> & ADR<2> & ADR<1> & ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP2<14>
+	# !ADR<4> & ADR<2> & ADR<1> & !ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP2<6>
+	# !ADR<4> & ADR<2> & !ADR<1> & ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP2<12>
+	# !ADR<4> & ADR<2> & !ADR<1> & !ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP2<4>
+	# !ADR<4> & !ADR<2> & ADR<1> & ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP2<10>
+	# !ADR<4> & !ADR<2> & ADR<1> & !ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP2<2>
+	# !ADR<4> & !ADR<2> & !ADR<1> & ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP2<8>
+	# !ADR<4> & !ADR<2> & !ADR<1> & !ADR<3> & !ADR<8> & 
+	!ADR<7> & !ADR<6> & !ADR<5> & !TSOP2<0>;	// (17 pt, 25 inp)
+
+MACROCELL | 0 | 9 | N_PZ_33_MC
+ATTRIBUTES | 536871680 | 0
+OUTPUTMC | 2 | 2 | 12 | 3 | 3
+INPUTS | 14 | N_PZ_6  | ADR<0>  | ADR<4>  | ADR<2>  | ADR<1>  | ADR<3>  | TSOP1<15>  | TSOP1<13>  | TSOP1<11>  | TSOP1<3>  | TSOP1<9>  | TSOP2<7>  | TSOP2<3>  | TSOP2<1>
+INPUTMC | 1 | 1 | 11
+INPUTP | 13 | 17 | 22 | 20 | 19 | 21 | 99 | 104 | 85 | 11 | 92 | 48 | 10 | 2
+EQ | 17 | 
+   N_PZ_33 = N_PZ_6 & !ADR<0>
+	# ADR<4> & ADR<2> & ADR<1> & ADR<3> & N_PZ_6 & 
+	!TSOP1<15>
+	# ADR<4> & ADR<2> & !ADR<1> & ADR<3> & N_PZ_6 & 
+	!TSOP1<13>
+	# ADR<4> & !ADR<2> & ADR<1> & ADR<3> & N_PZ_6 & 
+	!TSOP1<11>
+	# ADR<4> & !ADR<2> & ADR<1> & !ADR<3> & N_PZ_6 & 
+	!TSOP1<3>
+	# ADR<4> & !ADR<2> & !ADR<1> & ADR<3> & N_PZ_6 & 
+	!TSOP1<9>
+	# !ADR<4> & ADR<2> & ADR<1> & !ADR<3> & N_PZ_6 & 
+	!TSOP2<7>
+	# !ADR<4> & !ADR<2> & ADR<1> & !ADR<3> & N_PZ_6 & 
+	!TSOP2<3>
+	# !ADR<4> & !ADR<2> & !ADR<1> & !ADR<3> & N_PZ_6 & 
+	!TSOP2<1>;	// (9 pt, 14 inp)
+
+MACROCELL | 3 | 3 | PIC_Rx_MC
+ATTRIBUTES | 1074004738 | 0
+INPUTS | 2 | N_PZ_28  | N_PZ_33
+INPUTMC | 2 | 0 | 13 | 0 | 9
+EQ | 1 | 
+   PIC_Rx = !N_PZ_28 & !N_PZ_33;	// (1 pt, 2 inp)
+
+PIN | ADR<0> | 64 | 16 | LVCMOS18 | 17 | 2 | 1 | 11 | 0 | 9
+PIN | ADR<1> | 64 | 16 | LVCMOS18 | 19 | 3 | 1 | 11 | 0 | 13 | 0 | 9
+PIN | ADR<2> | 64 | 16 | LVCMOS18 | 20 | 3 | 1 | 11 | 0 | 13 | 0 | 9
+PIN | ADR<3> | 64 | 16 | LVCMOS18 | 21 | 3 | 1 | 11 | 0 | 13 | 0 | 9
+PIN | ADR<4> | 64 | 16 | LVCMOS18 | 22 | 3 | 1 | 11 | 0 | 13 | 0 | 9
+PIN | ADR<5> | 64 | 16 | LVCMOS18 | 23 | 1 | 1 | 11
+PIN | ADR<6> | 64 | 16 | LVCMOS18 | 29 | 1 | 1 | 11
+PIN | ADR<7> | 64 | 16 | LVCMOS18 | 30 | 1 | 1 | 11
+PIN | ADR<8> | 64 | 16 | LVCMOS18 | 34 | 1 | 1 | 11
+PIN | TSOP2<15> | 64 | 16 | LVCMOS18 | 97 | 1 | 0 | 13
+PIN | TSOP1<14> | 64 | 16 | LVCMOS18 | 102 | 1 | 1 | 11
+PIN | TSOP1<10> | 64 | 16 | LVCMOS18 | 90 | 1 | 1 | 11
+PIN | TSOP1<12> | 64 | 16 | LVCMOS18 | 110 | 1 | 1 | 11
+PIN | TSOP1<8> | 64 | 16 | LVCMOS18 | 94 | 1 | 1 | 11
+PIN | TSOP2<14> | 64 | 16 | LVCMOS18 | 100 | 1 | 1 | 11
+PIN | TSOP2<10> | 64 | 16 | LVCMOS18 | 87 | 1 | 1 | 11
+PIN | TSOP2<12> | 64 | 16 | LVCMOS18 | 106 | 1 | 1 | 11
+PIN | TSOP2<8> | 64 | 16 | LVCMOS18 | 93 | 1 | 1 | 11
+PIN | TSOP1<6> | 64 | 16 | LVCMOS18 | 51 | 1 | 1 | 11
+PIN | TSOP1<2> | 64 | 16 | LVCMOS18 | 14 | 1 | 1 | 11
+PIN | TSOP1<4> | 64 | 16 | LVCMOS18 | 67 | 1 | 1 | 11
+PIN | TSOP1<0> | 64 | 16 | LVCMOS18 | 9 | 1 | 1 | 11
+PIN | TSOP2<6> | 64 | 16 | LVCMOS18 | 50 | 1 | 1 | 11
+PIN | TSOP2<2> | 64 | 16 | LVCMOS18 | 12 | 1 | 1 | 11
+PIN | TSOP2<4> | 64 | 16 | LVCMOS18 | 65 | 1 | 1 | 11
+PIN | TSOP2<0> | 64 | 16 | LVCMOS18 | 5 | 1 | 1 | 11
+PIN | TSOP2<11> | 64 | 16 | LVCMOS18 | 84 | 1 | 0 | 13
+PIN | TSOP2<13> | 64 | 16 | LVCMOS18 | 103 | 1 | 0 | 13
+PIN | TSOP2<9> | 64 | 16 | LVCMOS18 | 91 | 1 | 0 | 13
+PIN | TSOP1<5> | 64 | 16 | LVCMOS18 | 61 | 1 | 0 | 13
+PIN | TSOP1<1> | 64 | 16 | LVCMOS18 | 3 | 1 | 0 | 13
+PIN | TSOP1<7> | 64 | 16 | LVCMOS18 | 49 | 1 | 0 | 13
+PIN | TSOP2<5> | 64 | 16 | LVCMOS18 | 59 | 1 | 0 | 13
+PIN | TSOP1<15> | 64 | 16 | LVCMOS18 | 99 | 1 | 0 | 9
+PIN | TSOP1<13> | 64 | 16 | LVCMOS18 | 104 | 1 | 0 | 9
+PIN | TSOP1<9> | 64 | 16 | LVCMOS18 | 92 | 1 | 0 | 9
+PIN | TSOP1<11> | 64 | 16 | LVCMOS18 | 85 | 1 | 0 | 9
+PIN | TSOP2<7> | 64 | 16 | LVCMOS18 | 48 | 1 | 0 | 9
+PIN | TSOP2<3> | 64 | 16 | LVCMOS18 | 10 | 1 | 0 | 9
+PIN | TSOP2<1> | 64 | 16 | LVCMOS18 | 2 | 1 | 0 | 9
+PIN | TSOP1<3> | 64 | 16 | LVCMOS18 | 11 | 1 | 0 | 9
+PIN | LED1 | 536871040 | 0 | LVCMOS18 | 120
+PIN | LED2 | 536871040 | 0 | LVCMOS18 | 118
+PIN | PIC_Rx | 536871040 | 0 | LVCMOS18 | 37

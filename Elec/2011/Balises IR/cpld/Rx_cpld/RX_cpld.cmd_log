@@ -1,0 +1,19 @@
+xst -intstyle ise -ifn "C:/Elec/oufffteam/2011/Balises IR/cpld/Rx_cpld/RX_cpld.xst" -ofn "C:/Elec/oufffteam/2011/Balises IR/cpld/Rx_cpld/RX_cpld.syr" 
+ngdbuild -intstyle ise -dd _ngo -i -p xc2c128-VQ100-6 "RX_cpld.ngc" RX_cpld.ngd  
+ngdbuild -intstyle ise -dd _ngo -uc RX_cpld.ucf -p xc2c128-VQ100-6 "RX_cpld.ngc" RX_cpld.ngd  
+cpldfit -intstyle ise -p xc2c128-6-VQ100 -ofmt vhdl -optimize density -htmlrpt -loc on -slew fast -init low -inputs 32 -pterms 28 -unused keeper -terminate keeper -iostd LVCMOS18 RX_cpld.ngd 
+XSLTProcess RX_cpld_build.xml 
+tsim -intstyle ise RX_cpld RX_cpld.nga 
+taengine -intstyle ise -f RX_cpld -w --format html1 -l RX_cpld_html/tim/timing_report.htm 
+hprep6 -s IEEE1149 -i RX_cpld 
+xst -intstyle ise -ifn "C:/Elec/oufffteam/2011/Balises IR/cpld/Rx_cpld/RX_cpld.xst" -ofn "C:/Elec/oufffteam/2011/Balises IR/cpld/Rx_cpld/RX_cpld.syr" 
+ngdbuild -intstyle ise -dd _ngo -uc RX_cpld.ucf -p xc2c128-VQ100-6 "RX_cpld.ngc" RX_cpld.ngd  
+cpldfit -intstyle ise -p xc2c128-6-VQ100 -ofmt vhdl -optimize density -htmlrpt -loc on -slew fast -init low -inputs 32 -pterms 28 -unused keeper -terminate keeper -iostd LVCMOS18 RX_cpld.ngd 
+XSLTProcess RX_cpld_build.xml 
+tsim -intstyle ise RX_cpld RX_cpld.nga 
+hprep6 -s IEEE1149 -i RX_cpld 
+ngdbuild -intstyle ise -dd _ngo -uc RX_cpld.ucf -p xc2c128-VQ100-6 "RX_cpld.ngc" RX_cpld.ngd  
+cpldfit -intstyle ise -p xc2c128-6-VQ100 -ofmt vhdl -optimize density -htmlrpt -loc on -slew fast -init low -inputs 32 -pterms 28 -unused keeper -terminate keeper -iostd LVCMOS18 RX_cpld.ngd 
+XSLTProcess RX_cpld_build.xml 
+tsim -intstyle ise RX_cpld RX_cpld.nga 
+hprep6 -s IEEE1149 -i RX_cpld 
