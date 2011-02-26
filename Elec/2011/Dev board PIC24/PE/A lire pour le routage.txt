@@ -1,0 +1,6 @@
+PE,
+
+J'ai mis les choses qui manquaient sur le schéma et j'ai essayé de faire au mieux en fonction du routage.
+Mais bon je pense que tu auras à changer la schématique au niveau du routage des pistes pour t'arranger.
+
+Tiens moi au ju dès que les cartes sont prêtes, je peux les souder sans problèmes.
