@@ -24,16 +24,13 @@
 // current left factor --- coeff 2 ---> current right factor
 // new right factor = current right factor * coeff 1 * coeff2
 
-// For distance of 748.5 mm, we add 22632 increments on encoder right and 22613 increments on encoder left
-#define CONVERSION_MM_TO_INC_LEFT	(float)(30.225) //30.111
-#define CONVERSION_MM_TO_INC_RIGHT  (float)(29.74) // 29.627
-// Values storage !
-// coupe nuit 12 mai : L = 30.21, R = 29.74
-// matin 13 mai (reglage angle sans correction distance) : L = 30.225, R = 29.74
+// For distance of 789.5 mm, we add 16902 increments on encoder right and 16922 increments on encoder left
+#define CONVERSION_MM_TO_INC_RIGHT  (float)(21.4338)
+#define CONVERSION_MM_TO_INC_LEFT	(float)(21.4085)
 
 
 // For an angle of = entraxe
-#define CONVERSION_RAD_TO_MM	(float)97.0
+#define CONVERSION_RAD_TO_MM	(float)(273.0)
 
 void TaskOdo_Main(void *p_arg);
 	// Fonction principal du process d'odométrie

@@ -31,13 +31,13 @@
 *                                            GLOBAL SETTINGS
 *********************************************************************************************************
 */
-#define APP_INIT_BLUE_POS_X					2875.0		// Initial position for blue robot
-#define APP_INIT_BLUE_POS_Y					125.0		// Initial position for blue robot
-#define APP_INIT_BLUE_ANGLE					135.0		// Initial position for blue robot
+#define APP_INIT_BLUE_POS_X					000.0		// Initial position for blue robot
+#define APP_INIT_BLUE_POS_Y					000.0		// Initial position for blue robot
+#define APP_INIT_BLUE_ANGLE					000.0		// Initial position for blue robot
 
-#define APP_INIT_YELLOW_POS_X				125.0		// Initial position for blue robot
-#define APP_INIT_YELLOW_POS_Y				125.0		// Initial position for blue robot
-#define APP_INIT_YELLOW_ANGLE				045.0		// Initial position for blue robot
+#define APP_INIT_YELLOW_POS_X				000.0		// Initial position for blue robot
+#define APP_INIT_YELLOW_POS_Y				000.0		// Initial position for blue robot
+#define APP_INIT_YELLOW_ANGLE				000.0		// Initial position for blue robot
 
 #define APP_INIT_ROBOT_SPEED				0.600		// Speed rate (0.0:No Move, 1.0: Full Speed)
 

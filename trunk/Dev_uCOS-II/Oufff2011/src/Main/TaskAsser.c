@@ -37,6 +37,8 @@ struct StructPos setpoint;
 float error_debug_1;
 float error_debug_2;
 float error_debug_3;
+float error_debug_4;
+float error_debug_5;
 float index_old_debug;
 float error_old_debug;
 float error_current_debug;
@@ -54,12 +56,12 @@ void right_motor_control (INT16S value)
 	// Select motor direction
 	if(value<0)
 	{
-		IO_M0_SetDirection(1); // MOTOR REAR DIRECTION
+		IO_M0_SetDirection(0); // MOTOR REAR DIRECTION
 		abs_value = - value;
 	}
 	else
 	{
-		IO_M0_SetDirection(0); // MOTOR FRONT DIRECTION
+		IO_M0_SetDirection(1); // MOTOR FRONT DIRECTION
 		abs_value = value;
 	}
 
@@ -75,17 +77,17 @@ void left_motor_control (INT16S value)
 	// Select motor direction
 	if(value<0)
 	{
-		IO_M1_SetDirection(1); // MOTOR REAR DIRECTION
+		IO_M1_SetDirection(0); // MOTOR REAR DIRECTION
 		abs_value = - value;
 	}
 	else
 	{ 
-		IO_M1_SetDirection(0); // MOTOR FRONT DIRECTION
+		IO_M1_SetDirection(1); // MOTOR FRONT DIRECTION
 		abs_value = value;
 	}
 
 	abs_value = abs_value <<1; // full scale data
-	
+
 	PWM_M1_SetDC(abs_value);
 }
 
@@ -317,7 +319,7 @@ float PID_Computation(PID_data * pid_data, float error)
 	//differential of the error over the period	
 	errDif = error - pid_data->error_old[last];
 		
-	error_debug_3 = errDif;
+//	error_debug_3 = errDif;
 
 	//stock last values of the error, so we can
 	//differentiate over a custom period
@@ -381,11 +383,13 @@ float error_rescale (float error, float scaling_factor, float speed)
 	}
 	else
 	{
-		if(error <= -1.0 * (float) MAX_MOTOR_COMMAND * scaling_factor)
+		if(error <= -1.0 * (float) MAX_MOTOR_COMMAND * scaling_factor * speed)
 		{
 			error_rescaled = -1.0 * (float) MAX_MOTOR_COMMAND * scaling_factor * speed;
 		}
 	}
+
+	error_debug_5=error_rescaled;
 
 	return error_rescaled;
 }
@@ -428,7 +432,7 @@ float vector_product_between_robot_and_direction (float final_x, float final_y, 
 {
 	float vector_product=0.0;
 	
-	vector_product= (final_y - robot_y)*cos(robot_angle) + (final_x - robot_x)*sin(robot_angle); 
+	vector_product= (final_y - robot_y)*cos(robot_angle) - (final_x - robot_x)*sin(robot_angle); 
 
 	return vector_product;
 }
@@ -438,14 +442,16 @@ void distance_by_vector_projection_angle_between_robot_and_direction (float fina
 	float scalar_product=0.0;
 	float angle_sign =0.0;
 	
-	scalar_product = scalar_product_between_robot_and_direction(setpoint.x, setpoint.y, TaskAsser_CurrentPos.x, TaskAsser_CurrentPos.y, TaskAsser_CurrentPos.angle);
-	*distance = distance_between_two_points( setpoint.x, setpoint.y, TaskAsser_CurrentPos.x, TaskAsser_CurrentPos.y);
-	
+	scalar_product = scalar_product_between_robot_and_direction(final_x, final_y, robot_x, robot_y, robot_angle);
+	*distance = distance_between_two_points( final_x, final_y, robot_x, robot_y);
+
 	// Calcul de la valeur absolue de l'angle à parcourir avec le produit scalaire
 	*angle = acos( scalar_product / *distance );
 
 	// Calcul du sinus de l'angle à parcourir pour avoir le sens de rotation. Avec la produit vectoriel
-	angle_sign = vector_product_between_robot_and_direction(setpoint.x, setpoint.y, TaskAsser_CurrentPos.x, TaskAsser_CurrentPos.y, TaskAsser_CurrentPos.angle); // ATTENTION : on avait divisé par error_distance .. normalement ca ne sert à rien mais au cas ou ... / error_distance );
+	angle_sign = vector_product_between_robot_and_direction(final_x, final_y, robot_x, robot_y, robot_angle); // ATTENTION : on avait divisé par error_distance .. normalement ca ne sert à rien mais au cas ou ... / error_distance );
+	
+//	error_debug_4=*angle;
 
 	if ( angle_sign < 0.0 )
 	{
@@ -459,11 +465,13 @@ void distance_by_vector_projection_angle_between_robot_and_direction (float fina
 		*distance = - *distance;		// on recule
 	}
 						
-	if (*angle <= M_PI && *angle >= M_PI/2)		// quart arrière gauche
+	if (*angle < M_PI && *angle >= M_PI/2)		// quart arrière gauche
 	{
 		*angle = *angle - M_PI;		// on replace l'angle devant le robot
 		*distance = - *distance;		// on recule
 	}
+
+//	error_debug_5=*angle;
 }
 
 // Angle only in theta-alpha control
@@ -536,7 +544,8 @@ void mode_3_control_motion(struct StructPos *psetpoint, struct StructPos *pcurre
 	
 	// Compute distance : ABS value for vectorial considerations
 	error_distance = distance_between_two_points( psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y);
-				
+			
+	
 	if(error_distance<= DISTANCE_ALPHA_ONLY) // final distance reached
 	{
 		error_angle=angle_between_two_points(psetpoint->angle, pcurrent->angle);				
@@ -546,21 +555,29 @@ void mode_3_control_motion(struct StructPos *psetpoint, struct StructPos *pcurre
 	{
 		distance_by_vector_projection_angle_between_robot_and_direction(psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y, pcurrent->angle, &error_distance, &error_angle);
 	}
-	
+
+	error_debug_1=error_distance;
+	error_debug_2=error_angle;
+
 	// QUADRAMP filter on errors
-	error_distance = QUADRAMP_Compute(&distance_quadramp_data, error_distance);
+//	error_distance = QUADRAMP_Compute(&distance_quadramp_data, error_distance);
 	
 	// PID filter on errors
 	error_filtered_angle = PID_Computation(&angle_pid_data, error_angle);
 	error_filtered_distance = PID_Computation(&distance_pid_data, error_distance);
 
+
+
 	// Re-scale errors to fit on expected scale
 	error_filtered_distance = error_rescale (error_filtered_distance, (1.0 - ANGLE_VS_DISTANCE_RATIO), speed_ratio);
 	error_filtered_angle = error_rescale (error_filtered_angle, ANGLE_VS_DISTANCE_RATIO, speed_ratio);
 
+//	error_debug_5 = error_filtered_distance;
+
 	// Command merge
 	*raw_command_right = error_filtered_distance + error_filtered_angle;
 	*raw_command_left = error_filtered_distance - error_filtered_angle;
+
 }
 
 // Pivot control motion in separated wheel control
@@ -667,6 +684,9 @@ void TaskAsser_Main(void *p_arg)
 			putsUART2(" , Angle=");
 			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) AppConvertRadInDeg(pCurrentMsg->Param3), (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 			putsUART2(buffer_ptr);
+			putsUART2(" , Mode=");
+			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) mode_control, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+			putsUART2(buffer_ptr);
 			putsUART2("\n");
 		}
 			
@@ -693,10 +713,8 @@ void TaskAsser_Main(void *p_arg)
 			case 1: // Angle only
 				mode_1_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
 				break;
-				
 			case 2: //Distance only
 				mode_2_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
-				
 				break;
 			case 3:
 				mode_3_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
@@ -711,6 +729,9 @@ void TaskAsser_Main(void *p_arg)
 		// command clipping
 		command_right = motor_command_clipping(raw_command_right);
 		command_left = motor_command_clipping(raw_command_left);
+
+		error_debug_3=command_right;
+		error_debug_4=command_left;
 
 		// Motor drive
 		right_motor_control (command_right);
