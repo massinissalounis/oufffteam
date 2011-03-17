@@ -157,110 +157,9 @@ void TaskMain_GetNextActionForColorA() // Blue
 	// Search for position
 	switch(TaskMain_NextState)
 	{	
-		// Match 5
-/*		case 0: 	ptr->x = 2125.5; 	ptr->y = 0874.5;	ptr->angle = AppConvertDegInRad(0151.0);												LibMoving_SetSpeed(0.80); 						ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 1: 	ptr->x = 0375.0; 	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0135.0);												LibMoving_SetSpeed(0.80);				 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 2: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 151.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;		break;
-		case 3: 	ptr->x = 0825.0; 	ptr->y = 1597.0;	ptr->angle = AppConvertDegInRad(00151.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 4: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 5: 	ptr->x = 0825.0; 	ptr->y = 1065.0;	ptr->angle = AppConvertDegInRad(0090.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED);		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 6: 	ptr->x = 0600.0; 	ptr->y = 1222.0;	ptr->angle = AppConvertDegInRad(0151.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 7: 	ptr->x = 0282.0;	ptr->y = 1398.0;	ptr->angle = AppConvertDegInRad(0090.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 8: 	ptr->x = 0600.0;	ptr->y = 1722.0;	ptr->angle = AppConvertDegInRad(-029.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 9: 	ptr->x = 2175.0;	ptr->y = 0847.0;	ptr->angle = AppConvertDegInRad(-029.0);												LibMoving_SetSpeed(0.50);				 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 10: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 170.0, ptr);																	LibMoving_SetSpeed(0.50);				 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 11: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(0.50); 						ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 12:	ptr->x = 2175.0;	ptr->y = 1305.0;	ptr->angle = AppConvertDegInRad(0090.0);												LibMoving_SetSpeed(0.50); 						ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 13:	ptr->x = 1950.0;	ptr->y = 1472.0;	ptr->angle = AppConvertDegInRad(0151.0);												LibMoving_SetSpeed(0.50); 						ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 14: 	ptr->x = 1098.0;	ptr->y = 1885.0;	ptr->angle = AppConvertDegInRad(0180.0);												LibMoving_SetSpeed(0.50);				 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 15: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 151.0, ptr);																	LibMoving_SetSpeed(0.50); 						ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 16: 	ptr->x = 1950.0;	ptr->y = 1472.0;	ptr->angle = AppConvertDegInRad(0151.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(0.50); 						ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 17: 	ptr->x = 0375.0;	ptr->y = 0647.0;	ptr->angle = AppConvertDegInRad(0000.0);												LibMoving_SetSpeed(0.50); 						ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 18: 	ptr->x = 0375.0;	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0135.0);												LibMoving_SetSpeed(0.50); 						ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-*/
-		// Match 4
-/*		case 0: 	ptr->x = 2125.5; 	ptr->y = 0874.5;	ptr->angle = AppConvertDegInRad(0151.0);												LibMoving_SetSpeed(0.80); 						ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 1: 	ptr->x = 0375.0; 	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0135.0);												LibMoving_SetSpeed(0.80);				 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 2: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 151.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;		break;
-		case 3: 	ptr->x = 0825.0; 	ptr->y = 1597.0;	ptr->angle = AppConvertDegInRad(00151.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 4: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 5: 	ptr->x = 0825.0; 	ptr->y = 1065.0;	ptr->angle = AppConvertDegInRad(0090.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED);		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 6: 	ptr->x = 0600.0; 	ptr->y = 1222.0;	ptr->angle = AppConvertDegInRad(0151.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 7: 	ptr->x = 0282.0;	ptr->y = 1398.0;	ptr->angle = AppConvertDegInRad(0090.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 8: 	ptr->x = 0600.0;	ptr->y = 1722.0;	ptr->angle = AppConvertDegInRad(-029.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 9: 	ptr->x = 2175.0;	ptr->y = 0847.0;	ptr->angle = AppConvertDegInRad(-029.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 10: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 170.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 11: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 12:	ptr->x = 2175.0;	ptr->y = 1305.0;	ptr->angle = AppConvertDegInRad(0090.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 13:	ptr->x = 1950.0;	ptr->y = 1472.0;	ptr->angle = AppConvertDegInRad(0151.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 14: 	ptr->x = 1098.0;	ptr->y = 1885.0;	ptr->angle = AppConvertDegInRad(0180.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 15: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 151.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 16: 	ptr->x = 1950.0;	ptr->y = 1472.0;	ptr->angle = AppConvertDegInRad(0151.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 17: 	ptr->x = 0375.0;	ptr->y = 0647.0;	ptr->angle = AppConvertDegInRad(0000.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 18: 	ptr->x = 0375.0;	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0135.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-*/
-		// Match 3
-/*		case 0: 	ptr->x = 2125.5; 	ptr->y = 0874.5;	ptr->angle = AppConvertDegInRad(0151.0);												LibMoving_SetSpeed(0.80); 						ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 1: 	ptr->x = 0375.0; 	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0135.0);												LibMoving_SetSpeed(0.80);				 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 2: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 151.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;		break;
-		case 3: 	ptr->x = 0825.0; 	ptr->y = 1597.0;	ptr->angle = AppConvertDegInRad(00151.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 4: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 5: 	ptr->x = 0825.0; 	ptr->y = 1087.0;	ptr->angle = AppConvertDegInRad(0090.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED);		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 6: 	ptr->x = 0600.0; 	ptr->y = 1222.0;	ptr->angle = AppConvertDegInRad(0151.0);												LibMoving_SetSpeed(0.30); 						ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 7: 	ptr->x = 0282.0;	ptr->y = 1398.0;	ptr->angle = AppConvertDegInRad(0090.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 8: 	ptr->x = 0600.0;	ptr->y = 1722.0;	ptr->angle = AppConvertDegInRad(-151.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 9: 	ptr->x = 2175.0;	ptr->y = 0847.0;	ptr->angle = AppConvertDegInRad(0180.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 10: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 11:	ptr->x = 2175.0;	ptr->y = 1347.0;	ptr->angle = AppConvertDegInRad(-0029.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 12: 	ptr->x = 1098.0;	ptr->y = 1885.0;	ptr->angle = AppConvertDegInRad(00151.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 13: 	ptr->x = 1950.0;	ptr->y = 1472.0;	ptr->angle = AppConvertDegInRad(00151.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 14: 	ptr->x = 0375.0;	ptr->y = 0647.0;	ptr->angle = AppConvertDegInRad(0000.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 15: 	ptr->x = 0375.0;	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0135.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-*/
-		// Match 2
-/*		case 0: 	ptr->x = 2125.5; 	ptr->y = 0874.5;	ptr->angle = AppConvertDegInRad(0151.0);												LibMoving_SetSpeed(1.000); 						IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 1: 	ptr->x = 375.0; 	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0135.0);												LibMoving_SetSpeed(0.750);				 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 2: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 151.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;		break;
-		case 3: 	ptr->x = 0825.0; 	ptr->y = 1597.0;	ptr->angle = AppConvertDegInRad(0151.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 4: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 5: 	ptr->x = 0825.0; 	ptr->y = 1097.0;	ptr->angle = AppConvertDegInRad(0090.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED);		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 6: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 151.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 7: 	ptr->x = 0280.0;	ptr->y = 1400.0;	ptr->angle = AppConvertDegInRad(0090.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 8: 	ptr->x = 0600.0;	ptr->y = 1722.0;	ptr->angle = AppConvertDegInRad(-029.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 9: 	ptr->x = 2175.0;	ptr->y = 0847.0;	ptr->angle = AppConvertDegInRad(0180.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 10: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 11:	ptr->x = 2175.0;	ptr->y = 1347.0;	ptr->angle = AppConvertDegInRad(0151.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 12: 	ptr->x = 1050.0;	ptr->y = 1972.0;	ptr->angle = AppConvertDegInRad(0151.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 13: 	ptr->x = 1950.0;	ptr->y = 1472.0;	ptr->angle = AppConvertDegInRad(0151.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 14: 	ptr->x = 0375.0;	ptr->y = 0647.0;	ptr->angle = AppConvertDegInRad(0000.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 15: 	ptr->x = 0375.0;	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0135.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-*/
-		// Match 1
-/*		case 0:		ptr->x = 2750.0;	ptr->y = 0250.0;	ptr->angle	= AppConvertDegInRad(0135.0);												ptr->IDActiveSensors = SENSORS_FRONT_ID;	break;
-		case 1:		ptr->x = 2400.0;	ptr->y = 0722.0;	ptr->angle	= AppConvertDegInRad(0151.0);												ptr->IDActiveSensors = SENSORS_ALL_ID;		break;
-		case 2:		ptr->x = 1950.0;	ptr->y = 0972.0;	ptr->angle	= AppConvertDegInRad(0151.0);												ptr->IDActiveSensors = SENSORS_ALL_ID;		break;
-		case 3:		ptr->x = 0375.0;	ptr->y = 1847.0;	ptr->angle	= AppConvertDegInRad(0135.0);	LibMoving_SetSpeed(0.50);					ptr->IDActiveSensors = SENSORS_ALL_ID;		break;
-		case 4:		ptr->x = 0375.0;	ptr->y = 1847.0;	ptr->angle	= AppConvertDegInRad(0090.0);	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_ALL_ID;	break;
-		case 5:		ptr->x = 0375.0;	ptr->y = 1847.0;	ptr->angle	= AppConvertDegInRad(0151.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_ALL_ID;	break;
-		case 6:		ptr->x = 0825.0;	ptr->y = 1597.0;	ptr->angle	= AppConvertDegInRad(0151.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_BACK_ID;	break;
-		case 7:		ptr->x = 0825.0;	ptr->y = 1597.0;	ptr->angle	= AppConvertDegInRad(0090.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_ALL_ID;	break;
-		case 8:		ptr->x = 0825.0;	ptr->y = 1097.0;	ptr->angle	= AppConvertDegInRad(0090.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_BACK_ID;	break;
-		case 9:		ptr->x = 0825.0;	ptr->y = 1097.0;	ptr->angle	= AppConvertDegInRad(0151.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_ALL_ID;	break;
-		case 10:	ptr->x = 0375.0;	ptr->y = 1347.0;	ptr->angle	= AppConvertDegInRad(0151.0);	LibMoving_SetSpeed(0.30);					ptr->IDActiveSensors = SENSORS_ALL_ID;	break;
-		case 11:	ptr->x = 0375.0;	ptr->y = 1347.0;	ptr->angle	= AppConvertDegInRad(0090.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_ALL_ID;	break;
-		case 12:	ptr->x = 0375.0;	ptr->y = 1847.0;	ptr->angle	= AppConvertDegInRad(0090.0);	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED);	ptr->IDActiveSensors = SENSORS_ALL_ID;	break;
-*/
-		// Homologation
-/*		case 0:		ptr->x = 2750.0;	ptr->y = 0250.0;	ptr->angle	= AppConvertDegInRad(0135.0);	break;
-		case 1:		ptr->x = 2400.0;	ptr->y = 0722.0;	ptr->angle	= AppConvertDegInRad(0151.0);	break;
-		case 2:		ptr->x = 1950.0;	ptr->y = 0972.0;	ptr->angle	= AppConvertDegInRad(0151.0);	break;
-		case 3:		ptr->x = 0375.0;	ptr->y = 1847.0;	ptr->angle	= AppConvertDegInRad(0135.0);	break;
-*/
-		
-
 		// Test pre match
-		case 0: 	ptr->x = 0150.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 1: 	ptr->x = 0000.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
+		case 0: 	ptr->x = 0150.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);		ptr->mode_control = 3;											LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
+		case 1: 	ptr->x = 0000.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);		ptr->mode_control = 3;										LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
 
 		// Default --------------------------------------------------------------------------------
 		default:
@@ -285,136 +184,6 @@ void TaskMain_GetNextActionForColorB() // Yellow
 
 	switch(TaskMain_NextState)
 	{
-
-//		case 0: 	ptr->x = 0000.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-//		case 1: 	ptr->x = 0150.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-//		case 2: 	ptr->x = 0000.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-//		case 3: 	ptr->x = 0000.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(90.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-
-//		case 0 : ptr->x = 0450.0; 	ptr->y = 0450.0;	ptr->angle = AppConvertDegInRad(0090.0);													LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;		break;
-//		case 1 : ptr->x = 0450.0; 	ptr->y = 0150.0;	ptr->angle = AppConvertDegInRad(0090.0); ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;				LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;		break;
-//		case 2 : ptr->x = 0700.0; 	ptr->y = 0650.0;	ptr->angle = AppConvertDegInRad(0029.0); ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;				LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;		break;
-
-		// Match 4
-/*		case 0: 	ptr->x = 0874.5; 	ptr->y = 0874.5;	ptr->angle = AppConvertDegInRad(0029.0);												LibMoving_SetSpeed(0.80); 						ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 1: 	ptr->x = 2625.0; 	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0045.0);												LibMoving_SetSpeed(0.80);				 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 2: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 29.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;		break;
-		case 3: 	ptr->x = 2175.0; 	ptr->y = 1597.0;	ptr->angle = AppConvertDegInRad(0029.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 4: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 5: 	ptr->x = 2175.0; 	ptr->y = 1065.0;	ptr->angle = AppConvertDegInRad(0090.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED);		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 6: 	ptr->x = 2400.0; 	ptr->y = 1222.0;	ptr->angle = AppConvertDegInRad(0029.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 7: 	ptr->x = 2718.0;	ptr->y = 1398.0;	ptr->angle = AppConvertDegInRad(0090.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 8: 	ptr->x = 2400.0;	ptr->y = 1722.0;	ptr->angle = AppConvertDegInRad(-151.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 9: 	ptr->x = 0825.0;	ptr->y = 0847.0;	ptr->angle = AppConvertDegInRad(-151.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 10: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 10.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 11: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 12:	ptr->x = 0825.0;	ptr->y = 1305.0;	ptr->angle = AppConvertDegInRad(0090.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 13:	ptr->x = 1050.0;	ptr->y = 1472.0;	ptr->angle = AppConvertDegInRad(0029.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED);		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 14: 	ptr->x = 1902.0;	ptr->y = 1885.0;	ptr->angle = AppConvertDegInRad(0000.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 15: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 29.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 16: 	ptr->x = 1050.0;	ptr->y = 1472.0;	ptr->angle = AppConvertDegInRad(0029.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 17: 	ptr->x = 2625.0;	ptr->y = 0647.0;	ptr->angle = AppConvertDegInRad(0180.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 18: 	ptr->x = 2625.0;	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0045.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-*/
-		// Match 3
-/*		case 0: 	ptr->x = 0874.5; 	ptr->y = 0874.5;	ptr->angle = AppConvertDegInRad(0029.0);												LibMoving_SetSpeed(0.80); 						ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 1: 	ptr->x = 2625.0; 	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0045.0);												LibMoving_SetSpeed(0.80);				 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 2: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 29.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;		break;
-		case 3: 	ptr->x = 2175.0; 	ptr->y = 1597.0;	ptr->angle = AppConvertDegInRad(0029.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 4: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 5: 	ptr->x = 2175.0; 	ptr->y = 1087.0;	ptr->angle = AppConvertDegInRad(0090.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED);		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 6: 	ptr->x = 2400.0; 	ptr->y = 1222.0;	ptr->angle = AppConvertDegInRad(0029.0);												LibMoving_SetSpeed(0.30); 						ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 7: 	ptr->x = 2718.0;	ptr->y = 1398.0;	ptr->angle = AppConvertDegInRad(0090.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 8: 	ptr->x = 2400.0;	ptr->y = 1722.0;	ptr->angle = AppConvertDegInRad(-151.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 9: 	ptr->x = 0825.0;	ptr->y = 0847.0;	ptr->angle = AppConvertDegInRad(0000.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 10: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 11:	ptr->x = 0825.0;	ptr->y = 1347.0;	ptr->angle = AppConvertDegInRad(0029.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 12: 	ptr->x = 1902.0;	ptr->y = 1885.0;	ptr->angle = AppConvertDegInRad(0029.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 13: 	ptr->x = 1050.0;	ptr->y = 1472.0;	ptr->angle = AppConvertDegInRad(0029.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 14: 	ptr->x = 2625.0;	ptr->y = 0647.0;	ptr->angle = AppConvertDegInRad(0180.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 15: 	ptr->x = 2625.0;	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0045.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-*/
-		// Match 2
-/*		case 0: 	ptr->x = 0874.5; 	ptr->y = 0874.5;	ptr->angle = AppConvertDegInRad(0029.0);												LibMoving_SetSpeed(1.000); 						ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 1: 	ptr->x = 2625.0; 	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0045.0);												LibMoving_SetSpeed(0.750);				 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 2: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 29.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;		break;
-		case 3: 	ptr->x = 2175.0; 	ptr->y = 1597.0;	ptr->angle = AppConvertDegInRad(0029.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 4: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 5: 	ptr->x = 2175.0; 	ptr->y = 1097.0;	ptr->angle = AppConvertDegInRad(0090.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED);		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 6: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 29.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 7: 	ptr->x = 2720.0;	ptr->y = 1400.0;	ptr->angle = AppConvertDegInRad(0090.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 8: 	ptr->x = 2400.0;	ptr->y = 1722.0;	ptr->angle = AppConvertDegInRad(-151.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 9: 	ptr->x = 0825.0;	ptr->y = 0847.0;	ptr->angle = AppConvertDegInRad(0000.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 10: 	LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 90.0, ptr);																	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_NONE_ID;  	break;
-		case 11:	ptr->x = 0825.0;	ptr->y = 1347.0;	ptr->angle = AppConvertDegInRad(0029.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 12: 	ptr->x = 1950.0;	ptr->y = 1972.0;	ptr->angle = AppConvertDegInRad(0029.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 13: 	ptr->x = 1050.0;	ptr->y = 1472.0;	ptr->angle = AppConvertDegInRad(0029.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_BACK_ID;  	break;
-		case 14: 	ptr->x = 2625.0;	ptr->y = 0647.0;	ptr->angle = AppConvertDegInRad(0180.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 15: 	ptr->x = 2625.0;	ptr->y = 1847.0;	ptr->angle = AppConvertDegInRad(0045.0);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-*/
-
-/*		// Match 1
-		case 0:		ptr->x = 0250.0;	ptr->y = 0250.0;	ptr->angle	= AppConvertDegInRad(0045.0);												ptr->IDActiveSensors = SENSORS_FRONT_ID;	break;
-		case 1:		ptr->x = 0600.0;	ptr->y = 0722.0;	ptr->angle	= AppConvertDegInRad(0029.0);												ptr->IDActiveSensors = SENSORS_ALL_ID;		break;
-		case 2:		ptr->x = 1050.0;	ptr->y = 0972.0;	ptr->angle	= AppConvertDegInRad(0029.0);												ptr->IDActiveSensors = SENSORS_ALL_ID;		break;
-		case 3:		ptr->x = 2625.0;	ptr->y = 1847.0;	ptr->angle	= AppConvertDegInRad(0045.0);	LibMoving_SetSpeed(0.50);					ptr->IDActiveSensors = SENSORS_ALL_ID;		break;
-		case 4:		ptr->x = 2625.0;	ptr->y = 1847.0;	ptr->angle	= AppConvertDegInRad(0090.0);	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_ALL_ID;		break;
-		case 5:		ptr->x = 2625.0;	ptr->y = 1847.0;	ptr->angle	= AppConvertDegInRad(0029.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_ALL_ID;		break;
-		case 6:		ptr->x = 2175.0;	ptr->y = 1597.0;	ptr->angle	= AppConvertDegInRad(0029.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_BACK_ID;		break;
-		case 7:		ptr->x = 2175.0;	ptr->y = 1597.0;	ptr->angle	= AppConvertDegInRad(0090.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_ALL_ID;		break;
-		case 8:		ptr->x = 2175.0;	ptr->y = 1097.0;	ptr->angle	= AppConvertDegInRad(0090.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_BACK_ID;		break;
-		case 9:		ptr->x = 2175.0;	ptr->y = 1097.0;	ptr->angle	= AppConvertDegInRad(0029.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_ALL_ID;		break;
-		case 10:	ptr->x = 2625.0;	ptr->y = 1347.0;	ptr->angle	= AppConvertDegInRad(0029.0);	LibMoving_SetSpeed(0.30);					ptr->IDActiveSensors = SENSORS_ALL_ID;		break;
-		case 11:	ptr->x = 2625.0;	ptr->y = 1347.0;	ptr->angle	= AppConvertDegInRad(0090.0);	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;		ptr->IDActiveSensors = SENSORS_ALL_ID;		break;
-		case 12:	ptr->x = 2625.0;	ptr->y = 1847.0;	ptr->angle	= AppConvertDegInRad(0090.0);	LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED);	ptr->IDActiveSensors = SENSORS_ALL_ID;		break;
-*/
-
-		// Carre
-/*		case 0:		ptr->x = 0300.0;	ptr->y = 0300.0;	ptr->angle	= AppConvertDegInRad(0045.0);		break;
-		case 1:		ptr->x = 0300.0;	ptr->y = 0700.0;	ptr->angle	= AppConvertDegInRad(0090.0);		break;
-		case 2:		ptr->x = 0700.0;	ptr->y = 0700.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
-		case 3:		ptr->x = 0700.0;	ptr->y = 0300.0;	ptr->angle	= AppConvertDegInRad(-090.0);		break;
-		case 4:		ptr->x = 0300.0;	ptr->y = 0300.0;	ptr->angle	= AppConvertDegInRad(0045.0);		break;
-		case 5:		ptr->x = 0125.0;	ptr->y = 0125.0;	ptr->angle	= AppConvertDegInRad(0045.0);		ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE;	break;
-*/
-
-		// Test balles
-//		case 0:		ptr->x = 0610.0;	ptr->y = 0610.0;	ptr->angle	= AppConvertDegInRad(00180.0);		break;
-//		case 1:		ptr->x = 0410.0;	ptr->y = 0610.0;	ptr->angle	= AppConvertDegInRad(00180.0);		break;
-//		case 2:		ptr->x = 0410.0;	ptr->y = 0610.0;	ptr->angle	= AppConvertDegInRad(-90.0); 	ptr->Flag = APP_FLAG_POS__SIMPLE_MOVE; 		break;
-
-/*		// Test de Distance
-		case 0:		ptr->x = 0500.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
-		case 1:		ptr->x = 1750.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
-		case 2:		ptr->x = 0500.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
-		case 3:		ptr->x = 1750.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
-		case 4:		ptr->x = 0500.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
-		case 5:		ptr->x = 1750.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
-		case 6:		ptr->x = 0500.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
-		case 7:		ptr->x = 1750.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
-		case 8:		ptr->x = 0500.0;	ptr->y = 0500.0;	ptr->angle	= AppConvertDegInRad(0000.0);		break;
-		case 9:		ptr->x = 0130.0;	ptr->y = 0130.0;	ptr->angle	= AppConvertDegInRad(0225.0);		break;
-*/		
-		// Homologation
-/*		case 0:		ptr->x = 0250.0;	ptr->y = 0250.0;	ptr->angle	= AppConvertDegInRad(0045.0);		break;
-		case 1:		ptr->x = 0600.0;	ptr->y = 0722.0;	ptr->angle	= AppConvertDegInRad(0029.0);		break;
-		case 2:		ptr->x = 1050.0;	ptr->y = 0972.0;	ptr->angle	= AppConvertDegInRad(0029.0);		break;
-		case 3:		ptr->x = 2625.0;	ptr->y = 1847.0;	ptr->angle	= AppConvertDegInRad(0045.0);		break;
-*/
-
-		// Test
-//		case 0: 	LibMoving_MoveInMM(&TaskMain_CurrentPos, 0300.0, ptr);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		break;
-//		case 1: 	LibMoving_MoveInMM(&TaskMain_CurrentPos, -300.0, ptr);												LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		break;
-
-/*		case 0:		ptr->x = 0600.0;	ptr->y = 0600.0;	ptr->angle	= AppConvertDegInRad(0045.0);		ptr->IDActiveSensors = SENSORS_NONE_ID;			break;
-		case 1:		ptr->x = 0375.0;	ptr->y = 0253.0;	ptr->angle	= AppConvertDegInRad(-090.0);		ptr->IDActiveSensors = SENSORS_NONE_ID;			break;
-		case 2:		LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, -135.0, ptr);							ptr->IDActiveSensors = SENSORS_NONE_ID;			break;
-		case 3:		LibMoving_MoveInMM(&TaskMain_CurrentPos, -176, ptr);									ptr->IDActiveSensors = SENSORS_NONE_ID;			break;
-		case 4:		LibMoving_MoveToAngleInDeg(&TaskMain_CurrentPos, 180.0, ptr);							ptr->IDActiveSensors = SENSORS_NONE_ID;			break;
-		case 5:		LibMoving_MoveInMM(&TaskMain_CurrentPos, 200, ptr);	
-					LibMoving_SetSpeed(0.2);
-					ptr->Flag = ptr->Flag + APP_FLAG_POS__CHECK_CORN;										ptr->IDActiveSensors = SENSORS_CLICCLIC_3_ID;	break;
-*/
 
 		// Default --------------------------------------------------------------------------------
 		default:
@@ -678,6 +447,7 @@ void TaskMain_StopAsser()
 	MsgToPost.Param1 = 0;		
 	MsgToPost.Param2 = 0;		
 	MsgToPost.Param3 = 0;	
+	MsgToPost.Param4 = 0;	
 
 	// Send msg
 	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
@@ -748,9 +518,7 @@ void TaskMain_Main(void *p_arg)
 	// Indicate which moving algo we're going to use
 	// Create this msg
 	MsgToPost.Msg		= Msg_Asser_Algo;
-	MsgToPost.Param1	= APP_MOVING_ASSER_IN_POS_ENABLED;
-	MsgToPost.Param2	= APP_MOVING_ASSER_IN_ANGLE_ENABLED;
-	MsgToPost.Param3	= APP_MOVING_ASSER_IN_SPEED_ENABLED;
+	MsgToPost.Param4	= APP_MOVING_ASSER_INITIAL_MODE_CTRL;
 	// Post msg to activate moving algo
 	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
 
@@ -778,6 +546,7 @@ void TaskMain_Main(void *p_arg)
 		TaskMain_NextSetpointPos.angle 				= AppConvertDegInRad(APP_INIT_BLUE_ANGLE);
 		TaskMain_NextSetpointPos.Flag 				= APP_FLAG_POS__NO_FLAG;
 		TaskMain_NextSetpointPos.IDActiveSensors	= SENSORS_NONE_ID;
+		TaskMain_NextSetpointPos.mode_control		= APP_MOVING_ASSER_INITIAL_MODE_CTRL;
 		putsUART2("TaskMain : Color Read -> Blue\n");
 	}
 	else
@@ -787,6 +556,7 @@ void TaskMain_Main(void *p_arg)
 		TaskMain_NextSetpointPos.angle 				= AppConvertDegInRad(APP_INIT_YELLOW_ANGLE);
 		TaskMain_NextSetpointPos.Flag 				= APP_FLAG_POS__NO_FLAG;
 		TaskMain_NextSetpointPos.IDActiveSensors	= SENSORS_NONE_ID;
+		TaskMain_NextSetpointPos.mode_control		= APP_MOVING_ASSER_INITIAL_MODE_CTRL;
 		putsUART2("TaskMain : Color Read -> Yellow\n");
 	}
 
@@ -802,6 +572,8 @@ void TaskMain_Main(void *p_arg)
 		MsgToPost.Param1	= TaskMain_NextSetpointPos.x;
 		MsgToPost.Param2	= TaskMain_NextSetpointPos.y;
 		MsgToPost.Param3	= TaskMain_NextSetpointPos.angle;
+		MsgToPost.Param4	= APP_MOVING_ASSER_INITIAL_MODE_CTRL;
+
 
 		// Post new expected pos
 		AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
@@ -855,6 +627,7 @@ void TaskMain_Main(void *p_arg)
 						MsgToPost.Param1	= TaskMain_NextSetpointPos.x;
 						MsgToPost.Param2	= TaskMain_NextSetpointPos.y;
 						MsgToPost.Param3	= TaskMain_NextSetpointPos.angle;
+						MsgToPost.Param4	= TaskMain_NextSetpointPos.mode_control;
 		
 						/*putsUART2("TASK_MAIN : Send Mesg ---> X=");
 						buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskMain_NextSetpointPos.x, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
