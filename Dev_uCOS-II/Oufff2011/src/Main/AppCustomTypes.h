@@ -44,6 +44,7 @@ typedef enum
 	float 	x;					// Pos en x
 	float 	y;					// Pos en y
 	float 	angle;				// Angle
+	int		mode_control;		// Mode used for mvt
 	int		right_encoder;		// Right wheel position for mode 4
 	int		left_encoder;		// Left wheel position for mode 4
 	int 	IDActiveSensors;	// Define which active sensors we have to use for this movement (if not set, use all sensors)
@@ -57,9 +58,10 @@ typedef struct
 	EnumMsg Msg;		// Msg to be sent (Msg_NoMsg: Invalid Msg)																					
 	BOOLEAN IsRead;		// Flag to indicate if current msg has been read or not																	
 	// Msg Parameters	:  Msg_Asser_GoToXYA	| Msg_Asser_Algo								| Msg_Asser_SetSpeed								
-	float Param1;		// X					| Set to use Asser In Pos (Clear otherwise)		| Speed rate (between 0 and 1.0)
-	float Param2;		// Y					| Set to use Asser In Angle (Clear otherwise)	| Not Used
-	float Param3;		// ALPHA				| Set to use Asser In Speed (Not Used Yet)		| Not Used
+	float Param1;		// X					| Not Used										| Speed rate (between 0 and 1.0)
+	float Param2;		// Y					| Not Used										| Not Used
+	float Param3;		// ALPHA				| Not Used										| Not Used
+	int Param4;			// Motion_Mode			| Not Used										| Not Used
 }StructMsg;
 
 #endif // APPCUSTOMTYPES_H

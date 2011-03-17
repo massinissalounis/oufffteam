@@ -654,14 +654,12 @@ void TaskAsser_Main(void *p_arg)
 				case Msg_Asser_GoToXYA:	// Define new setpoint
 					setpoint.x = pCurrentMsg->Param1; 
 					setpoint.y = pCurrentMsg->Param2;
-					setpoint.angle = pCurrentMsg->Param3;  		
+					setpoint.angle = pCurrentMsg->Param3;
+					mode_control = pCurrentMsg->Param4;
 					break;
 
 				case Msg_Asser_Algo:	// Define which algo we have to use
-					if(!(BOOLEAN)pCurrentMsg->Param1 && !(BOOLEAN)pCurrentMsg->Param2) mode_control =0; // No control
-					if(!(BOOLEAN)pCurrentMsg->Param1 && (BOOLEAN)pCurrentMsg->Param2) mode_control =1; // Angle only
-					if((BOOLEAN)pCurrentMsg->Param1 && !(BOOLEAN)pCurrentMsg->Param2) mode_control =2; // Distance only
-					if((BOOLEAN)pCurrentMsg->Param1 && (BOOLEAN)pCurrentMsg->Param2) mode_control =3; // Mixed mode
+					mode_control = pCurrentMsg->Param4;			
 					break;
 						
 				case Msg_Asser_SetSpeed:	// Define new speed 
