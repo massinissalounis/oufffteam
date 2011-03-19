@@ -124,7 +124,7 @@ float QUADRAMP_Compute(QUADRAMP_data *data, float error)
 	float filtered_error=0.0;
 	
 	float break_distance=0.0;
-	float Tech= ASSER_SAMPLING*0.001; // ms conversion
+	float Tech= ASSER_SAMPLING*0.001; // s conversion
 	
 	int tmp1;
 	float tmp2;
@@ -132,14 +132,19 @@ float QUADRAMP_Compute(QUADRAMP_data *data, float error)
 	int state=0; // 0: stop, 1: acc, 2: Vcte, 3: Decell, 4: final
 
 	// Phase detection
-	tmp1=abs(data->speed/data->acceleration_order); // break_time in loop times
+	tmp1=abs(data->speed_order/data->acceleration_order); // break duration expressed in loop times
 	tmp2=data->speed;
+
+	error_debug_5=tmp1;
+
 	while(tmp1!=0)
 	{
-		break_distance+=data->speed*Tech;
+		break_distance+=tmp2*Tech;
 		tmp2-=data->acceleration_order;
 		tmp1--;
 	}
+
+
 
 	if(abs(error)>break_distance) // acc or Vcte
 	{
@@ -151,6 +156,8 @@ float QUADRAMP_Compute(QUADRAMP_data *data, float error)
 		if(abs(error)<=data->final_approach_limit) state = 4;
 		else state = 3;
 	}
+
+	error_debug_2=state;
 	
 	switch(state)
 	{
@@ -389,7 +396,7 @@ float error_rescale (float error, float scaling_factor, float speed)
 		}
 	}
 
-	error_debug_5=error_rescaled;
+	//error_debug_5=error_rescaled;
 
 	return error_rescaled;
 }
@@ -557,10 +564,12 @@ void mode_3_control_motion(struct StructPos *psetpoint, struct StructPos *pcurre
 	}
 
 	error_debug_1=error_distance;
-	error_debug_2=error_angle;
+
 
 	// QUADRAMP filter on errors
-//	error_distance = QUADRAMP_Compute(&distance_quadramp_data, error_distance);
+	error_distance = QUADRAMP_Compute(&distance_quadramp_data, error_distance);
+
+	error_debug_3=error_distance;
 	
 	// PID filter on errors
 	error_filtered_angle = PID_Computation(&angle_pid_data, error_angle);
@@ -630,7 +639,7 @@ void TaskAsser_Main(void *p_arg)
 
 //	float speed_ratio = SPEED_RATIO;
 
-	putsUART2("OUFFF TEAM 2010 : Asser online\n");
+	putsUART2("OUFFF TEAM 2011 : Asser online\n");
 
 	init_control_motion();
 
@@ -655,11 +664,10 @@ void TaskAsser_Main(void *p_arg)
 					setpoint.x = pCurrentMsg->Param1; 
 					setpoint.y = pCurrentMsg->Param2;
 					setpoint.angle = pCurrentMsg->Param3;
-					mode_control = pCurrentMsg->Param4;
 					break;
 
 				case Msg_Asser_Algo:	// Define which algo we have to use
-					mode_control = pCurrentMsg->Param4;			
+					mode_control = pCurrentMsg->Param1;			
 					break;
 						
 				case Msg_Asser_SetSpeed:	// Define new speed 
@@ -681,9 +689,6 @@ void TaskAsser_Main(void *p_arg)
 			putsUART2(buffer_ptr);
 			putsUART2(" , Angle=");
 			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) AppConvertRadInDeg(pCurrentMsg->Param3), (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-			putsUART2(buffer_ptr);
-			putsUART2(" , Mode=");
-			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) mode_control, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 			putsUART2(buffer_ptr);
 			putsUART2("\n");
 		}
@@ -728,8 +733,8 @@ void TaskAsser_Main(void *p_arg)
 		command_right = motor_command_clipping(raw_command_right);
 		command_left = motor_command_clipping(raw_command_left);
 
-		error_debug_3=command_right;
-		error_debug_4=command_left;
+	//	error_debug_3=command_right;
+	//	error_debug_4=command_left;
 
 		// Motor drive
 		right_motor_control (command_right);

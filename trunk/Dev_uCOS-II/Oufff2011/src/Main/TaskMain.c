@@ -158,8 +158,8 @@ void TaskMain_GetNextActionForColorA() // Blue
 	switch(TaskMain_NextState)
 	{	
 		// Test pre match
-		case 0: 	ptr->x = 0150.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);		ptr->mode_control = 3;											LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
-		case 1: 	ptr->x = 0000.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);		ptr->mode_control = 3;										LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
+		case 0: 	ptr->x = 0350.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);		ptr->mode_control = 3;		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
+//		case 1: 	ptr->x = 0000.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);		ptr->mode_control = 3;		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
 
 		// Default --------------------------------------------------------------------------------
 		default:
@@ -447,7 +447,6 @@ void TaskMain_StopAsser()
 	MsgToPost.Param1 = 0;		
 	MsgToPost.Param2 = 0;		
 	MsgToPost.Param3 = 0;	
-	MsgToPost.Param4 = 0;	
 
 	// Send msg
 	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
@@ -508,7 +507,7 @@ void TaskMain_Main(void *p_arg)
 	char 		uart_buffer[13];
 	char 		*buffer_ptr;
 
-	putsUART2("OUFFF TEAM 2010 : Main online\n");
+	putsUART2("OUFFF TEAM 2011 : Main online\n");
 
 	TaskMain_Init();
 	
@@ -518,7 +517,7 @@ void TaskMain_Main(void *p_arg)
 	// Indicate which moving algo we're going to use
 	// Create this msg
 	MsgToPost.Msg		= Msg_Asser_Algo;
-	MsgToPost.Param4	= APP_MOVING_ASSER_INITIAL_MODE_CTRL;
+	MsgToPost.Param1	= APP_MOVING_ASSER_INITIAL_MODE_CTRL;
 	// Post msg to activate moving algo
 	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
 
@@ -572,8 +571,6 @@ void TaskMain_Main(void *p_arg)
 		MsgToPost.Param1	= TaskMain_NextSetpointPos.x;
 		MsgToPost.Param2	= TaskMain_NextSetpointPos.y;
 		MsgToPost.Param3	= TaskMain_NextSetpointPos.angle;
-		MsgToPost.Param4	= APP_MOVING_ASSER_INITIAL_MODE_CTRL;
-
 
 		// Post new expected pos
 		AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
@@ -621,13 +618,15 @@ void TaskMain_Main(void *p_arg)
 						// Setpoint has been reached, we check for next action
 						TaskMain_GetNextAction();
 		
+						MsgToPost.Msg		= Msg_Asser_Algo;
+						MsgToPost.Param1	= TaskMain_NextSetpointPos.mode_control;
+
 						// We send new pos to asser task
 						// Create msg for asser task for setting start pos
 						MsgToPost.Msg		= Msg_Asser_GoToXYA;
 						MsgToPost.Param1	= TaskMain_NextSetpointPos.x;
 						MsgToPost.Param2	= TaskMain_NextSetpointPos.y;
 						MsgToPost.Param3	= TaskMain_NextSetpointPos.angle;
-						MsgToPost.Param4	= TaskMain_NextSetpointPos.mode_control;
 		
 						/*putsUART2("TASK_MAIN : Send Mesg ---> X=");
 						buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskMain_NextSetpointPos.x, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);

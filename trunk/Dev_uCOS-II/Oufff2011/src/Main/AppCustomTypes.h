@@ -61,7 +61,6 @@ typedef struct
 	float Param1;		// X					| Not Used										| Speed rate (between 0 and 1.0)
 	float Param2;		// Y					| Not Used										| Not Used
 	float Param3;		// ALPHA				| Not Used										| Not Used
-	int Param4;			// Motion_Mode			| Not Used										| Not Used
 }StructMsg;
 
 #endif // APPCUSTOMTYPES_H

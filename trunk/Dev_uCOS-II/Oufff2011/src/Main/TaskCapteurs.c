@@ -136,7 +136,7 @@ void TaskCapteurs_Main(void *p_arg)
 	INT8U	Err = 0;				// Var to get error status
 	CPU_INT16U  GP2Data;
 
-	putsUART2("OUFFF TEAM 2010 : Capteurs online\n");
+	putsUART2("OUFFF TEAM 2011 : Capteurs online\n");
 
 	// We set the current color
 	OSTimeDlyHMSM(0, 0, 0, 500);
