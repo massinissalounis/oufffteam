@@ -23,6 +23,7 @@ void TaskMain_GetNextAction()
 {
 	int i;
 	static int EscapeIndex = 0;
+	TaskMain_NextSetpointPos.mode_control = TaskMain_ExpectedPos.mode_control;
 
 	if (	(TaskMain_NextSetpointPos.x == TaskMain_ExpectedPos.x)
 		&&	(TaskMain_NextSetpointPos.y == TaskMain_ExpectedPos.y)
@@ -406,6 +407,7 @@ void TaskMain_StopMvt()
 	AppHighPrioMsg.Param1 = TaskMain_CurrentPos.x;		// X
 	AppHighPrioMsg.Param2 = TaskMain_CurrentPos.y;		// Y
 	AppHighPrioMsg.Param3 = TaskMain_CurrentPos.angle;	// ALPHA
+	AppHighPrioMsg.Param4 = TaskMain_CurrentPos.mode_control;
 
 	// Send STOP msg
 	OSQPostFront(AppQueueAsserEvent, (void*)(&AppHighPrioMsg));
@@ -447,6 +449,7 @@ void TaskMain_StopAsser()
 	MsgToPost.Param1 = 0;		
 	MsgToPost.Param2 = 0;		
 	MsgToPost.Param3 = 0;	
+	MsgToPost.Param4 = 0;	
 
 	// Send msg
 	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
@@ -517,7 +520,7 @@ void TaskMain_Main(void *p_arg)
 	// Indicate which moving algo we're going to use
 	// Create this msg
 	MsgToPost.Msg		= Msg_Asser_Algo;
-	MsgToPost.Param1	= APP_MOVING_ASSER_INITIAL_MODE_CTRL;
+	MsgToPost.Param4	= APP_MOVING_ASSER_INITIAL_MODE_CTRL;
 	// Post msg to activate moving algo
 	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
 
@@ -527,6 +530,8 @@ void TaskMain_Main(void *p_arg)
 	MsgToPost.Param1	= APP_INIT_ROBOT_SPEED;
 	MsgToPost.Param2	= APP_NOT_USED;
 	MsgToPost.Param3	= APP_NOT_USED;
+	MsgToPost.Param4	= APP_NOT_USED;
+
 	// Post msg to activate moving algo
 	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
 
@@ -571,6 +576,7 @@ void TaskMain_Main(void *p_arg)
 		MsgToPost.Param1	= TaskMain_NextSetpointPos.x;
 		MsgToPost.Param2	= TaskMain_NextSetpointPos.y;
 		MsgToPost.Param3	= TaskMain_NextSetpointPos.angle;
+		MsgToPost.Param4	= TaskMain_NextSetpointPos.mode_control;
 
 		// Post new expected pos
 		AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
@@ -618,15 +624,13 @@ void TaskMain_Main(void *p_arg)
 						// Setpoint has been reached, we check for next action
 						TaskMain_GetNextAction();
 		
-						MsgToPost.Msg		= Msg_Asser_Algo;
-						MsgToPost.Param1	= TaskMain_NextSetpointPos.mode_control;
-
 						// We send new pos to asser task
 						// Create msg for asser task for setting start pos
 						MsgToPost.Msg		= Msg_Asser_GoToXYA;
 						MsgToPost.Param1	= TaskMain_NextSetpointPos.x;
 						MsgToPost.Param2	= TaskMain_NextSetpointPos.y;
 						MsgToPost.Param3	= TaskMain_NextSetpointPos.angle;
+						MsgToPost.Param4	= TaskMain_NextSetpointPos.mode_control;
 		
 						/*putsUART2("TASK_MAIN : Send Mesg ---> X=");
 						buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskMain_NextSetpointPos.x, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
@@ -760,6 +764,7 @@ void LibMoving_DivideMvt(struct StructPos *OldPos, struct StructPos *ExpectedPos
 		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].y	 			= ExpectedPos->y;
 		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].angle 			= ExpectedPos->angle;
 		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].IDActiveSensors 	= ExpectedPos->IDActiveSensors;
+		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].mode_control 	= ExpectedPos->mode_control;
 	
 		// Set the nb of steps for this movment
 		*NewMovingSeqRemainingSteps = 1;
@@ -771,18 +776,21 @@ void LibMoving_DivideMvt(struct StructPos *OldPos, struct StructPos *ExpectedPos
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).y	 				= OldPos->y;
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).angle 				= atan2f(TmpY, TmpX);
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).IDActiveSensors 	= ExpectedPos->IDActiveSensors;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).mode_control 		= ExpectedPos->mode_control;
 
 	// Second one: Go to the expected pos
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).x	 				= ExpectedPos->x;
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).y	 				= ExpectedPos->y;
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).angle 				= TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3].angle;
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).IDActiveSensors 	= ExpectedPos->IDActiveSensors;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).mode_control	 	= ExpectedPos->mode_control;
 
 	// Third (last) one: Turn to the expected pos
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).x	 				= ExpectedPos->x;
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).y	 				= ExpectedPos->y;
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).angle 				= ExpectedPos->angle;
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).IDActiveSensors 	= ExpectedPos->IDActiveSensors;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).mode_control	 	= ExpectedPos->mode_control;
 
 	// Set the nb of steps for this movment
 	*NewMovingSeqRemainingSteps = 3;
@@ -866,6 +874,7 @@ void LibMoving_SetSpeed(float SpeedRate)
 	MsgToPost.Param1	= SpeedRate;
 	MsgToPost.Param2	= APP_NOT_USED;
 	MsgToPost.Param3	= APP_NOT_USED;
+	MsgToPost.Param4	= APP_NOT_USED;
 	// Post msg to activate moving algo
 	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
 
