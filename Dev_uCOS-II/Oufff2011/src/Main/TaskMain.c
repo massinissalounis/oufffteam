@@ -23,7 +23,6 @@ void TaskMain_GetNextAction()
 {
 	int i;
 	static int EscapeIndex = 0;
-	TaskMain_NextSetpointPos.mode_control = TaskMain_ExpectedPos.mode_control;
 
 	if (	(TaskMain_NextSetpointPos.x == TaskMain_ExpectedPos.x)
 		&&	(TaskMain_NextSetpointPos.y == TaskMain_ExpectedPos.y)
@@ -630,7 +629,7 @@ void TaskMain_Main(void *p_arg)
 						MsgToPost.Param1	= TaskMain_NextSetpointPos.x;
 						MsgToPost.Param2	= TaskMain_NextSetpointPos.y;
 						MsgToPost.Param3	= TaskMain_NextSetpointPos.angle;
-						MsgToPost.Param4	= TaskMain_NextSetpointPos.mode_control;
+						MsgToPost.Param4	= TaskMain_ExpectedPos.mode_control;
 		
 						/*putsUART2("TASK_MAIN : Send Mesg ---> X=");
 						buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskMain_NextSetpointPos.x, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
