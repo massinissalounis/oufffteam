@@ -64,7 +64,7 @@ int  main (void)
 	AppCreateIPCS();			/* Create IPCS objects										*/
 	AppTaskStart();				/* Start all tasks											*/
 
-	putsUART2("OUFFF TEAM 2010\n");
+	putsUART2("OUFFF TEAM 2011\n");
 
 #ifndef APP_GP2D2_LIMIT_FRONT
 	putsUART2("WARNING !!!! GP2D2_Front disabled\n");

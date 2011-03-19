@@ -197,7 +197,7 @@ void TaskOdo_Main(void *p_arg)
 {
 	INT8U err;
 
-	putsUART2("OUFFF TEAM 2010 : Odo online\n");
+	putsUART2("OUFFF TEAM 2011 : Odo online\n");
 
 	init_position_manager(&AppCurrentPos);
 
@@ -233,7 +233,7 @@ void TaskOdo_Main(void *p_arg)
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (pos->angle*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2("\n");
-/*					putsUART2("1: ");
+					putsUART2("1: ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_1, (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2(",2: ");
@@ -246,10 +246,10 @@ void TaskOdo_Main(void *p_arg)
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_4, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2(",5: ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_5, (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_5, (CPU_INT08U) 2, (CPU_INT08U) 3, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2("\n");
-*/
+
 				}
 				i++;
 				if(i==50) i=0;

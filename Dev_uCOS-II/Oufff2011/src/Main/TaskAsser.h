@@ -10,7 +10,7 @@
 #ifndef TASKASSER_H
 #define TASKASSER_H
 
-#include <AppIncludes.h>
+#include "AppIncludes.h"
 #include "AppGlobalVars.h"
 
 //////////////////////////////////////////////
@@ -51,8 +51,8 @@
 #define ACC_DISTANCE			2.0
 
 // Used in quadramp
-#define DEFAULT_SPEED			800		// in mm/s
-#define DEFAULT_ACCELERATION	100		// in mm/s²
+#define DEFAULT_SPEED			10		// in mm/s
+#define DEFAULT_ACCELERATION	1000		// in mm/s²
 
 // Used in hold speed control
 #define SPEED_RATIO				1.0 // n % of maximum speed
