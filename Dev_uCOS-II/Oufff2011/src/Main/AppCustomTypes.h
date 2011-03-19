@@ -58,9 +58,10 @@ typedef struct
 	EnumMsg Msg;		// Msg to be sent (Msg_NoMsg: Invalid Msg)																					
 	BOOLEAN IsRead;		// Flag to indicate if current msg has been read or not																	
 	// Msg Parameters	:  Msg_Asser_GoToXYA	| Msg_Asser_Algo								| Msg_Asser_SetSpeed								
-	float Param1;		// X					| Not Used										| Speed rate (between 0 and 1.0)
+	float Param1;		// X					| Mode Ctrl										| Speed rate (between 0 and 1.0)
 	float Param2;		// Y					| Not Used										| Not Used
 	float Param3;		// ALPHA				| Not Used										| Not Used
+	int Param4;			// Mode Ctrl			| Not Used										| Not Used
 }StructMsg;
 
 #endif // APPCUSTOMTYPES_H

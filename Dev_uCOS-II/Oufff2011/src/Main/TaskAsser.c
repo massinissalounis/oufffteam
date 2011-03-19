@@ -664,10 +664,11 @@ void TaskAsser_Main(void *p_arg)
 					setpoint.x = pCurrentMsg->Param1; 
 					setpoint.y = pCurrentMsg->Param2;
 					setpoint.angle = pCurrentMsg->Param3;
+					mode_control = pCurrentMsg->Param4;
 					break;
 
 				case Msg_Asser_Algo:	// Define which algo we have to use
-					mode_control = pCurrentMsg->Param1;			
+					mode_control = pCurrentMsg->Param4;			
 					break;
 						
 				case Msg_Asser_SetSpeed:	// Define new speed 
@@ -681,20 +682,24 @@ void TaskAsser_Main(void *p_arg)
 					break;
 			}
 
-			putsUART2("TASK_ASSER : Received Mesg ---> X=");
+			putsUART2("TASK_ASSER : Received Mesg ---> Param1 =");
 			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pCurrentMsg->Param1, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 			putsUART2(buffer_ptr);
-			putsUART2(" , Y=");
+			putsUART2(" , Param2 =");
 			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pCurrentMsg->Param2, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 			putsUART2(buffer_ptr);
-			putsUART2(" , Angle=");
+			putsUART2(" , Param3 =");
 			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) AppConvertRadInDeg(pCurrentMsg->Param3), (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+			putsUART2(buffer_ptr);
+			putsUART2(" , Param4 =");
+			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pCurrentMsg->Param4, (CPU_INT08U) 2, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 			putsUART2(buffer_ptr);
 			putsUART2("\n");
 		}
 			
 
 		// MOTION CONTROL LOOP
+		error_debug_4 = mode_control;
 		
 		// Reset_datas
 		command_left =0;
