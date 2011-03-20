@@ -45,8 +45,8 @@ typedef enum
 	float 	y;					// Pos en y
 	float 	angle;				// Angle
 	int		mode_control;		// Mode used for mvt
-	int		right_encoder;		// Right wheel position for mode 4
-	int		left_encoder;		// Left wheel position for mode 4
+	CPU_INT16U right_encoder;	// Right wheel position for mode 4
+	CPU_INT16U left_encoder;	// Left wheel position for mode 4
 	int 	IDActiveSensors;	// Define which active sensors we have to use for this movement (if not set, use all sensors)
 	int		Flag;				// Flag for this position
 								// Use APP_FLAG_POS__... to make a Flag value

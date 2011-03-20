@@ -31,15 +31,15 @@
 *                                            GLOBAL SETTINGS
 *********************************************************************************************************
 */
-#define APP_INIT_BLUE_POS_X					000.0		// Initial position for blue robot
-#define APP_INIT_BLUE_POS_Y					000.0		// Initial position for blue robot
+#define APP_INIT_BLUE_POS_X					0000.0		// Initial position for blue robot
+#define APP_INIT_BLUE_POS_Y					0000.0		// Initial position for blue robot
 #define APP_INIT_BLUE_ANGLE					000.0		// Initial position for blue robot
 
 #define APP_INIT_YELLOW_POS_X				000.0		// Initial position for blue robot
 #define APP_INIT_YELLOW_POS_Y				000.0		// Initial position for blue robot
 #define APP_INIT_YELLOW_ANGLE				000.0		// Initial position for blue robot
 
-#define APP_INIT_ROBOT_SPEED				0.600		// Speed rate (0.0:No Move, 1.0: Full Speed)
+#define APP_INIT_ROBOT_SPEED				0.500		// Speed rate (0.0:No Move, 1.0: Full Speed)
 
 #define APP_GP2D2_LIMIT_FRONT				300			// Object detection around 200 mm
 #define APP_GP2D2_LIMIT_BACK				400			// Object detection around 200 mm

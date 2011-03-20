@@ -192,10 +192,43 @@ void position_manager_timer_handler()
 	}
 }
 
+unsigned char movement_detection()
+{
+	static int count=0;
+
+	static float x_old=0.0;
+	static float y_old=0.0;
+	static float angle_old=0.0;
+
+	static unsigned char flag=0;
+
+	count--;
+	if(count<=0)
+	{
+		count=MOVEMENT_DETECTION_INTERVAL;
+
+		if(	abs(pos->angle-angle_old)<MOVEMENT_DETECTION_ANGLE_THRESHOLD &&
+		   	abs(pos->y-y_old)< MOVEMENT_DETECTION_DISTANCE_THRESHOLD &&
+			abs(pos->x-x_old)< MOVEMENT_DETECTION_DISTANCE_THRESHOLD )
+		{
+			flag=1;
+		}
+		else flag=0;
+	
+		x_old=pos->x;
+		y_old=pos->y;
+		angle_old=pos->angle;
+	}
+
+	return flag;
+}
+
 // ------------------------------------------------------------------------------------------------
 void TaskOdo_Main(void *p_arg)
 {
 	INT8U err;
+
+	unsigned char no_movement_flag = 1;
 
 	putsUART2("OUFFF TEAM 2011 : Odo online\n");
 
@@ -216,6 +249,8 @@ void TaskOdo_Main(void *p_arg)
 			#else
 				position_manager_process();
 
+				no_movement_flag=movement_detection();
+
 				static int i=0; // Refresh sending UART
 				char uart_buffer[8];
 				char * buffer_ptr;
@@ -234,19 +269,19 @@ void TaskOdo_Main(void *p_arg)
 					putsUART2(buffer_ptr);
 					putsUART2("\n");
 					putsUART2("1: ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_1, (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_1, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2(",2: ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_2, (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_2, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2(",3: ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_3, (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_3, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2(",4: ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_4, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2(",5: ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_5, (CPU_INT08U) 2, (CPU_INT08U) 3, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_5, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2("\n");
 

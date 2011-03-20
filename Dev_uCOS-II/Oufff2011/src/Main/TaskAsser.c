@@ -14,6 +14,7 @@
 */
 
 #include "TaskAsser.h"
+#include "TaskOdo.h"
 
 /////////////////////////////////////////////////////////////
 // DATAS
@@ -90,11 +91,11 @@ void left_motor_control (INT16S value)
 
 INT16S motor_command_clipping(float command)
 {
-	if(command > MAX_MOTOR_COMMAND)
+	if(command >= MAX_MOTOR_COMMAND)
 	{
 		command = MAX_MOTOR_COMMAND;
 	}
-	else if(command < -MAX_MOTOR_COMMAND )
+	else if(command <= -MAX_MOTOR_COMMAND )
 	{
 		command = -MAX_MOTOR_COMMAND;
 	}
@@ -123,8 +124,6 @@ void QUADRAMP_Initialization(QUADRAMP_data *data, float acc, float speed, float 
 float QUADRAMP_Compute(QUADRAMP_data *data, float dist2dest)
 {
 	float dist2dest_abs = abs(dist2dest);
-
-	error_debug_2=data->state;
 
 	switch(data->state)
 	{
@@ -194,15 +193,15 @@ void PID_Initialization(void)
 	distance_pid_data.Kd = KD_DISTANCE;	
 	distance_pid_data.IMax = IMAX_DISTANCE;	
 	
-	wheel_left_pid_data.Kp = KP_WHEEL;
-	wheel_left_pid_data.Ki = KI_WHEEL;
-	wheel_left_pid_data.Kd = KD_WHEEL;	
-	wheel_left_pid_data.IMax = IMAX_WHEEL;
+	wheel_left_pid_data.Kp = KP_WHEEL_L;
+	wheel_left_pid_data.Ki = KI_WHEEL_L;
+	wheel_left_pid_data.Kd = KD_WHEEL_L;	
+	wheel_left_pid_data.IMax = IMAX_WHEEL_L;
 	
-	wheel_right_pid_data.Kp = KP_WHEEL;
-	wheel_right_pid_data.Ki = KI_WHEEL;
-	wheel_left_pid_data.Kd = KD_WHEEL;	
-	wheel_left_pid_data.IMax = IMAX_WHEEL;	
+	wheel_right_pid_data.Kp = KP_WHEEL_R;
+	wheel_right_pid_data.Ki = KI_WHEEL_R;
+	wheel_left_pid_data.Kd = KD_WHEEL_R;	
+	wheel_left_pid_data.IMax = IMAX_WHEEL_R;	
 
 	for(i=0; i<PID_SUM_NB_SAMPLES; i++)
 	{
@@ -255,8 +254,6 @@ float PID_Computation(PID_data * pid_data, float error)
 
 	//differential of the error over the period	
 	errDif = error - pid_data->error_old[last];
-		
-//	error_debug_3 = errDif;
 
 	//stock last values of the error, so we can
 	//differentiate over a custom period
@@ -322,8 +319,6 @@ float error_rescale (float error, float scaling_factor, float speed)
 		}
 	}
 
-	//error_debug_5=error_rescaled;
-
 	return error_rescaled;
 }
 
@@ -383,8 +378,6 @@ void distance_by_vector_projection_angle_between_robot_and_direction (float fina
 
 	// Calcul du sinus de l'angle à parcourir pour avoir le sens de rotation. Avec la produit vectoriel
 	angle_sign = vector_product_between_robot_and_direction(final_x, final_y, robot_x, robot_y, robot_angle); // ATTENTION : on avait divisé par error_distance .. normalement ca ne sert à rien mais au cas ou ... / error_distance );
-	
-//	error_debug_4=*angle;
 
 	if ( angle_sign < 0.0 )
 	{
@@ -403,20 +396,21 @@ void distance_by_vector_projection_angle_between_robot_and_direction (float fina
 		*angle = *angle - M_PI;		// on replace l'angle devant le robot
 		*distance = - *distance;		// on recule
 	}
-
-//	error_debug_5=*angle;
 }
 
 // Angle only in theta-alpha control
-/// Improvements : speed ratio control
-void mode_1_control_motion(struct StructPos *psetpoint, struct StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
+unsigned char mode_1_control_motion(struct StructPos *psetpoint, struct StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
 {
 	float error_angle=0.0;
 	float error_distance=0.0;
 	float error_filtered_angle=0.0;
+
+	unsigned char end_movement_flag=0;
 	
 	// Compute error
 	error_angle=angle_between_two_points(psetpoint->angle, pcurrent->angle);
+
+	if(error_angle<=ANGLE_APPROACH_PRECISION) end_movement_flag=1;
 	
 	error_filtered_angle = PID_Computation(&angle_pid_data, error_angle);
 	
@@ -426,43 +420,48 @@ void mode_1_control_motion(struct StructPos *psetpoint, struct StructPos *pcurre
 	// Command merge
 	*raw_command_right = error_filtered_angle;
 	*raw_command_left = - error_filtered_angle;
+
+	return end_movement_flag;
 }
 
 // Distance only in theta-alpha control
-/// Improvements : parameter for the final approach distance
-/// Improvements : What is happening when error <10 ??? to check
-/// Improvements : Speed control ?
-/// Improvements : speed ratio management
-void mode_2_control_motion(struct StructPos *psetpoint, struct StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
+unsigned char mode_2_control_motion(struct StructPos *psetpoint, struct StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
 {
 	float error_angle=0.0;
 	float error_distance=0.0;
 	float error_filtered_distance=0.0;
+
+	unsigned char end_movement_flag=0;
 	
-	float speed_ratio = DEFAULT_SPEED_DISTANCE; // To check !!!
+	float speed_ratio_distance = DEFAULT_SPEED_DISTANCE; // To check !!!
 	
 	// Compute error
-	// Compute distance : ABS value for vectorial considerations
-	error_distance = distance_between_two_points( psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y);
-	if(error_distance>=10) // Final approach
+	error_distance = scalar_product_between_robot_and_direction(psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y, pcurrent->angle);
+
+	if(abs(error_distance)<= DISTANCE_ALPHA_ONLY) // final distance reached
 	{
-		distance_by_vector_projection_angle_between_robot_and_direction(psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y, pcurrent->angle, &error_distance, &error_angle);
+		end_movement_flag=1;
 	}
+
+	// QUADRAMP filter on errors
+	speed_ratio_distance = QUADRAMP_Compute(&distance_quadramp_data, error_distance);
 	
 	// PID filtering
 	error_filtered_distance = PID_Computation(&distance_pid_data, error_distance);
 
 	// Re-scale errors to fit on expected scale
-	error_filtered_distance = error_rescale (error_filtered_distance, (1.0 - ANGLE_VS_DISTANCE_RATIO), speed_ratio);
+	error_filtered_distance = error_rescale (error_filtered_distance, (1.0 - ANGLE_VS_DISTANCE_RATIO), speed_ratio_distance);
 
 	// Command merge
 	*raw_command_right = error_filtered_distance;
 	*raw_command_left = error_filtered_distance;
+
+	return end_movement_flag;
 }
 
 // Distance + Angle in theta-alpha control
 /// Improvements : parameter for the final approach distance
-void mode_3_control_motion(struct StructPos *psetpoint, struct StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
+unsigned char mode_3_control_motion(struct StructPos *psetpoint, struct StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
 {
 	float error_angle=0.0;
 	float error_distance=0.0;
@@ -470,16 +469,18 @@ void mode_3_control_motion(struct StructPos *psetpoint, struct StructPos *pcurre
 	float error_filtered_distance=0.0;
 	
 	float speed_ratio_distance = DEFAULT_SPEED_DISTANCE;
+
+	unsigned char end_movement_flag=0;
 	
 	// Compute error
 	
 	// Compute distance : ABS value for vectorial considerations
 	error_distance = distance_between_two_points( psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y);
-			
-	
+
 	if(error_distance<= DISTANCE_ALPHA_ONLY) // final distance reached
 	{
-		error_angle=angle_between_two_points(psetpoint->angle, pcurrent->angle);				
+		error_angle=angle_between_two_points(psetpoint->angle, pcurrent->angle);
+		if(error_angle<=ANGLE_APPROACH_PRECISION) end_movement_flag=1;
 		error_distance = scalar_product_between_robot_and_direction(psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y, pcurrent->angle);
 	}
 	else
@@ -487,13 +488,8 @@ void mode_3_control_motion(struct StructPos *psetpoint, struct StructPos *pcurre
 		distance_by_vector_projection_angle_between_robot_and_direction(psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y, pcurrent->angle, &error_distance, &error_angle);
 	}
 
-	error_debug_1=error_distance;
-
-
 	// QUADRAMP filter on errors
 	speed_ratio_distance = QUADRAMP_Compute(&distance_quadramp_data, error_distance);
-
-	error_debug_1=speed_ratio_distance;
 	
 	// PID filter on errors
 	error_filtered_angle = PID_Computation(&angle_pid_data, error_angle);
@@ -503,16 +499,15 @@ void mode_3_control_motion(struct StructPos *psetpoint, struct StructPos *pcurre
 	error_filtered_distance = error_rescale (error_filtered_distance, (1.0 - ANGLE_VS_DISTANCE_RATIO), speed_ratio_distance);
 	error_filtered_angle = error_rescale (error_filtered_angle, ANGLE_VS_DISTANCE_RATIO, SPEED_ANGLE);
 
-//	error_debug_5 = error_filtered_distance;
-
 	// Command merge
 	*raw_command_right = error_filtered_distance + error_filtered_angle;
 	*raw_command_left = error_filtered_distance - error_filtered_angle;
 
+	return end_movement_flag;
 }
 
 // Pivot control motion in separated wheel control
-void mode_4_control_motion(struct StructPos *psetpoint, struct StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
+unsigned char mode_4_control_motion(struct StructPos *psetpoint, struct StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
 {
 	// setpoint.pivot_wheel // 0: left 1: right
 	// setpoint.pivot_angle
@@ -522,20 +517,43 @@ void mode_4_control_motion(struct StructPos *psetpoint, struct StructPos *pcurre
 	// Donner dans le set point des positions de roues !
 	// Calculer la distance à parcourir par chacune des roues et la donner ... en inc ? en mm ? en rad avec un pivot ... à discuter avec Fifi.
 
-	int error_right_wheel=0;
-	int error_left_wheel=0;
+	CPU_INT16S error_right_wheel=0;
+	CPU_INT16S error_left_wheel=0;
 
-	int error_filtered_right_wheel=0;
-	int error_filtered_left_wheel=0;
+	float error_filtered_right_wheel=0.0;
+	float error_filtered_left_wheel=0.0;
 	
+	unsigned char end_movement_flag=0;
+	
+
+	//error_debug_3= psetpoint->left_encoder;
+	error_debug_1= pcurrent->left_encoder;	
+	//error_debug_1= psetpoint->right_encoder;
+	error_debug_2= pcurrent->right_encoder;
+
 	error_right_wheel = psetpoint->right_encoder - pcurrent->right_encoder;
-	error_left_wheel = psetpoint->left_encoder - pcurrent->left_encoder;
+	error_left_wheel = -(psetpoint->left_encoder - pcurrent->left_encoder);
+
+	if(abs(error_right_wheel)<=PIVOT_RIGHT_APPROACH_PRECISION && abs(error_left_wheel)<=PIVOT_LEFT_APPROACH_PRECISION)
+	{
+		end_movement_flag=1;
+	}
+
+//	error_debug_3=error_left_wheel;
+//	error_debug_4=error_right_wheel;
 	
-	error_filtered_right_wheel = PID_Computation(&wheel_right_pid_data, error_right_wheel);
-	error_filtered_left_wheel = PID_Computation(&wheel_left_pid_data, error_right_wheel);	
+	error_filtered_right_wheel = PID_Computation(&wheel_right_pid_data, (float) error_right_wheel);
+	error_filtered_left_wheel = PID_Computation(&wheel_left_pid_data, (float) error_left_wheel);
+
+//	error_debug_5=	error_filtered_left_wheel;
+
+	error_filtered_right_wheel = error_rescale (error_filtered_right_wheel, 1.0, SPEED_PIVOT);
+	error_filtered_left_wheel = error_rescale (error_filtered_left_wheel, 1.0, SPEED_PIVOT);	
 
 	*raw_command_right = error_filtered_right_wheel;
 	*raw_command_left = error_filtered_left_wheel;
+
+	return end_movement_flag;
 }
 
 
@@ -545,7 +563,7 @@ void mode_4_control_motion(struct StructPos *psetpoint, struct StructPos *pcurre
 // ------------------------------------------------------------------------------------------------
 void TaskAsser_Main(void *p_arg)
 {
-	INT8U command = 0;
+//	INT8U command = 0;
 	INT8U Err;
 	StructMsg *pCurrentMsg = NULL;
 	char uart_buffer[13];
@@ -558,6 +576,9 @@ void TaskAsser_Main(void *p_arg)
 	INT16S command_right;
 	
 	int mode_control=0;
+
+	unsigned char end_movement_flag = 1;
+
 
 //	float speed_ratio = SPEED_RATIO;
 
@@ -587,6 +608,17 @@ void TaskAsser_Main(void *p_arg)
 					setpoint.y = pCurrentMsg->Param2;
 					setpoint.angle = pCurrentMsg->Param3;
 					mode_control = pCurrentMsg->Param4;
+
+					// For test purpose
+					if(mode_control==4)
+					{
+						//setpoint.right_encoder=TaskAsser_CurrentPos.right_encoder;		// Right wheel position for mode 4
+						setpoint.left_encoder=TaskAsser_CurrentPos.left_encoder;
+						//setpoint.left_encoder=TaskAsser_CurrentPos.left_encoder-(CPU_INT16U)((90*M_PI/180)*CONVERSION_RAD_TO_MM*CONVERSION_MM_TO_INC_LEFT);
+						setpoint.right_encoder=TaskAsser_CurrentPos.right_encoder+(CPU_INT16U)((180*M_PI/180)*CONVERSION_RAD_TO_MM*CONVERSION_MM_TO_INC_RIGHT);
+
+					}
+
 					break;
 
 				case Msg_Asser_Algo:	// Define which algo we have to use
@@ -620,8 +652,7 @@ void TaskAsser_Main(void *p_arg)
 			
 
 		// MOTION CONTROL LOOP
-//		error_debug_4 = mode_control;
-		
+
 		// Reset_datas
 		command_left =0;
 		command_right =0;
@@ -640,16 +671,16 @@ void TaskAsser_Main(void *p_arg)
 		switch(mode_control)
 		{
 			case 1: // Angle only
-				mode_1_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
+				end_movement_flag=mode_1_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
 				break;
 			case 2: //Distance only
-				mode_2_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
+				end_movement_flag=mode_2_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
 				break;
 			case 3:
-				mode_3_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
+				end_movement_flag=mode_3_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
 				break;
 			case 4: // pivot
-				mode_4_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
+				end_movement_flag=mode_4_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
 				break;
 			default:
 				break;
@@ -658,9 +689,6 @@ void TaskAsser_Main(void *p_arg)
 		// command clipping
 		command_right = motor_command_clipping(raw_command_right);
 		command_left = motor_command_clipping(raw_command_left);
-
-	//	error_debug_3=command_right;
-	//	error_debug_4=command_left;
 
 		// Motor drive
 		right_motor_control (command_right);
