@@ -30,10 +30,15 @@
 #define IMAX_DISTANCE 			1000.0
 
 // Wheel loop for separated control
-#define KP_WHEEL	 			200.0
-#define KI_WHEEL	 			0.0
-#define KD_WHEEL	 			1500.0
-#define IMAX_WHEEL	 			1000.0
+#define KP_WHEEL_L	 			50.0
+#define KI_WHEEL_L	 			0.0
+#define KD_WHEEL_L	 			750.0
+#define IMAX_WHEEL_L 			1000.0
+
+#define KP_WHEEL_R	 			50.0
+#define KI_WHEEL_R	 			0.0
+#define KD_WHEEL_R	 			750.0
+#define IMAX_WHEEL_R 			1000.0
 
 // Generic parameters
 #define PID_SUM_NB_SAMPLES 		3		// 1000 à l'origine CBE
@@ -50,13 +55,22 @@
 // Used in hold speed control
 #define SPEED_ANGLE		1.0 	// n % of maximum speed
 
+#define SPEED_PIVOT		0.2
+
 //////////////////////////////////////////////
 // General Coefficients
 //////////////////////////////////////////////
 
 #define MAX_MOTOR_COMMAND 		32000	// doit être < à 32768
 
-#define DISTANCE_ALPHA_ONLY		50.0
+#define DISTANCE_ALPHA_ONLY		50.0 	// Error in mm in distance to consider the change of control mode
+										// This parameter is also used to switch on the arrival flag
+
+#define ANGLE_APPROACH_PRECISION		(2.00 * M_PI / 180.0)		// Error in rad for angle to consider the setpoint reached
+
+#define PIVOT_APPROACH_PRECISION		 2.00
+#define PIVOT_LEFT_APPROACH_PRECISION	(PIVOT_APPROACH_PRECISION * M_PI / 180.0) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_LEFT
+#define PIVOT_RIGHT_APPROACH_PRECISION	(PIVOT_APPROACH_PRECISION * M_PI / 180.0) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_RIGHT
 
 #define ANGLE_VS_DISTANCE_RATIO	0.5 // n % used for angle on full scale
 

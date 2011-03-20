@@ -32,6 +32,11 @@
 // For an angle of = entraxe
 #define CONVERSION_RAD_TO_MM	(float)(273.0)
 
+// For movement detection
+#define MOVEMENT_DETECTION_INTERVAL				20 // in 10ms
+#define MOVEMENT_DETECTION_ANGLE_THRESHOLD		(1.00 * M_PI / 180.0) // in angle
+#define MOVEMENT_DETECTION_DISTANCE_THRESHOLD	10 // in mm
+
 void TaskOdo_Main(void *p_arg);
 	// Fonction principal du process d'odométrie
 	// void *p_arg		: Arg for this task

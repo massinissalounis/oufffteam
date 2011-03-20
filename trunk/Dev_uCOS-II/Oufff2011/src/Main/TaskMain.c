@@ -158,7 +158,8 @@ void TaskMain_GetNextActionForColorA() // Blue
 	switch(TaskMain_NextState)
 	{	
 		// Test pre match
-		case 0: 	ptr->x = 0650.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);		ptr->mode_control = 3;		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
+//		case 0:		LibMoving_MoveInMM(&TaskMain_CurrentPos, -1000, ptr);								ptr->mode_control = 2;		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
+		case 0: 	ptr->x = 0000.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);		ptr->mode_control = 4;		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
 //		case 1: 	ptr->x = 0000.0; 	ptr->y = 0000.0;	ptr->angle = AppConvertDegInRad(0.0);		ptr->mode_control = 3;		LibMoving_SetSpeed(APP_INIT_ROBOT_SPEED); 		ptr->IDActiveSensors = SENSORS_FRONT_ID;  	break;
 
 		// Default --------------------------------------------------------------------------------
