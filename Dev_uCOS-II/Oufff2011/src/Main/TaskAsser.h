@@ -36,26 +36,19 @@
 #define IMAX_WHEEL	 			1000.0
 
 // Generic parameters
-#define PID_SUM_NB_SAMPLES 		10		// 1000 à l'origine CBE
+#define PID_SUM_NB_SAMPLES 		3		// 1000 à l'origine CBE
 #define PID_D_PERIOD			1		//100 à l'origine CBE
 
 //////////////////////////////////////////////
 // Speed control Coefficients
 //////////////////////////////////////////////
 
-// Used in Slewrate
-#define VMAX_ANGLE				10000.0
-#define ACC_ANGLE				20000.0
-
-#define VMAX_DISTANCE			1.0
-#define ACC_DISTANCE			2.0
-
 // Used in quadramp
-#define DEFAULT_SPEED			10		// in mm/s
-#define DEFAULT_ACCELERATION	1000		// in mm/s²
+#define DEFAULT_SPEED_DISTANCE	1.0		// n % of maximum speed
+#define DEFAULT_ACC_DISTANCE	1.0		// n % of maximum speed per 10 ms
 
 // Used in hold speed control
-#define SPEED_RATIO				1.0 // n % of maximum speed
+#define SPEED_ANGLE		1.0 	// n % of maximum speed
 
 //////////////////////////////////////////////
 // General Coefficients
@@ -88,21 +81,16 @@ typedef struct {
 }PID_data;
 
 typedef struct {
-	float max_acceleration;
-	float max_speed;
-
-	float previous_speed;
-	float previous_position;
-}SLEWRATE_data;
-
-typedef struct {
 	float acceleration_order;
 	float speed_order;
 	
 	float final_approach_limit;
+	float origin;
+	float acc_distance;
 
 	float speed;
-	float old_filtered_error;
+
+	int state;  // 0: final, 1: acc, 2: Vcte, 3: Decell
 }QUADRAMP_data;
 
 //////////////////////////////////////////////

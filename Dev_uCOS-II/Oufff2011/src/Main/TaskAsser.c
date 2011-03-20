@@ -25,9 +25,6 @@ PID_data distance_pid_data;
 PID_data wheel_right_pid_data;
 PID_data wheel_left_pid_data;
 
-SLEWRATE_data angle_slewrate_data;
-SLEWRATE_data distance_slewrate_data;
-
 QUADRAMP_data distance_quadramp_data;
 
 // General robot control datas
@@ -115,139 +112,72 @@ void QUADRAMP_Initialization(QUADRAMP_data *data, float acc, float speed, float 
 	
 	data->final_approach_limit=approach;
 
+	data->origin=0.0;
+	data->acc_distance=0.0;
+
 	data->speed=0.0;
-	data->old_filtered_error=0.0;
+
+	data->state=0;
 }
 
-float QUADRAMP_Compute(QUADRAMP_data *data, float error)
+float QUADRAMP_Compute(QUADRAMP_data *data, float dist2dest)
 {
-	float filtered_error=0.0;
-	
-	float break_distance=0.0;
-	float Tech= ASSER_SAMPLING*0.001; // s conversion
-	
-	int tmp1;
-	float tmp2;
-	
-	int state=0; // 0: stop, 1: acc, 2: Vcte, 3: Decell, 4: final
+	float dist2dest_abs = abs(dist2dest);
 
-	// Phase detection
-	tmp1=abs(data->speed_order/data->acceleration_order); // break duration expressed in loop times
-	tmp2=data->speed;
+	error_debug_2=data->state;
 
-	error_debug_5=tmp1;
-
-	while(tmp1!=0)
-	{
-		break_distance+=tmp2*Tech;
-		tmp2-=data->acceleration_order;
-		tmp1--;
-	}
-
-
-
-	if(abs(error)>break_distance) // acc or Vcte
-	{
-		if(data->speed<data->speed_order) state = 1;
-		else state = 2;
-	}
-	else // Decell or Final
-	{
-		if(abs(error)<=data->final_approach_limit) state = 4;
-		else state = 3;
-	}
-
-	error_debug_2=state;
-	
-	switch(state)
+	switch(data->state)
 	{
 		case 0:
+			data->origin=dist2dest_abs; // Update the origin for the next movement
+			data->speed=data->speed_order; // Speed at the limit to ensure a good reactivity
+
+			if(dist2dest_abs>data->final_approach_limit)
+			{
+				data->speed=0; // Initialize the speed of the new movement
+				data->state=1; // Go into acc state
+			}
 			break;
-			
+
 		case 1:
-			data->speed+=(data->acceleration_order*Tech);
-			if(data->speed>data->speed_order) data->speed = data->speed_order;
-			filtered_error=data->old_filtered_error+(data->speed*Tech);
+			data->speed+=data->acceleration_order;
+
+			if(dist2dest_abs<=data->origin/2)
+			{
+				data->state=3; // Go to decc state
+			}
+
+			if(data->speed>=data->speed_order)
+			{
+				data->speed=data->speed_order; // Limit the speed
+				data->acc_distance=data->origin-dist2dest_abs; // Store the distance requirement for the next decelleration
+				data->state=2; // Go to cte speed state
+			}
 			break;
-			
+				
 		case 2:
-			filtered_error=data->old_filtered_error+(data->speed*Tech);
+			data->speed=data->speed_order; // Update the speed
+
+			if(dist2dest_abs<=data->acc_distance)
+			{
+				data->state=3;
+			}
 			break;
-			
+
 		case 3:
-			data->speed-=(data->acceleration_order*Tech);
-			if(data->speed<=0.0) data->speed = 0.0;
-			filtered_error=data->old_filtered_error+(data->speed*Tech);
+			data->speed-=data->acceleration_order;
+
+			if(dist2dest_abs<=data->final_approach_limit)
+			{
+				data->state=0;
+			}
 			break;
-			
+				
 		default:
 			break;	
-	}
-	
-	data->old_filtered_error=filtered_error;
-	
-	if(error<0.0) filtered_error=-filtered_error;
-	
-	return filtered_error;
-}
+	}	
 
-/// SLEWRATEs to delete ? unused in the source code.
-void SLEWRATE_Initialization(void)
-{
-	angle_slewrate_data.max_acceleration=ACC_ANGLE;
-	angle_slewrate_data.max_speed=VMAX_ANGLE;
-
-	angle_slewrate_data.previous_speed=0.0;
-	angle_slewrate_data.previous_position=0.0;
-
-	
-	distance_slewrate_data.max_acceleration=ACC_DISTANCE;
-	distance_slewrate_data.max_speed=VMAX_DISTANCE;
-
-	distance_slewrate_data.previous_speed=0.0;
-	distance_slewrate_data.previous_position=0.0;
-}
-
-float SLEWRATE_Compute(SLEWRATE_data *data, float final_setpoint)
-{
-	float max_acceleration;
-	float max_speed;
-
-	float speed, position;
-
-	if(final_setpoint<0.0) // Convert speed and acceleration for reverse motion
-	{
-		max_acceleration = - data->max_acceleration;
-		max_speed = - data->max_speed; 
-	}
-	else
-	{
-		max_acceleration = data->max_acceleration;
-		max_speed = data->max_speed; 
-	}
-
-	// Compute speed
-	if( abs(speed) < abs(data->max_speed) )
-	{
-		speed = data->previous_speed + max_acceleration;
-	}
-	else
-	{
-		speed = max_speed;
-	}
-
-	position = data->previous_position + speed;
-
-	if(position >= final_setpoint)
-	{
-		position = final_setpoint;
-		speed = 0.0; // No further need of speed
-	}
-
-	data->previous_speed = speed; // Store current value
-	data->previous_position = position;
-
-	return position;
+	return data->speed;
 }
 
 void PID_Initialization(void)
@@ -342,7 +272,6 @@ float PID_Computation(PID_data * pid_data, float error)
 	error_old_debug = pid_data->error_old[last];
 	error_current_debug = error;
 
-
 	P = error * pid_data->Kp;
 	I = pid_data->error_sum * pid_data->Ki;
 	D = errDif * pid_data->Kd;
@@ -373,11 +302,8 @@ void init_control_motion()
 
 	// init PID
 	PID_Initialization();
-
-	SLEWRATE_Initialization();
 	
-	QUADRAMP_Initialization(&distance_quadramp_data, DEFAULT_ACCELERATION, DEFAULT_SPEED, DISTANCE_ALPHA_ONLY);
-
+	QUADRAMP_Initialization(&distance_quadramp_data, DEFAULT_ACC_DISTANCE, DEFAULT_SPEED_DISTANCE, DISTANCE_ALPHA_ONLY);
 }
 
 float error_rescale (float error, float scaling_factor, float speed)
@@ -489,15 +415,13 @@ void mode_1_control_motion(struct StructPos *psetpoint, struct StructPos *pcurre
 	float error_distance=0.0;
 	float error_filtered_angle=0.0;
 	
-	float speed_ratio = SPEED_RATIO;
-	
 	// Compute error
 	error_angle=angle_between_two_points(psetpoint->angle, pcurrent->angle);
 	
 	error_filtered_angle = PID_Computation(&angle_pid_data, error_angle);
 	
 	// Re-scale errors to fit on expected scale
-	error_filtered_angle = error_rescale (error_filtered_angle, ANGLE_VS_DISTANCE_RATIO, speed_ratio);
+	error_filtered_angle = error_rescale (error_filtered_angle, ANGLE_VS_DISTANCE_RATIO, SPEED_ANGLE);
 
 	// Command merge
 	*raw_command_right = error_filtered_angle;
@@ -515,7 +439,7 @@ void mode_2_control_motion(struct StructPos *psetpoint, struct StructPos *pcurre
 	float error_distance=0.0;
 	float error_filtered_distance=0.0;
 	
-	float speed_ratio = SPEED_RATIO;
+	float speed_ratio = DEFAULT_SPEED_DISTANCE; // To check !!!
 	
 	// Compute error
 	// Compute distance : ABS value for vectorial considerations
@@ -545,7 +469,7 @@ void mode_3_control_motion(struct StructPos *psetpoint, struct StructPos *pcurre
 	float error_filtered_angle=0.0;
 	float error_filtered_distance=0.0;
 	
-	float speed_ratio = SPEED_RATIO;
+	float speed_ratio_distance = DEFAULT_SPEED_DISTANCE;
 	
 	// Compute error
 	
@@ -567,19 +491,17 @@ void mode_3_control_motion(struct StructPos *psetpoint, struct StructPos *pcurre
 
 
 	// QUADRAMP filter on errors
-	error_distance = QUADRAMP_Compute(&distance_quadramp_data, error_distance);
+	speed_ratio_distance = QUADRAMP_Compute(&distance_quadramp_data, error_distance);
 
-	error_debug_3=error_distance;
+	error_debug_1=speed_ratio_distance;
 	
 	// PID filter on errors
 	error_filtered_angle = PID_Computation(&angle_pid_data, error_angle);
 	error_filtered_distance = PID_Computation(&distance_pid_data, error_distance);
 
-
-
 	// Re-scale errors to fit on expected scale
-	error_filtered_distance = error_rescale (error_filtered_distance, (1.0 - ANGLE_VS_DISTANCE_RATIO), speed_ratio);
-	error_filtered_angle = error_rescale (error_filtered_angle, ANGLE_VS_DISTANCE_RATIO, speed_ratio);
+	error_filtered_distance = error_rescale (error_filtered_distance, (1.0 - ANGLE_VS_DISTANCE_RATIO), speed_ratio_distance);
+	error_filtered_angle = error_rescale (error_filtered_angle, ANGLE_VS_DISTANCE_RATIO, SPEED_ANGLE);
 
 //	error_debug_5 = error_filtered_distance;
 
@@ -674,8 +596,7 @@ void TaskAsser_Main(void *p_arg)
 				case Msg_Asser_SetSpeed:	// Define new speed 
 					if(pCurrentMsg->Param1 > 1)
 						pCurrentMsg->Param1 = 1.0;	
-					//speed_ratio = pCurrentMsg->Param1;
-					//distance_quadramp_data.speed_order = xx;
+					distance_quadramp_data.speed_order = pCurrentMsg->Param1;
 					break;
 
 				default :
@@ -699,7 +620,7 @@ void TaskAsser_Main(void *p_arg)
 			
 
 		// MOTION CONTROL LOOP
-		error_debug_4 = mode_control;
+//		error_debug_4 = mode_control;
 		
 		// Reset_datas
 		command_left =0;
