@@ -121,80 +121,6 @@ ClassGenCCAutoEnabled=1
 ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 
-[Document8]
-DocumentPath=CAMtastic1.Cam
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-
-[GeneratedDocument1]
-DocumentPath=ProjectOutputs\Design Rule Check - Rx_pcb.html
-
-[GeneratedDocument2]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.EXTREP
-
-[GeneratedDocument3]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.G1
-
-[GeneratedDocument4]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.G2
-
-[GeneratedDocument5]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GBL
-
-[GeneratedDocument6]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GBO
-
-[GeneratedDocument7]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GBP
-
-[GeneratedDocument8]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GBS
-
-[GeneratedDocument9]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GKO
-
-[GeneratedDocument10]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GM1
-
-[GeneratedDocument11]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GM13
-
-[GeneratedDocument12]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GM15
-
-[GeneratedDocument13]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GPB
-
-[GeneratedDocument14]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GPT
-
-[GeneratedDocument15]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GTL
-
-[GeneratedDocument16]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GTO
-
-[GeneratedDocument17]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GTP
-
-[GeneratedDocument18]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.GTS
-
-[GeneratedDocument19]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.REP
-
-[GeneratedDocument20]
-DocumentPath=Project Outputs for Rx_rev_B\Rx_pcb.RUL
-
 [Generic_SmartPDF]
 AutoOpenFile=-1
 AutoOpenOutJob=-1
@@ -228,7 +154,7 @@ SaveSettingsToOutJob=-1
 [OutputGroup1]
 Name=Netlist Outputs
 Description=
-TargetPrinter=HP Deskjet 3840 Series (LiDiL)
+TargetPrinter=Microsoft XPS Document Writer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintWhat=1
 OutputType1=CadnetixNetlist
 OutputName1=Cadnetix Netlist
@@ -359,7 +285,7 @@ OutputDefault25=0
 [OutputGroup2]
 Name=Simulator Outputs
 Description=
-TargetPrinter=HP Deskjet 3840 Series (LiDiL)
+TargetPrinter=Microsoft XPS Document Writer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintWhat=1
 OutputType1=AdvSimNetlist
 OutputName1=Mixed Sim
@@ -380,7 +306,7 @@ OutputDefault3=0
 [OutputGroup3]
 Name=Documentation Outputs
 Description=
-TargetPrinter=HP Deskjet 3840 Series (LiDiL)
+TargetPrinter=Microsoft XPS Document Writer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintWhat=1
 OutputType1=Composite
 OutputName1=Composite Drawing
@@ -442,7 +368,7 @@ PageOptions9=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintS
 [OutputGroup4]
 Name=Assembly Outputs
 Description=
-TargetPrinter=HP Deskjet 3840 Series (LiDiL)
+TargetPrinter=Microsoft XPS Document Writer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintWhat=1
 OutputType1=Assembly
 OutputName1=Assembly Drawings
@@ -489,7 +415,7 @@ OutputDefault2=0
 [OutputGroup5]
 Name=Fabrication Outputs
 Description=
-TargetPrinter=HP Deskjet 3840 Series (LiDiL)
+TargetPrinter=Microsoft XPS Document Writer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintWhat=1
 OutputType1=ODB
 OutputName1=ODB++ Files
@@ -791,7 +717,7 @@ Configuration9_Item1=AddToAllPlots_Mechanical 1=False|AddToAllPlots_Mechanical 1
 [OutputGroup6]
 Name=Report Outputs
 Description=
-TargetPrinter=HP Deskjet 3840 Series (LiDiL)
+TargetPrinter=Microsoft XPS Document Writer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintWhat=1
 OutputType1=BOM_PartType
 OutputName1=Bill of Materials
@@ -823,7 +749,7 @@ OutputDefault5=0
 [OutputGroup7]
 Name=Other Outputs
 Description=
-TargetPrinter=HP Deskjet 3840 Series (LiDiL)
+TargetPrinter=Microsoft XPS Document Writer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintWhat=1
 OutputType1=Text Print
 OutputName1=Text Print
