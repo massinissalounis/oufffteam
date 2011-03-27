@@ -1,20 +1,21 @@
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <cc3.h>
+#include <cc3_hsv.h>
 #include <cc3_ilp.h>
-#include <jpeglib.h>
+#include <cc3_histogram.h>
+#include <cc3_img_writer.h>
 
 #define KEY_ESC 27
 
-static struct jpeg_compress_struct cinfo;
-static struct jpeg_error_mgr jerr;
 uint8_t *row;
+cc3_image_t img;
 
-static void CaptureCurrentJPEG(FILE *f);
-static void InitJPEG(void);
-static void DestroyJPEG(void);
+void GetImage(cc3_image_t* img2Store);
+void ImageProcessing();
+void Thresholding(uint8_t *row, uint8_t *processedRow);
+void GetHistogram (cc3_histogram_pkt_t *h_pkt);
 
 /***********
 Programm to test the saving of images to the SD card
@@ -22,10 +23,17 @@ Programm to test the saving of images to the SD card
 
 int main (void)
 {
-	//uint32_t start_time, end_time;
+	uint32_t grab_time;
 	uint32_t val;
 	char c;
 	FILE *f;
+	char heading[16];
+	row = cc3_malloc_rows(1);
+	if (row == NULL)
+	{
+		printf("Out of memory\n");
+		exit(1);
+	}
 
 	/*********
 	INITIALISATION 
@@ -47,84 +55,79 @@ int main (void)
 	/***********
 	CAMERA PROPERTIES
 	***********/
-	bool auto_balance = false, auto_exposure = false;
-	int high_resolution = CC3_CAMERA_RESOLUTION_LOW;
-	printf("High Resolution? (y or n)\n");
-	c = getchar();
-	if (c== 'y' || c == 'Y')
-		high_resolution = CC3_CAMERA_RESOLUTION_HIGH;
-	
-	printf("Autobalance? (y or n)\n");
-	c = getchar();
-	if (c== 'y' || c == 'Y')
-		auto_balance = true;
-	
-	printf("Auto Exposure? (y or n)\n");
-	c = getchar();
-	if (c== 'y' || c == 'Y')
-		auto_exposure = true;
+	bool auto_balance = true, auto_exposure = true;
+	cc3_camera_resolution_t resolution = CC3_CAMERA_RESOLUTION_LOW;
+	//printf("High Resolution? (y or n)\n");
+	//c = getchar();
+	//if (c== 'y' || c == 'Y')
+	//	resolution = CC3_CAMERA_RESOLUTION_HIGH;
+	//printf("Autobalance? (y or n)\n");
+	//c = getchar();
+	//if (c== 'y' || c == 'Y')
+	//	auto_balance = true;
+	//
+	//printf("Auto Exposure? (y or n)\n");
+	//c = getchar();
+	//if (c== 'y' || c == 'Y')
+	//	auto_exposure = true;
 
 	cc3_camera_set_colorspace (CC3_COLORSPACE_RGB);
-	cc3_camera_set_resolution (high_resolution);
+	cc3_camera_set_resolution (resolution);
 	cc3_camera_set_auto_white_balance (auto_balance);
 	cc3_camera_set_auto_exposure (auto_exposure);
+	cc3_pixbuf_frame_set_subsample (CC3_SUBSAMPLE_NEAREST, 2, 2);
 
 	cc3_pixbuf_load ();
-	InitJPEG();
 
-	char heading[32];
-	printf("Heading?\n");
-	gets(heading);
+	img.channels = 3;
+	img.width = cc3_g_pixbuf_frame.width;
+	img.height = cc3_g_pixbuf_frame.height;
+	img.pix = cc3_malloc_rows(cc3_g_pixbuf_frame.height);
+	if (img.pix == NULL)
+	{
+		printf("Out of memory\n");
+		return 0;
+	}
 
 	// Wait command in ms
 	cc3_timer_wait_ms (1000);
 	cc3_led_set_state (0, true);
 
-	printf ("Type y to test MMC card, type n if you do not have the card.\n");
-	c = getchar ();
-	if (c != 'y' && c != 'Y') 
-	{
-		printf("QUIT PROGRAM...\n");
-		DestroyJPEG();
-		return 0;
-	}
+	printf("Heading?\n");
+	gets(heading);
 
 	printf("Press ESC to quit\n");
 	// Wait for the button to be pushed
 	// Read button
 	bool exit_button = false;
 	int noFrame = 0;
-	char filename[16];
+	char filename[64];
 	while (!exit_button)
 	{
-		//printf ("Push button on camera back to take a picture\n");
-		//while (!cc3_button_get_state ());
-		//cc3_led_set_state (1, true);
-
 		// Timer
-		//start_time = cc3_timer_get_current_ms ();
-		//printf ("It took you %dms to press the button\n", cc3_timer_get_current_ms () - start_time);
+		grab_time = cc3_timer_get_current_ms();
 
 		// Take a picture
 		cc3_pixbuf_load ();
+		GetImage(&img);
 
 		// Save the image to the SD card
-		sprintf(filename, "c:/%s_n%d.jpg", heading, noFrame);
-		f = fopen(filename, "w");
+		sprintf(filename, "c:/%s_%d.ppm", heading, grab_time);
+		printf("MAIN:: Filename %s\n", filename);
+		/*f = fopen(filename, "w");
 		if (NULL == f)
 		{
-			printf("Error while opening the filename %s\n", filename);
+			printf("MAIN:: Error while opening the file\n");
 			exit_button = true;
 			continue;
-		}
+		}*/
 
-		//SaveImage(f);
-		CaptureCurrentJPEG(f);
-		fclose(f);
+		//ImageProcessing();
+		cc3_ppm_img_write(&img, filename);
+		//fclose(f);
 		noFrame++;
-		//end_time = cc3_timer_get_current_ms();
 
-		printf("Frame successfully saved in %s\n", filename);
+		//printf("MAIN:: Frame successfully saved\n");
 		c = getchar();
 		if (KEY_ESC == c)
 		{
@@ -133,61 +136,72 @@ int main (void)
 		}
 	}
 
-    // Non-blocking serial routine
-    //if (!cc3_uart_has_data (0))
-    //  break;
-	DestroyJPEG();
+	free(img.pix);   
+	free(row);
+
 	printf("QUIT PROGRAM\n\n");
 	return 0;
 }
 
-void InitJPEG(void) 
+void GetImage(cc3_image_t *img2Store)
 {
-	cinfo.err = jpeg_std_error(&jerr);
-	jpeg_create_compress(&cinfo);
-
-	// parameters for jpeg image
-	cinfo.image_width = cc3_g_pixbuf_frame.width;
-	cinfo.image_height = cc3_g_pixbuf_frame.height;
-	printf( "Wwidth = %d Height = %d\n", cinfo.image_width, cinfo.image_height );
-	cinfo.input_components = 3;
-	// cinfo.in_color_space = JCS_YCbCr;
-	cinfo.in_color_space = JCS_RGB;
-
-	// set image quality, etc.
-	jpeg_set_defaults(&cinfo);
-	jpeg_set_quality(&cinfo, 80, true);
-
-	// allocate memory for 1 row
-	row = cc3_malloc_rows(1);
-	if(NULL == row) 
-		printf( "Out of memory!\n" );
+	printf("GETIMAGE:: Beginning\n");
+	cc3_pixbuf_read_rows(img2Store->pix, cc3_g_pixbuf_frame.height);
+	printf("GETIMAGE:: End\n");
 }
 
-void CaptureCurrentJPEG(FILE *f) 
+void ImageProcessing()
 {
-	JSAMPROW row_pointer[1];
-	row_pointer[0] = row;
+	int32_t start_time, end_time;
+	cc3_histogram_pkt_t imHist;
 
-	// Output is file
-	jpeg_stdio_dest(&cinfo, f);
-
-	// Read and compress
-	jpeg_start_compress(&cinfo, TRUE);
-	while (cinfo.next_scanline < cinfo.image_height) 
+	for (uint32_t y = 0; y < cc3_g_pixbuf_frame.height; y++) 
 	{
 		cc3_pixbuf_read_rows(row, 1);
-		jpeg_write_scanlines(&cinfo, row_pointer, 1);
+		Thresholding(row, &img.pix[y]);
 	}
-  
-	// Finish
-	jpeg_finish_compress(&cinfo);
+
+	imHist.channel = CC3_CHANNEL_HUE;
+	imHist.bins = 180;
+	imHist.hist = malloc(imHist.bins * sizeof (uint32_t));
+
+	start_time = cc3_timer_get_current_ms();
+	GetHistogram(&imHist);
+	end_time = cc3_timer_get_current_ms();
+
+	printf("Total time for Histogram %d\n", end_time - start_time);
+
+	// Print the histogram out on the screen
+    printf ("hist: ");
+    for (uint8_t i = 0; i < imHist.bins; i++)
+      printf ("%d ", imHist.hist[i]);
+    printf ("\n");
+
+	free(imHist.hist);
 }
 
-
-
-void DestroyJPEG(void) 
+void GetHistogram(cc3_histogram_pkt_t *h_pkt)
 {
-	jpeg_destroy_compress(&cinfo);
-	free(row);
+	//cc3_pixbuf_rewind();
+	//if (cc3_histogram_scanline_start(h_pkt) != 0) 
+	//{
+	//	while (cc3_pixbuf_read_rows(img.pix, 1)) 
+	//		cc3_histogram_scanline(&img, h_pkt);
+	//}
+	//cc3_histogram_scanline_finish(h_pkt);
+	//free (img.pix);
+	//return;
+}
+
+void Thresholding(uint8_t *initRow, uint8_t *processedRow)
+{
+	uint8_t *HSVrow = cc3_malloc_rows(1);;
+	*HSVrow = *initRow;
+	cc3_rgb2hsv_row(HSVrow, cc3_g_pixbuf_frame.width); 
+	for (uint32_t x = 0; x < cc3_g_pixbuf_frame.width; x++)
+		if (HSVrow[x] > 50 && HSVrow[x] < 70)
+			processedRow[x] = 1;
+		else
+			processedRow = 0;
+	free(HSVrow);
 }
