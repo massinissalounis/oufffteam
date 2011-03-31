@@ -704,6 +704,7 @@ BOOLEAN TaskMain_IsSetpointReached()
 	#endif
 
 	// Check for x and y
+	/* Todo
 	if(		(TaskMain_CurrentPos.x >= (TaskMain_NextSetpointPos.x - APP_PARAM_ERR_ON_POS)) 
 
 		&&	(TaskMain_CurrentPos.y >= (TaskMain_NextSetpointPos.y - APP_PARAM_ERR_ON_POS))
@@ -716,6 +717,7 @@ BOOLEAN TaskMain_IsSetpointReached()
 			return OS_TRUE;
 		}
 	}
+	*/
 
 	return OS_FALSE;
 }
@@ -765,6 +767,7 @@ void TaskMain_Main(void *p_arg)
 
 
 	// Get CurrentPos for current color
+	/* Todo
 	if(AppCurrentColor == c_Blue)
 	{
 		TaskMain_NextSetpointPos.x 					= APP_INIT_BLUE_POS_X;
@@ -783,7 +786,7 @@ void TaskMain_Main(void *p_arg)
 		TaskMain_NextSetpointPos.IDActiveSensors	= SENSORS_NONE_ID;
 		putsUART2("TaskMain : Color Read -> Yellow\n");
 	}
-
+	*/
 	memcpy(&TaskMain_ExpectedPos, &TaskMain_NextSetpointPos, sizeof(struct StructPos));
 
 	// Define Current position to OdoTask and AsserTask
@@ -975,6 +978,7 @@ void LibMoving_DivideMvt(struct StructPos *OldPos, struct StructPos *ExpectedPos
 	TmpY = ExpectedPos->y - OldPos->y;
 
 	// If movement is too short for computation, we don't do anything
+	/* Todo
 	if((fabs(TmpX) < APP_PARAM_ERR_ON_POS) && (fabs(TmpY) < APP_PARAM_ERR_ON_POS))
 	{
 		// Third (last) one: Turn to the expected pos
@@ -986,6 +990,7 @@ void LibMoving_DivideMvt(struct StructPos *OldPos, struct StructPos *ExpectedPos
 		// Set the nb of steps for this movment
 		*NewMovingSeqRemainingSteps = 1;
 	}
+	*/
 
 	// Movment will be done in 3 steps
 	// First one: Turn to be in the correct direction

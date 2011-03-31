@@ -39,6 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\Robotique\OufffTeam\Info\svn\Dev_uCOS-II\Oufff2011_FiFi\Projets\VC2011\Includes;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -81,9 +82,9 @@
     <ClCompile Include="..\..\..\src\Main\AppHooks.c" />
     <ClCompile Include="..\..\..\src\Main\LibMoving.c" />
     <ClCompile Include="..\..\..\src\Main\TaskAsser.c" />
-    <ClCompile Include="..\..\..\src\Main\TaskCapteurs.c" />
     <ClCompile Include="..\..\..\src\Main\TaskMain.c" />
     <ClCompile Include="..\..\..\src\Main\TaskOdo.c" />
+    <ClCompile Include="..\..\..\src\Main\TaskSensors.c" />
     <ClCompile Include="..\..\..\src\Main\TaskTempo.c" />
   </ItemGroup>
   <ItemGroup>
@@ -100,9 +101,9 @@
     <ClInclude Include="..\..\..\src\Main\LibMoving.h" />
     <ClInclude Include="..\..\..\src\Main\os_cfg.h" />
     <ClInclude Include="..\..\..\src\Main\TaskAsser.h" />
-    <ClInclude Include="..\..\..\src\Main\TaskCapteurs.h" />
     <ClInclude Include="..\..\..\src\Main\TaskMain.h" />
     <ClInclude Include="..\..\..\src\Main\TaskOdo.h" />
+    <ClInclude Include="..\..\..\src\Main\TaskSensors.h" />
     <ClInclude Include="..\..\..\src\Main\TaskTempo.h" />
   </ItemGroup>
   <ItemGroup>

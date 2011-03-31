@@ -11,17 +11,17 @@
 #define APP_H 
 
 /***** Queue *****/
-OS_EVENT	*AppQueueMvt;						// Queue for storing msg from TaskMain to TaskMvt
-OS_EVENT	*AppQueueSensors;					// Queue for storing msg from TaskMain to TaskSensors
+OS_EVENT	*AppQueueMvt;							// Queue for storing msg from TaskMain to TaskMvt
+OS_EVENT	*AppQueueSensors;						// Queue for storing msg from TaskMain to TaskSensors
 
-#if APP_QUEUE_MAIN_SIZE > 0
-void*		AppQueueMainStk[APP_QUEUE_MAIN_SIZE];	// Stack to store pointer to msg for Main Queue
+#if APP_QUEUE_MVT_SIZE > 0
+void*		AppQMvtStk[APP_QUEUE_MVT_SIZE];			// Stack to store pointer to msg for Mvt Queue
 #endif
-#if APP_QUEUE_ASSER_SIZE > 0
-void*		AppQueueAsserStk[APP_QUEUE_ASSER_SIZE];	// Stack to store pointer to msg for Asser Queue
+#if APP_QUEUE_SENSORS_SIZE > 0
+void*		AppQSensorsStk[APP_QUEUE_SENSORS_SIZE];	// Stack to store pointer to msg for Sensors Queue
 #endif
 
-StructMsg	AppMsgStk[APP_QUEUES_TOTAL_SIZE];		// Stack to store msg for Asser and Main Queue
+StructMsg	AppMsgStk[APP_QUEUES_TOTAL_SIZE];		// Stack to store msg for all Queues
 StructMsg	AppHighPrioMsg;							// Struct to store an high priority msg (e.g. the stop msg)
 
 /***** Structures *****/

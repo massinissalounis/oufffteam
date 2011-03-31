@@ -20,14 +20,14 @@
 // Task includes
 #include "TaskOdo.h"
 #include "TaskAsser.h"
-#include "TaskCapteurs.h"
+#include "TaskSensors.h"
 #include "TaskMain.h"
 #include "TaskTempo.h"
 
 /***** Calling Stacks *****/
 static OS_STK       AppTaskOdoStk[APP_TASK_ODO_STK_SIZE];
 static OS_STK       AppTaskAsserStk[APP_TASK_ASSER_STK_SIZE];
-static OS_STK       AppTaskCapteursStk[APP_TASK_CAPTEURS_STK_SIZE];
+static OS_STK       AppTaskSensorsStk[APP_TASK_SENSORS_STK_SIZE];
 static OS_STK       AppTaskMainStk[APP_TASK_MAIN_STK_SIZE];
 static OS_STK       AppTaskTempoStk[APP_TASK_TEMPO_STK_SIZE];
 
