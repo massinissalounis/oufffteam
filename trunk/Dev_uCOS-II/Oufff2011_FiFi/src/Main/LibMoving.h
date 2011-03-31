@@ -11,6 +11,8 @@
 #define LIBMOVING_H 
 
 #include "AppIncludes.h"
+#include "mathf.h"
+#include "math.h"
 
 void LibMoving_MoveInMM(StructPos *OldPos, int dist, StructPos *NewPos);
 	// OldPos	: pointer to current position

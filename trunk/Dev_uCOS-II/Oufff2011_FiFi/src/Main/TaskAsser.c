@@ -613,7 +613,7 @@ void TaskAsser_Main(void *p_arg)
 
 //	float speed_ratio = SPEED_RATIO;
 
-	putsUART2("OUFFF TEAM 2010 : Asser online\n");
+	putsUART2("OUFFF TEAM 2011 : Asser online\n");
 
 	init_control_motion();
 
