@@ -624,7 +624,7 @@ void TaskAsser_Main(void *p_arg)
 //		LED_Toggle(5);
 
 		// Look for asser msg
-		pCurrentMsg = (StructMsg*)OSQAccept(AppQueueAsserEvent, &Err);
+//		pCurrentMsg = (StructMsg*)OSQAccept(AppQueueAsserEvent, &Err);
 		
 		if(NULL != pCurrentMsg)
 		{
