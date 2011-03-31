@@ -34,10 +34,16 @@
 
 #define  UART2_BAUDRATE				115200
 
+#ifdef _TARGET_440H
+#define SW1							10		// Switch 1
+#define SW2							11		// Switch 2
+#define SW3							12		// Switch 3
+#else
 #define CLIC_1						0		// connecteur 1
 #define CLIC_2						1		// connecteur 2
 #define CLIC_3						2		// connecteur 3
 #define CLIC_4						3		// connecteur 4
+#endif
 
 #define GP2_1						11
 #define GP2_2						10
@@ -56,6 +62,7 @@
 void        LED_Toggle          (CPU_INT08U led);
 void        LED_Off             (CPU_INT08U led);
 void        LED_On              (CPU_INT08U led);
+void        LED_Init            (void);
 
 
 void        BSP_ADCHandler      (void);
