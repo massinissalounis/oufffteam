@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="SDK">
+      <UniqueIdentifier>{f065b9ae-b25d-4c7e-96b2-0fb44f97c50b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Main\App.c">
@@ -37,6 +40,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\Main\TaskTempo.c">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BSP\bsp.c">
+      <Filter>SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BSP\bsp_fpga.c">
+      <Filter>SDK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,5 +88,25 @@
     <ClInclude Include="..\..\..\src\Main\TaskTempo.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP\bsp.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP\bsp_fpga.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP\bsp_peripherals.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP\mini_libdef.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\BSP\bsp_a.S">
+      <Filter>SDK</Filter>
+    </None>
+    <None Include="..\..\..\src\BSP\crt0.S">
+      <Filter>SDK</Filter>
+    </None>
   </ItemGroup>
 </Project>
