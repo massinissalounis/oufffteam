@@ -10,8 +10,6 @@
 #ifndef APPCUSTOMTYPES_H
 #define APPCUSTOMTYPES_H
 
-#include "AppConfig.h"
-
 // DEFINE ################################################################
 #define	WAIT_FOREVER			0		// Define for Timeout
 

@@ -12,7 +12,6 @@
 */
 
 #include "TaskOdo.h"
-#include "AppGlobalVars.h"
 
 struct StructPos *pos;
 OS_EVENT *SemOdo;
@@ -191,7 +190,7 @@ void TaskOdo_Main(void *p_arg)
 {
 	INT8U err;
 
-	putsUART2("OUFFF TEAM 2010 : Odo online\n");
+	putsUART2("OUFFF TEAM 2011 : Odo online\n");
 
 	init_position_manager(&AppCurrentPos);
 

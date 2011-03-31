@@ -10,7 +10,7 @@
 #ifndef TASKCAPTEURS_H
 #define TASKCAPTEURS_H
 
-#include <AppIncludes.h>
+#include "AppIncludes.h"
 
 BOOLEAN TaskCapteurs_IsStartButtonPressed();
 	// Function to check StartButton stat

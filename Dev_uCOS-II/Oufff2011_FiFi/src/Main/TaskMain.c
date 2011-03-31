@@ -14,7 +14,6 @@
 */
 
 #include "TaskMain.h"
-#include "AppGlobalVars.h"
 
 int TaskMain_NextState;
 
@@ -733,7 +732,7 @@ void TaskMain_Main(void *p_arg)
 	char 		uart_buffer[13];
 	char 		*buffer_ptr;
 
-	putsUART2("OUFFF TEAM 2010 : Main online\n");
+	putsUART2("OUFFF TEAM 2011 : Main online\n");
 
 	TaskMain_Init();
 	

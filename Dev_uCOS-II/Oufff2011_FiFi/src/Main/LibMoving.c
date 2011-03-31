@@ -12,8 +12,6 @@
 */
 
 #include "LibMoving.h"
-#include "mathf.h"
-#include "math.h"
 
 // ------------------------------------------------------------------------------------------------
 void LibMoving_MoveInMM(StructPos *OldPos, int dist, StructPos *NewPos)

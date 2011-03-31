@@ -15,14 +15,6 @@
 *                                            GLOBAL SETTINGS
 *********************************************************************************************************
 */
-#define APP_INIT_BLUE_POS_X					2875.0		// Initial position for blue robot
-#define APP_INIT_BLUE_POS_Y					125.0		// Initial position for blue robot
-#define APP_INIT_BLUE_ANGLE					135.0		// Initial position for blue robot
-
-#define APP_INIT_YELLOW_POS_X				125.0		// Initial position for blue robot
-#define APP_INIT_YELLOW_POS_Y				125.0		// Initial position for blue robot
-#define APP_INIT_YELLOW_ANGLE				045.0		// Initial position for blue robot
-
 #define APP_INIT_ROBOT_SPEED				0.600		// Speed rate (0.0:No Move, 1.0: Full Speed)
 
 #define APP_GP2D2_LIMIT_FRONT				300			// Object detection around 200 mm
@@ -88,8 +80,6 @@
 // Flag to check all Flags
 #define APP_PARAM_APPFLAG_ALL_BUMPERS			(	APP_PARAM_APPFLAG_GP2D2_FRONT | APP_PARAM_APPFLAG_GP2D2_BACK | APP_PARAM_APPFLAG_BUMPER_CLIC1 | APP_PARAM_APPFLAG_BUMPER_CLIC2 | APP_PARAM_APPFLAG_BUMPER_CLIC3 | APP_PARAM_APPFLAG_BUMPER_CLIC4)
 
-#define APP_PARAM_ERR_ON_POS					55.0						// Error in mm for x and y for considering setpoint is reached
-#define APP_PARAM_ERR_ON_ANGLE					(2.00 * M_PI / 180.0)		// Error in rad for angle for considering setpoint is reached
 /*
 *********************************************************************************************************
 *                                            TASK PRIORITIES
@@ -124,8 +114,8 @@
 *********************************************************************************************************
 */
 
-#define APP_QUEUE_MVT_SIZE						0	/* Nb max of msg from TaskMain to TaskMvt		(0=Not Used)	*/
-#define APP_QUEUE_SENSORS_SIZE					8	/* Nb max of msg from TaskMain to TaskSensos	(0=Not Used)	*/
+#define APP_QUEUE_MVT_SIZE						8	/* Nb max of msg from TaskMain to TaskMvt		(0=Not Used)	*/
+#define APP_QUEUE_SENSORS_SIZE					8	/* Nb max of msg from TaskMain to TaskSensors	(0=Not Used)	*/
 #define APP_QUEUES_TOTAL_SIZE					(APP_QUEUE_MVT_SIZE + APP_QUEUE_SENSORS_SIZE)
 
 /*
