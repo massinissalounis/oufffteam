@@ -11,7 +11,7 @@
 *********************************************************************************************************
 */
 
-#include "TaskCapteurs.h"
+#include "TaskSensors.h"
 
 // ------------------------------------------------------------------------------------------------
 BOOLEAN TaskCapteurs_IsStartButtonPressed()
@@ -86,6 +86,9 @@ void TaskCapteurs_CheckClicClic()
 {
 	INT8U	Err = 0;						// Var to get error status
 
+#ifdef _TARGET_440H
+
+#else
 	// CLIC_1 : Front Left ******************************************
 	if(CLIC_state(CLIC_1))	
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC1, OS_FLAG_SET, &Err); 
@@ -109,6 +112,7 @@ void TaskCapteurs_CheckClicClic()
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC4, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC4, OS_FLAG_CLR, &Err); 
+#endif
 }
 
 // ------------------------------------------------------------------------------------------------

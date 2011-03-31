@@ -29,9 +29,6 @@
     <ClCompile Include="..\..\..\src\Main\TaskAsser.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\TaskCapteurs.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Main\TaskMain.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -46,6 +43,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\BSP\bsp_fpga.c">
       <Filter>SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskSensors.c">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,9 +76,6 @@
     <ClInclude Include="..\..\..\src\Main\TaskAsser.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Main\TaskCapteurs.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\Main\TaskMain.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -99,6 +96,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\BSP\mini_libdef.h">
       <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskSensors.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

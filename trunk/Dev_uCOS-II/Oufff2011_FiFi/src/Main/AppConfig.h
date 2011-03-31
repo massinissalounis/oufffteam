@@ -90,7 +90,7 @@
 #define APP_TASK_HIGHER_PRIO					4
 #define APP_TASK_ODO_PRIO						8
 #define APP_TASK_ASSER_PRIO						16
-#define APP_TASK_CAPTEURS_PRIO					24
+#define APP_TASK_SENSORS_PRIO					24
 #define APP_TASK_MVT_PRIO						28
 #define APP_TASK_MAIN_PRIO						32
 #define APP_TASK_TEMPO_PRIO						40
@@ -103,7 +103,7 @@
 
 #define	APP_TASK_ODO_STK_SIZE					175
 #define APP_TASK_ASSER_STK_SIZE	            	175
-#define APP_TASK_CAPTEURS_STK_SIZE	            175
+#define APP_TASK_SENSORS_STK_SIZE	            175
 #define APP_TASK_MVT_STK_SIZE					175
 #define APP_TASK_MAIN_STK_SIZE					175
 #define APP_TASK_TEMPO_STK_SIZE	            	50
