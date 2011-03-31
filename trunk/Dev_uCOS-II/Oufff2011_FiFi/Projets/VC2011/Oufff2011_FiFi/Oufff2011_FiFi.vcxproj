@@ -74,6 +74,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\BSP\bsp.c" />
+    <ClCompile Include="..\..\..\src\BSP\bsp_fpga.c" />
     <ClCompile Include="..\..\..\src\Main\App.c" />
     <ClCompile Include="..\..\..\src\Main\AppGlobalFunc.c" />
     <ClCompile Include="..\..\..\src\Main\AppHooks.c" />
@@ -85,6 +87,10 @@
     <ClCompile Include="..\..\..\src\Main\TaskTempo.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\BSP\bsp.h" />
+    <ClInclude Include="..\..\..\src\BSP\bsp_fpga.h" />
+    <ClInclude Include="..\..\..\src\BSP\bsp_peripherals.h" />
+    <ClInclude Include="..\..\..\src\BSP\mini_libdef.h" />
     <ClInclude Include="..\..\..\src\Main\App.h" />
     <ClInclude Include="..\..\..\src\Main\AppConfig.h" />
     <ClInclude Include="..\..\..\src\Main\AppCustomTypes.h" />
@@ -98,6 +104,10 @@
     <ClInclude Include="..\..\..\src\Main\TaskMain.h" />
     <ClInclude Include="..\..\..\src\Main\TaskOdo.h" />
     <ClInclude Include="..\..\..\src\Main\TaskTempo.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\BSP\bsp_a.S" />
+    <None Include="..\..\..\src\BSP\crt0.S" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
