@@ -49,11 +49,9 @@
 *********************************************************************************************************
 */
 
-static  void  LED_Init      (void);
-
 static  void  Tmr_Init      (void);
 
-static  void  UART_Init     (void);
+void  UART_Init     (void);
 
 static  void  PB_IntInit    (void);
 static  void  PB_Config     (void);
@@ -86,10 +84,16 @@ void GP2_Read (void)
 
 void CLIC_Init (void)
 {
+#ifdef _TARGET_440H
+	PORTSetPinsDigitalIn(IOPORT_B, BIT_3);
+	PORTSetPinsDigitalIn(IOPORT_B, BIT_2);
+	PORTSetPinsDigitalIn(IOPORT_B, BIT_4);
+#else
 	PORTSetPinsDigitalIn(IOPORT_G, BIT_0);
 	PORTSetPinsDigitalIn(IOPORT_A, BIT_7);
 	PORTSetPinsDigitalIn(IOPORT_C, BIT_3);
 	PORTSetPinsDigitalIn(IOPORT_C, BIT_4);
+#endif
 }
 
 CPU_INT08U CLIC_state (CPU_INT08U clic)
@@ -97,6 +101,19 @@ CPU_INT08U CLIC_state (CPU_INT08U clic)
 	CPU_INT08U state = 0;
 
     switch (clic) {
+#ifdef _TARGET_440H
+        case SW1:
+			if(PORTReadBits(IOPORT_B, BIT_3)==0) state = 1;
+			break;
+
+        case SW2:
+			if(PORTReadBits(IOPORT_B, BIT_2)==0) state = 1;
+			break;
+
+        case SW3:
+			if(PORTReadBits(IOPORT_B, BIT_4)==0) state = 1;
+			break;
+#else
         case CLIC_1:
 			if(PORTReadBits(IOPORT_G, BIT_0)==0) state = 1;
 			break;
@@ -112,7 +129,7 @@ CPU_INT08U CLIC_state (CPU_INT08U clic)
         case CLIC_4:
 			if(PORTReadBits(IOPORT_C, BIT_4)==0) state = 1;
 			break;
-
+#endif
         default:
              break;
     }
@@ -268,40 +285,42 @@ void  LED_On (CPU_INT08U led)
 {
     switch (led) {
         case 0:
-			#ifdef _TARGET_STARTER_KIT
-        	 PORTSetBits(IOPORT_D, BIT_0 | BIT_1 | BIT_2);
+			#ifdef _TARGET_440H
+        	 PORTSetBits(IOPORT_D, BIT_6 | BIT_7);
+        	 PORTSetBits(IOPORT_F, BIT_0 | BIT_1);
 			#else
 			 PORTSetBits(IOPORT_D, BIT_13 | BIT_11);
 			 PORTSetBits(IOPORT_C, BIT_14);
    			#endif
 			break;
 		case 1:
-			#ifdef _TARGET_STARTER_KIT
-        	 PORTSetBits(IOPORT_D, BIT_0);
+			#ifdef _TARGET_440H
+        	 PORTSetBits(IOPORT_D, BIT_7);
 			#endif
 			break;
 
 		case 2:
-			#ifdef _TARGET_STARTER_KIT
-        	 PORTSetBits(IOPORT_D, BIT_1);
+			#ifdef _TARGET_440H
+        	 PORTSetBits(IOPORT_D, BIT_6);
 			#endif
 			break;
 
         case 3:
-            #ifdef _TARGET_STARTER_KIT
-        	 PORTSetBits(IOPORT_D, BIT_2);
+            #ifdef _TARGET_440H
+        	 PORTSetBits(IOPORT_F, BIT_0);
 			#else
 			 PORTSetBits(IOPORT_D, BIT_11);
 			#endif
 			break;
         case 4:
-            #ifdef _TARGET_STARTER_KIT
+            #ifdef _TARGET_440H
+        	 PORTSetBits(IOPORT_F, BIT_1);
 			#else
              PORTSetBits(IOPORT_C, BIT_14);
 			#endif
 			break;
         case 5:
-            #ifdef _TARGET_STARTER_KIT
+            #ifdef _TARGET_440H
 			#else
              PORTSetBits(IOPORT_D, BIT_13);
 			#endif
@@ -331,44 +350,46 @@ void  LED_Off (CPU_INT08U led)
 {
     switch (led) {
         case 0:
-            #ifdef _TARGET_STARTER_KIT
-			 PORTClearBits(IOPORT_D, BIT_0 | BIT_1 | BIT_2);
+            #ifdef _TARGET_440H
+			 PORTClearBits(IOPORT_D, BIT_6 | BIT_7);
+			 PORTClearBits(IOPORT_F, BIT_0 | BIT_1);
 			#else
 			 PORTClearBits(IOPORT_D, BIT_13 | BIT_11);
 			 PORTClearBits(IOPORT_C, BIT_14);
 			#endif
             break;
         case 1:
-            #ifdef _TARGET_STARTER_KIT
-			 PORTClearBits(IOPORT_D, BIT_0);
+            #ifdef _TARGET_440H
+			 PORTClearBits(IOPORT_D, BIT_7);
 			#else
 			 PORTClearBits(IOPORT_D, BIT_13 | BIT_11);
 			 PORTClearBits(IOPORT_C, BIT_14);
 			#endif
             break;
         case 2:
-            #ifdef _TARGET_STARTER_KIT
-			 PORTClearBits(IOPORT_D, BIT_1);
+            #ifdef _TARGET_440H
+			 PORTClearBits(IOPORT_D, BIT_6);
 			#else
 			 PORTClearBits(IOPORT_D, BIT_13 | BIT_11);
 			 PORTClearBits(IOPORT_C, BIT_14);
 			#endif
             break;
         case 3:
-            #ifdef _TARGET_STARTER_KIT
-			 PORTClearBits(IOPORT_D, BIT_2);
+            #ifdef _TARGET_440H
+			 PORTClearBits(IOPORT_F, BIT_0);
 			#else
              PORTClearBits(IOPORT_D, BIT_11);
 			#endif
             break;
         case 4:
-            #ifdef _TARGET_STARTER_KIT
+            #ifdef _TARGET_440H
+			 PORTClearBits(IOPORT_F, BIT_1);
 			#else
              PORTClearBits(IOPORT_C, BIT_14);
 			#endif
             break;
         case 5:
-            #ifdef _TARGET_STARTER_KIT
+            #ifdef _TARGET_440H
 			#else
              PORTClearBits(IOPORT_D, BIT_13);
 			#endif
@@ -398,44 +419,46 @@ void  LED_Toggle (CPU_INT08U led)
 {
     switch (led) {
         case 0:
-            #ifdef _TARGET_STARTER_KIT
-        	 PORTToggleBits(IOPORT_D, BIT_0 | BIT_1 | BIT_2);
+            #ifdef _TARGET_440H
+        	 PORTToggleBits(IOPORT_D, BIT_6 | BIT_7);
+        	 PORTToggleBits(IOPORT_F, BIT_0 | BIT_1);
 			#else
         	 PORTToggleBits(IOPORT_D, BIT_13 | BIT_11);
 			 PORTToggleBits(IOPORT_C, BIT_14);
 			#endif
             break;
         case 1:
-            #ifdef _TARGET_STARTER_KIT
-        	 PORTToggleBits(IOPORT_D, BIT_0);
+            #ifdef _TARGET_440H
+        	 PORTToggleBits(IOPORT_D, BIT_7);
 			#else
         	 PORTToggleBits(IOPORT_D, BIT_13 | BIT_11);
 			 PORTToggleBits(IOPORT_C, BIT_14);
 			#endif
             break;
         case 2:
-            #ifdef _TARGET_STARTER_KIT
-        	 PORTToggleBits(IOPORT_D, BIT_1);
+            #ifdef _TARGET_440H
+        	 PORTToggleBits(IOPORT_D, BIT_6);
 			#else
         	 PORTToggleBits(IOPORT_D, BIT_13 | BIT_11);
 			 PORTToggleBits(IOPORT_C, BIT_14);
 			#endif
             break;
         case 3:
-            #ifdef _TARGET_STARTER_KIT
-        	 PORTToggleBits(IOPORT_D, BIT_2);
+            #ifdef _TARGET_440H
+        	 PORTToggleBits(IOPORT_F, BIT_0);
 			#else
              PORTToggleBits(IOPORT_D, BIT_11);
 			#endif
             break;
         case 4:
-            #ifdef _TARGET_STARTER_KIT
+            #ifdef _TARGET_440H
+        	 PORTToggleBits(IOPORT_F, BIT_1);
 			#else
              PORTToggleBits(IOPORT_C, BIT_14);
 			#endif
             break;
         case 5:
-            #ifdef _TARGET_STARTER_KIT
+            #ifdef _TARGET_440H
 			#else
              PORTToggleBits(IOPORT_D, BIT_13);
 			#endif
@@ -474,13 +497,13 @@ void  LED_Init (void)
 *********************************************************************************************************
 */
 
-static  void  BSP_IO_Init (void)
+void  BSP_IO_Init (void)
 {
-#ifdef _TARGET_STARTER_KIT
+#ifdef _TARGET_440H
 	// Each LED pin is set up as an output
-	PORTSetPinsDigitalOut(IOPORT_D, BIT_0 | BIT_1 | BIT_2);
+	PORTSetPinsDigitalOut(IOPORT_D, BIT_6 | BIT_7);
+	PORTSetPinsDigitalOut(IOPORT_F, BIT_0 | BIT_1);
 	DisableCN0;
-	PORTSetBits(IOPORT_D, BIT_0 | BIT_1 | BIT_2);
 #else
 	// Each LED pin is set up as an output
 	PORTSetPinsDigitalOut(IOPORT_D, BIT_13 | BIT_11);
@@ -489,11 +512,12 @@ static  void  BSP_IO_Init (void)
 
 	// Motor direction
 	PORTSetPinsDigitalOut(IOPORT_C, BIT_1 | BIT_2);
-
-	CLIC_Init();
 	
 	START_Init();
 #endif
+
+	CLIC_Init();
+	
 }
 
 /*
@@ -867,7 +891,7 @@ static  void  PB_Init (void)
 
 static  void  PB_Config (void)
 {
-    PB0_TRIS = 1;                                                       /* Set the pin corresponding to our push button as input    */
+//    PB0_TRIS = 1;                                                       /* Set the pin corresponding to our push button as input    */
 }    
     
 /*
@@ -929,9 +953,9 @@ void  BSP_CNHandler (void)
 
     reg_val = PORTD;                                                    /* Read register to clear change notice mismatch condition  */ 
     
-    if ((reg_val & PB0_MASK) == 0) {
+//    if ((reg_val & PB0_MASK) == 0) {
                                                                         /* Insert your application code here                        */                                                                  /* Insert your application code here                        */
-    } 
+//    } 
     
     mCNClearIntFlag();
 }
