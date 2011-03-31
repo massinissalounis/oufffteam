@@ -50,10 +50,10 @@ void TaskMain_GetNextAction()
 		if(APP_FLAG_POS__NO_FLAG != TaskMain_ExpectedPos.Flag)
 		{
 			// Check Flag
-			if((TaskMain_ExpectedPos.Flag & APP_FLAG_POS__CHECK_CORN) == APP_FLAG_POS__CHECK_CORN)
-			{
-				TaskMain_NextSetpointPos.Flag = TaskMain_ExpectedPos.Flag;		
-			}
+//			if((TaskMain_ExpectedPos.Flag & APP_FLAG_POS__CHECK_CORN) == APP_FLAG_POS__CHECK_CORN)
+//			{
+//				TaskMain_NextSetpointPos.Flag = TaskMain_ExpectedPos.Flag;		
+//			}
 
 			// Check Position Flag
 			if((TaskMain_ExpectedPos.Flag & APP_FLAG_POS__LOCK_IN_POS) == APP_FLAG_POS__LOCK_IN_POS)
@@ -499,7 +499,7 @@ void TaskMain_CheckForBumpers()
 		}
 		
 		// GP2D2_3 : Not Used ***********************************************************
-		if(((CurrentBumpersFlag & APP_PARAM_APPFLAG_GP2D2_3) == APP_PARAM_APPFLAG_GP2D2_3) && ((IDActiveSensors & SENSORS_GPD2D_3_ID) == SENSORS_GPD2D_3_ID))
+/*		if(((CurrentBumpersFlag & APP_PARAM_APPFLAG_GP2D2_3) == APP_PARAM_APPFLAG_GP2D2_3) && ((IDActiveSensors & SENSORS_GPD2D_3_ID) == SENSORS_GPD2D_3_ID))
 		{
 			// TODO : Action à réaliser
 		}
@@ -517,7 +517,7 @@ void TaskMain_CheckForBumpers()
 		{
 			SensorsFlag[SENSORS_GPD2D_4] = OS_FALSE;
 		}
-
+*/
 		// Clic 1 : Not Used **********************************************************
 		if(((CurrentBumpersFlag & APP_PARAM_APPFLAG_BUMPER_CLIC1) == APP_PARAM_APPFLAG_BUMPER_CLIC1) && ((IDActiveSensors & SENSORS_CLICCLIC_1_ID) == SENSORS_CLICCLIC_1_ID))	
 		{
@@ -621,7 +621,7 @@ void TaskMain_StopMvt()
 	int IDActiveSensors = TaskMain_NextSetpointPos.IDActiveSensors;
 
 	// flush current queue
-	OSQFlush(AppQueueAsserEvent);
+//	OSQFlush(AppQueueAsserEvent);
 
 	// Create msg (an high priority msg) for stopping mvt
 	TaskMain_GetCurrentPos();		// Read current Pos
@@ -633,7 +633,7 @@ void TaskMain_StopMvt()
 	AppHighPrioMsg.Param3 = TaskMain_CurrentPos.angle;	// ALPHA
 
 	// Send STOP msg
-	OSQPostFront(AppQueueAsserEvent, (void*)(&AppHighPrioMsg));
+//	OSQPostFront(AppQueueAsserEvent, (void*)(&AppHighPrioMsg));
 
 	// Block movement until next order
 	memcpy(&TaskMain_NextSetpointPos, &TaskMain_CurrentPos, sizeof(struct StructPos));
@@ -674,7 +674,7 @@ void TaskMain_StopAsser()
 	MsgToPost.Param3 = 0;	
 
 	// Send msg
-	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
+//	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
 
 	return;
 }
@@ -746,7 +746,7 @@ void TaskMain_Main(void *p_arg)
 	MsgToPost.Param2	= APP_MOVING_ASSER_IN_ANGLE_ENABLED;
 	MsgToPost.Param3	= APP_MOVING_ASSER_IN_SPEED_ENABLED;
 	// Post msg to activate moving algo
-	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
+//	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
 
 	// Indicate speed we have to use
 	// Create this msg
@@ -755,7 +755,7 @@ void TaskMain_Main(void *p_arg)
 	MsgToPost.Param2	= APP_NOT_USED;
 	MsgToPost.Param3	= APP_NOT_USED;
 	// Post msg to activate moving algo
-	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
+//	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
 
 	//OSTimeDlyHMSM(0,0,1,0);
 
@@ -798,7 +798,7 @@ void TaskMain_Main(void *p_arg)
 		MsgToPost.Param3	= TaskMain_NextSetpointPos.angle;
 
 		// Post new expected pos
-		AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
+//		AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
 
 		// Change Current Pos
 		memcpy(&AppCurrentPos, &TaskMain_NextSetpointPos, sizeof(struct StructPos));
@@ -862,13 +862,13 @@ void TaskMain_Main(void *p_arg)
 						putsUART2("\n");*/
 		
 						// Post new expected pos
-						MsgIsWaitingForTransmit = !(AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost));
+//						MsgIsWaitingForTransmit = !(AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost));
 					}
 				}
 				else
 				{
 					// Post wainting msg
-					MsgIsWaitingForTransmit = !(AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost));
+//					MsgIsWaitingForTransmit = !(AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost));
 				}
 			}
 		}
@@ -1089,7 +1089,7 @@ void LibMoving_SetSpeed(float SpeedRate)
 	MsgToPost.Param2	= APP_NOT_USED;
 	MsgToPost.Param3	= APP_NOT_USED;
 	// Post msg to activate moving algo
-	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
+//	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
 
 }
 
