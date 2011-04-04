@@ -49,20 +49,23 @@
 *********************************************************************************************************
 */
 
-static  void  Tmr_Init      (void);
+void	Tmr_Init    (void);
 
-void  UART_Init     (void);
+void	UART_Init   (void);
 
-static  void  PB_IntInit    (void);
-static  void  PB_Config     (void);
-static  void  PB_Init       (void);
+void	PB_IntInit  (void);
+void	PB_Config   (void);
+void	PB_Init     (void);
 
-//static  void  ADC_Init      (void);
-static  void  ADC_TmrInit   (void);
-static  void  ADC_IntInit   (void);
-static  void  ADC_Config    (void);
+void	ADC_TmrInit (void);
+void	ADC_IntInit (void);
+void	ADC_Config  (void);
 
-static  void PMP_Init       (void);
+void	PMP_Init    (void);
+
+#ifdef _TARGET_440H
+void	LCD_Init	(void);
+#endif
 
 ///////////////////////////////////////////////////////////
 // GP2 FUNCTIONS
@@ -206,7 +209,7 @@ void __ISR(_TIMER_2_VECTOR, ipl6) TMR2_Handler(void)
 // PMP FUNCTIONS
 ///////////////////////////////////////////////////////////
 
-static void  PMP_Init (void)
+void  PMP_Init (void)
 {
 	unsigned int control =  PMP_ON | PMP_IDLE_CON | PMP_MUX_DATA8_ALL | PMP_READ_WRITE_EN |\
                      		PMP_CS2_CS1_OFF | PMP_LATCH_POL_HI | PMP_CS2_POL_HI | PMP_CS1_POL_HI |\
@@ -701,7 +704,6 @@ void  BSP_ADCHandler (void)
 *********************************************************************************************************
 */
 
-//static  void  ADC_Init (void)  CBE
 void  ADC_Init (void)
 {
 	//!!!!!!!! PORTB BIT_2 --> GP2_6 ne fonctionne pas !!!!!!!!!! CBE 29/04/2010
@@ -730,7 +732,7 @@ void  ADC_Init (void)
 *********************************************************************************************************
 */
 
-static  void  ADC_Config (void) 
+void  ADC_Config (void) 
 {
     CPU_INT32U  config1;
     CPU_INT32U  config2;
@@ -776,7 +778,7 @@ static  void  ADC_Config (void)
 *********************************************************************************************************
 */
 
-static  void  ADC_IntInit (void)
+void  ADC_IntInit (void)
 {
 //    mAD1SetIntPriority(INT_PRIORITY_LEVEL_3);                           /* Set interrupt priority level to 3                        */
 //    mAD1ClearIntFlag();                                                 /* Clear interrupt flag, just in case                       */
@@ -847,7 +849,7 @@ CPU_INT16U  ADC_GetVal (CPU_INT08U channel_to_convert)
 *********************************************************************************************************
 */
 
-static  void  ADC_TmrInit (void)
+void  ADC_TmrInit (void)
 {
     OpenTimer3(T3_ON | T3_PS_1_8 | T3_SOURCE_INT, 0);                  /* Timer 3 enabled with 1:8 prescaler                        */
 }    
@@ -871,7 +873,7 @@ static  void  ADC_TmrInit (void)
 *********************************************************************************************************
 */
 
-static  void  PB_Init (void)
+void  PB_Init (void)
 {
     PB_Config();                                                        /* Configure the port pins                                  */
     PB_IntInit();                                                       /* Configure interrupt settings                             */
@@ -889,7 +891,7 @@ static  void  PB_Init (void)
 *********************************************************************************************************
 */
 
-static  void  PB_Config (void)
+void  PB_Config (void)
 {
 //    PB0_TRIS = 1;                                                       /* Set the pin corresponding to our push button as input    */
 }    
@@ -906,7 +908,7 @@ static  void  PB_Config (void)
 *********************************************************************************************************
 */
 
-static  void  PB_IntInit (void)
+void  PB_IntInit (void)
 {
 /*    CPU_INT32U  dummy_read;
     CPU_INT16U  config;
@@ -1013,7 +1015,7 @@ void  BSP_IntDisAll (void)
 *********************************************************************************************************
 */
 
-static  void BSP_InitIntCtrl  (void) 
+void BSP_InitIntCtrl  (void) 
 {
     INTCONSET = 0x1000;	
     INTEnableSystemMultiVectoredInt();
@@ -1046,4 +1048,32 @@ void  BSP_InitIO (void)
 	PMP_Init();
 	UART_Init();
 	PWM_Init();
+
+	#ifdef _TARGET_440H
+	LCD_Init();
+	#endif
 }
+
+
+#ifdef _TARGET_440H
+/*
+*********************************************************************************************************
+*                                             LCD_Init()
+* 
+* Description: Initialize the LCD device
+*
+* Arguments  : None
+*
+* Returns    : None
+*********************************************************************************************************
+*/
+
+
+void		LCD_Init(void)
+{
+	LightLCD();
+	InitLCDPins();
+	InitByInstru();
+}
+#endif
+

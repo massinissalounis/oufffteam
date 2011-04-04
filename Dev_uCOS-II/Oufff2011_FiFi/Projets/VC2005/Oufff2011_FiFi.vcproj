@@ -175,6 +175,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\src\DevCard\1602D.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\Main\App.c"
 				>
 			</File>
@@ -195,15 +199,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Main\TaskCapteurs.c"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\Main\TaskMain.c"
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\Main\TaskMvt.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\Main\TaskOdo.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Main\TaskSensors.c"
 				>
 			</File>
 			<File
@@ -216,6 +224,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\..\src\DevCard\1602D.h"
+				>
+			</File>
 			<File
 				RelativePath="..\..\src\Main\App.h"
 				>
@@ -253,15 +265,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Main\TaskCapteurs.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\src\Main\TaskMain.h"
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\Main\TaskMvt.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\Main\TaskOdo.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Main\TaskSensors.h"
 				>
 			</File>
 			<File
@@ -274,6 +290,174 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+		</Filter>
+		<Filter
+			Name="uC-OSII"
+			>
+			<File
+				RelativePath="..\..\src\Microchip\PeripheralsLibs\adc10.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Microchip\Sys\attribs.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\BSP\bsp.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\BSP\bsp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\BSP\bsp_fpga.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\BSP\bsp_fpga.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\BSP\bsp_peripherals.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Microchip\PeripheralsLibs\CoreTimer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC\cpu.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uC-CPU\cpu_def.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Microchip\PeripheralsLibs\INT.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uC-LIB\lib_def.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uC-LIB\lib_mem.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uC-LIB\lib_mem.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uC-LIB\lib_str.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uC-LIB\lib_str.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Microchip\PeripheralsLibs\math.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Microchip\PeripheralsLibs\mathf.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\BSP\mini_libdef.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Source\os_core.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu_c.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_dbg.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Source\os_flag.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Source\os_mbox.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Source\os_mem.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Source\os_mutex.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Source\os_q.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Source\os_sem.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Source\os_task.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Source\os_time.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Source\os_tmr.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Microchip\PeripheralsLibs\osc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Microchip\PeripheralsLibs\outcompare.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Microchip\PeripheralsLibs\PIC32INTlib.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Microchip\PeripheralsLibs\pmp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Microchip\PeripheralsLibs\ports.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Microchip\PeripheralsLibs\system.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Microchip\PeripheralsLibs\timer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Microchip\PeripheralsLibs\uart.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\uCOS-II\Source\ucos_ii.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

@@ -13,10 +13,10 @@
 #include "AppIncludes.h"
 
 // Vars -------------------------------------------------------------------------------------------
-struct StructPos TaskMain_CurrentPos;						// Local var to read current pos
-struct StructPos TaskMain_ExpectedPos;						// Local var to store pos we have to go
-struct StructPos TaskMain_NextSetpointPos;					// Local var to store pos we have to go
-struct StructPos TaskMain_MovingSeq[APP_MOVING_SEQ_LEN];	// Moving sequence (used for complex moving)
+StructOdoPos TaskMain_CurrentPos;						// Local var to read current pos
+StructOdoPos TaskMain_ExpectedPos;						// Local var to store pos we have to go
+StructOdoPos TaskMain_NextSetpointPos;					// Local var to store pos we have to go
+StructOdoPos TaskMain_MovingSeq[APP_MOVING_SEQ_LEN];	// Moving sequence (used for complex moving)
 															// Last point is stored to index APP_MOVING_SEQ_LEN-1, the point before is stored APP_MOVING_SEQ_LEN-2, etc...
 int TaskMain_MovingSeqRemainingSteps;						// Interger to contain number of steps remaining in MovingSeq
 
@@ -64,44 +64,5 @@ void TaskMain_Main(void *p_arg);
 	// Fonction principale
 	// void *p_arg		: Arg for this task
 
-void LibMoving_MoveInMM(struct StructPos *OldPos, int dist, struct StructPos *NewPos);
-	// OldPos	: pointer to current position
-	// distance : in mm for the movement (>0 go forward, <0 go back)
-	// NewPos	: pointer to the struct for containing new position
-	// In this function, Flag of NewPos is set to APP_FLAG_POS__SIMPLE_MOVE, don't change it
-
-void LibMoving_RotateInDeg(struct StructPos *OldPos, float AngleInDeg, struct StructPos *NewPos);
-	// OldPos		: pointer to current position
-	// AngleInDeg	: angle in degree to do (>0 trigo, <0 horaire)
-	// NewPos		: pointer to the struct for containing new position
-	// In this function, Flag of NewPos is set to APP_FLAG_POS__SIMPLE_MOVE, don't change it
-
-void LibMoving_MoveToAngleInDeg(struct StructPos *OldPos, float AngleToGoInDeg, struct StructPos *NewPos);
-	// OldPos		: pointer to current position
-	// AngleInDeg	: angle in degree we want to go
-	// NewPos		: pointer to the struct for containing new position
-
-void LibMoving_DivideMvt(struct StructPos *OldPos, struct StructPos *ExpectedPos, int *NewMovingSeqRemainingSteps);
-	// OldPos						: pointer to current postion
-	// ExpectedPos					: pointer to expected position
-	// NewMovingSeqRemainingSteps	: Nb of command set into MovingSeq
-
-void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq);
-	// NumEscapeSeq					: Nb of seq to use for create escape seq
-	//		- APP_MOVING_ESCAPE_SEQ_AUTO
-	//		- APP_MOVING_ESCAPE_SEQ_RIGHT
-	//		- APP_MOVING_ESCAPE_SEQ_LEFT
-	//		- APP_MOVING_ESCAPE_SEQ_BACK
-	//		- APP_MOVING_ESCAPE_SEQ_STOP
-	//		- APP_MOVING_ESCAPE_SEQ_CHECK_CORN
-	// Use APP_MOVING_ESCAPE_SEQ_DEFAULT for default escape sequence
-
-void LibMoving_SetSpeed(float SpeedRate);
-	// Function to set robot speed
-	// SpeedRate is between 0.0 and 1.0
-
-void LibMoving_CheckCorn();
-	// Function to try to fall down corns.
-	// Robot will bump into corn, go back and try again. 
 
 #endif // TASKMAIN_H

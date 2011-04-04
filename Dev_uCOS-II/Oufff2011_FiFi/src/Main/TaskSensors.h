@@ -23,8 +23,8 @@ void TaskCapteurs_CheckBumpers();
 	// Check for bumpers status.
 	// In case of collision, this function posts FLAGS to tell main task we are bumping
 
-void TaskCapteurs_CheckClicClic();
-	// Check for ClicClic status.
+void TaskCapteurs_CheckSW();
+	// Check for switches status.
 
 void TaskCapteurs_ReadColor();
 	// Read current color and share it with other tasks
