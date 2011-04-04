@@ -8,6 +8,7 @@
 *
 * Suivi de version :
 * 2009-02-11 | PBE | Creation de la version de base pour la coupe 2010
+* 2009-04-01 | PBE | Mise à jour pour la coupe 2011
 *********************************************************************************************************
 */
 
@@ -82,7 +83,7 @@ void TaskCapteurs_CheckBumpers()
 	return;
 }
 
-void TaskCapteurs_CheckClicClic()
+void TaskCapteurs_CheckSW()
 {
 	INT8U	Err = 0;						// Var to get error status
 
@@ -119,13 +120,13 @@ void TaskCapteurs_CheckClicClic()
 void TaskCapteurs_ReadColor()
 {
 	#ifdef _TARGET_STARTER_KIT
-		AppCurrentColor = c_Blue;	
+//		AppCurrentColor = c_Blue;	
 	#else
 		// Read current color
-		if(COLOR_Read() == 0)
-			AppCurrentColor = c_Blue;
-		else	
-			AppCurrentColor = c_Yellow;
+//		if(COLOR_Read() == 0)
+//			AppCurrentColor = c_Blue;
+//		else	
+//			AppCurrentColor = c_Yellow;
 	#endif
 
 	return;
@@ -171,7 +172,7 @@ void TaskCapteurs_Main(void *p_arg)
 		// FiFi - 02/01/11 : Modif pour test asser
 		{
 			//TaskCapteurs_CheckBumpers();			// Check for bumpers status
-			//TaskCapteurs_CheckClicClic();			// Check for clic clic
+			//TaskCapteurs_CheckSW();			// Check for clic clic
 		}
 	}
 }

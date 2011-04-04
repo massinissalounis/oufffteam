@@ -43,7 +43,6 @@
 #define CLIC_2						1		// connecteur 2
 #define CLIC_3						2		// connecteur 3
 #define CLIC_4						3		// connecteur 4
-#endif
 
 #define GP2_1						11
 #define GP2_2						10
@@ -51,7 +50,7 @@
 #define GP2_4						6
 #define GP2_5						4
 #define GP2_6						2		//ne fonctionne pas pour le moment !! CBE
-
+#endif
 
 /*
 *********************************************************************************************************
@@ -63,7 +62,6 @@ void        LED_Toggle          (CPU_INT08U led);
 void        LED_Off             (CPU_INT08U led);
 void        LED_On              (CPU_INT08U led);
 void        LED_Init            (void);
-
 
 void        BSP_ADCHandler      (void);
 void        BSP_UARTHandler     (void);

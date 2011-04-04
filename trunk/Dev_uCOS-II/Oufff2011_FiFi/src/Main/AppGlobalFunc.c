@@ -8,14 +8,11 @@
 *
 * Suivi de version :
 * 2009-03-26 | PBE | Creation de la version de base pour la coupe 2010
+* 2009-04-01 | PBE | Mise à jour pour la coupe 2011
 *********************************************************************************************************
-
-
 */
 
 #include "AppIncludes.h"
-#include "AppGlobalFunc.h"
-#include "AppGlobalVars.h"
 
 // ------------------------------------------------------------------------------------------------
 BOOLEAN AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
@@ -56,6 +53,7 @@ BOOLEAN AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
 		AppMsgStk[NextFreeIndex].Param1	=	PtrMsgToPost->Param1;	// Param1
 		AppMsgStk[NextFreeIndex].Param2	=	PtrMsgToPost->Param2;	// Param2
 		AppMsgStk[NextFreeIndex].Param3	=	PtrMsgToPost->Param3;	// Param3
+		AppMsgStk[NextFreeIndex].Param4	=	PtrMsgToPost->Param4;	// Param4
 
 		// Post Msg
 		OSQPost(PtrQueue, (void*)(&(AppMsgStk[NextFreeIndex])));

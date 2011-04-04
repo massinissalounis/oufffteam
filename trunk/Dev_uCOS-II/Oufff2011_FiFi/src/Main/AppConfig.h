@@ -27,12 +27,12 @@
 *                                            TASK MANAGING
 *********************************************************************************************************
 */
-#define APP_TASK_MAIN_ENABLED				// Activate TaskMain
-#define APP_TASK_ODO_ENABLED				// Activate TaskOdo
-#define APP_TASK_ASSER_ENABLED				// Activate TaskAsser
-#define APP_TASK_MVT_ENABLED				// Acvivate TaskMvt
-#define APP_TASK_SENSORS_ENABLED			// Activate TaskSensors
-#define APP_TASK_TEMPO_ENABLED				// Activate TaskTempo
+#define APP_TASK_MAIN_ENABLED				OS_TRUE		// Activate TaskMain
+#define APP_TASK_ODO_ENABLED				OS_TRUE		// Activate TaskOdo
+#define APP_TASK_ASSER_ENABLED				OS_TRUE		// Activate TaskAsser
+#define APP_TASK_MVT_ENABLED				OS_TRUE		// Acvivate TaskMvt
+#define APP_TASK_SENSORS_ENABLED			OS_TRUE		// Activate TaskSensors
+#define APP_TASK_TEMPO_ENABLED				OS_TRUE		// Activate TaskTempo
 
 /*
 *********************************************************************************************************
@@ -44,30 +44,30 @@
 
 #define APP_PARAM_APPFLAG_INITAL_VALUE			0x00000000	//  Initial value for AppFlags var 
 // Value is defined as follow :								//	|Bit| Desctiption				| Value ON 			| Value OFF			| Connection	|	
-#define APP_PARAM_APPFLAG_START_BUTTON			0x00000001	//	| 0	| Start Button				| Pressed			| Not Pressed		| S				|
-#define APP_PARAM_APPFLAG_COLOR					0x00000002	//	| 1 | Indicates current color	| Color A (Red)		| Color B (Blue)	| ?				|
+#define APP_PARAM_APPFLAG_START_BUTTON			0x00000001	//	| 0	| Start Button				| Pressed			| Not Pressed		| Hard			|
+#define APP_PARAM_APPFLAG_BIT01					0x00000002	//	| 1 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT02					0x00000004	//	| 2 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT03					0x00000008	//	| 3 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT04					0x00000010	//	| 4 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT05					0x00000020	//	| 5 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_MVT_STATE				0x00000040	//	| 6 | Mouvement statu			| Robot is moving	| Robot is stopped	| NC			|
-#define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's running	| Time's Up		 	| NC			|	
-#define APP_PARAM_APPFLAG_GP2D2_FRONT			0x00000100	//	| 8 | GP2D2 Front				| Active			| Inactive			| GP2D2_1		|
-#define APP_PARAM_APPFLAG_GP2D2_BACK			0x00000200	//	| 9 | GP2D2 Back				| Active			| Inactive			| GP2D2_2		|
-#define APP_PARAM_APPFLAG_LASER_1				0x00000400	//	|10 | Laser Rear Left			| Active			| Inactive			| Laser_1		|
-#define APP_PARAM_APPFLAG_LASER_2				0x00000800	//	|11 | Laser Rear Right			| Active			| Inactive			| Laser_2		|	
-#define APP_PARAM_APPFLAG_BUMPER_CLIC1			0x00001000	//	|12 | Front Left				| Active			| Inactive			| NC			|
-#define APP_PARAM_APPFLAG_BUMPER_CLIC2			0x00002000	//	|13 | Front Right				| Active			| Inactive			| NC			|
-#define APP_PARAM_APPFLAG_BUMPER_CLIC3			0x00004000	//	|14 | Front Center				| Active			| Inactive			| CLIC_3		|
-#define APP_PARAM_APPFLAG_BUMPER_CLIC4			0x00008000	//	|15 | Rear Center				| Active			| Inactive			| CLIC_4		|
-#define APP_PARAM_APPFLAG_BIT16					0x00010000	//	|16 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT17					0x00020000	//	|17 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT18					0x00040000	//	|18 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT19					0x00080000	//	|19 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT20					0x00100000	//	|20 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT21					0x00200000	//	|21 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT22					0x00400000	//	|22 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT23					0x00800000	//	|23 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_MVT_STATE				0x00000040	//	| 6 | Mouvement state			| Robot is moving	| Robot is stopped	| Soft			|
+#define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's running	| Time's Up		 	| Soft			|	
+#define APP_PARAM_APPFLAG_GP2_1					0x00000100	//	| 8 | GP2_1						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_2					0x00000200	//	| 9 | GP2_2						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_3					0x00000400	//	|10 | GP2_3						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_4					0x00000800	//	|11 | GP2_4						| Active			| Inactive			| Hard			|	
+#define APP_PARAM_APPFLAG_GP2_5					0x00001000	//	|12 | GP2_5						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_6					0x00002000	//	|13 | GP2_6						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_7					0x00004000	//	|14 | GP2_7						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_8					0x00008000	//	|15 | GP2_8						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_1					0x00010000	//	|16 | SW_1						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_2					0x00020000	//	|17 | SW_2						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_3					0x00040000	//	|18 | SW_3						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_4					0x00080000	//	|19 | SW_4						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_5					0x00100000	//	|20 | SW_5						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_6					0x00200000	//	|21 | SW_6						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_7					0x00400000	//	|22 | SW_7						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_8					0x00800000	//	|23 | SW_8						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_BIT24					0x01000000	//	|24 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT25					0x02000000	//	|25 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT26					0x04000000	//	|26 | Not Used					| -					| -					| -				|
@@ -77,8 +77,14 @@
 #define APP_PARAM_APPFLAG_BIT30					0x40000000	//	|30 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT31					0x80000000	//	|31 | Not Used					| -					| -					| -				|
 
-// Flag to check all Flags
-#define APP_PARAM_APPFLAG_ALL_BUMPERS			(	APP_PARAM_APPFLAG_GP2D2_FRONT | APP_PARAM_APPFLAG_GP2D2_BACK | APP_PARAM_APPFLAG_BUMPER_CLIC1 | APP_PARAM_APPFLAG_BUMPER_CLIC2 | APP_PARAM_APPFLAG_BUMPER_CLIC3 | APP_PARAM_APPFLAG_BUMPER_CLIC4)
+// Groups ------------------------------------------------------------------------------------------------
+// Sensors Groups
+#define APP_PARAM_APPFLAG_ALL_GP2				0x0000FF00	// All GP2 sensors
+#define APP_PARAM_APPFLAG_ALL_SW				0x00FF0000	// All switches sensors
+#define APP_PARAM_APPFLAG_ALL_SENSORS			0x00FFFF00	// All external sensors
+
+
+
 
 /*
 *********************************************************************************************************
@@ -131,9 +137,7 @@
 // Moving Algo : The first option set to OS_TRUE would be used
 #define APP_MOVING_ALGO_1_SIMPLE				OS_TRUE		// Activate Simple Moving Algo (without anticipation)
 
-#define APP_MOVING_ASSER_IN_POS_ENABLED			OS_TRUE		// Indicate if we use asser in pos
-#define APP_MOVING_ASSER_IN_ANGLE_ENABLED		OS_TRUE		// Indicate if we use asser in angle
-#define APP_MOVING_ASSER_IN_SPEED_ENABLED		OS_FALSE	// Indicate if we use asser in speed (Not used)
+#define APP_MOVING_ASSER_INITIAL_MODE_CTRL		3			// Initial Mode Controle
 
 #define APP_MOVING_ESCAPE_SEQ_STOP				0			// No escape sequence. In case of collision, do nothing and stay in pos
 #define APP_MOVING_ESCAPE_SEQ_FRONT_RIGHT		1			// Escape sequence by the right (to the front)
@@ -144,42 +148,6 @@
 // Choose the default escape sequence to use
 #define APP_MOVING_ESCAPE_SEQ_FRONT_DEFAULT		APP_MOVING_ESCAPE_SEQ_STOP
 
-/*
-*********************************************************************************************************
-*                                           MOVING FLAGS
-*********************************************************************************************************
-*/
-#define APP_FLAG_POS__NO_FLAG					0x00		// No flag has been set
-#define APP_FLAG_POS__LOCK_IN_POS				0x01		// Robot stay in pos when it arrives to expected pos
-#define APP_FLAG_POS__SIMPLE_MOVE				0x02		// There is no decomposition if this flag is set
-
-/*
-*********************************************************************************************************
-*                                           SENSORS FLAGS
-*********************************************************************************************************
-*/
-#define SENSORS_GPD2D_1						0x00				// GPD2D2_1 : Front sensor
-#define SENSORS_GPD2D_2						0x01				// GPD2D2_2 : Back sensor
-#define SENSORS_GPD2D_3						0x02				// GPD2D2_3 : Not Used
-#define SENSORS_GPD2D_4						0x03				// GPD2D2_4 : Not Used
-#define SENSORS_CLICCLIC_1					0x04				// CLICCLIC_1 : Not Used
-#define SENSORS_CLICCLIC_2					0x05				// CLICCLIC_2 : Not Used
-#define SENSORS_CLICCLIC_3					0x06				// CLICCLIC_3 : Front Sensor
-#define SENSORS_CLICCLIC_4					0x07				// CLICCLIC_4 : Back Sensor
-#define SENSORS_ALL							0x08				// Must be the highest value for block SENSORS_...
-
-#define SENSORS_NONE_ID						0x0000											// None
-#define SENSORS_GPD2D_1_ID					0x0001											// GPD2D2_1 : Front sensor
-#define SENSORS_GPD2D_2_ID					0x0002											// GPD2D2_2 : Back sensor
-#define SENSORS_GPD2D_3_ID					0x0004											// GPD2D2_3 : Not Used
-#define SENSORS_GPD2D_4_ID					0x0008											// GPD2D2_4 : Not Used
-#define SENSORS_CLICCLIC_1_ID				0x0010											// CLICCLIC_1 : Not Used
-#define SENSORS_CLICCLIC_2_ID				0x0020											// CLICCLIC_2 : Not Used
-#define SENSORS_CLICCLIC_3_ID				0x0040											// CLICCLIC_3 : Front Sensor
-#define SENSORS_CLICCLIC_4_ID				0x0080											// CLICCLIC_4 : Back Sensor
-#define SENSORS_BACK_ID						(SENSORS_GPD2D_2_ID + SENSORS_CLICCLIC_4_ID)	// Back Sensors (GPD2D2_2 + CLICCLIC_4)
-#define SENSORS_FRONT_ID					(SENSORS_GPD2D_1_ID + SENSORS_CLICCLIC_3_ID)	// Front Sensors (GPD2D2_1 + CLICCLIC_3)
-#define SENSORS_ALL_ID						0xFFFF
 /*
 *********************************************************************************************************
 *                                           LIB CONFIG

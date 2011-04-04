@@ -8,10 +8,12 @@
 *
 * Suivi de version :
 * 2009-02-11 | PBE | Creation de la version de base pour la coupe 2010
+* 2009-04-01 | PBE | Mise à jour pour la coupe 2011
 *********************************************************************************************************
 */
 
 #include "TaskTempo.h"
+#include "AppGlobalVars.h"
 
 // ------------------------------------------------------------------------------------------------
 // TaskTempo_Main()

@@ -33,3 +33,4 @@ float AppCheckAngleInDeg(float ValueToCheck);
 	// ValueToCheck : Angle to check
 
 #endif // APPGLOBALFUNC_H
+

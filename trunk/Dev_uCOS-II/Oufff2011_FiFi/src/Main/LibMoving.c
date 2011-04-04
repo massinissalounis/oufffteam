@@ -8,13 +8,14 @@
 *
 * Suivi de version :
 * 2009-04-08 | PBE | Creation de la version de base pour la coupe 2010
+* 2009-04-01 | PBE | Mise à jour pour la coupe 2011
 *********************************************************************************************************
 */
 
 #include "LibMoving.h"
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_MoveInMM(StructPos *OldPos, int dist, StructPos *NewPos)
+void LibMoving_MoveInMM(StructOdoPos *OldPos, int dist, StructOdoPos *NewPos)
 {
 	// Check params
 	if((NULL == OldPos) || (NULL == NewPos))
@@ -25,11 +26,18 @@ void LibMoving_MoveInMM(StructPos *OldPos, int dist, StructPos *NewPos)
 	NewPos->y = OldPos->y + dist * sinf(OldPos->angle);
 	NewPos->angle = OldPos->angle;
 
+	NewPos->Flag = APP_FLAG_POS__SIMPLE_MOVE;
+
+	if(dist >= 0)
+		NewPos->IDActiveSensors = SENSORS_FRONT_ID;
+	else
+		NewPos->IDActiveSensors = SENSORS_BACK_ID;
+
 	return;
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_RotateInDeg(StructPos *OldPos, float AngleInDeg, StructPos *NewPos)
+void LibMoving_RotateInDeg(StructOdoPos *OldPos, float AngleInDeg, StructOdoPos *NewPos)
 {
 	// Check params
 	if((NULL == OldPos) || (NULL == NewPos))
@@ -40,11 +48,14 @@ void LibMoving_RotateInDeg(StructPos *OldPos, float AngleInDeg, StructPos *NewPo
 	NewPos->y = OldPos->y; 
 	NewPos->angle = OldPos->angle + AppConvertDegInRad(AngleInDeg);
 
+	NewPos->Flag = APP_FLAG_POS__SIMPLE_MOVE;
+	NewPos->IDActiveSensors = SENSORS_ALL_ID;
+
 	return;
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_MoveToAngleInDeg(StructPos *OldPos, float AngleToGoInDeg, StructPos *NewPos)
+void LibMoving_MoveToAngleInDeg(StructOdoPos *OldPos, float AngleToGoInDeg, StructOdoPos *NewPos)
 {
 	// Check params
 	if((NULL == OldPos) || (NULL == NewPos))
@@ -55,14 +66,17 @@ void LibMoving_MoveToAngleInDeg(StructPos *OldPos, float AngleToGoInDeg, StructP
 	NewPos->y = OldPos->y; 
 	NewPos->angle = AppConvertDegInRad(AngleToGoInDeg);
 
+	NewPos->Flag = APP_FLAG_POS__SIMPLE_MOVE;
+	NewPos->IDActiveSensors = SENSORS_ALL_ID;
+
 	return;
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_DivideMvt(StructPos *OldPos, StructPos *ExpectedPos, StructPos *NewMovingSeq, int *NewMovingSeqRemainingSteps)
+void LibMoving_DivideMvt(StructOdoPos *OldPos, StructOdoPos *ExpectedPos, int *NewMovingSeqRemainingSteps)
 {
 	// Check for parameters
-	if((NULL == OldPos) || (NULL == ExpectedPos) || (NULL == NewMovingSeq) || (NULL == NewMovingSeqRemainingSteps))
+	if((NULL == OldPos) || (NULL == ExpectedPos) || (NULL == NewMovingSeqRemainingSteps))
 	{
 		if(NULL != NewMovingSeqRemainingSteps)
 			*NewMovingSeqRemainingSteps == -1;
@@ -74,29 +88,45 @@ void LibMoving_DivideMvt(StructPos *OldPos, StructPos *ExpectedPos, StructPos *N
 	// Simple Moving Algo
 	float TmpX = 0;
 	float TmpY = 0;
+	float TmpAngle = 0;
+	float TmpNewAngle = 0;
 
 	TmpX = ExpectedPos->x - OldPos->x;
 	TmpY = ExpectedPos->y - OldPos->y;
 
+	// If movement is too short for computation, we don't do anything
+	/* Todo
+	if((fabs(TmpX) < APP_PARAM_ERR_ON_POS) && (fabs(TmpY) < APP_PARAM_ERR_ON_POS))
+	{
+		// Third (last) one: Turn to the expected pos
+		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].x	 			= ExpectedPos->x;
+		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].y	 			= ExpectedPos->y;
+		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].angle 			= ExpectedPos->angle;
+		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].IDActiveSensors 	= ExpectedPos->IDActiveSensors;
+	
+		// Set the nb of steps for this movment
+		*NewMovingSeqRemainingSteps = 1;
+	}
+	*/
 
-	// Movement will be done in 3 steps
+	// Movment will be done in 3 steps
 	// First one: Turn to be in the correct direction
-	(NewMovingSeq + APP_MOVING_SEQ_LEN - 3)->x	 	= OldPos->x;
-	(NewMovingSeq + APP_MOVING_SEQ_LEN - 3)->y	 	= OldPos->y;
-	if((0 == TmpX) && (0 == TmpY))
-		(NewMovingSeq + APP_MOVING_SEQ_LEN - 3)->angle 	= OldPos->angle;
-	else
-		(NewMovingSeq + APP_MOVING_SEQ_LEN - 3)->angle 	= atan2f(TmpY, TmpX);
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).x	 				= OldPos->x;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).y	 				= OldPos->y;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).angle 				= atan2f(TmpY, TmpX);
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).IDActiveSensors 	= ExpectedPos->IDActiveSensors;
 
 	// Second one: Go to the expected pos
-	(NewMovingSeq + APP_MOVING_SEQ_LEN - 2)->x	 	= ExpectedPos->x;
-	(NewMovingSeq + APP_MOVING_SEQ_LEN - 2)->y	 	= ExpectedPos->y;
-	(NewMovingSeq + APP_MOVING_SEQ_LEN - 2)->angle 	= (NewMovingSeq + APP_MOVING_SEQ_LEN - 3)->angle;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).x	 				= ExpectedPos->x;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).y	 				= ExpectedPos->y;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).angle 				= TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3].angle;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).IDActiveSensors 	= ExpectedPos->IDActiveSensors;
 
 	// Third (last) one: Turn to the expected pos
-	(NewMovingSeq + APP_MOVING_SEQ_LEN - 1)->x	 	= ExpectedPos->x;
-	(NewMovingSeq + APP_MOVING_SEQ_LEN - 1)->y	 	= ExpectedPos->y;
-	(NewMovingSeq + APP_MOVING_SEQ_LEN - 1)->angle 	= ExpectedPos->angle;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).x	 				= ExpectedPos->x;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).y	 				= ExpectedPos->y;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).angle 				= ExpectedPos->angle;
+	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).IDActiveSensors 	= ExpectedPos->IDActiveSensors;
 
 	// Set the nb of steps for this movment
 	*NewMovingSeqRemainingSteps = 3;
@@ -109,3 +139,79 @@ void LibMoving_DivideMvt(StructPos *OldPos, StructPos *ExpectedPos, StructPos *N
 	*NewMovingSeqRemainingSteps = -1;
 	return;
 }
+
+// ------------------------------------------------------------------------------------------------
+void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq)
+{
+	switch(NumEscapeSeq)
+	{
+		case APP_MOVING_ESCAPE_SEQ_STOP: // *********************************************
+			// Do nothing. 
+			break;
+
+		case APP_MOVING_ESCAPE_SEQ_FRONT_RIGHT: // **************************************
+			TaskMain_GetCurrentPos();
+
+			// Define first move : go back
+			LibMoving_MoveInMM(&TaskMain_CurrentPos, -150, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 5]));									// Define first movement	
+			LibMoving_RotateInDeg(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 5]), -45.0, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 4]));		// Define second movement
+			LibMoving_MoveInMM(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 4]), 354, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]));			// Define third movement	
+			LibMoving_RotateInDeg(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]), 45.0, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]));		// Define fourth movement
+			LibMoving_MoveInMM(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]), 500, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]));			// Define third movement	
+
+			TaskMain_MovingSeqRemainingSteps = 5;																							// Define movement
+			TaskMain_NextSetpointPos.Flag = TaskMain_NextSetpointPos.Flag & !(APP_FLAG_POS__LOCK_IN_POS);									// Release movement
+			TaskMain_NextSetpointPos.IDActiveSensors = TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 5].IDActiveSensors;							// Activate sensors
+			break;
+
+		case APP_MOVING_ESCAPE_SEQ_FRONT_LEFT: // ***************************************
+			LibMoving_MoveInMM(&TaskMain_CurrentPos, -150, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 5]));									// Define first movement	
+			LibMoving_RotateInDeg(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 5]), 45.0, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 4]));		// Define second movement
+			LibMoving_MoveInMM(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 4]), 354, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]));			// Define third movement	
+			LibMoving_RotateInDeg(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]), -45.0, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]));		// Define fourth movement
+			LibMoving_MoveInMM(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]), 500, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]));			// Define third movement	
+
+			TaskMain_MovingSeqRemainingSteps = 5;																							// Define movement
+			TaskMain_NextSetpointPos.Flag = TaskMain_NextSetpointPos.Flag & !(APP_FLAG_POS__LOCK_IN_POS);									// Release movement
+			TaskMain_NextSetpointPos.IDActiveSensors = TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 5].IDActiveSensors;							// Activate sensors
+			break;
+
+		case APP_MOVING_ESCAPE_SEQ_CHECK_CORN: // ***************************************
+			LibMoving_MoveInMM(&TaskMain_CurrentPos, -150, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]));									// Define first movement	
+
+			TaskMain_MovingSeqRemainingSteps = 1;																							// Define movement
+			TaskMain_NextSetpointPos.Flag = TaskMain_NextSetpointPos.Flag & !(APP_FLAG_POS__LOCK_IN_POS);									// Release movement
+			TaskMain_NextSetpointPos.IDActiveSensors = SENSORS_BACK_ID;																		// Activate sensors
+
+			// Cancel expected position because we can't reach this point. We have to try another...
+			memcpy(&TaskMain_ExpectedPos, &TaskMain_NextSetpointPos, sizeof(StructOdoPos));
+
+			// Change next state due to collision
+			switch(TaskMain_NextState)
+			{
+				default:
+					break;
+			}
+			break;
+
+		default:
+			break;
+	}
+}
+
+// ------------------------------------------------------------------------------------------------
+void LibMoving_SetSpeed(float SpeedRate)
+{
+	StructMsg	MsgToPost;							// Var to post msg to other tasks						
+
+	// Indicate speed we have to use
+	// Create this msg
+	MsgToPost.Msg		= Msg_Asser_SetSpeed;
+	MsgToPost.Param1	= SpeedRate;
+	MsgToPost.Param2	= APP_NOT_USED;
+	MsgToPost.Param3	= APP_NOT_USED;
+	// Post msg to activate moving algo
+//	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
+
+}
+

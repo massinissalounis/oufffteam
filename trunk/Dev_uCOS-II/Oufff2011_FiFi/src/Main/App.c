@@ -1,28 +1,25 @@
 /*
 *********************************************************************************************************
-*                                               uC/OS-II
-*                                         The Real-Time Kernel
-*
-*                             (c) Copyright 1998-2006, Micrium, Weston, FL
-*                                          All Rights Reserved
+*                                         Association OufffTEAM
+*                                     Coupe de France de Robotique
 *
 *
-*                                            MIPS Sample code
+* File : App.c
 *
-* File : APP.C
+* Suivi de version :
+* 2009-03-26 | PBE | Creation de la version de base pour la coupe 2010
+* 2009-04-01 | PBE | Mise à jour pour la coupe 2011
 *********************************************************************************************************
 */
 
-#include "AppIncludes.h"
 #include "App.h"		// Global Variables
-#include "bsp.h"
 
 // Task includes
-#include "TaskOdo.h"
-#include "TaskAsser.h"
-#include "TaskSensors.h"
-#include "TaskMain.h"
-#include "TaskTempo.h"
+#include <TaskOdo.h>
+#include <TaskAsser.h>
+#include <TaskSensors.h>
+#include <TaskMain.h>
+#include <TaskTempo.h>
 
 /***** Calling Stacks *****/
 static OS_STK       AppTaskOdoStk[APP_TASK_ODO_STK_SIZE];
@@ -61,56 +58,13 @@ int  main (void)
     BSP_IntDisAll();			/* Disable all interrupts until we are ready to accept them */
 	OSInit();                   /* Initialize "uC/OS-II, The Real-Time Kernel"              */
 
-//	AppInitVar();				/* Initialize globale vars									*/
-//	AppCreateIPCS();			/* Create IPCS objects										*/
-//	AppTaskStart();				/* Start all tasks											*/
 
-	BSP_IO_Init();	
-	
-	LightLCD();
-	InitLCDPins();
-	InitByInstru();
+	AppInitVar();				/* Initialize globale vars									*/
+	AppCreateIPCS();			/* Create IPCS objects										*/
+	AppTaskStart();				/* Start all tasks											*/
 
-	UART_Init();
-
-	Set_Line_Information(1,0,"OUFFF TEAM 2011  ",16);
-
-	while(1)
-	{
-		if(CLIC_state(SW1) == 1)
-			Set_Line_Information(2,0,"1 ",2);
-		else
-			Set_Line_Information(2,0,"0 ",2);
-
-		if(CLIC_state(SW2) == 1)
-			Set_Line_Information(2,2,"1 ",2);
-		else
-			Set_Line_Information(2,2,"0 ",2);
-
-		if(CLIC_state(SW3) == 1)
-			Set_Line_Information(2,4,"1 ",2);
-		else
-			Set_Line_Information(2,4,"0 ",2);
-
-		putsUART2("OUFFF TEAM 2011\n");
-	
-		LED_Toggle(1);
-		DelayMs(50);
-		LED_Toggle(2);
-		DelayMs(50);
-		LED_Toggle(3);
-		DelayMs(50);
-		LED_Toggle(4);
-		DelayMs(50);
-
-	}
-
-
-#ifndef APP_GP2D2_LIMIT_FRONT
-	putsUART2("WARNING !!!! GP2D2_Front disabled\n");
-#endif
-#ifndef APP_GP2D2_LIMIT_FRONT
-	putsUART2("WARNING !!!! GP2D2_Back disabled\n");
+#ifdef _TARGET_440H
+	Set_Line_Information( 1, 0, "OUFFF TEAM 2011  ", 16);
 #endif
 
     OSStart();                  /* Start multitasking (i.e. give control to uC/OS-II)       */
@@ -137,10 +91,6 @@ void  AppTaskStart()
 
 #if (OS_TASK_STAT_EN > 0)
     OSStatInit();                                                       // Determine CPU capacity
-#endif
-
-#ifdef _TARGET_STARTER_KIT
-	LED_On(0);
 #endif
 
 #ifdef APP_TASK_ODO_ENABLED
@@ -337,7 +287,7 @@ void AppInitVar()
 //	AppQueueAsserEvent = NULL;												/* Queue for get Asser events					*/
 	Mut_AppCurrentPos = NULL;												/* Mutex to limit access to AppCurrentPos var	*/
 	AppFlags = NULL;														/* Application Flags							*/
-	memset(&AppCurrentPos, 0, sizeof(struct StructPos));					/* Set AppCurrentPos to 0						*/
+	memset(&AppCurrentPos, 0, sizeof(StructOdoPos));							/* Set AppCurrentPos to 0						*/
 	AppCurrentColor = c_NotSet;												/* Set CurrentColor to NotSet					*/
 
 	// Arrays

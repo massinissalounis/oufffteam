@@ -30,32 +30,32 @@
 #define IMAX_DISTANCE 			1000.0
 
 // Wheel loop for separated control
-#define KP_WHEEL	 			200.0
-#define KI_WHEEL	 			0.0
-#define KD_WHEEL	 			1500.0
-#define IMAX_WHEEL	 			1000.0
+#define KP_WHEEL_L	 			50.0
+#define KI_WHEEL_L	 			0.0
+#define KD_WHEEL_L	 			750.0
+#define IMAX_WHEEL_L 			1000.0
+
+#define KP_WHEEL_R	 			50.0
+#define KI_WHEEL_R	 			0.0
+#define KD_WHEEL_R	 			750.0
+#define IMAX_WHEEL_R 			1000.0
 
 // Generic parameters
-#define PID_SUM_NB_SAMPLES 		10		// 1000 à l'origine CBE
+#define PID_SUM_NB_SAMPLES 		3		// 1000 à l'origine CBE
 #define PID_D_PERIOD			1		//100 à l'origine CBE
 
 //////////////////////////////////////////////
 // Speed control Coefficients
 //////////////////////////////////////////////
 
-// Used in Slewrate
-#define VMAX_ANGLE				10000.0
-#define ACC_ANGLE				20000.0
-
-#define VMAX_DISTANCE			1.0
-#define ACC_DISTANCE			2.0
-
 // Used in quadramp
-#define DEFAULT_SPEED			800		// in mm/s
-#define DEFAULT_ACCELERATION	100		// in mm/s²
+#define DEFAULT_SPEED_DISTANCE	1.0		// n % of maximum speed
+#define DEFAULT_ACC_DISTANCE	1.0		// n % of maximum speed per 10 ms
 
 // Used in hold speed control
-#define SPEED_RATIO				1.0 // n % of maximum speed
+#define SPEED_ANGLE		1.0 	// n % of maximum speed
+
+#define SPEED_PIVOT		0.2
 
 //////////////////////////////////////////////
 // General Coefficients
@@ -63,7 +63,14 @@
 
 #define MAX_MOTOR_COMMAND 		32000	// doit être < à 32768
 
-#define DISTANCE_ALPHA_ONLY		50.0
+#define DISTANCE_ALPHA_ONLY		50.0 	// Error in mm in distance to consider the change of control mode
+										// This parameter is also used to switch on the arrival flag
+
+#define ANGLE_APPROACH_PRECISION		(2.00 * M_PI / 180.0)		// Error in rad for angle to consider the setpoint reached
+
+#define PIVOT_APPROACH_PRECISION		 2.00
+#define PIVOT_LEFT_APPROACH_PRECISION	(PIVOT_APPROACH_PRECISION * M_PI / 180.0) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_LEFT
+#define PIVOT_RIGHT_APPROACH_PRECISION	(PIVOT_APPROACH_PRECISION * M_PI / 180.0) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_RIGHT
 
 #define ANGLE_VS_DISTANCE_RATIO	0.5 // n % used for angle on full scale
 
@@ -72,7 +79,7 @@
 //////////////////////////////////////////////
 // Global Vars Coefficients
 //////////////////////////////////////////////
-struct StructPos TaskAsser_CurrentPos;							// Local var to read current pos
+StructOdoPos TaskAsser_CurrentPos;							// Local var to read current pos
 
 //////////////////////////////////////////////
 // Local structures
@@ -88,21 +95,16 @@ typedef struct {
 }PID_data;
 
 typedef struct {
-	float max_acceleration;
-	float max_speed;
-
-	float previous_speed;
-	float previous_position;
-}SLEWRATE_data;
-
-typedef struct {
 	float acceleration_order;
 	float speed_order;
 	
 	float final_approach_limit;
+	float origin;
+	float acc_distance;
 
 	float speed;
-	float old_filtered_error;
+
+	int state;  // 0: final, 1: acc, 2: Vcte, 3: Decell
 }QUADRAMP_data;
 
 //////////////////////////////////////////////

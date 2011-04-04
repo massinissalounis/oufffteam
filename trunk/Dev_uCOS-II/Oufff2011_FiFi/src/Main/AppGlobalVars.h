@@ -11,30 +11,29 @@
 #define APPGLOBALVARS_H 
 
 /***** Queue *****/
-extern OS_EVENT		*AppQueueMainEvent;						// Queue for Main task
-extern OS_EVENT		*AppQueueAsserEvent;					// Queue for Asser task
+extern OS_EVENT			*AppQueueMvt;							// Queue for storing msg from TaskMain to TaskMvt
+extern OS_EVENT			*AppQueueSensors;						// Queue for storing msg from TaskMain to TaskSensors
 
-#if APP_QUEUE_MAIN_SIZE > 0
-extern void*		AppMsgStkMain[APP_QUEUE_MAIN_SIZE];		// Stack to store msg for Main Queue
+#if APP_QUEUE_MVT_SIZE > 0
+extern void*			AppQMvtStk[APP_QUEUE_MVT_SIZE];			// Stack to store pointer to msg for Mvt Queue
+#endif
+#if APP_QUEUE_SENSORS_SIZE > 0
+extern void*			AppQSensorsStk[APP_QUEUE_SENSORS_SIZE];	// Stack to store pointer to msg for Sensors Queue
 #endif
 
-#if APP_QUEUE_ASSER_SIZE > 0
-extern void*		AppMsgStkAsser[APP_QUEUE_ASSER_SIZE];	// Stack to unread msg for Asser Queue
-#endif
-
-extern StructMsg	AppMsgStk[APP_QUEUES_TOTAL_SIZE];		// Stack to store msg for Asser and Main Queue
-extern StructMsg	AppHighPrioMsg;							// Struct to store an high priority msg (e.g. the stop msg)
+extern StructMsg		AppMsgStk[APP_QUEUES_TOTAL_SIZE];		// Stack to store msg for all Queues
+extern StructMsg		AppHighPrioMsg;							// Struct to store an high priority msg (e.g. the stop msg)
 
 /***** Structures *****/
-extern struct StructPos		AppCurrentPos;
-
-/***** Enums *****/
-extern EnumColor	AppCurrentColor;						// Var to contain Color
+extern StructOdoPos		AppCurrentPos;							// Contains current postion (set by TaskOdo, used by Main)
+	
+/***** Enum *****/
+extern EnumColor		AppCurrentColor;						// Contains current color (read from bsp)
 
 /***** MUTEX / SEMAPHORES *****/
-extern OS_EVENT		*Mut_AppCurrentPos;						// Mutex to limit access (RW) for AppCurrentPos variable
+extern OS_EVENT			*Mut_AppCurrentPos;						// Mutex to limit access (RW) for CurrentPos variable
 
 /***** FLAGS *****/
-extern OS_FLAG_GRP	*AppFlags;								// Contains all flags for the app							
+extern OS_FLAG_GRP		*AppFlags;								// Contains all flags for this application							
 
 #endif // APPGLOBALVARS_H
