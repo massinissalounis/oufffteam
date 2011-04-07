@@ -47,6 +47,9 @@
     <ClCompile Include="..\..\..\src\Main\TaskSensors.c">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskMvt.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Main\App.h">
@@ -98,6 +101,9 @@
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Main\TaskSensors.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskMvt.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

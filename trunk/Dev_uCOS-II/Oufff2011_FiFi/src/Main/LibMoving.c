@@ -15,8 +15,9 @@
 #include "LibMoving.h"
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_MoveInMM(StructOdoPos *OldPos, int dist, StructOdoPos *NewPos)
+void LibMoving_MoveInMM(StructMvtPos *OldPos, int dist, StructMvtPos *NewPos)
 {
+/* Todo
 	// Check params
 	if((NULL == OldPos) || (NULL == NewPos))
 		return;
@@ -26,19 +27,19 @@ void LibMoving_MoveInMM(StructOdoPos *OldPos, int dist, StructOdoPos *NewPos)
 	NewPos->y = OldPos->y + dist * sinf(OldPos->angle);
 	NewPos->angle = OldPos->angle;
 
-	NewPos->Flag = APP_FLAG_POS__SIMPLE_MOVE;
-
 	if(dist >= 0)
 		NewPos->IDActiveSensors = SENSORS_FRONT_ID;
 	else
 		NewPos->IDActiveSensors = SENSORS_BACK_ID;
 
+*/
 	return;
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_RotateInDeg(StructOdoPos *OldPos, float AngleInDeg, StructOdoPos *NewPos)
+void LibMoving_RotateInDeg(StructMvtPos *OldPos, float AngleInDeg, StructMvtPos *NewPos)
 {
+/* Todo
 	// Check params
 	if((NULL == OldPos) || (NULL == NewPos))
 		return;
@@ -48,15 +49,16 @@ void LibMoving_RotateInDeg(StructOdoPos *OldPos, float AngleInDeg, StructOdoPos 
 	NewPos->y = OldPos->y; 
 	NewPos->angle = OldPos->angle + AppConvertDegInRad(AngleInDeg);
 
-	NewPos->Flag = APP_FLAG_POS__SIMPLE_MOVE;
 	NewPos->IDActiveSensors = SENSORS_ALL_ID;
 
+*/
 	return;
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_MoveToAngleInDeg(StructOdoPos *OldPos, float AngleToGoInDeg, StructOdoPos *NewPos)
+void LibMoving_MoveToAngleInDeg(StructMvtPos *OldPos, float AngleToGoInDeg, StructMvtPos *NewPos)
 {
+/* Todo
 	// Check params
 	if((NULL == OldPos) || (NULL == NewPos))
 		return;
@@ -66,15 +68,16 @@ void LibMoving_MoveToAngleInDeg(StructOdoPos *OldPos, float AngleToGoInDeg, Stru
 	NewPos->y = OldPos->y; 
 	NewPos->angle = AppConvertDegInRad(AngleToGoInDeg);
 
-	NewPos->Flag = APP_FLAG_POS__SIMPLE_MOVE;
 	NewPos->IDActiveSensors = SENSORS_ALL_ID;
 
+*/
 	return;
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_DivideMvt(StructOdoPos *OldPos, StructOdoPos *ExpectedPos, int *NewMovingSeqRemainingSteps)
+void LibMoving_DivideMvt(StructMvtPos *OldPos, StructMvtPos *ExpectedPos, int *NewMovingSeqRemainingSteps)
 {
+/* Todo
 	// Check for parameters
 	if((NULL == OldPos) || (NULL == ExpectedPos) || (NULL == NewMovingSeqRemainingSteps))
 	{
@@ -109,6 +112,7 @@ void LibMoving_DivideMvt(StructOdoPos *OldPos, StructOdoPos *ExpectedPos, int *N
 	}
 	*/
 
+/* Todo
 	// Movment will be done in 3 steps
 	// First one: Turn to be in the correct direction
 	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).x	 				= OldPos->x;
@@ -137,12 +141,14 @@ void LibMoving_DivideMvt(StructOdoPos *OldPos, StructOdoPos *ExpectedPos, int *N
 
 	// if we are here, that means that no moving algo has been set
 	*NewMovingSeqRemainingSteps = -1;
+*/
 	return;
 }
 
 // ------------------------------------------------------------------------------------------------
 void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq)
 {
+/* Todo
 	switch(NumEscapeSeq)
 	{
 		case APP_MOVING_ESCAPE_SEQ_STOP: // *********************************************
@@ -184,7 +190,7 @@ void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq)
 			TaskMain_NextSetpointPos.IDActiveSensors = SENSORS_BACK_ID;																		// Activate sensors
 
 			// Cancel expected position because we can't reach this point. We have to try another...
-			memcpy(&TaskMain_ExpectedPos, &TaskMain_NextSetpointPos, sizeof(StructOdoPos));
+			memcpy(&TaskMain_ExpectedPos, &TaskMain_NextSetpointPos, sizeof(StructMvtPos));
 
 			// Change next state due to collision
 			switch(TaskMain_NextState)
@@ -197,21 +203,5 @@ void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq)
 		default:
 			break;
 	}
+*/
 }
-
-// ------------------------------------------------------------------------------------------------
-void LibMoving_SetSpeed(float SpeedRate)
-{
-	StructMsg	MsgToPost;							// Var to post msg to other tasks						
-
-	// Indicate speed we have to use
-	// Create this msg
-	MsgToPost.Msg		= Msg_Asser_SetSpeed;
-	MsgToPost.Param1	= SpeedRate;
-	MsgToPost.Param2	= APP_NOT_USED;
-	MsgToPost.Param3	= APP_NOT_USED;
-	// Post msg to activate moving algo
-//	AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
-
-}
-

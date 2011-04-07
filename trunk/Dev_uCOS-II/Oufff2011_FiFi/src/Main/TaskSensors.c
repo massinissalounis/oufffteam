@@ -4,7 +4,7 @@
 *                                     Coupe de France de Robotique
 *
 *
-* File : TaskCapteurs.c
+* File : TaskSensors.c
 *
 * Suivi de version :
 * 2009-02-11 | PBE | Creation de la version de base pour la coupe 2010
@@ -15,20 +15,21 @@
 #include "TaskSensors.h"
 
 // ------------------------------------------------------------------------------------------------
-BOOLEAN TaskCapteurs_IsStartButtonPressed()
+BOOLEAN TaskSensors_IsStartButtonPressed()
 {
 	if(START_State()==0) return OS_TRUE;
 	else return OS_FALSE;
 }
 
 // ------------------------------------------------------------------------------------------------
-void TaskCapteurs_CheckBumpers()
+void TaskSensors_CheckBumpers()
 {
 	char uart_buffer[8];
 	char * buffer_ptr;
 	INT8U	Err = 0;						// Var to get error status
 	CPU_INT16U  GP2Data;
 
+/* Todo
 	//GP2_1 : Front *************************************************
 	GP2Data  = ADC_GetVal (GP2_1);
 	//putsUART2("GP2_1 : ");
@@ -79,11 +80,11 @@ void TaskCapteurs_CheckBumpers()
 	//buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 	//putsUART2(buffer_ptr);
 	//putsUART2("\n");
-
+*/
 	return;
 }
 
-void TaskCapteurs_CheckSW()
+void TaskSensors_CheckSW()
 {
 	INT8U	Err = 0;						// Var to get error status
 
@@ -117,7 +118,7 @@ void TaskCapteurs_CheckSW()
 }
 
 // ------------------------------------------------------------------------------------------------
-void TaskCapteurs_ReadColor()
+void TaskSensors_ReadColor()
 {
 	#ifdef _TARGET_STARTER_KIT
 //		AppCurrentColor = c_Blue;	
@@ -133,46 +134,35 @@ void TaskCapteurs_ReadColor()
 }
 
 // ------------------------------------------------------------------------------------------------
-// TaskCapteurs_Main()
+// TaskSensors_Main()
 // ------------------------------------------------------------------------------------------------
-void TaskCapteurs_Main(void *p_arg)
+void TaskSensors_Main(void *p_arg)
 {
 	INT8U	Err = 0;				// Var to get error status
 	CPU_INT16U  GP2Data;
 
-	putsUART2("OUFFF TEAM 2011 : Capteurs online\n");
+	putsUART2("OUFFF TEAM 2011 : Sensors online\n");
 
 	// We set the current color
 	OSTimeDlyHMSM(0, 0, 0, 500);
-	TaskCapteurs_ReadColor();
+	TaskSensors_ReadColor();
 
-	#ifdef _TARGET_STARTER_KIT
-		OSTimeDlyHMSM(0, 0, 0, 500);	LED_Off(1);	
-		OSTimeDlyHMSM(0, 0, 0, 500);	LED_Off(2);	
-		OSTimeDlyHMSM(0, 0, 0, 500);	LED_Off(3);
-	#else
-	// Comment this part to disable start button detection
+	if(APP_INIT_USE_START_BUTTON == OS_TRUE)
+	{
 		// We're waiting for Start button release
-		while(OS_FALSE == TaskCapteurs_IsStartButtonPressed())
+		while(OS_FALSE == TaskSensors_IsStartButtonPressed())
 			OSTimeDly(1);	// Release proc
 
 		// We're waiting for start button activation
-		while(OS_TRUE == TaskCapteurs_IsStartButtonPressed())
+		while(OS_TRUE == TaskSensors_IsStartButtonPressed())
 			OSTimeDly(1);	// Release proc 
-	#endif
+	}
 
 	// StartButton has been pressed
-	
 	OSFlagPost(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_SET, &Err); 
 
 	while(OS_TRUE)	// Main task: we check all other sensors
 	{
 		OSTimeDlyHMSM(0, 0, 0, 10);	
-
-		// FiFi - 02/01/11 : Modif pour test asser
-		{
-			//TaskCapteurs_CheckBumpers();			// Check for bumpers status
-			//TaskCapteurs_CheckSW();			// Check for clic clic
-		}
 	}
 }

@@ -83,6 +83,7 @@
     <ClCompile Include="..\..\..\src\Main\LibMoving.c" />
     <ClCompile Include="..\..\..\src\Main\TaskAsser.c" />
     <ClCompile Include="..\..\..\src\Main\TaskMain.c" />
+    <ClCompile Include="..\..\..\src\Main\TaskMvt.c" />
     <ClCompile Include="..\..\..\src\Main\TaskOdo.c" />
     <ClCompile Include="..\..\..\src\Main\TaskSensors.c" />
     <ClCompile Include="..\..\..\src\Main\TaskTempo.c" />
@@ -102,6 +103,7 @@
     <ClInclude Include="..\..\..\src\Main\os_cfg.h" />
     <ClInclude Include="..\..\..\src\Main\TaskAsser.h" />
     <ClInclude Include="..\..\..\src\Main\TaskMain.h" />
+    <ClInclude Include="..\..\..\src\Main\TaskMvt.h" />
     <ClInclude Include="..\..\..\src\Main\TaskOdo.h" />
     <ClInclude Include="..\..\..\src\Main\TaskSensors.h" />
     <ClInclude Include="..\..\..\src\Main\TaskTempo.h" />

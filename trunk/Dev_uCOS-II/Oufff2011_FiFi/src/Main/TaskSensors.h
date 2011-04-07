@@ -3,34 +3,34 @@
 *                                         Association OufffTEAM
 *                                     Coupe de France de Robotique
 *
-* File : TaskCapteurs.h
+* File : TaskSensors.h
 *********************************************************************************************************
 */
 
-#ifndef TASKCAPTEURS_H
-#define TASKCAPTEURS_H
+#ifndef TASKSENSORS_H
+#define TASKSENSORS_H
 
 #include "AppIncludes.h"
 
-BOOLEAN TaskCapteurs_IsStartButtonPressed();
+BOOLEAN TaskSensors_IsStartButtonPressed();
 	// Function to check StartButton stat
 	// Param : None
 	// Returned value :
 	//	- TRUE : StartButton is beeing pressed
 	//	- FALSE : StartButton is not beeing pressed yet
 
-void TaskCapteurs_CheckBumpers();
+void TaskSensors_CheckBumpers();
 	// Check for bumpers status.
 	// In case of collision, this function posts FLAGS to tell main task we are bumping
 
-void TaskCapteurs_CheckSW();
+void TaskSensors_CheckSW();
 	// Check for switches status.
 
-void TaskCapteurs_ReadColor();
+void TaskSensors_ReadColor();
 	// Read current color and share it with other tasks
 
-void TaskCapteurs_Main(void *p_arg);
-	// Fonction principal du process de gestion des capteurs
+void TaskSensors_Main(void *p_arg);
+	// Fonction principal du process de gestion des Sensors
 	// void *p_arg		: Arg for this task
 
-#endif // TASKCAPTEURS_H
+#endif // TASKSENSORS_H

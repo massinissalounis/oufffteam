@@ -16,6 +16,7 @@
 *********************************************************************************************************
 */
 #define APP_INIT_ROBOT_SPEED				0.600		// Speed rate (0.0:No Move, 1.0: Full Speed)
+#define APP_INIT_USE_START_BUTTON			OS_TRUE	// Flag to indicate if we have to use start button or not
 
 #define APP_GP2D2_LIMIT_FRONT				300			// Object detection around 200 mm
 #define APP_GP2D2_LIMIT_BACK				400			// Object detection around 200 mm
@@ -27,12 +28,12 @@
 *                                            TASK MANAGING
 *********************************************************************************************************
 */
-#define APP_TASK_MAIN_ENABLED				OS_TRUE		// Activate TaskMain
-#define APP_TASK_ODO_ENABLED				OS_TRUE		// Activate TaskOdo
-#define APP_TASK_ASSER_ENABLED				OS_TRUE		// Activate TaskAsser
-#define APP_TASK_MVT_ENABLED				OS_TRUE		// Acvivate TaskMvt
-#define APP_TASK_SENSORS_ENABLED			OS_TRUE		// Activate TaskSensors
-#define APP_TASK_TEMPO_ENABLED				OS_TRUE		// Activate TaskTempo
+#define APP_TASK_MAIN_ENABLED							// Activate TaskMain
+//#define APP_TASK_ODO_ENABLED							// Activate TaskOdo
+//#define APP_TASK_ASSER_ENABLED						// Activate TaskAsser
+#define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
+//#define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
+//#define APP_TASK_TEMPO_ENABLED						// Activate TaskTempo
 
 /*
 *********************************************************************************************************
@@ -82,9 +83,6 @@
 #define APP_PARAM_APPFLAG_ALL_GP2				0x0000FF00	// All GP2 sensors
 #define APP_PARAM_APPFLAG_ALL_SW				0x00FF0000	// All switches sensors
 #define APP_PARAM_APPFLAG_ALL_SENSORS			0x00FFFF00	// All external sensors
-
-
-
 
 /*
 *********************************************************************************************************
