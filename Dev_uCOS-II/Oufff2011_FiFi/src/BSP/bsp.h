@@ -38,6 +38,10 @@
 #define SW1							10		// Switch 1
 #define SW2							11		// Switch 2
 #define SW3							12		// Switch 3
+#define LED_USB						1		// Led USB
+#define LED_SD						2		// Led SD
+#define LED_FLASH					3		// Led Flash
+#define LED_ERR						4		// Led Error
 #else
 #define CLIC_1						0		// connecteur 1
 #define CLIC_2						1		// connecteur 2

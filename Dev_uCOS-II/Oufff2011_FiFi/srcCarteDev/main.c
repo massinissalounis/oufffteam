@@ -548,7 +548,7 @@ void DisplayLCD( void )
 	switch(screenStateCur)
 	{
 		case SCREEN_MAIN:
-			strcpy(lcd_line1,"OufffTeam 2011  ");
+			strcpy(lcd_line1,"OufffTeam 2011 @");
 			strcpy(lcd_line2,"Carte de dev    ");
 			Set_Line_Information(1,0,lcd_line1,16);
 			Set_Line_Information(2,0,lcd_line2,16);

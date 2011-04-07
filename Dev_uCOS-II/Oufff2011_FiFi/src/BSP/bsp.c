@@ -287,10 +287,10 @@ void IO_M1_SetDirection(unsigned char dir)
 void  LED_On (CPU_INT08U led)
 {
     switch (led) {
-        case 0:
+		case 0:
 			#ifdef _TARGET_440H
-        	 PORTSetBits(IOPORT_D, BIT_6 | BIT_7);
-        	 PORTSetBits(IOPORT_F, BIT_0 | BIT_1);
+        	 PORTClearBits(IOPORT_D, BIT_6 | BIT_7);
+        	 PORTClearBits(IOPORT_F, BIT_0 | BIT_1);
 			#else
 			 PORTSetBits(IOPORT_D, BIT_13 | BIT_11);
 			 PORTSetBits(IOPORT_C, BIT_14);
@@ -298,26 +298,26 @@ void  LED_On (CPU_INT08U led)
 			break;
 		case 1:
 			#ifdef _TARGET_440H
-        	 PORTSetBits(IOPORT_D, BIT_7);
+        	 PORTClearBits(IOPORT_D, BIT_7);
 			#endif
 			break;
 
 		case 2:
 			#ifdef _TARGET_440H
-        	 PORTSetBits(IOPORT_D, BIT_6);
+        	 PORTClearBits(IOPORT_D, BIT_6);
 			#endif
 			break;
 
         case 3:
             #ifdef _TARGET_440H
-        	 PORTSetBits(IOPORT_F, BIT_0);
+        	 PORTClearBits(IOPORT_F, BIT_0);
 			#else
 			 PORTSetBits(IOPORT_D, BIT_11);
 			#endif
 			break;
         case 4:
             #ifdef _TARGET_440H
-        	 PORTSetBits(IOPORT_F, BIT_1);
+        	 PORTClearBits(IOPORT_F, BIT_1);
 			#else
              PORTSetBits(IOPORT_C, BIT_14);
 			#endif
@@ -354,8 +354,8 @@ void  LED_Off (CPU_INT08U led)
     switch (led) {
         case 0:
             #ifdef _TARGET_440H
-			 PORTClearBits(IOPORT_D, BIT_6 | BIT_7);
-			 PORTClearBits(IOPORT_F, BIT_0 | BIT_1);
+			 PORTSetBits(IOPORT_D, BIT_6 | BIT_7);
+			 PORTSetBits(IOPORT_F, BIT_0 | BIT_1);
 			#else
 			 PORTClearBits(IOPORT_D, BIT_13 | BIT_11);
 			 PORTClearBits(IOPORT_C, BIT_14);
@@ -363,7 +363,7 @@ void  LED_Off (CPU_INT08U led)
             break;
         case 1:
             #ifdef _TARGET_440H
-			 PORTClearBits(IOPORT_D, BIT_7);
+			 PORTSetBits(IOPORT_D, BIT_7);
 			#else
 			 PORTClearBits(IOPORT_D, BIT_13 | BIT_11);
 			 PORTClearBits(IOPORT_C, BIT_14);
@@ -371,7 +371,7 @@ void  LED_Off (CPU_INT08U led)
             break;
         case 2:
             #ifdef _TARGET_440H
-			 PORTClearBits(IOPORT_D, BIT_6);
+			 PORTSetBits(IOPORT_D, BIT_6);
 			#else
 			 PORTClearBits(IOPORT_D, BIT_13 | BIT_11);
 			 PORTClearBits(IOPORT_C, BIT_14);
@@ -379,14 +379,14 @@ void  LED_Off (CPU_INT08U led)
             break;
         case 3:
             #ifdef _TARGET_440H
-			 PORTClearBits(IOPORT_F, BIT_0);
+			 PORTSetBits(IOPORT_F, BIT_0);
 			#else
              PORTClearBits(IOPORT_D, BIT_11);
 			#endif
             break;
         case 4:
             #ifdef _TARGET_440H
-			 PORTClearBits(IOPORT_F, BIT_1);
+			 PORTSetBits(IOPORT_F, BIT_1);
 			#else
              PORTClearBits(IOPORT_C, BIT_14);
 			#endif
@@ -1035,9 +1035,15 @@ void BSP_InitIntCtrl  (void)
 
 void  BSP_InitIO (void)    
 {
+#ifdef _TARGET_440H
+	BSP_IO_Init();
+	LCD_Init();
+	Tmr_Init();
+    LED_Init();                                                         /* Initialize LEDs                                  */
+	UART_Init();
+#else
 	SYSTEMConfig(BSP_CLK_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
-
-
+	
     BSP_IO_Init();                                                      // Initialize the board's I/Os
     Tmr_Init();                                                         // Initialize the timers
     BSP_InitIntCtrl();                                                  // Initialize the interrupt controller
@@ -1048,10 +1054,7 @@ void  BSP_InitIO (void)
 	PMP_Init();
 	UART_Init();
 	PWM_Init();
-
-	#ifdef _TARGET_440H
-	LCD_Init();
-	#endif
+#endif
 }
 
 

@@ -15,17 +15,19 @@
 #include "App.h"		// Global Variables
 
 // Task includes
-#include <TaskOdo.h>
-#include <TaskAsser.h>
-#include <TaskSensors.h>
-#include <TaskMain.h>
-#include <TaskTempo.h>
+#include "TaskOdo.h"
+#include "TaskAsser.h"
+#include "TaskSensors.h"
+#include "TaskMain.h"
+#include "TaskTempo.h"
+#include "TaskMvt.h"
 
 /***** Calling Stacks *****/
 static OS_STK       AppTaskOdoStk[APP_TASK_ODO_STK_SIZE];
 static OS_STK       AppTaskAsserStk[APP_TASK_ASSER_STK_SIZE];
 static OS_STK       AppTaskSensorsStk[APP_TASK_SENSORS_STK_SIZE];
 static OS_STK       AppTaskMainStk[APP_TASK_MAIN_STK_SIZE];
+static OS_STK       AppTaskMvtStk[APP_TASK_MVT_STK_SIZE];
 static OS_STK       AppTaskTempoStk[APP_TASK_TEMPO_STK_SIZE];
 
 /*
@@ -67,7 +69,7 @@ int  main (void)
 	Set_Line_Information( 1, 0, "OUFFF TEAM 2011  ", 16);
 #endif
 
-    OSStart();                  /* Start multitasking (i.e. give control to uC/OS-II)       */
+	OSStart();                  /* Start multitasking (i.e. give control to uC/OS-II)       */
 	/* This part would be never executed */
 }
 
@@ -129,21 +131,41 @@ void  AppTaskStart()
 #endif
 #endif
 
-#ifdef APP_TASK_CAPTEURS_ENABLED
+#ifdef APP_TASK_MVT_ENABLED
 	// --------------------------------------------------------------------------------------------
-	// Starts TaskCapteurs
-    OSTaskCreateExt( TaskCapteurs_Main,                                       
+	// Starts Mvt
+    OSTaskCreateExt( TaskMvt_Main,                                      
 				    (void *)0,
-                    (OS_STK *)&AppTaskCapteursStk[APP_TASK_CAPTEURS_STK_SIZE - 1],
-                    APP_TASK_CAPTEURS_PRIO,
-                    APP_TASK_CAPTEURS_PRIO,
-                    (OS_STK *)&AppTaskCapteursStk[0],
-                    APP_TASK_CAPTEURS_STK_SIZE,
+                    (OS_STK *)&AppTaskMvtStk[APP_TASK_MVT_STK_SIZE - 1],
+                    APP_TASK_MVT_PRIO,
+                    APP_TASK_MVT_PRIO,
+                    (OS_STK *)&AppTaskMvtStk[0],
+					APP_TASK_MVT_STK_SIZE,
                     (void *)0,
                     OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR);
 
 #if OS_TASK_NAME_SIZE > 13
-    OSTaskNameSet(APP_TASK_CAPTEURS_PRIO, "TaskCapteurs", &err);
+    OSTaskNameSet(APP_TASK_ASSER_PRIO, "TaskMvt", &err);
+#endif
+
+#endif
+
+
+#ifdef APP_TASK_SENSORS_ENABLED
+	// --------------------------------------------------------------------------------------------
+	// Starts TaskSensors
+    OSTaskCreateExt( TaskSensors_Main,                                       
+				    (void *)0,
+                    (OS_STK *)&AppTaskSensorsStk[APP_TASK_SENSORS_STK_SIZE - 1],
+                    APP_TASK_SENSORS_PRIO,
+                    APP_TASK_SENSORS_PRIO,
+                    (OS_STK *)&AppTaskSensorsStk[0],
+                    APP_TASK_SENSORS_STK_SIZE,
+                    (void *)0,
+                    OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR);
+
+#if OS_TASK_NAME_SIZE > 13
+    OSTaskNameSet(APP_TASK_SENSORS_PRIO, "TaskSensors", &err);
 #endif
 #endif
 

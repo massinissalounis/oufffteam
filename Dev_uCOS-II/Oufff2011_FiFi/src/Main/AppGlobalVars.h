@@ -18,7 +18,7 @@ extern OS_EVENT			*AppQueueSensors;						// Queue for storing msg from TaskMain 
 extern void*			AppQMvtStk[APP_QUEUE_MVT_SIZE];			// Stack to store pointer to msg for Mvt Queue
 #endif
 #if APP_QUEUE_SENSORS_SIZE > 0
-extern void*			AppQSensorsStk[APP_QUEUE_SENSORS_SIZE];	// Stack to store pointer to msg for Sensors Queue
+extern void*			AppQSensorsStk[APP_QUEUE_SENSORS_SIZE];	// Stack to store pointer to msg for SENSORS Queue
 #endif
 
 extern StructMsg		AppMsgStk[APP_QUEUES_TOTAL_SIZE];		// Stack to store msg for all Queues

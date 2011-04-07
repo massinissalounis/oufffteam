@@ -28,23 +28,25 @@ typedef enum
 // Mvt Mode -------------------------------------
 typedef enum
 {
-	MvtMode_Simple = -1,		// Used a simple mvt (don't divide this mvt)
-	MvtMode_DontMove = 0,		// Don't move for this mvt
-	MvtMode_AngleOnly = 1,		// Use Asser Mode 1
+	MvtMode_NotSet = 0,			// Current MvtMode is not set
+	MvtMode_AngleOnly,			// Use Asser Mode 1
 	MvtMode_DistOnly,			// Use Asser Mode 2
 	MvtMode_MixedMode,			// Use Asser Mode 3
 	MvtMode_PivotMode,			// Use Asser Mode 4
+	MvtMode_Simple,				// Used a simple mvt (don't divide this mvt)
+	MvtMode_DontMove,			// Don't move for this mvt
 }EnumMvtMode;
 
 // Msg Type -------------------------------------
 typedef enum
 {								// Dest		| Details																
 	Msg_NoMsg = 0,				// None		| To send a NULL msg (not used)											
-	Msg_Asser_MsgType = 100,	// None		| Asser Msg																
-	Msg_Asser_MoveMode1,		// Asser	| Go to specified angle (Mode 1 = Angle only)
-	Msg_Asser_MoveMode2,		// Asser	| Go to specified (x,y) position (Mode 2 = Dist only)							
-	Msg_Asser_MoveMode3,		// Asser	| Go to specified (x,y,a) position (Mode 3 = Mixed Mode)
-	Msg_Asser_MoveMode4,		// Asser	| Rotate around specified wheel (Mode 4 = Pivot Mode)
+	Msg_Mvt_MsgType = 100,		// None		| Asser Msg																
+	Msg_Mvt_MoveMode1,			// Mvt		| Go to specified angle (Mode 1 = Angle only)
+	Msg_Mvt_MoveMode2,			// Mvt		| Go to specified (x,y) position (Mode 2 = Dist only)							
+	Msg_Mvt_MoveMode3,			// Mvt		| Go to specified (x,y,a) position (Mode 3 = Mixed Mode)
+	Msg_Mvt_MoveMode4,			// Mvt		| Rotate around specified wheel (Mode 4 = Pivot Mode)
+	Msg_Mvt_SetCurrentPos,		// Mvt		| Define a new current position
 }EnumMsgType;
 
 // STRUCT ################################################################
@@ -75,11 +77,11 @@ typedef struct
 {
 	EnumMsgType MsgType;	// Msg Type (Msg_NoMsg: Invalid Msg)																					
 	BOOLEAN IsRead;		// Flag to indicate if current msg has been read or not																	
-	// Msg Parameters	:	Msg_Asser_MoveMode1 | Msg_Asser_MoveMode2	| Msg_Asser_MoveMode3	| Msg_Asser_MoveMode4	|
-	short Param1;		//	Speed (1-100)		| Speed (1-100)			| Speed (1-100)			| Speed (1-100)			|
-	float Param2;		//	Not Used			| x						| x						| Wheel to lock			| 
-	float Param3;		//	Not Used			| y						| y						| Not Used				|
-	float Param4;		//	Angle In Rad		| Not Used				| Angle In Rad			| Angle In Rad			|
+	// Msg Parameters	:	Asser_MoveMode1	| Asser_MoveMode2	| Asser_MoveMode3	| Asser_MoveMode4	| Mvt_SetCurrentPos	|
+	short Param1;		//	Speed (1-100)	| Speed (1-100)		| Speed (1-100)		| Speed (1-100)		| Not Used			|
+	float Param2;		//	Not Used		| x					| x					| Wheel to lock		| x					|
+	float Param3;		//	Not Used		| y					| y					| Not Used			| y					|
+	float Param4;		//	Angle In Rad	| Not Used			| Angle In Rad		| Angle In Rad		| Angle In Rad		|
 }StructMsg;
 
 #endif // APPCUSTOMTYPES_H
