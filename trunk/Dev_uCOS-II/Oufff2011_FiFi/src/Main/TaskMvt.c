@@ -29,6 +29,10 @@ void TaskMvt_Main(void *p_arg)
 	INT8U			NextState;								// Var used for storing next state for state machine
 	INT8U			Err;									// Var to get error status								
 
+	#ifdef _TARGET_440H
+		char Debug_State[4];
+	#endif
+
 	// Init
 	memset(CurrentPath, 0, APP_MOVING_SEQ_LEN * sizeof(StructMvtPos));
 	pReadMsg			= NULL;
@@ -36,7 +40,10 @@ void TaskMvt_Main(void *p_arg)
 	CurrentState		= 0;
 	NextState			= 0;
 	Err					= 0;
-
+					
+	#ifdef _TARGET_440H
+		memset(Debug_State, 0, 4*sizeof(char));
+	#endif
 
 	putsUART2("OUFFF TEAM 2011 : Mvt online\n");
 
@@ -52,13 +59,18 @@ void TaskMvt_Main(void *p_arg)
 		// Check FLAGS for MvtTask
 		CurrentFlag = OSFlagAccept(AppFlags, TASK_MVT_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ANY, &Err);
 
+
+		#ifdef _TARGET_440H
+			sprintf(Debug_State, "%03d", CurrentState);
+			Set_Line_Information( 1, 0, Debug_State, 3);
+			OSTimeDlyHMSM(0, 0, DELAY_S_BETWEEN_NEXT_STATE, DELAY_MS_BETWEEN_NEXT_STATE);
+		#endif
+
 		// State machine
 		switch(CurrentState)
 		{
 			// CASE 000 ---------------------------------------------------------------------------
 			case 0:	// Init state
-				LED_Off(0);
-
 				// Check for 'start button' status
 				if((CurrentFlag & APP_PARAM_APPFLAG_START_BUTTON) != 0)
 				{
@@ -90,25 +102,37 @@ void TaskMvt_Main(void *p_arg)
 
 			// CASE 001 ---------------------------------------------------------------------------
 			case 1:	// Read Timer flag
-				LED_Off(0);
-				LED_On(1);
-				
 				if((CurrentFlag & APP_PARAM_APPFLAG_TIMER_STATUS) == 0)
-				{
-					// Time is up
-					NextState = 255;
+					NextState = 255;		// Time is up
+				else
+					NextState = 2;			// Time is running
+
+				break;
+
+			// CASE 002 ---------------------------------------------------------------------------
+			case 2:	// Read Msg from QMvt Queue
+				pReadMsg = (StructMsg*)OSQAccept(AppQueueMvt, &Err);
+
+				if(NULL != pReadMsg)										
+				{	// A message is available
 				}
 				else
-				{
-					// Todo
+				{	// There is no msg available
+					NextState = 5;
 				}
 
+				break;
+
+			// CASE 005 ---------------------------------------------------------------------------
+			case 5:	// Read Bumpers Status
+					// Todo
+					NextState = 0;
 				break;
 
 			// CASE 255 ---------------------------------------------------------------------------
 			case 255:	// End
 				// Todo
-				// Ask for stopping action is Flag Moving is set (case 254)
+				// Ask for stopping action if Flag Moving is set (case 254)
 
 				break;
 

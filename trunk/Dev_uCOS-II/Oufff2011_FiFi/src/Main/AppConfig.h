@@ -154,4 +154,15 @@
 
 #define LIB_STR_CFG_FP_EN						DEF_ENABLED		// Activate printf option
 
+
+/*
+*********************************************************************************************************
+*                                      CONSTANTS FOR DEV CARD
+*********************************************************************************************************
+*/
+#ifdef _TARGET_440H
+#define DELAY_MS_BETWEEN_NEXT_STATE				250				// Delay in ms before next state (TaskMvt)
+#define DELAY_S_BETWEEN_NEXT_STATE				0				// Delay in ms before next state (TaskMvt)
+#endif
+
 #endif

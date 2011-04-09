@@ -67,6 +67,8 @@ int  main (void)
 
 #ifdef _TARGET_440H
 	Set_Line_Information( 1, 0, "OUFFF TEAM 2011  ", 16);
+	OSTimeDlyHMSM(0, 0, 1, 0);
+	Set_Line_Information( 1, 0, "                 ", 16);
 #endif
 
 	OSStart();                  /* Start multitasking (i.e. give control to uC/OS-II)       */
