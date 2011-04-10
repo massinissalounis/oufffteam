@@ -24,25 +24,6 @@ void TaskMain_Init()
 }
 
 // ------------------------------------------------------------------------------------------------
-void TaskMain_GetCurrentPos(StructOdoPos *pCurrentPos)
-{
-	INT8U Err;
-	if(NULL == pCurrentPos)
-		return;
-
-	// Ask for Mutex on position
-	OSMutexPend(Mut_AppCurrentPos, WAIT_FOREVER, &Err);
-	
-	// Copy current pos
-	memcpy(pCurrentPos, &AppCurrentPos, sizeof(StructOdoPos));
-	
-	// Release Mutex
-	OSMutexPost(Mut_AppCurrentPos);
-
-	return;
-}
-
-// ------------------------------------------------------------------------------------------------
 // TaskMain_Main()
 // ------------------------------------------------------------------------------------------------
 void TaskMain_Main(void *p_arg)
@@ -122,7 +103,6 @@ void TaskMain_Main(void *p_arg)
 			{
 				Set_Line_Information( 2, 8, "1 ", 2);
 				OSFlagPost(AppFlags, APP_PARAM_APPFLAG_START_BUTTON + APP_PARAM_APPFLAG_TIMER_STATUS, OS_FLAG_SET, &Err);
-				OSTimeDlyHMSM(0, 0, 3, 0);
 			}
 			else
 				Set_Line_Information( 2, 8, "0 ", 2);
@@ -132,10 +112,21 @@ void TaskMain_Main(void *p_arg)
 			{
 				Set_Line_Information( 2, 10, "1 ", 2);
 				OSFlagPost(AppFlags, APP_PARAM_APPFLAG_TIMER_STATUS, OS_FLAG_CLR, &Err);
-				OSTimeDlyHMSM(0, 0, 3, 0);
 			}
 			else
 				Set_Line_Information( 2, 10, "0 ", 2);
+
+            
+            if(CLIC_state(SW3) == 1)
+			{
+				Set_Line_Information( 2, 12, "1 ", 2);
+				OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_1 + APP_PARAM_APPFLAG_GP2_1, OS_FLAG_SET, &Err);
+			}
+			else
+            {
+				Set_Line_Information( 2, 12, "0 ", 2);
+				OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_1 + APP_PARAM_APPFLAG_GP2_1, OS_FLAG_CLR, &Err);
+            }
 
 		}
 	

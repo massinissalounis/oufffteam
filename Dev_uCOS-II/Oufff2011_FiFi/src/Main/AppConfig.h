@@ -44,6 +44,8 @@
 #define APP_PARAM_TEMPO_RESOLUTION				500			//  in ms (0 to 999): Delay before 2 ticks check in TaskTempo		
 
 #define APP_PARAM_APPFLAG_INITAL_VALUE			0x00000000	//  Initial value for AppFlags var 
+#define APP_PARAM_APPFLAG_NONE					0x00000000	//	Don't use sensor
+
 // Value is defined as follow :								//	|Bit| Desctiption				| Value ON 			| Value OFF			| Connection	|	
 #define APP_PARAM_APPFLAG_START_BUTTON			0x00000001	//	| 0	| Start Button				| Pressed			| Not Pressed		| Hard			|
 #define APP_PARAM_APPFLAG_BIT01					0x00000002	//	| 1 | Not Used					| -					| -					| -				|
@@ -83,6 +85,16 @@
 #define APP_PARAM_APPFLAG_ALL_GP2				0x0000FF00	// All GP2 sensors
 #define APP_PARAM_APPFLAG_ALL_SW				0x00FF0000	// All switches sensors
 #define APP_PARAM_APPFLAG_ALL_SENSORS			0x00FFFF00	// All external sensors
+
+// User defined groups
+// - Front sensors
+#define APP_PARAM_APPFLAG_FRONT_SENSORS			(APP_PARAM_APPFLAG_NONE)	
+// - Back sensors
+#define APP_PARAM_APPFLAG_BACK_SENSORS			(APP_PARAM_APPFLAG_NONE)	
+// - Left sensors
+#define APP_PARAM_APPFLAG_LEFT_SENSORS			(APP_PARAM_APPFLAG_NONE)	
+// - Right sensors
+#define APP_PARAM_APPFLAG_RIGHT_SENSORS			(APP_PARAM_APPFLAG_NONE)	
 
 /*
 *********************************************************************************************************
@@ -130,21 +142,12 @@
 
 // POSITION MANAGER MODE
 //#define ODO_CALIBRATION
-#define APP_MOVING_SEQ_LEN						5			// Length of moving sequence table (used for evoluate movment)
+#define APP_MOVING_SEQ_LEN						5			    // Length of moving sequence table (used for evoluate movment)
 
-// Moving Algo : The first option set to OS_TRUE would be used
-#define APP_MOVING_ALGO_1_SIMPLE				OS_TRUE		// Activate Simple Moving Algo (without anticipation)
+#define APP_MOVING_ASSER_INITIAL_MODE_CTRL		3			    // Initial Mode Controle
 
-#define APP_MOVING_ASSER_INITIAL_MODE_CTRL		3			// Initial Mode Controle
-
-#define APP_MOVING_ESCAPE_SEQ_STOP				0			// No escape sequence. In case of collision, do nothing and stay in pos
-#define APP_MOVING_ESCAPE_SEQ_FRONT_RIGHT		1			// Escape sequence by the right (to the front)
-#define APP_MOVING_ESCAPE_SEQ_FRONT_LEFT		2			// Escape sequence by the left (to the front)
-#define APP_MOVING_ESCAPE_SEQ_FRONT_BACK		3			// Escape sequence by the back (to the front)
-#define APP_MOVING_ESCAPE_SEQ_CHECK_CORN		4			// Escape sequence by the back (to the front)
-
-// Choose the default escape sequence to use
-#define APP_MOVING_ESCAPE_SEQ_FRONT_DEFAULT		APP_MOVING_ESCAPE_SEQ_STOP
+#define APP_MOVING_DIST_APPROCH_PRECISION       50.0            // Distance in mm to consider the change of control mode (arrival zone)  
+#define APP_MOVING_ANGLE_APPROCH_PRECISION      2.0             // Angle in degree to consider the setpoint reached
 
 /*
 *********************************************************************************************************
@@ -153,7 +156,6 @@
 */
 
 #define LIB_STR_CFG_FP_EN						DEF_ENABLED		// Activate printf option
-
 
 /*
 *********************************************************************************************************

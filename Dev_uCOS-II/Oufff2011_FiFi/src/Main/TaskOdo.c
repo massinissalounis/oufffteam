@@ -15,8 +15,11 @@
 #include "TaskOdo.h"
 #include "AppGlobalVars.h"
 
-StructOdoPos *pos;
-OS_EVENT *SemOdo;
+StructOdoPos TaskOdo_CurrentPos;
+
+/***** MUTEX / SEMAPHORES *****/
+OS_EVENT	*SemOdo = NULL;
+OS_EVENT	*MutexCurrentPos = NULL;				// Mutex to limit access (RW) for CurrentPos variable
 
 extern float error_debug_1;
 extern float error_debug_2;
@@ -35,40 +38,39 @@ extern float error_debug_5;
 	CPU_INT16U QUADG_data_old;
 
 // ------------------------------------------------------------------------------------------------
-void init_position_manager(StructOdoPos *p)
+void init_position_manager()
 {
-	// init structures
-	pos=p;
 	// init datas
-	pos->x=0;
-	pos->y=0;
-	pos->angle=0;
+	TaskOdo_CurrentPos.x		= 0;
+	TaskOdo_CurrentPos.y		= 0;
+	TaskOdo_CurrentPos.angle	= 0;
 	
 	// For mode 4
-	pos->right_encoder=0;
-	pos->left_encoder=0;
-
+	TaskOdo_CurrentPos.right_encoder	= 0;
+	TaskOdo_CurrentPos.left_encoder		= 0;
 }
 
 // ------------------------------------------------------------------------------------------------
 void encoders_calibration_measure(void)
 {
-	static CPU_INT16U QUADD_data_old = 0;
-	static CPU_INT16U QUADG_data_old = 0;
-	static CPU_INT32S QUADD_count = 0;
-	static CPU_INT32S QUADG_count = 0;
+	static int	i = 0; // Refresh sending UART
+	static		CPU_INT16U QUADD_data_old	= 0;
+	static		CPU_INT16U QUADG_data_old	= 0;
+	static		CPU_INT32S QUADD_count		= 0;
+	static		CPU_INT32S QUADG_count		= 0;
+	char		uart_buffer[13];
+	char		*buffer_ptr;
 
-//	CPU_INT16U QUADD_data=0;
-//	CPU_INT16U QUADG_data=0;
-	CPU_INT16S QUADD_delta=0;
-	CPU_INT16S QUADG_delta=0;
+
+	CPU_INT16S QUADD_delta	= 0;
+	CPU_INT16S QUADG_delta	= 0;
 
 	// Wait for latch to finish 
 	QUAD_Wait_for_Latch();
 
 	// Read values from encoders
-	QUADD_data=QUADD_Read();
-	QUADG_data=QUADG_Read();
+	QUADD_data = QUADD_Read();
+	QUADG_data = QUADG_Read();
 
 	// Compute Delta of increments
 	QUADD_delta = QUADD_data - QUADD_data_old;
@@ -78,13 +80,8 @@ void encoders_calibration_measure(void)
 	QUADG_count += QUADG_delta;
 
 	// Store increments for next computation
-	QUADD_data_old=QUADD_data;
-	QUADG_data_old=QUADG_data;
-
-	static int i=0; // Refresh sending UART
-	char uart_buffer[13];
-	char * buffer_ptr;
-
+	QUADD_data_old = QUADD_data;
+	QUADG_data_old = QUADG_data;
 
 	if(i==0)
 	{
@@ -104,34 +101,25 @@ void encoders_calibration_measure(void)
 // ------------------------------------------------------------------------------------------------
 void position_manager_process()
 {
-//	static CPU_INT16U QUADD_data_old = 0;
-//	static CPU_INT16U QUADG_data_old = 0;
-
-//	CPU_INT16S QUADD_delta=0;
-//	CPU_INT16S QUADG_delta=0;
-
-//	CPU_INT16U QUADD_data=0;
-//	CPU_INT16U QUADG_data=0;
-
 	INT8U		Err;
 
-	float QUADD_delta_mm = 0.0;
-	float QUADG_delta_mm = 0.0;
+	float QUADD_delta_mm	= 0.0;
+	float QUADG_delta_mm	= 0.0;
 
-	float Quad_moy = 0.0;
-	float Quad_diff = 0.0;
-	float Quad_moy_mm = 0.0;
-	float Quad_diff_rad = 0.0;
-	float Delta_x = 0.0;
-	float Delta_y = 0.0;
-	float Delta_angle = 0.0;
+	float Quad_moy			= 0.0;
+	float Quad_diff			= 0.0;
+	float Quad_moy_mm		= 0.0;
+	float Quad_diff_rad		= 0.0;
+	float Delta_x			= 0.0;
+	float Delta_y			= 0.0;
+	float Delta_angle		= 0.0;
 
 	// Wait for latch to finish 
 	QUAD_Wait_for_Latch();
 
 	// Read values from encoders
-	QUADD_data=QUADD_Read();
-	QUADG_data=QUADG_Read();
+	QUADD_data = QUADD_Read();
+	QUADG_data = QUADG_Read();
 
 	// Compute Delta of increments
 	QUADD_delta = QUADD_data - QUADD_data_old;
@@ -141,43 +129,45 @@ void position_manager_process()
 	QUADG_delta_mm = QUADG_delta / CONVERSION_MM_TO_INC_LEFT;
 
 	// Convert in mm and radians
-	Quad_moy_mm = (QUADD_delta_mm + QUADG_delta_mm) / 2;
-	Quad_diff = (QUADD_delta_mm - QUADG_delta_mm);
+	Quad_moy_mm =	(QUADD_delta_mm + QUADG_delta_mm) / 2;
+	Quad_diff =		(QUADD_delta_mm - QUADG_delta_mm);
 	Quad_diff_rad = Quad_diff / CONVERSION_RAD_TO_MM;
   
 	// Compute trig aproximations
-	Delta_x = Quad_moy_mm * cos(pos->angle);
-	Delta_y = Quad_moy_mm * sin(pos->angle);	
+	Delta_x = Quad_moy_mm * cos(TaskOdo_CurrentPos.angle);
+	Delta_y = Quad_moy_mm * sin(TaskOdo_CurrentPos.angle);	
 	
 	// Test on angle
 
 	// Store new datas (with mutex !)
 	// SECTION CRITIQUE
-	OSMutexPend(Mut_AppCurrentPos, WAIT_FOREVER, &Err);
-		pos->x = pos->x + Delta_x;
-		pos->y = pos->y + Delta_y;
-		pos->angle = pos->angle + Quad_diff_rad;
+	OSMutexPend(MutexCurrentPos, WAIT_FOREVER, &Err);
+	{
+		TaskOdo_CurrentPos.x = TaskOdo_CurrentPos.x + Delta_x;
+		TaskOdo_CurrentPos.y = TaskOdo_CurrentPos.y + Delta_y;
+		TaskOdo_CurrentPos.angle = TaskOdo_CurrentPos.angle + Quad_diff_rad;
 
-		if(pos->angle>M_PI)
+		if(TaskOdo_CurrentPos.angle>M_PI)
 		{
-			pos->angle = pos->angle - 2*M_PI;
+			TaskOdo_CurrentPos.angle = TaskOdo_CurrentPos.angle - 2*M_PI;
 		}
 		else
 		{
-			if(pos->angle<=-M_PI)
+			if(TaskOdo_CurrentPos.angle<=-M_PI)
 			{
-				pos->angle = pos->angle + 2*M_PI; 
+				TaskOdo_CurrentPos.angle = TaskOdo_CurrentPos.angle + 2*M_PI; 
 			}
 		}		
-	// FIN SECTION CRITIQUE
 	
-	pos->right_encoder=QUADD_data;;
-	pos->left_encoder=QUADG_data;
-	OSMutexPost(Mut_AppCurrentPos);
+		TaskOdo_CurrentPos.right_encoder = QUADD_data;
+		TaskOdo_CurrentPos.left_encoder = QUADG_data;
+	}
+	// FIN SECTION CRITIQUE
+	OSMutexPost(MutexCurrentPos);
 
 	// Store increments for next computation
-	QUADD_data_old=QUADD_data;
-	QUADG_data_old=QUADG_data;
+	QUADD_data_old = QUADD_data;
+	QUADG_data_old = QUADG_data;
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -187,55 +177,88 @@ void position_manager_timer_handler()
 	QUAD_Latch();
 	
 	// WAKE UP TASKS
-	if(OSSemPost(SemOdo)==OS_NO_ERR)
+	if(OSSemPost(SemOdo) == OS_NO_ERR)
 	{
 		LED_Toggle(4);
 	}
 }
 
+// ------------------------------------------------------------------------------------------------
 unsigned char movement_detection()
 {
-	static int count=0;
+	static int count			= 0;
 
-	static float x_old=0.0;
-	static float y_old=0.0;
-	static float angle_old=0.0;
+	static float x_old			= 0.0;
+	static float y_old			= 0.0;
+	static float angle_old		= 0.0;
 
-	static unsigned char flag=0;
+	static unsigned char flag	= 0;
 
 	count--;
-	if(count<=0)
+	if(count <= 0)
 	{
-		count=MOVEMENT_DETECTION_INTERVAL;
+		count = MOVEMENT_DETECTION_INTERVAL;
 
-		if(	abs(pos->angle-angle_old)<MOVEMENT_DETECTION_ANGLE_THRESHOLD &&
-		   	abs(pos->y-y_old)< MOVEMENT_DETECTION_DISTANCE_THRESHOLD &&
-			abs(pos->x-x_old)< MOVEMENT_DETECTION_DISTANCE_THRESHOLD )
+		if(	abs(TaskOdo_CurrentPos.angle - angle_old) < MOVEMENT_DETECTION_ANGLE_THRESHOLD &&
+		   	abs(TaskOdo_CurrentPos.y - y_old) < MOVEMENT_DETECTION_DISTANCE_THRESHOLD &&
+			abs(TaskOdo_CurrentPos.x - x_old) < MOVEMENT_DETECTION_DISTANCE_THRESHOLD )
 		{
-			flag=1;
+			flag = 1;
 		}
-		else flag=0;
+		else 
+			flag = 0;
 	
-		x_old=pos->x;
-		y_old=pos->y;
-		angle_old=pos->angle;
+		x_old = TaskOdo_CurrentPos.x;
+		y_old = TaskOdo_CurrentPos.y;
+		angle_old = TaskOdo_CurrentPos.angle;
 	}
 
 	return flag;
 }
 
+
+// ------------------------------------------------------------------------------------------------
+INT8U	TaskOdo_GetCurrentPos(StructOdoPos *CurrentOdoPos)
+{
+	INT8U	Err = ERR__NO_ERROR;
+
+	if((NULL == CurrentOdoPos) || (NULL == MutexCurrentPos))
+		return ERR__INVALID_PARAM;
+
+	// Begin Critical Section
+	OSMutexPend(MutexCurrentPos, WAIT_FOREVER, &Err);
+	{	
+		memcpy(CurrentOdoPos, &TaskOdo_CurrentPos, sizeof(StructOdoPos));
+	}	
+	OSMutexPost(MutexCurrentPos);
+	// End Critical Section
+
+	return ERR__NO_ERROR;
+}
+
 // ------------------------------------------------------------------------------------------------
 void TaskOdo_Main(void *p_arg)
 {
-	INT8U err;
+	INT8U err		= ERR__NO_ERROR;
+	static int i	= 0;				// Refresh sending UART
+	char uart_buffer[8];
+	char *buffer_ptr;
 
 	unsigned char no_movement_flag = 1;
 
 	putsUART2("OUFFF TEAM 2011 : Odo online\n");
 
-	init_position_manager(&AppCurrentPos);
-
 	SemOdo = OSSemCreate(0);
+	MutexCurrentPos = OSMutexCreate(APP_TASK_HIGHER_PRIO, &err);
+	if((NULL == MutexCurrentPos) || (NULL == SemOdo))
+	{
+		putsUART2("DEBUG (TaskOdo.c) : Error -> Unable to create Semaphore or Mutex\n");
+		putsUART2("DEBUG (TaskOdo.c) : Entering in sleeping mode...\n");	
+		while(OS_TRUE)		// Infinite Loop
+			OSTimeDlyHMSM(1, 0, 0, 0);		
+	}
+
+	init_position_manager();
 
 	TMR2_Init();
 
@@ -250,23 +273,19 @@ void TaskOdo_Main(void *p_arg)
 			#else
 				position_manager_process();
 
-				no_movement_flag=movement_detection();
+				no_movement_flag = movement_detection();
 
-				static int i=0; // Refresh sending UART
-				char uart_buffer[8];
-				char * buffer_ptr;
-			
 				if(i==0)
 				{
 					putsUART2("ODO_PROCESS : ");
 					putsUART2("x : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pos->x, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskOdo_CurrentPos.x, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2(",y : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pos->y, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskOdo_CurrentPos.y, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2(",alpha : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (pos->angle*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (TaskOdo_CurrentPos.angle*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2("\n");
 					putsUART2("1: ");

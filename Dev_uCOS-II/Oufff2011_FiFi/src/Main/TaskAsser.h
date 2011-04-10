@@ -61,12 +61,12 @@
 // General Coefficients
 //////////////////////////////////////////////
 
-#define MAX_MOTOR_COMMAND 		32000	// doit être < à 32768
+#define MAX_MOTOR_COMMAND 		        32000	                            // doit être < à 32768
 
-#define DISTANCE_ALPHA_ONLY		50.0 	// Error in mm in distance to consider the change of control mode
-										// This parameter is also used to switch on the arrival flag
+#define DISTANCE_ALPHA_ONLY		        APP_MOVING_DIST_APPROCH_PRECISION 	// Error in mm in distance to consider the change of control mode
+										                                    // This parameter is also used to switch on the arrival flag
 
-#define ANGLE_APPROACH_PRECISION		(2.00 * M_PI / 180.0)		// Error in rad for angle to consider the setpoint reached
+#define ANGLE_APPROACH_PRECISION		(APP_MOVING_ANGLE_APPROCH_PRECISION * M_PI / 180.0)	// Error in rad for angle to consider the setpoint reached
 
 #define PIVOT_APPROACH_PRECISION		 2.00
 #define PIVOT_LEFT_APPROACH_PRECISION	(PIVOT_APPROACH_PRECISION * M_PI / 180.0) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_LEFT
@@ -75,11 +75,6 @@
 #define ANGLE_VS_DISTANCE_RATIO	0.5 // n % used for angle on full scale
 
 #define ASSER_SAMPLING		10 // in ms
-
-//////////////////////////////////////////////
-// Global Vars Coefficients
-//////////////////////////////////////////////
-StructOdoPos TaskAsser_CurrentPos;							// Local var to read current pos
 
 //////////////////////////////////////////////
 // Local structures

@@ -16,6 +16,14 @@
 #define RIGHT_WHEEL				1		// Used for pivot mode
 #define LEFT_WHEEL				-1		// Used for pivot mode
 
+#define CURRENT_STATE__STOP     0       // Current Odo state is set to "STOP"
+
+// ERROR CODES ###########################################################
+// Global ---------------------------------------
+#define ERR__NO_ERROR							0				// No error
+#define ERR__INVALID_PARAM						1				// Parameter given is not valid
+
+
 // ENUM ##################################################################
 // Color ----------------------------------------
 typedef enum

@@ -32,5 +32,12 @@ float AppCheckAngleInDeg(float ValueToCheck);
 	// Funct to check if specified angle is between -M_PI and +M_PI
 	// ValueToCheck : Angle to check
 
+INT8U AppGetCurrentOdoPos(StructOdoPos *CurrentOdoPos);
+	// Function for reading current odo position
+	// *CurrentOdoPos = Pointer for storing current value
+	// Returns :	- ERR__NO_ERROR if no error
+	//				- ERR__INVALID_PARAM if CurrentOdoPos is not set or if TaskOdo is not running
+
+
 #endif // APPGLOBALFUNC_H
 

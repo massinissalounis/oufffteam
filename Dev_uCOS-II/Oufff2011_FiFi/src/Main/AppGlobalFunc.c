@@ -13,6 +13,7 @@
 */
 
 #include "AppIncludes.h"
+#include "TaskOdo.h"
 
 // ------------------------------------------------------------------------------------------------
 BOOLEAN AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
@@ -116,4 +117,10 @@ float AppCheckAngleInDeg(float ValueToCheck)
 		ValueToCheck = ValueToCheck + 360.0;
 
 	return ValueToCheck;
+}
+
+// ------------------------------------------------------------------------------------------------
+INT8U AppGetCurrentOdoPos(StructOdoPos *CurrentOdoPos)
+{
+	return TaskOdo_GetCurrentPos(CurrentOdoPos);
 }

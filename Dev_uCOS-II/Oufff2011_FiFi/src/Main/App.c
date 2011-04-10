@@ -259,22 +259,6 @@ void AppCreateIPCS()
 	}
 #endif
 
-	// Mutex
-	Mut_AppCurrentPos = OSMutexCreate(APP_TASK_HIGHER_PRIO, &perr);
-	if(NULL == Mut_AppCurrentPos)
-	{
-#ifndef __DEBUG
-		putsUART2("Error : Unable to create CurrentPos Mutex\n");
-		putsUART2("Restarting...\n");	
-		//SoftReset();
-#else
-		putsUART2("DEBUG (App.c) : Error -> Unable to create CurrentPos Mutex\n");
-		putsUART2("DEBUG (App.c) : Entering in sleeping mode...\n");	
-#endif
-		while(OS_TRUE)		// Infinite Loop
-			OSTimeDlyHMSM(1, 0, 0, 0);		
-	}
-
 	// Flags
 	AppFlags = OSFlagCreate(APP_PARAM_APPFLAG_INITAL_VALUE, &perr);
 	if(NULL == AppFlags)
@@ -309,9 +293,7 @@ void AppInitVar()
 	// Vars
 //	AppQueueMainEvent = NULL;												/* Queue for get TaskMain events				*/
 //	AppQueueAsserEvent = NULL;												/* Queue for get Asser events					*/
-	Mut_AppCurrentPos = NULL;												/* Mutex to limit access to AppCurrentPos var	*/
 	AppFlags = NULL;														/* Application Flags							*/
-	memset(&AppCurrentPos, 0, sizeof(StructOdoPos));							/* Set AppCurrentPos to 0						*/
 	AppCurrentColor = c_NotSet;												/* Set CurrentColor to NotSet					*/
 
 	// Arrays
