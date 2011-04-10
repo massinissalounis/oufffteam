@@ -26,14 +26,8 @@ void*			AppQSensorsStk[APP_QUEUE_SENSORS_SIZE];	// Stack to store pointer to msg
 StructMsg		AppMsgStk[APP_QUEUES_TOTAL_SIZE];		// Stack to store msg for all Queues
 StructMsg		AppHighPrioMsg;							// Struct to store an high priority msg (e.g. the stop msg)
 
-/***** Structures *****/
-StructOdoPos	AppCurrentPos;							// Contains current postion (set by TaskOdo, used by Main)
-
 /***** Enum *****/
 EnumColor		AppCurrentColor;						// Contains current color (read from bsp)
-
-/***** MUTEX / SEMAPHORES *****/
-OS_EVENT		*Mut_AppCurrentPos;						// Mutex to limit access (RW) for CurrentPos variable
 
 /***** FLAGS *****/
 OS_FLAG_GRP		*AppFlags;								// Contains all flags for this application							

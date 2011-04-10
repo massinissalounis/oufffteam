@@ -16,6 +16,11 @@
 
 #include "TaskAsser.h"
 #include "TaskOdo.h"
+//////////////////////////////////////////////
+// Global Vars Coefficients
+//////////////////////////////////////////////
+StructOdoPos TaskAsser_CurrentPos;							// Local var to read current pos
+
 
 /////////////////////////////////////////////////////////////
 // DATAS
@@ -658,15 +663,8 @@ void TaskAsser_Main(void *p_arg)
 		command_left =0;
 		command_right =0;
 
-		// SECTION CRITIQUE : Ask for Mutex on position
-		OSMutexPend(Mut_AppCurrentPos, WAIT_FOREVER, &Err);
-		{
-			// Copy current pos
-			memcpy(&TaskAsser_CurrentPos, &AppCurrentPos, sizeof(StructOdoPos));
-		}
-
-		//END SECTION CRITIQUE : Release Mutex
-		OSMutexPost(Mut_AppCurrentPos);
+		// Read Current OdoPos
+		TaskOdo_GetCurrentPos(&TaskAsser_CurrentPos);
 
 		// Asser mode control
 		switch(mode_control)

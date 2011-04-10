@@ -15,62 +15,101 @@
 #include "LibMoving.h"
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_MoveInMM(StructMvtPos *OldPos, int dist, StructMvtPos *NewPos)
+void LibMoving_MoveInMM(int Dist, INT8U Speed, StructMvtPos *NextSetpoint)
 {
-/* Todo
+    StructOdoPos CurrentPos;
+
 	// Check params
-	if((NULL == OldPos) || (NULL == NewPos))
+	if(NULL == NextSetpoint)
 		return;
+
+    // Define Setpoint MvtMode and Speed
+    NextSetpoint->MvtMode = MvtMode_Simple;
+    NextSetpoint->Param1 = Speed;
+
+    if(NextSetpoint->Param1 > 100)
+        NextSetpoint->Param1 = 100;
+
+    if(NextSetpoint->Param1 < 1)
+        NextSetpoint->Param1 = 1;
+
+    // Read Current Odo position
+    AppGetCurrentOdoPos(&CurrentPos);
 
 	// Compute new position
-	NewPos->x = OldPos->x + dist * cosf(OldPos->angle);
-	NewPos->y = OldPos->y + dist * sinf(OldPos->angle);
-	NewPos->angle = OldPos->angle;
+	NextSetpoint->Param2 = CurrentPos.x + Dist * cosf(CurrentPos.angle);
+	NextSetpoint->Param3 = CurrentPos.y + Dist * sinf(CurrentPos.angle);
+	NextSetpoint->Param4 = CurrentPos.angle;
 
-	if(dist >= 0)
-		NewPos->IDActiveSensors = SENSORS_FRONT_ID;
+	if(Dist >= 0)
+		NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_FRONT_SENSORS;
 	else
-		NewPos->IDActiveSensors = SENSORS_BACK_ID;
+		NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_BACK_SENSORS;
 
-*/
 	return;
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_RotateInDeg(StructMvtPos *OldPos, float AngleInDeg, StructMvtPos *NewPos)
+void LibMoving_RotateInDeg(float AngleInDeg, INT8U Speed, StructMvtPos *NextSetpoint)
 {
-/* Todo
+    StructOdoPos CurrentPos;
+
 	// Check params
-	if((NULL == OldPos) || (NULL == NewPos))
+	if(NULL == NextSetpoint)
 		return;
 
+    // Define Setpoint MvtMode and Speed
+    NextSetpoint->MvtMode = MvtMode_Simple;
+    NextSetpoint->Param1 = Speed;
+
+    if(NextSetpoint->Param1 > 100)
+        NextSetpoint->Param1 = 100;
+
+    if(NextSetpoint->Param1 < 1)
+        NextSetpoint->Param1 = 1;
+
+    // Read Current Odo position
+    AppGetCurrentOdoPos(&CurrentPos);
+
 	// Compute new angle
-	NewPos->x = OldPos->x;
-	NewPos->y = OldPos->y; 
-	NewPos->angle = OldPos->angle + AppConvertDegInRad(AngleInDeg);
+	NextSetpoint->Param2 = CurrentPos.x;
+	NextSetpoint->Param3 = CurrentPos.y; 
+	NextSetpoint->Param4 = CurrentPos.angle + AppConvertDegInRad(AngleInDeg);
 
-	NewPos->IDActiveSensors = SENSORS_ALL_ID;
+	NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_ALL_SENSORS;
 
-*/
 	return;
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_MoveToAngleInDeg(StructMvtPos *OldPos, float AngleToGoInDeg, StructMvtPos *NewPos)
+void LibMoving_MoveToAngleInDeg(float AngleToGoInDeg, INT8U Speed, StructMvtPos *NextSetpoint)
 {
-/* Todo
+    StructOdoPos CurrentPos;
+
 	// Check params
-	if((NULL == OldPos) || (NULL == NewPos))
+	if(NULL == NextSetpoint)
 		return;
 
+    // Define Setpoint MvtMode and Speed
+    NextSetpoint->MvtMode = MvtMode_Simple;
+    NextSetpoint->Param1 = Speed;
+
+    if(NextSetpoint->Param1 > 100)
+        NextSetpoint->Param1 = 100;
+
+    if(NextSetpoint->Param1 < 1)
+        NextSetpoint->Param1 = 1;
+
+    // Read Current Odo position
+    AppGetCurrentOdoPos(&CurrentPos);
+
 	// Compute new angle
-	NewPos->x = OldPos->x;
-	NewPos->y = OldPos->y; 
-	NewPos->angle = AppConvertDegInRad(AngleToGoInDeg);
+	NextSetpoint->Param2 = CurrentPos.x;
+	NextSetpoint->Param3 = CurrentPos.y; 
+	NextSetpoint->Param4 = AppConvertDegInRad(AngleToGoInDeg);
 
-	NewPos->IDActiveSensors = SENSORS_ALL_ID;
+	NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_ALL_SENSORS;
 
-*/
 	return;
 }
 
@@ -204,4 +243,72 @@ void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq)
 			break;
 	}
 */
+}
+
+// ------------------------------------------------------------------------------------------------
+BOOLEAN LibMoving_IsSetpointReached(StructMvtPos *SetpointToTest)
+{
+    StructOdoPos CurrentOdoPos;
+    float DistToSetpoint    = 0.0;
+    float AngleToSetpoint   = 0.0;
+    BOOLEAN Ret             = OS_FALSE;
+
+    if(NULL == SetpointToTest)
+        return OS_FALSE;
+
+    // Init var
+    memset(&CurrentOdoPos, 0, sizeof(StructOdoPos));
+
+    // Read current odo value
+    AppGetCurrentOdoPos(&CurrentOdoPos);
+
+    // Compute Dist and Angle
+    DistToSetpoint = (SetpointToTest->Param2 - CurrentOdoPos.x) * (SetpointToTest->Param2 - CurrentOdoPos.x) + (SetpointToTest->Param3 - CurrentOdoPos.y) * (SetpointToTest->Param3 - CurrentOdoPos.y);
+    AngleToSetpoint = abs(SetpointToTest->Param4 - CurrentOdoPos.angle);
+
+    switch(SetpointToTest->MvtMode)
+    {
+    // --------------------------------------------------------------------------------------------
+    // Check Only for angle
+    case MvtMode_AngleOnly:     
+    case MvtMode_PivotMode:
+        if(AngleToSetpoint <= APP_MOVING_ANGLE_APPROCH_PRECISION)
+            Ret = OS_TRUE;
+        else
+            Ret = OS_FALSE;
+        break;
+
+    // --------------------------------------------------------------------------------------------
+    // Check Only for Dist
+    case MvtMode_DistOnly:
+        if(DistToSetpoint <= (APP_MOVING_DIST_APPROCH_PRECISION * APP_MOVING_DIST_APPROCH_PRECISION))
+            Ret = OS_TRUE;
+        else
+            Ret = OS_FALSE;
+        break;
+        
+    // --------------------------------------------------------------------------------------------
+    // Check for Angle and Dist
+    case MvtMode_Simple:
+    case MvtMode_MixedMode:
+        if((AngleToSetpoint <= APP_MOVING_ANGLE_APPROCH_PRECISION) && (DistToSetpoint <= (APP_MOVING_DIST_APPROCH_PRECISION * APP_MOVING_DIST_APPROCH_PRECISION)))
+            Ret = OS_TRUE;
+        else
+            Ret = OS_FALSE;
+        break;
+
+    // --------------------------------------------------------------------------------------------
+    // We have to stay in place
+    case MvtMode_DontMove:
+        Ret = OS_FALSE;
+        break;
+
+    // --------------------------------------------------------------------------------------------
+    // MvtMode is not set, exists without any check
+    default:
+        Ret = OS_TRUE;
+        break;
+    }
+
+    return Ret;
 }
