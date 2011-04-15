@@ -15,16 +15,16 @@
 #include "LibMoving.h"
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_MoveInMM(int Dist, INT8U Speed, StructMvtPos *NextSetpoint)
+void LibMoving_MoveInMM(int Dist, INT8U Speed, StructCmd *NextSetpoint)
 {
-    StructOdoPos CurrentPos;
+    StructPos CurrentPos;
 
 	// Check params
 	if(NULL == NextSetpoint)
 		return;
 
     // Define Setpoint MvtMode and Speed
-    NextSetpoint->MvtMode = MvtMode_Simple;
+    NextSetpoint->Cmd = Mvt_Simple;
     NextSetpoint->Param1 = Speed;
 
     if(NextSetpoint->Param1 > 100)
@@ -34,7 +34,7 @@ void LibMoving_MoveInMM(int Dist, INT8U Speed, StructMvtPos *NextSetpoint)
         NextSetpoint->Param1 = 1;
 
     // Read Current Odo position
-    AppGetCurrentOdoPos(&CurrentPos);
+    AppGetCurrentPos(&CurrentPos);
 
 	// Compute new position
 	NextSetpoint->Param2 = CurrentPos.x + Dist * cosf(CurrentPos.angle);
@@ -50,16 +50,16 @@ void LibMoving_MoveInMM(int Dist, INT8U Speed, StructMvtPos *NextSetpoint)
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_RotateInDeg(float AngleInDeg, INT8U Speed, StructMvtPos *NextSetpoint)
+void LibMoving_RotateInDeg(float AngleInDeg, INT8U Speed, StructCmd *NextSetpoint)
 {
-    StructOdoPos CurrentPos;
+    StructPos CurrentPos;
 
 	// Check params
 	if(NULL == NextSetpoint)
 		return;
 
     // Define Setpoint MvtMode and Speed
-    NextSetpoint->MvtMode = MvtMode_Simple;
+    NextSetpoint->Cmd = Mvt_Simple;
     NextSetpoint->Param1 = Speed;
 
     if(NextSetpoint->Param1 > 100)
@@ -69,7 +69,7 @@ void LibMoving_RotateInDeg(float AngleInDeg, INT8U Speed, StructMvtPos *NextSetp
         NextSetpoint->Param1 = 1;
 
     // Read Current Odo position
-    AppGetCurrentOdoPos(&CurrentPos);
+    AppGetCurrentPos(&CurrentPos);
 
 	// Compute new angle
 	NextSetpoint->Param2 = CurrentPos.x;
@@ -82,16 +82,16 @@ void LibMoving_RotateInDeg(float AngleInDeg, INT8U Speed, StructMvtPos *NextSetp
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_MoveToAngleInDeg(float AngleToGoInDeg, INT8U Speed, StructMvtPos *NextSetpoint)
+void LibMoving_MoveToAngleInDeg(float AngleToGoInDeg, INT8U Speed, StructCmd *NextSetpoint)
 {
-    StructOdoPos CurrentPos;
+    StructPos CurrentPos;
 
 	// Check params
 	if(NULL == NextSetpoint)
 		return;
 
     // Define Setpoint MvtMode and Speed
-    NextSetpoint->MvtMode = MvtMode_Simple;
+    NextSetpoint->Cmd = Mvt_Simple;
     NextSetpoint->Param1 = Speed;
 
     if(NextSetpoint->Param1 > 100)
@@ -101,7 +101,7 @@ void LibMoving_MoveToAngleInDeg(float AngleToGoInDeg, INT8U Speed, StructMvtPos 
         NextSetpoint->Param1 = 1;
 
     // Read Current Odo position
-    AppGetCurrentOdoPos(&CurrentPos);
+    AppGetCurrentPos(&CurrentPos);
 
 	// Compute new angle
 	NextSetpoint->Param2 = CurrentPos.x;
@@ -114,7 +114,7 @@ void LibMoving_MoveToAngleInDeg(float AngleToGoInDeg, INT8U Speed, StructMvtPos 
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_DivideMvt(StructMvtPos *OldPos, StructMvtPos *ExpectedPos, int *NewMovingSeqRemainingSteps)
+void LibMoving_DivideMvt(StructCmd *OldPos, StructCmd *ExpectedPos, int *NewMovingSeqRemainingSteps)
 {
 /* Todo
 	// Check for parameters
@@ -229,7 +229,7 @@ void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq)
 			TaskMain_NextSetpointPos.IDActiveSensors = SENSORS_BACK_ID;																		// Activate sensors
 
 			// Cancel expected position because we can't reach this point. We have to try another...
-			memcpy(&TaskMain_ExpectedPos, &TaskMain_NextSetpointPos, sizeof(StructMvtPos));
+			memcpy(&TaskMain_ExpectedPos, &TaskMain_NextSetpointPos, sizeof(StructCmd));
 
 			// Change next state due to collision
 			switch(TaskMain_NextState)
@@ -246,9 +246,9 @@ void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq)
 }
 
 // ------------------------------------------------------------------------------------------------
-BOOLEAN LibMoving_IsSetpointReached(StructMvtPos *SetpointToTest)
+BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest)
 {
-    StructOdoPos CurrentOdoPos;
+    StructPos CurrentPos;
     float DistToSetpoint    = 0.0;
     float AngleToSetpoint   = 0.0;
     BOOLEAN Ret             = OS_FALSE;
@@ -257,21 +257,21 @@ BOOLEAN LibMoving_IsSetpointReached(StructMvtPos *SetpointToTest)
         return OS_FALSE;
 
     // Init var
-    memset(&CurrentOdoPos, 0, sizeof(StructOdoPos));
+    memset(&CurrentPos, 0, sizeof(StructPos));
 
     // Read current odo value
-    AppGetCurrentOdoPos(&CurrentOdoPos);
+    AppGetCurrentPos(&CurrentPos);
 
     // Compute Dist and Angle
-    DistToSetpoint = (SetpointToTest->Param2 - CurrentOdoPos.x) * (SetpointToTest->Param2 - CurrentOdoPos.x) + (SetpointToTest->Param3 - CurrentOdoPos.y) * (SetpointToTest->Param3 - CurrentOdoPos.y);
-    AngleToSetpoint = abs(SetpointToTest->Param4 - CurrentOdoPos.angle);
+    DistToSetpoint = (SetpointToTest->Param2 - CurrentPos.x) * (SetpointToTest->Param2 - CurrentPos.x) + (SetpointToTest->Param3 - CurrentPos.y) * (SetpointToTest->Param3 - CurrentPos.y);
+    AngleToSetpoint = abs(SetpointToTest->Param4 - CurrentPos.angle);
 
-    switch(SetpointToTest->MvtMode)
+    switch(SetpointToTest->Cmd)
     {
     // --------------------------------------------------------------------------------------------
     // Check Only for angle
-    case MvtMode_AngleOnly:     
-    case MvtMode_PivotMode:
+    case Mvt_UseAngleOnly:     
+    case Mvt_UsePivotMode:
         if(AngleToSetpoint <= APP_MOVING_ANGLE_APPROCH_PRECISION)
             Ret = OS_TRUE;
         else
@@ -280,7 +280,7 @@ BOOLEAN LibMoving_IsSetpointReached(StructMvtPos *SetpointToTest)
 
     // --------------------------------------------------------------------------------------------
     // Check Only for Dist
-    case MvtMode_DistOnly:
+    case Mvt_UseDistOnly:
         if(DistToSetpoint <= (APP_MOVING_DIST_APPROCH_PRECISION * APP_MOVING_DIST_APPROCH_PRECISION))
             Ret = OS_TRUE;
         else
@@ -289,8 +289,8 @@ BOOLEAN LibMoving_IsSetpointReached(StructMvtPos *SetpointToTest)
         
     // --------------------------------------------------------------------------------------------
     // Check for Angle and Dist
-    case MvtMode_Simple:
-    case MvtMode_MixedMode:
+    case Mvt_Simple:
+    case Mvt_UseMixedMode:
         if((AngleToSetpoint <= APP_MOVING_ANGLE_APPROCH_PRECISION) && (DistToSetpoint <= (APP_MOVING_DIST_APPROCH_PRECISION * APP_MOVING_DIST_APPROCH_PRECISION)))
             Ret = OS_TRUE;
         else
@@ -299,12 +299,13 @@ BOOLEAN LibMoving_IsSetpointReached(StructMvtPos *SetpointToTest)
 
     // --------------------------------------------------------------------------------------------
     // We have to stay in place
-    case MvtMode_DontMove:
+    case Mvt_Stop:
+    case Wait:
         Ret = OS_FALSE;
         break;
 
     // --------------------------------------------------------------------------------------------
-    // MvtMode is not set, exists without any check
+    // MvtMode is not set, exits without any check
     default:
         Ret = OS_TRUE;
         break;

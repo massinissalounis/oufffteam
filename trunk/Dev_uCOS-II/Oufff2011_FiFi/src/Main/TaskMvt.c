@@ -22,26 +22,32 @@
 void TaskMvt_Main(void *p_arg)
 {
 	// Vars
-	StructMvtPos	CurrentPath[APP_MOVING_SEQ_LEN];		// Data used for storing setpoints
-	StructOdoPos	CurrentOdoPos;							// Data used for storing current pos from TaskOdo
-	StructMsg		*pReadMsg;								// Pointer for retreiving msg from QMvt queue				
+	StructCmd	    CurrentPath[APP_MOVING_SEQ_LEN];		// Data used for storing path orders
+    StructCmd       CurrentCmd;                             // Data for storing current order (to be done)
+	StructPos	    CurrentPos;		    					// Data used for storing current pos from TaskOdo
 	OS_FLAGS		CurrentFlag;							// Var to read current flag								
 	INT8U			CurrentState;							// Var used for storing current state for state machine
 	INT8U			NextState;								// Var used for storing next state for state machine
 	INT8U			Err;									// Var to get error status								
+    INT8S           CurrentSetpoint;                        // Pointer to Current setpoint to reach
+    unsigned int    LastMainCmdId;                          // Var to store last command received from TaskMain
+    unsigned int    NextAsserCmdId;                         // Var to store next command to send to TaskAsser
 
 	#ifdef _TARGET_440H
 		char Debug_State[4];
 	#endif
 
 	// Init
-	memset(CurrentPath, 0, APP_MOVING_SEQ_LEN * sizeof(StructMvtPos));
-	memset(&CurrentOdoPos, 0, 1 * sizeof(StructOdoPos));
-	pReadMsg			= NULL;
+	memset(CurrentPath,         0, APP_MOVING_SEQ_LEN * sizeof(StructCmd));
+    memset(&CurrentCmd,       0, 1 * sizeof(StructCmd));
+	memset(&CurrentPos,         0, 1 * sizeof(StructPos));
 	CurrentFlag			= 0;
 	CurrentState		= 0;
 	NextState			= 0;
 	Err					= 0;
+    CurrentSetpoint     = -1;
+    LastMainCmdId       = 0;
+    NextAsserCmdId      = 0;
 					
 	#ifdef _TARGET_440H
 		memset(Debug_State, 0, 4*sizeof(char));
@@ -83,22 +89,8 @@ void TaskMvt_Main(void *p_arg)
 				{
 					// Start button is still inactive
 					NextState = 0;
-				
-					// Read Msg from QMvt queue
-					pReadMsg = (StructMsg*)OSQAccept(AppQueueMvt, &Err);
 
-					if(NULL != pReadMsg)										
-					{	// A message is available
-						if(Msg_Mvt_SetCurrentPos == pReadMsg->MsgType)
-						{
-							// In Init state, we use only 'Msg_Mvt_SetCurrentPos' msg, all other msg are ignored 
-							// Todo
-						}
-
-						// Delete msg
-						pReadMsg->IsRead = OS_TRUE;
-						pReadMsg = NULL;
-					}
+                    // Place here code for executing Cmd (if necessary)
 				}
 				break;
 
@@ -113,10 +105,40 @@ void TaskMvt_Main(void *p_arg)
 
 			// CASE 002 ---------------------------------------------------------------------------
 			case 2:		// Read Msg from QMvt Queue
-				pReadMsg = (StructMsg*)OSQAccept(AppQueueMvt, &Err);
+				//Check Last CmdID used, if a new msg is ready, use it
+				if(App_CmdToTaskMvtId > LastMainCmdId)										
+				{	
+                    // Ask for Mutex
+                    OSMutexPend(App_MutexCmdToTaskMvt, WAIT_FOREVER, &Err);
+	                {	
+                        // Get current Cmd
+		                memcpy(&CurrentCmd, &App_CmdToTaskMvt, sizeof(StructCmd));
+	                }	
+	                OSMutexPost(App_MutexCmdToTaskMvt);
 
-				if(NULL != pReadMsg)										
-				{	// A message is available
+                    // Update last CmdID used
+                    LastMainCmdId = App_CmdToTaskMvtId;
+
+                    // Analyse Cmd
+                    switch(CurrentCmd.Cmd)
+                    {
+                    case Mvt_Stop:
+                        NextState = 254;
+                        break;
+
+                    case Mvt_UseAngleOnly:
+                    case Mvt_Simple:
+                    case Mvt_UseDistOnly:
+                    case Mvt_UseMixedMode:
+                    case Mvt_UsePivotMode:
+                        NextState = 253;
+                        break;
+
+                    default:
+                        // Invalid Command
+                        NextState = 3;
+                        break;
+                    }
 				}
 				else
 				{	// There is no msg available
@@ -160,9 +182,9 @@ void TaskMvt_Main(void *p_arg)
 			// CASE 004 ---------------------------------------------------------------------------
 			case 4:		// Read Mvt Flag
 				// Read Current Pos
-				if(AppGetCurrentOdoPos(&CurrentOdoPos) == ERR__NO_ERROR)
+				if(AppGetCurrentPos(&CurrentPos) == ERR__NO_ERROR)
                 {   // Check CurrentState Value
-                    if(CurrentOdoPos.CurrentState == CURRENT_STATE__STOP)
+                    if(CurrentPos.CurrentState == CURRENT_STATE__STOP)
                         NextState = 9;
                     else
                         NextState = 0;
@@ -199,26 +221,47 @@ void TaskMvt_Main(void *p_arg)
 
 			// CASE 009 ---------------------------------------------------------------------------
 			case 9:		// Is temporary setpoint reached ?
-				// Todo
-				NextState = 0;
-				break;
+                // Check if we have a setpoint to reach
+                if((CurrentSetpoint >= 0) && (LibMoving_IsSetpointReached(CurrentPath + CurrentSetpoint) == OS_TRUE))
+                {   
+                    // Setpoint has been reached
+                    NextState = 10;
+                }
+                else
+                {
+                    NextState = 0;
+                }
+ 				break;
 
 			// CASE 010 ---------------------------------------------------------------------------
 			case 10:	// Is final setpoint reached ?
-				// Todo
-				NextState = 0;
+                // Check if we have a setpoint to reach
+                if(LibMoving_IsSetpointReached(&CurrentCmd) == OS_TRUE)
+                {
+                    // Setpoint has been reached
+                    NextState = 254;
+                }
+                else
+                {   // Search for next setpoint
+                    NextState = 11;
+                }
 				break;
 
 			// CASE 011 ---------------------------------------------------------------------------
 			case 11:	// Does next setpoint exist ?
-				// Todo
-				NextState = 0;
+				if(CurrentSetpoint > 0)
+                {   // Load next Setpoint
+                    NextState = 12;
+                }
+                else
+                {   // There is no other setpoint in memory, We have to compute a new path
+                    NextState = 253;
+                }
 				break;
 
 			// CASE 012 ---------------------------------------------------------------------------
 			case 12:	// Use next setpoint 
-				// Todo
-				NextState = 0;
+                CurrentSetpoint--;
 				break;
 
 			// CASE 253 ---------------------------------------------------------------------------
@@ -242,7 +285,7 @@ void TaskMvt_Main(void *p_arg)
 			// DEFAULT ----------------------------------------------------------------------------
 			default: // Undefined state
 				// Current state is undefined. Clear current path and ask for stopping mvt
-				memset(CurrentPath, 0, APP_MOVING_SEQ_LEN * sizeof(StructMvtPos));
+				memset(CurrentPath, 0, APP_MOVING_SEQ_LEN * sizeof(StructCmd));
 				NextState = 254;		// Ask for Stopping action
 				break;
 		}

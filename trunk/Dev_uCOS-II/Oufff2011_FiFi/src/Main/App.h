@@ -13,18 +13,23 @@
 #include "AppIncludes.h"
 
 /***** Queue *****/
-OS_EVENT		*AppQueueMvt;							// Queue for storing msg from TaskMain to TaskMvt
 OS_EVENT		*AppQueueSensors;						// Queue for storing msg from TaskMain to TaskSensors
 
-#if APP_QUEUE_MVT_SIZE > 0
-void*			AppQMvtStk[APP_QUEUE_MVT_SIZE];			// Stack to store pointer to msg for Mvt Queue
-#endif
 #if APP_QUEUE_SENSORS_SIZE > 0
 void*			AppQSensorsStk[APP_QUEUE_SENSORS_SIZE];	// Stack to store pointer to msg for Sensors Queue
 #endif
 
 StructMsg		AppMsgStk[APP_QUEUES_TOTAL_SIZE];		// Stack to store msg for all Queues
-StructMsg		AppHighPrioMsg;							// Struct to store an high priority msg (e.g. the stop msg)
+
+//****** Global Vars ******/
+StructCmd       App_CmdToTaskMvt;                       // Var to store next msg to TaskMvt (from TaskMain)
+unsigned int    App_CmdToTaskMvtId;                     // Var to store MsgID of App_CmdToTaskMvt
+StructCmd       App_CmdToTaskAsser;                     // Var to store next msg to TaskAsser (from TaskMvt)
+unsigned int    App_CmdToTaskAsserId;                   // Var to store MsgID of App_CmdToTaskAsser
+
+/***** MUTEX / SEMAPHORES *****/
+OS_EVENT	    *App_MutexCmdToTaskMvt = NULL;		    // Mutex to limit access (RW) to Mvt Setpoint variable (from Main to TaskMvt)
+OS_EVENT	    *App_MutexCmdToTaskAsser = NULL;		// Mutex to limit access (RW) to Asser Setpoint variable (from TaskMvt to TaskAsser)
 
 /***** Enum *****/
 EnumColor		AppCurrentColor;						// Contains current color (read from bsp)

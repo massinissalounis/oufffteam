@@ -120,7 +120,7 @@ float AppCheckAngleInDeg(float ValueToCheck)
 }
 
 // ------------------------------------------------------------------------------------------------
-INT8U AppGetCurrentOdoPos(StructOdoPos *CurrentOdoPos)
+INT8U AppGetCurrentPos(StructPos *CurrentPos)
 {
-	return TaskOdo_GetCurrentPos(CurrentOdoPos);
+	return TaskOdo_GetCurrentPos(CurrentPos);
 }
