@@ -77,7 +77,7 @@ void TaskMain_Main(void *p_arg)
 //		AppPostQueueMsg(AppQueueAsserEvent, &MsgToPost);
 
 		// Change Current Pos
-		memcpy(&AppCurrentPos, &TaskMain_NextSetpointPos, sizeof(StructOdoPos));
+		memcpy(&AppCurrentPos, &TaskMain_NextSetpointPos, sizeof(StructPos));
 		
 	}
 	OSMutexPost(Mut_AppCurrentPos);							// FIN SECTION CRITIQUE

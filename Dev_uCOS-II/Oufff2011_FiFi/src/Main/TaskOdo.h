@@ -38,11 +38,11 @@
 #define MOVEMENT_DETECTION_DISTANCE_THRESHOLD	10 // in mm
 
 
-INT8U	TaskOdo_GetCurrentPos(StructOdoPos *CurrentOdoPos);
+INT8U	TaskOdo_GetCurrentPos(StructPos *CurrentPos);
 	// Function for reading current odo position
-	// *CurrentOdoPos = Pointer for storing current value
+	// *CurrentPos = Pointer for storing current value
 	// Returns :	- ERR__NO_ERROR if no error
-	//				- ERR__INVALID_PARAM if CurrentOdoPos is not set
+	//				- ERR__INVALID_PARAM if CurrentPos is not set
 
 void	TaskOdo_Main(void *p_arg);
 	// Fonction principal du process d'odométrie

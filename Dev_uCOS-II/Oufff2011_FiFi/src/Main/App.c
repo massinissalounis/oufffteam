@@ -223,38 +223,27 @@ void AppCreateIPCS()
 {
 	INT8U perr;
 
-#if APP_QUEUE_MAIN_SIZE > 0
-	// Create an empty queue for main process
-	AppQueueMainEvent = OSQCreate(AppQueueMainStk, APP_QUEUE_MAIN_SIZE);
-	if(NULL == AppQueueMainEvent)		// Check if Queue is well created
+    // Mutex
+   	App_MutexCmdToTaskMvt = OSMutexCreate(APP_TASK_HIGHER_PRIO, &perr);
+	App_MutexCmdToTaskAsser = OSMutexCreate(APP_TASK_HIGHER_PRIO, &perr);
+	if((NULL == App_MutexCmdToTaskMvt) || (NULL == App_MutexCmdToTaskAsser))
 	{
-#ifndef __DEBUG
-		putsUART2("Error : Unable to create MainQueue\n");
-		putsUART2("Restarting...\n");	
-		//SoftReset();
-#else
-		putsUART2("DEBUG (App.c) : Error -> Unable to create MainQueue\n");
+		putsUART2("DEBUG (App.c) : Error -> Unable to create Semaphore or Mutex\n");
 		putsUART2("DEBUG (App.c) : Entering in sleeping mode...\n");	
-#endif
 		while(OS_TRUE)		// Infinite Loop
 			OSTimeDlyHMSM(1, 0, 0, 0);		
 	}
-#endif
 
-#if APP_QUEUE_ASSER_SIZE > 0
+
+#if APP_QUEUE_SENSORS_SIZE > 0
 	// Create an empty queue for asser process
-	AppQueueAsserEvent = OSQCreate(AppQueueAsserStk, APP_QUEUE_ASSER_SIZE);
-	if(NULL == AppQueueAsserEvent)		// Check if Queue is well created
+	AppQueueSensors = OSQCreate(AppQSensorsStk, APP_QUEUE_SENSORS_SIZE);
+	if(NULL == AppQueueSensors)		// Check if Queue is well created
 	{
-#ifndef __DEBUG
-		putsUART2("Error : Unable to create AsserQueue\n");
-		putsUART2("Restarting...\n");	
-		//SoftReset();
-#else
 		putsUART2("DEBUG (App.c) : Error -> Unable to create AsserQueue\n");
 		putsUART2("DEBUG (App.c) : Entering in sleeping mode...\n");	
-#endif
-		while(OS_TRUE)		// Infinite Loop
+
+        while(OS_TRUE)		// Infinite Loop
 			OSTimeDlyHMSM(1, 0, 0, 0);		
 	}
 #endif
@@ -263,15 +252,10 @@ void AppCreateIPCS()
 	AppFlags = OSFlagCreate(APP_PARAM_APPFLAG_INITAL_VALUE, &perr);
 	if(NULL == AppFlags)
 	{
-#ifndef __DEBUG
-		putsUART2("Error : Unable to create Appliction Flag\n");
-		putsUART2("Restarting...\n");	
-		//SoftReset();
-#else
 		putsUART2("DEBUG (App.c) : Error -> Unable to create Appliction Flag\n");
 		putsUART2("DEBUG (App.c) : Entering in sleeping mode...\n");	
-#endif
-		while(OS_TRUE)		// Infinite Loop
+
+        while(OS_TRUE)		// Infinite Loop
 			OSTimeDlyHMSM(1, 0, 0, 0);		
 	}
 
@@ -291,20 +275,21 @@ void AppInitVar()
 	int i;
 
 	// Vars
-//	AppQueueMainEvent = NULL;												/* Queue for get TaskMain events				*/
-//	AppQueueAsserEvent = NULL;												/* Queue for get Asser events					*/
+    AppQueueSensors = NULL;
 	AppFlags = NULL;														/* Application Flags							*/
 	AppCurrentColor = c_NotSet;												/* Set CurrentColor to NotSet					*/
+    App_CmdToTaskMvtId = 0;                                               // Var to store MsgID of App_CmdToTaskMvt
+    App_CmdToTaskAsserId = 0;                                             // Var to store MsgID of App_CmdToTaskAsser
 
 	// Arrays
-#if APP_QUEUE_MAIN_SIZE > 0
-	memset(AppQueueMainStk, 0, sizeof(void*)*APP_QUEUE_MAIN_SIZE);			/* Set Main Queue to NULL					*/
+#if APP_QUEUE_SENSORS_SIZE > 0
+	memset(AppQSensorsStk, 0, sizeof(void*) * APP_QUEUE_SENSORS_SIZE);		/* Set Sensors Queue to NULL					*/
 #endif
-#if APP_QUEUE_ASSER_SIZE > 0
-	memset(AppQueueAsserStk, 0, sizeof(void*)*APP_QUEUE_ASSER_SIZE);		/* Set Main Queue to NULL					*/
-#endif
-	memset(AppMsgStk, 0, sizeof(StructMsg) * APP_QUEUES_TOTAL_SIZE);
-	
+
+    memset(AppMsgStk,               0, sizeof(StructMsg) * APP_QUEUES_TOTAL_SIZE);
+    memset(&App_CmdToTaskMvt,     0, sizeof(StructCmd) * 1);
+    memset(&App_CmdToTaskAsser,   0, sizeof(App_CmdToTaskAsser) * 1);
+
 	// Clear Msg
 	for(i=0; i<APP_QUEUES_TOTAL_SIZE; i++)
 		AppMsgStk[i].IsRead = OS_TRUE;

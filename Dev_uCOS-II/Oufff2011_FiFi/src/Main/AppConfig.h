@@ -52,7 +52,7 @@
 #define APP_PARAM_APPFLAG_BIT02					0x00000004	//	| 2 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT03					0x00000008	//	| 3 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT04					0x00000010	//	| 4 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT05					0x00000020	//	| 5 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_NEW_MVT_AVAILABLE		0x00000020	//	| 5 | New Mvt Flag				| New Mvt Available	| No Mvt Available  | Soft			|
 #define APP_PARAM_APPFLAG_MVT_STATE				0x00000040	//	| 6 | Mouvement state			| Robot is moving	| Robot is stopped	| Soft			|
 #define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's running	| Time's Up		 	| Soft			|	
 #define APP_PARAM_APPFLAG_GP2_1					0x00000100	//	| 8 | GP2_1						| Active			| Inactive			| Hard			|
@@ -130,9 +130,8 @@
 *********************************************************************************************************
 */
 
-#define APP_QUEUE_MVT_SIZE						8	/* Nb max of msg from TaskMain to TaskMvt		(0=Not Used)	*/
 #define APP_QUEUE_SENSORS_SIZE					8	/* Nb max of msg from TaskMain to TaskSensors	(0=Not Used)	*/
-#define APP_QUEUES_TOTAL_SIZE					(APP_QUEUE_MVT_SIZE + APP_QUEUE_SENSORS_SIZE)
+#define APP_QUEUES_TOTAL_SIZE					(APP_QUEUE_SENSORS_SIZE)
 
 /*
 *********************************************************************************************************

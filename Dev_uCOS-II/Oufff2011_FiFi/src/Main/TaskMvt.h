@@ -11,6 +11,7 @@
 #define TASKMVT_H
 
 #include "AppIncludes.h"
+#include "LibMoving.h"
 
 void TaskMvt_Main(void *p_arg);
 	// Fonction principal du process de deplacement

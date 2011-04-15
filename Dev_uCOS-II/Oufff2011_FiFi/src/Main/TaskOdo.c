@@ -15,7 +15,7 @@
 #include "TaskOdo.h"
 #include "AppGlobalVars.h"
 
-StructOdoPos TaskOdo_CurrentPos;
+StructPos TaskOdo_CurrentPos;
 
 /***** MUTEX / SEMAPHORES *****/
 OS_EVENT	*SemOdo = NULL;
@@ -218,17 +218,17 @@ unsigned char movement_detection()
 
 
 // ------------------------------------------------------------------------------------------------
-INT8U	TaskOdo_GetCurrentPos(StructOdoPos *CurrentOdoPos)
+INT8U	TaskOdo_GetCurrentPos(StructPos *CurrentPos)
 {
 	INT8U	Err = ERR__NO_ERROR;
 
-	if((NULL == CurrentOdoPos) || (NULL == MutexCurrentPos))
+	if((NULL == CurrentPos) || (NULL == MutexCurrentPos))
 		return ERR__INVALID_PARAM;
 
 	// Begin Critical Section
 	OSMutexPend(MutexCurrentPos, WAIT_FOREVER, &Err);
 	{	
-		memcpy(CurrentOdoPos, &TaskOdo_CurrentPos, sizeof(StructOdoPos));
+		memcpy(CurrentPos, &TaskOdo_CurrentPos, sizeof(StructPos));
 	}	
 	OSMutexPost(MutexCurrentPos);
 	// End Critical Section

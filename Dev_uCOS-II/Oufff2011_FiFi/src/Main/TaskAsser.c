@@ -19,7 +19,7 @@
 //////////////////////////////////////////////
 // Global Vars Coefficients
 //////////////////////////////////////////////
-StructOdoPos TaskAsser_CurrentPos;							// Local var to read current pos
+StructPos TaskAsser_CurrentPos;							// Local var to read current pos
 
 
 /////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@ PID_data wheel_left_pid_data;
 QUADRAMP_data distance_quadramp_data;
 
 // General robot control datas
-StructOdoPos setpoint;
+StructPos setpoint;
 
 // Loop datas
 float error_debug_1;
@@ -301,7 +301,7 @@ void init_control_motion()
 	setpoint.right_encoder=0;
 	setpoint.left_encoder=0;
 
-	memset(&TaskAsser_CurrentPos, 0, sizeof(StructOdoPos));
+	memset(&TaskAsser_CurrentPos, 0, sizeof(StructPos));
 
 	// init PID
 	PID_Initialization();
@@ -405,7 +405,7 @@ void distance_by_vector_projection_angle_between_robot_and_direction (float fina
 }
 
 // Angle only in theta-alpha control
-unsigned char mode_1_control_motion(StructOdoPos *psetpoint, StructOdoPos *pcurrent, float *raw_command_right, float *raw_command_left)
+unsigned char mode_1_control_motion(StructPos *psetpoint, StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
 {
 	float error_angle=0.0;
 	float error_distance=0.0;
@@ -431,7 +431,7 @@ unsigned char mode_1_control_motion(StructOdoPos *psetpoint, StructOdoPos *pcurr
 }
 
 // Distance only in theta-alpha control
-unsigned char mode_2_control_motion(StructOdoPos *psetpoint, StructOdoPos *pcurrent, float *raw_command_right, float *raw_command_left)
+unsigned char mode_2_control_motion(StructPos *psetpoint, StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
 {
 	float error_angle=0.0;
 	float error_distance=0.0;
@@ -467,7 +467,7 @@ unsigned char mode_2_control_motion(StructOdoPos *psetpoint, StructOdoPos *pcurr
 
 // Distance + Angle in theta-alpha control
 /// Improvements : parameter for the final approach distance
-unsigned char mode_3_control_motion(StructOdoPos *psetpoint, StructOdoPos *pcurrent, float *raw_command_right, float *raw_command_left)
+unsigned char mode_3_control_motion(StructPos *psetpoint, StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
 {
 	float error_angle=0.0;
 	float error_distance=0.0;
@@ -513,7 +513,7 @@ unsigned char mode_3_control_motion(StructOdoPos *psetpoint, StructOdoPos *pcurr
 }
 
 // Pivot control motion in separated wheel control
-unsigned char mode_4_control_motion(StructOdoPos *psetpoint, StructOdoPos *pcurrent, float *raw_command_right, float *raw_command_left)
+unsigned char mode_4_control_motion(StructPos *psetpoint, StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
 {
 	// setpoint.pivot_wheel // 0: left 1: right
 	// setpoint.pivot_angle
@@ -607,7 +607,7 @@ void TaskAsser_Main(void *p_arg)
 			pCurrentMsg->IsRead = OS_TRUE;
 
 			// SYSTEM CONTROL
-			switch(pCurrentMsg->MsgType)
+			switch(pCurrentMsg->Message)
 			{
 /*				case Msg_Asser_MoveMode3:	// Define new setpoint
 					setpoint.x = pCurrentMsg->Param1; 
@@ -641,7 +641,7 @@ void TaskAsser_Main(void *p_arg)
 					break;
 			}
 
-			putsUART2("TASK_ASSER : Received Mesg ---> Param1 =");
+/*			putsUART2("TASK_ASSER : Received Mesg ---> Param1 =");
 			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pCurrentMsg->Param1, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 			putsUART2(buffer_ptr);
 			putsUART2(" , Param2 =");
@@ -654,7 +654,7 @@ void TaskAsser_Main(void *p_arg)
 			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pCurrentMsg->Param4, (CPU_INT08U) 2, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 			putsUART2(buffer_ptr);
 			putsUART2("\n");
-		}
+*/		}
 			
 
 		// MOTION CONTROL LOOP
@@ -663,7 +663,7 @@ void TaskAsser_Main(void *p_arg)
 		command_left =0;
 		command_right =0;
 
-		// Read Current OdoPos
+		// Read CurrentPos
 		TaskOdo_GetCurrentPos(&TaskAsser_CurrentPos);
 
 		// Asser mode control
