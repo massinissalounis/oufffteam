@@ -17,13 +17,57 @@
 #define TASK_MVT_FLAGS_TO_READ	(APP_PARAM_APPFLAG_TIMER_STATUS + APP_PARAM_APPFLAG_START_BUTTON + APP_PARAM_APPFLAG_ALL_SENSORS)
 
 // ------------------------------------------------------------------------------------------------
+void TaskMvt_SendSetpointToTaskAsser(StructCmd *Setpoint)
+{
+	INT8U			Err;									// Var to get error status								
+	StructPos	    CurrentPos;		    					// Data used for storing current pos from TaskOdo
+
+	if(NULL != Setpoint)
+	{
+		// Check value
+		if((USE_CURRENT_VALUE == Setpoint->Param2) || (USE_CURRENT_VALUE == Setpoint->Param2) || (USE_CURRENT_VALUE == Setpoint->Param2))
+		{
+			// Read current Odo value (needed for next setpoint)
+			if(AppGetCurrentPos(&CurrentPos) != ERR__NO_ERROR)
+				return;
+
+			// Update value if necessary (only usable for (x,y,alpha) mvt
+			if(USE_CURRENT_VALUE == Setpoint->Param2)
+				Setpoint->Param2 = CurrentPos.x;
+
+			if(USE_CURRENT_VALUE == Setpoint->Param3)
+				Setpoint->Param3 = CurrentPos.y;
+
+			if(USE_CURRENT_VALUE == Setpoint->Param4)
+				Setpoint->Param4 = CurrentPos.angle;
+		}
+
+		// Send Data
+        // Ask for Mutex
+        OSMutexPend(App_MutexCmdToTaskAsser, WAIT_FOREVER, &Err);
+	    {	
+            // Get current Cmd
+		    memcpy(&App_CmdToTaskAsser, &Setpoint, sizeof(StructCmd));
+	    }	
+	    OSMutexPost(App_MutexCmdToTaskAsser);
+
+        // Update last CmdID used
+		App_CmdToTaskAsserId++;
+	}
+
+
+	return;
+}
+
+// ------------------------------------------------------------------------------------------------
 // TaskMvt_Main()
 // ------------------------------------------------------------------------------------------------
 void TaskMvt_Main(void *p_arg)
 {
 	// Vars
 	StructCmd	    CurrentPath[APP_MOVING_SEQ_LEN];		// Data used for storing path orders
-    StructCmd       CurrentCmd;                             // Data for storing current order (to be done)
+    StructCmd       CurrentCmd;                             // Data for storing current order from TaskMain (to be done)
+    StructCmd       StopCmd;								// Command used for stopping the current mvt
 	StructPos	    CurrentPos;		    					// Data used for storing current pos from TaskOdo
 	OS_FLAGS		CurrentFlag;							// Var to read current flag								
 	INT8U			CurrentState;							// Var used for storing current state for state machine
@@ -31,23 +75,30 @@ void TaskMvt_Main(void *p_arg)
 	INT8U			Err;									// Var to get error status								
     INT8S           CurrentSetpoint;                        // Pointer to Current setpoint to reach
     unsigned int    LastMainCmdId;                          // Var to store last command received from TaskMain
-    unsigned int    NextAsserCmdId;                         // Var to store next command to send to TaskAsser
 
 	#ifdef _TARGET_440H
 		char Debug_State[4];
 	#endif
 
 	// Init
-	memset(CurrentPath,         0, APP_MOVING_SEQ_LEN * sizeof(StructCmd));
+	memset(CurrentPath,       0, APP_MOVING_SEQ_LEN * sizeof(StructCmd));
     memset(&CurrentCmd,       0, 1 * sizeof(StructCmd));
-	memset(&CurrentPos,         0, 1 * sizeof(StructPos));
+	memset(&CurrentPos,       0, 1 * sizeof(StructPos));
+
+	// Define stop cmd
+	StopCmd.Cmd					= Mvt_Stop;
+	StopCmd.Param1				= 1;
+	StopCmd.Param2				= USE_CURRENT_VALUE;
+	StopCmd.Param3				= USE_CURRENT_VALUE;
+	StopCmd.Param4				= USE_CURRENT_VALUE;
+	StopCmd. ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+
 	CurrentFlag			= 0;
 	CurrentState		= 0;
 	NextState			= 0;
 	Err					= 0;
     CurrentSetpoint     = -1;
     LastMainCmdId       = 0;
-    NextAsserCmdId      = 0;
 					
 	#ifdef _TARGET_440H
 		memset(Debug_State, 0, 4*sizeof(char));
@@ -104,7 +155,7 @@ void TaskMvt_Main(void *p_arg)
 				break;
 
 			// CASE 002 ---------------------------------------------------------------------------
-			case 2:		// Read Msg from QMvt Queue
+			case 2:		// Read Msg from Main
 				//Check Last CmdID used, if a new msg is ready, use it
 				if(App_CmdToTaskMvtId > LastMainCmdId)										
 				{	
@@ -262,24 +313,63 @@ void TaskMvt_Main(void *p_arg)
 			// CASE 012 ---------------------------------------------------------------------------
 			case 12:	// Use next setpoint 
                 CurrentSetpoint--;
+
+				if(CurrentSetpoint < 0)
+				{
+					// There is no more setpoint in memory
+					NextState = 0;
+				}
+				else
+				{
+					// Send new command to TaskAsser
+					TaskMvt_SendSetpointToTaskAsser(CurrentPath + CurrentSetpoint);
+				}
 				break;
 
 			// CASE 253 ---------------------------------------------------------------------------
 			case 253:	// Compute new traj
-				// Todo
-				NextState = 0;
+				// First step, clear all current orders
+				memset(CurrentPath, 0, APP_MOVING_SEQ_LEN * sizeof(StructCmd));
+
+				// Compute New traj
+				LibMoving_ComputeNewPath(&CurrentCmd, CurrentPath, &CurrentSetpoint);
+
+				// Check if a path has been found ?
+				if(CurrentSetpoint > 0)
+				{
+					// A path has been found, Send new order 
+					NextState = 12;
+				}
+				else
+				{
+					// There is no possible path, we do nothing
+					NextState = 254;	// STOP action
+				}
 				break;
 
 			// CASE 254 ---------------------------------------------------------------------------
 			case 254:	// Ask for stopping mvt
-				// Todo
+				// Disable all current path
+				CurrentSetpoint = -1;
+				memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
+				memcpy(&CurrentCmd,	&StopCmd,	1 * sizeof(StructCmd));
+
+				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
+
+				// Todo : Avertir le main qu'on est arrêté (FLAG)
+
 				NextState = 0;
 				break;
 
 			// CASE 255 ---------------------------------------------------------------------------
 			case 255:	// End
-				// Todo
-				// Ask for stopping action if Mvt Moving Flag is set
+				// Disable all current path
+				CurrentSetpoint = -1;
+				memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
+				memset(&CurrentCmd,	0,	1 * sizeof(StructCmd));
+
+				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
+
 				break;
 
 			// DEFAULT ----------------------------------------------------------------------------

@@ -13,6 +13,10 @@
 #include "AppIncludes.h"
 #include "LibMoving.h"
 
+void TaskMvt_SendSetpointToTaskAsser(StructCmd *Setpoint);
+	// Function for sending new command to TaskAsser
+	// Setpoint			: Expected Setpoint
+
 void TaskMvt_Main(void *p_arg);
 	// Fonction principal du process de deplacement
 	// void *p_arg		: No Arg

@@ -39,7 +39,7 @@ void LibMoving_MoveInMM(int Dist, INT8U Speed, StructCmd *NextSetpoint)
 	// Compute new position
 	NextSetpoint->Param2 = CurrentPos.x + Dist * cosf(CurrentPos.angle);
 	NextSetpoint->Param3 = CurrentPos.y + Dist * sinf(CurrentPos.angle);
-	NextSetpoint->Param4 = CurrentPos.angle;
+	NextSetpoint->Param4 = USE_CURRENT_VALUE;
 
 	if(Dist >= 0)
 		NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_FRONT_SENSORS;
@@ -72,8 +72,8 @@ void LibMoving_RotateInDeg(float AngleInDeg, INT8U Speed, StructCmd *NextSetpoin
     AppGetCurrentPos(&CurrentPos);
 
 	// Compute new angle
-	NextSetpoint->Param2 = CurrentPos.x;
-	NextSetpoint->Param3 = CurrentPos.y; 
+	NextSetpoint->Param2 = USE_CURRENT_VALUE;
+	NextSetpoint->Param3 = USE_CURRENT_VALUE; 
 	NextSetpoint->Param4 = CurrentPos.angle + AppConvertDegInRad(AngleInDeg);
 
 	NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_ALL_SENSORS;
@@ -104,8 +104,8 @@ void LibMoving_MoveToAngleInDeg(float AngleToGoInDeg, INT8U Speed, StructCmd *Ne
     AppGetCurrentPos(&CurrentPos);
 
 	// Compute new angle
-	NextSetpoint->Param2 = CurrentPos.x;
-	NextSetpoint->Param3 = CurrentPos.y; 
+	NextSetpoint->Param2 = USE_CURRENT_VALUE;
+	NextSetpoint->Param3 = USE_CURRENT_VALUE; 
 	NextSetpoint->Param4 = AppConvertDegInRad(AngleToGoInDeg);
 
 	NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_ALL_SENSORS;
@@ -114,73 +114,98 @@ void LibMoving_MoveToAngleInDeg(float AngleToGoInDeg, INT8U Speed, StructCmd *Ne
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_DivideMvt(StructCmd *OldPos, StructCmd *ExpectedPos, int *NewMovingSeqRemainingSteps)
+void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S *NewPathLength)
 {
-/* Todo
 	// Check for parameters
-	if((NULL == OldPos) || (NULL == ExpectedPos) || (NULL == NewMovingSeqRemainingSteps))
+	if((NULL == ExpectedCmd) || (NULL == NewPath) || (NULL == NewPathLength))
 	{
-		if(NULL != NewMovingSeqRemainingSteps)
-			*NewMovingSeqRemainingSteps == -1;
+		if(NULL != NewPathLength)
+			*NewPathLength = 0;
 		
 		return;
 	}
 
-#ifdef APP_MOVING_ALGO_1_SIMPLE
-	// Simple Moving Algo
+	// Vars
+	StructPos	    CurrentPos;		    					// Data used for storing current pos from TaskOdo
 	float TmpX = 0;
 	float TmpY = 0;
 	float TmpAngle = 0;
 	float TmpNewAngle = 0;
 
-	TmpX = ExpectedPos->x - OldPos->x;
-	TmpY = ExpectedPos->y - OldPos->y;
+	// Clear New Path memory
+	memset(NewPath, 0, APP_MOVING_SEQ_LEN * sizeof(StructCmd));
 
-	// If movement is too short for computation, we don't do anything
-	/* Todo
-	if((fabs(TmpX) < APP_PARAM_ERR_ON_POS) && (fabs(TmpY) < APP_PARAM_ERR_ON_POS))
-	{
+	// Select Mvt Type
+    switch(ExpectedCmd->Cmd)
+    {
+    // --------------------------------------------------------------------------------------------
+    // Simple move (no computation)
+    case Mvt_UseAngleOnly:     
+    case Mvt_UseDistOnly:
+    case Mvt_UsePivotMode:
+    case Mvt_Simple:
+		// There is only 1 cmd to compute
+		memcpy(ExpectedCmd, NewPath + 0, sizeof(StructCmd));
+		*NewPathLength = 1;
+        break;
+
+    // --------------------------------------------------------------------------------------------
+    // Compute for for Mixed Mode
+    case Mvt_UseMixedMode:
+
+		// Read for current postition
+		if(AppGetCurrentPos(&CurrentPos) != ERR__NO_ERROR)
+		{   
+			// In case of we are unable to read current position, we return an empty path
+			*NewPathLength = 0;
+			return;
+		}
+
+		// Compute temp values for angle
+		TmpX = ExpectedCmd->Param2 - CurrentPos.x;
+		TmpY = ExpectedCmd->Param3 - CurrentPos.y;
+
+		// Check dist between current pos and setpoint to check if the movement is not a small mvt
+		if(TmpX * TmpX + TmpY * TmpY < APP_MOVING_MINIMAL_DIST_FOR_MIXED_MODE * APP_MOVING_MINIMAL_DIST_FOR_MIXED_MODE)
+		{
+			// Next movement is to short for using mixed mode, we do nothing
+			*NewPathLength = 0;
+			return;
+		}
+
+		// Movment will be done in 3 steps
+		// First one: Turn to be in the correct direction
+		(NewPath + 3)->Param1	 			= ExpectedCmd->Param1;
+		(NewPath + 3)->Param2	 			= USE_CURRENT_VALUE;
+		(NewPath + 3)->Param3	 			= USE_CURRENT_VALUE;
+		(NewPath + 3)->Param4				= atan2f(TmpY, TmpX);
+		(NewPath + 3)->ActiveSensorsFlag	= ExpectedCmd->ActiveSensorsFlag;
+		
+		// Second one: Go to the expected pos
+		(NewPath + 2)->Param1	 			= ExpectedCmd->Param1;
+		(NewPath + 2)->Param2	 			= ExpectedCmd->Param2;
+		(NewPath + 2)->Param3	 			= ExpectedCmd->Param3;
+		(NewPath + 2)->Param4 				= USE_CURRENT_VALUE;
+		(NewPath + 2)->ActiveSensorsFlag 	= ExpectedCmd->ActiveSensorsFlag;
+
 		// Third (last) one: Turn to the expected pos
-		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].x	 			= ExpectedPos->x;
-		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].y	 			= ExpectedPos->y;
-		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].angle 			= ExpectedPos->angle;
-		TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1].IDActiveSensors 	= ExpectedPos->IDActiveSensors;
-	
+		(NewPath + 1)->Param1	 			= ExpectedCmd->Param1;
+		(NewPath + 1)->Param2	 			= ExpectedCmd->Param2;
+		(NewPath + 1)->Param3	 			= ExpectedCmd->Param3;
+		(NewPath + 1)->Param4				= ExpectedCmd->Param4;
+		(NewPath + 1)->ActiveSensorsFlag	= ExpectedCmd->ActiveSensorsFlag;
+
 		// Set the nb of steps for this movment
-		*NewMovingSeqRemainingSteps = 1;
-	}
-	*/
+		*NewPathLength = 3;
 
-/* Todo
-	// Movment will be done in 3 steps
-	// First one: Turn to be in the correct direction
-	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).x	 				= OldPos->x;
-	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).y	 				= OldPos->y;
-	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).angle 				= atan2f(TmpY, TmpX);
-	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]).IDActiveSensors 	= ExpectedPos->IDActiveSensors;
+        break;
 
-	// Second one: Go to the expected pos
-	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).x	 				= ExpectedPos->x;
-	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).y	 				= ExpectedPos->y;
-	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).angle 				= TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3].angle;
-	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]).IDActiveSensors 	= ExpectedPos->IDActiveSensors;
+    // --------------------------------------------------------------------------------------------
+    // No computation is needed
+    default:
+        break;
+    }
 
-	// Third (last) one: Turn to the expected pos
-	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).x	 				= ExpectedPos->x;
-	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).y	 				= ExpectedPos->y;
-	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).angle 				= ExpectedPos->angle;
-	(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]).IDActiveSensors 	= ExpectedPos->IDActiveSensors;
-
-	// Set the nb of steps for this movment
-	*NewMovingSeqRemainingSteps = 3;
-
-	// First algo has been set, don't try another one
-	return;
-#endif
-
-	// if we are here, that means that no moving algo has been set
-	*NewMovingSeqRemainingSteps = -1;
-*/
 	return;
 }
 

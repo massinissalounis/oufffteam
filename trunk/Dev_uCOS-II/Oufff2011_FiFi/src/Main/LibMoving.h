@@ -32,11 +32,10 @@ void LibMoving_MoveToAngleInDeg(float AngleToGoInDeg, INT8U Speed, StructCmd *Ne
 	// NextSetpoint	    : pointer to the struct for containing new position
 	// MvtMode is set to 'MvtMode_Simple'
 
-// Todo
-void LibMoving_DivideMvt(StructCmd *OldPos, StructCmd *ExpectedPos, int *NewMovingSeqRemainingSteps);
-	// OldPos						: pointer to current postion
-	// ExpectedPos					: pointer to expected position
-	// NewMovingSeqRemainingSteps	: Nb of command set into MovingSeq
+void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S *NewPathLength);
+	// ExpectedCmd					: Command we have to reach 
+	// NewPath						: All commands necessary for reaching ExpectedCmd
+	// NewPathLength				: Nb of command defined in NewPath (0 means, no Path is available)
 
 // Todo
 void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq);
