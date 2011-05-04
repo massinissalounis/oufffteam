@@ -16,6 +16,9 @@
 #define RIGHT_WHEEL				1		// Used for pivot mode
 #define LEFT_WHEEL				-1		// Used for pivot mode
 
+#define USE_CURRENT_VALUE		-9999	// Used into Cmd msg to indicate we want to keep current value 
+										// (Thus no computation is needed for this param)
+
 #define CURRENT_STATE__STOP     0       // Current Odo state is set to "STOP"
 
 // ERROR CODES ###########################################################

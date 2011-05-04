@@ -16,7 +16,7 @@
 *********************************************************************************************************
 */
 #define APP_INIT_ROBOT_SPEED				0.600		// Speed rate (0.0:No Move, 1.0: Full Speed)
-#define APP_INIT_USE_START_BUTTON			OS_TRUE	// Flag to indicate if we have to use start button or not
+#define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
 
 #define APP_GP2D2_LIMIT_FRONT				300			// Object detection around 200 mm
 #define APP_GP2D2_LIMIT_BACK				400			// Object detection around 200 mm
@@ -142,11 +142,16 @@
 // POSITION MANAGER MODE
 //#define ODO_CALIBRATION
 #define APP_MOVING_SEQ_LEN						5			    // Length of moving sequence table (used for evoluate movment)
+																// WARNING : Minimal value is 3
 
 #define APP_MOVING_ASSER_INITIAL_MODE_CTRL		3			    // Initial Mode Controle
 
 #define APP_MOVING_DIST_APPROCH_PRECISION       50.0            // Distance in mm to consider the change of control mode (arrival zone)  
 #define APP_MOVING_ANGLE_APPROCH_PRECISION      2.0             // Angle in degree to consider the setpoint reached
+
+#define APP_MOVING_MINIMAL_DIST_FOR_MIXED_MODE	50.0			// Minimal value necessary for TaskMvt to send order (in mixed mode) to TaskAsser
+																// If dist is under this value, command is not sent 
+																// This limitation is made to prevent small moves (big angle and small length)
 
 /*
 *********************************************************************************************************
