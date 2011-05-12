@@ -29,32 +29,25 @@ void TaskTempo_Main(void *p_arg)
 	// Wait for start msg
 	OSFlagPend(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_WAIT_SET_ALL, 0, &Err);
 	
-	// Get current time
+	// Compute end time
 	StopTime = OSTimeGet() + APP_PARAM_GAME_DURATION * OS_TICKS_PER_SEC;
 
-	// FiFi - 02/01/11 : Modif pour test asser
-	{
-		while(OS_TRUE)	
-		{	
-			OSTimeDlyHMSM(1, 0, 0, 0);		
-		}
-	}
+	#ifdef _TARGET_440H
+		Set_Line_Information( 2, 15, "T", 1);
+	#endif
 
 	do
 	{
 		OSTimeDlyHMSM(0, 0, 0, APP_PARAM_TEMPO_RESOLUTION);		// Delay before next TICKS read
 		CurrentTime = OSTimeGet();								// Read current TICKS
-		#ifdef _TARGET_STARTER_KIT
-			LED_Toggle(3);
-		#endif
 	}
 	while(CurrentTime < StopTime);
 
 	// Time is up. We post the ending flag
 	OSFlagPost(AppFlags, APP_PARAM_APPFLAG_TIMER_STATUS, OS_FLAG_SET, &Err); 
 
-	#ifdef _TARGET_STARTER_KIT
-		LED_Off(3);
+	#ifdef _TARGET_440H
+		Set_Line_Information( 2, 15, "X", 1);
 	#endif
 
 	while(OS_TRUE)	
