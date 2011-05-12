@@ -17,17 +17,36 @@
 #include "TaskMain.h"
 #include "AppGlobalVars.h"
 
+#define TASK_MAIN_FLAGS_TO_READ	(APP_PARAM_APPFLAG_TIMER_STATUS + APP_PARAM_APPFLAG_START_BUTTON + APP_PARAM_APPFLAG_ALL_SENSORS)
+
 // ------------------------------------------------------------------------------------------------
 // TaskMain_Main()
 // ------------------------------------------------------------------------------------------------
 void TaskMain_Main(void *p_arg)
 {
-	EnumColor	LastColorRead= c_NotSet;			// Used to check color modification
-	INT8U		Err = 0;							// Var to get error status								
-	OS_FLAGS	CurrentFlag = 0;					// Var to read current flag								
-	StructMsg	MsgToPost;							// Var to post msg to other tasks						
+	EnumColor	LastColorRead;						// Used to check color modification
+	OS_FLAGS	CurrentFlag;						// Var to read current flag								
+	INT8U		CurrentState;						// Var used for storing current state for state machine
+	INT8U		NextState;							// Var used for storing next state for state machine
+	INT8U		Err;								// Var to get error status								
+
+	// Debug vars
 	char 		uart_buffer[13];
 	char 		*buffer_ptr;
+	#ifdef _TARGET_440H
+		char Debug_State[4];
+	#endif
+
+	// Init
+	LastColorRead			= c_NotSet;
+	CurrentFlag				= 0;
+	CurrentState			= 0;
+	NextState				= 0;
+	Err						= 0;
+
+	#ifdef _TARGET_440H
+		memset(Debug_State, 0, 4*sizeof(char));
+	#endif
 
 	putsUART2("OUFFF TEAM 2011 : Main online\n");
 
@@ -35,10 +54,9 @@ void TaskMain_Main(void *p_arg)
 	OSTimeDlyHMSM(0, 0, 1, 0);
 
 #ifdef _TARGET_440H
-	OSTimeDlyHMSM(0, 0, 4, 0);
+	OSTimeDlyHMSM(0, 0, 2, 0);
 	Set_Line_Information( 1, 0, "                 ", 16);
 	Set_Line_Information( 2, 0, "                 ", 16);
-	AppCurrentColor = c_ColorA;
 #else
 	// Wait for color
 	while(c_NotSet == AppCurrentColor)
@@ -51,23 +69,30 @@ void TaskMain_Main(void *p_arg)
 	{
 		if(AppCurrentColor != LastColorRead)
 		{
+			LastColorRead = AppCurrentColor;
 			// Get CurrentPos for current color
 			if(AppCurrentColor == c_ColorA)
 			{
 				// Todo : Define new position from color
 				putsUART2("TaskMain : Color = Blue\n");
+				#ifdef _TARGET_440H
+					Set_Line_Information( 1, 15, "B", 1);
+				#endif
 			}
 			else
 			{
 				// Todo : Define new position from color
 				putsUART2("TaskMain : Color = Red\n");
+				#ifdef _TARGET_440H
+					Set_Line_Information( 1, 15, "R", 1);
+				#endif
 			}
 
 			// Todo : Send new position to TaskMvt
 		}
 
 		CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_WAIT_SET_ANY, &Err);
-	}while((CurrentFlag & APP_PARAM_APPFLAG_START_BUTTON) == 0);
+	}while((CurrentFlag & APP_PARAM_APPFLAG_START_BUTTON) != APP_PARAM_APPFLAG_START_BUTTON);
 
 	putsUART2("TaskMain : Go !! Go !! Go !!\n");
 	
@@ -76,47 +101,85 @@ void TaskMain_Main(void *p_arg)
 	{
 		// Proc Release
 		OSTimeDly(10);
+
+		// Update current state
+		CurrentState = NextState;
+
+		// Check FLAGS for Task Main
+		CurrentFlag = OSFlagAccept(AppFlags, TASK_MAIN_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ALL, &Err);
 		
-		Set_Line_Information( 2, 0, "Debug : ", 8);
-		// Check FLAGS for timer status
-		//CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_TIMER_STATUS, OS_FLAG_WAIT_SET_ALL, &Err);
+		#ifdef _TARGET_440H
+			sprintf(Debug_State, "%03d", CurrentState);
+			Set_Line_Information( 2, 0, Debug_State, 3);
+			OSTimeDlyHMSM(0, 0, DELAY_S_BETWEEN_NEXT_STATE, DELAY_MS_BETWEEN_NEXT_STATE);
+		#endif
 
-		// DEBUG
+		// State machine
+		switch(CurrentState)
 		{
-			if(CLIC_state(SW1) == 1)
-			{
-				Set_Line_Information( 2, 8, "1 ", 2);
-				OSFlagPost(AppFlags, APP_PARAM_APPFLAG_START_BUTTON + APP_PARAM_APPFLAG_TIMER_STATUS, OS_FLAG_SET, &Err);
-			}
-			else
-				Set_Line_Information( 2, 8, "0 ", 2);
+			// CASE 000 ---------------------------------------------------------------------------
+			case 0:		// Init state
+				NextState = 1;
+				break;
 
+			// CASE 001 ---------------------------------------------------------------------------
+			case 1:		// Check Timer
+				if((CurrentFlag & APP_PARAM_APPFLAG_TIMER_STATUS) == APP_PARAM_APPFLAG_TIMER_STATUS)
+					NextState = 255;		// Time is up
+				else
+					NextState = 2;			// Time is running
 
-			if(CLIC_state(SW2) == 1)
-			{
-				Set_Line_Information( 2, 10, "1 ", 2);
-				OSFlagPost(AppFlags, APP_PARAM_APPFLAG_TIMER_STATUS, OS_FLAG_CLR, &Err);
-			}
-			else
-				Set_Line_Information( 2, 10, "0 ", 2);
+				break;
 
-            
-            if(CLIC_state(SW3) == 1)
-			{
-				Set_Line_Information( 2, 12, "1 ", 2);
-				OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_1 + APP_PARAM_APPFLAG_GP2_1, OS_FLAG_SET, &Err);
-			}
-			else
-            {
-				Set_Line_Information( 2, 12, "0 ", 2);
-				OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_1 + APP_PARAM_APPFLAG_GP2_1, OS_FLAG_CLR, &Err);
-            }
+			// CASE 002 ---------------------------------------------------------------------------
+			case 2:		// Check Beacons
+				// Todo
+				NextState = 1;
+				break;
 
+			// CASE 003 ---------------------------------------------------------------------------
+			case 3:		// Check Current action status
+				// Todo
+				break;
+
+			// CASE 004 ---------------------------------------------------------------------------
+			case 4:		// Get Next Action
+				// Todo
+				break;
+
+			// CASE 005 ---------------------------------------------------------------------------
+			case 5:		// Send Next Action
+				// Todo
+				break;
+
+			// CASE 006 ---------------------------------------------------------------------------
+			case 6:		// Check Current action type (blocking or none blocking)
+				// Todo
+				break;
+
+			// CASE 254 ---------------------------------------------------------------------------
+			case 254:	// Action to be done if beacon is activated
+				// Todo
+				break;
+
+			// CASE 255 ---------------------------------------------------------------------------
+			case 255:	// Final state
+				// Todo
+				break;
+							
+			// DEFAULT ----------------------------------------------------------------------------
+			default:	// Undefined state
+				// Todo
+				break;
 		}
-	
+
 	// We loop until timer is set
-	}while((CurrentFlag & APP_PARAM_APPFLAG_TIMER_STATUS) == 0);
+	}while(CurrentState != 255);
 	// ===============================================================================================
+
+	#ifdef _TARGET_440H
+		Set_Line_Information( 2, 0, "XXX", 3);
+	#endif
 
 	// Time is up : Wait for ever
 	while(OS_TRUE)

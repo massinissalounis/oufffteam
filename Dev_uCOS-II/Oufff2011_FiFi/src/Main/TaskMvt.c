@@ -111,6 +111,7 @@ void TaskMvt_Main(void *p_arg)
 	#endif
 
 	putsUART2("OUFFF TEAM 2011 : Mvt online\n");
+	
 
 	// MAIN LOOP ==================================================================================
 	do
@@ -174,7 +175,7 @@ void TaskMvt_Main(void *p_arg)
 
 			// CASE 001 ---------------------------------------------------------------------------
 			case 1:		// Read Timer flag
-				if((CurrentFlag & APP_PARAM_APPFLAG_TIMER_STATUS) == 0)
+				if((CurrentFlag & APP_PARAM_APPFLAG_TIMER_STATUS) == APP_PARAM_APPFLAG_TIMER_STATUS)
 					NextState = 255;		// Time is up
 				else
 					NextState = 2;			// Time is running
@@ -426,6 +427,10 @@ void TaskMvt_Main(void *p_arg)
 	// We loop until timer is set
 	}while(CurrentState != 255);
 	// ===============================================================================================
+
+	#ifdef _TARGET_440H
+		Set_Line_Information( 1, 0, "XXX", 3);
+	#endif
 
 	// Time is up : Wait for ever
 	while(OS_TRUE)

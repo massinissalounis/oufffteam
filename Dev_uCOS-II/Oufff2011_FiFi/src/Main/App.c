@@ -66,8 +66,8 @@ int  main (void)
 	AppTaskStart();				/* Start all tasks											*/
 
 #ifdef _TARGET_440H
-	Set_Line_Information( 1, 0, "OUFFF TEAM       ", 16);
-	Set_Line_Information( 2, 0, "Coupe 2011       ", 16);
+	Set_Line_Information( 1, 0, "    OUFFF TEAM   ", 16);
+	Set_Line_Information( 2, 0, "    Coupe 2011   ", 16);
 #endif
 
 	OSStart();                  /* Start multitasking (i.e. give control to uC/OS-II)       */
@@ -200,7 +200,7 @@ void  AppTaskStart()
                     APP_TASK_TEMPO_STK_SIZE,
                     (void *)0,
                     OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR);
-
+					
 #if OS_TASK_NAME_SIZE > 13
     OSTaskNameSet(APP_TASK_MAIN_PRIO, "TaskTempo", &err);
 #endif

@@ -17,8 +17,15 @@
 // ------------------------------------------------------------------------------------------------
 BOOLEAN TaskSensors_IsStartButtonPressed()
 {
+#ifdef _TARGET_440H
+	if(CLIC_state(SW1) == 1)
+		return OS_TRUE;
+	else
+		return OS_FALSE;
+#else
 	if(START_State()==0) return OS_TRUE;
 	else return OS_FALSE;
+#endif
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -120,9 +127,17 @@ void TaskSensors_CheckSW()
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_ReadColor()
 {
-	#ifdef _TARGET_STARTER_KIT
-//		AppCurrentColor = c_Blue;	
+	#ifdef _TARGET_440H
+		if(CLIC_state(SW2) == 1)
+		{
+			AppCurrentColor = c_ColorA;	
+		}
+		else
+		{
+			AppCurrentColor = c_ColorB;	
+		}
 	#else
+	// Todo
 		// Read current color
 //		if(COLOR_Read() == 0)
 //			AppCurrentColor = c_Blue;
@@ -143,20 +158,24 @@ void TaskSensors_Main(void *p_arg)
 
 	putsUART2("OUFFF TEAM 2011 : Sensors online\n");
 
-	// We set the current color
-	OSTimeDlyHMSM(0, 0, 0, 500);
-	TaskSensors_ReadColor();
-
 	if(APP_INIT_USE_START_BUTTON == OS_TRUE)
 	{
 		// We're waiting for Start button release
 		while(OS_FALSE == TaskSensors_IsStartButtonPressed())
+		{
+			TaskSensors_ReadColor();
 			OSTimeDly(1);	// Release proc
+		}
 
 		// We're waiting for start button activation
 		while(OS_TRUE == TaskSensors_IsStartButtonPressed())
-			OSTimeDly(1);	// Release proc 
+		{
+			TaskSensors_ReadColor();
+			OSTimeDly(1);	// Release proc
+		}
 	}
+
+	TaskSensors_ReadColor();
 
 	// StartButton has been pressed
 	OSFlagPost(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_SET, &Err); 

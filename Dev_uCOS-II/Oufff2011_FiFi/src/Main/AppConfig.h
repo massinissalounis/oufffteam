@@ -33,15 +33,15 @@
 //#define APP_TASK_ODO_ENABLED							// Activate TaskOdo
 //#define APP_TASK_ASSER_ENABLED						// Activate TaskAsser
 #define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
-//#define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
-//#define APP_TASK_TEMPO_ENABLED						// Activate TaskTempo
+#define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
+#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
 
 /*
 *********************************************************************************************************
 *                                            APP PARAMETERS
 *********************************************************************************************************
 */
-#define	APP_PARAM_GAME_DURATION					90			//  in sec: Time until the end of the game				
+#define	APP_PARAM_GAME_DURATION					10			//  in sec: Time until the end of the game				
 #define APP_PARAM_TEMPO_RESOLUTION				500			//  in ms (0 to 999): Delay before 2 ticks check in TaskTempo		
 
 #define APP_PARAM_APPFLAG_INITAL_VALUE			0x00000000	//  Initial value for AppFlags var 
@@ -55,7 +55,7 @@
 #define APP_PARAM_APPFLAG_BIT04					0x00000010	//	| 4 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_NEW_MVT_AVAILABLE		0x00000020	//	| 5 | New Mvt Flag				| New Mvt Available	| No Mvt Available  | Soft			|
 #define APP_PARAM_APPFLAG_MVT_STATE				0x00000040	//	| 6 | Mouvement state			| Robot is moving	| Robot is stopped	| Soft			|
-#define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's running	| Time's Up		 	| Soft			|	
+#define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running 	| Soft			|	
 #define APP_PARAM_APPFLAG_GP2_1					0x00000100	//	| 8 | GP2_1						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_2					0x00000200	//	| 9 | GP2_2						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_3					0x00000400	//	|10 | GP2_3						| Active			| Inactive			| Hard			|
@@ -118,12 +118,12 @@
 *********************************************************************************************************
 */
 
-#define	APP_TASK_ODO_STK_SIZE					175
-#define APP_TASK_ASSER_STK_SIZE	            	175
-#define APP_TASK_SENSORS_STK_SIZE	            175
-#define APP_TASK_MVT_STK_SIZE					175
-#define APP_TASK_MAIN_STK_SIZE					175
-#define APP_TASK_TEMPO_STK_SIZE	            	50
+#define	APP_TASK_ODO_STK_SIZE					300
+#define APP_TASK_ASSER_STK_SIZE	            	300
+#define APP_TASK_SENSORS_STK_SIZE	            150
+#define APP_TASK_MVT_STK_SIZE					300
+#define APP_TASK_MAIN_STK_SIZE					300
+#define APP_TASK_TEMPO_STK_SIZE	            	150
 
 /*
 *********************************************************************************************************
