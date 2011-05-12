@@ -32,8 +32,8 @@
 typedef enum
 {
 	c_NotSet = -1,
-	c_ColorA,
-	c_ColorB,
+	c_ColorA,					// Blue
+	c_ColorB,					// Red
 }EnumColor;
 
 // Mvt Mode -------------------------------------
@@ -46,6 +46,7 @@ typedef enum
 	Mvt_UsePivotMode,			// Use Asser Mode 4
 	Mvt_Simple,				    // Used a simple mvt (don't divide this mvt)
     Mvt_Stop,                   // Used to stop current mvt
+	App_SetNewPos,				// Msg used to define a new position
 	Wait,       		        // Wait (if all params = 0, wait for ever)
 }EnumCmd;
 
@@ -69,11 +70,11 @@ typedef struct
 typedef struct
 {
 	EnumCmd Cmd;		        // Mode used to go to next major point
-	// MvtMode Type				   Simple			| Wait  	| UseAngleOnly	| UseDistOnly	| UseMixedMode	| UsePivotMode	|
-	short 	Param1;				// Speed(1-100)		| Not Used  | Speed(1-100)	| Speed(1-100)	| Speed(1-100)	| Speed(1-100)	|
-	float 	Param2;				// x				| Not Used	| Not Used		| x				| x				| Wheel to lock	|
-	float 	Param3;				// y				| Not Used	| Not Used		| y				| y				| Not Used		|
-	float	Param4;				// angle			| Not Used	| angle			| Not Used		| angle			| angle			|
+	// MvtMode Type				   Simple			| Wait  	| UseAngleOnly	| UseDistOnly	| UseMixedMode	| UsePivotMode	| App_SetNewPos	|
+	short 	Param1;				// Speed(1-100)		| Not Used  | Speed(1-100)	| Speed(1-100)	| Speed(1-100)	| Speed(1-100)	| Not Used		|
+	float 	Param2;				// x				| Not Used	| Not Used		| x				| x				| Wheel to lock	| x				|
+	float 	Param3;				// y				| Not Used	| Not Used		| y				| y				| Not Used		| y				|
+	float	Param4;				// angle			| Not Used	| angle			| Not Used		| angle			| angle			| angle			|
 	int 	ActiveSensorsFlag;	// Define which sensors we have to use for this movement (if not set, use all external sensors)
 }StructCmd;
 

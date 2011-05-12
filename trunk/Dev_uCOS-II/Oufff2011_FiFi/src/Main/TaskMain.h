@@ -13,9 +13,6 @@
 #include "AppIncludes.h"
 
 // Functions --------------------------------------------------------------------------------------
-void TaskMain_Init();
-	// Init function
-
 void TaskMain_Main(void *p_arg);
 	// Fonction principale
 	// void *p_arg		: Arg for this task

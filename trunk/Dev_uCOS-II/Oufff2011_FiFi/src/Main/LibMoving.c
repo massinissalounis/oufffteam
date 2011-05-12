@@ -175,25 +175,25 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
 
 		// Movment will be done in 3 steps
 		// First one: Turn to be in the correct direction
-		(NewPath + 3)->Param1	 			= ExpectedCmd->Param1;
-		(NewPath + 3)->Param2	 			= USE_CURRENT_VALUE;
-		(NewPath + 3)->Param3	 			= USE_CURRENT_VALUE;
-		(NewPath + 3)->Param4				= atan2f(TmpY, TmpX);
-		(NewPath + 3)->ActiveSensorsFlag	= ExpectedCmd->ActiveSensorsFlag;
+		(NewPath + 2)->Param1	 			= ExpectedCmd->Param1;
+		(NewPath + 2)->Param2	 			= USE_CURRENT_VALUE;
+		(NewPath + 2)->Param3	 			= USE_CURRENT_VALUE;
+		(NewPath + 2)->Param4				= atan2f(TmpY, TmpX);
+		(NewPath + 2)->ActiveSensorsFlag	= ExpectedCmd->ActiveSensorsFlag;
 		
 		// Second one: Go to the expected pos
-		(NewPath + 2)->Param1	 			= ExpectedCmd->Param1;
-		(NewPath + 2)->Param2	 			= ExpectedCmd->Param2;
-		(NewPath + 2)->Param3	 			= ExpectedCmd->Param3;
-		(NewPath + 2)->Param4 				= USE_CURRENT_VALUE;
-		(NewPath + 2)->ActiveSensorsFlag 	= ExpectedCmd->ActiveSensorsFlag;
-
-		// Third (last) one: Turn to the expected pos
 		(NewPath + 1)->Param1	 			= ExpectedCmd->Param1;
 		(NewPath + 1)->Param2	 			= ExpectedCmd->Param2;
 		(NewPath + 1)->Param3	 			= ExpectedCmd->Param3;
-		(NewPath + 1)->Param4				= ExpectedCmd->Param4;
-		(NewPath + 1)->ActiveSensorsFlag	= ExpectedCmd->ActiveSensorsFlag;
+		(NewPath + 1)->Param4 				= USE_CURRENT_VALUE;
+		(NewPath + 1)->ActiveSensorsFlag 	= ExpectedCmd->ActiveSensorsFlag;
+
+		// Third (last) one: Turn to the expected pos
+		(NewPath + 0)->Param1	 			= ExpectedCmd->Param1;
+		(NewPath + 0)->Param2	 			= USE_CURRENT_VALUE;
+		(NewPath + 0)->Param3	 			= USE_CURRENT_VALUE;
+		(NewPath + 0)->Param4				= ExpectedCmd->Param4;
+		(NewPath + 0)->ActiveSensorsFlag	= ExpectedCmd->ActiveSensorsFlag;
 
 		// Set the nb of steps for this movment
 		*NewPathLength = 3;
@@ -210,64 +210,54 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq)
+void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, INT8U Speed, StructCmd *NewPath, INT8S *NewPathLength)
 {
-/* Todo
-	switch(NumEscapeSeq)
+	// Clear memory
+	memset(NewPath, 0, APP_MOVING_SEQ_LEN * sizeof(StructCmd));
+	*NewPathLength = 0;
+
+	switch(EscapeSeqType)
 	{
-		case APP_MOVING_ESCAPE_SEQ_STOP: // *********************************************
-			// Do nothing. 
+		// ****************************************************************************************
+		case APP_MOVING_ESCAPE_SEQ_RIGHT:
+			LibMoving_MoveInMM		(-150,	Speed, NewPath + 4);							// Define first movement
+			LibMoving_RotateInDeg	(-45,	Speed, NewPath + 3);							// Define second movement
+			LibMoving_MoveInMM		(354,	Speed, NewPath + 2);							// Define third movement
+			LibMoving_RotateInDeg	(45,	Speed, NewPath + 1);							// Define fourth movement
+			LibMoving_MoveInMM		(500,	Speed, NewPath + 0);							// Define last movement
+
+			*NewPathLength = 5;
 			break;
 
-		case APP_MOVING_ESCAPE_SEQ_FRONT_RIGHT: // **************************************
-			TaskMain_GetCurrentPos();
+		// ****************************************************************************************
+		case APP_MOVING_ESCAPE_SEQ_LEFT: 
+			LibMoving_MoveInMM		(-150,	Speed, NewPath + 4);							// Define first movement
+			LibMoving_RotateInDeg	(45,	Speed, NewPath + 3);							// Define second movement
+			LibMoving_MoveInMM		(354,	Speed, NewPath + 2);							// Define third movement
+			LibMoving_RotateInDeg	(-45,	Speed, NewPath + 1);							// Define fourth movement
+			LibMoving_MoveInMM		(500,	Speed, NewPath + 0);							// Define last movement
 
-			// Define first move : go back
-			LibMoving_MoveInMM(&TaskMain_CurrentPos, -150, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 5]));									// Define first movement	
-			LibMoving_RotateInDeg(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 5]), -45.0, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 4]));		// Define second movement
-			LibMoving_MoveInMM(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 4]), 354, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]));			// Define third movement	
-			LibMoving_RotateInDeg(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]), 45.0, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]));		// Define fourth movement
-			LibMoving_MoveInMM(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]), 500, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]));			// Define third movement	
-
-			TaskMain_MovingSeqRemainingSteps = 5;																							// Define movement
-			TaskMain_NextSetpointPos.Flag = TaskMain_NextSetpointPos.Flag & !(APP_FLAG_POS__LOCK_IN_POS);									// Release movement
-			TaskMain_NextSetpointPos.IDActiveSensors = TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 5].IDActiveSensors;							// Activate sensors
+			*NewPathLength = 5;
 			break;
 
-		case APP_MOVING_ESCAPE_SEQ_FRONT_LEFT: // ***************************************
-			LibMoving_MoveInMM(&TaskMain_CurrentPos, -150, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 5]));									// Define first movement	
-			LibMoving_RotateInDeg(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 5]), 45.0, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 4]));		// Define second movement
-			LibMoving_MoveInMM(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 4]), 354, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]));			// Define third movement	
-			LibMoving_RotateInDeg(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 3]), -45.0, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]));		// Define fourth movement
-			LibMoving_MoveInMM(&(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 2]), 500, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]));			// Define third movement	
+		// ****************************************************************************************
+		case APP_MOVING_ESCAPE_SEQ_BACK: 
+			LibMoving_MoveInMM(-150, Speed, NewPath + 0);									// Define first movement	
 
-			TaskMain_MovingSeqRemainingSteps = 5;																							// Define movement
-			TaskMain_NextSetpointPos.Flag = TaskMain_NextSetpointPos.Flag & !(APP_FLAG_POS__LOCK_IN_POS);									// Release movement
-			TaskMain_NextSetpointPos.IDActiveSensors = TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 5].IDActiveSensors;							// Activate sensors
+			*NewPathLength = 1;
 			break;
 
-		case APP_MOVING_ESCAPE_SEQ_CHECK_CORN: // ***************************************
-			LibMoving_MoveInMM(&TaskMain_CurrentPos, -150, &(TaskMain_MovingSeq[APP_MOVING_SEQ_LEN - 1]));									// Define first movement	
+		// ****************************************************************************************
+		case APP_MOVING_ESCAPE_SEQ_FRONT: 
+			LibMoving_MoveInMM(150, Speed, NewPath + 0);									// Define first movement	
 
-			TaskMain_MovingSeqRemainingSteps = 1;																							// Define movement
-			TaskMain_NextSetpointPos.Flag = TaskMain_NextSetpointPos.Flag & !(APP_FLAG_POS__LOCK_IN_POS);									// Release movement
-			TaskMain_NextSetpointPos.IDActiveSensors = SENSORS_BACK_ID;																		// Activate sensors
-
-			// Cancel expected position because we can't reach this point. We have to try another...
-			memcpy(&TaskMain_ExpectedPos, &TaskMain_NextSetpointPos, sizeof(StructCmd));
-
-			// Change next state due to collision
-			switch(TaskMain_NextState)
-			{
-				default:
-					break;
-			}
+			*NewPathLength = 1;
 			break;
 
+		// ****************************************************************************************
 		default:
 			break;
 	}
-*/
 }
 
 // ------------------------------------------------------------------------------------------------
