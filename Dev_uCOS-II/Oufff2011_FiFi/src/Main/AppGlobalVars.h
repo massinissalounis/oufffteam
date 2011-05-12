@@ -22,7 +22,7 @@ extern StructMsg		AppMsgStk[APP_QUEUES_TOTAL_SIZE];		// Stack to store msg for a
 //****** Global Vars ******/
 extern StructCmd        App_CmdToTaskMvt;                       // Var to store next msg to TaskMvt (from TaskMain)
 extern unsigned int     App_CmdToTaskMvtId;                     // Var to store MsgID of App_CmdToTaskMvt
-extern  StructCmd       App_CmdToTaskAsser;                     // Var to store next msg to TaskAsser (from TaskMvt)
+extern StructCmd		App_CmdToTaskAsser;                     // Var to store next msg to TaskAsser (from TaskMvt)
 extern unsigned int     App_CmdToTaskAsserId;                   // Var to store MsgID of App_CmdToTaskAsser
 
 /***** MUTEX / SEMAPHORES *****/

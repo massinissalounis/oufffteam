@@ -609,6 +609,8 @@ void TaskAsser_Main(void *p_arg)
 			// SYSTEM CONTROL
 			switch(pCurrentMsg->Message)
 			{
+				// Dans le cas de App_SetNewPos, bien penser a bloquer taskodo avant de prendre en compte l'ordre
+
 /*				case Msg_Asser_MoveMode3:	// Define new setpoint
 					setpoint.x = pCurrentMsg->Param1; 
 					setpoint.y = pCurrentMsg->Param2;

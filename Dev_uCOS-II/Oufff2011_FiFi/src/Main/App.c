@@ -66,9 +66,8 @@ int  main (void)
 	AppTaskStart();				/* Start all tasks											*/
 
 #ifdef _TARGET_440H
-	Set_Line_Information( 1, 0, "OUFFF TEAM 2011  ", 16);
-	OSTimeDlyHMSM(0, 0, 1, 0);
-	Set_Line_Information( 1, 0, "                 ", 16);
+	Set_Line_Information( 1, 0, "OUFFF TEAM       ", 16);
+	Set_Line_Information( 2, 0, "Coupe 2011       ", 16);
 #endif
 
 	OSStart();                  /* Start multitasking (i.e. give control to uC/OS-II)       */
@@ -224,7 +223,7 @@ void AppCreateIPCS()
 	INT8U perr;
 
     // Mutex
-   	App_MutexCmdToTaskMvt = OSMutexCreate(APP_TASK_HIGHER_PRIO, &perr);
+   	App_MutexCmdToTaskMvt = OSMutexCreate(APP_TASK_HIGHER_PRIO+1, &perr);
 	App_MutexCmdToTaskAsser = OSMutexCreate(APP_TASK_HIGHER_PRIO, &perr);
 	if((NULL == App_MutexCmdToTaskMvt) || (NULL == App_MutexCmdToTaskAsser))
 	{
@@ -233,7 +232,6 @@ void AppCreateIPCS()
 		while(OS_TRUE)		// Infinite Loop
 			OSTimeDlyHMSM(1, 0, 0, 0);		
 	}
-
 
 #if APP_QUEUE_SENSORS_SIZE > 0
 	// Create an empty queue for asser process

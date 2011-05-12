@@ -37,16 +37,14 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
 	// NewPath						: All commands necessary for reaching ExpectedCmd
 	// NewPathLength				: Nb of command defined in NewPath (0 means, no Path is available)
 
-// Todo
-void LibMoving_CreateEscapeSeq(CPU_INT08U NumEscapeSeq);
-	// NumEscapeSeq					: Nb of seq to use for create escape seq
-	//		- APP_MOVING_ESCAPE_SEQ_AUTO
-	//		- APP_MOVING_ESCAPE_SEQ_RIGHT
-	//		- APP_MOVING_ESCAPE_SEQ_LEFT
-	//		- APP_MOVING_ESCAPE_SEQ_BACK
-	//		- APP_MOVING_ESCAPE_SEQ_STOP
-	//		- APP_MOVING_ESCAPE_SEQ_CHECK_CORN
-	// Use APP_MOVING_ESCAPE_SEQ_DEFAULT for default escape sequence
+void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, INT8U Speed, StructCmd *NewPath, INT8S *NewPathLength);
+	// EscapeSeqType				: Seq type to use for create escape seq
+	//									- APP_MOVING_ESCAPE_SEQ_RIGHT
+	//									- APP_MOVING_ESCAPE_SEQ_LEFT
+	//									- APP_MOVING_ESCAPE_SEQ_BACK
+	// Speed						: Speed to use for this escape sequence
+	// NewPath						: All commands necessary for this escape seq
+	// NewPathLength				: Nb of command defined in NewPath (0 means, no Path is available)
 
 BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest);
     // *SetpointToTest              : Setpoint we have to test

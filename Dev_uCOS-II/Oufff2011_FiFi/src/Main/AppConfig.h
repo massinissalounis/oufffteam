@@ -15,7 +15,8 @@
 *                                            GLOBAL SETTINGS
 *********************************************************************************************************
 */
-#define APP_INIT_ROBOT_SPEED				0.600		// Speed rate (0.0:No Move, 1.0: Full Speed)
+#define APP_INIT_ROBOT_SPEED				060			// Speed rate					(0:No Move, 100: Full Speed)
+#define APP_ESCAPE_ROBOT_SPEED				060			// Speed rate for escape seq	(0:No Move, 100: Full Speed)
 #define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
 
 #define APP_GP2D2_LIMIT_FRONT				300			// Object detection around 200 mm
@@ -144,7 +145,12 @@
 #define APP_MOVING_SEQ_LEN						5			    // Length of moving sequence table (used for evoluate movment)
 																// WARNING : Minimal value is 3
 
-#define APP_MOVING_ASSER_INITIAL_MODE_CTRL		3			    // Initial Mode Controle
+#define APP_MOVING_ESCAPE_SEQ_RIGHT				1				// Create escape sequence by going on the right 
+#define APP_MOVING_ESCAPE_SEQ_LEFT				2				// Create escape sequence by going on the left 
+#define APP_MOVING_ESCAPE_SEQ_BACK				3				// Create escape sequence by going back
+#define APP_MOVING_ESCAPE_SEQ_FRONT				4				// Create escape sequence by going forward
+
+#define APP_MOVING_ASSER_INITIAL_MODE_CTRL		3			    // Initial Mode Control
 
 #define APP_MOVING_DIST_APPROCH_PRECISION       50.0            // Distance in mm to consider the change of control mode (arrival zone)  
 #define APP_MOVING_ANGLE_APPROCH_PRECISION      2.0             // Angle in degree to consider the setpoint reached
