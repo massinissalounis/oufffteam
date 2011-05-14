@@ -13,6 +13,10 @@
 #include "AppIncludes.h"
 
 // Functions --------------------------------------------------------------------------------------
+void TaskMain_SendSetpointToTaskMvt(StructCmd *NextCmd);
+	// Function for sending new command to TaskMvt
+	// NextCmd			: Cmd to send
+
 void TaskMain_Main(void *p_arg);
 	// Fonction principale
 	// void *p_arg		: Arg for this task

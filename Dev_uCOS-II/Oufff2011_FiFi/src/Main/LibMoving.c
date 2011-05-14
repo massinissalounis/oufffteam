@@ -25,6 +25,7 @@ void LibMoving_MoveInMM(int Dist, INT8U Speed, StructCmd *NextSetpoint)
 
     // Define Setpoint MvtMode and Speed
     NextSetpoint->Cmd = Mvt_Simple;
+	NextSetpoint->CmdType = CmdType_Blocking;
     NextSetpoint->Param1 = Speed;
 
     if(NextSetpoint->Param1 > 100)
@@ -60,6 +61,7 @@ void LibMoving_RotateInDeg(float AngleInDeg, INT8U Speed, StructCmd *NextSetpoin
 
     // Define Setpoint MvtMode and Speed
     NextSetpoint->Cmd = Mvt_Simple;
+	NextSetpoint->CmdType = CmdType_Blocking;
     NextSetpoint->Param1 = Speed;
 
     if(NextSetpoint->Param1 > 100)
@@ -92,6 +94,7 @@ void LibMoving_MoveToAngleInDeg(float AngleToGoInDeg, INT8U Speed, StructCmd *Ne
 
     // Define Setpoint MvtMode and Speed
     NextSetpoint->Cmd = Mvt_Simple;
+	NextSetpoint->CmdType = CmdType_Blocking;
     NextSetpoint->Param1 = Speed;
 
     if(NextSetpoint->Param1 > 100)

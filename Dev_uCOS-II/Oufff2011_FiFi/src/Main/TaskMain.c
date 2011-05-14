@@ -15,9 +15,33 @@
 */
 
 #include "TaskMain.h"
+#include "Strategy.h"
 #include "AppGlobalVars.h"
 
-#define TASK_MAIN_FLAGS_TO_READ	(APP_PARAM_APPFLAG_TIMER_STATUS + APP_PARAM_APPFLAG_START_BUTTON + APP_PARAM_APPFLAG_ALL_SENSORS)
+#define TASK_MAIN_FLAGS_TO_READ	(APP_PARAM_APPFLAG_TIMER_STATUS + APP_PARAM_APPFLAG_START_BUTTON + APP_PARAM_APPFLAG_ALL_SENSORS + APP_PARAM_APPFLAG_ACTION_STATUS)
+
+// ------------------------------------------------------------------------------------------------
+void TaskMain_SendSetpointToTaskMvt(StructCmd *NextCmd)
+{
+	INT8U			Err;									// Var to get error status								
+
+	if(NULL != NextCmd)
+	{
+		// Send Data
+        // Ask for Mutex
+        OSMutexPend(App_MutexCmdToTaskMvt, WAIT_FOREVER, &Err);
+	    {	
+            // Get current Cmd
+		    memcpy(&App_CmdToTaskMvt, &NextCmd, sizeof(StructCmd));
+	    }	
+	    OSMutexPost(App_MutexCmdToTaskMvt);
+
+        // Update last CmdID used
+		App_CmdToTaskMvtId++;
+	}
+
+	return;
+}
 
 // ------------------------------------------------------------------------------------------------
 // TaskMain_Main()
@@ -29,6 +53,8 @@ void TaskMain_Main(void *p_arg)
 	INT8U		CurrentState;						// Var used for storing current state for state machine
 	INT8U		NextState;							// Var used for storing next state for state machine
 	INT8U		Err;								// Var to get error status								
+	StructCmd	CurrentCmd;							// Var to store current action to be done
+	StructCmd	NextCmd;							// Var to store next action to be done
 
 	// Debug vars
 	char 		uart_buffer[13];
@@ -87,8 +113,11 @@ void TaskMain_Main(void *p_arg)
 					Set_Line_Information( 1, 15, "R", 1);
 				#endif
 			}
-
-			// Todo : Send new position to TaskMvt
+			
+			if(ERR__NO_ERROR == Strategy_GetInitCmd(LastColorRead, &NextCmd))
+			{
+				TaskMain_SendSetpointToTaskMvt(&NextCmd);
+			}
 		}
 
 		CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_WAIT_SET_ANY, &Err);
@@ -134,27 +163,61 @@ void TaskMain_Main(void *p_arg)
 			// CASE 002 ---------------------------------------------------------------------------
 			case 2:		// Check Beacons
 				// Todo
-				NextState = 1;
+				NextState = 3;
 				break;
 
 			// CASE 003 ---------------------------------------------------------------------------
 			case 3:		// Check Current action status
-				// Todo
+				if((CurrentFlag & APP_PARAM_APPFLAG_ACTION_STATUS) == APP_PARAM_APPFLAG_ACTION_STATUS)
+				{
+					// Flag is set, action is finished
+					NextState = 4;
+					// Todo : verifier si l'action s'est finie comme attendue
+				}
+				else
+				{
+					// Action is running
+					NextState = 6;
+				}
 				break;
 
 			// CASE 004 ---------------------------------------------------------------------------
 			case 4:		// Get Next Action
-				// Todo
+				if(ERR__NO_ERROR == Strategy_GetNextAction(&NextCmd))
+				{
+					NextState = 5;
+				}
+				else
+				{
+					NextState = 1;
+				}
 				break;
 
 			// CASE 005 ---------------------------------------------------------------------------
 			case 5:		// Send Next Action
 				// Todo
+				CurrentCmd = NextCmd;
+				memset(&NextCmd, 0, sizeof(StructCmd));
+
+				NextState = 1;
 				break;
 
 			// CASE 006 ---------------------------------------------------------------------------
 			case 6:		// Check Current action type (blocking or none blocking)
-				// Todo
+				switch(CurrentCmd.CmdType)
+				{
+				case CmdType_Blocking:
+					NextState = 1;
+					break;
+
+				case CmdType_NonBlocking:
+					NextState = 4;
+					break;
+
+				default:
+					NextState = 1;
+					break;
+				}
 				break;
 
 			// CASE 254 ---------------------------------------------------------------------------
@@ -164,12 +227,12 @@ void TaskMain_Main(void *p_arg)
 
 			// CASE 255 ---------------------------------------------------------------------------
 			case 255:	// Final state
-				// Todo
+				NextState = 255;
 				break;
 							
 			// DEFAULT ----------------------------------------------------------------------------
 			default:	// Undefined state
-				// Todo
+				NextState = 1;
 				break;
 		}
 
