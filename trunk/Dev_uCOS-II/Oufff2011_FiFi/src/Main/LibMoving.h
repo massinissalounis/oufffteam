@@ -19,18 +19,21 @@ void LibMoving_MoveInMM(int Dist, INT8U Speed, StructCmd *NextSetpoint);
     // Speed        : Speed to use 
 	// NextSetpoint	: pointer to the struct for containing new position
 	// MvtMode is set to 'MvtMode_Simple'
+	// CmdType is set to 'CmdType_Blocking'
 
 void LibMoving_RotateInDeg(float AngleInDeg, INT8U Speed, StructCmd *NextSetpoint);
 	// AngleInDeg   : in mm for the movement (>0 go forward, <0 go back)
     // Speed        : Speed to use 
 	// NextSetpoint	: pointer to the struct for containing new position
 	// MvtMode is set to 'MvtMode_Simple'
+	// CmdType is set to 'CmdType_Blocking'
 
 void LibMoving_MoveToAngleInDeg(float AngleToGoInDeg, INT8U Speed, StructCmd *NextSetpoint);
 	// AngleToGoInDeg	: angle in degree we want to go
     // Speed            : Speed to use 
 	// NextSetpoint	    : pointer to the struct for containing new position
 	// MvtMode is set to 'MvtMode_Simple'
+	// CmdType is set to 'CmdType_Blocking'
 
 void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S *NewPathLength);
 	// ExpectedCmd					: Command we have to reach 

@@ -25,6 +25,7 @@
 // Global ---------------------------------------
 #define ERR__NO_ERROR							0				// No error
 #define ERR__INVALID_PARAM						1				// Parameter given is not valid
+#define ERR__NO_MORE_DATA_AVAILABLE				2				// There is no more data
 
 
 // ENUM ##################################################################
@@ -52,6 +53,13 @@ typedef enum
 
 typedef enum
 {
+	CmdType_NotSet = 0,	        // Command type is not set
+	CmdType_Blocking,			// Command is a blocking action
+	CmdType_NonBlocking,		// Command is a non-blocking action
+}EnumCmdType;
+
+typedef enum
+{
     Msg_NotSet = 0,             // Current Msg is not set
 }EnumMsg;
 
@@ -69,13 +77,14 @@ typedef struct
 
 typedef struct
 {
-	EnumCmd Cmd;		        // Mode used to go to next major point
-	// MvtMode Type				   Simple			| Wait  	| UseAngleOnly	| UseDistOnly	| UseMixedMode	| UsePivotMode	| App_SetNewPos	|
-	short 	Param1;				// Speed(1-100)		| Not Used  | Speed(1-100)	| Speed(1-100)	| Speed(1-100)	| Speed(1-100)	| Not Used		|
-	float 	Param2;				// x				| Not Used	| Not Used		| x				| x				| Wheel to lock	| x				|
-	float 	Param3;				// y				| Not Used	| Not Used		| y				| y				| Not Used		| y				|
-	float	Param4;				// angle			| Not Used	| angle			| Not Used		| angle			| angle			| angle			|
-	int 	ActiveSensorsFlag;	// Define which sensors we have to use for this movement (if not set, use all external sensors)
+	EnumCmd		Cmd;		        // Mode used to go to next major point
+	// MvtMode Type					   Simple			| Wait  	| UseAngleOnly	| UseDistOnly	| UseMixedMode	| UsePivotMode	| App_SetNewPos	|
+	short 		Param1;				// Speed(1-100)		| Not Used  | Speed(1-100)	| Speed(1-100)	| Speed(1-100)	| Speed(1-100)	| Not Used		|
+	float 		Param2;				// x				| Not Used	| Not Used		| x				| x				| Wheel to lock	| x				|
+	float 		Param3;				// y				| Not Used	| Not Used		| y				| y				| Not Used		| y				|
+	float		Param4;				// angle			| Not Used	| angle			| Not Used		| angle			| angle			| angle			|
+	int 		ActiveSensorsFlag;	// Define which sensors we have to use for this movement (if not set, use all external sensors)
+	EnumCmdType	CmdType;			// Var to define if the current action is a blocking action or not
 }StructCmd;
 
 typedef struct

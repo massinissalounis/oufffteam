@@ -65,7 +65,7 @@ void TaskMvt_SendSetpointToTaskAsser(StructCmd *Setpoint)
 void TaskMvt_Main(void *p_arg)
 {
 	// Vars
-	StructCmd	    CurrentPath[APP_MOVING_SEQ_LEN];		// Data used for storing path orders
+	StructCmd	    CurrentPath[APP_MOVING_SEQ_LEN];		// Data used for storing path cmd
     StructCmd       CurrentCmd;                             // Data for storing current order from TaskMain (to be done)
     StructCmd       StopCmd;								// Command used for stopping the current mvt
 	StructPos	    CurrentPos;		    					// Data used for storing current pos from TaskOdo
@@ -378,10 +378,6 @@ void TaskMvt_Main(void *p_arg)
 				{
 					// A path has been found, Send new order 
 					NextState = 12;
-
-					// Indicates we are moving
-					OSFlagPost(AppFlags, APP_PARAM_APPFLAG_MVT_STATE, OS_FLAG_CLR, &Err); 
-
 				}
 				else
 				{
@@ -392,15 +388,17 @@ void TaskMvt_Main(void *p_arg)
 
 			// CASE 254 ---------------------------------------------------------------------------
 			case 254:	// Ask for stopping mvt
+
+				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
+
+				// Indicates we are stopped if current action is a blocking mvt
+				if(CmdType_Blocking == CmdType_Blocking)
+					OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err); 
+
 				// Disable all current path
 				CurrentSetpoint = -1;
 				memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
 				memcpy(&CurrentCmd,	&StopCmd,	1 * sizeof(StructCmd));
-
-				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
-
-				// Indicates we are stopped
-				OSFlagPost(AppFlags, APP_PARAM_APPFLAG_MVT_STATE, OS_FLAG_SET, &Err); 
 
 				NextState = 0;
 				break;
