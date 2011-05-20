@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_TARGET_440H"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -191,6 +191,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\src\Main\strategy\DefaultStrategy.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\src\Main\LibMoving.c"
 				>
 			</File>
@@ -258,6 +262,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\Main\os_cfg.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Main\Strategy.h"
 				>
 			</File>
 			<File

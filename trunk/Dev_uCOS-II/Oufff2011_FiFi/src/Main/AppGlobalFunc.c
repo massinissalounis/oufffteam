@@ -48,15 +48,9 @@ BOOLEAN AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
 	// otherwise we create the msg
 	if(NextFreeIndex >= 0)
 	{
-/* Todo
-		// Create Msg
+		memcpy(AppMsgStk+NextFreeIndex, PtrMsgToPost, sizeof(StructMsg));
 		AppMsgStk[NextFreeIndex].IsRead	=	OS_FALSE;				// Msg is unread
-		AppMsgStk[NextFreeIndex].Msg	=	PtrMsgToPost->Msg;		// Msg to post 
-		AppMsgStk[NextFreeIndex].Param1	=	PtrMsgToPost->Param1;	// Param1
-		AppMsgStk[NextFreeIndex].Param2	=	PtrMsgToPost->Param2;	// Param2
-		AppMsgStk[NextFreeIndex].Param3	=	PtrMsgToPost->Param3;	// Param3
-		AppMsgStk[NextFreeIndex].Param4	=	PtrMsgToPost->Param4;	// Param4
-*/
+
 		// Post Msg
 		OSQPost(PtrQueue, (void*)(&(AppMsgStk[NextFreeIndex])));
 		#ifdef _TARGET_STARTER_KIT

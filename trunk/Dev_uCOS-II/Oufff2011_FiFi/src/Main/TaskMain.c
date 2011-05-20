@@ -31,7 +31,7 @@ void TaskMain_SendSetpointToTaskMvt(StructCmd *NextCmd)
         // Ask for Mutex
         OSMutexPend(App_MutexCmdToTaskMvt, WAIT_FOREVER, &Err);
 	    {	
-            // Get current Cmd
+            // Send Cmd
 		    memcpy(&App_CmdToTaskMvt, &NextCmd, sizeof(StructCmd));
 	    }	
 	    OSMutexPost(App_MutexCmdToTaskMvt);
@@ -99,7 +99,6 @@ void TaskMain_Main(void *p_arg)
 			// Get CurrentPos for current color
 			if(AppCurrentColor == c_ColorA)
 			{
-				// Todo : Define new position from color
 				putsUART2("TaskMain : Color = Blue\n");
 				#ifdef _TARGET_440H
 					Set_Line_Information( 1, 15, "B", 1);
@@ -107,7 +106,6 @@ void TaskMain_Main(void *p_arg)
 			}
 			else
 			{
-				// Todo : Define new position from color
 				putsUART2("TaskMain : Color = Red\n");
 				#ifdef _TARGET_440H
 					Set_Line_Information( 1, 15, "R", 1);
@@ -195,9 +193,13 @@ void TaskMain_Main(void *p_arg)
 
 			// CASE 005 ---------------------------------------------------------------------------
 			case 5:		// Send Next Action
-				// Todo
-				CurrentCmd = NextCmd;
-				memset(&NextCmd, 0, sizeof(StructCmd));
+				if(CmdType_NotSet != NextCmd.CmdType)
+				{
+					CurrentCmd = NextCmd;
+					memset(&NextCmd, 0, sizeof(StructCmd));
+
+					TaskMain_SendSetpointToTaskMvt(CurrentCmd);
+				}
 
 				NextState = 1;
 				break;
@@ -222,7 +224,11 @@ void TaskMain_Main(void *p_arg)
 
 			// CASE 254 ---------------------------------------------------------------------------
 			case 254:	// Action to be done if beacon is activated
-				// Todo
+				NextCmd.ActiveSensorsFlag = APP_PARAM_APPFLAG_NONE;
+				NextCmd.Cmd			= Mvt_Stop;
+				NextCmd.CmdType		= CmdType_Blocking;
+
+				NextState = 5;
 				break;
 
 			// CASE 255 ---------------------------------------------------------------------------

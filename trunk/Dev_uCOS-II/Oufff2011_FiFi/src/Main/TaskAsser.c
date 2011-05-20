@@ -19,6 +19,9 @@
 //////////////////////////////////////////////
 // Global Vars Coefficients
 //////////////////////////////////////////////
+
+// General robot control datas
+StructPos setpoint;
 StructPos TaskAsser_CurrentPos;							// Local var to read current pos
 
 
@@ -33,9 +36,6 @@ PID_data wheel_right_pid_data;
 PID_data wheel_left_pid_data;
 
 QUADRAMP_data distance_quadramp_data;
-
-// General robot control datas
-StructPos setpoint;
 
 // Loop datas
 float error_debug_1;
@@ -571,7 +571,6 @@ void TaskAsser_Main(void *p_arg)
 {
 //	INT8U command = 0;
 	INT8U Err;
-	StructMsg *pCurrentMsg = NULL;
 	char uart_buffer[13];
 	char * buffer_ptr;
 	
@@ -585,6 +584,10 @@ void TaskAsser_Main(void *p_arg)
 
 	unsigned char end_movement_flag = 1;
 
+	// Var from TaskMvt
+	unsigned int	LastTaskAsserCmdId		= 0;			// ID used for detecting new msg from TaskMvt
+    StructCmd       CurrentCmd;                             // Data for storing current order from TaskMvt (to be done)
+
 
 //	float speed_ratio = SPEED_RATIO;
 
@@ -596,77 +599,96 @@ void TaskAsser_Main(void *p_arg)
 	{
 		OSTimeDlyHMSM(0,0,0,ASSER_SAMPLING);
 	
-//		LED_Toggle(5);
+		// Read CurrentPos
+		TaskOdo_GetCurrentPos(&TaskAsser_CurrentPos);
 
-		// Look for asser msg
-//		pCurrentMsg = (StructMsg*)OSQAccept(AppQueueAsserEvent, &Err);
-		
-		if(NULL != pCurrentMsg)
+		// Check Last CmdID received from TaskMvt, if a new msg is ready, we use it
+		if(App_CmdToTaskAsserId > LastTaskAsserCmdId)										
 		{
-			// Indicate current msg has been read
-			pCurrentMsg->IsRead = OS_TRUE;
+            // Ask for Mutex
+            OSMutexPend(App_MutexCmdToTaskAsser, WAIT_FOREVER, &Err);
+            {	
+                // Get current Cmd
+                memcpy(&CurrentCmd, &App_CmdToTaskAsser, sizeof(StructCmd));
+            }	
+            OSMutexPost(App_MutexCmdToTaskAsser);
 
-			// SYSTEM CONTROL
-			switch(pCurrentMsg->Message)
-			{
-				// Dans le cas de App_SetNewPos, bien penser a bloquer taskodo avant de prendre en compte l'ordre
+            // Update last CmdID used
+            LastTaskAsserCmdId = App_CmdToTaskAsserId;
 
-/*				case Msg_Asser_MoveMode3:	// Define new setpoint
-					setpoint.x = pCurrentMsg->Param1; 
-					setpoint.y = pCurrentMsg->Param2;
-					setpoint.angle = pCurrentMsg->Param3;  		
-					mode_control = pCurrentMsg->Param4;
+            // Cmd Analysis
+            switch(CurrentCmd.Cmd)
+            {
+			// -------------------------------------------------------------
+			case App_SetNewPos:
+				// Change robot position
+				setpoint.angle						= CurrentCmd.Param4;
+				setpoint.x							= CurrentCmd.Param2;
+				setpoint.y							= CurrentCmd.Param3;
 
-					// For test purpose
-					if(mode_control==4)
-					{
-						//setpoint.right_encoder=TaskAsser_CurrentPos.right_encoder;		// Right wheel position for mode 4
-						setpoint.left_encoder=TaskAsser_CurrentPos.left_encoder;
-						//setpoint.left_encoder=TaskAsser_CurrentPos.left_encoder-(CPU_INT16U)((90*M_PI/180)*CONVERSION_RAD_TO_MM*CONVERSION_MM_TO_INC_LEFT);
-						setpoint.right_encoder=TaskAsser_CurrentPos.right_encoder+(CPU_INT16U)((180*M_PI/180)*CONVERSION_RAD_TO_MM*CONVERSION_MM_TO_INC_RIGHT);
+				TaskOdo_SetCurrentPos(&setpoint);
+				break;
 
-					}
+			// -------------------------------------------------------------
+            case Mvt_UseAngleOnly:
+				mode_control						= 1;	// Use Angle Mode
+				setpoint.angle						= CurrentCmd.Param4;
+				distance_quadramp_data.speed_order	= CurrentCmd.Param1 * 0.01;
+				break;
 
-					break;
+			// -------------------------------------------------------------
+            case Mvt_UseDistOnly:
+				mode_control						= 2;	// Use Dist Mode
+				setpoint.x							= CurrentCmd.Param2;
+				setpoint.y							= CurrentCmd.Param3;
+				distance_quadramp_data.speed_order	= CurrentCmd.Param1 * 0.01;
+				break;
 
-				case Msg_Asser_Algo:	// Define which algo we have to use
-					mode_control = pCurrentMsg->Param4;			
-					break;
-						
-				case Msg_Asser_SetSpeed:	// Define new speed 
-					if(pCurrentMsg->Param1 > 1)
-						pCurrentMsg->Param1 = 1.0;	
-					distance_quadramp_data.speed_order = pCurrentMsg->Param1;
-					break;
-*/
-				default :
-					break;
-			}
+			// -------------------------------------------------------------
+			case Mvt_Simple:
+            case Mvt_UseMixedMode:
+				mode_control						= 3;	// Use Mixed Mode
+				setpoint.angle						= CurrentCmd.Param4;
+				setpoint.x							= CurrentCmd.Param2;
+				setpoint.y							= CurrentCmd.Param3;
+				distance_quadramp_data.speed_order	= CurrentCmd.Param1 * 0.01;
+				break;
 
-/*			putsUART2("TASK_ASSER : Received Mesg ---> Param1 =");
-			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pCurrentMsg->Param1, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-			putsUART2(buffer_ptr);
-			putsUART2(" , Param2 =");
-			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pCurrentMsg->Param2, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-			putsUART2(buffer_ptr);
-			putsUART2(" , Param3 =");
-			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) AppConvertRadInDeg(pCurrentMsg->Param3), (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-			putsUART2(buffer_ptr);
-			putsUART2(" , Param4 =");
-			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) pCurrentMsg->Param4, (CPU_INT08U) 2, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-			putsUART2(buffer_ptr);
-			putsUART2("\n");
-*/		}
-			
+			// -------------------------------------------------------------
+            case Mvt_Stop:
+				mode_control						= 3;	// Use Mixed Mode
+				setpoint.angle						= TaskAsser_CurrentPos.angle;
+				setpoint.x							= TaskAsser_CurrentPos.x;
+				setpoint.y							= TaskAsser_CurrentPos.y;
+				break;
+
+			// -------------------------------------------------------------
+            case Mvt_UsePivotMode:
+				if(RIGHT_WHEEL == CurrentCmd.Param2)		// We lock the right wheel
+				{
+					setpoint.right_encoder	= TaskAsser_CurrentPos.right_encoder;
+					setpoint.left_encoder	= TaskAsser_CurrentPos.left_encoder + CurrentCmd.Param4 * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_LEFT;
+				}
+				else if (LEFT_WHEEL == CurrentCmd.Param2)	// We lock the left wheel
+				{
+					setpoint.right_encoder	= TaskAsser_CurrentPos.right_encoder + CurrentCmd.Param4 * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_RIGHT;
+					setpoint.left_encoder	= TaskAsser_CurrentPos.left_encoder;
+				}
+
+				distance_quadramp_data.speed_order	= CurrentCmd.Param1 * 0.01;
+				break;
+
+			// -------------------------------------------------------------
+            default:
+                break;
+            }
+		}
 
 		// MOTION CONTROL LOOP
 		
 		// Reset_datas
 		command_left =0;
 		command_right =0;
-
-		// Read CurrentPos
-		TaskOdo_GetCurrentPos(&TaskAsser_CurrentPos);
 
 		// Asser mode control
 		switch(mode_control)

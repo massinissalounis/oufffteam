@@ -31,7 +31,7 @@ void TaskMvt_SendSetpointToTaskAsser(StructCmd *Setpoint)
 			if(AppGetCurrentPos(&CurrentPos) != ERR__NO_ERROR)
 				return;
 
-			// Update value if necessary (only usable for (x,y,alpha) mvt
+			// Update value if necessary (only usable for (x, y, alpha) mvt
 			if(USE_CURRENT_VALUE == Setpoint->Param2)
 				Setpoint->Param2 = CurrentPos.x;
 
@@ -210,6 +210,7 @@ void TaskMvt_Main(void *p_arg)
                     case Mvt_UseDistOnly:
                     case Mvt_UseMixedMode:
                     case Mvt_UsePivotMode:
+					case App_SetNewPos:
                         NextState = 253;
                         break;
 

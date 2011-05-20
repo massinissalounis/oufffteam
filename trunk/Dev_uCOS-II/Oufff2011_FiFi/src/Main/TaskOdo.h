@@ -44,6 +44,12 @@ INT8U	TaskOdo_GetCurrentPos(StructPos *CurrentPos);
 	// Returns :	- ERR__NO_ERROR if no error
 	//				- ERR__INVALID_PARAM if CurrentPos is not set
 
+INT8U	TaskOdo_SetCurrentPos(StructPos *NewPos);
+	// Function for setting odo position
+	// *CurrentPos = Pointer containing new position
+	// Returns :	- ERR__NO_ERROR if no error
+	//				- ERR__INVALID_PARAM if CurrentPos is not set
+
 void	TaskOdo_Main(void *p_arg);
 	// Fonction principal du process d'odométrie
 	// void *p_arg		: Arg for this task
