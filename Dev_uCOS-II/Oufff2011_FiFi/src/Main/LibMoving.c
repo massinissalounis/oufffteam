@@ -147,8 +147,9 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
     case Mvt_UseDistOnly:
     case Mvt_UsePivotMode:
     case Mvt_Simple:
+	case App_SetNewPos:
 		// There is only 1 cmd to compute
-		memcpy(ExpectedCmd, NewPath + 0, sizeof(StructCmd));
+		memcpy(NewPath + 0, ExpectedCmd, sizeof(StructCmd));
 		*NewPathLength = 1;
         break;
 
@@ -181,7 +182,7 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
 		(NewPath + 2)->Param1	 			= ExpectedCmd->Param1;
 		(NewPath + 2)->Param2	 			= USE_CURRENT_VALUE;
 		(NewPath + 2)->Param3	 			= USE_CURRENT_VALUE;
-		(NewPath + 2)->Param4				= atan2f(TmpY, TmpX);
+		(NewPath + 2)->Param4				= AppCheckAngleInRad(atan2f(TmpY, TmpX));
 		(NewPath + 2)->ActiveSensorsFlag	= ExpectedCmd->ActiveSensorsFlag;
 		
 		// Second one: Go to the expected pos

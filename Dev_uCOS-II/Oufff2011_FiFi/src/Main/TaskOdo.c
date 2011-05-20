@@ -237,6 +237,25 @@ INT8U	TaskOdo_GetCurrentPos(StructPos *CurrentPos)
 }
 
 // ------------------------------------------------------------------------------------------------
+INT8U	TaskOdo_SetCurrentPos(StructPos *NewPos)
+{
+	INT8U	Err = ERR__NO_ERROR;
+
+	if((NULL == NewPos) || (NULL == MutexCurrentPos))
+		return ERR__INVALID_PARAM;
+
+	// Begin Critical Section
+	OSMutexPend(MutexCurrentPos, WAIT_FOREVER, &Err);
+	{	
+		memcpy(&TaskOdo_CurrentPos, NewPos, sizeof(StructPos));
+	}	
+	OSMutexPost(MutexCurrentPos);
+	// End Critical Section
+
+	return ERR__NO_ERROR;
+}
+
+// ------------------------------------------------------------------------------------------------
 void TaskOdo_Main(void *p_arg)
 {
 	INT8U err		= ERR__NO_ERROR;
