@@ -590,7 +590,7 @@ void TaskAsser_Main(void *p_arg)
 
 //	float speed_ratio = SPEED_RATIO;
 
-	putsUART2("OUFFF TEAM 2011 : Asser online\n");
+	AppDebugMsg("OUFFF TEAM 2011 : Asser online\n");
 
 	init_control_motion();
 
@@ -604,7 +604,6 @@ void TaskAsser_Main(void *p_arg)
 		// Check Last CmdID received from TaskMvt, if a new msg is ready, we use it
 		if(App_CmdToTaskAsserId > LastTaskAsserCmdId)										
 		{
-			putsUART2("NewMsg\n");
             // Ask for Mutex
             OSMutexPend(App_MutexCmdToTaskAsser, WAIT_FOREVER, &Err);
             {	
@@ -622,6 +621,7 @@ void TaskAsser_Main(void *p_arg)
 			// -------------------------------------------------------------
 			case App_SetNewPos:
 				// Change robot position
+				mode_control						= 3;	// Use Mixed Mode
 				setpoint.angle						= CurrentCmd.Param4;
 				setpoint.x							= CurrentCmd.Param2;
 				setpoint.y							= CurrentCmd.Param3;

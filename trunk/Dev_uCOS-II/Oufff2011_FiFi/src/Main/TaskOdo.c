@@ -85,14 +85,14 @@ void encoders_calibration_measure(void)
 
 	if(i==0)
 	{
-		putsUART2("ODO_CALIBRATION : ");
-		putsUART2("QUADD : ");
+		AppDebugMsg("ODO_CALIBRATION : ");
+		AppDebugMsg("QUADD : ");
 		buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) QUADD_count, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-		putsUART2(buffer_ptr);
-		putsUART2(",QUADG : ");
+		AppDebugMsg(buffer_ptr);
+		AppDebugMsg(",QUADG : ");
 		buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) QUADG_count, (CPU_INT08U) 10, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-		putsUART2(buffer_ptr);
-		putsUART2("\n");
+		AppDebugMsg(buffer_ptr);
+		AppDebugMsg("\n");
 	}
 	i++;
 	if(i==50) i=0;
@@ -265,17 +265,36 @@ void TaskOdo_Main(void *p_arg)
 
 	unsigned char no_movement_flag = 1;
 
-	putsUART2("OUFFF TEAM 2011 : Odo online\n");
+	AppDebugMsg("OUFFF TEAM 2011 : Odo online\n");
 
 	SemOdo = OSSemCreate(0);
-	MutexCurrentPos = OSMutexCreate(APP_TASK_HIGHER_PRIO+2, &err);
+	MutexCurrentPos = OSMutexCreate(APP_MUTEX_ODO_PRIO, &err);
 	if((NULL == MutexCurrentPos) || (NULL == SemOdo))
 	{
-		putsUART2("DEBUG (TaskOdo.c) : Error -> Unable to create Semaphore or Mutex\n");
-		putsUART2("DEBUG (TaskOdo.c) : Entering in sleeping mode...\n");	
+		AppDebugMsg("DEBUG (TaskOdo.c) : Error -> Unable to create Semaphore or Mutex\n");
+		AppDebugMsg("DEBUG (TaskOdo.c) : Entering in sleeping mode...\n");	
 		while(OS_TRUE)		// Infinite Loop
 			OSTimeDlyHMSM(1, 0, 0, 0);		
 	}
+
+	#ifdef _TARGET_440H
+		while(OS_TRUE)
+		{
+			OSTimeDlyHMSM(0, 0, 1, 0);		
+
+			AppDebugMsg("ODO_PROCESS : ");
+			AppDebugMsg("x : ");
+			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskOdo_CurrentPos.x, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+			AppDebugMsg(buffer_ptr);
+			AppDebugMsg(", y : ");
+			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskOdo_CurrentPos.y, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+			AppDebugMsg(buffer_ptr);
+			AppDebugMsg(", alpha : ");
+			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (TaskOdo_CurrentPos.angle*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+			AppDebugMsg(buffer_ptr);
+			AppDebugMsg("\n");
+		}
+	#endif
 
 	init_position_manager();
 
@@ -296,33 +315,33 @@ void TaskOdo_Main(void *p_arg)
 
 				if(i==0)
 				{
-					putsUART2("ODO_PROCESS : ");
-					putsUART2("x : ");
+					AppDebugMsg("ODO_PROCESS : ");
+					AppDebugMsg("x : ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskOdo_CurrentPos.x, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					putsUART2(buffer_ptr);
-					putsUART2(",y : ");
+					AppDebugMsg(buffer_ptr);
+					AppDebugMsg(",y : ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskOdo_CurrentPos.y, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					putsUART2(buffer_ptr);
-					putsUART2(",alpha : ");
+					AppDebugMsg(buffer_ptr);
+					AppDebugMsg(",alpha : ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (TaskOdo_CurrentPos.angle*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					putsUART2(buffer_ptr);
-					putsUART2("\n");
-/*					putsUART2("1: ");
+					AppDebugMsg(buffer_ptr);
+					AppDebugMsg("\n");
+/*					AppDebugMsg("1: ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_1, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					putsUART2(buffer_ptr);
-					putsUART2(",2: ");
+					AppDebugMsg(buffer_ptr);
+					AppDebugMsg(",2: ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_2, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					putsUART2(buffer_ptr);
-					putsUART2(",3: ");
+					AppDebugMsg(buffer_ptr);
+					AppDebugMsg(",3: ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_3, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					putsUART2(buffer_ptr);
-					putsUART2(",4: ");
+					AppDebugMsg(buffer_ptr);
+					AppDebugMsg(",4: ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_4, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					putsUART2(buffer_ptr);
-					putsUART2(",5: ");
+					AppDebugMsg(buffer_ptr);
+					AppDebugMsg(",5: ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_5, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					putsUART2(buffer_ptr);
-					putsUART2("\n");
+					AppDebugMsg(buffer_ptr);
+					AppDebugMsg("\n");
 */
 				}
 				i++;

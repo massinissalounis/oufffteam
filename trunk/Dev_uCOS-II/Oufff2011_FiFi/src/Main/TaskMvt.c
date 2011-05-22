@@ -47,7 +47,7 @@ void TaskMvt_SendSetpointToTaskAsser(StructCmd *Setpoint)
         OSMutexPend(App_MutexCmdToTaskAsser, WAIT_FOREVER, &Err);
 	    {	
             // Get current Cmd
-		    memcpy(&App_CmdToTaskAsser, &Setpoint, sizeof(StructCmd));
+		    memcpy(&App_CmdToTaskAsser, Setpoint, sizeof(StructCmd));
 	    }	
 	    OSMutexPost(App_MutexCmdToTaskAsser);
 
@@ -110,7 +110,7 @@ void TaskMvt_Main(void *p_arg)
 		memset(Debug_State, 0, 4*sizeof(char));
 	#endif
 
-	putsUART2("OUFFF TEAM 2011 : Mvt online\n");
+	AppDebugMsg("OUFFF TEAM 2011 : Mvt online\n");
 	
 
 	// MAIN LOOP ==================================================================================
@@ -164,6 +164,8 @@ void TaskMvt_Main(void *p_arg)
 
 							// Clear this msg
 							memset(&App_CmdToTaskMvt, 0, sizeof(StructCmd) * 1);
+
+							LastMainCmdId = App_CmdToTaskMvtId;
 						}
 	                }	
 	                OSMutexPost(App_MutexCmdToTaskMvt);
@@ -269,11 +271,11 @@ void TaskMvt_Main(void *p_arg)
                         NextState = 9;
 					}
 					else
-                        NextState = 0;
+                        NextState = 1;
                 }
                 else
                 {   // We are unable to read current pos
-                    NextState = 0;
+                    NextState = 1;
                 }
 				break;
 
@@ -288,6 +290,8 @@ void TaskMvt_Main(void *p_arg)
 					LibMoving_CreateEscapeSeq(APP_MOVING_ESCAPE_SEQ_LEFT, APP_ESCAPE_ROBOT_SPEED, CurrentPath, &CurrentSetpoint);
 
 				EscapeFlag++;
+
+				NextState = 1;
 				break;
 
 			// CASE 006 ---------------------------------------------------------------------------
@@ -295,6 +299,8 @@ void TaskMvt_Main(void *p_arg)
 				// Ask for stopping Mvt
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
 				LibMoving_CreateEscapeSeq(APP_MOVING_ESCAPE_SEQ_FRONT, APP_ESCAPE_ROBOT_SPEED, CurrentPath, &CurrentSetpoint);
+
+				NextState = 1;
 				break;
 
 			// CASE 007 ---------------------------------------------------------------------------
@@ -319,7 +325,7 @@ void TaskMvt_Main(void *p_arg)
                 }
                 else
                 {
-                    NextState = 0;
+                    NextState = 1;
                 }
  				break;
 
@@ -353,16 +359,12 @@ void TaskMvt_Main(void *p_arg)
 			case 12:	// Use next setpoint 
                 CurrentSetpoint--;
 
-				if(CurrentSetpoint < 0)
-				{
-					// There is no more setpoint in memory
-					NextState = 0;
-				}
-				else
+				if(CurrentSetpoint >= 0)
 				{
 					// Send new command to TaskAsser
 					TaskMvt_SendSetpointToTaskAsser(CurrentPath + CurrentSetpoint);
 				}
+				NextState = 1;
 				break;
 
 			// CASE 253 ---------------------------------------------------------------------------
@@ -400,7 +402,7 @@ void TaskMvt_Main(void *p_arg)
 				memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
 				memcpy(&CurrentCmd,	&StopCmd,	1 * sizeof(StructCmd));
 
-				NextState = 0;
+				NextState = 1;
 				break;
 
 			// CASE 255 ---------------------------------------------------------------------------

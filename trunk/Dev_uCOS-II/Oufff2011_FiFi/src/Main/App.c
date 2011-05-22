@@ -65,6 +65,7 @@ int  main (void)
 	AppCreateIPCS();			/* Create IPCS objects										*/
 	AppTaskStart();				/* Start all tasks											*/
 
+	AppDebugMsg("-----------------------------------\n");
 #ifdef _TARGET_440H
 	Set_Line_Information( 1, 0, "    OUFFF TEAM   ", 16);
 	Set_Line_Information( 2, 0, "    Coupe 2011   ", 16);
@@ -223,23 +224,32 @@ void AppCreateIPCS()
 	INT8U perr;
 
     // Mutex
-   	App_MutexCmdToTaskMvt = OSMutexCreate(APP_TASK_HIGHER_PRIO+1, &perr);
-	App_MutexCmdToTaskAsser = OSMutexCreate(APP_TASK_HIGHER_PRIO, &perr);
+   	App_MutexCmdToTaskMvt = OSMutexCreate(APP_MUTEX_MVT_PRIO, &perr);
+	App_MutexCmdToTaskAsser = OSMutexCreate(APP_MUTEX_ASSER_PRIO, &perr);
 	if((NULL == App_MutexCmdToTaskMvt) || (NULL == App_MutexCmdToTaskAsser))
 	{
-		putsUART2("DEBUG (App.c) : Error -> Unable to create Semaphore or Mutex\n");
-		putsUART2("DEBUG (App.c) : Entering in sleeping mode...\n");	
+		AppDebugMsg("DEBUG (App.c) : Error -> Unable to create Semaphore or Mutex\n");
+		AppDebugMsg("DEBUG (App.c) : Entering in sleeping mode...\n");	
 		while(OS_TRUE)		// Infinite Loop
 			OSTimeDlyHMSM(1, 0, 0, 0);		
 	}
+
+#if APP_USE_DEBUG > 0
+   	App_MutexUART1 = OSMutexCreate(APP_MUTEX_UART1_PRIO, &perr);
+	App_MutexUART2 = OSMutexCreate(APP_MUTEX_UART2_PRIO, &perr);
+#else
+   	App_MutexCmdToTaskMvt = NULL;
+	App_MutexCmdToTaskAsser = NULL;
+
+#endif
 
 #if APP_QUEUE_SENSORS_SIZE > 0
 	// Create an empty queue for asser process
 	AppQueueSensors = OSQCreate(AppQSensorsStk, APP_QUEUE_SENSORS_SIZE);
 	if(NULL == AppQueueSensors)		// Check if Queue is well created
 	{
-		putsUART2("DEBUG (App.c) : Error -> Unable to create AsserQueue\n");
-		putsUART2("DEBUG (App.c) : Entering in sleeping mode...\n");	
+		AppDebugMsg("DEBUG (App.c) : Error -> Unable to create AsserQueue\n");
+		AppDebugMsg("DEBUG (App.c) : Entering in sleeping mode...\n");	
 
         while(OS_TRUE)		// Infinite Loop
 			OSTimeDlyHMSM(1, 0, 0, 0);		
@@ -250,8 +260,8 @@ void AppCreateIPCS()
 	AppFlags = OSFlagCreate(APP_PARAM_APPFLAG_INITAL_VALUE, &perr);
 	if(NULL == AppFlags)
 	{
-		putsUART2("DEBUG (App.c) : Error -> Unable to create Appliction Flag\n");
-		putsUART2("DEBUG (App.c) : Entering in sleeping mode...\n");	
+		AppDebugMsg("DEBUG (App.c) : Error -> Unable to create Appliction Flag\n");
+		AppDebugMsg("DEBUG (App.c) : Entering in sleeping mode...\n");	
 
         while(OS_TRUE)		// Infinite Loop
 			OSTimeDlyHMSM(1, 0, 0, 0);		
@@ -284,9 +294,9 @@ void AppInitVar()
 	memset(AppQSensorsStk, 0, sizeof(void*) * APP_QUEUE_SENSORS_SIZE);		/* Set Sensors Queue to NULL					*/
 #endif
 
-    memset(AppMsgStk,               0, sizeof(StructMsg) * APP_QUEUES_TOTAL_SIZE);
-    memset(&App_CmdToTaskMvt,     0, sizeof(StructCmd) * 1);
-    memset(&App_CmdToTaskAsser,   0, sizeof(App_CmdToTaskAsser) * 1);
+    memset(AppMsgStk,				0, sizeof(StructMsg) * APP_QUEUES_TOTAL_SIZE);
+    memset(&App_CmdToTaskMvt,		0, sizeof(StructCmd) * 1);
+    memset(&App_CmdToTaskAsser,		0, sizeof(App_CmdToTaskAsser) * 1);
 
 	// Clear Msg
 	for(i=0; i<APP_QUEUES_TOTAL_SIZE; i++)

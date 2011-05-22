@@ -24,7 +24,7 @@ void TaskTempo_Main(void *p_arg)
 	INT32U	CurrentTime = 0;		/* Curent TICKS from OS									*/
 	INT8U	Err = 0;				/* Var to get error status								*/
 
-	putsUART2("OUFFF TEAM 2011 : Tempo online\n");
+	AppDebugMsg("OUFFF TEAM 2011 : Tempo online\n");
 	
 	// Wait for start msg
 	OSFlagPend(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_WAIT_SET_ALL, 0, &Err);

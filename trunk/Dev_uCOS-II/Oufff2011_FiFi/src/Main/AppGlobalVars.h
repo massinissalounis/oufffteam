@@ -28,6 +28,8 @@ extern unsigned int     App_CmdToTaskAsserId;                   // Var to store 
 /***** MUTEX / SEMAPHORES *****/
 extern OS_EVENT	        *App_MutexCmdToTaskMvt;		            // Mutex to limit access (RW) to Mvt Setpoint variable (from Main to TaskMvt)
 extern OS_EVENT	        *App_MutexCmdToTaskAsser;	            // Mutex to limit access (RW) to Asser Setpoint variable (from TaskMvt to TaskAsser)
+extern OS_EVENT			*App_MutexUART1;						// Mutex to limit access (RW) to UART1 device
+extern OS_EVENT			*App_MutexUART2;						// Mutex to limit access (RW) to UART2 device
 
 /***** Enum *****/
 extern EnumColor		AppCurrentColor;						// Contains current color (read from bsp)

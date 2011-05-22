@@ -30,6 +30,8 @@ unsigned int    App_CmdToTaskAsserId;                   // Var to store MsgID of
 /***** MUTEX / SEMAPHORES *****/
 OS_EVENT	    *App_MutexCmdToTaskMvt = NULL;		    // Mutex to limit access (RW) to Mvt Setpoint variable (from Main to TaskMvt)
 OS_EVENT	    *App_MutexCmdToTaskAsser = NULL;		// Mutex to limit access (RW) to Asser Setpoint variable (from TaskMvt to TaskAsser)
+OS_EVENT	    *App_MutexUART1 = NULL;					// Mutex to limit access (RW) to UART1 device
+OS_EVENT	    *App_MutexUART2 = NULL;					// Mutex to limit access (RW) to UART2 device
 
 /***** Enum *****/
 EnumColor		AppCurrentColor;						// Contains current color (read from bsp)

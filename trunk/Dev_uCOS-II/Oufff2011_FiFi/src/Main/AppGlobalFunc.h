@@ -10,6 +10,10 @@
 #ifndef APPGLOBALFUNC_H
 #define APPGLOBALFUNC_H 
 
+void AppDebugMsg(char *DebugMsg);
+	// Generic function to display a message on serial port
+	// DebugMsg		: Msg to send on serial port
+
 BOOLEAN AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost);
 	// Generic funct to post a msg into a queue
 	// PtrQueue		: Pointer to Queue
