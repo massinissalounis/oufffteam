@@ -17,15 +17,10 @@
 // ------------------------------------------------------------------------------------------------
 BOOLEAN TaskSensors_IsStartButtonPressed()
 {
-#ifdef _TARGET_440H
-	if(CLIC_state(SW1) == 1)
+	if(START_State()==0) 
 		return OS_TRUE;
-	else
+	else 
 		return OS_FALSE;
-#else
-	if(START_State()==0) return OS_TRUE;
-	else return OS_FALSE;
-#endif
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -39,10 +34,10 @@ void TaskSensors_CheckBumpers()
 /* Todo
 	//GP2_1 : Front *************************************************
 	GP2Data  = ADC_GetVal (GP2_1);
-	//putsUART2("GP2_1 : ");
+	//AppDebugMsg("GP2_1 : ");
 	//buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-	//putsUART2(buffer_ptr);
-	//putsUART2("  ");
+	//AppDebugMsg(buffer_ptr);
+	//AppDebugMsg("  ");
 
 	// Check Value
 #ifdef APP_GP2D2_LIMIT_FRONT
@@ -54,10 +49,10 @@ void TaskSensors_CheckBumpers()
 
 	//GP2_2 : Back **************************************************
 	GP2Data  = ADC_GetVal (GP2_2);
-//	putsUART2("GP2_2 : ");
+//	AppDebugMsg("GP2_2 : ");
 //	buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-//	putsUART2(buffer_ptr);
-//	putsUART2("  ");
+//	AppDebugMsg(buffer_ptr);
+//	AppDebugMsg("  ");
 
 	// Check Value
 #ifdef APP_GP2D2_LIMIT_BACK
@@ -69,24 +64,24 @@ void TaskSensors_CheckBumpers()
 
 	//GP2_3 : Not Used **********************************************
 	//GP2Data  = ADC_GetVal (GP2_3);
-	//putsUART2("GP2_3 : ");
+	//AppDebugMsg("GP2_3 : ");
 	//buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-	//putsUART2(buffer_ptr);
-	//putsUART2("  ");
+	//AppDebugMsg(buffer_ptr);
+	//AppDebugMsg("  ");
 	
 	//GP2_4 : Not Used **********************************************
 	//GP2Data  = ADC_GetVal (GP2_4);
-	//putsUART2("GP2_4 : ");
+	//AppDebugMsg("GP2_4 : ");
 	//buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-	//putsUART2(buffer_ptr);
-	//putsUART2("  ");
+	//AppDebugMsg(buffer_ptr);
+	//AppDebugMsg("  ");
 		
 	//GP2_5 : Not Used **********************************************
 	//GP2Data  = ADC_GetVal (GP2_5);
-	//putsUART2("GP2_5 : ");
+	//AppDebugMsg("GP2_5 : ");
 	//buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-	//putsUART2(buffer_ptr);
-	//putsUART2("\n");
+	//AppDebugMsg(buffer_ptr);
+	//AppDebugMsg("\n");
 */
 	return;
 }
@@ -127,22 +122,11 @@ void TaskSensors_CheckSW()
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_ReadColor()
 {
-	#ifdef _TARGET_440H
-		if(CLIC_state(SW2) == 1)
-		{
-			AppCurrentColor = c_ColorA;	
-		}
-		else
-		{
-			AppCurrentColor = c_ColorB;	
-		}
-	#else
-		// Read current color
-		if(COLOR_Read() == 0)
-			AppCurrentColor = c_ColorA;
-		else	
-			AppCurrentColor = c_ColorB;
-	#endif
+	// Read current color
+	if(COLOR_Read() == 0)
+		AppCurrentColor = c_ColorA;
+	else	
+		AppCurrentColor = c_ColorB;
 
 	return;
 }
@@ -155,7 +139,7 @@ void TaskSensors_Main(void *p_arg)
 	INT8U	Err = 0;				// Var to get error status
 	CPU_INT16U  GP2Data;
 
-	putsUART2("OUFFF TEAM 2011 : Sensors online\n");
+	AppDebugMsg("OUFFF TEAM 2011 : Sensors online\n");
 
 	if(APP_INIT_USE_START_BUTTON == OS_TRUE)
 	{

@@ -32,7 +32,7 @@ void TaskMain_SendSetpointToTaskMvt(StructCmd *NextCmd)
         OSMutexPend(App_MutexCmdToTaskMvt, WAIT_FOREVER, &Err);
 	    {	
             // Send Cmd
-		    memcpy(&App_CmdToTaskMvt, &NextCmd, sizeof(StructCmd));
+		    memcpy(&App_CmdToTaskMvt, NextCmd, sizeof(StructCmd));
 	    }	
 	    OSMutexPost(App_MutexCmdToTaskMvt);
 
@@ -76,13 +76,13 @@ void TaskMain_Main(void *p_arg)
 		memset(Debug_State, 0, 4*sizeof(char));
 	#endif
 
-	putsUART2("OUFFF TEAM 2011 : Main online\n");
+	AppDebugMsg("OUFFF TEAM 2011 : Main online\n");
 
 	// Wait other tasks start
 	OSTimeDlyHMSM(0, 0, 1, 0);
 
 #ifdef _TARGET_440H
-	OSTimeDlyHMSM(0, 0, 2, 0);
+	OSTimeDlyHMSM(0, 0, 1, 0);
 	Set_Line_Information( 1, 0, "                 ", 16);
 	Set_Line_Information( 2, 0, "                 ", 16);
 #else
@@ -92,23 +92,26 @@ void TaskMain_Main(void *p_arg)
 #endif
 
 	// Wait for start signal
-	putsUART2("TaskMain : Wait for start signal\n");
+	AppDebugMsg("TaskMain : Wait for start signal\n");
 	do
 	{
+		// Proc Release
+		OSTimeDlyHMSM(0, 0, 0, 10);
+
 		if(AppCurrentColor != LastColorRead)
 		{
 			LastColorRead = AppCurrentColor;
 			// Get CurrentPos for current color
 			if(AppCurrentColor == c_ColorA)
 			{
-				putsUART2("TaskMain : Color = Blue\n");
+				AppDebugMsg("TaskMain : Color = Blue\n");
 				#ifdef _TARGET_440H
 					Set_Line_Information( 1, 15, "B", 1);
 				#endif
 			}
 			else
 			{
-				putsUART2("TaskMain : Color = Red\n");
+				AppDebugMsg("TaskMain : Color = Red\n");
 				#ifdef _TARGET_440H
 					Set_Line_Information( 1, 15, "R", 1);
 				#endif
@@ -123,7 +126,7 @@ void TaskMain_Main(void *p_arg)
 		CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_WAIT_SET_ANY, &Err);
 	}while((CurrentFlag & APP_PARAM_APPFLAG_START_BUTTON) != APP_PARAM_APPFLAG_START_BUTTON);
 
-	putsUART2("TaskMain : Go !! Go !! Go !!\n");
+	AppDebugMsg("TaskMain : Go !! Go !! Go !!\n");
 	
 	// MAIN LOOP ==================================================================================
 	do

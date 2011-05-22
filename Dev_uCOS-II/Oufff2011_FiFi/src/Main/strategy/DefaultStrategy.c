@@ -26,18 +26,18 @@ INT8U Strategy_GetInitCmd(EnumColor CurrentColor, StructCmd *InitCmd)
 	case c_ColorA:	// Blue ############################################# 
 		InitCmd->Cmd				= App_SetNewPos;
 		InitCmd->CmdType			= CmdType_NonBlocking;
-		InitCmd->Param2				= 250.0;
-		InitCmd->Param3				= 250.0;
-		InitCmd->Param4				= 0.0;
+		InitCmd->Param2				= 100.0;
+		InitCmd->Param3				= 100.0;
+		InitCmd->Param4				= AppConvertDegInRad(100.0);
 		InitCmd->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 		break;
 
 	case c_ColorB:	// Red ##############################################
 		InitCmd->Cmd				= App_SetNewPos;
 		InitCmd->CmdType			= CmdType_NonBlocking;
-		InitCmd->Param2				= 250.0;
-		InitCmd->Param3				= 250.0;
-		InitCmd->Param4				= 0.0;
+		InitCmd->Param2				= 200.0;
+		InitCmd->Param3				= 200.0;
+		InitCmd->Param4				= AppConvertDegInRad(200.0);
 		InitCmd->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 		break;
 

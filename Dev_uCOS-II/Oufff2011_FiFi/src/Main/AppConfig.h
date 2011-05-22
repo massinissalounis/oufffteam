@@ -15,6 +15,8 @@
 *                                            GLOBAL SETTINGS
 *********************************************************************************************************
 */
+#define APP_USE_DEBUG						1			// If defined, debug msg are sent to UART2.
+
 #define APP_INIT_ROBOT_SPEED				060			// Speed rate					(0:No Move, 100: Full Speed)
 #define APP_ESCAPE_ROBOT_SPEED				060			// Speed rate for escape seq	(0:No Move, 100: Full Speed)
 #define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
@@ -34,7 +36,7 @@
 #define APP_TASK_ASSER_ENABLED							// Activate TaskAsser
 #define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
 #define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
-//#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
+#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
 
 /*
 *********************************************************************************************************
@@ -104,8 +106,13 @@
 */
 
 #define OS_TASK_TMR_PRIO						0
-#define APP_TASK_HIGHER_PRIO					4
-#define APP_TASK_ODO_PRIO						8
+#define APP_TASK_HIGHER_PRIO					2
+#define APP_MUTEX_UART1_PRIO					4
+#define APP_MUTEX_UART2_PRIO					5
+#define APP_MUTEX_ODO_PRIO						6
+#define APP_MUTEX_ASSER_PRIO					7
+#define APP_MUTEX_MVT_PRIO						10
+#define APP_TASK_ODO_PRIO						12
 #define APP_TASK_ASSER_PRIO						16
 #define APP_TASK_SENSORS_PRIO					24
 #define APP_TASK_MVT_PRIO						28
@@ -120,10 +127,10 @@
 
 #define	APP_TASK_ODO_STK_SIZE					300
 #define APP_TASK_ASSER_STK_SIZE	            	300
-#define APP_TASK_SENSORS_STK_SIZE	            150
+#define APP_TASK_SENSORS_STK_SIZE	            300
 #define APP_TASK_MVT_STK_SIZE					300
 #define APP_TASK_MAIN_STK_SIZE					300
-#define APP_TASK_TEMPO_STK_SIZE	            	150
+#define APP_TASK_TEMPO_STK_SIZE	            	300
 
 /*
 *********************************************************************************************************

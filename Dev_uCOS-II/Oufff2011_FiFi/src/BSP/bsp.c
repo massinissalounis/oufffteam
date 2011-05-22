@@ -143,29 +143,42 @@ CPU_INT08U CLIC_state (CPU_INT08U clic)
 
 void START_Init (void)
 {
+#ifdef _TARGET_440H
+#else
 	PORTSetPinsDigitalIn(IO_START);
+#endif
 }
 
 CPU_INT08U START_State (void)
 {
+#ifdef _TARGET_440H
+	CLIC_state(SW2);
+#else
 	if(PORTReadBits(IO_START)!=0) 
 		return 1;
 	else
 		return 0;
+#endif
 }	
 
 void COLOR_Init (void)
 {
+#ifdef _TARGET_440H
+#else
 	PORTSetPinsDigitalIn(IO_COLOR);
+#endif
 }
 
 CPU_INT08U COLOR_Read (void)
 {
-	CPU_INT08U value;
+#ifdef _TARGET_440H
+	CLIC_state(SW1);
+#else
 	if(PORTReadBits(IO_COLOR)!=0) 
 		return 1;
 	else
 		return 0;
+#endif
 }
 
 ///////////////////////////////////////////////////////////
@@ -183,12 +196,12 @@ void PWM_M0_SetDC(INT16U Duty)
 
 void PWM_Init(void)
 {
+#ifdef _TARGET_440H
+#else
 	// Tmr1 Init
 	// STEP 1. configure the Timer1
 	OpenTimer3(T3_ON | T3_SOURCE_INT | T3_IDLE_CON | T3_PS_1_1, TMR3_RELOAD);
 
-#ifdef _TARGET_STARTER_KIT
-#else
     // Enable OC | 16 bit Mode  | Timer1 is selected | Continuous O/P   | OC Pin High , S Compare value, Compare value
     OpenOC1( OC_ON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE , 0, 0 );
     OpenOC2( OC_ON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE , 0, 0 );
@@ -203,11 +216,14 @@ void PWM_Init(void)
 
 void TMR2_Init(void)
 {
+#ifdef _TARGET_440H
+#else
 	// STEP 1. configure the Timer2
 	OpenTimer2(T2_ON | T2_SOURCE_INT | T2_IDLE_CON | T2_PS_1_256, TMR2_RELOAD);
 	// STEP 2. set the timer interrupt to prioirty level 6
 	ConfigIntTimer2(T2_INT_ON | T2_INT_PRIOR_6);
 	mT2ClearIntFlag();
+#endif
 }
 
 // Timer 2 ISR
@@ -228,6 +244,8 @@ void __ISR(_TIMER_2_VECTOR, ipl6) TMR2_Handler(void)
 
 void  PMP_Init (void)
 {
+#ifdef _TARGET_440H
+#else
 	unsigned int control =  PMP_ON | PMP_IDLE_CON | PMP_MUX_DATA8_ALL | PMP_READ_WRITE_EN |\
                      		PMP_CS2_CS1_OFF | PMP_LATCH_POL_HI | PMP_CS2_POL_HI | PMP_CS1_POL_HI |\
                      		PMP_WRITE_POL_HI | PMP_READ_POL_HI;
@@ -240,21 +258,28 @@ void  PMP_Init (void)
 	unsigned int interrupt = PMP_INT_OFF;
 
     mPMPOpen(control, mode, port, interrupt);
+#endif
 }
 
 void PMP_Write(CPU_INT16U address, CPU_INT08U data)
 {
+#ifdef _TARGET_440H
+#else
 	PMPSetAddress(address);
     PMPMasterWrite(data);
+#endif
 }
 
 CPU_INT08U PMP_Read(CPU_INT16U address)
 {
+#ifdef _TARGET_440H
+#else
 	CPU_INT08U value;
 	PMPSetAddress(address);
 	PMPMasterRead(); // Read the previous value and start a read operation onto PMP
     value = mPMPMasterReadByte(); // Read the actual latched value
 	return value;
+#endif
 }
 
 ///////////////////////////////////////////////////////////
@@ -263,6 +288,8 @@ CPU_INT08U PMP_Read(CPU_INT16U address)
 
 void IO_M0_SetDirection(unsigned char dir)
 {
+#ifdef _TARGET_440H
+#else
 	if(dir==0)
 	{
 		PORTClearBits(IO_Motor_dir_0);
@@ -271,10 +298,13 @@ void IO_M0_SetDirection(unsigned char dir)
 	{
 		PORTSetBits(IO_Motor_dir_0);
 	}
+#endif
 }
 
 void IO_M1_SetDirection(unsigned char dir)
 {
+#ifdef _TARGET_440H
+#else
 	if(dir==0)
 	{
 		PORTClearBits(IO_Motor_dir_1);
@@ -283,6 +313,7 @@ void IO_M1_SetDirection(unsigned char dir)
 	{
 		PORTSetBits(IO_Motor_dir_1);
 	}
+#endif
 }
 
 /*

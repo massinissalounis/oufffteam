@@ -15,6 +15,26 @@
 #include "AppIncludes.h"
 #include "TaskOdo.h"
 
+
+// ------------------------------------------------------------------------------------------------
+void AppDebugMsg(char *DebugMsg)
+{
+	INT8U Err = 0;
+
+	if(NULL != App_MutexUART2)
+	{
+		// Ask for Mutex on serial port 2
+		OSMutexPend(App_MutexUART2, WAIT_FOREVER, &Err);
+		{	
+			putsUART2(DebugMsg);
+		}	
+		OSMutexPost(App_MutexUART2);
+		// Release Mutex
+	}
+
+	return;
+}
+
 // ------------------------------------------------------------------------------------------------
 BOOLEAN AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
 {
@@ -53,15 +73,12 @@ BOOLEAN AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
 
 		// Post Msg
 		OSQPost(PtrQueue, (void*)(&(AppMsgStk[NextFreeIndex])));
-		#ifdef _TARGET_STARTER_KIT
-			LED_Toggle(2);
-		#endif
 
 		return OS_TRUE;
 	}
 	else
 	{
-		putsUART2("AppGlobalFunc : Queue Full !!!\n");
+		AppDebugMsg("AppGlobalFunc : Queue Full !!!\n");
 		return OS_FALSE;
 	}
 
