@@ -66,7 +66,7 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 	case c_ColorA:	// Blue #############################################################
 		switch(CurrentActionID)
 		{
-		case 0:	LibMoving_MoveInMM(100, 80, NextAction);	break;
+		//case 0:	LibMoving_MoveInMM(100, 80, NextAction);	break;
 
 		default:
 			return ERR__NO_MORE_DATA_AVAILABLE;

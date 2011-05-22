@@ -57,7 +57,7 @@ void TaskMain_Main(void *p_arg)
 	StructCmd	NextCmd;							// Var to store next action to be done
 
 	// Debug vars
-	char 		uart_buffer[13];
+	char 		uart_buffer[20];
 	char 		*buffer_ptr;
 	#ifdef _TARGET_440H
 		char Debug_State[4];
@@ -69,6 +69,8 @@ void TaskMain_Main(void *p_arg)
 	CurrentState			= 0;
 	NextState				= 0;
 	Err						= 0;
+
+	memset(uart_buffer, 0, 20);
 
 	#ifdef _TARGET_440H
 		memset(Debug_State, 0, 4*sizeof(char));
@@ -127,14 +129,14 @@ void TaskMain_Main(void *p_arg)
 	do
 	{
 		// Proc Release
-		OSTimeDly(10);
+		OSTimeDlyHMSM(0, 0, 0, 10);
 
 		// Update current state
 		CurrentState = NextState;
 
 		// Check FLAGS for Task Main
-		CurrentFlag = OSFlagAccept(AppFlags, TASK_MAIN_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ALL, &Err);
-		
+		CurrentFlag = OSFlagAccept(AppFlags, TASK_MAIN_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ANY, &Err);
+
 		#ifdef _TARGET_440H
 			sprintf(Debug_State, "%03d", CurrentState);
 			Set_Line_Information( 2, 0, Debug_State, 3);
@@ -181,7 +183,7 @@ void TaskMain_Main(void *p_arg)
 
 			// CASE 004 ---------------------------------------------------------------------------
 			case 4:		// Get Next Action
-				if(ERR__NO_ERROR == Strategy_GetNextAction(&NextCmd))
+				if(ERR__NO_ERROR == Strategy_GetNextAction(AppCurrentColor, &NextCmd))
 				{
 					NextState = 5;
 				}
@@ -198,7 +200,7 @@ void TaskMain_Main(void *p_arg)
 					CurrentCmd = NextCmd;
 					memset(&NextCmd, 0, sizeof(StructCmd));
 
-					TaskMain_SendSetpointToTaskMvt(CurrentCmd);
+					TaskMain_SendSetpointToTaskMvt(&CurrentCmd);
 				}
 
 				NextState = 1;

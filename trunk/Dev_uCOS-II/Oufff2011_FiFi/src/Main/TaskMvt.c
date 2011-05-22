@@ -117,7 +117,7 @@ void TaskMvt_Main(void *p_arg)
 	do
 	{
 		// Proc Release
-		OSTimeDly(10);
+		OSTimeDlyHMSM(0, 0, 0, 10);
 
 		// Update current state
 		CurrentState = NextState;
@@ -157,7 +157,7 @@ void TaskMvt_Main(void *p_arg)
                     // Ask for Mutex
                     OSMutexPend(App_MutexCmdToTaskMvt, WAIT_FOREVER, &Err);
 	                {	
-                        // Get current Cmd
+						// Get current Cmd
 		                if(App_SetNewPos == App_CmdToTaskMvt.Cmd)
 						{
 							TaskMvt_SendSetpointToTaskAsser(&App_CmdToTaskMvt);
@@ -167,7 +167,6 @@ void TaskMvt_Main(void *p_arg)
 						}
 	                }	
 	                OSMutexPost(App_MutexCmdToTaskMvt);
-
 
                     // Place here code for executing Cmd (if necessary)
 				}

@@ -1,5 +1,5 @@
-./objects\App.o: ..\..\src\Main\App.c ..\..\src\Main\/AppIncludes.h \
-  ../../Src/uC-LIB/lib_def.h \
+./objects\App.o: ..\..\src\Main\App.c ..\..\src\Main\/App.h \
+  ..\..\src\Main\/AppIncludes.h ../../Src/uC-LIB/lib_def.h \
   ../../Src/uC-CPU/MIPS32-4K/MPLAB-PIC32-GCC/cpu.h \
   ../../Src/Microchip/PeripheralsLibs/INT.h ../../Src/uC-CPU/cpu_def.h \
   ../../Src/uC-LIB/lib_mem.h ../../Src/Main/AppConfig.h \
@@ -15,14 +15,14 @@
   ../../Src/Microchip/PeripheralsLibs/ports.h \
   ../../Src/Microchip/PeripheralsLibs/uart.h ../../Src/BSP/bsp.h \
   ../../Src/BSP/bsp_fpga.h ../../Src/Main/AppCustomTypes.h \
-  ../../Src/Main/AppGlobalFunc.h ..\..\src\Main\/AppConfig.h \
-  ../../Src/Microchip/PeripheralsLibs/int.h \
+  ../../Src/Main/AppGlobalFunc.h ../../Src/Main/AppGlobalVars.h \
+  ..\..\src\Main\/AppConfig.h ../../Src/Microchip/PeripheralsLibs/int.h \
   ../../Src/Microchip/PeripheralsLibs/timer.h \
   ../../Src/Microchip/PeripheralsLibs/ports.h \
   ../../Src/Microchip/PeripheralsLibs/uart.h ../../Src/BSP/bsp.h \
   ../../Src/BSP/bsp_fpga.h ..\..\src\Main\/AppCustomTypes.h \
-  ..\..\src\Main\/AppGlobalFunc.h ..\..\src\Main\/App.h \
-  ..\..\src\Main\/TaskOdo.h ..\..\src\Main\/AppIncludes.h \
-  ..\..\src\Main\/TaskAsser.h ..\..\src\Main\/AppGlobalVars.h \
-  ..\..\src\Main\/TaskCapteurs.h ..\..\src\Main\/TaskMain.h \
-  ..\..\src\Main\/TaskTempo.h
+  ..\..\src\Main\/AppGlobalFunc.h ..\..\src\Main\/AppGlobalVars.h \
+  ..\..\src\Main\/TaskOdo.h ..\..\src\Main\/TaskAsser.h \
+  ..\..\src\Main\/TaskSensors.h ..\..\src\Main\/TaskMain.h \
+  ..\..\src\Main\/TaskTempo.h ..\..\src\Main\/TaskMvt.h \
+  ..\..\src\Main\/LibMoving.h
