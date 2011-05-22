@@ -394,7 +394,7 @@ void TaskMvt_Main(void *p_arg)
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
 
 				// Indicates we are stopped if current action is a blocking mvt
-				if(CmdType_Blocking == CmdType_Blocking)
+				if(CmdType_Blocking == CurrentCmd.CmdType)
 					OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err); 
 
 				// Disable all current path
