@@ -268,7 +268,7 @@ void TaskOdo_Main(void *p_arg)
 	putsUART2("OUFFF TEAM 2011 : Odo online\n");
 
 	SemOdo = OSSemCreate(0);
-	MutexCurrentPos = OSMutexCreate(APP_TASK_HIGHER_PRIO, &err);
+	MutexCurrentPos = OSMutexCreate(APP_TASK_HIGHER_PRIO+2, &err);
 	if((NULL == MutexCurrentPos) || (NULL == SemOdo))
 	{
 		putsUART2("DEBUG (TaskOdo.c) : Error -> Unable to create Semaphore or Mutex\n");
@@ -307,7 +307,7 @@ void TaskOdo_Main(void *p_arg)
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (TaskOdo_CurrentPos.angle*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2("\n");
-					putsUART2("1: ");
+/*					putsUART2("1: ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_1, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2(",2: ");
@@ -323,7 +323,7 @@ void TaskOdo_Main(void *p_arg)
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_5, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					putsUART2(buffer_ptr);
 					putsUART2("\n");
-
+*/
 				}
 				i++;
 				if(i==50) i=0;

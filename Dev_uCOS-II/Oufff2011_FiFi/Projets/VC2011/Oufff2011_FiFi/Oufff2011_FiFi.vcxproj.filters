@@ -12,6 +12,9 @@
     <Filter Include="SDK">
       <UniqueIdentifier>{f065b9ae-b25d-4c7e-96b2-0fb44f97c50b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Strategy">
+      <UniqueIdentifier>{55df1600-ed9c-4ef0-93f6-399541b68ee9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Main\App.c">
@@ -52,6 +55,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\DevCard\1602D.c">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\strategy\DefaultStrategy.c">
+      <Filter>Fichiers sources\Strategy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +116,9 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\DevCard\1602D.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\Strategy.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

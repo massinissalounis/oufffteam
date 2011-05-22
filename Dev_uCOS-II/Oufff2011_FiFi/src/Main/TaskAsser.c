@@ -24,7 +24,6 @@
 StructPos setpoint;
 StructPos TaskAsser_CurrentPos;							// Local var to read current pos
 
-
 /////////////////////////////////////////////////////////////
 // DATAS
 /////////////////////////////////////////////////////////////
@@ -91,7 +90,7 @@ void left_motor_control (INT16S value)
 	}
 
 	abs_value = abs_value <<1; // full scale data
-	
+
 	PWM_M1_SetDC(abs_value);
 }
 
@@ -130,7 +129,7 @@ void QUADRAMP_Initialization(QUADRAMP_data *data, float acc, float speed, float 
 float QUADRAMP_Compute(QUADRAMP_data *data, float dist2dest)
 {
 	float dist2dest_abs = abs(dist2dest);
-	
+
 	switch(data->state)
 	{
 		case 0:
@@ -138,46 +137,46 @@ float QUADRAMP_Compute(QUADRAMP_data *data, float dist2dest)
 			data->speed=data->speed_order; // Speed at the limit to ensure a good reactivity
 
 			if(dist2dest_abs>data->final_approach_limit)
-	{
+			{
 				data->speed=0; // Initialize the speed of the new movement
 				data->state=1; // Go into acc state
-	}
+			}
 			break;
-			
+
 		case 1:
 			data->speed+=data->acceleration_order;
-			
+
 			if(dist2dest_abs<=data->origin/2)
 			{
 				data->state=3; // Go to decc state
-	}
-	
+			}
+
 			if(data->speed>=data->speed_order)
-	{
+			{
 				data->speed=data->speed_order; // Limit the speed
 				data->acc_distance=data->origin-dist2dest_abs; // Store the distance requirement for the next decelleration
 				data->state=2; // Go to cte speed state
-	}
+			}
 			break;
 				
 		case 2:
 			data->speed=data->speed_order; // Update the speed
 
 			if(dist2dest_abs<=data->acc_distance)
-	{
+			{
 				data->state=3;
-	}
+			}
 			break;
 
 		case 3:
 			data->speed-=data->acceleration_order;
 
 			if(dist2dest_abs<=data->final_approach_limit)
-	{
+			{
 				data->state=0;
-	}
+			}
 			break;
-
+				
 		default:
 			break;	
 	}	
@@ -260,7 +259,7 @@ float PID_Computation(PID_data * pid_data, float error)
 
 	//differential of the error over the period	
 	errDif = error - pid_data->error_old[last];
-		
+
 	//stock last values of the error, so we can
 	//differentiate over a custom period
 	pid_data->error_old[pid_data->current_error_old]=error;
@@ -305,7 +304,7 @@ void init_control_motion()
 
 	// init PID
 	PID_Initialization();
-
+	
 	QUADRAMP_Initialization(&distance_quadramp_data, DEFAULT_ACC_DISTANCE, DEFAULT_SPEED_DISTANCE, DISTANCE_ALPHA_ONLY);
 }
 
@@ -378,7 +377,7 @@ void distance_by_vector_projection_angle_between_robot_and_direction (float fina
 	
 	scalar_product = scalar_product_between_robot_and_direction(final_x, final_y, robot_x, robot_y, robot_angle);
 	*distance = distance_between_two_points( final_x, final_y, robot_x, robot_y);
-	
+
 	// Calcul de la valeur absolue de l'angle à parcourir avec le produit scalaire
 	*angle = acos( scalar_product / *distance );
 
@@ -410,12 +409,12 @@ unsigned char mode_1_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 	float error_angle=0.0;
 	float error_distance=0.0;
 	float error_filtered_angle=0.0;
-	
+
 	unsigned char end_movement_flag=0;
 	
 	// Compute error
 	error_angle=angle_between_two_points(psetpoint->angle, pcurrent->angle);
-	
+
 	if(error_angle<=ANGLE_APPROACH_PRECISION) end_movement_flag=1;
 	
 	error_filtered_angle = PID_Computation(&angle_pid_data, error_angle);
@@ -436,7 +435,7 @@ unsigned char mode_2_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 	float error_angle=0.0;
 	float error_distance=0.0;
 	float error_filtered_distance=0.0;
-	
+
 	unsigned char end_movement_flag=0;
 	
 	float speed_ratio_distance = DEFAULT_SPEED_DISTANCE; // To check !!!
@@ -448,7 +447,7 @@ unsigned char mode_2_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 	{
 		end_movement_flag=1;
 	}
-	
+
 	// QUADRAMP filter on errors
 	speed_ratio_distance = QUADRAMP_Compute(&distance_quadramp_data, error_distance);
 	
@@ -482,10 +481,10 @@ unsigned char mode_3_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 	
 	// Compute distance : ABS value for vectorial considerations
 	error_distance = distance_between_two_points( psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y);
-				
+
 	if(error_distance<= DISTANCE_ALPHA_ONLY) // final distance reached
 	{
-		error_angle=angle_between_two_points(psetpoint->angle, pcurrent->angle);				
+		error_angle=angle_between_two_points(psetpoint->angle, pcurrent->angle);
 		if(error_angle<=ANGLE_APPROACH_PRECISION) end_movement_flag=1;
 		error_distance = scalar_product_between_robot_and_direction(psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y, pcurrent->angle);
 	}
@@ -493,7 +492,7 @@ unsigned char mode_3_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 	{
 		distance_by_vector_projection_angle_between_robot_and_direction(psetpoint->x, psetpoint->y, pcurrent->x, pcurrent->y, pcurrent->angle, &error_distance, &error_angle);
 	}
-	
+
 	// QUADRAMP filter on errors
 	speed_ratio_distance = QUADRAMP_Compute(&distance_quadramp_data, error_distance);
 	
@@ -528,7 +527,7 @@ unsigned char mode_4_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 
 	float error_filtered_right_wheel=0.0;
 	float error_filtered_left_wheel=0.0;
-
+	
 	unsigned char end_movement_flag=0;
 	
 
@@ -536,7 +535,7 @@ unsigned char mode_4_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 	error_debug_1= pcurrent->left_encoder;	
 	//error_debug_1= psetpoint->right_encoder;
 	error_debug_2= pcurrent->right_encoder;
-	
+
 	error_right_wheel = psetpoint->right_encoder - pcurrent->right_encoder;
 	error_left_wheel = -(psetpoint->left_encoder - pcurrent->left_encoder);
 
@@ -544,7 +543,7 @@ unsigned char mode_4_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 	{
 		end_movement_flag=1;
 	}
-	
+
 //	error_debug_3=error_left_wheel;
 //	error_debug_4=error_right_wheel;
 	
@@ -605,6 +604,7 @@ void TaskAsser_Main(void *p_arg)
 		// Check Last CmdID received from TaskMvt, if a new msg is ready, we use it
 		if(App_CmdToTaskAsserId > LastTaskAsserCmdId)										
 		{
+			putsUART2("NewMsg\n");
             // Ask for Mutex
             OSMutexPend(App_MutexCmdToTaskAsser, WAIT_FOREVER, &Err);
             {	
@@ -685,10 +685,12 @@ void TaskAsser_Main(void *p_arg)
 		}
 
 		// MOTION CONTROL LOOP
-		
+
 		// Reset_datas
 		command_left =0;
 		command_right =0;
+
+		TaskOdo_GetCurrentPos(&TaskAsser_CurrentPos);
 
 		// Asser mode control
 		switch(mode_control)

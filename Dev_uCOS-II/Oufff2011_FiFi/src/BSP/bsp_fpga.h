@@ -29,4 +29,4 @@ CPU_INT16S QUADG_Read (void);
 void QUAD_Wait_for_Latch (void);
 
 void BSPFPGA_Reset(void);
-CPU_INT08U COLOR_Read (void);
+//CPU_INT08U COLOR_Read (void);  Fonction transférée sur le pic. Voir bsp.h

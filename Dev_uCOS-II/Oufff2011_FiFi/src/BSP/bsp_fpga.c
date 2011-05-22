@@ -40,12 +40,13 @@ CPU_INT16S QUADG_Read (void)
 	return value;
 }
 
-CPU_INT08U COLOR_Read (void)
+//Inter couleur transféré sur le pic
+/*CPU_INT08U COLOR_Read (void)
 {
 	CPU_INT08U value;
 	value = PMP_Read(GPIO_REGISTER);
 	return value;
-}
+}*/
 
 void BSPFPGA_Reset(void)
 {

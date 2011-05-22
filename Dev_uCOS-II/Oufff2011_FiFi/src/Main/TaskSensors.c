@@ -100,27 +100,27 @@ void TaskSensors_CheckSW()
 #else
 	// CLIC_1 : Front Left ******************************************
 	if(CLIC_state(CLIC_1))	
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC1, OS_FLAG_SET, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_1, OS_FLAG_SET, &Err); 
 	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC1, OS_FLAG_CLR, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_1, OS_FLAG_CLR, &Err); 
 
 	// CLIC_2 : Front Right *****************************************
 	if(CLIC_state(CLIC_2))
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC2, OS_FLAG_SET, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_2, OS_FLAG_SET, &Err); 
 	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC2, OS_FLAG_CLR, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_2, OS_FLAG_CLR, &Err); 
 
 	// CLIC_3 : Front Center ****************************************
 	if(CLIC_state(CLIC_3))		
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC3, OS_FLAG_SET, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_3, OS_FLAG_SET, &Err); 
 	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC3, OS_FLAG_CLR, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_3, OS_FLAG_CLR, &Err); 
 
 	// CLIC_4 : Back Center *****************************************
 	if(CLIC_state(CLIC_4))		
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC4, OS_FLAG_SET, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_4, OS_FLAG_SET, &Err); 
 	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_BUMPER_CLIC4, OS_FLAG_CLR, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_4, OS_FLAG_CLR, &Err); 
 #endif
 }
 
@@ -137,12 +137,11 @@ void TaskSensors_ReadColor()
 			AppCurrentColor = c_ColorB;	
 		}
 	#else
-	// Todo
 		// Read current color
-//		if(COLOR_Read() == 0)
-//			AppCurrentColor = c_Blue;
-//		else	
-//			AppCurrentColor = c_Yellow;
+		if(COLOR_Read() == 0)
+			AppCurrentColor = c_ColorA;
+		else	
+			AppCurrentColor = c_ColorB;
 	#endif
 
 	return;

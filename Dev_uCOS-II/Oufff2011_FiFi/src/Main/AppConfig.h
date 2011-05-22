@@ -30,11 +30,11 @@
 *********************************************************************************************************
 */
 #define APP_TASK_MAIN_ENABLED							// Activate TaskMain
-//#define APP_TASK_ODO_ENABLED							// Activate TaskOdo
-//#define APP_TASK_ASSER_ENABLED						// Activate TaskAsser
+#define APP_TASK_ODO_ENABLED							// Activate TaskOdo
+#define APP_TASK_ASSER_ENABLED							// Activate TaskAsser
 #define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
 #define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
-#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
+//#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
 
 /*
 *********************************************************************************************************

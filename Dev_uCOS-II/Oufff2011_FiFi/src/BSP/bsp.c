@@ -11,6 +11,8 @@
 *                                               O'CORE
 *********************************************************************************************************
 */
+// CBE	21/05/2011	Remplacement des PORTx ,BIT_n par un define dans bsp.h pour facilité les changements de brochage
+
 
 #include "AppIncludes.h"
 #include "osc.h"
@@ -92,10 +94,10 @@ void CLIC_Init (void)
 	PORTSetPinsDigitalIn(IOPORT_B, BIT_2);
 	PORTSetPinsDigitalIn(IOPORT_B, BIT_4);
 #else
-	PORTSetPinsDigitalIn(IOPORT_G, BIT_0);
-	PORTSetPinsDigitalIn(IOPORT_A, BIT_7);
-	PORTSetPinsDigitalIn(IOPORT_C, BIT_3);
-	PORTSetPinsDigitalIn(IOPORT_C, BIT_4);
+	PORTSetPinsDigitalIn(IO_CLIC_1);
+	PORTSetPinsDigitalIn(IO_CLIC_2);
+	PORTSetPinsDigitalIn(IO_CLIC_3);
+	PORTSetPinsDigitalIn(IO_CLIC_4);
 #endif
 }
 
@@ -118,19 +120,19 @@ CPU_INT08U CLIC_state (CPU_INT08U clic)
 			break;
 #else
         case CLIC_1:
-			if(PORTReadBits(IOPORT_G, BIT_0)==0) state = 1;
+			if(PORTReadBits(IO_CLIC_1)==0) state = 1;
 			break;
 
         case CLIC_2:
-			if(PORTReadBits(IOPORT_A, BIT_7)==0) state = 1;
+			if(PORTReadBits(IO_CLIC_2)==0) state = 1;
 			break;
 
         case CLIC_3:
-			if(PORTReadBits(IOPORT_C, BIT_3)==0) state = 1;
+			if(PORTReadBits(IO_CLIC_3)==0) state = 1;
 			break;
 
         case CLIC_4:
-			if(PORTReadBits(IOPORT_C, BIT_4)==0) state = 1;
+			if(PORTReadBits(IO_CLIC_4)==0) state = 1;
 			break;
 #endif
         default:
@@ -141,16 +143,31 @@ CPU_INT08U CLIC_state (CPU_INT08U clic)
 
 void START_Init (void)
 {
-	PORTSetPinsDigitalIn(IOPORT_F, BIT_1);
+	PORTSetPinsDigitalIn(IO_START);
 }
 
 CPU_INT08U START_State (void)
 {
-	if(PORTReadBits(IOPORT_F, BIT_1)!=0) 
+	if(PORTReadBits(IO_START)!=0) 
 		return 1;
 	else
 		return 0;
 }	
+
+void COLOR_Init (void)
+{
+	PORTSetPinsDigitalIn(IO_COLOR);
+}
+
+CPU_INT08U COLOR_Read (void)
+{
+	CPU_INT08U value;
+	if(PORTReadBits(IO_COLOR)!=0) 
+		return 1;
+	else
+		return 0;
+}
+
 ///////////////////////////////////////////////////////////
 // PWM FUNCTIONS
 ///////////////////////////////////////////////////////////
@@ -248,11 +265,11 @@ void IO_M0_SetDirection(unsigned char dir)
 {
 	if(dir==0)
 	{
-		PORTClearBits(IOPORT_C, BIT_1);
+		PORTClearBits(IO_Motor_dir_0);
 	}
 	else
 	{
-		PORTSetBits(IOPORT_C, BIT_1);
+		PORTSetBits(IO_Motor_dir_0);
 	}
 }
 
@@ -260,11 +277,11 @@ void IO_M1_SetDirection(unsigned char dir)
 {
 	if(dir==0)
 	{
-		PORTClearBits(IOPORT_C, BIT_2);
+		PORTClearBits(IO_Motor_dir_1);
 	}
 	else
 	{
-		PORTSetBits(IOPORT_C, BIT_2);
+		PORTSetBits(IO_Motor_dir_1);
 	}
 }
 
@@ -292,19 +309,25 @@ void  LED_On (CPU_INT08U led)
         	 PORTClearBits(IOPORT_D, BIT_6 | BIT_7);
         	 PORTClearBits(IOPORT_F, BIT_0 | BIT_1);
 			#else
-			 PORTSetBits(IOPORT_D, BIT_13 | BIT_11);
-			 PORTSetBits(IOPORT_C, BIT_14);
+			 //PORTSetBits(IO_LED1);
+			 //PORTSetBits(IO_LED2);
+			 PORTSetBits(IO_LED3);
+			 PORTSetBits(IO_LED4);
+			 PORTSetBits(IO_LED5);
    			#endif
 			break;
 		case 1:
 			#ifdef _TARGET_440H
         	 PORTClearBits(IOPORT_D, BIT_7);
+			 #else
+			 //PORTSetBits(IO_LED1);
 			#endif
 			break;
 
 		case 2:
 			#ifdef _TARGET_440H
-        	 PORTClearBits(IOPORT_D, BIT_6);
+        	#else
+			 //PORTSetBits(IO_LED2);
 			#endif
 			break;
 
@@ -312,20 +335,20 @@ void  LED_On (CPU_INT08U led)
             #ifdef _TARGET_440H
         	 PORTClearBits(IOPORT_F, BIT_0);
 			#else
-			 PORTSetBits(IOPORT_D, BIT_11);
+			 PORTSetBits(IO_LED3);
 			#endif
 			break;
         case 4:
             #ifdef _TARGET_440H
         	 PORTClearBits(IOPORT_F, BIT_1);
 			#else
-             PORTSetBits(IOPORT_C, BIT_14);
+             PORTSetBits(IO_LED4);
 			#endif
 			break;
         case 5:
             #ifdef _TARGET_440H
 			#else
-             PORTSetBits(IOPORT_D, BIT_13);
+             PORTSetBits(IO_LED5);
 			#endif
 			break;
         default:
@@ -357,44 +380,45 @@ void  LED_Off (CPU_INT08U led)
 			 PORTSetBits(IOPORT_D, BIT_6 | BIT_7);
 			 PORTSetBits(IOPORT_F, BIT_0 | BIT_1);
 			#else
-			 PORTClearBits(IOPORT_D, BIT_13 | BIT_11);
-			 PORTClearBits(IOPORT_C, BIT_14);
+			 //PORTClearBits(IO_LED1);
+			 //PORTClearBits(IO_LED2);
+			 PORTClearBits(IO_LED3);
+			 PORTClearBits(IO_LED4);
+			 PORTClearBits(IO_LED5);
 			#endif
             break;
         case 1:
             #ifdef _TARGET_440H
 			 PORTSetBits(IOPORT_D, BIT_7);
 			#else
-			 PORTClearBits(IOPORT_D, BIT_13 | BIT_11);
-			 PORTClearBits(IOPORT_C, BIT_14);
+			//PORTClearBits(IO_LED1);
 			#endif
             break;
         case 2:
             #ifdef _TARGET_440H
 			 PORTSetBits(IOPORT_D, BIT_6);
 			#else
-			 PORTClearBits(IOPORT_D, BIT_13 | BIT_11);
-			 PORTClearBits(IOPORT_C, BIT_14);
+			//PORTClearBits(IO_LED2);
 			#endif
             break;
         case 3:
             #ifdef _TARGET_440H
 			 PORTSetBits(IOPORT_F, BIT_0);
 			#else
-             PORTClearBits(IOPORT_D, BIT_11);
+             PORTClearBits(IO_LED3);
 			#endif
             break;
         case 4:
             #ifdef _TARGET_440H
 			 PORTSetBits(IOPORT_F, BIT_1);
 			#else
-             PORTClearBits(IOPORT_C, BIT_14);
+             PORTClearBits(IO_LED4);
 			#endif
             break;
         case 5:
             #ifdef _TARGET_440H
 			#else
-             PORTClearBits(IOPORT_D, BIT_13);
+             PORTClearBits(IO_LED5);
 			#endif
             break;
 		default:
@@ -426,44 +450,45 @@ void  LED_Toggle (CPU_INT08U led)
         	 PORTToggleBits(IOPORT_D, BIT_6 | BIT_7);
         	 PORTToggleBits(IOPORT_F, BIT_0 | BIT_1);
 			#else
-        	 PORTToggleBits(IOPORT_D, BIT_13 | BIT_11);
-			 PORTToggleBits(IOPORT_C, BIT_14);
+			 //PORTToggleBits(IO_LED1);
+			 //PORTToggleBits(IO_LED2);
+        	 PORTToggleBits(IO_LED3);
+        	 PORTToggleBits(IO_LED4);
+        	 PORTToggleBits(IO_LED5);
 			#endif
             break;
         case 1:
             #ifdef _TARGET_440H
         	 PORTToggleBits(IOPORT_D, BIT_7);
 			#else
-        	 PORTToggleBits(IOPORT_D, BIT_13 | BIT_11);
-			 PORTToggleBits(IOPORT_C, BIT_14);
+			//PORTToggleBits(IO_LED1);
 			#endif
             break;
         case 2:
             #ifdef _TARGET_440H
         	 PORTToggleBits(IOPORT_D, BIT_6);
 			#else
-        	 PORTToggleBits(IOPORT_D, BIT_13 | BIT_11);
-			 PORTToggleBits(IOPORT_C, BIT_14);
+			//PORTToggleBits(IO_LED2);
 			#endif
             break;
         case 3:
             #ifdef _TARGET_440H
         	 PORTToggleBits(IOPORT_F, BIT_0);
 			#else
-             PORTToggleBits(IOPORT_D, BIT_11);
+             PORTToggleBits(IO_LED3);
 			#endif
             break;
         case 4:
             #ifdef _TARGET_440H
         	 PORTToggleBits(IOPORT_F, BIT_1);
 			#else
-             PORTToggleBits(IOPORT_C, BIT_14);
+             PORTToggleBits(IO_LED4);
 			#endif
             break;
         case 5:
             #ifdef _TARGET_440H
 			#else
-             PORTToggleBits(IOPORT_D, BIT_13);
+             PORTToggleBits(IO_LED5);
 			#endif
             break;
         default:
@@ -509,14 +534,20 @@ void  BSP_IO_Init (void)
 	DisableCN0;
 #else
 	// Each LED pin is set up as an output
-	PORTSetPinsDigitalOut(IOPORT_D, BIT_13 | BIT_11);
+	
+	//PORTSetPinsDigitalOut(IO_LED1);
+	//PORTSetPinsDigitalOut(IO_LED2);
+	PORTSetPinsDigitalOut(IO_LED3);
+	PORTSetPinsDigitalOut(IO_LED4);
 	DisableCN0;
-	PORTSetPinsDigitalOut(IOPORT_C, BIT_14);
+	PORTSetPinsDigitalOut(IO_LED5);
 
 	// Motor direction
-	PORTSetPinsDigitalOut(IOPORT_C, BIT_1 | BIT_2);
+	PORTSetPinsDigitalOut(IO_Motor_dir_0);
+	PORTSetPinsDigitalOut(IO_Motor_dir_1);
 	
 	START_Init();
+	COLOR_Init();
 #endif
 
 	CLIC_Init();
