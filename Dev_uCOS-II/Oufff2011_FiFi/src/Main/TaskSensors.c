@@ -24,102 +24,6 @@ BOOLEAN TaskSensors_IsStartButtonPressed()
 }
 
 // ------------------------------------------------------------------------------------------------
-void TaskSensors_CheckBumpers()
-{
-	char uart_buffer[8];
-	char * buffer_ptr;
-	INT8U	Err = 0;						// Var to get error status
-	CPU_INT16U  GP2Data;
-
-/* Todo
-	//GP2_1 : Front *************************************************
-	GP2Data  = ADC_GetVal (GP2_1);
-	//AppDebugMsg("GP2_1 : ");
-	//buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-	//AppDebugMsg(buffer_ptr);
-	//AppDebugMsg("  ");
-
-	// Check Value
-#ifdef APP_GP2D2_LIMIT_FRONT
-	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2D2_FRONT, OS_FLAG_SET, &Err); 
-	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2D2_FRONT, OS_FLAG_CLR, &Err); 
-#endif
-
-	//GP2_2 : Back **************************************************
-	GP2Data  = ADC_GetVal (GP2_2);
-//	AppDebugMsg("GP2_2 : ");
-//	buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-//	AppDebugMsg(buffer_ptr);
-//	AppDebugMsg("  ");
-
-	// Check Value
-#ifdef APP_GP2D2_LIMIT_BACK
-	if(GP2Data > APP_GP2D2_LIMIT_BACK)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2D2_BACK, OS_FLAG_SET, &Err); 
-	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2D2_BACK, OS_FLAG_CLR, &Err); 
-#endif
-
-	//GP2_3 : Not Used **********************************************
-	//GP2Data  = ADC_GetVal (GP2_3);
-	//AppDebugMsg("GP2_3 : ");
-	//buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-	//AppDebugMsg(buffer_ptr);
-	//AppDebugMsg("  ");
-	
-	//GP2_4 : Not Used **********************************************
-	//GP2Data  = ADC_GetVal (GP2_4);
-	//AppDebugMsg("GP2_4 : ");
-	//buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-	//AppDebugMsg(buffer_ptr);
-	//AppDebugMsg("  ");
-		
-	//GP2_5 : Not Used **********************************************
-	//GP2Data  = ADC_GetVal (GP2_5);
-	//AppDebugMsg("GP2_5 : ");
-	//buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-	//AppDebugMsg(buffer_ptr);
-	//AppDebugMsg("\n");
-*/
-	return;
-}
-
-void TaskSensors_CheckSW()
-{
-	INT8U	Err = 0;						// Var to get error status
-
-#ifdef _TARGET_440H
-
-#else
-	// CLIC_1 : Front Left ******************************************
-	if(CLIC_state(CLIC_1))	
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_1, OS_FLAG_SET, &Err); 
-	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_1, OS_FLAG_CLR, &Err); 
-
-	// CLIC_2 : Front Right *****************************************
-	if(CLIC_state(CLIC_2))
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_2, OS_FLAG_SET, &Err); 
-	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_2, OS_FLAG_CLR, &Err); 
-
-	// CLIC_3 : Front Center ****************************************
-	if(CLIC_state(CLIC_3))		
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_3, OS_FLAG_SET, &Err); 
-	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_3, OS_FLAG_CLR, &Err); 
-
-	// CLIC_4 : Back Center *****************************************
-	if(CLIC_state(CLIC_4))		
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_4, OS_FLAG_SET, &Err); 
-	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_SW_4, OS_FLAG_CLR, &Err); 
-#endif
-}
-
-// ------------------------------------------------------------------------------------------------
 void TaskSensors_ReadColor()
 {
 	// Read current color
@@ -132,12 +36,33 @@ void TaskSensors_ReadColor()
 }
 
 // ------------------------------------------------------------------------------------------------
+void TaskSensors_CheckBumpers()
+{
+	INT8U	Err = 0;						// Var to get error status
+
+#ifdef _TARGET_440H
+
+#else
+
+#endif
+}
+
+// ------------------------------------------------------------------------------------------------
 // TaskSensors_Main()
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_Main(void *p_arg)
 {
-	INT8U	Err = 0;				// Var to get error status
-	CPU_INT16U  GP2Data;
+	INT8U		Err;				// Var to get error status
+	INT8U		CurrentState;		// Used into state machine
+	INT8U		NextState;			// Used into state machine
+	StructMsg	*pCurrentMsg;		// For retreiving data from TaskMain
+
+	// Init
+	Err = 0;
+	CurrentState = 0;
+	NextState = 0;
+	pCurrentMsg = NULL;
+
 
 	AppDebugMsg("OUFFF TEAM 2011 : Sensors online\n");
 
@@ -163,8 +88,81 @@ void TaskSensors_Main(void *p_arg)
 	// StartButton has been pressed
 	OSFlagPost(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_SET, &Err); 
 
-	while(OS_TRUE)	// Main task: we check all other sensors
+	do
 	{
 		OSTimeDlyHMSM(0, 0, 0, 10);	
+
+		// First step, we check all external sensors
+		TaskSensors_CheckBumpers();
+
+		// Then, we use the state machine
+		CurrentState = NextState;
+		switch(CurrentState)
+		{
+		// CASE 0 : We are waiting for an incomming msg -------------------------------------------
+		case 0:
+			// Check if a msg is currently in use
+			if(NULL == pCurrentMsg)
+			{
+				// Unlock msg
+				pCurrentMsg->IsRead = OS_TRUE;
+				pCurrentMsg = NULL;
+			}
+
+			// Try to read another msg
+			pCurrentMsg = (StructMsg*)OSQAccept(AppQueueSensors, &Err);
+			if(NULL == pCurrentMsg)
+			{
+				// No msg is available
+				NextState = 0;
+			}
+			else
+			{
+				// Select Action from Cmd
+				switch(pCurrentMsg->CmdType)
+				{
+				case Sensors_OpenClamp: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+					NextState = 1;
+					break;
+
+				default: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+					NextState = 0;
+					break;
+				}
+			}
+			break;
+
+		// CASE 10 : Action 1 = Open Clamp --------------------------------------------------------
+		case 10:
+			// Todo : Send order
+			if(CmdType_Blocking == pCurrentMsg->CmdType)
+				NextState = 11;			// We want to wait the end of this action
+			else
+				NextState = 0;			// We don't want to wait the end of this action 
+			break;
+
+		// CASE 11 : Action 1 = Wait for complete openning ----------------------------------------
+		case 11:
+			// Todo : Faire le check du flag
+			NextState = 0;
+			break;
+
+		// CASE 255 : Final state -----------------------------------------------------------------
+		case 255:
+			NextState = 255;
+
+			break;
+
+		// DEFAULT --------------------------------------------------------------------------------
+		default:
+			NextState = 0;
+			break;
+		}
+	}while(CurrentState != 255);	
+
+	// End of task
+	while(OS_TRUE)
+	{
+		OSTimeDlyHMSM(0, 0, 30, 0);	
 	}
 }

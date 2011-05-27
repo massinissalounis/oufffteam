@@ -47,8 +47,9 @@ typedef enum
 	Mvt_UsePivotMode,			// Use Asser Mode 4
 	Mvt_Simple,				    // Used a simple mvt (don't divide this mvt)
     Mvt_Stop,                   // Used to stop current mvt
+	Mvt_Wait,      		        // Wait (if all params = 0, wait for ever)
 	App_SetNewPos,				// Msg used to define a new position
-	Wait,       		        // Wait (if all params = 0, wait for ever)
+	Sensors_OpenClamp,			// Open the clamp
 }EnumCmd;
 
 typedef enum
@@ -61,6 +62,7 @@ typedef enum
 typedef enum
 {
     Msg_NotSet = 0,             // Current Msg is not set
+	Msg_Sensor_OpenClamp,		// Msg to TaskSensor to open Clamp
 }EnumMsg;
 
 // STRUCT ################################################################
@@ -89,8 +91,9 @@ typedef struct
 
 typedef struct
 {
-    EnumMsg Message;
-    BOOLEAN IsRead;
+    BOOLEAN		IsRead;				// Read Flag
+    EnumCmd		Cmd;				// Command for the current Msg
+	EnumCmdType	CmdType;			// Var to define if the current action is a blocking action or not
 }StructMsg;
 
 #endif // APPCUSTOMTYPES_H

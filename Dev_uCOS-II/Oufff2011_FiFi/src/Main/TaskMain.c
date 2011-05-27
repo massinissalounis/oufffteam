@@ -55,6 +55,7 @@ void TaskMain_Main(void *p_arg)
 	INT8U		Err;								// Var to get error status								
 	StructCmd	CurrentCmd;							// Var to store current action to be done
 	StructCmd	NextCmd;							// Var to store next action to be done
+	StructMsg	MsgToPost;							// Var to store data to be sent
 
 	// Debug vars
 	char 		uart_buffer[20];
@@ -70,6 +71,10 @@ void TaskMain_Main(void *p_arg)
 	NextState				= 0;
 	Err						= 0;
 
+	memset(&CurrentCmd,		0, sizeof(StructCmd));
+	memset(&NextCmd,		0, sizeof(StructCmd));
+	memset(&MsgToPost,		0, sizeof(StructMsg));
+	
 	memset(uart_buffer, 0, 20);
 
 	#ifdef _TARGET_440H
@@ -203,7 +208,35 @@ void TaskMain_Main(void *p_arg)
 					CurrentCmd = NextCmd;
 					memset(&NextCmd, 0, sizeof(StructCmd));
 
-					TaskMain_SendSetpointToTaskMvt(&CurrentCmd);
+					// Send command to the destination task
+					switch(CurrentCmd.Cmd)
+					{
+					// To TaskMvt ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+					case Mvt_UseAngleOnly:
+					case Mvt_UseDistOnly:
+					case Mvt_UseMixedMode:
+					case Mvt_UsePivotMode:
+					case Mvt_Simple:
+					case Mvt_Stop:
+					case Mvt_Wait:
+					case App_SetNewPos:
+						TaskMain_SendSetpointToTaskMvt(&CurrentCmd);
+						break;
+
+					// To TaskSensors ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+					case Sensors_OpenClamp:
+						// Copy data to MsgToPost
+						MsgToPost.Cmd		= CurrentCmd.Cmd;
+						MsgToPost.CmdType	= CurrentCmd.CmdType;
+
+						// Send Msg
+						AppPostQueueMsg(AppQueueSensors, &MsgToPost);
+						break;
+
+					// Destination not defined ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+						AppDebugMsg("Current Msg has not a destination task\n");
+						break;
+					}
 				}
 
 				NextState = 1;

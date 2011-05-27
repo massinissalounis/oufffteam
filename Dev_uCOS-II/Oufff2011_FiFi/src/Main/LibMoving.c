@@ -319,7 +319,7 @@ BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest)
     // --------------------------------------------------------------------------------------------
     // We have to stay in place
     case Mvt_Stop:
-    case Wait:
+    case Mvt_Wait:
         Ret = OS_FALSE;
         break;
 
