@@ -1013,11 +1013,11 @@ void  BSP_InitIO (void)
 
 
     BSP_IO_Init();                                                      // Initialize the board's I/Os
-    Tmr_Init();                                                         // Initialize the timers
-    BSP_InitIntCtrl();                                                  // Initialize the interrupt controller
+//    Tmr_Init();                                                         // Initialize the timers
+//    BSP_InitIntCtrl();                                                  // Initialize the interrupt controller
 
-    LED_Init();                                                         /* Initialize LEDs                                  */
-//    PB_Init();                                                          /* Initialize the push buttons                      */
+    LED_Init();                                                         // Initialize LEDs
+////    PB_Init();                                                        // Initialize the push buttons
     ADC_Init();
 	PMP_Init();
 	UART_Init();
