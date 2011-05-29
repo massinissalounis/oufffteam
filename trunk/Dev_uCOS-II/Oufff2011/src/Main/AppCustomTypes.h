@@ -10,58 +10,90 @@
 #ifndef APPCUSTOMTYPES_H
 #define APPCUSTOMTYPES_H
 
-#include "AppConfig.h"
-
 // DEFINE ################################################################
 #define	WAIT_FOREVER			0		// Define for Timeout
+
+#define RIGHT_WHEEL				1		// Used for pivot mode
+#define LEFT_WHEEL				-1		// Used for pivot mode
+
+#define USE_CURRENT_VALUE		-9999	// Used into Cmd msg to indicate we want to keep current value 
+										// (Thus no computation is needed for this param)
+
+#define CURRENT_STATE__STOP     0       // Current Odo state is set to "STOP"
+
+// ERROR CODES ###########################################################
+// Global ---------------------------------------
+#define ERR__NO_ERROR							0				// No error
+#define ERR__INVALID_PARAM						1				// Parameter given is not valid
+#define ERR__NO_MORE_DATA_AVAILABLE				2				// There is no more data
+
 
 // ENUM ##################################################################
 // Color ----------------------------------------
 typedef enum
 {
 	c_NotSet = -1,
-	c_Black,
-	c_Red,
-	c_Blue,
-	c_Green,
-	c_Yellow
+	c_ColorA,					// Blue
+	c_ColorB,					// Red
 }EnumColor;
 
-// Msg Type -------------------------------------
+// Mvt Mode -------------------------------------
 typedef enum
-{								// Dest		| Details																
-	Msg_NoMsg = 0,				// None		| To send a NULL msg (not used)											
-	Msg_Asser_MsgType = 100,	// None		| Asser Msg																
-	Msg_Asser_GoToXYA,			// Asser	| Msg to give a new position setpoint in XYA coord						
-	Msg_Asser_Algo,				// Asser	| Msg to choose which algo we want to use								
-	Msg_Asser_SetSpeed,			// Asser	| Msg to set robot speed (value is from 0 (no move) to 1 (full speeed)
+{
+	Cmd_NotSet = 0,	            // Current Cmd is not set
+	Mvt_UseAngleOnly,		    // Use Asser Mode 1
+	Mvt_UseDistOnly,			// Use Asser Mode 2
+	Mvt_UseMixedMode,			// Use Asser Mode 3
+	Mvt_UsePivotMode,			// Use Asser Mode 4
+	Mvt_Simple,				    // Used a simple mvt (don't divide this mvt)
+    Mvt_Stop,                   // Used to stop current mvt
+	Mvt_Wait,      		        // Wait (if all params = 0, wait for ever)
+	App_SetNewPos,				// Msg used to define a new position
+	Sensors_OpenClamp,			// Open the clamp
+}EnumCmd;
+
+typedef enum
+{
+	CmdType_NotSet = 0,	        // Command type is not set
+	CmdType_Blocking,			// Command is a blocking action
+	CmdType_NonBlocking,		// Command is a non-blocking action
+}EnumCmdType;
+
+typedef enum
+{
+    Msg_NotSet = 0,             // Current Msg is not set
+	Msg_Sensor_OpenClamp,		// Msg to TaskSensor to open Clamp
 }EnumMsg;
 
 // STRUCT ################################################################
 // Position -------------------------------------
- struct StructPos
-{
-	float 	x;					// Pos en x
-	float 	y;					// Pos en y
-	float 	angle;				// Angle
-	int		mode_control;		// Mode used for mvt
-	CPU_INT16U right_encoder;	// Right wheel position for mode 4
-	CPU_INT16U left_encoder;	// Left wheel position for mode 4
-	int 	IDActiveSensors;	// Define which active sensors we have to use for this movement (if not set, use all sensors)
-	int		Flag;				// Flag for this position
-								// Use APP_FLAG_POS__... to make a Flag value
-};
-
-// Msg ------------------------------------------
 typedef struct
 {
-	EnumMsg Msg;		// Msg to be sent (Msg_NoMsg: Invalid Msg)																					
-	BOOLEAN IsRead;		// Flag to indicate if current msg has been read or not																	
-	// Msg Parameters	:  Msg_Asser_GoToXYA	| Msg_Asser_Algo								| Msg_Asser_SetSpeed								
-	float Param1;		// X					| Mode Ctrl										| Speed rate (between 0 and 1.0)
-	float Param2;		// Y					| Not Used										| Not Used
-	float Param3;		// ALPHA				| Not Used										| Not Used
-	int Param4;			// Mode Ctrl			| Not Used										| Not Used
+	float 		x;					// Pos en x
+	float 		y;					// Pos en y
+	float 		angle;				// Angle
+	CPU_INT16U	right_encoder;		// Right wheel position for mode 4
+	CPU_INT16U	left_encoder;		// Left wheel position for mode 4
+	char		CurrentState;		// Flag for storing current mvt state
+}StructPos;
+
+typedef struct
+{
+	EnumCmd		Cmd;		        // Mode used to go to next major point
+	// MvtMode Type					   Simple			| Wait  	| UseAngleOnly	| UseDistOnly	| UseMixedMode	| UsePivotMode	| App_SetNewPos	|
+	short 		Param1;				// Speed(1-100)		| Not Used  | Speed(1-100)	| Speed(1-100)	| Speed(1-100)	| Speed(1-100)	| Not Used		|
+	float 		Param2;				// x				| Not Used	| Not Used		| x				| x				| Wheel to lock	| x				|
+	float 		Param3;				// y				| Not Used	| Not Used		| y				| y				| Not Used		| y				|
+	float		Param4;				// angle			| Not Used	| angle			| Not Used		| angle			| angle			| angle			|
+	int 		ActiveSensorsFlag;	// Define which sensors we have to use for this movement (if not set, use all external sensors)
+	EnumCmdType	CmdType;			// Var to define if the current action is a blocking action or not
+}StructCmd;
+
+typedef struct
+{
+    BOOLEAN		IsRead;				// Read Flag
+    EnumCmd		Cmd;				// Command for the current Msg
+	EnumCmdType	CmdType;			// Var to define if the current action is a blocking action or not
 }StructMsg;
 
 #endif // APPCUSTOMTYPES_H
