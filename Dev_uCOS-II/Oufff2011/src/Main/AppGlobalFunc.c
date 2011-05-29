@@ -8,14 +8,32 @@
 *
 * Suivi de version :
 * 2009-03-26 | PBE | Creation de la version de base pour la coupe 2010
+* 2009-04-01 | PBE | Mise à jour pour la coupe 2011
 *********************************************************************************************************
-
-
 */
 
 #include "AppIncludes.h"
-#include "AppGlobalFunc.h"
-#include "AppGlobalVars.h"
+#include "TaskOdo.h"
+
+
+// ------------------------------------------------------------------------------------------------
+void AppDebugMsg(char *DebugMsg)
+{
+	INT8U Err = 0;
+
+	if(NULL != App_MutexUART2)
+	{
+		// Ask for Mutex on serial port 2
+		OSMutexPend(App_MutexUART2, WAIT_FOREVER, &Err);
+		{	
+			putsUART2(DebugMsg);
+		}	
+		OSMutexPost(App_MutexUART2);
+		// Release Mutex
+	}
+
+	return;
+}
 
 // ------------------------------------------------------------------------------------------------
 BOOLEAN AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
@@ -50,25 +68,17 @@ BOOLEAN AppPostQueueMsg(OS_EVENT *PtrQueue, StructMsg *PtrMsgToPost)
 	// otherwise we create the msg
 	if(NextFreeIndex >= 0)
 	{
-		// Create Msg
+		memcpy(AppMsgStk+NextFreeIndex, PtrMsgToPost, sizeof(StructMsg));
 		AppMsgStk[NextFreeIndex].IsRead	=	OS_FALSE;				// Msg is unread
-		AppMsgStk[NextFreeIndex].Msg	=	PtrMsgToPost->Msg;		// Msg to post 
-		AppMsgStk[NextFreeIndex].Param1	=	PtrMsgToPost->Param1;	// Param1
-		AppMsgStk[NextFreeIndex].Param2	=	PtrMsgToPost->Param2;	// Param2
-		AppMsgStk[NextFreeIndex].Param3	=	PtrMsgToPost->Param3;	// Param3
-		AppMsgStk[NextFreeIndex].Param4	=	PtrMsgToPost->Param4;	// Param4
 
 		// Post Msg
 		OSQPost(PtrQueue, (void*)(&(AppMsgStk[NextFreeIndex])));
-		#ifdef _TARGET_STARTER_KIT
-			LED_Toggle(2);
-		#endif
 
 		return OS_TRUE;
 	}
 	else
 	{
-		putsUART2("AppGlobalFunc : Queue Full !!!\n");
+		AppDebugMsg("AppGlobalFunc : Queue Full !!!\n");
 		return OS_FALSE;
 	}
 
@@ -118,4 +128,10 @@ float AppCheckAngleInDeg(float ValueToCheck)
 		ValueToCheck = ValueToCheck + 360.0;
 
 	return ValueToCheck;
+}
+
+// ------------------------------------------------------------------------------------------------
+INT8U AppGetCurrentPos(StructPos *CurrentPos)
+{
+	return TaskOdo_GetCurrentPos(CurrentPos);
 }

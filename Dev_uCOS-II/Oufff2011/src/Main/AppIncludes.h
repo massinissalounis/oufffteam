@@ -20,7 +20,7 @@
 #include    <lib_str.h>
 #include    <ctype.h>
 
-#include    <AppConfig.h>
+#include    "AppConfig.h"
 #include    <cpu_def.h>
 #include    <cpu.h>
 #include    <ucos_ii.h>
@@ -37,3 +37,4 @@
 #include	"bsp_fpga.h"
 #include	"AppCustomTypes.h"		// Custom Types
 #include 	"AppGlobalFunc.h"
+#include	"AppGlobalVars.h"
