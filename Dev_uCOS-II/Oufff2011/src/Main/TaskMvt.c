@@ -16,6 +16,8 @@
 
 #define TASK_MVT_FLAGS_TO_READ	(APP_PARAM_APPFLAG_TIMER_STATUS + APP_PARAM_APPFLAG_START_BUTTON + APP_PARAM_APPFLAG_ALL_SENSORS)
 
+INT8U	Debug_MvtState = 0;
+
 // ------------------------------------------------------------------------------------------------
 void TaskMvt_SendSetpointToTaskAsser(StructCmd *Setpoint)
 {
@@ -67,6 +69,7 @@ void TaskMvt_Main(void *p_arg)
 	// Vars
 	StructCmd	    CurrentPath[APP_MOVING_SEQ_LEN];		// Data used for storing path cmd
     StructCmd       CurrentCmd;                             // Data for storing current order from TaskMain (to be done)
+    StructCmd       CurrentCmdForTest;                      // Data for testing current order from TaskMain (to be done)
     StructCmd       StopCmd;								// Command used for stopping the current mvt
 	StructPos	    CurrentPos;		    					// Data used for storing current pos from TaskOdo
 	OS_FLAGS		CurrentFlag;							// Var to read current flag								
@@ -112,7 +115,6 @@ void TaskMvt_Main(void *p_arg)
 
 	AppDebugMsg("OUFFF TEAM 2011 : Mvt online\n");
 	
-
 	// MAIN LOOP ==================================================================================
 	do
 	{
@@ -121,6 +123,7 @@ void TaskMvt_Main(void *p_arg)
 
 		// Update current state
 		CurrentState = NextState;
+		Debug_MvtState = CurrentState;
 
 		// Save current sensors status
 		SensorsPreviousStatus = SensorsCurrentStatus;
@@ -331,11 +334,31 @@ void TaskMvt_Main(void *p_arg)
 
 			// CASE 010 ---------------------------------------------------------------------------
 			case 10:	// Is final setpoint reached ?
+				AppGetCurrentPos(&CurrentPos);
+				memcpy(&CurrentCmdForTest, &CurrentCmd, sizeof(StructCmd));
+
+				if(USE_CURRENT_VALUE == CurrentCmd.Param2)
+					CurrentCmdForTest.Param2 = CurrentCmd.Param2;				
+
+				if(USE_CURRENT_VALUE == CurrentCmd.Param3)
+					CurrentCmdForTest.Param3 = CurrentCmd.Param3;					
+
+				if(USE_CURRENT_VALUE == CurrentCmd.Param4)
+					CurrentCmdForTest.Param4 = CurrentCmd.Param4;				
+
                 // Check if we have a setpoint to reach
-                if(LibMoving_IsSetpointReached(&CurrentCmd) == OS_TRUE)
+                if(LibMoving_IsSetpointReached(&CurrentCmdForTest) == OS_TRUE)
                 {
-                    // Setpoint has been reached
-                    NextState = 254;
+                   	// Indicates we are stopped if current action is a blocking mvt
+					if(CmdType_Blocking == CurrentCmd.CmdType)
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err); 
+
+					// Disable all current path
+					CurrentSetpoint = -1;
+					memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
+					memcpy(&CurrentCmd,	&StopCmd,	1 * sizeof(StructCmd));
+		
+					NextState = 1;
                 }
                 else
                 {   // Search for next setpoint

@@ -19,7 +19,8 @@
 #define USE_CURRENT_VALUE		-9999	// Used into Cmd msg to indicate we want to keep current value 
 										// (Thus no computation is needed for this param)
 
-#define CURRENT_STATE__STOP     0       // Current Odo state is set to "STOP"
+#define CURRENT_STATE__MOVING	0		// Current Odo state is moving
+#define CURRENT_STATE__STOP     1       // Current Odo state is set to "STOP"
 
 // ERROR CODES ###########################################################
 // Global ---------------------------------------
@@ -69,12 +70,12 @@ typedef enum
 // Position -------------------------------------
 typedef struct
 {
-	float 		x;					// Pos en x
-	float 		y;					// Pos en y
-	float 		angle;				// Angle
-	CPU_INT16U	right_encoder;		// Right wheel position for mode 4
-	CPU_INT16U	left_encoder;		// Left wheel position for mode 4
-	char		CurrentState;		// Flag for storing current mvt state
+	float 			x;					// Pos en x
+	float 			y;					// Pos en y
+	float 			angle;				// Angle
+	CPU_INT16U		right_encoder;		// Right wheel position for mode 4
+	CPU_INT16U		left_encoder;		// Left wheel position for mode 4
+	unsigned char	CurrentState;		// Flag for storing current mvt state
 }StructPos;
 
 typedef struct

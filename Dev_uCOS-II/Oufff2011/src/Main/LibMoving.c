@@ -179,6 +179,8 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
 
 		// Movment will be done in 3 steps
 		// First one: Turn to be in the correct direction
+		(NewPath + 2)->Cmd		 			= Mvt_UseMixedMode;
+		(NewPath + 2)->CmdType 				= ExpectedCmd->CmdType;
 		(NewPath + 2)->Param1	 			= ExpectedCmd->Param1;
 		(NewPath + 2)->Param2	 			= USE_CURRENT_VALUE;
 		(NewPath + 2)->Param3	 			= USE_CURRENT_VALUE;
@@ -186,6 +188,8 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
 		(NewPath + 2)->ActiveSensorsFlag	= ExpectedCmd->ActiveSensorsFlag;
 		
 		// Second one: Go to the expected pos
+		(NewPath + 1)->Cmd		 			= Mvt_UseMixedMode;
+		(NewPath + 1)->CmdType 				= ExpectedCmd->CmdType;
 		(NewPath + 1)->Param1	 			= ExpectedCmd->Param1;
 		(NewPath + 1)->Param2	 			= ExpectedCmd->Param2;
 		(NewPath + 1)->Param3	 			= ExpectedCmd->Param3;
@@ -193,6 +197,8 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
 		(NewPath + 1)->ActiveSensorsFlag 	= ExpectedCmd->ActiveSensorsFlag;
 
 		// Third (last) one: Turn to the expected pos
+		(NewPath + 0)->Cmd		 			= Mvt_UseMixedMode;
+		(NewPath + 0)->CmdType 				= ExpectedCmd->CmdType;
 		(NewPath + 0)->Param1	 			= ExpectedCmd->Param1;
 		(NewPath + 0)->Param2	 			= USE_CURRENT_VALUE;
 		(NewPath + 0)->Param3	 			= USE_CURRENT_VALUE;
@@ -281,9 +287,10 @@ BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest)
     // Read current odo value
     AppGetCurrentPos(&CurrentPos);
 
-    // Compute Dist and Angle
+    AngleToSetpoint = fabs(SetpointToTest->Param4 - CurrentPos.angle);
     DistToSetpoint = (SetpointToTest->Param2 - CurrentPos.x) * (SetpointToTest->Param2 - CurrentPos.x) + (SetpointToTest->Param3 - CurrentPos.y) * (SetpointToTest->Param3 - CurrentPos.y);
-    AngleToSetpoint = abs(SetpointToTest->Param4 - CurrentPos.angle);
+
+
 
     switch(SetpointToTest->Cmd)
     {
@@ -291,7 +298,7 @@ BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest)
     // Check Only for angle
     case Mvt_UseAngleOnly:     
     case Mvt_UsePivotMode:
-        if(AngleToSetpoint <= APP_MOVING_ANGLE_APPROCH_PRECISION)
+        if(AngleToSetpoint <= APP_MOVING_APPROACH_PRECISION_COEF * APP_MOVING_ANGLE_APPROACH_PRECISION)
             Ret = OS_TRUE;
         else
             Ret = OS_FALSE;
@@ -300,7 +307,7 @@ BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest)
     // --------------------------------------------------------------------------------------------
     // Check Only for Dist
     case Mvt_UseDistOnly:
-        if(DistToSetpoint <= (APP_MOVING_DIST_APPROCH_PRECISION * APP_MOVING_DIST_APPROCH_PRECISION))
+        if(DistToSetpoint <= (APP_MOVING_APPROACH_PRECISION_COEF * APP_MOVING_DIST_APPROACH_PRECISION * APP_MOVING_DIST_APPROACH_PRECISION))
             Ret = OS_TRUE;
         else
             Ret = OS_FALSE;
@@ -310,7 +317,7 @@ BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest)
     // Check for Angle and Dist
     case Mvt_Simple:
     case Mvt_UseMixedMode:
-        if((AngleToSetpoint <= APP_MOVING_ANGLE_APPROCH_PRECISION) && (DistToSetpoint <= (APP_MOVING_DIST_APPROCH_PRECISION * APP_MOVING_DIST_APPROCH_PRECISION)))
+        if((AngleToSetpoint <= APP_MOVING_APPROACH_PRECISION_COEF * APP_MOVING_ANGLE_APPROACH_PRECISION) && (DistToSetpoint <= (APP_MOVING_APPROACH_PRECISION_COEF * APP_MOVING_DIST_APPROACH_PRECISION * APP_MOVING_DIST_APPROACH_PRECISION)))
             Ret = OS_TRUE;
         else
             Ret = OS_FALSE;

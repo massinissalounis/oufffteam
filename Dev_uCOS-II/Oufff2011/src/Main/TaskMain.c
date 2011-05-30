@@ -20,6 +20,8 @@
 
 #define TASK_MAIN_FLAGS_TO_READ	(APP_PARAM_APPFLAG_TIMER_STATUS + APP_PARAM_APPFLAG_START_BUTTON + APP_PARAM_APPFLAG_ALL_SENSORS + APP_PARAM_APPFLAG_ACTION_STATUS)
 
+INT8U	Debug_MainState = 0;
+
 // ------------------------------------------------------------------------------------------------
 void TaskMain_SendSetpointToTaskMvt(StructCmd *NextCmd)
 {
@@ -86,6 +88,10 @@ void TaskMain_Main(void *p_arg)
 	// Wait other tasks start
 	OSTimeDlyHMSM(0, 0, 1, 0);
 
+#ifndef APP_TASK_SENSORS_ENABLED
+	AppCurrentColor = c_ColorA;					// If TaskSensor is not running, define current color to ColorA
+#endif
+
 #ifdef _TARGET_440H
 	OSTimeDlyHMSM(0, 0, 1, 0);
 	Set_Line_Information( 1, 0, "                 ", 16);
@@ -141,6 +147,7 @@ void TaskMain_Main(void *p_arg)
 
 		// Update current state
 		CurrentState = NextState;
+		Debug_MainState = CurrentState;
 
 		// Check FLAGS for Task Main
 		CurrentFlag = OSFlagAccept(AppFlags, TASK_MAIN_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ANY, &Err);
@@ -237,6 +244,8 @@ void TaskMain_Main(void *p_arg)
 						AppDebugMsg("Current Msg has not a destination task\n");
 						break;
 					}
+
+					OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_CLR, &Err); 
 				}
 
 				NextState = 1;

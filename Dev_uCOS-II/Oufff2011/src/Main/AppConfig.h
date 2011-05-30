@@ -36,7 +36,7 @@
 #define APP_TASK_ASSER_ENABLED							// Activate TaskAsser
 #define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
 #define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
-#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
+//#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
 
 /*
 *********************************************************************************************************
@@ -149,22 +149,23 @@
 
 // POSITION MANAGER MODE
 //#define ODO_CALIBRATION
-#define APP_MOVING_SEQ_LEN						5			    // Length of moving sequence table (used for evoluate movment)
-																// WARNING : Minimal value is 3
+#define APP_MOVING_SEQ_LEN						5			    		// Length of moving sequence table (used for evoluate movment)
+																		// WARNING : Minimal value is 3
 
-#define APP_MOVING_ESCAPE_SEQ_RIGHT				1				// Create escape sequence by going on the right 
-#define APP_MOVING_ESCAPE_SEQ_LEFT				2				// Create escape sequence by going on the left 
-#define APP_MOVING_ESCAPE_SEQ_BACK				3				// Create escape sequence by going back
-#define APP_MOVING_ESCAPE_SEQ_FRONT				4				// Create escape sequence by going forward
+#define APP_MOVING_ESCAPE_SEQ_RIGHT				1						// Create escape sequence by going on the right 
+#define APP_MOVING_ESCAPE_SEQ_LEFT				2						// Create escape sequence by going on the left 
+#define APP_MOVING_ESCAPE_SEQ_BACK				3						// Create escape sequence by going back
+#define APP_MOVING_ESCAPE_SEQ_FRONT				4						// Create escape sequence by going forward
 
-#define APP_MOVING_ASSER_INITIAL_MODE_CTRL		3			    // Initial Mode Control
+#define APP_MOVING_ASSER_INITIAL_MODE_CTRL		3					    // Initial Mode Control
 
-#define APP_MOVING_DIST_APPROCH_PRECISION       50.0            // Distance in mm to consider the change of control mode (arrival zone)  
-#define APP_MOVING_ANGLE_APPROCH_PRECISION      2.0             // Angle in degree to consider the setpoint reached
+#define APP_MOVING_DIST_APPROACH_PRECISION      50.0       			    // Distance in mm to consider the change of control mode (arrival zone)  
+#define APP_MOVING_ANGLE_APPROACH_PRECISION     (2.0 * M_PI / 180.0)    // Angle in degree to consider the setpoint reached
+#define APP_MOVING_APPROACH_PRECISION_COEF		1.1						// Coef to use to consider the setpoint reached (use by TaskMain)
 
-#define APP_MOVING_MINIMAL_DIST_FOR_MIXED_MODE	50.0			// Minimal value necessary for TaskMvt to send order (in mixed mode) to TaskAsser
-																// If dist is under this value, command is not sent 
-																// This limitation is made to prevent small moves (big angle and small length)
+#define APP_MOVING_MINIMAL_DIST_FOR_MIXED_MODE	50.0					// Minimal value necessary for TaskMvt to send order (in mixed mode) to TaskAsser
+																		// If dist is under this value, command is not sent 
+																		// This limitation is made to prevent small moves (big angle and small length)
 
 /*
 *********************************************************************************************************

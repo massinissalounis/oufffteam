@@ -18,13 +18,13 @@
 //////////////////////////////////////////////
 
 // Angle loop for theta-alpha
-#define KP_ANGLE 				50000.0		// Oscillations de 2s environ
+#define KP_ANGLE 				150000.0		// Oscillations de 2s environ
 #define KI_ANGLE 				0.0
 #define KD_ANGLE 				350000.0
 #define IMAX_ANGLE 				1000.0
 
 // Distance loop for theta-alpha
-#define KP_DISTANCE 			200.0
+#define KP_DISTANCE 			350.0
 #define KI_DISTANCE 			0.0
 #define KD_DISTANCE 			1500.0
 #define IMAX_DISTANCE 			1000.0
@@ -53,7 +53,7 @@
 #define DEFAULT_ACC_DISTANCE	1.0		// n % of maximum speed per 10 ms
 
 // Used in hold speed control
-#define SPEED_ANGLE		1.0 	// n % of maximum speed
+#define SPEED_ANGLE		0.5 	// n % of maximum speed
 
 #define SPEED_PIVOT		0.2
 
@@ -63,10 +63,10 @@
 
 #define MAX_MOTOR_COMMAND 		        32000	                            // doit être < à 32768
 
-#define DISTANCE_ALPHA_ONLY		        APP_MOVING_DIST_APPROCH_PRECISION 	// Error in mm in distance to consider the change of control mode
+#define DISTANCE_ALPHA_ONLY		        APP_MOVING_DIST_APPROACH_PRECISION 	// Error in mm in distance to consider the change of control mode
 										                                    // This parameter is also used to switch on the arrival flag
 
-#define ANGLE_APPROACH_PRECISION		(APP_MOVING_ANGLE_APPROCH_PRECISION * M_PI / 180.0)	// Error in rad for angle to consider the setpoint reached
+#define ANGLE_APPROACH_PRECISION		APP_MOVING_ANGLE_APPROACH_PRECISION	// Error in rad for angle to consider the setpoint reached
 
 #define PIVOT_APPROACH_PRECISION		 2.00
 #define PIVOT_LEFT_APPROACH_PRECISION	(PIVOT_APPROACH_PRECISION * M_PI / 180.0) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_LEFT

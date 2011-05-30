@@ -87,6 +87,9 @@ void TaskSensors_Main(void *p_arg)
 
 	// StartButton has been pressed
 	OSFlagPost(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_SET, &Err); 
+	OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err); 
+
+	HOLDER_Init();
 
 	do
 	{

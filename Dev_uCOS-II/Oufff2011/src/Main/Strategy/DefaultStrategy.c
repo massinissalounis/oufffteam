@@ -26,18 +26,18 @@ INT8U Strategy_GetInitCmd(EnumColor CurrentColor, StructCmd *InitCmd)
 	case c_ColorA:	// Blue ############################################# 
 		InitCmd->Cmd				= App_SetNewPos;
 		InitCmd->CmdType			= CmdType_NonBlocking;
-		InitCmd->Param2				= 100.0;
-		InitCmd->Param3				= 100.0;
-		InitCmd->Param4				= AppConvertDegInRad(100.0);
+		InitCmd->Param2				= 0.0;
+		InitCmd->Param3				= 0.0;
+		InitCmd->Param4				= AppConvertDegInRad(0.0);
 		InitCmd->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 		break;
 
 	case c_ColorB:	// Red ##############################################
 		InitCmd->Cmd				= App_SetNewPos;
 		InitCmd->CmdType			= CmdType_NonBlocking;
-		InitCmd->Param2				= 200.0;
-		InitCmd->Param3				= 200.0;
-		InitCmd->Param4				= AppConvertDegInRad(200.0);
+		InitCmd->Param2				= 0.0;
+		InitCmd->Param3				= 0.0;
+		InitCmd->Param4				= AppConvertDegInRad(0.0);
 		InitCmd->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 		break;
 
@@ -66,7 +66,11 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 	case c_ColorA:	// Blue #############################################################
 		switch(CurrentActionID)
 		{
-		//case 0:	LibMoving_MoveInMM(100, 80, NextAction);	break;
+		//case 0:	LibMoving_MoveInMM(200, 80, NextAction);	break;
+		case 0:		NextAction->Cmd = Mvt_UseMixedMode;		NextAction->Param1 = 50;	NextAction->Param2 = 400;	NextAction->Param3 = 0;		NextAction->Param4 = AppConvertDegInRad(0.0);	NextAction->CmdType = CmdType_Blocking;		break;		
+		case 1:		NextAction->Cmd = Mvt_UseMixedMode;		NextAction->Param1 = 50;	NextAction->Param2 = 400;	NextAction->Param3 = 400;	NextAction->Param4 = AppConvertDegInRad(90.0);	NextAction->CmdType = CmdType_Blocking;		break;		
+		case 2:		NextAction->Cmd = Mvt_UseMixedMode;		NextAction->Param1 = 50;	NextAction->Param2 = 0;		NextAction->Param3 = 400;	NextAction->Param4 = AppConvertDegInRad(180.0);	NextAction->CmdType = CmdType_Blocking;		break;		
+		case 3:		NextAction->Cmd = Mvt_UseMixedMode;		NextAction->Param1 = 50;	NextAction->Param2 = 0;		NextAction->Param3 = 0;		NextAction->Param4 = AppConvertDegInRad(0.0);	NextAction->CmdType = CmdType_Blocking;		break;		
 
 		default:
 			return ERR__NO_MORE_DATA_AVAILABLE;
@@ -80,7 +84,7 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 	case c_ColorB:	// Red ##############################################################
 		switch(CurrentActionID)
 		{
-		case 0:	LibMoving_MoveInMM(100, 80, NextAction);	break;
+		//case 0:	LibMoving_MoveInMM(-100, 80, NextAction);	break;
 
 		default:
 			return ERR__NO_MORE_DATA_AVAILABLE;

@@ -32,6 +32,7 @@ OS_EVENT	    *App_MutexCmdToTaskMvt = NULL;		    // Mutex to limit access (RW) t
 OS_EVENT	    *App_MutexCmdToTaskAsser = NULL;		// Mutex to limit access (RW) to Asser Setpoint variable (from TaskMvt to TaskAsser)
 OS_EVENT	    *App_MutexUART1 = NULL;					// Mutex to limit access (RW) to UART1 device
 OS_EVENT	    *App_MutexUART2 = NULL;					// Mutex to limit access (RW) to UART2 device
+OS_EVENT	    *App_MutexPMP = NULL;					// Mutex to limit access (RW) to UART2 device
 
 /***** Enum *****/
 EnumColor		AppCurrentColor;						// Contains current color (read from bsp)
