@@ -593,6 +593,12 @@ void TaskAsser_Main(void *p_arg)
 	AppDebugMsg("OUFFF TEAM 2011 : Asser online\n");
 
 	init_control_motion();
+	
+	TaskOdo_GetCurrentPos(&TaskAsser_CurrentPos);
+	mode_control	= 3;	// Use Mixed Mode
+	setpoint.angle	= TaskAsser_CurrentPos.angle;
+	setpoint.x		= TaskAsser_CurrentPos.x;
+	setpoint.y		= TaskAsser_CurrentPos.y;
 
 	while(OS_TRUE)
 	{
@@ -682,9 +688,17 @@ void TaskAsser_Main(void *p_arg)
             default:
                 break;
             }
+
+
 		}
 
 		// MOTION CONTROL LOOP
+
+		error_debug_1 = setpoint.x;
+		error_debug_2 = setpoint.y;
+		error_debug_3 = setpoint.angle;
+		error_debug_4 = distance_quadramp_data.speed_order;
+		error_debug_5 = App_CmdToTaskAsserId;
 
 		// Reset_datas
 		command_left =0;

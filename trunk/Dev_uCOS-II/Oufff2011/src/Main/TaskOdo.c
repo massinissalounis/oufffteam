@@ -27,6 +27,9 @@ extern float error_debug_3;
 extern float error_debug_4;
 extern float error_debug_5;
 
+extern INT8U Debug_MainState;
+extern INT8U Debug_MvtState;
+
 // Initialize data types
 // Struc position
 // Impulsed position
@@ -161,6 +164,8 @@ void position_manager_process()
 	
 		TaskOdo_CurrentPos.right_encoder = QUADD_data;
 		TaskOdo_CurrentPos.left_encoder = QUADG_data;
+
+		TaskOdo_CurrentPos.CurrentState = movement_detection();
 	}
 	// FIN SECTION CRITIQUE
 	OSMutexPost(MutexCurrentPos);
@@ -199,9 +204,9 @@ unsigned char movement_detection()
 	{
 		count = MOVEMENT_DETECTION_INTERVAL;
 
-		if(	abs(TaskOdo_CurrentPos.angle - angle_old) < MOVEMENT_DETECTION_ANGLE_THRESHOLD &&
-		   	abs(TaskOdo_CurrentPos.y - y_old) < MOVEMENT_DETECTION_DISTANCE_THRESHOLD &&
-			abs(TaskOdo_CurrentPos.x - x_old) < MOVEMENT_DETECTION_DISTANCE_THRESHOLD )
+		if(	fabs(TaskOdo_CurrentPos.angle - angle_old) < MOVEMENT_DETECTION_ANGLE_THRESHOLD &&
+		   	fabs(TaskOdo_CurrentPos.y - y_old) < MOVEMENT_DETECTION_DISTANCE_THRESHOLD &&
+			fabs(TaskOdo_CurrentPos.x - x_old) < MOVEMENT_DETECTION_DISTANCE_THRESHOLD )
 		{
 			flag = 1;
 		}
@@ -311,7 +316,7 @@ void TaskOdo_Main(void *p_arg)
 			#else
 				position_manager_process();
 
-				no_movement_flag = movement_detection();
+				//no_movement_flag = movement_detection();
 
 				if(i==0)
 				{
@@ -325,24 +330,30 @@ void TaskOdo_Main(void *p_arg)
 					AppDebugMsg(",alpha : ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (TaskOdo_CurrentPos.angle*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
+					AppDebugMsg(",MainState : ");
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) Debug_MainState, (CPU_INT08U) 3, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					AppDebugMsg(buffer_ptr);
+					AppDebugMsg(",MvtState : ");
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) Debug_MvtState, (CPU_INT08U) 3, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					AppDebugMsg(buffer_ptr);
 					AppDebugMsg("\n");
-/*					AppDebugMsg("1: ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_1, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					AppDebugMsg("1: ");
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_1, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
 					AppDebugMsg(",2: ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_2, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_2, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
 					AppDebugMsg(",3: ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_3, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (error_debug_3*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
 					AppDebugMsg(",4: ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_4, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_4, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
 					AppDebugMsg(",5: ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_5, (CPU_INT08U) 5, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_5, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
 					AppDebugMsg("\n");
-*/
+
 				}
 				i++;
 				if(i==50) i=0;

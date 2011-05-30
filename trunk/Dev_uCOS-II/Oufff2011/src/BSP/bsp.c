@@ -893,7 +893,7 @@ CPU_INT16U  ADC_GetVal (CPU_INT08U channel_to_convert)
 	OSTimeDlyHMSM(0, 0, 0, 5);
 	
 	ConvertADC10(); 
-    while (!BusyADC10());	// timeaout ?? !!
+    while (!BusyADC10());	// timeout ?? !!
     buffer = 8 * (~ReadActiveBufferADC10() & 0x1);                      /* Select non active buffer                                 */
     
     return (ReadADC10(buffer));                                         /* Return ADC reading                                       */
@@ -1107,11 +1107,11 @@ void  BSP_InitIO (void)
 	SYSTEMConfig(BSP_CLK_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
 	
     BSP_IO_Init();                                                      // Initialize the board's I/Os
-//    Tmr_Init();                                                         // Initialize the timers
-//    BSP_InitIntCtrl();                                                  // Initialize the interrupt controller
+    Tmr_Init();                                                         // Initialize the timers
+    BSP_InitIntCtrl();                                                  // Initialize the interrupt controller
 
     LED_Init();                                                         // Initialize LEDs
-////    PB_Init();                                                        // Initialize the push buttons
+//    PB_Init();                                                        // Initialize the push buttons
     ADC_Init();
 	PMP_Init();
 	UART_Init();
