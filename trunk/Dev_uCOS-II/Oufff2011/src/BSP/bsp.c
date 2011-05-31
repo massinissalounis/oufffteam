@@ -890,7 +890,7 @@ CPU_INT16U  ADC_GetVal (CPU_INT08U channel_to_convert)
 	//pour le changement de voie en entrée de l'adc, il faudra prévoir un temps pour que la tension se
 	//stabilise entre la comutation et l'échantillonnage. Le top se serait de changer de voie à la fin de la conversion précédente. 
 	//Ce qui laisse du temps avant la conversion suivante.    CBE
-	OSTimeDlyHMSM(0, 0, 0, 5);
+	OSTimeDlyHMSM(0, 0, 0, 10);
 	
 	ConvertADC10(); 
     while (!BusyADC10());	// timeout ?? !!

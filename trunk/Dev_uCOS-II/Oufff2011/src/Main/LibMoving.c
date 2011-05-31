@@ -78,7 +78,7 @@ void LibMoving_RotateInDeg(float AngleInDeg, INT8U Speed, StructCmd *NextSetpoin
 	NextSetpoint->Param3 = USE_CURRENT_VALUE; 
 	NextSetpoint->Param4 = CurrentPos.angle + AppConvertDegInRad(AngleInDeg);
 
-	NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_ALL_SENSORS;
+	NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_NONE;
 
 	return;
 }
@@ -111,7 +111,7 @@ void LibMoving_MoveToAngleInDeg(float AngleToGoInDeg, INT8U Speed, StructCmd *Ne
 	NextSetpoint->Param3 = USE_CURRENT_VALUE; 
 	NextSetpoint->Param4 = AppConvertDegInRad(AngleToGoInDeg);
 
-	NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_ALL_SENSORS;
+	NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_NONE;
 
 	return;
 }
@@ -222,30 +222,134 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
 // ------------------------------------------------------------------------------------------------
 void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, INT8U Speed, StructCmd *NewPath, INT8S *NewPathLength)
 {
+    StructPos CurrentPos;
+	StructCmd *Action = NULL;
+
 	// Clear memory
 	memset(NewPath, 0, APP_MOVING_SEQ_LEN * sizeof(StructCmd));
 	*NewPathLength = 0;
+
+	// Read Current Odo position
+	AppGetCurrentPos(&CurrentPos);
 
 	switch(EscapeSeqType)
 	{
 		// ****************************************************************************************
 		case APP_MOVING_ESCAPE_SEQ_RIGHT:
-			LibMoving_MoveInMM		(-150,	Speed, NewPath + 4);							// Define first movement
-			LibMoving_RotateInDeg	(-45,	Speed, NewPath + 3);							// Define second movement
-			LibMoving_MoveInMM		(354,	Speed, NewPath + 2);							// Define third movement
-			LibMoving_RotateInDeg	(45,	Speed, NewPath + 1);							// Define fourth movement
-			LibMoving_MoveInMM		(500,	Speed, NewPath + 0);							// Define last movement
+			// Compute First mvt
+			Action = NewPath + 4;
+			Action->Cmd 				= Mvt_Simple;		
+			Action->CmdType 			= CmdType_Blocking;		
+			Action->Param1 				= Speed;	
+			Action->Param2 				= CurrentPos.x + (-200.0) * cosf(CurrentPos.angle);	
+			Action->Param3 				= CurrentPos.y + (-200.0) * sinf(CurrentPos.angle);		
+			Action->Param4 				= CurrentPos.angle;	
+//			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_BACK_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			
+			// Compute Second mvt
+			Action = NewPath + 3;
+			Action->Cmd 				= Mvt_Simple;		
+			Action->CmdType 			= CmdType_Blocking;		
+			Action->Param1 				= Speed;	
+			Action->Param2 				= (Action+1)->Param2;	
+			Action->Param3 				= (Action+1)->Param3;		
+			Action->Param4 				= (Action+1)->Param4 + AppConvertDegInRad(-45.0);	
+//			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_RIGHT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+
+			// Compute Third mvt
+			Action = NewPath + 2;
+			Action->Cmd 				= Mvt_Simple;		
+			Action->CmdType 			= CmdType_Blocking;		
+			Action->Param1 				= Speed;	
+			Action->Param2 				= (Action+1)->Param2 + (600.0) * cosf((Action+1)->Param4);	
+			Action->Param3 				= (Action+1)->Param3 + (600.0) * sinf((Action+1)->Param4);		
+			Action->Param4 				= (Action+1)->Param4;	
+//			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_FRONT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+
+			// Compute Fourth mvt
+			Action = NewPath + 1;
+			Action->Cmd 				= Mvt_Simple;		
+			Action->CmdType 			= CmdType_Blocking;		
+			Action->Param1 				= Speed;	
+			Action->Param2 				= (Action+1)->Param2;	
+			Action->Param3 				= (Action+1)->Param3;		
+			Action->Param4 				= (Action+1)->Param4 + AppConvertDegInRad(45.0);	
+//			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_LEFT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+
+			// Compute Fifth mvt
+			Action = NewPath + 0;
+			Action->Cmd 				= Mvt_Simple;		
+			Action->CmdType 			= CmdType_Blocking;		
+			Action->Param1 				= Speed;	
+			Action->Param2 				= (Action+1)->Param2 + (400.0) * cosf((Action+1)->Param4);	
+			Action->Param3 				= (Action+1)->Param3 + (400.0) * sinf((Action+1)->Param4);		
+			Action->Param4 				= (Action+1)->Param4;	
+//			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_FRONT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 
 			*NewPathLength = 5;
 			break;
 
 		// ****************************************************************************************
-		case APP_MOVING_ESCAPE_SEQ_LEFT: 
-			LibMoving_MoveInMM		(-150,	Speed, NewPath + 4);							// Define first movement
-			LibMoving_RotateInDeg	(45,	Speed, NewPath + 3);							// Define second movement
-			LibMoving_MoveInMM		(354,	Speed, NewPath + 2);							// Define third movement
-			LibMoving_RotateInDeg	(-45,	Speed, NewPath + 1);							// Define fourth movement
-			LibMoving_MoveInMM		(500,	Speed, NewPath + 0);							// Define last movement
+		case APP_MOVING_ESCAPE_SEQ_LEFT:
+			// Compute First mvt
+			Action = NewPath + 4;
+			Action->Cmd 				= Mvt_Simple;		
+			Action->CmdType 			= CmdType_Blocking;		
+			Action->Param1 				= Speed;	
+			Action->Param2 				= CurrentPos.x + (-200.0) * cosf(CurrentPos.angle);	
+			Action->Param3 				= CurrentPos.y + (-200.0) * sinf(CurrentPos.angle);		
+			Action->Param4 				= CurrentPos.angle;	
+//			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_BACK_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			
+			// Compute Second mvt
+			Action = NewPath + 3;
+			Action->Cmd 				= Mvt_Simple;		
+			Action->CmdType 			= CmdType_Blocking;		
+			Action->Param1 				= Speed;	
+			Action->Param2 				= (Action+1)->Param2;	
+			Action->Param3 				= (Action+1)->Param3;		
+			Action->Param4 				= (Action+1)->Param4 + AppConvertDegInRad(45.0);	
+//			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_LEFT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+
+			// Compute Third mvt
+			Action = NewPath + 2;
+			Action->Cmd 				= Mvt_Simple;		
+			Action->CmdType 			= CmdType_Blocking;		
+			Action->Param1 				= Speed;	
+			Action->Param2 				= (Action+1)->Param2 + (600.0) * cosf((Action+1)->Param4);	
+			Action->Param3 				= (Action+1)->Param3 + (600.0) * sinf((Action+1)->Param4);		
+			Action->Param4 				= (Action+1)->Param4;	
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_FRONT_SENSORS;
+//			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+
+			// Compute Fourth mvt
+			Action = NewPath + 1;
+			Action->Cmd 				= Mvt_Simple;		
+			Action->CmdType 			= CmdType_Blocking;		
+			Action->Param1 				= Speed;	
+			Action->Param2 				= (Action+1)->Param2;	
+			Action->Param3 				= (Action+1)->Param3;		
+			Action->Param4 				= (Action+1)->Param4 + AppConvertDegInRad(-45.0);	
+//			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_RIGHT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+
+			// Compute Fifth mvt
+			Action = NewPath + 0;
+			Action->Cmd 				= Mvt_Simple;		
+			Action->CmdType 			= CmdType_Blocking;		
+			Action->Param1 				= Speed;	
+			Action->Param2 				= (Action+1)->Param2 + (400.0) * cosf((Action+1)->Param4);	
+			Action->Param3 				= (Action+1)->Param3 + (400.0) * sinf((Action+1)->Param4);		
+			Action->Param4 				= (Action+1)->Param4;	
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_FRONT_SENSORS;
+//			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 
 			*NewPathLength = 5;
 			break;

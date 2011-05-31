@@ -14,6 +14,7 @@
 
 #include "TaskSensors.h"
 
+extern float error_debug_5;
 // ------------------------------------------------------------------------------------------------
 BOOLEAN TaskSensors_IsStartButtonPressed()
 {
@@ -39,13 +40,44 @@ void TaskSensors_ReadColor()
 void TaskSensors_CheckBumpers()
 {
 	INT8U	Err = 0;						// Var to get error status
+	CPU_INT16U  GP2Data;
 
 #ifdef _TARGET_440H
 
 #else
+	//GP2_1 : Front *************************************************
+	GP2Data  = ADC_GetVal (GP2_FRONT);
+	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
+	{
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_SET, &Err); 
+	}
+	else
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_CLR, &Err); 
 
+
+
+	
 #endif
 }
+
+// ------------------------------------------------------------------------------------------------
+void TaskSensors_GrabObject()
+{
+	CPU_INT16U  GP2Data;
+
+	HOLDER_Close();
+	GP2Data  = ADC_GetVal (GP2_HOLDER);
+
+	OSTimeDlyHMSM(0,0,0,500);
+
+	if(GP2Data < APP_GP2D2_LIMIT_HOLDER_IN)
+	{
+		HOLDER_Open();
+	}	
+
+	return;
+}
+
 
 // ------------------------------------------------------------------------------------------------
 // TaskSensors_Main()
@@ -91,8 +123,13 @@ void TaskSensors_Main(void *p_arg)
 
 	HOLDER_Init();
 
+	CPU_INT16U  GP2Data;
 	do
 	{
+
+	GP2Data  = ADC_GetVal (GP2_HOLDER);
+	error_debug_5 = GP2Data;
+
 		OSTimeDlyHMSM(0, 0, 0, 10);	
 
 		// First step, we check all external sensors
@@ -105,7 +142,7 @@ void TaskSensors_Main(void *p_arg)
 		// CASE 0 : We are waiting for an incomming msg -------------------------------------------
 		case 0:
 			// Check if a msg is currently in use
-			if(NULL == pCurrentMsg)
+			if(NULL != pCurrentMsg)
 			{
 				// Unlock msg
 				pCurrentMsg->IsRead = OS_TRUE;
@@ -122,9 +159,11 @@ void TaskSensors_Main(void *p_arg)
 			else
 			{
 				// Select Action from Cmd
-				switch(pCurrentMsg->CmdType)
+				switch(pCurrentMsg->Cmd)
 				{
-				case Sensors_OpenClamp: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				case Sensors_GrabObject: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+					TaskSensors_GrabObject();
+					OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
 					NextState = 1;
 					break;
 
@@ -133,21 +172,6 @@ void TaskSensors_Main(void *p_arg)
 					break;
 				}
 			}
-			break;
-
-		// CASE 10 : Action 1 = Open Clamp --------------------------------------------------------
-		case 10:
-			// Todo : Send order
-			if(CmdType_Blocking == pCurrentMsg->CmdType)
-				NextState = 11;			// We want to wait the end of this action
-			else
-				NextState = 0;			// We don't want to wait the end of this action 
-			break;
-
-		// CASE 11 : Action 1 = Wait for complete openning ----------------------------------------
-		case 11:
-			// Todo : Faire le check du flag
-			NextState = 0;
 			break;
 
 		// CASE 255 : Final state -----------------------------------------------------------------

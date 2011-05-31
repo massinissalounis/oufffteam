@@ -210,7 +210,7 @@ void TaskMain_Main(void *p_arg)
 
 			// CASE 005 ---------------------------------------------------------------------------
 			case 5:		// Send Next Action
-				if(CmdType_NotSet != NextCmd.CmdType)
+				if(Cmd_NotSet != NextCmd.Cmd)
 				{
 					CurrentCmd = NextCmd;
 					memset(&NextCmd, 0, sizeof(StructCmd));
@@ -231,7 +231,7 @@ void TaskMain_Main(void *p_arg)
 						break;
 
 					// To TaskSensors ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-					case Sensors_OpenClamp:
+					case Sensors_GrabObject:
 						// Copy data to MsgToPost
 						MsgToPost.Cmd		= CurrentCmd.Cmd;
 						MsgToPost.CmdType	= CurrentCmd.CmdType;

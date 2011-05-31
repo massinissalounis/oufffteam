@@ -26,6 +26,9 @@ void TaskSensors_CheckBumpers();
 	// Check for bumpers status.
 	// In case of collision, this function posts FLAGS to tell main task we are bumping
 
+void TaskSensors_GrabObject();
+	// Function for grabbing an object.
+
 void TaskSensors_Main(void *p_arg);
 	// Fonction principal du process de gestion des Sensors
 	// void *p_arg		: Arg for this task
