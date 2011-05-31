@@ -249,6 +249,7 @@ void HOLDER_Init(void)
 
 	// HOLDER Init
 	HOLDER_Level_Low();
+	HOLDER_Open();
 }
 
 void QUAD_Latch (void)

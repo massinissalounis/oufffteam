@@ -50,7 +50,7 @@ typedef enum
     Mvt_Stop,                   // Used to stop current mvt
 	Mvt_Wait,      		        // Wait (if all params = 0, wait for ever)
 	App_SetNewPos,				// Msg used to define a new position
-	Sensors_OpenClamp,			// Open the clamp
+	Sensors_GrabObject,			// Grab an object
 }EnumCmd;
 
 typedef enum
@@ -80,14 +80,14 @@ typedef struct
 
 typedef struct
 {
-	EnumCmd		Cmd;		        // Mode used to go to next major point
-	// MvtMode Type					   Simple			| Wait  	| UseAngleOnly	| UseDistOnly	| UseMixedMode	| UsePivotMode	| App_SetNewPos	|
-	short 		Param1;				// Speed(1-100)		| Not Used  | Speed(1-100)	| Speed(1-100)	| Speed(1-100)	| Speed(1-100)	| Not Used		|
-	float 		Param2;				// x				| Not Used	| Not Used		| x				| x				| Wheel to lock	| x				|
-	float 		Param3;				// y				| Not Used	| Not Used		| y				| y				| Not Used		| y				|
-	float		Param4;				// angle			| Not Used	| angle			| Not Used		| angle			| angle			| angle			|
-	int 		ActiveSensorsFlag;	// Define which sensors we have to use for this movement (if not set, use all external sensors)
-	EnumCmdType	CmdType;			// Var to define if the current action is a blocking action or not
+	EnumCmd		Cmd;			        // Mode used to go to next major point
+	// MvtMode Type						   Simple			| Wait  	| UseAngleOnly	| UseDistOnly	| UseMixedMode	| UsePivotMode	| App_SetNewPos	|
+	short 			Param1;				// Speed(1-100)		| Not Used  | Speed(1-100)	| Speed(1-100)	| Speed(1-100)	| Speed(1-100)	| Not Used		|
+	float 			Param2;				// x				| Not Used	| Not Used		| x				| x				| Wheel to lock	| x				|
+	float 			Param3;				// y				| Not Used	| Not Used		| y				| y				| Not Used		| y				|
+	float			Param4;				// angle			| Not Used	| angle			| Not Used		| angle			| angle			| angle			|
+	unsigned int 	ActiveSensorsFlag;	// Define which sensors we have to use for this movement (if not set, use all external sensors)
+	EnumCmdType	CmdType;				// Var to define if the current action is a blocking action or not
 }StructCmd;
 
 typedef struct

@@ -694,12 +694,11 @@ void TaskAsser_Main(void *p_arg)
 
 		// MOTION CONTROL LOOP
 
-		error_debug_1 = setpoint.x;
+/*		error_debug_1 = setpoint.x;
 		error_debug_2 = setpoint.y;
 		error_debug_3 = setpoint.angle;
-		error_debug_4 = distance_quadramp_data.speed_order;
-		error_debug_5 = App_CmdToTaskAsserId;
-
+		error_debug_4 = App_CmdToTaskAsserId;
+*/
 		// Reset_datas
 		command_left =0;
 		command_right =0;
