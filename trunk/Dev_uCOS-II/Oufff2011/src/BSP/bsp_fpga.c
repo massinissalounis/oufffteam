@@ -212,11 +212,26 @@ void HOLDER_Open(void)
 //	AX12_Write_Position(AX12_FR_ID,0x02,0x6C);
 }
 
-void HOLDER_Close(void)
+void HOLDER_Hold(void)
 {
 	AX12_Write_Position_Sync(AX12_FL_ID, AX12_FR_ID, 0x02, 0x24, 0x01, 0xD5);
 //	AX12_Write_Position(AX12_FL_ID,0x02,0x24);
 //	AX12_Write_Position(AX12_FR_ID,0x01,0xD5);
+}
+
+void HOLDER_Close(void)
+{
+	AX12_Write_Position_Sync(AX12_FL_ID, AX12_FR_ID, 0x03, 0x0C, 0x00, 0xE6);
+}
+
+void HOLDER_Open_Left_Only(void)
+{
+	AX12_Write_Position_Sync(AX12_FL_ID, AX12_FR_ID, 0x01, 0x9A, 0x00, 0xE6);
+}
+
+void HOLDER_Open_Right_Only(void)
+{
+	AX12_Write_Position_Sync(AX12_FL_ID, AX12_FR_ID, 0x03, 0x0C, 0x02, 0x6C);
 }
 
 void HOLDER_Level_Low(void)
@@ -249,7 +264,7 @@ void HOLDER_Init(void)
 
 	// HOLDER Init
 	HOLDER_Level_Low();
-	HOLDER_Open();
+	HOLDER_Close();
 }
 
 void QUAD_Latch (void)

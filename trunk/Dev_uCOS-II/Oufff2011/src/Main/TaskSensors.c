@@ -46,7 +46,7 @@ void TaskSensors_CheckBumpers()
 
 #else
 	//GP2_1 : Front *************************************************
-	GP2Data  = ADC_GetVal (GP2_FRONT);
+	GP2Data  = ADC_GetVal (GP2_FRONT_LEFT);
 	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
 	{
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_SET, &Err); 
@@ -65,17 +65,59 @@ void TaskSensors_GrabObject()
 {
 	CPU_INT16U  GP2Data;
 
-	HOLDER_Close();
-	GP2Data  = ADC_GetVal (GP2_HOLDER);
-
+	HOLDER_Hold();
 	OSTimeDlyHMSM(0,0,0,500);
 
+	GP2Data  = ADC_GetVal (GP2_HOLDER);
 	if(GP2Data < APP_GP2D2_LIMIT_HOLDER_IN)
 	{
 		HOLDER_Open();
 	}	
 
 	return;
+}
+
+void TaskSensors_ControlHolder(CPU_INT08U control)
+{
+	switch(control)
+	{
+		case 0: 
+			HOLDER_Close();
+			break;
+
+		case 1:
+			HOLDER_Open_Left_Only();
+			break;
+
+		case 2:
+			HOLDER_Open_Right_Only();
+			break;
+			
+		case 3:
+			HOLDER_Open();
+			break;
+
+		case 4:
+			TaskSensors_GrabObject();
+
+		default:
+			HOLDER_Close();
+	}
+}
+
+void TaskSensors_CheckObject()
+{
+	INT8U	Err = 0;						// Var to get error status
+	CPU_INT16U  GP2Data;
+
+	GP2Data  = ADC_GetVal (GP2_HOLDER);
+
+	if(GP2Data < APP_GP2D2_LIMIT_HOLDER_IN)
+	{
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_HOLDER, OS_FLAG_SET, &Err); 
+	}
+	else
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_HOLDER, OS_FLAG_CLR, &Err); 	
 }
 
 
@@ -134,6 +176,7 @@ void TaskSensors_Main(void *p_arg)
 
 		// First step, we check all external sensors
 		TaskSensors_CheckBumpers();
+		TaskSensors_CheckObject();
 
 		// Then, we use the state machine
 		CurrentState = NextState;

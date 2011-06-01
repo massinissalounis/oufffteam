@@ -56,6 +56,7 @@ INT8U Strategy_GetInitCmd(EnumColor CurrentColor, StructCmd *InitCmd)
 INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 {
 	static INT8U	CurrentActionID = 0;
+	INT8U 			Err = 0;
 	OS_FLAGS		CurrentFlag = 0;
 	StructCmd		*p = NextAction;
 
