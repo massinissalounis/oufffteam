@@ -17,8 +17,9 @@
 */
 #define APP_USE_DEBUG						1			// If defined, debug msg are sent to UART2.
 
-#define APP_INIT_ROBOT_SPEED				060			// Speed rate					(0:No Move, 100: Full Speed)
-#define APP_ESCAPE_ROBOT_SPEED				040			// Speed rate for escape seq	(0:No Move, 100: Full Speed)
+#define APP_INIT_ROBOT_SPEED				060			// Speed rate						(0:No Move, 100: Full Speed)
+#define APP_ESCAPE_ROBOT_SPEED				040			// Speed rate for escape seq		(0:No Move, 100: Full Speed)
+#define APP_HOMOL_ROBOT_SPEED				050			// Speed rate for homol strategy	(0:No Move, 100: Full Speed)
 #define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
 
 #define APP_GP2D2_LIMIT_FRONT				135			// Object detection around ??? mm
@@ -60,7 +61,7 @@
 #define APP_PARAM_APPFLAG_ACTION_STATUS			0x00000040	//	| 6 | Action status				| Action is done	| Action is running	| Soft			|
 #define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running 	| Soft			|	
 #define APP_PARAM_APPFLAG_GP2_FRONT				0x00000100	//	| 8 | GP2_1						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_2					0x00000200	//	| 9 | GP2_2						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_HOLDER			0x00000200	//	| 9 | GP2_2						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_3					0x00000400	//	|10 | GP2_3						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_4					0x00000800	//	|11 | GP2_4						| Active			| Inactive			| Hard			|	
 #define APP_PARAM_APPFLAG_GP2_5					0x00001000	//	|12 | GP2_5						| Active			| Inactive			| Hard			|
@@ -185,7 +186,8 @@
 */
 // Only 1 option can be set bellow.
 
-#define DEFAULT_STRATEGY_ENABLED				// Enable this option to use default strategy
+//#define DEFAULT_STRATEGY_ENABLED				// Enable this option to use default strategy
+#define HOMOL_STRATEGY_ENABLED					// Enable this option to use the homol strategy
 
 
 /*

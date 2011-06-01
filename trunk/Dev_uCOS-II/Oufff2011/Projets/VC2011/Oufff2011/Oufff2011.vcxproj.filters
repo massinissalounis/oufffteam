@@ -233,5 +233,8 @@
     <ClCompile Include="..\..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_dbg.c">
       <Filter>µC-OSII</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\Homol.c">
+      <Filter>Fichiers sources\Strategy</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

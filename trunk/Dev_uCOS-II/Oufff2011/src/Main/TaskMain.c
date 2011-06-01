@@ -236,11 +236,20 @@ void TaskMain_Main(void *p_arg)
 						MsgToPost.Cmd		= CurrentCmd.Cmd;
 						MsgToPost.CmdType	= CurrentCmd.CmdType;
 
+
 						// Send Msg
 						AppPostQueueMsg(AppQueueSensors, &MsgToPost);
 						break;
 
+
+					case Sensors_SetHolderStatus:
+						MsgToPost.Cmd		= CurrentCmd.Cmd;
+						MsgToPost.CmdType	= CurrentCmd.CmdType;
+
+						break;
+
 					// Destination not defined ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+					default:
 						AppDebugMsg("Current Msg has not a destination task\n");
 						break;
 					}

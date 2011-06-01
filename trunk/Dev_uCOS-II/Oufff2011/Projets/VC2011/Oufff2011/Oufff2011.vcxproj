@@ -111,6 +111,7 @@
     <ClCompile Include="..\..\..\src\Main\AppHooks.c" />
     <ClCompile Include="..\..\..\src\Main\LibMoving.c" />
     <ClCompile Include="..\..\..\src\Main\strategy\DefaultStrategy.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\Homol.c" />
     <ClCompile Include="..\..\..\src\Main\TaskAsser.c" />
     <ClCompile Include="..\..\..\src\Main\TaskMain.c" />
     <ClCompile Include="..\..\..\src\Main\TaskMvt.c" />
