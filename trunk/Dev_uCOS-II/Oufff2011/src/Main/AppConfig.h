@@ -22,9 +22,11 @@
 #define APP_HOMOL_ROBOT_SPEED				050			// Speed rate for homol strategy	(0:No Move, 100: Full Speed)
 #define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
 
-#define APP_GP2D2_LIMIT_FRONT				135			// Object detection around ??? mm
-#define APP_GP2D2_LIMIT_BACK				400			// Object detection around ??? mm
-#define APP_GP2D2_LIMIT_HOLDER_IN			200
+#define APP_GP2D2_LIMIT_FRONT_LEFT			135			// Threshold for front left sensor
+#define APP_GP2D2_LIMIT_FRONT_RIGHT			135			// Threshold for front right sensor
+#define APP_GP2D2_LIMIT_FRONT				135			// Threshold for front sensor (it's the mean value of left and right)
+#define APP_GP2D2_LIMIT_BACK				400			// Threshold for back sensor
+#define APP_GP2D2_LIMIT_HOLDER_IN			200			// Threshold for detecting object into holder
 
 #define APP_NOT_USED						0			// Not Used value
 
@@ -60,11 +62,11 @@
 #define APP_PARAM_APPFLAG_BIT05					0x00000020	//	| 5 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_ACTION_STATUS			0x00000040	//	| 6 | Action status				| Action is done	| Action is running	| Soft			|
 #define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running 	| Soft			|	
-#define APP_PARAM_APPFLAG_GP2_FRONT				0x00000100	//	| 8 | GP2_1						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_HOLDER			0x00000200	//	| 9 | GP2_2						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_3					0x00000400	//	|10 | GP2_3						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_4					0x00000800	//	|11 | GP2_4						| Active			| Inactive			| Hard			|	
-#define APP_PARAM_APPFLAG_GP2_5					0x00001000	//	|12 | GP2_5						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT_LEFT		0x00000100	//	| 8 | GP2 placed on the left	| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT_RIGHT		0x00000200	//	| 9 | GP2 placed on the right	| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT				0x00000400	//	|10 | Mean value (left+right)	| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_BACK				0x00000800	//	|11 | GP2 placed on the back	| Active			| Inactive			| Hard			|	
+#define APP_PARAM_APPFLAG_GP2_HOLDER			0x00001000	//	|12 | GP2 used for detecting obj| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_6					0x00002000	//	|13 | GP2_6						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_7					0x00004000	//	|14 | GP2_7						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_8					0x00008000	//	|15 | GP2_8						| Active			| Inactive			| Hard			|
@@ -87,19 +89,30 @@
 
 // Groups ------------------------------------------------------------------------------------------------
 // Sensors Groups
+#define APP_PARAM_DISABLE_ALL_SENSORS						// Use this flag for disabling all sensors (SW + GP2)
+#define APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE				// Use this flag for disabling sensors during an escape sequence
+
 #define APP_PARAM_APPFLAG_ALL_GP2				0x0000FF00	// All GP2 sensors
 #define APP_PARAM_APPFLAG_ALL_SW				0x00FF0000	// All switches sensors
 #define APP_PARAM_APPFLAG_ALL_SENSORS			0x00FFFF00	// All external sensors
 
 // User defined groups
-// - Front sensors
-#define APP_PARAM_APPFLAG_FRONT_SENSORS			(APP_PARAM_APPFLAG_GP2_FRONT)	
-// - Back sensors
-#define APP_PARAM_APPFLAG_BACK_SENSORS			(APP_PARAM_APPFLAG_NONE)	
-// - Left sensors
-#define APP_PARAM_APPFLAG_LEFT_SENSORS			(APP_PARAM_APPFLAG_NONE)	
-// - Right sensors
-#define APP_PARAM_APPFLAG_RIGHT_SENSORS			(APP_PARAM_APPFLAG_NONE)	
+#ifndef APP_PARAM_DISABLE_ALL_SENSORS
+	// - Front sensors
+	#define APP_PARAM_APPFLAG_FRONT_SENSORS			(APP_PARAM_APPFLAG_GP2_FRONT)	
+	// - Back sensors
+	#define APP_PARAM_APPFLAG_BACK_SENSORS			(APP_PARAM_APPFLAG_NONE)	
+	// - Left sensors
+	#define APP_PARAM_APPFLAG_LEFT_SENSORS			(APP_PARAM_APPFLAG_NONE)	
+	// - Right sensors
+	#define APP_PARAM_APPFLAG_RIGHT_SENSORS			(APP_PARAM_APPFLAG_NONE)
+#else
+	// Don't change this part !!!!
+	#define APP_PARAM_APPFLAG_FRONT_SENSORS			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!
+	#define APP_PARAM_APPFLAG_BACK_SENSORS			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!
+	#define APP_PARAM_APPFLAG_LEFT_SENSORS			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!	
+	#define APP_PARAM_APPFLAG_RIGHT_SENSORS			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!
+#endif	
 
 /*
 *********************************************************************************************************

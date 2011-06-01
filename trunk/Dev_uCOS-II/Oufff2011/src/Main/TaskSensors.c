@@ -40,21 +40,46 @@ void TaskSensors_ReadColor()
 void TaskSensors_CheckBumpers()
 {
 	INT8U	Err = 0;						// Var to get error status
-	CPU_INT16U  GP2Data;
+	CPU_INT16U  GP2Data_1;
+	CPU_INT16U  GP2Data_2;
 
 #ifdef _TARGET_440H
 
 #else
-	//GP2_1 : Front *************************************************
-	GP2Data  = ADC_GetVal (GP2_FRONT_LEFT);
-	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
+	//GP2 Front Left ************************************************
+	GP2Data_1  = ADC_GetVal (GP2_FRONT_LEFT);
+	if(GP2Data_1 > APP_GP2D2_LIMIT_FRONT_LEFT)
+	{
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT, OS_FLAG_SET, &Err); 
+	}
+	else
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT, OS_FLAG_CLR, &Err); 
+
+	//GP2 Front Right ***********************************************
+	GP2Data_2  = ADC_GetVal (GP2_FRONT_RIGHT);
+	if(GP2Data_2 > APP_GP2D2_LIMIT_FRONT_RIGHT)
+	{
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT, OS_FLAG_SET, &Err); 
+	}
+	else
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT, OS_FLAG_CLR, &Err); 
+
+	//GP2 Front (Right + Left) **************************************
+	if((GP2Data_1 + GP2Data_2) > 2*APP_GP2D2_LIMIT_FRONT)
 	{
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_SET, &Err); 
 	}
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_CLR, &Err); 
 
-
+	//GP2 Back ******************************************************
+	GP2Data_1  = ADC_GetVal (GP2_REAR);
+	if(GP2Data_1 > APP_GP2D2_LIMIT_BACK)
+	{
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_BACK, OS_FLAG_SET, &Err); 
+	}
+	else
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_BACK, OS_FLAG_CLR, &Err); 
 
 	
 #endif
@@ -77,6 +102,7 @@ void TaskSensors_GrabObject()
 	return;
 }
 
+// ------------------------------------------------------------------------------------------------
 void TaskSensors_ControlHolder(CPU_INT08U control)
 {
 	switch(control)
@@ -105,6 +131,7 @@ void TaskSensors_ControlHolder(CPU_INT08U control)
 	}
 }
 
+// ------------------------------------------------------------------------------------------------
 void TaskSensors_CheckObject()
 {
 	INT8U	Err = 0;						// Var to get error status
@@ -168,10 +195,6 @@ void TaskSensors_Main(void *p_arg)
 	CPU_INT16U  GP2Data;
 	do
 	{
-
-	GP2Data  = ADC_GetVal (GP2_HOLDER);
-	error_debug_5 = GP2Data;
-
 		OSTimeDlyHMSM(0, 0, 0, 10);	
 
 		// First step, we check all external sensors
