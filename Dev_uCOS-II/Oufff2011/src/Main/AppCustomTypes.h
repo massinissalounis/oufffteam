@@ -22,6 +22,12 @@
 #define CURRENT_STATE__MOVING	0		// Current Odo state is moving
 #define CURRENT_STATE__STOP     1       // Current Odo state is set to "STOP"
 
+#define HOLDER_CLOSE			0		// default value, holder is fuly closed
+#define HOLDER_OPEN_LEFT_ONLY	1		// Left Holder is open, right is closed
+#define HOLDER_OPEN_RIGHT_ONLY	2		// Right Holder is open, left is closed
+#define HOLDER_OPEN				3		// All is opened
+#define HOLDER_GRAB				4		// Holder is grabbing an object (try to lock the object)
+
 // ERROR CODES ###########################################################
 // Global ---------------------------------------
 #define ERR__NO_ERROR							0				// No error
@@ -51,6 +57,7 @@ typedef enum
 	Mvt_Wait,      		        // Wait (if all params = 0, wait for ever)
 	App_SetNewPos,				// Msg used to define a new position
 	Sensors_GrabObject,			// Grab an object
+	Sensors_SetHolderStatus,	// Change Holder status (open/close/etc...)
 }EnumCmd;
 
 typedef enum
@@ -95,6 +102,7 @@ typedef struct
     BOOLEAN		IsRead;				// Read Flag
     EnumCmd		Cmd;				// Command for the current Msg
 	EnumCmdType	CmdType;			// Var to define if the current action is a blocking action or not
+	INT8U		Param1;						
 }StructMsg;
 
 #endif // APPCUSTOMTYPES_H
