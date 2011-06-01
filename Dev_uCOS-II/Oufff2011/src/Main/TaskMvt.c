@@ -305,9 +305,9 @@ void TaskMvt_Main(void *p_arg)
 				// Ask for stopping Mvt
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
 
-	//			if(EscapeFlag%2 == 0)
-	//				LibMoving_CreateEscapeSeq(APP_MOVING_ESCAPE_SEQ_RIGHT, APP_ESCAPE_ROBOT_SPEED, CurrentPath, &CurrentSetpoint);
-	//			else
+				if(EscapeFlag%2 == 0)
+					LibMoving_CreateEscapeSeq(APP_MOVING_ESCAPE_SEQ_RIGHT, APP_ESCAPE_ROBOT_SPEED, CurrentPath, &CurrentSetpoint);
+				else
 					LibMoving_CreateEscapeSeq(APP_MOVING_ESCAPE_SEQ_LEFT, APP_ESCAPE_ROBOT_SPEED, CurrentPath, &CurrentSetpoint);
 
 				EscapeFlag++;

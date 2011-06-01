@@ -183,16 +183,23 @@ void TaskMain_Main(void *p_arg)
 
 			// CASE 003 ---------------------------------------------------------------------------
 			case 3:		// Check Current action status
-				if((CurrentFlag & APP_PARAM_APPFLAG_ACTION_STATUS) == APP_PARAM_APPFLAG_ACTION_STATUS)
+				if(CmdType_Blocking == NextCmd.CmdType)
 				{
-					// Flag is set, action is finished
-					NextState = 4;
-					// Todo : verifier si l'action s'est finie comme attendue
+					if((CurrentFlag & APP_PARAM_APPFLAG_ACTION_STATUS) == APP_PARAM_APPFLAG_ACTION_STATUS)
+					{
+						// Flag is set, action is finished
+						NextState = 4;
+						// Todo : verifier si l'action s'est finie comme attendue
+					}
+					else
+					{
+						// Action is running
+						NextState = 6;
+					}
 				}
 				else
 				{
-					// Action is running
-					NextState = 6;
+					NextState = 4;
 				}
 				break;
 
