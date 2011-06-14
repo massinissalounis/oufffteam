@@ -96,9 +96,12 @@ float AppConvertRadInDeg(float ValueInRad)
 float AppConvertDegInRad(float ValueInDeg)
 {
 	float tmp;
+	char uart_buffer[20];
+
 	// Conversion
 	tmp = (ValueInDeg * M_PI) / 180.0;
 	tmp = AppCheckAngleInRad(tmp);
+	
 	return tmp;
 }
 

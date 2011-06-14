@@ -83,7 +83,9 @@ void TaskMvt_Main(void *p_arg)
 	INT8U			CurrentState;							// Var used for storing current state for state machine
 	INT8U			NextState;								// Var used for storing next state for state machine
 	INT8U			Err;									// Var to get error status								
-	INT8U			EscapeFlag;								// Flag used to select which side to use during an escape seq								
+	INT8U			i;										// Iterator								
+	INT8U			EscapeFrontFlag;						// Flag used to select which side to use during an escape seq (front)								
+	INT8U			EscapeRearFlag;							// Flag used to select which side to use during an escape seq (rear)								
     INT8S           CurrentSetpoint;                        // Pointer to Current setpoint to reach
 	INT8S			MvtTimeout;								// Counter to detect blocked mvt
     unsigned int    LastMainCmdId;                          // Var to store last command received from TaskMain
@@ -100,7 +102,7 @@ void TaskMvt_Main(void *p_arg)
 
 	// Define stop cmd
 	StopCmd.Cmd					= Mvt_Stop;
-	StopCmd.Param1				= 1;
+	StopCmd.Param1				= 0.4;
 	StopCmd.Param2				= USE_CURRENT_VALUE;
 	StopCmd.Param3				= USE_CURRENT_VALUE;
 	StopCmd.Param4				= USE_CURRENT_VALUE;
@@ -110,7 +112,8 @@ void TaskMvt_Main(void *p_arg)
 	CurrentState			= 0;
 	NextState				= 0;
 	Err						= 0;
-	EscapeFlag				= 0;
+	EscapeFrontFlag			= 0;
+	EscapeRearFlag			= 0;
     CurrentSetpoint			= -1;
 	MvtTimeout				= 0;
     LastMainCmdId			= 0;
@@ -137,12 +140,6 @@ void TaskMvt_Main(void *p_arg)
 		// Check FLAGS for MvtTask
 		CurrentFlag = OSFlagAccept(AppFlags, TASK_MVT_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ANY, &Err);
 		
-		error_debug_1 = CurrentFlag;
-		error_debug_2 = CurrentActivatedSensors;
-		error_debug_3 = SensorsCurrentStatus;
-		error_debug_4 = SensorsPreviousStatus;
-
-
 		#ifdef _TARGET_440H
 			sprintf(Debug_State, "%03d", CurrentState);
 			Set_Line_Information( 1, 0, Debug_State, 3);
@@ -243,31 +240,32 @@ void TaskMvt_Main(void *p_arg)
 			// CASE 003 ---------------------------------------------------------------------------
 			case 3:		// Read Bumpers Status
 				// Save current sensors status
-				SensorsPreviousStatus = SensorsCurrentStatus;
+//				SensorsPreviousStatus = SensorsCurrentStatus;
 
 				// Read the current sensors status
 				SensorsCurrentStatus = CurrentFlag & CurrentActivatedSensors;
 
-				if(SensorsCurrentStatus == SensorsPreviousStatus)
+/*				if(SensorsCurrentStatus == SensorsPreviousStatus)
 				{	// There is no change
 					NextState = 4;
 				}
 				else
-				{	// One sensor has been activated
+				{	// Todo : Gerer les flags de maniere indépendantes
+*/					// One sensor has been activated
 					// Which sensors are active
-					if((CurrentFlag & APP_PARAM_APPFLAG_FRONT_SENSORS) != 0)
+					if((SensorsCurrentStatus & APP_PARAM_APPFLAG_FRONT_SENSORS) != 0)
 					{	// Front sensors are activated
 						NextState = 5;
 					}
-					else if((CurrentFlag & APP_PARAM_APPFLAG_LEFT_SENSORS) != 0)
+					else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_LEFT_SENSORS) != 0)
 					{	// Left sensors are activated
 						NextState = 7;
 					}
-					else if((CurrentFlag & APP_PARAM_APPFLAG_RIGHT_SENSORS) != 0)
+					else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_RIGHT_SENSORS) != 0)
 					{	// Right sensors are activated
 						NextState = 8;
 					}
-					else if((CurrentFlag & APP_PARAM_APPFLAG_BACK_SENSORS) != 0)
+					else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_BACK_SENSORS) != 0)
 					{	// Back sensors are activated
 						NextState = 6;
 					}
@@ -275,7 +273,7 @@ void TaskMvt_Main(void *p_arg)
 					{	// There is no sensor activated
 						NextState = 4;
 					}
-				}
+//				}
 				break;
 
 			// CASE 004 ---------------------------------------------------------------------------
@@ -285,7 +283,6 @@ void TaskMvt_Main(void *p_arg)
                 {   // Check CurrentState Value
                     if(CurrentPos.CurrentState == CURRENT_STATE__STOP)
 					{
-						EscapeFlag = 0;			// Clear escape flag
                         NextState = 9;
 					}
 					else
@@ -305,23 +302,35 @@ void TaskMvt_Main(void *p_arg)
 				// Ask for stopping Mvt
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
 
-				if(EscapeFlag%2 == 0)
-					LibMoving_CreateEscapeSeq(APP_MOVING_ESCAPE_SEQ_RIGHT, APP_ESCAPE_ROBOT_SPEED, CurrentPath, &CurrentSetpoint);
-				else
-					LibMoving_CreateEscapeSeq(APP_MOVING_ESCAPE_SEQ_LEFT, APP_ESCAPE_ROBOT_SPEED, CurrentPath, &CurrentSetpoint);
+				// Disable all current path
+				CurrentSetpoint = -1;
+				memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
 
-				EscapeFlag++;
+				do
+				{
+					OSTimeDlyHMSM(0, 0, 0, 500);
+					CurrentFlag = OSFlagAccept(AppFlags, TASK_MVT_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ANY, &Err);
+				}while((CurrentFlag & APP_PARAM_APPFLAG_FRONT_SENSORS) != 0);
 
-				NextState = 12;
+				NextState = 253;
 				break;
 
 			// CASE 006 ---------------------------------------------------------------------------
 			case 6:		// Escape Seq (Back)
 				// Ask for stopping Mvt
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
-				LibMoving_CreateEscapeSeq(APP_MOVING_ESCAPE_SEQ_FRONT, APP_ESCAPE_ROBOT_SPEED, CurrentPath, &CurrentSetpoint);
 
-				NextState = 12;
+				// Disable all current path
+				CurrentSetpoint = -1;
+				memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
+
+				do
+				{
+					OSTimeDlyHMSM(0, 0, 0, 500);
+					CurrentFlag = OSFlagAccept(AppFlags, TASK_MVT_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ANY, &Err);
+				}while((CurrentFlag & APP_PARAM_APPFLAG_BACK_SENSORS) != 0);
+
+				NextState = 253;
 				break;
 
 			// CASE 007 ---------------------------------------------------------------------------
@@ -395,6 +404,10 @@ void TaskMvt_Main(void *p_arg)
 					memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
 					CurrentActivatedSensors = APP_PARAM_APPFLAG_NONE;
 		
+					// Clear all escape flags
+					EscapeFrontFlag			= 0;
+					EscapeRearFlag			= 0;
+
 					NextState = 1;
                 }
                 else

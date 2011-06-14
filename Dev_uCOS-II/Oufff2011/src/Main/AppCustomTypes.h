@@ -11,22 +11,27 @@
 #define APPCUSTOMTYPES_H
 
 // DEFINE ################################################################
-#define	WAIT_FOREVER			0		// Define for Timeout
+#define	WAIT_FOREVER							0		// Define for Timeout
 
-#define RIGHT_WHEEL				1		// Used for pivot mode
-#define LEFT_WHEEL				-1		// Used for pivot mode
+#define RIGHT_WHEEL								1		// Used for pivot mode
+#define LEFT_WHEEL								-1		// Used for pivot mode
 
-#define USE_CURRENT_VALUE		-9999	// Used into Cmd msg to indicate we want to keep current value 
-										// (Thus no computation is needed for this param)
+#define USE_CURRENT_VALUE						-9999	// Used into Cmd msg to indicate we want to keep current value 
+														// (Thus no computation is needed for this param)
 
-#define CURRENT_STATE__MOVING	0		// Current Odo state is moving
-#define CURRENT_STATE__STOP     1       // Current Odo state is set to "STOP"
+#define CURRENT_STATE__MOVING					0		// Current Odo state is moving
+#define CURRENT_STATE__STOP    					1       // Current Odo state is set to "STOP"
 
-#define HOLDER_CLOSE			0		// default value, holder is fuly closed
-#define HOLDER_OPEN_LEFT_ONLY	1		// Left Holder is open, right is closed
-#define HOLDER_OPEN_RIGHT_ONLY	2		// Right Holder is open, left is closed
-#define HOLDER_OPEN				3		// All is opened
-#define HOLDER_GRAB				4		// Holder is grabbing an object (try to lock the object)
+#define HOLDER_CLOSE							0		// default value, holder is fully closed
+#define HOLDER_OPEN_LEFT_ONLY					1		// Left Holder is open, right is closed
+#define HOLDER_OPEN_RIGHT_ONLY					2		// Right Holder is open, left is closed
+#define HOLDER_OPEN								3		// All is opened
+#define HOLDER_GRAB								4		// Holder is grabbing an object (try to lock the object)
+#define HOLDER_GRIP								5		// Holder is holding an object to hang it
+
+#define HOLDER_LEVEL_LOW						0		// default value, holder is on Low position
+#define HOLDER_LEVEL_MIDDLE						1		// Holder is on Middle position
+#define HOLDER_LEVEL_HIGH						2		// Holder is on High position
 
 // ERROR CODES ###########################################################
 // Global ---------------------------------------
@@ -58,6 +63,7 @@ typedef enum
 	App_SetNewPos,				// Msg used to define a new position
 	Sensors_GrabObject,			// Grab an object
 	Sensors_SetHolderStatus,	// Change Holder status (open/close/etc...)
+	Sensors_SetHolderLevel,		// Change Holder level (low/middle/high)
 }EnumCmd;
 
 typedef enum
