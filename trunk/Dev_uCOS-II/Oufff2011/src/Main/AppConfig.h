@@ -17,15 +17,13 @@
 */
 #define APP_USE_DEBUG						1			// If defined, debug msg are sent to UART2.
 
-#define APP_INIT_ROBOT_SPEED				060			// Speed rate						(0:No Move, 100: Full Speed)
-#define APP_ESCAPE_ROBOT_SPEED				040			// Speed rate for escape seq		(0:No Move, 100: Full Speed)
-#define APP_HOMOL_ROBOT_SPEED				050			// Speed rate for homol strategy	(0:No Move, 100: Full Speed)
+#define APP_DEFAULT_ROBOT_SPEED				50			// Speed rate						(0:No Move, 100: Full Speed)
+#define APP_ESCAPE_ROBOT_SPEED				40			// Speed rate for escape seq		(0:No Move, 100: Full Speed)
+#define APP_HOMOL_ROBOT_SPEED				80			// Speed rate for homol strategy	(0:No Move, 100: Full Speed)
 #define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
 
-#define APP_GP2D2_LIMIT_FRONT_LEFT			135			// Threshold for front left sensor
-#define APP_GP2D2_LIMIT_FRONT_RIGHT			135			// Threshold for front right sensor
-#define APP_GP2D2_LIMIT_FRONT				135			// Threshold for front sensor (it's the mean value of left and right)
-#define APP_GP2D2_LIMIT_BACK				400			// Threshold for back sensor
+#define APP_GP2D2_LIMIT_FRONT				120			// Threshold for front sensor
+#define APP_GP2D2_LIMIT_BACK				200			// Threshold for rear sensor
 #define APP_GP2D2_LIMIT_HOLDER_IN			200			// Threshold for detecting object into holder
 
 #define APP_NOT_USED						0			// Not Used value
@@ -40,14 +38,14 @@
 #define APP_TASK_ASSER_ENABLED							// Activate TaskAsser
 #define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
 #define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
-//#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
+#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
 
 /*
 *********************************************************************************************************
 *                                            APP PARAMETERS
 *********************************************************************************************************
 */
-#define	APP_PARAM_GAME_DURATION					10			//  in sec: Time until the end of the game				
+#define	APP_PARAM_GAME_DURATION					90			//  in sec: Time until the end of the game				
 #define APP_PARAM_TEMPO_RESOLUTION				500			//  in ms (0 to 999): Delay before 2 ticks check in TaskTempo		
 
 #define APP_PARAM_APPFLAG_INITAL_VALUE			0x00000000	//  Initial value for AppFlags var 
@@ -62,11 +60,11 @@
 #define APP_PARAM_APPFLAG_BIT05					0x00000020	//	| 5 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_ACTION_STATUS			0x00000040	//	| 6 | Action status				| Action is done	| Action is running	| Soft			|
 #define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running 	| Soft			|	
-#define APP_PARAM_APPFLAG_GP2_FRONT_LEFT		0x00000100	//	| 8 | GP2 placed on the left	| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_FRONT_RIGHT		0x00000200	//	| 9 | GP2 placed on the right	| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_FRONT				0x00000400	//	|10 | Mean value (left+right)	| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_BACK				0x00000800	//	|11 | GP2 placed on the back	| Active			| Inactive			| Hard			|	
-#define APP_PARAM_APPFLAG_GP2_HOLDER			0x00001000	//	|12 | GP2 used for detecting obj| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT				0x00000100	//	| 8 | Front Sensor				| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_BACK				0x00000200	//	| 9 | Rear sensor				| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_HOLDER			0x00000400	//	|10 | GP2 used for detecting obj| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_4					0x00000800	//	|11 | GP2_4						| Active			| Inactive			| Hard			|	
+#define APP_PARAM_APPFLAG_GP2_5					0x00001000	//	|12 | GP2_5						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_6					0x00002000	//	|13 | GP2_6						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_7					0x00004000	//	|14 | GP2_7						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_8					0x00008000	//	|15 | GP2_8						| Active			| Inactive			| Hard			|
@@ -89,8 +87,8 @@
 
 // Groups ------------------------------------------------------------------------------------------------
 // Sensors Groups
-#define APP_PARAM_DISABLE_ALL_SENSORS						// Use this flag for disabling all sensors (SW + GP2)
-#define APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE				// Use this flag for disabling sensors during an escape sequence
+//#define APP_PARAM_DISABLE_ALL_SENSORS						// Use this flag for disabling all sensors (SW + GP2)
+//#define APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE				// Use this flag for disabling sensors during an escape sequence
 
 #define APP_PARAM_APPFLAG_ALL_GP2				0x0000FF00	// All GP2 sensors
 #define APP_PARAM_APPFLAG_ALL_SW				0x00FF0000	// All switches sensors
@@ -101,7 +99,7 @@
 	// - Front sensors
 	#define APP_PARAM_APPFLAG_FRONT_SENSORS			(APP_PARAM_APPFLAG_GP2_FRONT)	
 	// - Back sensors
-	#define APP_PARAM_APPFLAG_BACK_SENSORS			(APP_PARAM_APPFLAG_NONE)	
+	#define APP_PARAM_APPFLAG_BACK_SENSORS			(APP_PARAM_APPFLAG_GP2_BACK)	
 	// - Left sensors
 	#define APP_PARAM_APPFLAG_LEFT_SENSORS			(APP_PARAM_APPFLAG_NONE)	
 	// - Right sensors
@@ -162,6 +160,9 @@
 *********************************************************************************************************
 */
 
+// SENSORS
+//#define AX12_REG_PROGRAMMING
+
 // POSITION MANAGER MODE
 //#define ODO_CALIBRATION
 #define APP_MOVING_SEQ_LEN						5			    		// Length of moving sequence table (used for evoluate movment)
@@ -200,8 +201,9 @@
 // Only 1 option can be set bellow.
 
 //#define DEFAULT_STRATEGY_ENABLED				// Enable this option to use default strategy
-#define HOMOL_STRATEGY_ENABLED					// Enable this option to use the homol strategy
-
+//#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
+#define STRATEGY_1_ENABLED						// Enable this option to use the strategy 1 (SoSo and FiFi)
+//#define STRATEGY_2_ENABLED						// Enable this option to use the strategy 2 (?????????????)
 
 /*
 *********************************************************************************************************

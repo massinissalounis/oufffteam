@@ -50,6 +50,8 @@ void TaskTempo_Main(void *p_arg)
 		Set_Line_Information( 2, 15, "X", 1);
 	#endif
 
+	AppDebugMsg("\n\n End of Match !!!!\n\n");
+
 	while(OS_TRUE)	
 	{	
 		OSTimeDlyHMSM(1, 0, 0, 0);		

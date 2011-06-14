@@ -29,6 +29,13 @@ void TaskSensors_CheckBumpers();
 void TaskSensors_GrabObject();
 	// Function for grabbing an object.
 
+void TaskSensors_ControlHolder(CPU_INT08U control);
+
+void TaskSensors_SetHolderLevel(INT8U Level);
+	// Function for setting the Holder level.
+	// Level can be set to the following values :
+	// Level = 	HOLDER_LEVEL_LOW, HOLDER_LEVEL_MIDDLE, HOLDER_LEVEL_HIGH
+
 void TaskSensors_Main(void *p_arg);
 	// Fonction principal du process de gestion des Sensors
 	// void *p_arg		: Arg for this task

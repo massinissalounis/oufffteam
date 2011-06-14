@@ -890,7 +890,7 @@ CPU_INT16U  ADC_GetVal (CPU_INT08U channel_to_convert)
 	//pour le changement de voie en entrée de l'adc, il faudra prévoir un temps pour que la tension se
 	//stabilise entre la comutation et l'échantillonnage. Le top se serait de changer de voie à la fin de la conversion précédente. 
 	//Ce qui laisse du temps avant la conversion suivante.    CBE
-	OSTimeDlyHMSM(0, 0, 0, 10);
+	OSTimeDlyHMSM(0, 0, 0, 5);
 	
 	ConvertADC10(); 
     while (!BusyADC10());	// timeout ?? !!
@@ -1106,9 +1106,11 @@ void  BSP_InitIO (void)
 #else
 	SYSTEMConfig(BSP_CLK_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
 	
-    BSP_IO_Init();                                                      // Initialize the board's I/Os
+    BSP_IO_Init(); 
+#ifndef AX12_REG_PROGRAMMING                                                     // Initialize the board's I/Os
     Tmr_Init();                                                         // Initialize the timers
     BSP_InitIntCtrl();                                                  // Initialize the interrupt controller
+#endif
 
     LED_Init();                                                         // Initialize LEDs
 //    PB_Init();                                                        // Initialize the push buttons

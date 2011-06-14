@@ -532,9 +532,9 @@ unsigned char mode_4_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 	
 
 	//error_debug_3= psetpoint->left_encoder;
-	error_debug_1= pcurrent->left_encoder;	
+	//error_debug_1= pcurrent->left_encoder;	
 	//error_debug_1= psetpoint->right_encoder;
-	error_debug_2= pcurrent->right_encoder;
+	//error_debug_2= pcurrent->right_encoder;
 
 	error_right_wheel = psetpoint->right_encoder - pcurrent->right_encoder;
 	error_left_wheel = -(psetpoint->left_encoder - pcurrent->left_encoder);
@@ -662,22 +662,43 @@ void TaskAsser_Main(void *p_arg)
 
 			// -------------------------------------------------------------
             case Mvt_Stop:
+				TaskOdo_GetCurrentPos(&TaskAsser_CurrentPos);
+
 				mode_control						= 3;	// Use Mixed Mode
 				setpoint.angle						= TaskAsser_CurrentPos.angle;
 				setpoint.x							= TaskAsser_CurrentPos.x;
 				setpoint.y							= TaskAsser_CurrentPos.y;
+				distance_quadramp_data.speed_order	= CurrentCmd.Param1 * 0.01;
 				break;
 
 			// -------------------------------------------------------------
             case Mvt_UsePivotMode:
+				mode_control						= 4;	// Use Pivot Mode
 				if(RIGHT_WHEEL == CurrentCmd.Param2)		// We lock the right wheel
 				{
 					setpoint.right_encoder	= TaskAsser_CurrentPos.right_encoder;
-					setpoint.left_encoder	= TaskAsser_CurrentPos.left_encoder + CurrentCmd.Param4 * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_LEFT;
+
+					if(fabs(CurrentCmd.Param4-TaskAsser_CurrentPos.angle)<M_PI)
+					{
+						setpoint.left_encoder	= TaskAsser_CurrentPos.left_encoder + (CPU_INT16U)((CurrentCmd.Param4-TaskAsser_CurrentPos.angle) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_LEFT);
+					}
+					else
+					{
+						setpoint.left_encoder	= TaskAsser_CurrentPos.left_encoder + (CPU_INT16U)((2*M_PI+CurrentCmd.Param4-TaskAsser_CurrentPos.angle) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_LEFT);
+					}
 				}
 				else if (LEFT_WHEEL == CurrentCmd.Param2)	// We lock the left wheel
 				{
-					setpoint.right_encoder	= TaskAsser_CurrentPos.right_encoder + CurrentCmd.Param4 * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_RIGHT;
+					if(fabs(CurrentCmd.Param4-TaskAsser_CurrentPos.angle)<M_PI)
+					{
+						setpoint.right_encoder	= TaskAsser_CurrentPos.right_encoder + (CPU_INT16U)((CurrentCmd.Param4-TaskAsser_CurrentPos.angle) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_RIGHT);
+					}
+					else
+					{
+						error_debug_4 = (2*M_PI+CurrentCmd.Param4-TaskAsser_CurrentPos.angle) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_RIGHT;
+						setpoint.right_encoder	= TaskAsser_CurrentPos.right_encoder + (CPU_INT16U)((2*M_PI+CurrentCmd.Param4-TaskAsser_CurrentPos.angle) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_RIGHT);
+					}
+
 					setpoint.left_encoder	= TaskAsser_CurrentPos.left_encoder;
 				}
 
@@ -694,11 +715,13 @@ void TaskAsser_Main(void *p_arg)
 
 		// MOTION CONTROL LOOP
 
-/*		error_debug_1 = setpoint.x;
-		error_debug_2 = setpoint.y;
-		error_debug_3 = setpoint.angle;
-		error_debug_4 = App_CmdToTaskAsserId;
-*/
+		//error_debug_1 = setpoint.x;
+		//error_debug_2 = setpoint.y;
+		//error_debug_3 = setpoint.angle;
+		//error_debug_4 = App_CmdToTaskAsserId;
+
+//		error_debug_4 = setpoint.angle;
+
 		// Reset_datas
 		command_left =0;
 		command_right =0;

@@ -14,6 +14,12 @@
 
 #include "LibMoving.h"
 
+extern float error_debug_1;
+extern float error_debug_2;
+extern float error_debug_3;
+extern float error_debug_4;
+extern float error_debug_5;
+
 // ------------------------------------------------------------------------------------------------
 void LibMoving_MoveInMM(int Dist, INT8U Speed, StructCmd *NextSetpoint)
 {
@@ -51,10 +57,10 @@ void LibMoving_MoveInMM(int Dist, INT8U Speed, StructCmd *NextSetpoint)
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_RotateInDeg(float AngleInDeg, INT8U Speed, StructCmd *NextSetpoint)
+void LibMoving_RotateInDeg(int AngleInDeg, INT8U Speed, StructCmd *NextSetpoint)
 {
     StructPos CurrentPos;
-
+	
 	// Check params
 	if(NULL == NextSetpoint)
 		return;
@@ -76,7 +82,7 @@ void LibMoving_RotateInDeg(float AngleInDeg, INT8U Speed, StructCmd *NextSetpoin
 	// Compute new angle
 	NextSetpoint->Param2 = USE_CURRENT_VALUE;
 	NextSetpoint->Param3 = USE_CURRENT_VALUE; 
-	NextSetpoint->Param4 = CurrentPos.angle + AppConvertDegInRad(AngleInDeg);
+	NextSetpoint->Param4 = AppCheckAngleInRad(CurrentPos.angle + AppConvertDegInRad(AngleInDeg));
 
 	NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_NONE;
 
@@ -84,7 +90,7 @@ void LibMoving_RotateInDeg(float AngleInDeg, INT8U Speed, StructCmd *NextSetpoin
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_MoveToAngleInDeg(float AngleToGoInDeg, INT8U Speed, StructCmd *NextSetpoint)
+void LibMoving_MoveToAngleInDeg(int AngleToGoInDeg, INT8U Speed, StructCmd *NextSetpoint)
 {
     StructPos CurrentPos;
 
@@ -257,7 +263,7 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, INT8U Speed, StructCmd *NewP
 			Action->Param1 				= Speed;	
 			Action->Param2 				= (Action+1)->Param2;	
 			Action->Param3 				= (Action+1)->Param3;		
-			Action->Param4 				= (Action+1)->Param4 + AppConvertDegInRad(-45.0);	
+			Action->Param4 				= AppCheckAngleInRad((Action+1)->Param4 + AppConvertDegInRad(-45.0));	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_RIGHT_SENSORS;
 #else
@@ -285,7 +291,7 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, INT8U Speed, StructCmd *NewP
 			Action->Param1 				= Speed;	
 			Action->Param2 				= (Action+1)->Param2;	
 			Action->Param3 				= (Action+1)->Param3;		
-			Action->Param4 				= (Action+1)->Param4 + AppConvertDegInRad(45.0);	
+			Action->Param4 				= AppCheckAngleInRad((Action+1)->Param4 + AppConvertDegInRad(45.0));	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_LEFT_SENSORS;
 #else
@@ -422,6 +428,8 @@ BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest)
     StructPos CurrentPos;
     float DistToSetpoint    = 0.0;
     float AngleToSetpoint   = 0.0;
+    float AngleToSetpoint1  = 0.0;
+    float AngleToSetpoint2  = 0.0;
     BOOLEAN Ret             = OS_FALSE;
 
     if(NULL == SetpointToTest)
@@ -433,10 +441,19 @@ BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest)
     // Read current odo value
     AppGetCurrentPos(&CurrentPos);
 
-    AngleToSetpoint = fabs(SetpointToTest->Param4 - CurrentPos.angle);
-    DistToSetpoint = (SetpointToTest->Param2 - CurrentPos.x) * (SetpointToTest->Param2 - CurrentPos.x) + (SetpointToTest->Param3 - CurrentPos.y) * (SetpointToTest->Param3 - CurrentPos.y);
+    AngleToSetpoint1 = fabs(SetpointToTest->Param4 - CurrentPos.angle);
+    AngleToSetpoint2 = 2*M_PI - AngleToSetpoint1;
+	
+	if(AngleToSetpoint1 > AngleToSetpoint2)
+		AngleToSetpoint = AngleToSetpoint2;
+	else
+		AngleToSetpoint = AngleToSetpoint1;
 
+	error_debug_1=AngleToSetpoint1;
+	error_debug_2=AngleToSetpoint2;
+	error_debug_3=AngleToSetpoint;
 
+	DistToSetpoint = (SetpointToTest->Param2 - CurrentPos.x) * (SetpointToTest->Param2 - CurrentPos.x) + (SetpointToTest->Param3 - CurrentPos.y) * (SetpointToTest->Param3 - CurrentPos.y);
 
     switch(SetpointToTest->Cmd)
     {
@@ -444,6 +461,7 @@ BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest)
     // Check Only for angle
     case Mvt_UseAngleOnly:     
     case Mvt_UsePivotMode:
+		// Compute the AngleToSetPoint in Pivot Mode
         if(AngleToSetpoint <= APP_MOVING_APPROACH_PRECISION_COEF * APP_MOVING_ANGLE_APPROACH_PRECISION)
             Ret = OS_TRUE;
         else

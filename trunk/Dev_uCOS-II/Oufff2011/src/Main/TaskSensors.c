@@ -14,7 +14,12 @@
 
 #include "TaskSensors.h"
 
+extern float error_debug_1;
+extern float error_debug_2;
+extern float error_debug_3;
+extern float error_debug_4;
 extern float error_debug_5;
+
 // ------------------------------------------------------------------------------------------------
 BOOLEAN TaskSensors_IsStartButtonPressed()
 {
@@ -40,46 +45,69 @@ void TaskSensors_ReadColor()
 void TaskSensors_CheckBumpers()
 {
 	INT8U	Err = 0;						// Var to get error status
-	CPU_INT16U  GP2Data_1;
-	CPU_INT16U  GP2Data_2;
+	CPU_INT16U  GP2Data;
+	static CPU_INT16U GP2DataOld1=0;
+	static CPU_INT16U GP2DataOld2=0;
+
+	CPU_INT16U GP2DataAvg;
+	CPU_INT16S GP2DataDiff1=0;
+	CPU_INT16S GP2DataDiff2=0;
+
+	static INT8U voting_logic_idx=0;
 
 #ifdef _TARGET_440H
 
 #else
-	//GP2 Front Left ************************************************
-	GP2Data_1  = ADC_GetVal (GP2_FRONT_LEFT);
-	if(GP2Data_1 > APP_GP2D2_LIMIT_FRONT_LEFT)
+	//GP2 Front ****************************************************
+	GP2Data  = ADC_GetVal (GP2_FRONT);
+
+	GP2DataDiff1 = GP2Data-GP2DataOld1;
+	GP2DataDiff2 = GP2Data-GP2DataOld2;
+
+	if(abs(GP2DataDiff1)<abs(GP2DataDiff2)) 
+		GP2DataAvg = (GP2Data+GP2DataOld1)/2;
+	else 
+		GP2DataAvg = (GP2Data+GP2DataOld2)/2;	
+	
+	if(voting_logic_idx==0)
 	{
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT, OS_FLAG_SET, &Err); 
+		GP2DataOld1 = GP2Data;
+		voting_logic_idx=1;
 	}
 	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT, OS_FLAG_CLR, &Err); 
-
-	//GP2 Front Right ***********************************************
-	GP2Data_2  = ADC_GetVal (GP2_FRONT_RIGHT);
-	if(GP2Data_2 > APP_GP2D2_LIMIT_FRONT_RIGHT)
 	{
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT, OS_FLAG_SET, &Err); 
+		if (voting_logic_idx==1)
+		{
+			GP2DataOld2 = GP2Data;
+			voting_logic_idx=0;
+		}
 	}
-	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT, OS_FLAG_CLR, &Err); 
 
-	//GP2 Front (Right + Left) **************************************
-	if((GP2Data_1 + GP2Data_2) > 2*APP_GP2D2_LIMIT_FRONT)
+	if(GP2DataAvg > APP_GP2D2_LIMIT_FRONT)
+	//if(error_debug_4 > APP_GP2D2_LIMIT_FRONT)
 	{
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_SET, &Err); 
 	}
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_CLR, &Err); 
 
+//	error_debug_4 = GP2DataAvg;
+//	error_debug_5 = GP2DataAvg;
+
+	if(error_debug_5 < error_debug_4)
+		error_debug_5 = error_debug_4;
+
 	//GP2 Back ******************************************************
-	GP2Data_1  = ADC_GetVal (GP2_REAR);
-	if(GP2Data_1 > APP_GP2D2_LIMIT_BACK)
+	GP2Data  = ADC_GetVal (GP2_REAR);
+	if(GP2Data > APP_GP2D2_LIMIT_BACK)
 	{
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_BACK, OS_FLAG_SET, &Err); 
 	}
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_BACK, OS_FLAG_CLR, &Err); 
+
+
+
 
 	
 #endif
@@ -107,28 +135,58 @@ void TaskSensors_ControlHolder(CPU_INT08U control)
 {
 	switch(control)
 	{
-		case 0: 
+		case HOLDER_CLOSE: 
 			HOLDER_Close();
 			break;
 
-		case 1:
+		case HOLDER_OPEN_LEFT_ONLY:
 			HOLDER_Open_Left_Only();
 			break;
 
-		case 2:
+		case HOLDER_OPEN_RIGHT_ONLY:
 			HOLDER_Open_Right_Only();
 			break;
 			
-		case 3:
+		case HOLDER_OPEN:
 			HOLDER_Open();
 			break;
 
-		case 4:
+		case HOLDER_GRAB:
 			TaskSensors_GrabObject();
+			break;
+
+		case HOLDER_GRIP:
+			HOLDER_Grip();
+			break;
 
 		default:
 			HOLDER_Close();
+			break;
 	}
+
+	return;	
+}
+
+// ------------------------------------------------------------------------------------------------
+void TaskSensors_SetHolderLevel(INT8U Level)
+{
+	switch(Level)
+	{
+		case HOLDER_LEVEL_MIDDLE:
+			HOLDER_Level_Middle();
+			break;
+
+		case HOLDER_LEVEL_HIGH:
+			HOLDER_Level_High();
+			break;
+			
+		case HOLDER_LEVEL_LOW: 
+		default:
+			HOLDER_Level_Low();
+			break;
+	}
+
+	return;
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -139,7 +197,7 @@ void TaskSensors_CheckObject()
 
 	GP2Data  = ADC_GetVal (GP2_HOLDER);
 
-	if(GP2Data < APP_GP2D2_LIMIT_HOLDER_IN)
+	if(GP2Data > APP_GP2D2_LIMIT_HOLDER_IN)
 	{
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_HOLDER, OS_FLAG_SET, &Err); 
 	}
@@ -163,7 +221,7 @@ void TaskSensors_Main(void *p_arg)
 	CurrentState = 0;
 	NextState = 0;
 	pCurrentMsg = NULL;
-
+	error_debug_5 = 0;
 
 	AppDebugMsg("OUFFF TEAM 2011 : Sensors online\n");
 
@@ -183,6 +241,8 @@ void TaskSensors_Main(void *p_arg)
 			OSTimeDly(1);	// Release proc
 		}
 	}
+
+	LED_On(4);
 
 	TaskSensors_ReadColor();
 
@@ -229,7 +289,28 @@ void TaskSensors_Main(void *p_arg)
 				{
 				case Sensors_GrabObject: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 					TaskSensors_GrabObject();
-					OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
+					if(CmdType_Blocking == pCurrentMsg->CmdType)
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
+					NextState = 1;
+					break;
+
+				case Sensors_SetHolderStatus: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+					TaskSensors_ControlHolder(pCurrentMsg->Param1);
+					if(CmdType_Blocking == pCurrentMsg->CmdType)
+					{
+						OSTimeDlyHMSM(0,0,0,50);
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
+					}
+					NextState = 1;
+					break;
+
+				case Sensors_SetHolderLevel: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+					TaskSensors_SetHolderLevel(pCurrentMsg->Param1);
+					if(CmdType_Blocking == pCurrentMsg->CmdType)
+					{
+						OSTimeDlyHMSM(0,0,1,200);
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
+					}
 					NextState = 1;
 					break;
 

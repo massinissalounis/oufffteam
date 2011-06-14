@@ -183,7 +183,7 @@ void TaskMain_Main(void *p_arg)
 
 			// CASE 003 ---------------------------------------------------------------------------
 			case 3:		// Check Current action status
-				if(CmdType_Blocking == NextCmd.CmdType)
+				if(CmdType_Blocking == CurrentCmd.CmdType)
 				{
 					if((CurrentFlag & APP_PARAM_APPFLAG_ACTION_STATUS) == APP_PARAM_APPFLAG_ACTION_STATUS)
 					{
@@ -219,7 +219,7 @@ void TaskMain_Main(void *p_arg)
 			case 5:		// Send Next Action
 				if(Cmd_NotSet != NextCmd.Cmd)
 				{
-					CurrentCmd = NextCmd;
+					memcpy(&CurrentCmd, &NextCmd,  sizeof(StructCmd));
 					memset(&NextCmd, 0, sizeof(StructCmd));
 
 					// Send command to the destination task
@@ -243,16 +243,19 @@ void TaskMain_Main(void *p_arg)
 						MsgToPost.Cmd		= CurrentCmd.Cmd;
 						MsgToPost.CmdType	= CurrentCmd.CmdType;
 
-
 						// Send Msg
 						AppPostQueueMsg(AppQueueSensors, &MsgToPost);
 						break;
 
 
 					case Sensors_SetHolderStatus:
+					case Sensors_SetHolderLevel:
 						MsgToPost.Cmd		= CurrentCmd.Cmd;
 						MsgToPost.CmdType	= CurrentCmd.CmdType;
+						MsgToPost.Param1	= CurrentCmd.Param1;
 
+						// Send Msg
+						AppPostQueueMsg(AppQueueSensors, &MsgToPost);
 						break;
 
 					// Destination not defined ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

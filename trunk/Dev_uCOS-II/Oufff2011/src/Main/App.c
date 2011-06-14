@@ -90,8 +90,14 @@ void  AppTaskStart()
 
 	// --------------------------------------------------------------------------------------------
 	// Init BSP and FPGA module
-    BSP_InitIO();                                                       // Initialize BSP functions
+	BSP_Dly(1000);			// to wait FPGA to be loaded
+	BSP_InitIO();                                                       // Initialize BSP functions
 	BSPFPGA_Reset();
+
+#ifdef AX12_REG_PROGRAMMING
+	HOLDER_InitReg(); // Register configuration - Comment for match
+	while(1);
+#endif
 
 #if (OS_TASK_STAT_EN > 0)
     OSStatInit();                                                       // Determine CPU capacity

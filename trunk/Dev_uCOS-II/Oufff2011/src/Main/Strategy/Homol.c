@@ -72,14 +72,17 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 		switch(CurrentActionID)
 		{
 		case 0:		NextAction->Cmd = Mvt_Simple;					LibMoving_MoveInMM(450, APP_HOMOL_ROBOT_SPEED, NextAction);														CurrentActionID++;	break;
-		case 1:		NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN_RIGHT_ONLY;					CurrentActionID++;	break;
+		case 1:		NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN_RIGHT_ONLY;																	CurrentActionID++;	break;
 		case 2:		NextAction->Cmd = Mvt_Simple;					LibMoving_RotateInDeg(30, APP_HOMOL_ROBOT_SPEED, NextAction);													CurrentActionID++;	break;
-		case 3:		NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;								CurrentActionID++;	break;
+		case 3:		NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;																				CurrentActionID++;	break;
 		case 4:		NextAction->Cmd = Mvt_UseMixedMode;				NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 800;	NextAction->Param3 = 350;		NextAction->Param4 = AppConvertDegInRad(45.0);	NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_FRONT_SENSORS;		CurrentActionID++;	break;	
+// For debug on Oufff TEAM playing corner
+//		case 4:		NextAction->Cmd = Mvt_UseMixedMode;				NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 700;	NextAction->Param3 = 310;		NextAction->Param4 = AppConvertDegInRad(45.0);	NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_FRONT_SENSORS;		CurrentActionID++;	break;	
 		case 5:		// Select next action from flags
 			NextAction->Cmd = Cmd_NotSet;
+			OSTimeDlyHMSM(0, 0, 0, 100); 
 			CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_GP2_HOLDER, OS_FLAG_WAIT_SET_ANY, &Err);
-			if(CurrentFlag & APP_PARAM_APPFLAG_GP2_HOLDER == APP_PARAM_APPFLAG_GP2_HOLDER)
+			if((CurrentFlag & APP_PARAM_APPFLAG_GP2_HOLDER) == APP_PARAM_APPFLAG_GP2_HOLDER)
 				CurrentActionID = 100;
 			else
 				CurrentActionID = 6;
@@ -87,8 +90,9 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 		case 6:		NextAction->Cmd = Mvt_UseMixedMode;				NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 1500;	NextAction->Param3 = 350;		NextAction->Param4 = AppConvertDegInRad(0.0);	NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_FRONT_SENSORS;		CurrentActionID++;	break;	
 		case 7:		// Select next action from flags
 			NextAction->Cmd = Cmd_NotSet;
+			OSTimeDlyHMSM(0, 0, 0, 100); 
 			CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_GP2_HOLDER, OS_FLAG_WAIT_SET_ANY, &Err);
-			if(CurrentFlag & APP_PARAM_APPFLAG_GP2_HOLDER == APP_PARAM_APPFLAG_GP2_HOLDER)
+			if((CurrentFlag & APP_PARAM_APPFLAG_GP2_HOLDER) == APP_PARAM_APPFLAG_GP2_HOLDER)
 				CurrentActionID = 200;
 			else
 				CurrentActionID = 8;
@@ -104,14 +108,20 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 		case 101:	NextAction->Cmd = Mvt_Simple;					LibMoving_RotateInDeg(90, APP_HOMOL_ROBOT_SPEED, NextAction);												CurrentActionID++;	break;
 		case 102:	NextAction->Cmd = Mvt_UseMixedMode;				NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 729.4;	NextAction->Param3 = 420.6;		NextAction->Param4 = AppConvertDegInRad(135.0);	NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_FRONT_SENSORS;		CurrentActionID++;	break;	
 		case 103:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;				CurrentActionID++;	break;
-		case 104:	NextAction->Cmd = Mvt_Simple;					NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 800;	NextAction->Param3 = 350;		NextAction->Param4 = USE_CURRENT_VALUE;			NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_BACK_SENSORS;			CurrentActionID = 6;	break;	
+		case 104:	NextAction->Cmd = Mvt_Simple;					LibMoving_MoveInMM(-200, APP_HOMOL_ROBOT_SPEED, NextAction);			NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_BACK_SENSORS;			CurrentActionID++;	break;	
+		case 105:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_CLOSE;				CurrentActionID++;	break;
+		case 106:	NextAction->Cmd = Mvt_Simple;					LibMoving_MoveToAngleInDeg(0, APP_HOMOL_ROBOT_SPEED, NextAction);												CurrentActionID++;	break;
+		case 107:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;				CurrentActionID = 6;	break;
 
 		// Sub strategy 2
 		case 200:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_GRAB;				CurrentActionID++;	break;
 		case 201:	NextAction->Cmd = Mvt_Simple;					LibMoving_RotateInDeg(-45, APP_HOMOL_ROBOT_SPEED, NextAction);												CurrentActionID++;	break;
-		case 202:	NextAction->Cmd = Mvt_UseMixedMode;				NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 1576.6;	NextAction->Param3 = 279.4;		NextAction->Param4 = AppConvertDegInRad(135.0);	NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_FRONT_SENSORS;		CurrentActionID++;	break;	
+		case 202:	NextAction->Cmd = Mvt_UseMixedMode;				NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 1576.6;	NextAction->Param3 = 279.4;		NextAction->Param4 = AppConvertDegInRad(-45.0);	NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_FRONT_SENSORS;		CurrentActionID++;	break;	
 		case 203:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;				CurrentActionID++;	break;
-		case 204:	NextAction->Cmd = Mvt_Simple;					NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 1500;		NextAction->Param3 = 350;		NextAction->Param4 = USE_CURRENT_VALUE;			NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_BACK_SENSORS;			CurrentActionID = 8;	break;	
+		case 204:	NextAction->Cmd = Mvt_Simple;					LibMoving_MoveInMM(-200, APP_HOMOL_ROBOT_SPEED, NextAction);			NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_BACK_SENSORS;			CurrentActionID++;	break;	
+		case 205:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_CLOSE;				CurrentActionID++;	break;
+		case 206:	NextAction->Cmd = Mvt_Simple;					LibMoving_MoveToAngleInDeg(90, APP_HOMOL_ROBOT_SPEED, NextAction);												CurrentActionID++;	break;
+		case 207:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;				CurrentActionID = 8;	break;
 
 		case 255:
 		default:
@@ -132,7 +142,7 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 		case 5:		// Select next action from flags
 			NextAction->Cmd = Cmd_NotSet;
 			CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_GP2_HOLDER, OS_FLAG_WAIT_SET_ANY, &Err);
-			if(CurrentFlag & APP_PARAM_APPFLAG_GP2_HOLDER == APP_PARAM_APPFLAG_GP2_HOLDER)
+			if((CurrentFlag & APP_PARAM_APPFLAG_GP2_HOLDER) == APP_PARAM_APPFLAG_GP2_HOLDER)
 				CurrentActionID = 100;
 			else
 				CurrentActionID = 6;
@@ -141,7 +151,7 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 		case 7:		// Select next action from flags
 			NextAction->Cmd = Cmd_NotSet;
 			CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_GP2_HOLDER, OS_FLAG_WAIT_SET_ANY, &Err);
-			if(CurrentFlag & APP_PARAM_APPFLAG_GP2_HOLDER == APP_PARAM_APPFLAG_GP2_HOLDER)
+			if((CurrentFlag & APP_PARAM_APPFLAG_GP2_HOLDER) == APP_PARAM_APPFLAG_GP2_HOLDER)
 				CurrentActionID = 200;
 			else
 				CurrentActionID = 8;
@@ -157,14 +167,20 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 		case 101:	NextAction->Cmd = Mvt_Simple;					LibMoving_RotateInDeg(-90, APP_HOMOL_ROBOT_SPEED, NextAction);												CurrentActionID++;	break;
 		case 102:	NextAction->Cmd = Mvt_UseMixedMode;				NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 2270.6;	NextAction->Param3 = 420.6;		NextAction->Param4 = AppConvertDegInRad(45.0);	NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_FRONT_SENSORS;		CurrentActionID++;	break;	
 		case 103:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;				CurrentActionID++;	break;
-		case 104:	NextAction->Cmd = Mvt_Simple;					NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 2200;	NextAction->Param3 = 350;		NextAction->Param4 = USE_CURRENT_VALUE;			NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_BACK_SENSORS;			CurrentActionID = 6;	break;	
+		case 104:	NextAction->Cmd = Mvt_Simple;					LibMoving_MoveInMM(-200, APP_HOMOL_ROBOT_SPEED, NextAction);			NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_BACK_SENSORS;			CurrentActionID++;	break;	
+		case 105:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_CLOSE;				CurrentActionID++;	break;
+		case 106:	NextAction->Cmd = Mvt_Simple;					LibMoving_MoveToAngleInDeg(180, APP_HOMOL_ROBOT_SPEED, NextAction);												CurrentActionID++;	break;
+		case 107:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;				CurrentActionID = 6;	break;
 
 		// Sub strategy 2
 		case 200:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_GRAB;				CurrentActionID++;	break;
 		case 201:	NextAction->Cmd = Mvt_Simple;					LibMoving_RotateInDeg(45, APP_HOMOL_ROBOT_SPEED, NextAction);												CurrentActionID++;	break;
 		case 202:	NextAction->Cmd = Mvt_UseMixedMode;				NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 1429.4;	NextAction->Param3 = 279.4;		NextAction->Param4 = AppConvertDegInRad(-135.0);	NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_FRONT_SENSORS;		CurrentActionID++;	break;	
 		case 203:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;				CurrentActionID++;	break;
-		case 204:	NextAction->Cmd = Mvt_Simple;					NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 1500;		NextAction->Param3 = 350;		NextAction->Param4 = USE_CURRENT_VALUE;			NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_BACK_SENSORS;			CurrentActionID = 8;	break;	
+		case 204:	NextAction->Cmd = Mvt_Simple;					LibMoving_MoveInMM(-200, APP_HOMOL_ROBOT_SPEED, NextAction);			NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_BACK_SENSORS;			CurrentActionID++;	break;	
+		case 205:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_CLOSE;				CurrentActionID++;	break;
+		case 206:	NextAction->Cmd = Mvt_Simple;					LibMoving_MoveToAngleInDeg(90, APP_HOMOL_ROBOT_SPEED, NextAction);												CurrentActionID++;	break;
+		case 207:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;				CurrentActionID = 8;	break;
 
 		case 255:
 		default:
@@ -172,8 +188,6 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 			break;
 		}
 
-		// Update ActionID
-		CurrentActionID++;
 	break;
 
 	default:		// Not Set ##########################################################
