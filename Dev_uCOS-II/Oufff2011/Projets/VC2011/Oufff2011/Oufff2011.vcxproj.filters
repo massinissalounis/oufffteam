@@ -236,5 +236,8 @@
     <ClCompile Include="..\..\..\src\Main\Strategy\Homol.c">
       <Filter>Fichiers sources\Strategy</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1.c">
+      <Filter>Fichiers sources\Strategy</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
