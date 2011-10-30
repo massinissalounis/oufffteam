@@ -14,6 +14,7 @@ use work.reset_register_p.all;
 use work.led_register_p.all;
 use work.gpio_register_p.all;
 use work.Coder_interface_p.all;
+use work.color_register_p.all;
 use work.gh_uart_16550_p.all;
 use work.gh_registers_gates_p.all;
 
@@ -44,9 +45,9 @@ entity FPGA_Oufff is
 		FPGA_PHB4		: in std_logic;
 		-- Servomoteurs
 		FPGA_SERVO_0	: out std_logic;
-		FPGA_SERVO_1	: out std_logic;
-		FPGA_SERVO_2	: out std_logic;
-		FPGA_SERVO_3	: out std_logic;
+		FPGA_SERVO_1	: in std_logic;
+		FPGA_SERVO_2	: in std_logic;
+		FPGA_SERVO_3	: in std_logic;
 		FPGA_SERVO_4	: out std_logic;
 		FPGA_SERVO_5	: out std_logic;
 		FPGA_SERVO_6	: out std_logic;
@@ -68,13 +69,14 @@ end entity FPGA_Oufff;
 
 architecture mapping of FPGA_Oufff is
 		
-	constant pmp_slave_number: 	natural := 5;
+	constant pmp_slave_number: 	natural := 6;
 
 	constant reset_slave_number:	natural := 0;
 	constant led_slave_number:		natural := 1;
 	constant codeur_slave_number:	natural := 2;
 	constant gpio_slave_number: 	natural := 3;
 	constant AX12_1_slave_number: 	natural := 4;
+	constant color_slave_number: 	natural := 5;
 	
 	constant pmp_cs_0_add_start:	std_logic_vector (15 downto 0) := X"0000";
 	constant pmp_cs_0_add_stop:		std_logic_vector (15 downto 0) := X"0000";
@@ -86,7 +88,9 @@ architecture mapping of FPGA_Oufff is
 	constant pmp_cs_3_add_stop:		std_logic_vector (15 downto 0) := X"0010";
 	constant pmp_cs_4_add_start:	std_logic_vector (15 downto 0) := X"0020";
 	constant pmp_cs_4_add_stop:		std_logic_vector (15 downto 0) := X"0027";
-
+	constant pmp_cs_5_add_start:	std_logic_vector (15 downto 0) := X"0030";
+	constant pmp_cs_5_add_stop:		std_logic_vector (15 downto 0) := X"0030";
+	
 	signal global_reset, global_reset_n:	std_logic;
 	signal coder_clock:			std_logic;
 	signal coder_reset_n:		std_logic;
@@ -105,11 +109,6 @@ architecture mapping of FPGA_Oufff is
 	signal pmp_address:			std_logic_vector (15 downto 0);
 	signal From_slave:			PMP_SLV_OUT_VECTOR (pmp_slave_number - 1 downto 0);
 	signal To_slave	:			PMP_SLV_IN_VECTOR (pmp_slave_number - 1 downto 0);
-	
-	signal toto1, toto1_n : std_logic;
-	signal toto2, toto2_n : std_logic;
-	signal toto3, toto3_n : std_logic;
-	signal toto4, toto4_n : std_logic;
 	
 	
 	begin
@@ -146,6 +145,7 @@ architecture mapping of FPGA_Oufff is
 		pmp_CS(2) <= '1' when (pmp_address >= pmp_cs_2_add_start and pmp_address <= pmp_cs_2_add_stop) else '0';
 		pmp_CS(3) <= '1' when (pmp_address >= pmp_cs_3_add_start and pmp_address <= pmp_cs_3_add_stop) else '0';
 		pmp_CS(4) <= '1' when (pmp_address >= pmp_cs_4_add_start and pmp_address <= pmp_cs_4_add_stop) else '0';
+		pmp_CS(5) <= '1' when (pmp_address >= pmp_cs_5_add_start and pmp_address <= pmp_cs_5_add_stop) else '0';
 		LED2 <= pmp_CS(4);
 		--LED2 <= '1' when pmp_address = pmp_cs_4_add_start else '0';
 		
@@ -165,9 +165,9 @@ architecture mapping of FPGA_Oufff is
 		
 		-- Servomoteurs
 		FPGA_SERVO_0	<= 'Z';
-		FPGA_SERVO_1	<= 'Z';
-		FPGA_SERVO_2	<= 'Z';
-		FPGA_SERVO_3	<= 'Z';
+		--FPGA_SERVO_1	<= 'Z';
+		--FPGA_SERVO_2	<= 'Z';
+		--FPGA_SERVO_3	<= 'Z';
 		FPGA_SERVO_4	<= 'Z';
 		FPGA_SERVO_5	<= 'Z';
 		FPGA_SERVO_6	<= 'Z';
@@ -259,16 +259,14 @@ architecture mapping of FPGA_Oufff is
 		-- Singaux uart sur sorties servo (modifiée en inout)
 		FPGA_GPIO_6	<= '0'; --AX12_1_DATA;
 		
-		
-		sync1_cs: gh_dff port map (toto1_n,FPGA_CLK,global_reset,toto1);
-		toto1_n <= not toto1;
-		toto2_n <= not toto2;
-		toto3_n <= not toto3;
-		toto4_n <= not toto4;
-		sync2_cs: gh_dff port map (toto2_n,toto1,global_reset,toto2);
-		sync3_cs: gh_dff port map (toto3_n,toto2,global_reset,toto3);
-		sync4_cs: gh_dff port map (toto4_n,toto3,global_reset,toto4);
-		
-		
-		
+		-- Gestion du capteur couleur
+		Color_sensor: color_register
+			port map (
+				PMP_in		=> To_slave(color_slave_number),
+				PMP_out		=> From_slave(color_slave_number),
+				color_1		=> FPGA_SERVO_3,
+				color_2		=> FPGA_SERVO_2,
+				color_3		=> FPGA_SERVO_1
+			);
+
 end architecture mapping;
