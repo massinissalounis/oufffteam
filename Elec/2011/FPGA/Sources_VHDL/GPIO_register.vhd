@@ -1,6 +1,6 @@
 -- Oufffteam
 -- Projet carte mère
--- Device: reset_register
+-- Device: GPIO_register
 
 -- 13/02/2010			CBE			Création
 
