@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Fichiers sources\Main">
+      <UniqueIdentifier>{4c90ef77-9564-4db9-a7e8-f39e6cad3fd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Main">
+      <UniqueIdentifier>{10a368ac-567c-4f88-b7ed-730d88cd4280}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Main\Strategy">
+      <UniqueIdentifier>{70855a10-6419-43a6-b540-804e0ea671c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\BSP">
+      <UniqueIdentifier>{a4a81a09-5bd0-4277-bc7c-105686f4966e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\BSP">
+      <UniqueIdentifier>{96055f76-2846-4153-8324-843eb3c762ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\CarteDev">
+      <UniqueIdentifier>{caba1467-d29a-442c-9cf7-42382ce71e07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\CarteDev">
+      <UniqueIdentifier>{9a524b09-486d-4a7d-9c90-fc426489254c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\Main\App.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\AppGlobalFunc.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\AppHooks.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\LibMoving.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskAsser.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskMain.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskMvt.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskOdo.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskSensors.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskTempo.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\DefaultStrategy.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\Homol.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Microchip\PeripheralsLibs\PIC32INTlib.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uC-LIB\lib_mem.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uC-LIB\lib_str.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu_c.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_dbg.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_core.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_flag.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_mbox.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_mem.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_mutex.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_q.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_sem.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_task.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_time.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_tmr.c">
+      <Filter>Fichiers de ressources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BSP\bsp.c">
+      <Filter>Fichiers sources\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BSP\bsp_fpga.c">
+      <Filter>Fichiers sources\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BSP\bsp_iic.c">
+      <Filter>Fichiers sources\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\DevCard\1602D.c">
+      <Filter>Fichiers sources\CarteDev</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\Main\App.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppConfig.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppCustomTypes.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppGlobalFunc.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppGlobalVars.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppIncludes.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\LibMoving.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\os_cfg.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\Strategy.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskAsser.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskMain.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskMvt.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskOdo.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskSensors.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskTempo.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\adc10.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\CoreTimer.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\i2c.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\INT.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\math.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\mathf.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\osc.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\outcompare.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\pmp.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\ports.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\system.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\timer.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\uart.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Microchip\Sys\attribs.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\uC-CPU\cpu_def.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC\cpu.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\uC-LIB\lib_def.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\uC-LIB\lib_mem.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\uC-LIB\lib_str.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\uCOS-II\Source\ucos_ii.h">
+      <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP\bsp.h">
+      <Filter>Fichiers d%27en-tête\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP\bsp_fpga.h">
+      <Filter>Fichiers d%27en-tête\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP\bsp_iic.h">
+      <Filter>Fichiers d%27en-tête\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP\mini_libdef.h">
+      <Filter>Fichiers d%27en-tête\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP\bsp_peripherals.h">
+      <Filter>Fichiers d%27en-tête\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\DevCard\1602D.h">
+      <Filter>Fichiers d%27en-tête\CarteDev</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC\cpu_a.s">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
+    <None Include="..\..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu_a.S">
+      <Filter>Fichiers de ressources</Filter>
+    </None>
+    <None Include="..\..\..\src\BSP\bsp_a.S">
+      <Filter>Fichiers sources\BSP</Filter>
+    </None>
+    <None Include="..\..\..\src\BSP\crt0.S">
+      <Filter>Fichiers sources\BSP</Filter>
+    </None>
+  </ItemGroup>
+</Project>
