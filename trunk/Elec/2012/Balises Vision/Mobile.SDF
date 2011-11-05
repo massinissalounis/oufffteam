@@ -1,11 +1,11 @@
 ISIS SCHEMATIC DESCRIPTION FORMAT 6.1
 =====================================
-Design:   D:\Oufff_Team\SVN\Elec\2012\Balises Vision\Mobile.DSN
+Design:   D:\Documents\Cyril\Oufff Team\SVN_Google\Elec\2012\Balises Vision\Mobile.DSN
 Doc. no.: <NONE>
 Revision: <NONE>
 Author:   <NONE>
 Created:  24/05/10
-Modified: 30/10/11
+Modified: 05/11/11
 
 *PROPERTIES,0    
 
@@ -27,15 +27,6 @@ R204,RES,22,EID=18,PACKAGE=0603,PINSWAP="1,2",PRIMTYPE=RESISTOR
 U201,LM3401,LM3401,EID=E,PACKAGE=SOP65P400X135-8
 
 *NETLIST,9    
-#00000,7
-U201,PP,7
-R202,PS,2
-Q201,PS,1
-Q201,PS,2
-Q201,PS,3
-C201,PS,1
-J1,PS,2
-
 #00001,1
 U201,IP,2
 
@@ -50,6 +41,16 @@ R202,PS,1
 #00005,2
 U201,PP,6
 Q201,PS,4
+
+VCC,8
+VCC,LBL
+U201,PP,7
+R202,PS,2
+Q201,PS,1
+Q201,PS,2
+Q201,PS,3
+C201,PS,1
+J1,PS,2
 
 VLX_LED,8
 VLX_LED,LBL
