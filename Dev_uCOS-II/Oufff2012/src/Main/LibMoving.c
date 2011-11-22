@@ -90,7 +90,7 @@ void LibMoving_RotateInDeg(int AngleInDeg, INT8U Speed, StructCmd *NextSetpoint)
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_MoveToAngleInDeg(int AngleToGoInDeg, INT8U Speed, StructCmd *NextSetpoint)
+void LibMoving_RotateToAngleInDeg(int AngleToGoInDeg, INT8U Speed, StructCmd *NextSetpoint)
 {
     StructPos CurrentPos;
 

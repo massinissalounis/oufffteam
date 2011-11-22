@@ -52,18 +52,24 @@ typedef enum
 // Mvt Mode -------------------------------------
 typedef enum
 {
-	Cmd_NotSet = 0,	            // Current Cmd is not set
-	Mvt_UseAngleOnly,		    // Use Asser Mode 1
-	Mvt_UseDistOnly,			// Use Asser Mode 2
-	Mvt_UseMixedMode,			// Use Asser Mode 3
-	Mvt_UsePivotMode,			// Use Asser Mode 4
-	Mvt_Simple,				    // Used a simple mvt (don't divide this mvt)
-    Mvt_Stop,                   // Used to stop current mvt
-	Mvt_Wait,      		        // Wait (if all params = 0, wait for ever)
-	App_SetNewPos,				// Msg used to define a new position
-	Sensors_GrabObject,			// Grab an object
-	Sensors_SetHolderStatus,	// Change Holder status (open/close/etc...)
-	Sensors_SetHolderLevel,		// Change Holder level (low/middle/high)
+	NotSet							= 0,	// Current Cmd is not set
+	// Command MVT ______________________
+	Mvt_UseAngleOnly				= 10,	// Use Asser Mode 1
+	Mvt_UseDistOnly					= 11,	// Use Asser Mode 2
+	Mvt_UseMixedMode				= 12,	// Use Asser Mode 3
+	Mvt_UsePivotMode				= 13,	// Use Asser Mode 4
+	MvtSimple_MoveInMM				= 14,	// Use a simple mvt for moving in MM (don't divide this mvt)
+	MvtSimple_RotateInDeg			= 15,	// Use a simple mvt for rotating in deg (don't divide this mvt)
+	MvtSimple_RotateToAngleInDeg	= 16,	// Use a simple mvt for rotating to a specified angle in deg (don't divide this mvt)
+	Mvt_Stop						= 17,   // Used to stop current mvt
+	// Command APP ______________________
+	App_Wait						= 20,	// Wait (if all params = 0, wait for ever)
+	App_IfGoto						= 21,	// Go to a specific step
+	App_SetNewPos					= 22,	// Msg used to define a new position
+	// Command SENSORS __________________
+	Sensors_GrabObject				= 30,	// Grab an object
+	Sensors_SetHolderStatus			= 31,	// Change Holder status (open/close/etc...)
+	Sensors_SetHolderLevel			= 32,	// Change Holder level (low/middle/high)
 }EnumCmd;
 
 typedef enum

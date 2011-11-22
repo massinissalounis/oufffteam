@@ -118,7 +118,7 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 		case 103:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;				CurrentActionID++;	break;
 		case 104:	NextAction->Cmd = Mvt_Simple;					NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 800;	NextAction->Param3 = 350;		NextAction->Param4 = USE_CURRENT_VALUE;			NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_BACK_SENSORS;			CurrentActionID++;	break;	
 		case 105:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_CLOSE;				CurrentActionID++;	break;
-		case 106:	NextAction->Cmd = Mvt_Simple;					LibMoving_MoveToAngleInDeg(0, APP_HOMOL_ROBOT_SPEED, NextAction);												CurrentActionID++;	break;
+		case 106:	NextAction->Cmd = Mvt_Simple;					LibMoving_RotateToAngleInDeg(0, APP_HOMOL_ROBOT_SPEED, NextAction);												CurrentActionID++;	break;
 		case 107:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;				CurrentActionID = 6;	break;
 
 		// Sub strategy 2
@@ -128,7 +128,7 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 		case 203:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;				CurrentActionID++;	break;
 		case 204:	NextAction->Cmd = Mvt_Simple;					NextAction->Param1 = APP_HOMOL_ROBOT_SPEED;		NextAction->Param2 = 1500;		NextAction->Param3 = 350;		NextAction->Param4 = USE_CURRENT_VALUE;			NextAction->CmdType = CmdType_Blocking;		NextAction->ActiveSensorsFlag =	APP_PARAM_APPFLAG_BACK_SENSORS;			CurrentActionID = 8;	break;	
 		case 205:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_CLOSE;				CurrentActionID++;	break;
-		case 206:	NextAction->Cmd = Mvt_Simple;					LibMoving_MoveToAngleInDeg(90, APP_HOMOL_ROBOT_SPEED, NextAction);												CurrentActionID++;	break;
+		case 206:	NextAction->Cmd = Mvt_Simple;					LibMoving_RotateToAngleInDeg(90, APP_HOMOL_ROBOT_SPEED, NextAction);												CurrentActionID++;	break;
 		case 207:	NextAction->Cmd = Sensors_SetHolderStatus;		NextAction->Param1 = HOLDER_OPEN;				CurrentActionID = 8;	break;
 
 		case 255:
@@ -163,12 +163,12 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 					break;
 
 		case 1201:	NextAction->Cmd = Mvt_Simple;
-					LibMoving_MoveToAngleInDeg(-90, APP_DEFAULT_ROBOT_SPEED, NextAction);
+					LibMoving_RotateToAngleInDeg(-90, APP_DEFAULT_ROBOT_SPEED, NextAction);
 					CurrentActionID++;
 					break;
 
 		case 1202:	NextAction->Cmd = Mvt_Simple;
-					LibMoving_MoveToAngleInDeg(-180, APP_DEFAULT_ROBOT_SPEED, NextAction);
+					LibMoving_RotateToAngleInDeg(-180, APP_DEFAULT_ROBOT_SPEED, NextAction);
 					CurrentActionID++;
 					break;
 					

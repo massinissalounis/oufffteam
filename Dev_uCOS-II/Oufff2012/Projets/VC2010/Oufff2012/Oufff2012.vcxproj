@@ -68,6 +68,7 @@
     <ClCompile Include="..\..\..\src\Main\AppGlobalFunc.c" />
     <ClCompile Include="..\..\..\src\Main\AppHooks.c" />
     <ClCompile Include="..\..\..\src\Main\LibMoving.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\DefaultStrategy.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\Homol.c" />
     <ClCompile Include="..\..\..\src\Main\TaskAsser.c" />
@@ -108,6 +109,7 @@
     <ClInclude Include="..\..\..\src\Main\LibMoving.h" />
     <ClInclude Include="..\..\..\src\Main\os_cfg.h" />
     <ClInclude Include="..\..\..\src\Main\Strategy.h" />
+    <ClInclude Include="..\..\..\src\Main\Strategy\StrategyFromColor.h" />
     <ClInclude Include="..\..\..\src\Main\TaskAsser.h" />
     <ClInclude Include="..\..\..\src\Main\TaskMain.h" />
     <ClInclude Include="..\..\..\src\Main\TaskMvt.h" />
