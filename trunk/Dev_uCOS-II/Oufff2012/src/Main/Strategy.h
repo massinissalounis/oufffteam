@@ -21,7 +21,7 @@ INT8U Strategy_GetInitCmd(EnumColor CurrentColor, StructCmd *InitCmd);
 INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction);
 // Function to obtain next action
 // CurrentColor	: Color read from TaskSensors
-// NextAction	: Pointer to store next action (in case of error, NextAction is not modify)
+// NextAction	: Pointer to store next action (in case of error, NextAction is not modified)
 
 
 #endif // STRATEGY_H

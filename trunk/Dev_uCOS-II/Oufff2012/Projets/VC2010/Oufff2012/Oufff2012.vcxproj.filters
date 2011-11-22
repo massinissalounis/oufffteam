@@ -34,6 +34,9 @@
     <Filter Include="Fichiers d%27en-tête\CarteDev">
       <UniqueIdentifier>{9a524b09-486d-4a7d-9c90-fc426489254c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Main\Strategy">
+      <UniqueIdentifier>{8119cb04-654b-4d7c-906d-ebfae26dc0f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Main\App.c">
@@ -128,6 +131,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\DevCard\1602D.c">
       <Filter>Fichiers sources\CarteDev</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy.c">
+      <Filter>Fichiers sources\Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\DevCard\1602D.h">
       <Filter>Fichiers d%27en-tête\CarteDev</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\Strategy\StrategyFromColor.h">
+      <Filter>Fichiers d%27en-tête\Main\Strategy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -97,19 +97,19 @@
 // User defined groups
 #ifndef APP_PARAM_DISABLE_ALL_SENSORS
 	// - Front sensors
-	#define APP_PARAM_APPFLAG_FRONT_SENSORS			(APP_PARAM_APPFLAG_GP2_FRONT)	
+	#define APP_PARAM_APPFLAG_SENSORS_FRONT			(APP_PARAM_APPFLAG_GP2_FRONT)	
 	// - Back sensors
-	#define APP_PARAM_APPFLAG_BACK_SENSORS			(APP_PARAM_APPFLAG_GP2_BACK)	
+	#define APP_PARAM_APPFLAG_SENSORS_BACK			(APP_PARAM_APPFLAG_GP2_BACK)	
 	// - Left sensors
-	#define APP_PARAM_APPFLAG_LEFT_SENSORS			(APP_PARAM_APPFLAG_NONE)	
+	#define APP_PARAM_APPFLAG_SENSORS_LEFT			(APP_PARAM_APPFLAG_NONE)	
 	// - Right sensors
-	#define APP_PARAM_APPFLAG_RIGHT_SENSORS			(APP_PARAM_APPFLAG_NONE)
+	#define APP_PARAM_APPFLAG_SENSORS_RIGHT			(APP_PARAM_APPFLAG_NONE)
 #else
 	// Don't change this part !!!!
-	#define APP_PARAM_APPFLAG_FRONT_SENSORS			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!
-	#define APP_PARAM_APPFLAG_BACK_SENSORS			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!
-	#define APP_PARAM_APPFLAG_LEFT_SENSORS			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!	
-	#define APP_PARAM_APPFLAG_RIGHT_SENSORS			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!
+	#define APP_PARAM_APPFLAG_SENSORS_FRONT			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!
+	#define APP_PARAM_APPFLAG_SENSORS_BACK			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!
+	#define APP_PARAM_APPFLAG_SENSORS_LEFT			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!	
+	#define APP_PARAM_APPFLAG_SENSORS_RIGHT			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!
 #endif	
 
 /*
@@ -201,8 +201,8 @@
 // Only 1 option can be set bellow.
 
 //#define DEFAULT_STRATEGY_ENABLED				// Enable this option to use default strategy
-//#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
-#define STRATEGY_1_ENABLED						// Enable this option to use the strategy 1 (SoSo and FiFi)
+#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
+//#define STRATEGY_1_ENABLED						// Enable this option to use the strategy 1 (SoSo and FiFi)
 //#define STRATEGY_2_ENABLED						// Enable this option to use the strategy 2 (?????????????)
 
 /*

@@ -28,7 +28,7 @@ void LibMoving_RotateInDeg(int AngleInDeg, INT8U Speed, StructCmd *NextSetpoint)
 	// MvtMode is set to 'MvtMode_Simple'
 	// CmdType is set to 'CmdType_Blocking'
 
-void LibMoving_MoveToAngleInDeg(int AngleToGoInDeg, INT8U Speed, StructCmd *NextSetpoint);
+void LibMoving_RotateToAngleInDeg(int AngleToGoInDeg, INT8U Speed, StructCmd *NextSetpoint);
 	// AngleToGoInDeg	: angle in degree we want to go
     // Speed            : Speed to use 
 	// NextSetpoint	    : pointer to the struct for containing new position
