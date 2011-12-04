@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<document OS="nt" product="ISE" version="12.4">
+<document OS="nt" product="ISE" version="13.1">
 
   <!--The data in this file is primarily intended for consumption by Xilinx tools.
     The structure and the elements are likely to change over the next few releases.
     This means code written to parse this file will need to be revisited each subsequent release.-->
 
-  <application stringID="Xst" timeStamp="Sun Feb 20 15:06:17 2011">
+  <application stringID="Xst" timeStamp="Sun May 22 16:09:54 2011">
     <section stringID="User_Env">
       <table stringID="User_EnvVar">
         <column stringID="variable"/>
         <column stringID="value"/>
         <row stringID="row" value="0">
           <item stringID="variable" value="Path"/>
-          <item stringID="value" value="C:\Xilinx\12.4\ISE_DS\ISE\\lib\nt;C:\Xilinx\12.4\ISE_DS\ISE\\bin\nt;C:\Xilinx\12.4\ISE_DS\PlanAhead\bin;C:\Xilinx\12.4\ISE_DS\ISE\bin\nt;C:\Xilinx\12.4\ISE_DS\ISE\lib\nt;C:\Xilinx\12.4\ISE_DS\EDK\bin\nt;C:\Xilinx\12.4\ISE_DS\EDK\lib\nt;C:\Xilinx\12.4\ISE_DS\common\bin\nt;C:\Xilinx\12.4\ISE_DS\common\lib\nt;C:\Program Files\Microchip\mplabc30\v3.25\bin;C:\Program Files\Mendeley Desktop\wordPlugin;C:\Program Files\PC Connectivity Solution\;C:\Program Files\Atmel\AVR Tools\AVR32 Toolchain\bin;C:\Program Files\MiKTeX 2.8\miktex\bin;C:\WinAVR-20090313\bin;C:\WinAVR-20090313\utils\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Altium Designer Summer 08\System;C:\MATLAB7\bin\win32;C:\Program Files\QuickTime\QTSystem\;C:\Program Files\Microchip\MPLAB C32 Suite\bin;C:\Program Files\Microchip\MPLAB IDE\VDI;%QUARTUS_ROOTDIR%\bin;C:\Program Files\TortoiseSVN\bin;C:\altera\91\modelsim_ase\win32aloem;C:\Modeltech_xe_starter\win32xoem"/>
+          <item stringID="value" value="H:\Xilinx\ISE_DS\ISE\\lib\nt;H:\Xilinx\ISE_DS\ISE\\bin\nt;H:\Xilinx\ISE_DS\PlanAhead\bin;H:\Xilinx\ISE_DS\ISE\bin\nt;H:\Xilinx\ISE_DS\ISE\lib\nt;H:\Xilinx\ISE_DS\EDK\bin\nt;H:\Xilinx\ISE_DS\EDK\lib\nt;H:\Xilinx\ISE_DS\EDK\gnu\microblaze\nt\bin;H:\Xilinx\ISE_DS\EDK\gnu\powerpc-eabi\nt\bin;H:\Xilinx\ISE_DS\EDK\gnuwin\bin;H:\Xilinx\ISE_DS\common\bin\nt;H:\Xilinx\ISE_DS\common\lib\nt;H:\Program Files\Microchip\mplabc30\v3.25\bin;H:\Program Files\Common Files\Microsoft Shared\Windows Live;H:\Program Files\PC Connectivity Solution\;H:\Program Files\ATI Stream\bin\x86;H:\Windows\system32;H:\Windows;H:\Windows\System32\Wbem;H:\Windows\System32\WindowsPowerShell\v1.0\;H:\Program Files\ATI Technologies\ATI.ACE\Core-Static;H:\Program Files\Altium Designer Summer 08\System;H:\Program Files\TortoiseSVN\bin;H:\Program Files\Windows Live\Shared;H:\Program Files\Microchip\MPLAB C32 Suite\bin;H:\Program Files\Microchip\mplabc32\v1.12\bin"/>
         </row>
         <row stringID="row" value="1">
           <item stringID="variable" value="PATHEXT"/>
@@ -20,23 +20,23 @@
         </row>
         <row stringID="row" value="2">
           <item stringID="variable" value="XILINX"/>
-          <item stringID="value" value="C:\Xilinx\12.4\ISE_DS\ISE\"/>
+          <item stringID="value" value="H:\Xilinx\ISE_DS\ISE\"/>
         </row>
         <row stringID="row" value="3">
           <item stringID="variable" value="XILINX_DSP"/>
-          <item stringID="value" value="C:\Xilinx\12.4\ISE_DS\ISE"/>
+          <item stringID="value" value="H:\Xilinx\ISE_DS\ISE"/>
         </row>
         <row stringID="row" value="4">
           <item stringID="variable" value="XILINX_EDK"/>
-          <item stringID="value" value="C:\Xilinx\12.4\ISE_DS\EDK"/>
+          <item stringID="value" value="H:\Xilinx\ISE_DS\EDK"/>
         </row>
         <row stringID="row" value="5">
           <item stringID="variable" value="XILINX_PLANAHEAD"/>
-          <item stringID="value" value="C:\Xilinx\12.4\ISE_DS\PlanAhead"/>
+          <item stringID="value" value="H:\Xilinx\ISE_DS\PlanAhead"/>
         </row>
       </table>
       <item stringID="User_EnvOs" value="OS Information">
-        <item stringID="User_EnvOsname" value="Microsoft "/>
+        <item stringID="User_EnvOsname" value="Microsoft Windows 7 , 32-bit"/>
         <item stringID="User_EnvOsrelease" value="major release  (build 7600)"/>
       </item>
       <item stringID="User_EnvHost" value="FIXE"/>
@@ -44,8 +44,8 @@
         <column stringID="arch"/>
         <column stringID="speed"/>
         <row stringID="row" value="0">
-          <item stringID="arch" value="Intel(R) Pentium(R) Dual  CPU  E2160  @ 1.80GHz"/>
-          <item stringID="speed" value="1795 MHz"/>
+          <item stringID="arch" value="Intel(R) Core(TM) i3 CPU         540  @ 3.07GHz"/>
+          <item stringID="speed" value="3059 MHz"/>
         </row>
       </table>
     </section>
@@ -56,11 +56,11 @@
       <item DEFAULT="NGC" label="-ofmt" stringID="XST_OFMT" value="NGC"/>
       <item DEFAULT="" label="-p" stringID="XST_P" value="xbr"/>
       <item DEFAULT="" label="-top" stringID="XST_TOP" value="RX_cpld"/>
-      <item DEFAULT="Speed" label="-opt_mode" stringID="XST_OPTMODE" value="Speed"/>
+      <item DEFAULT="SPEED" label="-opt_mode" stringID="XST_OPTMODE" value="Speed"/>
       <item DEFAULT="1" label="-opt_level" stringID="XST_OPTLEVEL" value="1"/>
       <item DEFAULT="NO" label="-iuc" stringID="XST_IUC" value="NO"/>
       <item DEFAULT="YES" label="-keep_hierarchy" stringID="XST_KEEPHIERARCHY" value="Yes"/>
-      <item DEFAULT="As_Optimized" label="-netlist_hierarchy" stringID="XST_NETLISTHIERARCHY" value="As_Optimized"/>
+      <item DEFAULT="as_optimized" label="-netlist_hierarchy" stringID="XST_NETLISTHIERARCHY" value="As_Optimized"/>
       <item DEFAULT="NO" label="-rtlview" stringID="XST_RTLVIEW" value="Yes"/>
       <item DEFAULT="/" stringID="XST_HIERARCHYSEPARATOR" value="/"/>
       <item DEFAULT="&lt;>" label="-bus_delimiter" stringID="XST_BUSDELIMITER" value="&lt;>"/>

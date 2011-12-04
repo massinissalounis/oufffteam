@@ -3,6 +3,7 @@
 #include "BSP.h"
 #include "uart.h"
 #include "i2c.h"
+#include "timer.h"
 
 float Fcy; // sys clk frequency
 
@@ -36,12 +37,22 @@ void configure_pic()
 	//-----------------------------------------------------------------
 	// UARTS configuration
 	//-----------------------------------------------------------------		
+	
+	// UART1 -> IR protocol
 	U1BRG=520;			//(Fcy/(16*BAUD_RATE)-1)
 	// UART1 protocol
 	OpenUART1(UART_EN & UART_IDLE_CON & UART_IrDA_DISABLE & UART_MODE_FLOW & UART_UEN_10 & UART_EN_WAKE & UART_DIS_LOOPBACK & UART_DIS_ABAUD & UART_NO_PAR_8BIT & UART_BRGH_SIXTEEN & UART_1STOPBIT, UART_INT_TX & UART_IrDA_POL_INV_ZERO & UART_SYNC_BREAK_DISABLED & UART_TX_ENABLE & UART_INT_RX_CHAR & UART_ADR_DETECT_DIS & UART_RX_OVERRUN_CLEAR , U1BRG); // Should be wrong
 
 	// UART1 interrupt config
 	ConfigIntUART1(UART_RX_INT_EN & UART_RX_INT_PR6 & UART_TX_INT_DIS & UART_TX_INT_PR5); // check interrupt priority
+
+	// UART2 -> Xbee protocol
+	U1BRG=260;			//(Fcy/(16*BAUD_RATE)-1)
+	// UART2 protocol
+	OpenUART2(UART_EN & UART_IDLE_CON & UART_IrDA_DISABLE & UART_MODE_FLOW & UART_UEN_10 & UART_EN_WAKE & UART_DIS_LOOPBACK & UART_DIS_ABAUD & UART_NO_PAR_8BIT & UART_BRGH_SIXTEEN & UART_1STOPBIT, UART_INT_TX & UART_IrDA_POL_INV_ZERO & UART_SYNC_BREAK_DISABLED & UART_TX_ENABLE & UART_INT_RX_CHAR & UART_ADR_DETECT_DIS & UART_RX_OVERRUN_CLEAR , U1BRG); // Should be wrong
+
+	// UART2 interrupt config
+	ConfigIntUART2(UART_RX_INT_DIS & UART_RX_INT_PR6 & UART_TX_INT_DIS & UART_TX_INT_PR5); // check interrupt priority
 
 
 	//-----------------------------------------------------------------
@@ -56,10 +67,32 @@ void configure_pic()
 	ConfigIntI2C1(MI2C1_INT_OFF & SI2C1_INT_ON & MI2C1_INT_PRI_0 & SI2C1_INT_PRI_7); // slave interrupts at highest priority
 
 
+	//-----------------------------------------------------------------
+	// TIMER CONFIGURATION
+	//-----------------------------------------------------------------
+	OpenTimer1(T1_ON & T1_IDLE_STOP & T1_GATE_OFF & T1_PS_1_64 & T1_SYNC_EXT_OFF & T1_SOURCE_INT,625); // for 10ms sample time
+	// Timer period:
+	// fcy=fosc/2=39.61MHz
+	// Tcy = 25ns
+	// Ttimer = Tcy * T1_PS_1_64 = 25ns * 64 = 1.6 us
+	// Tperiod = N * Ttimer => N = Tperiod / Ttimer = 10 000us / 1.6us = 6250
+	WriteTimer1(0);
+	ConfigIntTimer1(T1_INT_PRIOR_3 & T1_INT_ON); // Sampling is now active -> last configuration fonction!!
 
+
+	//-----------------------------------------------------------------
+	// INTERRUPT PRIORITY TABLE
+	//-----------------------------------------------------------------	
+	// I2C		7	Master orders
+	// UART		5	TX/RX communications
+	// TIMER	3	Sample clock (angular hearing speed)
 
 
 }
+
+
+
+
 
 //-----------------------------------------------------------------
 // Board peripheral functions

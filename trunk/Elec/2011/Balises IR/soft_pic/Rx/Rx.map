@@ -1,4 +1,4 @@
-Microchip Technology Inc, vv3_30 (B) ;
+Microchip Technology Inc, vv3_30 (B) f
 
 Tool Name:
   h:\program files\microchip\mplab c30\bin\bin\..\bin/pic30-coff-ld.exe
@@ -36,14 +36,28 @@ Command:
 
 Archive member included because of file (symbol)
 
+h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ReadUART1.o)
+                              main.o (ReadUART1)
+h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(DataRdyUART1.o)
+                              main.o (DataRdyUART1)
+h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(WriteTimer1.o)
+                              main.o (WriteTimer1)
 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenUART1.o)
                               BSP.o (OpenUART1)
 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntUART1.o)
                               BSP.o (ConfigIntUART1)
+h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenUART2.o)
+                              BSP.o (OpenUART2)
+h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntUART2.o)
+                              BSP.o (ConfigIntUART2)
 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenI2C1.o)
                               BSP.o (OpenI2C1)
 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntI2C1.o)
                               BSP.o (ConfigIntI2C1)
+h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenTimer1.o)
+                              BSP.o (OpenTimer1)
+h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntTimer1.o)
+                              BSP.o (ConfigIntTimer1)
 h:/program files/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(crt0_standard.o)
                               (_resetPRI)
 h:/program files/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(data_init_standard.o)
@@ -54,21 +68,21 @@ Program Memory  [Origin = 0x200, Length = 0x155fe]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x200               0x148           0x1ec  (492)
-.text                        0x348               0x154           0x1fe  (510)
-.dinit                       0x49c                 0x8             0xc  (12)
-.text                        0x4a4                 0x6             0x9  (9)
+.text                        0x200               0x1f0           0x2e8  (744)
+.text                        0x3f0               0x2cc           0x432  (1074)
+.dinit                       0x6bc                0x40            0x60  (96)
 
-                     Total program memory used (bytes):          0x3ff  (1023) <1%
+                     Total program memory used (bytes):          0x77a  (1914) 1%
 
 
 Data Memory  [Origin = 0x800, Length = 0x2000]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0             0x4  (4)
+.ndata                       0x800                   0            0x42  (66)
+.nbss                        0x842                   0            0x26  (38)
 
-                        Total data memory used (bytes):            0x4  (4) <1%
+                        Total data memory used (bytes):           0x68  (104) 1%
 
 
 Dynamic Memory Usage
@@ -76,52 +90,88 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x804                              0x1ffc  (8188)
+stack                        0x868                              0x1f98  (8088)
 
-                        Maximum dynamic memory (bytes):         0x1ffc  (8188)
+                        Maximum dynamic memory (bytes):         0x1f98  (8088)
 
 
 External Symbols in Data Memory (by address):
 
-                    0x0800                  _Fcy
+                    0x0800                  _current_state
+                    0x0801                  _COMPUTE_FLAG
+                    0x0802                  _receive_flag
+                    0x0822                  _polar_response
+                    0x0842                  _current_TRANSMITTER
+                    0x0843                  _TSOP33_REG
+                    0x0853                  _TSOP40_REG
+                    0x0864                  _Fcy
 
 External Symbols in Data Memory (by name):
 
-                    0x0800                  _Fcy
+                    0x0801                  _COMPUTE_FLAG
+                    0x0864                  _Fcy
+                    0x0843                  _TSOP33_REG
+                    0x0853                  _TSOP40_REG
+                    0x0842                  _current_TRANSMITTER
+                    0x0800                  _current_state
+                    0x0822                  _polar_response
+                    0x0802                  _receive_flag
 
 External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x000222                  __psv_init
-                  0x000232                  __data_init_standard
                   0x000232                  __data_init
+                  0x000232                  __data_init_standard
                   0x000290                  __DefaultInterrupt
-                  0x000294                  _OpenUART1
-                  0x00029c                  _ConfigIntUART1
-                  0x0002f2                  _OpenI2C1
-                  0x0002f8                  _ConfigIntI2C1
-                  0x000348                  _configure_pic
-                  0x0003c0                  _CPLD_MUX_ADDRESS
-                  0x000450                  _Xbee_ON_OFF_CONTROL
-                  0x000476                  _LED_DRIVER
-                  0x0004a4                  _main
+                  0x000294                  _ReadUART1
+                  0x0002a6                  _DataRdyUART1
+                  0x0002ac                  _WriteTimer1
+                  0x0002b0                  _OpenUART1
+                  0x0002b8                  _ConfigIntUART1
+                  0x00030e                  _OpenUART2
+                  0x000316                  _ConfigIntUART2
+                  0x000368                  _OpenI2C1
+                  0x00036e                  _ConfigIntI2C1
+                  0x0003be                  _OpenTimer1
+                  0x0003c6                  _ConfigIntTimer1
+                  0x0003f0                  _configure_pic
+                  0x000486                  _CPLD_MUX_ADDRESS
+                  0x000516                  _Xbee_ON_OFF_CONTROL
+                  0x00053c                  _LED_DRIVER
+                  0x000562                  _state_machine
+                  0x000580                  _measure_dispatch
+                  0x000606                  __U1RXInterrupt
+                  0x000646                  __T1Interrupt
+                  0x0006a2                  _main
 
 External Symbols in Program Memory (by name):
 
-                  0x0003c0                  _CPLD_MUX_ADDRESS
-                  0x0002f8                  _ConfigIntI2C1
-                  0x00029c                  _ConfigIntUART1
-                  0x000476                  _LED_DRIVER
-                  0x0002f2                  _OpenI2C1
-                  0x000294                  _OpenUART1
-                  0x000450                  _Xbee_ON_OFF_CONTROL
+                  0x000486                  _CPLD_MUX_ADDRESS
+                  0x00036e                  _ConfigIntI2C1
+                  0x0003c6                  _ConfigIntTimer1
+                  0x0002b8                  _ConfigIntUART1
+                  0x000316                  _ConfigIntUART2
+                  0x0002a6                  _DataRdyUART1
+                  0x00053c                  _LED_DRIVER
+                  0x000368                  _OpenI2C1
+                  0x0003be                  _OpenTimer1
+                  0x0002b0                  _OpenUART1
+                  0x00030e                  _OpenUART2
+                  0x000294                  _ReadUART1
+                  0x0002ac                  _WriteTimer1
+                  0x000516                  _Xbee_ON_OFF_CONTROL
                   0x000290                  __DefaultInterrupt
+                  0x000646                  __T1Interrupt
+                  0x000606                  __U1RXInterrupt
                   0x000232                  __data_init
                   0x000232                  __data_init_standard
                   0x000222                  __psv_init
                   0x000200                  __resetPRI
-                  0x000348                  _configure_pic
-                  0x0004a4                  _main
+                  0x0003f0                  _configure_pic
+                  0x0006a2                  _main
+                  0x000580                  _measure_dispatch
+                  0x000562                  _state_machine
 
 Memory Configuration
 
@@ -177,7 +227,7 @@ LOAD h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000200        0x148
+.text             0x000200        0x1f0
  *(.init)
  .init            0x000200         0x32 h:/program files/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(crt0_standard.o)
                   0x000200                  _resetPRI
@@ -195,14 +245,28 @@ LOAD h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP
  *(.libm)
  *(.libdsp)
  *(.lib*)
- .libperi         0x000294          0x8 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenUART1.o)
-                  0x000294                  OpenUART1
- .libperi         0x00029c         0x56 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntUART1.o)
-                  0x00029c                  ConfigIntUART1
- .libperi         0x0002f2          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenI2C1.o)
-                  0x0002f2                  OpenI2C1
- .libperi         0x0002f8         0x50 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntI2C1.o)
-                  0x0002f8                  ConfigIntI2C1
+ .libperi         0x000294         0x12 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ReadUART1.o)
+                  0x000294                  ReadUART1
+ .libperi         0x0002a6          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(DataRdyUART1.o)
+                  0x0002a6                  DataRdyUART1
+ .libperi         0x0002ac          0x4 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(WriteTimer1.o)
+                  0x0002ac                  WriteTimer1
+ .libperi         0x0002b0          0x8 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenUART1.o)
+                  0x0002b0                  OpenUART1
+ .libperi         0x0002b8         0x56 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntUART1.o)
+                  0x0002b8                  ConfigIntUART1
+ .libperi         0x00030e          0x8 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenUART2.o)
+                  0x00030e                  OpenUART2
+ .libperi         0x000316         0x52 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntUART2.o)
+                  0x000316                  ConfigIntUART2
+ .libperi         0x000368          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenI2C1.o)
+                  0x000368                  OpenI2C1
+ .libperi         0x00036e         0x50 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntI2C1.o)
+                  0x00036e                  ConfigIntI2C1
+ .libperi         0x0003be          0x8 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenTimer1.o)
+                  0x0003be                  OpenTimer1
+ .libperi         0x0003c6         0x2a h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntTimer1.o)
+                  0x0003c6                  ConfigIntTimer1
 
 usercode
  *(usercode)
@@ -291,7 +355,7 @@ __FUID3
                   0x000014          0x4 LONG 0x290 DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000016          0x4 LONG 0x290 DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000018          0x4 LONG 0x290 DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00001a          0x4 LONG 0x290 DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00001a          0x4 LONG 0x646 DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001c          0x4 LONG 0x290 DEFINED (__DMA0Interrupt)?ABSOLUTE (__DMA0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001e          0x4 LONG 0x290 DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000020          0x4 LONG 0x290 DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -299,7 +363,7 @@ __FUID3
                   0x000024          0x4 LONG 0x290 DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000026          0x4 LONG 0x290 DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000028          0x4 LONG 0x290 DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00002a          0x4 LONG 0x290 DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00002a          0x4 LONG 0x606 DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002c          0x4 LONG 0x290 DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002e          0x4 LONG 0x290 DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000030          0x4 LONG 0x290 DEFINED (__DMA1Interrupt)?ABSOLUTE (__DMA1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -419,7 +483,7 @@ __FUID3
                   0x000114          0x4 LONG 0x290 DEFINED (__AltINT0Interrupt)?ABSOLUTE (__AltINT0Interrupt):DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000116          0x4 LONG 0x290 DEFINED (__AltIC1Interrupt)?ABSOLUTE (__AltIC1Interrupt):DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000118          0x4 LONG 0x290 DEFINED (__AltOC1Interrupt)?ABSOLUTE (__AltOC1Interrupt):DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00011a          0x4 LONG 0x290 DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00011a          0x4 LONG 0x646 DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011c          0x4 LONG 0x290 DEFINED (__AltDMA0Interrupt)?ABSOLUTE (__AltDMA0Interrupt):DEFINED (__DMA0Interrupt)?ABSOLUTE (__DMA0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011e          0x4 LONG 0x290 DEFINED (__AltIC2Interrupt)?ABSOLUTE (__AltIC2Interrupt):DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000120          0x4 LONG 0x290 DEFINED (__AltOC2Interrupt)?ABSOLUTE (__AltOC2Interrupt):DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -427,7 +491,7 @@ __FUID3
                   0x000124          0x4 LONG 0x290 DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000126          0x4 LONG 0x290 DEFINED (__AltSPI1ErrInterrupt)?ABSOLUTE (__AltSPI1ErrInterrupt):DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000128          0x4 LONG 0x290 DEFINED (__AltSPI1Interrupt)?ABSOLUTE (__AltSPI1Interrupt):DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00012a          0x4 LONG 0x290 DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00012a          0x4 LONG 0x606 DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012c          0x4 LONG 0x290 DEFINED (__AltU1TXInterrupt)?ABSOLUTE (__AltU1TXInterrupt):DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012e          0x4 LONG 0x290 DEFINED (__AltADC1Interrupt)?ABSOLUTE (__AltADC1Interrupt):DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000130          0x4 LONG 0x290 DEFINED (__AltDMA1Interrupt)?ABSOLUTE (__AltDMA1Interrupt):DEFINED (__DMA1Interrupt)?ABSOLUTE (__DMA1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -1437,38 +1501,65 @@ LOAD data_init
 LOAD default_isr
 
 __c30_signature
-                  0x000000         0x30
+                  0x000000         0x5a
  __c30_signature
                   0x000000          0x6 main.o
  __c30_signature
                   0x000006          0x6 BSP.o
  __c30_signature
-                  0x00000c          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenUART1.o)
+                  0x00000c          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ReadUART1.o)
  __c30_signature
-                  0x000012          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntUART1.o)
+                  0x000012          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(DataRdyUART1.o)
  __c30_signature
-                  0x000018          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenI2C1.o)
+                  0x000018          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(WriteTimer1.o)
  __c30_signature
-                  0x00001e          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntI2C1.o)
+                  0x00001e          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenUART1.o)
  __c30_signature
-                  0x000024          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(crt0_standard.o)
+                  0x000024          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntUART1.o)
  __c30_signature
-                  0x00002a          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(data_init_standard.o)
+                  0x00002a          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenUART2.o)
+ __c30_signature
+                  0x000030          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntUART2.o)
+ __c30_signature
+                  0x000036          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenI2C1.o)
+ __c30_signature
+                  0x00003c          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntI2C1.o)
+ __c30_signature
+                  0x000042          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(OpenTimer1.o)
+ __c30_signature
+                  0x000048          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib/PIC24H\libp24HJ128GP504-coff.a(ConfigIntTimer1.o)
+ __c30_signature
+                  0x00004e          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(crt0_standard.o)
+ __c30_signature
+                  0x000054          0x6 h:/program files/microchip/mplab c30/bin/bin/../../lib\libpic30-coff.a(data_init_standard.o)
 
-.nbss               0x0800          0x4
- .nbss              0x0800          0x4 BSP.o
-                    0x0800                  Fcy
+.ndata              0x0800         0x42
+ .ndata             0x0800         0x42 main.o
+                    0x0800                  current_state
+                    0x0801                  COMPUTE_FLAG
+                    0x0802                  receive_flag
+                    0x0822                  polar_response
 
-.text             0x000348        0x154
- .text            0x000348        0x154 BSP.o
-                  0x000348                  configure_pic
-                  0x0003c0                  CPLD_MUX_ADDRESS
-                  0x000450                  Xbee_ON_OFF_CONTROL
-                  0x000476                  LED_DRIVER
+.nbss               0x0842         0x26
+ .nbss              0x0842         0x22 main.o
+                    0x0842                  current_TRANSMITTER
+                    0x0843                  TSOP33_REG
+                    0x0853                  TSOP40_REG
+ .nbss              0x0864          0x4 BSP.o
+                    0x0864                  Fcy
 
-.dinit            0x00049c          0x8
- .dinit           0x00049c          0x8 data_init
+.text             0x0003f0        0x2cc
+ .text            0x0003f0        0x172 BSP.o
+                  0x0003f0                  configure_pic
+                  0x000486                  CPLD_MUX_ADDRESS
+                  0x000516                  Xbee_ON_OFF_CONTROL
+                  0x00053c                  LED_DRIVER
+ .text            0x000562        0x15a main.o
+                  0x000562                  state_machine
+                  0x000580                  measure_dispatch
+                  0x000606                  _U1RXInterrupt
+                  0x000646                  _T1Interrupt
+                  0x0006a2                  main
 
-.text             0x0004a4          0x6
- .text            0x0004a4          0x6 main.o
-                  0x0004a4                  main
+.dinit            0x0006bc         0x40
+ .dinit           0x0006bc         0x40 data_init

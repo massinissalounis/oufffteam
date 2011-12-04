@@ -32,6 +32,7 @@ file_004=.
 file_005=.
 file_006=.
 file_007=.
+file_008=.
 [GENERATED_FILES]
 file_000=no
 file_001=no
@@ -41,6 +42,7 @@ file_004=no
 file_005=no
 file_006=no
 file_007=no
+file_008=no
 [OTHER_FILES]
 file_000=no
 file_001=no
@@ -50,6 +52,7 @@ file_004=no
 file_005=no
 file_006=no
 file_007=no
+file_008=no
 [FILE_INFO]
 file_000=src\main.c
 file_001=src\BSP.c
@@ -58,7 +61,8 @@ file_003=src\BSP.h
 file_004=src\peripherals\include\uart.h
 file_005=H:\Program Files\Microchip\MPLAB C30\support\PIC24H\h\p24HJ128GP504.h
 file_006=H:\Program Files\Microchip\MPLAB C30\support\peripheral_30F_24H_33F\i2c.h
-file_007=H:\Program Files\Microchip\MPLAB C30\support\PIC24H\gld\p24HJ128GP504.gld
+file_007=H:\Program Files\Microchip\MPLAB C30\support\peripheral_30F_24H_33F\timer.h
+file_008=H:\Program Files\Microchip\MPLAB C30\support\PIC24H\gld\p24HJ128GP504.gld
 [SUITE_INFO]
 suite_guid={479DDE59-4D56-455E-855E-FFF59A3DB57E}
 suite_state=

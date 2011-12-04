@@ -1,5 +1,8 @@
 #include "p24Hxxxx.h"
 #include "define.h"
+#include "uart.h"
+#include "i2c.h"
+#include "timer.h"
 
 //---------------------------------------------
 // Global Terms definition

@@ -1,16 +1,16 @@
-Release 12.4 - xst M.81d (nt)
-Copyright (c) 1995-2010 Xilinx, Inc.  All rights reserved.
+Release 13.1 - xst O.40d (nt)
+Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to xst/projnav.tmp
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.18 secs
+Total CPU time to Xst completion: 0.22 secs
  
 --> Parameter xsthdpdir set to xst
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.18 secs
+Total CPU time to Xst completion: 0.22 secs
  
 --> Reading design: RX_cpld.prj
 
@@ -75,20 +75,20 @@ wysiwyg                            : NO
 =========================================================================
 *                          HDL Compilation                              *
 =========================================================================
-Compiling vhdl file "C:/Elec/oufffteam/2011/Balises IR/cpld/Rx_cpld/src/Rx_cpld.vhd" in Library work.
-Entity <rx_cpld> compiled.
-Entity <rx_cpld> (Architecture <basic_mux_rx_cpld>) compiled.
+Compiling vhdl file "H:/Elec/Oufffteam/Elec/2011/Balises IR/cpld/Rx_cpld/src/Rx_cpld.vhd" in Library work.
+Entity <RX_cpld> compiled.
+Entity <RX_cpld> (Architecture <basic_mux_RX_cpld>) compiled.
 
 =========================================================================
 *                     Design Hierarchy Analysis                         *
 =========================================================================
-Analyzing hierarchy for entity <RX_cpld> in library <work> (architecture <basic_mux_rx_cpld>).
+Analyzing hierarchy for entity <RX_cpld> in library <work> (architecture <basic_mux_RX_cpld>).
 
 
 =========================================================================
 *                            HDL Analysis                               *
 =========================================================================
-Analyzing Entity <RX_cpld> in library <work> (Architecture <basic_mux_rx_cpld>).
+Analyzing Entity <RX_cpld> in library <work> (Architecture <basic_mux_RX_cpld>).
 Entity <RX_cpld> analyzed. Unit <RX_cpld> generated.
 
 
@@ -99,7 +99,7 @@ Entity <RX_cpld> analyzed. Unit <RX_cpld> generated.
 Performing bidirectional port resolution...
 
 Synthesizing Unit <RX_cpld>.
-    Related source file is "C:/Elec/oufffteam/2011/Balises IR/cpld/Rx_cpld/src/Rx_cpld.vhd".
+    Related source file is "H:/Elec/Oufffteam/Elec/2011/Balises IR/cpld/Rx_cpld/src/Rx_cpld.vhd".
 WARNING:Xst:647 - Input <CLK> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 Unit <RX_cpld> synthesized.
 
@@ -170,12 +170,12 @@ Cell Usage :
 =========================================================================
 
 
-Total REAL time to Xst completion: 4.00 secs
-Total CPU time to Xst completion: 4.45 secs
+Total REAL time to Xst completion: 3.00 secs
+Total CPU time to Xst completion: 2.87 secs
  
 --> 
 
-Total memory usage is 184356 kilobytes
+Total memory usage is 187492 kilobytes
 
 Number of errors   :    0 (   0 filtered)
 Number of warnings :    1 (   0 filtered)
