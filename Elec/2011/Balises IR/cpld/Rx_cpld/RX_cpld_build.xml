@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE document SYSTEM 'file:///C:/Xilinx/12.4/ISE_DS/ISE/chipviewer/data/xsl/buildXML.dtd'>
+<!DOCTYPE document SYSTEM 'file:///H:/Xilinx/ISE_DS/ISE/chipviewer/data/xsl/buildXML.dtd'>
 
 <document>
 <design name='RX_cpld'/>
 <rptdir name='RX_cpld'/>
-<xilinx path='C:/Xilinx/12.4/ISE_DS/ISE;'/>
-<projDir path='C:\Elec\oufffteam\2011\Balises IR\cpld\Rx_cpld'/>
+<xilinx path='H:/Xilinx/ISE_DS/ISE;'/>
+<projDir path='H:\Elec\Oufffteam\Elec\2011\Balises IR\cpld\Rx_cpld'/>
 <xslDir path='chipviewer/data/xsl'/>
 <fileDir path='/chipviewer/data/html'/>
 <dataFile file='index.htm'/>
@@ -219,7 +219,7 @@
     <output file='fbs_FB8.htm'/>
   </xslFile>
 </xmlFile>
-<xmlFile file='C:/Xilinx/12.4/ISE_DS/ISE/chipviewer/data/xsl/pinlegend.xml'>
+<xmlFile file='H:/Xilinx/ISE_DS/ISE/chipviewer/data/xsl/pinlegend.xml'>
   <xslFile file='legend.xsl'>
     <param name='device' value='XC2C128-6-VQ100'/>
     <param name='verOn' value='0'/>
@@ -231,7 +231,7 @@
     <output file='pinlegendV.htm'/>
   </xslFile>
 </xmlFile>
-<xmlFile file='C:/Xilinx/12.4/ISE_DS/ISE/chipviewer/data/xsl/logiclegend.xml'>
+<xmlFile file='H:/Xilinx/ISE_DS/ISE/chipviewer/data/xsl/logiclegend.xml'>
   <xslFile file='legend.xsl'>
     <param name='device' value='XC2C128-6-VQ100'/>
     <param name='verOn' value='0'/>
