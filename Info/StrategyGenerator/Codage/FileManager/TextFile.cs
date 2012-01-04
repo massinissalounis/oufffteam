@@ -32,7 +32,7 @@ namespace StrategyGenerator.FileManager
         ///<summary>
         /// Open FileBrowser and ask for a file to save. Once selected, TextFile object is written into.
         ///</summary>
-        public bool WriteFile()
+        public bool Save()
         {
             try
             {
@@ -41,7 +41,7 @@ namespace StrategyGenerator.FileManager
                 dlg.Filter = "C Files|*.c|All Files|*.*";
                 dlg.ShowDialog();
 
-                return WriteFile(dlg.FileName.ToString());
+                return Save(dlg.FileName.ToString());
             }
             catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace StrategyGenerator.FileManager
         ///<summary>
         /// Write TextFile object into FileName File.
         ///</summary>
-        public bool WriteFile(String FileName)            
+        public bool Save(String FileName)            
         {
             try
             {
@@ -144,45 +144,106 @@ namespace StrategyGenerator.FileManager
             }
         }
 
-        ///<summary>
-        /// Returns the next line from TextFile object.
+         ///<summary>
+        /// Returns the LineNumer-th line between (1 and MaxLine).
         ///</summary>
-        public String GetNextLine()
+        public String GetLine(int LineNumber)
         {
-            String CurrentLine = null;
-
-            if ((_FileContents == null) || (_FileContents.Count() == 0) || (_LineIterator > _FileContents.Count()))
+            if ((_FileContents == null) || (_FileContents.Count() == 0) || (LineNumber <= 0) || (LineNumber > _FileContents.Count()))
                 return null;
 
-            CurrentLine = _FileContents[_LineIterator];
-            _LineIterator = _LineIterator + 1;
-
-            if (_LineIterator > _FileContents.Count())
-                _LineIterator = _FileContents.Count();
-
-            return CurrentLine;
+            return _FileContents[LineNumber-1];
         }
 
         ///<summary>
-        /// Returns the previous line from TextFile object.
+        /// Remove unused line (empty line or comment line)
+        /// Line iterator is reset to 0 after this call
         ///</summary>
-        public String GetPreviousLine()
+        public void RemoveUnusedLine()
         {
-            String CurrentLine = null;
+            if (null == _FileContents)
+                return;
 
-            if ((_FileContents == null) || (_FileContents.Count() == 0) || (_LineIterator <= 0))
-                return null;
+            for (int i = _FileContents.Count()-1; i >= 0; i--)
+            {
+                // Remove tabulations
+                _FileContents[i] = _FileContents[i].Replace("\t", "");
+                
+                // Remove unecessary space
+                for (int j = 20; j > 1; j--)
+                {
+                    string stringToRemove = new string(new char[j]);
+                    stringToRemove = stringToRemove.Replace("\0", " ");
 
-            _LineIterator = _LineIterator - 2;
+                    _FileContents[i] = _FileContents[i].Replace(stringToRemove, " ");
+                }
+                if ((_FileContents[i].Length > 0) && (_FileContents[i].Substring(0, 1) == " "))
+                {
+                    _FileContents[i] = _FileContents[i].Substring(1);
+                }
 
-            if (_LineIterator <= 0)
-                _LineIterator = 0;
+                // Remove all emtpy line
+                if((_FileContents[i].ToString() == "") || (_FileContents[i].ToString() == " "))
+                {
+                    _FileContents.RemoveAt(i);
+                }
+            }
 
-            CurrentLine = _FileContents[_LineIterator];
-
-            return CurrentLine;
+            _LineIterator = 0;
+            return;
         }
 
+        ///<summary>
+        /// Remove a specific line (pointed by LineNumber)
+        ///</summary>
+        public void RemoveLine(int LineNumber)
+        {
+            if (null == _FileContents)
+                return;
+
+            if ((LineNumber <= 0) || (LineNumber > _FileContents.Count()))
+                return;
+
+            _FileContents.RemoveAt(LineNumber - 1);
+        }
+
+            
+        ///<summary>
+        /// Search the pattern 'TextToFind' into current file. All lines that contain 'TextToFind are returned
+        ///</summary>
+        public List<String> Search(String TextToFind)
+        {
+            List<String> Result = null;
+
+            if((TextToFind == null) || (_FileContents == null) || (_FileContents.Count() == 0))
+                return null;
+
+            for (int i = 0; i < _FileContents.Count(); i++)
+            {
+                // Search pattern into all lines
+                if(_FileContents[i].Contains(TextToFind) == true)
+                {
+                    if(Result == null)
+                        Result = new List<string>();
+
+                    Result.Add(_FileContents[i].ToString());
+                }
+            }
+
+            return Result;
+        }
+
+
+        ///<summary>
+        /// Returns the nb of line 
+        ///</summary>
+        public int GetSize()
+        {
+            if (_FileContents == null)
+                return 0;
+
+            return _FileContents.Count();
+        }
 
         // Private --------------------------------------------------------------------------------
         // Var
