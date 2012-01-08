@@ -1,4 +1,4 @@
-Microchip Technology Inc, vv3_30 (B) f
+Microchip Technology Inc, vv3_30 (B) -
 
 Tool Name:
   h:\program files\microchip\mplab c30\bin\bin\..\bin/pic30-coff-ld.exe
@@ -69,10 +69,10 @@ Program Memory  [Origin = 0x200, Length = 0x155fe]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x1f0           0x2e8  (744)
-.text                        0x3f0               0x2cc           0x432  (1074)
-.dinit                       0x6bc                0x40            0x60  (96)
+.text                        0x3f0               0x3f4           0x5ee  (1518)
+.dinit                       0x7e4                0x40            0x60  (96)
 
-                     Total program memory used (bytes):          0x77a  (1914) 1%
+                     Total program memory used (bytes):          0x936  (2358) 1%
 
 
 Data Memory  [Origin = 0x800, Length = 0x2000]
@@ -136,42 +136,42 @@ External Symbols in Program Memory (by address):
                   0x0003be                  _OpenTimer1
                   0x0003c6                  _ConfigIntTimer1
                   0x0003f0                  _configure_pic
-                  0x000486                  _CPLD_MUX_ADDRESS
-                  0x000516                  _Xbee_ON_OFF_CONTROL
-                  0x00053c                  _LED_DRIVER
-                  0x000562                  _state_machine
-                  0x000580                  _measure_dispatch
-                  0x000606                  __U1RXInterrupt
-                  0x000646                  __T1Interrupt
-                  0x0006a2                  _main
+                  0x0005ae                  _CPLD_MUX_ADDRESS
+                  0x00063e                  _Xbee_ON_OFF_CONTROL
+                  0x000664                  _LED_DRIVER
+                  0x00068a                  _state_machine
+                  0x0006a8                  _measure_dispatch
+                  0x00072e                  __U1RXInterrupt
+                  0x00076e                  __T1Interrupt
+                  0x0007ca                  _main
 
 External Symbols in Program Memory (by name):
 
-                  0x000486                  _CPLD_MUX_ADDRESS
+                  0x0005ae                  _CPLD_MUX_ADDRESS
                   0x00036e                  _ConfigIntI2C1
                   0x0003c6                  _ConfigIntTimer1
                   0x0002b8                  _ConfigIntUART1
                   0x000316                  _ConfigIntUART2
                   0x0002a6                  _DataRdyUART1
-                  0x00053c                  _LED_DRIVER
+                  0x000664                  _LED_DRIVER
                   0x000368                  _OpenI2C1
                   0x0003be                  _OpenTimer1
                   0x0002b0                  _OpenUART1
                   0x00030e                  _OpenUART2
                   0x000294                  _ReadUART1
                   0x0002ac                  _WriteTimer1
-                  0x000516                  _Xbee_ON_OFF_CONTROL
+                  0x00063e                  _Xbee_ON_OFF_CONTROL
                   0x000290                  __DefaultInterrupt
-                  0x000646                  __T1Interrupt
-                  0x000606                  __U1RXInterrupt
+                  0x00076e                  __T1Interrupt
+                  0x00072e                  __U1RXInterrupt
                   0x000232                  __data_init
                   0x000232                  __data_init_standard
                   0x000222                  __psv_init
                   0x000200                  __resetPRI
                   0x0003f0                  _configure_pic
-                  0x0006a2                  _main
-                  0x000580                  _measure_dispatch
-                  0x000562                  _state_machine
+                  0x0007ca                  _main
+                  0x0006a8                  _measure_dispatch
+                  0x00068a                  _state_machine
 
 Memory Configuration
 
@@ -355,7 +355,7 @@ __FUID3
                   0x000014          0x4 LONG 0x290 DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000016          0x4 LONG 0x290 DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000018          0x4 LONG 0x290 DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00001a          0x4 LONG 0x646 DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00001a          0x4 LONG 0x76e DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001c          0x4 LONG 0x290 DEFINED (__DMA0Interrupt)?ABSOLUTE (__DMA0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00001e          0x4 LONG 0x290 DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000020          0x4 LONG 0x290 DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -363,7 +363,7 @@ __FUID3
                   0x000024          0x4 LONG 0x290 DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000026          0x4 LONG 0x290 DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000028          0x4 LONG 0x290 DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00002a          0x4 LONG 0x606 DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00002a          0x4 LONG 0x72e DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002c          0x4 LONG 0x290 DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00002e          0x4 LONG 0x290 DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000030          0x4 LONG 0x290 DEFINED (__DMA1Interrupt)?ABSOLUTE (__DMA1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -483,7 +483,7 @@ __FUID3
                   0x000114          0x4 LONG 0x290 DEFINED (__AltINT0Interrupt)?ABSOLUTE (__AltINT0Interrupt):DEFINED (__INT0Interrupt)?ABSOLUTE (__INT0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000116          0x4 LONG 0x290 DEFINED (__AltIC1Interrupt)?ABSOLUTE (__AltIC1Interrupt):DEFINED (__IC1Interrupt)?ABSOLUTE (__IC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000118          0x4 LONG 0x290 DEFINED (__AltOC1Interrupt)?ABSOLUTE (__AltOC1Interrupt):DEFINED (__OC1Interrupt)?ABSOLUTE (__OC1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00011a          0x4 LONG 0x646 DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00011a          0x4 LONG 0x76e DEFINED (__AltT1Interrupt)?ABSOLUTE (__AltT1Interrupt):DEFINED (__T1Interrupt)?ABSOLUTE (__T1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011c          0x4 LONG 0x290 DEFINED (__AltDMA0Interrupt)?ABSOLUTE (__AltDMA0Interrupt):DEFINED (__DMA0Interrupt)?ABSOLUTE (__DMA0Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00011e          0x4 LONG 0x290 DEFINED (__AltIC2Interrupt)?ABSOLUTE (__AltIC2Interrupt):DEFINED (__IC2Interrupt)?ABSOLUTE (__IC2Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000120          0x4 LONG 0x290 DEFINED (__AltOC2Interrupt)?ABSOLUTE (__AltOC2Interrupt):DEFINED (__OC2Interrupt)?ABSOLUTE (__OC2Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -491,7 +491,7 @@ __FUID3
                   0x000124          0x4 LONG 0x290 DEFINED (__AltT3Interrupt)?ABSOLUTE (__AltT3Interrupt):DEFINED (__T3Interrupt)?ABSOLUTE (__T3Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000126          0x4 LONG 0x290 DEFINED (__AltSPI1ErrInterrupt)?ABSOLUTE (__AltSPI1ErrInterrupt):DEFINED (__SPI1ErrInterrupt)?ABSOLUTE (__SPI1ErrInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000128          0x4 LONG 0x290 DEFINED (__AltSPI1Interrupt)?ABSOLUTE (__AltSPI1Interrupt):DEFINED (__SPI1Interrupt)?ABSOLUTE (__SPI1Interrupt):ABSOLUTE (__DefaultInterrupt)
-                  0x00012a          0x4 LONG 0x606 DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
+                  0x00012a          0x4 LONG 0x72e DEFINED (__AltU1RXInterrupt)?ABSOLUTE (__AltU1RXInterrupt):DEFINED (__U1RXInterrupt)?ABSOLUTE (__U1RXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012c          0x4 LONG 0x290 DEFINED (__AltU1TXInterrupt)?ABSOLUTE (__AltU1TXInterrupt):DEFINED (__U1TXInterrupt)?ABSOLUTE (__U1TXInterrupt):ABSOLUTE (__DefaultInterrupt)
                   0x00012e          0x4 LONG 0x290 DEFINED (__AltADC1Interrupt)?ABSOLUTE (__AltADC1Interrupt):DEFINED (__ADC1Interrupt)?ABSOLUTE (__ADC1Interrupt):ABSOLUTE (__DefaultInterrupt)
                   0x000130          0x4 LONG 0x290 DEFINED (__AltDMA1Interrupt)?ABSOLUTE (__AltDMA1Interrupt):DEFINED (__DMA1Interrupt)?ABSOLUTE (__DMA1Interrupt):ABSOLUTE (__DefaultInterrupt)
@@ -1548,18 +1548,18 @@ __c30_signature
  .nbss              0x0864          0x4 BSP.o
                     0x0864                  Fcy
 
-.text             0x0003f0        0x2cc
- .text            0x0003f0        0x172 BSP.o
+.text             0x0003f0        0x3f4
+ .text            0x0003f0        0x29a BSP.o
                   0x0003f0                  configure_pic
-                  0x000486                  CPLD_MUX_ADDRESS
-                  0x000516                  Xbee_ON_OFF_CONTROL
-                  0x00053c                  LED_DRIVER
- .text            0x000562        0x15a main.o
-                  0x000562                  state_machine
-                  0x000580                  measure_dispatch
-                  0x000606                  _U1RXInterrupt
-                  0x000646                  _T1Interrupt
-                  0x0006a2                  main
+                  0x0005ae                  CPLD_MUX_ADDRESS
+                  0x00063e                  Xbee_ON_OFF_CONTROL
+                  0x000664                  LED_DRIVER
+ .text            0x00068a        0x15a main.o
+                  0x00068a                  state_machine
+                  0x0006a8                  measure_dispatch
+                  0x00072e                  _U1RXInterrupt
+                  0x00076e                  _T1Interrupt
+                  0x0007ca                  main
 
-.dinit            0x0006bc         0x40
- .dinit           0x0006bc         0x40 data_init
+.dinit            0x0007e4         0x40
+ .dinit           0x0007e4         0x40 data_init

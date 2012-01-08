@@ -66,14 +66,15 @@
   </files>
 
   <transforms xmlns="http://www.xilinx.com/XMLSchema">
-    <transform xil_pn:end_ts="1306073392" xil_pn:name="TRAN_copyInitialToXSTAbstractSynthesis" xil_pn:start_ts="1306073392">
-      <status xil_pn:value="SuccessfullyRun"/>
-    </transform>
-    <transform xil_pn:end_ts="1306073392" xil_pn:name="TRAN_schematicsToHdl" xil_pn:prop_ck="-611560892638749005" xil_pn:start_ts="1306073392">
+    <transform xil_pn:end_ts="1326019388" xil_pn:name="TRAN_copyInitialToXSTAbstractSynthesis" xil_pn:start_ts="1326019388">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1306073398" xil_pn:in_ck="-8471974202948408909" xil_pn:name="TRANEXT_xstsynthesize_xbr" xil_pn:prop_ck="666868703584694701" xil_pn:start_ts="1306073392">
+    <transform xil_pn:end_ts="1326019388" xil_pn:name="TRAN_schematicsToHdl" xil_pn:prop_ck="-611560892638749005" xil_pn:start_ts="1326019388">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+    </transform>
+    <transform xil_pn:end_ts="1326019593" xil_pn:in_ck="-8471974202948408909" xil_pn:name="TRANEXT_xstsynthesize_xbr" xil_pn:prop_ck="666868703584694701" xil_pn:start_ts="1326019588">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="RX_cpld.lso"/>
@@ -95,7 +96,7 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1306073402" xil_pn:in_ck="2555620623398664874" xil_pn:name="TRAN_ngdbuild" xil_pn:prop_ck="1688887409924995895" xil_pn:start_ts="1306073398">
+    <transform xil_pn:end_ts="1326019598" xil_pn:in_ck="2555620623398664874" xil_pn:name="TRAN_ngdbuild" xil_pn:prop_ck="1688887409924995895" xil_pn:start_ts="1326019593">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="RX_cpld.bld"/>
@@ -104,11 +105,10 @@
       <outfile xil_pn:name="_ngo"/>
       <outfile xil_pn:name="_xmsgs/ngdbuild.xmsgs"/>
     </transform>
-    <transform xil_pn:end_ts="1306073412" xil_pn:in_ck="129811664455047763" xil_pn:name="TRANEXT_vm6File_xbr" xil_pn:prop_ck="5576514373995165053" xil_pn:start_ts="1306073402">
+    <transform xil_pn:end_ts="1326019606" xil_pn:in_ck="129811664455047763" xil_pn:name="TRANEXT_vm6File_xbr" xil_pn:prop_ck="5576514373995165053" xil_pn:start_ts="1326019598">
       <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
-      <status xil_pn:value="OutOfDateForOutputs"/>
-      <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="RX_cpld.chk"/>
       <outfile xil_pn:name="RX_cpld.cxt"/>
       <outfile xil_pn:name="RX_cpld.gyd"/>
@@ -126,15 +126,23 @@
       <outfile xil_pn:name="RX_cpld_html"/>
       <outfile xil_pn:name="RX_cpld_pad.csv"/>
     </transform>
-    <transform xil_pn:end_ts="1306073413" xil_pn:in_ck="129811664455056627" xil_pn:name="TRANEXT_crtProg_xbr" xil_pn:prop_ck="5245363024343" xil_pn:start_ts="1306073412">
+    <transform xil_pn:end_ts="1326019607" xil_pn:in_ck="129811664455056627" xil_pn:name="TRANEXT_crtProg_xbr" xil_pn:prop_ck="5245363024343" xil_pn:start_ts="1326019606">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="RX_cpld.jed"/>
     </transform>
-    <transform xil_pn:end_ts="1306073412" xil_pn:in_ck="129811664455056627" xil_pn:name="TRAN_timRpt" xil_pn:prop_ck="111903974446" xil_pn:start_ts="1306073411">
-      <status xil_pn:value="SuccessfullyRun"/>
+    <transform xil_pn:end_ts="1326019152" xil_pn:in_ck="129811664455056627" xil_pn:name="TRAN_timRpt" xil_pn:prop_ck="111903974446" xil_pn:start_ts="1326019150">
+      <status xil_pn:value="AbortedRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="InputChanged"/>
+    </transform>
+    <transform xil_pn:end_ts="1326019322" xil_pn:in_ck="2606162729912391691" xil_pn:name="TRAN_createTimingConstraints" xil_pn:start_ts="1326019322">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="InputChanged"/>
     </transform>
   </transforms>
 
