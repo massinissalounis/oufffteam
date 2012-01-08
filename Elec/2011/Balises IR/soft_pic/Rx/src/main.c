@@ -82,7 +82,7 @@ void __attribute__((__interrupt__)) _U1RXInterrupt(void)
 	{
 		buffer=ReadUART1();
 	}
-	if (buffer == current_TRANSMITTER)
+	if (buffer == current_TRANSMITTER) //check if the received signal is the current slave's adress
 	{
 		receive_flag[current_state]=buffer;
 	}

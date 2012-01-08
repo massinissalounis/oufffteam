@@ -35,6 +35,60 @@ void configure_pic()
 	TRISC = 0b0000000000001000;
 
 	//-----------------------------------------------------------------
+	// CROSSBAR configuration
+	//-----------------------------------------------------------------
+	
+	// Unlock Registers
+	__builtin_write_OSCCONL(OSCCON & ~(1<<6));
+
+	// ********** Configure Input Functions **********
+	//UART1 (IR serial) Input config
+	RPINR18bits.U1CTSR = 0b11111; //31 -> tied at VSS
+	RPINR18bits.U1RXR = 0b10011; //PIN 19
+	//UART2 (Xbee serial) Input config
+	RPINR19bits.U2CTSR = 15; //PIN15 -> RP15
+	RPINR19bits.U2RXR = 10; // PIN8 -> RP10
+	// CAN SERIAL
+	RPINR26bits.C1RXR = 3; // CAN receive on RP3 pin (PIN24)
+
+
+	// ********** Configure Output Functions **********
+	RPOR0bits.RP0R = 0b00000 ;// RP0 output - PGD
+	RPOR0bits.RP1R = 0b00000 ;// RP1 output - PGC
+	RPOR1bits.RP2R = 0b10000 ;// RP2 output - CAN TXD
+	//RPOR1bits.RP3R = 0b00000 ;// RP3 output
+
+	RPOR2bits.RP4R = 0b00000 ;// RP4 output - Unused
+	RPOR2bits.RP5R = 0b00000 ;// RP5 output - PIC-CPLD PORT6 - Output
+	RPOR3bits.RP6R = 0b00000 ;// RP6 output - PIC-CPLD PORT5 - Output
+	RPOR3bits.RP7R = 0b00000 ;// RP7 output - PIC-CPLD OIRT4 - Output
+
+	//RPOR4bits.RP8R = 0b00000 ;// RP8 output - I2C
+	//RPOR4bits.RP9R = 0b00000 ;// RP9 output - I2C
+	//RPOR5bits.RP10R = 0b00000 ;// RP10 output - Xbee UART DIN
+	RPOR5bits.RP11R = 0b00101 ;// RP11 output - Xbee UART2 DOUT
+
+	RPOR6bits.RP12R = 0b00000 ;// RP12 output - Xbee Reset - Output
+	RPOR6bits.RP13R = 0b00000 ;// RP13 output - Xbee DTR - Output
+	RPOR7bits.RP14R = 0b00110 ;// RP14 output - Xbee CTS
+	//RPOR7bits.RP15R = 0b00000 ;// RP15 output - Xbee RTS
+
+	RPOR8bits.RP16R = 0b00000 ;// RP16 output - Unused
+	RPOR8bits.RP17R = 0b00000 ;// RP17 output - Unused
+	RPOR9bits.RP18R = 0b00000 ;// RP18 output - Unused
+	//RPOR9bits.RP19R = 0b00000 ;// RP19 output - PIC-CPLD PORT9 - RS232 input
+
+	RPOR10bits.RP20R = 0b00000 ;// RP20 output - PIC-CPLD PORT8 - Output
+	RPOR10bits.RP21R = 0b00000 ;// RP21 output - PIC-CPLD PORT7 - Output
+	RPOR11bits.RP22R = 0b00000 ;// RP22 output - PIC-CPLD PORT3 - Output
+	RPOR11bits.RP23R = 0b00000 ;// RP23 output - PIC-CPLD PORT2 - Output
+	RPOR12bits.RP24R = 0b00000 ;// RP24 output - PIC-CPLD PORT1 - Output
+	RPOR12bits.RP25R = 0b00000 ;// RP25 output - PIC-CPLD PORT0 - Output
+	// Lock Registers
+	__builtin_write_OSCCONL(OSCCON | (1<<6));
+
+
+	//-----------------------------------------------------------------
 	// UARTS configuration
 	//-----------------------------------------------------------------		
 	
@@ -89,8 +143,6 @@ void configure_pic()
 
 
 }
-
-
 
 
 

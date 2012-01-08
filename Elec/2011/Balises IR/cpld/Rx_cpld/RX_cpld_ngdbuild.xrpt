@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<document OS="nt" product="ISE" version="13.1">
+<document OS="nt" product="ISE" version="13.3">
 
   <!--The data in this file is primarily intended for consumption by Xilinx tools.
     The structure and the elements are likely to change over the next few releases.
     This means code written to parse this file will need to be revisited each subsequent release.-->
 
-  <application stringID="NgdBuild" timeStamp="Sun May 22 16:10:01 2011">
+  <application stringID="NgdBuild" timeStamp="Sun Jan 08 11:46:37 2012">
     <section stringID="User_Env">
       <table stringID="User_EnvVar">
         <column stringID="variable"/>
         <column stringID="value"/>
         <row stringID="row" value="0">
           <item stringID="variable" value="Path"/>
-          <item stringID="value" value="H:\Xilinx\ISE_DS\ISE\\lib\nt;H:\Xilinx\ISE_DS\ISE\\bin\nt;H:\Xilinx\ISE_DS\PlanAhead\bin;H:\Xilinx\ISE_DS\ISE\bin\nt;H:\Xilinx\ISE_DS\ISE\lib\nt;H:\Xilinx\ISE_DS\EDK\bin\nt;H:\Xilinx\ISE_DS\EDK\lib\nt;H:\Xilinx\ISE_DS\EDK\gnu\microblaze\nt\bin;H:\Xilinx\ISE_DS\EDK\gnu\powerpc-eabi\nt\bin;H:\Xilinx\ISE_DS\EDK\gnuwin\bin;H:\Xilinx\ISE_DS\common\bin\nt;H:\Xilinx\ISE_DS\common\lib\nt;H:\Program Files\Microchip\mplabc30\v3.25\bin;H:\Program Files\Common Files\Microsoft Shared\Windows Live;H:\Program Files\PC Connectivity Solution\;H:\Program Files\ATI Stream\bin\x86;H:\Windows\system32;H:\Windows;H:\Windows\System32\Wbem;H:\Windows\System32\WindowsPowerShell\v1.0\;H:\Program Files\ATI Technologies\ATI.ACE\Core-Static;H:\Program Files\Altium Designer Summer 08\System;H:\Program Files\TortoiseSVN\bin;H:\Program Files\Windows Live\Shared;H:\Program Files\Microchip\MPLAB C32 Suite\bin;H:\Program Files\Microchip\mplabc32\v1.12\bin"/>
+          <item stringID="value" value="H:\Xilinx\13.3\ISE_DS\ISE\\lib\nt;H:\Xilinx\13.3\ISE_DS\ISE\\bin\nt;H:\Xilinx\13.3\ISE_DS\PlanAhead\bin;H:\Xilinx\13.3\ISE_DS\ISE\bin\nt;H:\Xilinx\13.3\ISE_DS\ISE\lib\nt;H:\Xilinx\13.3\ISE_DS\EDK\bin\nt;H:\Xilinx\13.3\ISE_DS\EDK\lib\nt;H:\Xilinx\13.3\ISE_DS\EDK\gnu\microblaze\nt\bin;H:\Xilinx\13.3\ISE_DS\EDK\gnu\powerpc-eabi\nt\bin;H:\Xilinx\13.3\ISE_DS\EDK\gnuwin\bin;H:\Xilinx\13.3\ISE_DS\common\bin\nt;H:\Xilinx\13.3\ISE_DS\common\lib\nt;H:\Program Files\AMD APP\bin\x86;H:\Program Files\Microchip\MPLAB C30\bin;H:\Program Files\PC Connectivity Solution\;H:\Windows\system32;H:\Windows;H:\Windows\System32\Wbem;H:\Windows\System32\WindowsPowerShell\v1.0\;H:\Program Files\ATI Technologies\ATI.ACE\Core-Static;H:\Program Files\Microchip\MPLAB C32 Suite\bin;H:\Program Files\MATLAB\R2011a\runtime\win32;H:\Program Files\MATLAB\R2011a\bin;H:\Program Files\Altium Designer Summer 08\System"/>
         </row>
         <row stringID="row" value="1">
           <item stringID="variable" value="PATHEXT"/>
@@ -20,26 +20,26 @@
         </row>
         <row stringID="row" value="2">
           <item stringID="variable" value="XILINX"/>
-          <item stringID="value" value="H:\Xilinx\ISE_DS\ISE\"/>
+          <item stringID="value" value="H:\Xilinx\13.3\ISE_DS\ISE\"/>
         </row>
         <row stringID="row" value="3">
           <item stringID="variable" value="XILINX_DSP"/>
-          <item stringID="value" value="H:\Xilinx\ISE_DS\ISE"/>
+          <item stringID="value" value="H:\Xilinx\13.3\ISE_DS\ISE"/>
         </row>
         <row stringID="row" value="4">
           <item stringID="variable" value="XILINX_EDK"/>
-          <item stringID="value" value="H:\Xilinx\ISE_DS\EDK"/>
+          <item stringID="value" value="H:\Xilinx\13.3\ISE_DS\EDK"/>
         </row>
         <row stringID="row" value="5">
           <item stringID="variable" value="XILINX_PLANAHEAD"/>
-          <item stringID="value" value="H:\Xilinx\ISE_DS\PlanAhead"/>
+          <item stringID="value" value="H:\Xilinx\13.3\ISE_DS\PlanAhead"/>
         </row>
       </table>
       <item stringID="User_EnvOs" value="OS Information">
         <item stringID="User_EnvOsname" value="Microsoft Windows 7 , 32-bit"/>
-        <item stringID="User_EnvOsrelease" value="major release  (build 7600)"/>
+        <item stringID="User_EnvOsrelease" value="Service Pack 1  (build 7601)"/>
       </item>
-      <item stringID="User_EnvHost" value="FIXE"/>
+      <item stringID="User_EnvHost" value="Fixe"/>
       <table stringID="User_EnvCpu">
         <column stringID="arch"/>
         <column stringID="speed"/>
