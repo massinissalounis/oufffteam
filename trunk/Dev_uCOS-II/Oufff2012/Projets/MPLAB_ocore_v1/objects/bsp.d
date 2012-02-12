@@ -14,8 +14,9 @@
   ../../Src/Microchip/PeripheralsLibs/timer.h \
   ../../Src/Microchip/PeripheralsLibs/ports.h \
   ../../Src/Microchip/PeripheralsLibs/uart.h ../../Src/BSP/bsp.h \
-  ../../Src/BSP/bsp_fpga.h ../../Src/Main/AppCustomTypes.h \
-  ../../Src/Main/AppGlobalFunc.h ../../Src/Main/AppGlobalVars.h \
+  ../../Src/BSP/bsp_fpga.h ../../Src/Main/ArmsControl.h \
+  ../../Src/Main/AppCustomTypes.h ../../Src/Main/AppGlobalFunc.h \
+  ../../Src/Main/AppGlobalVars.h \
   ../../Src/Microchip/PeripheralsLibs/osc.h \
   ../../Src/Microchip/PeripheralsLibs/system.h \
   ../../Src/Microchip/PeripheralsLibs/timer.h \
