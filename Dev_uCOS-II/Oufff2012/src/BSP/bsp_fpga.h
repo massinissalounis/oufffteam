@@ -26,11 +26,6 @@
 #define  AX12_UART_MASK_DATA_READY  0x01 // Data ready bit (=1 if data received in FIFO)
 #define  AX12_UART_MASK_DATA_SENT   0x40 // Transmitter empty bit (=1 if buffer is empty)
 
-#define  AX12_FL_ID			        0x0F
-#define  AX12_FR_ID			        0x12
-#define  AX12_TL_ID			        0x10
-#define  AX12_TR_ID			        0x11
-
 #define  AX12_CMD_PING				0x01
 #define  AX12_CMD_READ_DATA         0x02
 #define  AX12_CMD_WRITE_DATA        0x03
@@ -56,18 +51,30 @@
 #define AX12_REG_CCW_LIMIT			0x08
 #define AX12_REG_TORQUE_ENABLE		0x18
 
-
-
 /*
 *********************************************************************************************************
 *                                             PROTOTYPES
 *********************************************************************************************************
 */    
 
+void AX12_UART_Init (void);
+
+CPU_INT08U AX12_UART_Read_Status (void);
+CPU_INT08U AX12_UART_Data_Sent (void);
+
+void AX12_UART_Write (CPU_INT08U data);
+void AX12_Dual_Write_Position_Sync (CPU_INT08U ax12_id1, CPU_INT08U ax12_id2, CPU_INT08U setpoint1_high, CPU_INT08U setpoint1_low, CPU_INT08U setpoint2_high, CPU_INT08U setpoint2_low);
+void AX12_Write_Position_Sync (CPU_INT08U ax12_id, CPU_INT08U setpoint_high, CPU_INT08U setpoint_low);
+void AX12_Dual_Write_Torque_On_Sync (CPU_INT08U ax12_id1, CPU_INT08U ax12_id2);
+void AX12_Write_Torque_On_Sync (CPU_INT08U ax12_id);
+CPU_INT08U AX12_Write_Reg_Sync (CPU_INT08U ax12_id, CPU_INT08U reg_address, CPU_INT08U data);
+CPU_INT08U AX12_Write_Reg_2_Datas_Sync( CPU_INT08U ax12_id, CPU_INT08U reg_address, CPU_INT08U data1, CPU_INT08U data2);
+
 void QUAD_Latch (void);
+void QUAD_Wait_for_Latch (void);
 CPU_INT16S QUADD_Read (void);
 CPU_INT16S QUADG_Read (void);
-void QUAD_Wait_for_Latch (void);
+
+CPU_INT08U GPIO_Action (CPU_INT08U bit_position, CPU_INT08U bit_value);
 
 void BSPFPGA_Reset(void);
-//CPU_INT08U COLOR_Read (void);

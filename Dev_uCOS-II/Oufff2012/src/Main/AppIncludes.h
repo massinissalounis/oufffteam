@@ -35,6 +35,7 @@
 
 #include    "bsp.h"
 #include	"bsp_fpga.h"
+#include 	"ArmsControl.h"
 #include	"AppCustomTypes.h"		// Custom Types
 #include 	"AppGlobalFunc.h"
 #include	"AppGlobalVars.h"

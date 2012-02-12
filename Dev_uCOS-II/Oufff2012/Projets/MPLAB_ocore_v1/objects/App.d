@@ -14,15 +14,16 @@
   ../../Src/Microchip/PeripheralsLibs/timer.h \
   ../../Src/Microchip/PeripheralsLibs/ports.h \
   ../../Src/Microchip/PeripheralsLibs/uart.h ../../Src/BSP/bsp.h \
-  ../../Src/BSP/bsp_fpga.h ../../Src/Main/AppCustomTypes.h \
-  ../../Src/Main/AppGlobalFunc.h ../../Src/Main/AppGlobalVars.h \
-  ..\..\src\Main\/AppConfig.h ../../Src/Microchip/PeripheralsLibs/int.h \
+  ../../Src/BSP/bsp_fpga.h ../../Src/Main/ArmsControl.h \
+  ../../Src/Main/AppCustomTypes.h ../../Src/Main/AppGlobalFunc.h \
+  ../../Src/Main/AppGlobalVars.h ..\..\src\Main\/AppConfig.h \
+  ../../Src/Microchip/PeripheralsLibs/int.h \
   ../../Src/Microchip/PeripheralsLibs/timer.h \
   ../../Src/Microchip/PeripheralsLibs/ports.h \
   ../../Src/Microchip/PeripheralsLibs/uart.h ../../Src/BSP/bsp.h \
-  ../../Src/BSP/bsp_fpga.h ..\..\src\Main\/AppCustomTypes.h \
-  ..\..\src\Main\/AppGlobalFunc.h ..\..\src\Main\/AppGlobalVars.h \
-  ..\..\src\Main\/TaskOdo.h ..\..\src\Main\/TaskAsser.h \
-  ..\..\src\Main\/TaskSensors.h ..\..\src\Main\/TaskMain.h \
-  ..\..\src\Main\/TaskTempo.h ..\..\src\Main\/TaskMvt.h \
-  ..\..\src\Main\/LibMoving.h
+  ../../Src/BSP/bsp_fpga.h ..\..\src\Main\/ArmsControl.h \
+  ..\..\src\Main\/AppCustomTypes.h ..\..\src\Main\/AppGlobalFunc.h \
+  ..\..\src\Main\/AppGlobalVars.h ..\..\src\Main\/TaskOdo.h \
+  ..\..\src\Main\/TaskAsser.h ..\..\src\Main\/TaskSensors.h \
+  ..\..\src\Main\/TaskMain.h ..\..\src\Main\/TaskTempo.h \
+  ..\..\src\Main\/TaskMvt.h ..\..\src\Main\/LibMoving.h
