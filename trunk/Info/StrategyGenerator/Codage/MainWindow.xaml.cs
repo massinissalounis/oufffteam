@@ -26,14 +26,16 @@ namespace StrategyGenerator
         {
             InitializeComponent();
 
-            StructuredFile  File = new StructuredFile();
-            TextFile        PatternFile = new TextFile();
-            PatternFile.Load();
+            StructuredFile  File = new StructuredFile("C:/Users/Philippe/Desktop/Test/FileColorA.c");
+            TextFile PatternFile = new TextFile("C:/Users/Philippe/Desktop/Test/PatternFileColorA.c");
+            //PatternFile.Load("C:/Users/Philippe/Desktop/Test/PatternFileColorA.c");
 
-            List<String> Key = new List<String>();
+            List<StructuredFileKey> Res = File.Parse(PatternFile);
 
-            File.Parse(PatternFile);
-
+            for (int i = 0; i < Res.Count(); i++)
+            {
+                Console.WriteLine(Res[i].Debug());
+            }
         }
     }
 }

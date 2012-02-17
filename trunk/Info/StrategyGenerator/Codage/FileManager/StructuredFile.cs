@@ -21,14 +21,14 @@ namespace StrategyGenerator.FileManager
         }
 
         // Public ---------------------------------------------------------------------------------
-        public List<String> Parse(TextFile PatternFile)
+        public List<StructuredFileKey> Parse(TextFile PatternFile)
         {
             List<String> PatternLine = null;
             List<String> PatternLoop = null;
             List<String> LineToCheck = null;
             List<String> LoopToCheck = null;
-            List<String> Result = null;
-            String CurrentLine, TestLine;
+            List<StructuredFileKey> Result = null;
+            String CurrentLine, TestLine, ResultPattern, ResultValue;
 
             int iCurrentLine = 0, PatternLen = 0, iterator = 0, PatternLoopInitialValue = 0;
 
@@ -75,7 +75,8 @@ namespace StrategyGenerator.FileManager
                         {
                             PatternLoop.Add(CurrentLine);
                             LoopToCheck.Add(TestLine);
-                            PatternLen++;
+                            if(CurrentLine != "// LoopID = 'LOOPID'")   // This line is not included into the pattern
+                                PatternLen++;
 
                             // Remove added line (for current file)
                             _File.RemoveLine(iCurrentLine);
@@ -86,7 +87,7 @@ namespace StrategyGenerator.FileManager
                         CurrentLine = PatternFile.GetLine(iCurrentLine);
                     }
 
-                    iterator = PatternLoopInitialValue;
+                    iterator = PatternLoopInitialValue + 1; // Initial value is computed before adding the first LoopPattern value
                     CurrentLine = _File.GetLine(iCurrentLine);
                     
                     // Search for final tag into current File
@@ -103,8 +104,8 @@ namespace StrategyGenerator.FileManager
                         CurrentLine = _File.GetLine(iCurrentLine);
 
                         iterator++;
-                        if (iterator >= PatternLoopInitialValue + PatternLen)
-                            iterator = PatternLoopInitialValue;
+                        if (iterator > PatternLoopInitialValue + PatternLen)
+                            iterator = PatternLoopInitialValue + 1;
                     }
 
                 }
@@ -129,16 +130,144 @@ namespace StrategyGenerator.FileManager
                 }
             }
 
-            // Create the result list
+            // Create the result list for non-loop values
             if (PatternLine != null)
             {
                 if (Result == null)
-                    Result = new List<string>();
+                    Result = new List<StructuredFileKey>();
 
+                // Lecture ligne a ligne et sauvegarde des infos
+                for (iCurrentLine = 0; iCurrentLine < PatternLine.Count(); iCurrentLine++)
+                {
+                    int iCurrentPatternChar = 0, iCurrentValueChar = 0;
+                    // Traitement de la ligne en cours
+                    for (iCurrentValueChar = 0; iCurrentValueChar < LineToCheck[iCurrentLine].Length; iCurrentValueChar++)
+                    {
+                        // Si nous n'avons pas d'overflow
+                        if (iCurrentPatternChar < PatternLine[iCurrentLine].Length)
+                        {
+                            if (PatternLine[iCurrentLine].Substring(iCurrentPatternChar, 1) != LineToCheck[iCurrentLine].Substring(iCurrentValueChar, 1))
+                            {
 
+                                iCurrentPatternChar++;
+                                iCurrentValueChar++;
+
+                                int iStartPatternChar = iCurrentPatternChar;
+                                // Des que nous voyons une difference dans les lignes
+                                // On recherche la fin du pattern
+                                while ((iCurrentPatternChar < PatternLine[iCurrentLine].Length) && (PatternLine[iCurrentLine].Substring(iCurrentPatternChar, 1) != "'"))
+                                {
+                                    iCurrentPatternChar++;
+                                }
+
+                                ResultPattern = PatternLine[iCurrentLine].Substring(iStartPatternChar, iCurrentPatternChar - iStartPatternChar);
+
+                                // Read the next char to get the end of pattern block
+                                iCurrentPatternChar++;
+
+                                if (iCurrentPatternChar < PatternLine[iCurrentLine].Length)
+                                {
+                                    int iFirstChar = iCurrentValueChar - 1;
+                                    string sLastChar = PatternLine[iCurrentLine].Substring(iCurrentPatternChar, 1);
+
+                                    // Lecture de la valeur reelle dans la liste LineToCheck
+                                    while ((iCurrentValueChar < LineToCheck[iCurrentLine].Length) && (LineToCheck[iCurrentLine].Substring(iCurrentValueChar, 1) != sLastChar))
+                                    {
+                                        iCurrentValueChar++;
+                                    }
+
+                                    // if the correct kay has been found
+                                    if (LineToCheck[iCurrentLine].Substring(iCurrentValueChar, 1) == sLastChar)
+                                    {
+                                        ResultValue = LineToCheck[iCurrentLine].Substring(iFirstChar, iCurrentValueChar - iFirstChar);
+                                        Result.Add(new StructuredFileKey(-1, iCurrentLine, ResultPattern, ResultValue));
+                                    }
+                                }
+                            }
+                        }
+
+                        // Incremente la valeur pour suivre iCurrentValueChar
+                        iCurrentPatternChar++;
+                    }
+                }
             }
 
-            return null;
+            // Create result list for loop values
+            if (PatternLoop != null)
+            {
+                int CurrentLoopID = -1;
+
+                if (Result == null)
+                    Result = new List<StructuredFileKey>();
+
+                // Lecture ligne a ligne et sauvegarde des infos
+                for (iCurrentLine = 0; iCurrentLine < PatternLoop.Count(); iCurrentLine++)
+                {
+                    if (PatternLoop[iCurrentLine] == "// LoopID = 'LOOPID'")
+                    {
+                        CurrentLoopID = int.Parse(LoopToCheck[iCurrentLine].Substring("// LoopID = ".Length));
+                    }
+                    else if (PatternLoop[iCurrentLine] == "// StructuredFileLoopEnd")
+                    {
+                        CurrentLoopID = -1;
+                    }
+                    else
+                    {
+                        int iCurrentPatternChar = 0, iCurrentValueChar = 0;
+                        // Traitement de la ligne en cours
+                        for (iCurrentValueChar = 0; iCurrentValueChar < LoopToCheck[iCurrentLine].Length; iCurrentValueChar++)
+                        {
+                            // Si nous n'avons pas d'overflow
+                            if (iCurrentPatternChar < PatternLoop[iCurrentLine].Length)
+                            {
+                                if (PatternLoop[iCurrentLine].Substring(iCurrentPatternChar, 1) != LoopToCheck[iCurrentLine].Substring(iCurrentValueChar, 1))
+                                {
+
+                                    iCurrentPatternChar++;
+                                    iCurrentValueChar++;
+
+                                    int iStartPatternChar = iCurrentPatternChar;
+                                    // Des que nous voyons une difference dans les lignes
+                                    // On recherche la fin du pattern
+                                    while ((iCurrentPatternChar < PatternLoop[iCurrentLine].Length) && (PatternLoop[iCurrentLine].Substring(iCurrentPatternChar, 1) != "'"))
+                                    {
+                                        iCurrentPatternChar++;
+                                    }
+
+                                    ResultPattern = PatternLoop[iCurrentLine].Substring(iStartPatternChar, iCurrentPatternChar - iStartPatternChar);
+
+                                    // Read the next char to get the end of pattern block
+                                    iCurrentPatternChar++;
+
+                                    if (iCurrentPatternChar < PatternLoop[iCurrentLine].Length)
+                                    {
+                                        int iFirstChar = iCurrentValueChar - 1;
+                                        string sLastChar = PatternLoop[iCurrentLine].Substring(iCurrentPatternChar, 1);
+
+                                        // Lecture de la valeur reelle dans la liste LineToCheck
+                                        while ((iCurrentValueChar < LoopToCheck[iCurrentLine].Length) && (LoopToCheck[iCurrentLine].Substring(iCurrentValueChar, 1) != sLastChar))
+                                        {
+                                            iCurrentValueChar++;
+                                        }
+
+                                        // if the correct kay has been found
+                                        if (LoopToCheck[iCurrentLine].Substring(iCurrentValueChar, 1) == sLastChar)
+                                        {
+                                            ResultValue = LoopToCheck[iCurrentLine].Substring(iFirstChar, iCurrentValueChar - iFirstChar);
+                                            Result.Add(new StructuredFileKey(CurrentLoopID, iCurrentLine, ResultPattern, ResultValue));
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Incremente la valeur pour suivre iCurrentValueChar
+                            iCurrentPatternChar++;
+                        }
+                    }
+                }
+            }
+
+            return Result;
         }
 
         // Private --------------------------------------------------------------------------------
