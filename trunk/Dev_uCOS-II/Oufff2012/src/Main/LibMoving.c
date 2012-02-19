@@ -30,7 +30,7 @@ void LibMoving_MoveInMM(int Dist, INT8U Speed, StructCmd *NextSetpoint)
 		return;
 
     // Define Setpoint MvtMode and Speed
-    NextSetpoint->Cmd = Mvt_Simple;
+    NextSetpoint->Cmd = MvtSimple_MoveInMM;
 	NextSetpoint->CmdType = CmdType_Blocking;
     NextSetpoint->Param1 = Speed;
 
@@ -49,9 +49,9 @@ void LibMoving_MoveInMM(int Dist, INT8U Speed, StructCmd *NextSetpoint)
 	NextSetpoint->Param4 = USE_CURRENT_VALUE;
 
 	if(Dist >= 0)
-		NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_FRONT_SENSORS;
+		NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_FRONT;
 	else
-		NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_BACK_SENSORS;
+		NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_BACK;
 
 	return;
 }
@@ -66,7 +66,7 @@ void LibMoving_RotateInDeg(int AngleInDeg, INT8U Speed, StructCmd *NextSetpoint)
 		return;
 
     // Define Setpoint MvtMode and Speed
-    NextSetpoint->Cmd = Mvt_Simple;
+    NextSetpoint->Cmd = MvtSimple_RotateInDeg;
 	NextSetpoint->CmdType = CmdType_Blocking;
     NextSetpoint->Param1 = Speed;
 
@@ -99,7 +99,7 @@ void LibMoving_RotateToAngleInDeg(int AngleToGoInDeg, INT8U Speed, StructCmd *Ne
 		return;
 
     // Define Setpoint MvtMode and Speed
-    NextSetpoint->Cmd = Mvt_Simple;
+    NextSetpoint->Cmd = MvtSimple_RotateToAngleInDeg;
 	NextSetpoint->CmdType = CmdType_Blocking;
     NextSetpoint->Param1 = Speed;
 
@@ -152,7 +152,9 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
     case Mvt_UseAngleOnly:     
     case Mvt_UseDistOnly:
     case Mvt_UsePivotMode:
-    case Mvt_Simple:
+    case MvtSimple_MoveInMM:
+    case MvtSimple_RotateInDeg:
+    case MvtSimple_RotateToAngleInDeg:
 	case App_SetNewPos:
 		// There is only 1 cmd to compute
 		memcpy(NewPath + 0, ExpectedCmd, sizeof(StructCmd));
@@ -244,70 +246,70 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, INT8U Speed, StructCmd *NewP
 		case APP_MOVING_ESCAPE_SEQ_RIGHT:
 			// Compute First mvt
 			Action = NewPath + 4;
-			Action->Cmd 				= Mvt_Simple;		
+			Action->Cmd 				= MvtSimple_MoveInMM;		
 			Action->CmdType 			= CmdType_Blocking;		
 			Action->Param1 				= Speed;	
 			Action->Param2 				= CurrentPos.x + (-200.0) * cosf(CurrentPos.angle);	
 			Action->Param3 				= CurrentPos.y + (-200.0) * sinf(CurrentPos.angle);		
 			Action->Param4 				= CurrentPos.angle;	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_BACK_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_BACK;
 #else
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 #endif			
 
 			// Compute Second mvt
 			Action = NewPath + 3;
-			Action->Cmd 				= Mvt_Simple;		
+			Action->Cmd 				= MvtSimple_RotateInDeg;		
 			Action->CmdType 			= CmdType_Blocking;		
 			Action->Param1 				= Speed;	
 			Action->Param2 				= (Action+1)->Param2;	
 			Action->Param3 				= (Action+1)->Param3;		
 			Action->Param4 				= AppCheckAngleInRad((Action+1)->Param4 + AppConvertDegInRad(-45.0));	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_RIGHT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_RIGHT;
 #else
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 #endif			
 
 			// Compute Third mvt
 			Action = NewPath + 2;
-			Action->Cmd 				= Mvt_Simple;		
+			Action->Cmd 				= MvtSimple_MoveInMM;		
 			Action->CmdType 			= CmdType_Blocking;		
 			Action->Param1 				= Speed;	
 			Action->Param2 				= (Action+1)->Param2 + (600.0) * cosf((Action+1)->Param4);	
 			Action->Param3 				= (Action+1)->Param3 + (600.0) * sinf((Action+1)->Param4);		
 			Action->Param4 				= (Action+1)->Param4;	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_FRONT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_FRONT;
 #else
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 #endif			
 
 			// Compute Fourth mvt
 			Action = NewPath + 1;
-			Action->Cmd 				= Mvt_Simple;		
+			Action->Cmd 				= MvtSimple_RotateInDeg;		
 			Action->CmdType 			= CmdType_Blocking;		
 			Action->Param1 				= Speed;	
 			Action->Param2 				= (Action+1)->Param2;	
 			Action->Param3 				= (Action+1)->Param3;		
 			Action->Param4 				= AppCheckAngleInRad((Action+1)->Param4 + AppConvertDegInRad(45.0));	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_LEFT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_LEFT;
 #else
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 #endif			
 
 			// Compute Fifth mvt
 			Action = NewPath + 0;
-			Action->Cmd 				= Mvt_Simple;		
+			Action->Cmd 				= MvtSimple_MoveInMM;		
 			Action->CmdType 			= CmdType_Blocking;		
 			Action->Param1 				= Speed;	
 			Action->Param2 				= (Action+1)->Param2 + (400.0) * cosf((Action+1)->Param4);	
 			Action->Param3 				= (Action+1)->Param3 + (400.0) * sinf((Action+1)->Param4);		
 			Action->Param4 				= (Action+1)->Param4;	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_FRONT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_FRONT;
 #else
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 #endif			
@@ -319,70 +321,70 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, INT8U Speed, StructCmd *NewP
 		case APP_MOVING_ESCAPE_SEQ_LEFT:
 			// Compute First mvt
 			Action = NewPath + 4;
-			Action->Cmd 				= Mvt_Simple;		
+			Action->Cmd 				= MvtSimple_MoveInMM;		
 			Action->CmdType 			= CmdType_Blocking;		
 			Action->Param1 				= Speed;	
 			Action->Param2 				= CurrentPos.x + (-200.0) * cosf(CurrentPos.angle);	
 			Action->Param3 				= CurrentPos.y + (-200.0) * sinf(CurrentPos.angle);		
 			Action->Param4 				= CurrentPos.angle;	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_BACK_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_BACK;
 #else
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 #endif			
 			
 			// Compute Second mvt
 			Action = NewPath + 3;
-			Action->Cmd 				= Mvt_Simple;		
+			Action->Cmd 				= MvtSimple_RotateInDeg;		
 			Action->CmdType 			= CmdType_Blocking;		
 			Action->Param1 				= Speed;	
 			Action->Param2 				= (Action+1)->Param2;	
 			Action->Param3 				= (Action+1)->Param3;		
 			Action->Param4 				= (Action+1)->Param4 + AppConvertDegInRad(45.0);	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_LEFT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_LEFT;
 #else
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 #endif			
 
 			// Compute Third mvt
 			Action = NewPath + 2;
-			Action->Cmd 				= Mvt_Simple;		
+			Action->Cmd 				= MvtSimple_MoveInMM;		
 			Action->CmdType 			= CmdType_Blocking;		
 			Action->Param1 				= Speed;	
 			Action->Param2 				= (Action+1)->Param2 + (600.0) * cosf((Action+1)->Param4);	
 			Action->Param3 				= (Action+1)->Param3 + (600.0) * sinf((Action+1)->Param4);		
 			Action->Param4 				= (Action+1)->Param4;	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_FRONT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_FRONT;
 #else
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 #endif			
 
 			// Compute Fourth mvt
 			Action = NewPath + 1;
-			Action->Cmd 				= Mvt_Simple;		
+			Action->Cmd 				= MvtSimple_RotateInDeg;		
 			Action->CmdType 			= CmdType_Blocking;		
 			Action->Param1 				= Speed;	
 			Action->Param2 				= (Action+1)->Param2;	
 			Action->Param3 				= (Action+1)->Param3;		
 			Action->Param4 				= (Action+1)->Param4 + AppConvertDegInRad(-45.0);	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_RIGHT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_RIGHT;
 #else
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 #endif			
 
 			// Compute Fifth mvt
 			Action = NewPath + 0;
-			Action->Cmd 				= Mvt_Simple;		
+			Action->Cmd 				= MvtSimple_MoveInMM;		
 			Action->CmdType 			= CmdType_Blocking;		
 			Action->Param1 				= Speed;	
 			Action->Param2 				= (Action+1)->Param2 + (400.0) * cosf((Action+1)->Param4);	
 			Action->Param3 				= (Action+1)->Param3 + (400.0) * sinf((Action+1)->Param4);		
 			Action->Param4 				= (Action+1)->Param4;	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_FRONT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_FRONT;
 #else
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 #endif			
@@ -396,7 +398,7 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, INT8U Speed, StructCmd *NewP
 			LibMoving_MoveInMM(-150, Speed, Action);										// Define first movement	
 
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_BACK_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_BACK;
 #else
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 #endif			
@@ -409,7 +411,7 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, INT8U Speed, StructCmd *NewP
 			LibMoving_MoveInMM(150, Speed, Action);									// Define first movement	
 
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_FRONT_SENSORS;
+			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_FRONT;
 #else
 			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 #endif			
@@ -479,7 +481,9 @@ BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest)
         
     // --------------------------------------------------------------------------------------------
     // Check for Angle and Dist
-    case Mvt_Simple:
+    case MvtSimple_RotateInDeg:
+	case MvtSimple_MoveInMM:
+	case MvtSimple_RotateToAngleInDeg:
     case Mvt_UseMixedMode:
         if((AngleToSetpoint <= APP_MOVING_APPROACH_PRECISION_COEF * APP_MOVING_ANGLE_APPROACH_PRECISION) && (DistToSetpoint <= (APP_MOVING_APPROACH_PRECISION_COEF * APP_MOVING_DIST_APPROACH_PRECISION * APP_MOVING_DIST_APPROACH_PRECISION)))
             Ret = OS_TRUE;
@@ -490,7 +494,7 @@ BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest)
     // --------------------------------------------------------------------------------------------
     // We have to stay in place
     case Mvt_Stop:
-    case Mvt_Wait:
+    case App_Wait:
         Ret = OS_FALSE;
         break;
 

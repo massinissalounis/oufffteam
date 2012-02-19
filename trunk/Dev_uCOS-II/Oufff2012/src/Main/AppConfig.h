@@ -37,7 +37,7 @@
 //#define APP_TASK_ODO_ENABLED							// Activate TaskOdo
 //#define APP_TASK_ASSER_ENABLED							// Activate TaskAsser
 //#define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
-//#define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
+#define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
 //#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
 
 /*
@@ -165,6 +165,7 @@
 
 // POSITION MANAGER MODE
 //#define ODO_CALIBRATION
+
 #define APP_MOVING_SEQ_LEN						5			    		// Length of moving sequence table (used for evoluate movment)
 																		// WARNING : Minimal value is 3
 

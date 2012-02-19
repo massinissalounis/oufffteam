@@ -65,7 +65,7 @@ int  main (void)
 	AppCreateIPCS();			/* Create IPCS objects										*/
 	AppTaskStart();				/* Start all tasks											*/
 
-	AppDebugMsg("-----------------------------------\n");
+	AppDebugMsg("-----------------------------------\r\n");
 #ifdef _TARGET_440H
 	Set_Line_Information( 1, 0, "    OUFFF TEAM   ", 16);
 	Set_Line_Information( 2, 0, "    Coupe 2012   ", 16);
@@ -95,8 +95,11 @@ void  AppTaskStart()
 	BSPFPGA_Reset();
 
 #ifdef AX12_REG_PROGRAMMING
-	HOLDER_InitReg(); // Register configuration - Comment for match
-	while(1);
+	ARMS_InitReg(); // Register configuration - Comment for match
+	while(1)
+	{
+		OSTimeDlyHMSM(0, 0, 1, 0);
+	}
 #endif
 
 #if (OS_TASK_STAT_EN > 0)

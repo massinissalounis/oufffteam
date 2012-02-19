@@ -217,7 +217,7 @@ void TaskMain_Main(void *p_arg)
 
 			// CASE 005 ---------------------------------------------------------------------------
 			case 5:		// Send Next Action
-				if(Cmd_NotSet != NextCmd.Cmd)
+				if(NotSet != NextCmd.Cmd)
 				{
 					memcpy(&CurrentCmd, &NextCmd,  sizeof(StructCmd));
 					memset(&NextCmd, 0, sizeof(StructCmd));
@@ -230,9 +230,11 @@ void TaskMain_Main(void *p_arg)
 					case Mvt_UseDistOnly:
 					case Mvt_UseMixedMode:
 					case Mvt_UsePivotMode:
-					case Mvt_Simple:
+				    case MvtSimple_RotateInDeg:
+					case MvtSimple_MoveInMM:
+					case MvtSimple_RotateToAngleInDeg:
 					case Mvt_Stop:
-					case Mvt_Wait:
+					case App_Wait:
 					case App_SetNewPos:
 						TaskMain_SendSetpointToTaskMvt(&CurrentCmd);
 						break;
