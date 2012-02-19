@@ -116,93 +116,25 @@ void TaskSensors_CheckBumpers()
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_GrabObject()
 {
-	CPU_INT16U  GP2Data;
-
-	HOLDER_Hold();
-	OSTimeDlyHMSM(0,0,0,500);
-
-	GP2Data  = ADC_GetVal (GP2_HOLDER);
-	if(GP2Data < APP_GP2D2_LIMIT_HOLDER_IN)
-	{
-		HOLDER_Open();
-	}	
-
 	return;
 }
 
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_ControlHolder(CPU_INT08U control)
 {
-	switch(control)
-	{
-		case HOLDER_CLOSE: 
-			HOLDER_Close();
-			break;
-
-		case HOLDER_OPEN_LEFT_ONLY:
-			HOLDER_Open_Left_Only();
-			break;
-
-		case HOLDER_OPEN_RIGHT_ONLY:
-			HOLDER_Open_Right_Only();
-			break;
-			
-		case HOLDER_OPEN:
-			HOLDER_Open();
-			break;
-
-		case HOLDER_GRAB:
-			TaskSensors_GrabObject();
-			break;
-
-		case HOLDER_GRIP:
-			HOLDER_Grip();
-			break;
-
-		default:
-			HOLDER_Close();
-			break;
-	}
-
 	return;	
 }
 
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_SetHolderLevel(INT8U Level)
 {
-	switch(Level)
-	{
-		case HOLDER_LEVEL_MIDDLE:
-			HOLDER_Level_Middle();
-			break;
-
-		case HOLDER_LEVEL_HIGH:
-			HOLDER_Level_High();
-			break;
-			
-		case HOLDER_LEVEL_LOW: 
-		default:
-			HOLDER_Level_Low();
-			break;
-	}
-
 	return;
 }
 
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_CheckObject()
 {
-	INT8U	Err = 0;						// Var to get error status
-	CPU_INT16U  GP2Data;
-
-	GP2Data  = ADC_GetVal (GP2_HOLDER);
-
-	if(GP2Data > APP_GP2D2_LIMIT_HOLDER_IN)
-	{
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_HOLDER, OS_FLAG_SET, &Err); 
-	}
-	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_HOLDER, OS_FLAG_CLR, &Err); 	
+	return;
 }
 
 
@@ -223,7 +155,35 @@ void TaskSensors_Main(void *p_arg)
 	pCurrentMsg = NULL;
 	error_debug_5 = 0;
 
-	AppDebugMsg("OUFFF TEAM 2012 : Sensors online\n");
+	AppDebugMsg("OUFFF TEAM 2012 : Sensors online\r\n");
+	
+	// FiFi test : 19/02/12
+	AppDebugMsg("OUFFF TEAM 2012 : Sensors -> Test AX12\r\n");
+	
+//	ARM_Right_Sleep();
+//	ELEVATOR_Level_Low();
+//	ELEVATOR_Level_Middle();
+//	ELEVATOR_Level_High();
+
+	// Test 
+	while(OS_TRUE)
+	{
+//		ARM_Right_Sleep();	
+		ELEVATOR_Level_Low();
+
+//		PUMP_Right_Suck();
+//		PUMP_Left_Suck();
+
+		OSTimeDlyHMSM(0, 0, 5, 0);
+
+//		PUMP_Right_Release();
+//		PUMP_Left_Release();
+
+		ELEVATOR_Level_High();
+//		ARM_Left_Sleep();
+
+//		OSTimeDlyHMSM(0, 0, 5, 0);
+	}
 
 	if(APP_INIT_USE_START_BUTTON == OS_TRUE)
 	{
@@ -249,8 +209,6 @@ void TaskSensors_Main(void *p_arg)
 	// StartButton has been pressed
 	OSFlagPost(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_SET, &Err); 
 	OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err); 
-
-	HOLDER_Init();
 
 	CPU_INT16U  GP2Data;
 	do

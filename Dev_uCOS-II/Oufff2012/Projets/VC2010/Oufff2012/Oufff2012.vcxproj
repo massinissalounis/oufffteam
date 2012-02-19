@@ -67,6 +67,7 @@
     <ClCompile Include="..\..\..\src\Main\App.c" />
     <ClCompile Include="..\..\..\src\Main\AppGlobalFunc.c" />
     <ClCompile Include="..\..\..\src\Main\AppHooks.c" />
+    <ClCompile Include="..\..\..\src\Main\ArmsControl.c" />
     <ClCompile Include="..\..\..\src\Main\LibMoving.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\DefaultStrategy.c" />
@@ -106,6 +107,7 @@
     <ClInclude Include="..\..\..\src\Main\AppGlobalFunc.h" />
     <ClInclude Include="..\..\..\src\Main\AppGlobalVars.h" />
     <ClInclude Include="..\..\..\src\Main\AppIncludes.h" />
+    <ClInclude Include="..\..\..\src\Main\ArmsControl.h" />
     <ClInclude Include="..\..\..\src\Main\LibMoving.h" />
     <ClInclude Include="..\..\..\src\Main\os_cfg.h" />
     <ClInclude Include="..\..\..\src\Main\Strategy.h" />

@@ -135,6 +135,9 @@
     <ClCompile Include="..\..\..\src\Main\Strategy.c">
       <Filter>Fichiers sources\Main</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\ArmsControl.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Main\App.h">
@@ -265,6 +268,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Main\Strategy\StrategyFromColor.h">
       <Filter>Fichiers d%27en-tête\Main\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\ArmsControl.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

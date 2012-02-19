@@ -216,7 +216,9 @@ void TaskMvt_Main(void *p_arg)
                         break;
 
                     case Mvt_UseAngleOnly:
-                    case Mvt_Simple:
+				    case MvtSimple_RotateInDeg:
+					case MvtSimple_MoveInMM:
+					case MvtSimple_RotateToAngleInDeg:
                     case Mvt_UseDistOnly:
                     case Mvt_UseMixedMode:
                     case Mvt_UsePivotMode:
@@ -253,19 +255,19 @@ void TaskMvt_Main(void *p_arg)
 				{	// Todo : Gerer les flags de maniere indépendantes
 */					// One sensor has been activated
 					// Which sensors are active
-					if((SensorsCurrentStatus & APP_PARAM_APPFLAG_FRONT_SENSORS) != 0)
+					if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_FRONT) != 0)
 					{	// Front sensors are activated
 						NextState = 5;
 					}
-					else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_LEFT_SENSORS) != 0)
+					else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_LEFT) != 0)
 					{	// Left sensors are activated
 						NextState = 7;
 					}
-					else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_RIGHT_SENSORS) != 0)
+					else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_RIGHT) != 0)
 					{	// Right sensors are activated
 						NextState = 8;
 					}
-					else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_BACK_SENSORS) != 0)
+					else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_BACK) != 0)
 					{	// Back sensors are activated
 						NextState = 6;
 					}
@@ -310,7 +312,7 @@ void TaskMvt_Main(void *p_arg)
 				{
 					OSTimeDlyHMSM(0, 0, 0, 500);
 					CurrentFlag = OSFlagAccept(AppFlags, TASK_MVT_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ANY, &Err);
-				}while((CurrentFlag & APP_PARAM_APPFLAG_FRONT_SENSORS) != 0);
+				}while((CurrentFlag & APP_PARAM_APPFLAG_SENSORS_FRONT) != 0);
 
 				NextState = 253;
 				break;
@@ -328,7 +330,7 @@ void TaskMvt_Main(void *p_arg)
 				{
 					OSTimeDlyHMSM(0, 0, 0, 500);
 					CurrentFlag = OSFlagAccept(AppFlags, TASK_MVT_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ANY, &Err);
-				}while((CurrentFlag & APP_PARAM_APPFLAG_BACK_SENSORS) != 0);
+				}while((CurrentFlag & APP_PARAM_APPFLAG_SENSORS_BACK) != 0);
 
 				NextState = 253;
 				break;
