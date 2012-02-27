@@ -148,6 +148,14 @@ void TaskSensors_Main(void *p_arg)
 	INT8U		NextState;			// Used into state machine
 	StructMsg	*pCurrentMsg;		// For retreiving data from TaskMain
 
+
+	// Debug ----------------
+	CPU_INT16U  GP2Data;
+	CPU_INT08U	SW_State;
+	char		uart_buffer[8];
+	char		*buffer_ptr;
+	// ----------------------
+
 	// Init
 	Err = 0;
 	CurrentState = 0;
@@ -168,6 +176,31 @@ void TaskSensors_Main(void *p_arg)
 	// Test 
 	while(OS_TRUE)
 	{
+
+		// Read Switch and GP2 ------------------------------------------------
+		while(OS_TRUE)
+		{
+			GP2Data  = ADC_GetVal(GP2_1);		// Cf BSP.h pour les déclarations
+			SW_State = CLIC_state(CLIC_1);		// CLIC_1 à CLIC_4
+			
+			// Affichage du debug
+			AppDebugMsg("TaskSensors Test : ");
+			AppDebugMsg("GP2 : ");
+			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+			AppDebugMsg(buffer_ptr);
+			AppDebugMsg(", SW : ");
+			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) SW_State, (CPU_INT08U) 2, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+			AppDebugMsg(buffer_ptr);
+			AppDebugMsg("\n");
+
+			OSTimeDlyHMSM(0, 0, 0, 500);
+		}
+
+
+		// Fin Read -----------------------------------------------------------
+
+
+
 //		ARM_Right_Sleep();	
 		ELEVATOR_Level_Low();
 
@@ -210,7 +243,6 @@ void TaskSensors_Main(void *p_arg)
 	OSFlagPost(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_SET, &Err); 
 	OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err); 
 
-	CPU_INT16U  GP2Data;
 	do
 	{
 		OSTimeDlyHMSM(0, 0, 0, 10);	
