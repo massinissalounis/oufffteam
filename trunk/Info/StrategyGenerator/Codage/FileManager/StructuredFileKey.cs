@@ -26,6 +26,26 @@ namespace StrategyGenerator.FileManager
             return;
         }
 
+        public int GetLoopID()
+        {
+            return _LoopID;
+        }
+
+        public int GetGID()
+        {
+            return _GID;
+        }
+
+        public String GetName()
+        {
+            return _Name;
+        }
+
+        public String GetValue()
+        {
+            return _Value;
+        }
+
         public String Debug()
         {
             return ("[" + _LoopID.ToString() + "/" + _GID.ToString() + "] " + _Name + " = " + _Value);
