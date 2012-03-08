@@ -41,7 +41,7 @@ namespace StrategyGenerator.Strategy
         /// </summary>
         public Command()
         {
-            Update(EnumCmd.NotSet, EnumCmdType.NotSet, null, null, null, null);
+            Update(EnumCmd.NotSet, EnumCmdType.NotSet, null, null, null, null, null);
             return;
         }
 
@@ -51,7 +51,7 @@ namespace StrategyGenerator.Strategy
         /// </summary>
         public Command(EnumCmd Cmd)
         {
-            Update(Cmd, EnumCmdType.NotSet, null, null, null, null);
+            Update(Cmd, EnumCmdType.NotSet, null, null, null, null, null);
             return;
         }
 
@@ -61,7 +61,7 @@ namespace StrategyGenerator.Strategy
         /// </summary>
         public Command(EnumCmd Cmd, EnumCmdType CmdType)
         {
-            Update(Cmd, CmdType, null, null, null, null);
+            Update(Cmd, CmdType, null, null, null, null, null);
             return;
         }
 
@@ -70,7 +70,16 @@ namespace StrategyGenerator.Strategy
         /// </summary>
         public Command(EnumCmd Cmd, EnumCmdType CmdType, String Param1, String Param2, String Param3, String Param4)
         {
-            Update(Cmd, CmdType, Param1, Param2, Param3, Param4);
+            Update(Cmd, CmdType, Param1, Param2, Param3, Param4, null);
+            return;
+        }
+
+        /// <summary>
+        /// Create a new 'Cmd' command with the 'CmdType' type, 'Params' parameters and ActiveSensors parameters
+        /// </summary>
+        public Command(EnumCmd Cmd, EnumCmdType CmdType, String Param1, String Param2, String Param3, String Param4, String ActiveSensors)
+        {
+            Update(Cmd, CmdType, Param1, Param2, Param3, Param4, ActiveSensors);
             return;
         }
 
@@ -86,10 +95,24 @@ namespace StrategyGenerator.Strategy
             set { _CmdType = CmdType;}
         }
 
+        public String Param1            { get { return _Param1; } }
+        public String Param2            { get { return _Param2; } }
+        public String Param3            { get { return _Param3; } }
+        public String Param4            { get { return _Param4; } }
+        public String ActiveSensors     { get { return _ActiveSensorsFlag; } }
+
         /// <summary>
         /// Update the current command with the given data
         /// </summary>
-        public bool Update(EnumCmd Cmd, EnumCmdType CmdType, String Param1, String Param2, String Param3, String Param4)
+        /// <param name="Cmd">Command</param>
+        /// <param name="CmdType">Command Type</param>
+        /// <param name="Param1">Param 1</param>
+        /// <param name="Param2">Param 2</param>
+        /// <param name="Param3">Param 3</param>
+        /// <param name="Param4">Param 4</param>
+        /// <param name="ActiveSensors"></param>
+        /// <returns></returns>
+        public bool Update(EnumCmd Cmd, EnumCmdType CmdType, String Param1, String Param2, String Param3, String Param4, String ActiveSensors)
         {
             bool Ret = false;
 
@@ -100,6 +123,11 @@ namespace StrategyGenerator.Strategy
             _Param2 = null;
             _Param3 = null;
             _Param4 = null;
+
+            if (ActiveSensors == null)
+                _ActiveSensorsFlag = "APP_PARAM_APPFLAG_NONE";
+            else
+                _ActiveSensorsFlag = ActiveSensors;
             
             // Check Params for Cmd
             switch (Cmd)
@@ -200,10 +228,148 @@ namespace StrategyGenerator.Strategy
 
         }
 
+        // Static functions ----------------------------------------------------------------------
+        /// <summary>
+        /// Get the Command from a string
+        /// </summary>
+        /// <param name="CmdString">String that contains the expected command</param>
+        /// <returns>An EnumCmd object</returns>
+        public static EnumCmd GetCmdFromString(String CmdString)
+        {
+            // Mvt
+            if ("Mvt_UseAngleOnly".ToUpper() == CmdString.ToUpper()) { return EnumCmd.Mvt_UseAngleOnly; }
+            if ("Mvt_UseDistOnly".ToUpper() == CmdString.ToUpper()) { return EnumCmd.Mvt_UseDistOnly; }
+            if ("Mvt_UseMixedMode".ToUpper() == CmdString.ToUpper()) { return EnumCmd.Mvt_UseMixedMode; }
+            if ("Mvt_UsePivotMode".ToUpper() == CmdString.ToUpper()) { return EnumCmd.Mvt_UsePivotMode; }
+            if ("MvtSimple_MoveInMM".ToUpper() == CmdString.ToUpper()) { return EnumCmd.MvtSimple_MoveInMM; }
+            if ("MvtSimple_RotateInDeg".ToUpper() == CmdString.ToUpper()) { return EnumCmd.MvtSimple_RotateInDeg; }
+            if ("MvtSimple_RotateToAngleInDeg".ToUpper() == CmdString.ToUpper()) { return EnumCmd.MvtSimple_RotateToAngleInDeg; }
+            if ("Mvt_Stop".ToUpper() == CmdString.ToUpper()) { return EnumCmd.Mvt_Stop; }
+
+            // App
+            if ("App_Wait".ToUpper() == CmdString.ToUpper()) { return EnumCmd.App_Wait; }
+            if ("App_IfGoto".ToUpper() == CmdString.ToUpper()) { return EnumCmd.App_IfGoto; }
+            if ("App_SetNewPos".ToUpper() == CmdString.ToUpper()) { return EnumCmd.App_SetNewPos; }
+
+            return EnumCmd.NotSet;
+        }
+
+        /// <summary>
+        /// Get the Command into String
+        /// </summary>
+        /// <param name="Cmd">Command we have to export into a string</param>
+        /// <returns>A string that contains the command into a string</returns>
+        public static String GetCmdToString(EnumCmd Cmd)
+        {
+            // TODO !!!!
+            // Mvt
+            if (EnumCmd.Mvt_UseAngleOnly == Cmd) { return "Mvt_UseAngleOnly"; }
+            if (EnumCmd.Mvt_UseDistOnly == Cmd) { return "Mvt_UseDistOnly"; }
+            if (EnumCmd.Mvt_UseMixedMode == Cmd) { return "Mvt_UseMixedMode"; }
+            if (EnumCmd.Mvt_UsePivotMode == Cmd) { return "Mvt_UsePivotMode"; }
+            if (EnumCmd.MvtSimple_MoveInMM == Cmd) { return "MvtSimple_MoveInMM"; }
+            if (EnumCmd.MvtSimple_RotateInDeg == Cmd) { return "MvtSimple_RotateInDeg"; }
+            if (EnumCmd.MvtSimple_RotateToAngleInDeg == Cmd) { return "MvtSimple_RotateToAngleInDeg"; }
+            if (EnumCmd.Mvt_Stop == Cmd) { return "Mvt_Stop"; }
+
+            // App
+            if (EnumCmd.App_Wait == Cmd) { return "App_Wait"; }
+            if (EnumCmd.App_IfGoto == Cmd) { return "App_IfGoto"; }
+            if (EnumCmd.App_SetNewPos == Cmd) { return "App_SetNewPos"; }
+
+            return "NotSet";
+        }
+
+        /// <summary>
+        /// Get the Command Type from a string
+        /// </summary>
+        /// <param name="CmdTypeString">String that contains the expected command type</param>
+        /// <returns>An EnumCmdType object</returns>
+        public static EnumCmdType GetCmdTypeFromString(String CmdTypeString)
+        {
+            // App
+            if ("CmdType_Blocking".ToUpper() == CmdTypeString.ToUpper()) { return EnumCmdType.Blocking; }
+            if ("Blocking".ToUpper() == CmdTypeString.ToUpper()) { return EnumCmdType.Blocking; }
+            if ("CmdType_NonBlocking".ToUpper() == CmdTypeString.ToUpper()) { return EnumCmdType.NonBlocking; }
+            if ("NonBlocking".ToUpper() == CmdTypeString.ToUpper()) { return EnumCmdType.NonBlocking; }
+
+            return EnumCmdType.NotSet;
+        }
+
+        /// <summary>
+        /// Get the Command Type into a string
+        /// </summary>
+        /// <param name="CmdTypeString">String that contains the expected command type</param>
+        /// <returns>An EnumCmdType object</returns>
+        public static String GetCmdTypeToString(EnumCmdType CmdType)
+        {
+            // App
+            if (EnumCmdType.Blocking == CmdType) { return "CmdType_Blocking"; }
+            if (EnumCmdType.NonBlocking == CmdType) { return "CmdType_NonBlocking"; }
+
+            return "CmdType_NotSet";
+        }
+
+        /// <summary>
+        /// Get the Params List from a string
+        /// </summary>
+        /// <param name="ParamsListString">String that contains the params list</param>
+        /// <returns>A list of Params</returns>
+        public static string [] GetParamsListFromString(String ParamsListString)
+        {
+            string [] ParamsList = new string[4];
+            string [] ParsedString = null;
+
+            if (ParamsListString != null)
+            {
+                // First parse the current string 
+                ParsedString = ParamsListString.Replace(" ", "").Split(';', '>');
+
+                // Analyse all items
+                foreach (string s in ParsedString)
+                {
+                    // Search for "Param" string
+                    if ((s.Length > 5) && (s.Substring(0,5) == "Param"))
+                    {
+                        int ParamID = int.Parse(s.Substring(5, 1)) - 1;
+                        if (ParamID < 0) { ParamID = 0; };
+                        
+                        ParamsList[ParamID] = s.Substring(7);
+                    }
+                }
+
+            }
+
+            return ParamsList;
+        }
+
+        /// <summary>
+        /// Export all params into a string
+        /// </summary>
+        /// <returns>A string that contains all params</returns>
+        public String ExportParamsIntoString()
+        {
+            String Result = "";
+            
+            // Create the string that contains all data
+            if (_Param1 != null)
+                Result = Result + "NextAction->Param1 = " + _Param1 + ";    ";
+
+            if (_Param2 != null)
+                Result = Result + "NextAction->Param2 = " + _Param2 + ";    ";
+
+            if (_Param3 != null)
+                Result = Result + "NextAction->Param3 = " + _Param3 + ";    ";
+
+            if (_Param4 != null)
+                Result = Result + "NextAction->Param4 = " + _Param4 + ";    ";
+
+            return Result;
+        }
+
         // Private --------------------------------------------------------------------------------
         private EnumCmdType _CmdType;
-        private CommandActiveSensorsFlag _ActiveSensorsFlag;
-        private Int16 _NextActionID;
+        private String _ActiveSensorsFlag;
         private EnumCmd _Cmd;
         private String _Param1;
         private String _Param2;

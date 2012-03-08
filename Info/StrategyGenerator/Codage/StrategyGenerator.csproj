@@ -59,6 +59,7 @@
     <Compile Include="Strategy\CommandActiveSensorsFlag.cs" />
     <Compile Include="Strategy\Command.cs" />
     <Compile Include="Strategy\FullStrategy.cs" />
+    <Compile Include="Strategy\StrategyItem.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

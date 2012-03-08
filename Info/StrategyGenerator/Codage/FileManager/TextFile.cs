@@ -189,7 +189,6 @@ namespace StrategyGenerator.FileManager
                 }
             }
 
-            _LineIterator = 0;
             return;
         }
 
@@ -245,10 +244,36 @@ namespace StrategyGenerator.FileManager
             return _FileContents.Count();
         }
 
+        /// <summary>
+        /// Add a new line at the end of the current file
+        /// </summary>
+        /// <param name="LineToAdd">Line to Add</param>
+        public void AddLine(String LineToAdd)
+        {
+            if (LineToAdd != null)
+            {
+                if (_FileContents == null)
+                    _FileContents = new List<string>();
+
+                _FileContents.Add(LineToAdd);
+            }
+        }
+
+        /// <summary>
+        /// Add a new line at the index specified
+        /// </summary>
+        /// <param name="LineToAdd">Line to add</param>
+        /// <param name="IndexToAdd">Index where the line will be inserted</param>
+        public void AddLine(String LineToAdd, int IndexToAdd)
+        {
+            if((LineToAdd != null) && (IndexToAdd >= 0))
+            {
+                _FileContents.Insert(IndexToAdd, LineToAdd);
+            }
+        }
+
+
         // Private --------------------------------------------------------------------------------
-        // Var
         private List<String>    _FileContents;              // Use to store last file name
-        int                     _LineIterator;              // Iterator used to navigate into TextFile object
-       
     }
 }
