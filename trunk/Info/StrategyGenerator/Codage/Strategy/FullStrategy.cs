@@ -108,17 +108,20 @@ namespace StrategyGenerator.Strategy
             ExportFile.Add(new StructuredFileKey(-1, 1, "PATTERN_INIT_POS_ANGLE", _InitialCmd.Param4));
             ExportFile.Add(new StructuredFileKey(-1, 1, "PATTERN_INIT_ACTIVE_SENSORS", _InitialCmd.ActiveSensors));
 
-            // Create Loops
-            foreach (StrategyItem Item in _Strategy)
+            if (_Strategy != null)
             {
-                ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_CMD", Command.GetCmdToString(Item.Cmd.Cmd)));
-                ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_CMD_TYPE", Command.GetCmdTypeToString(Item.Cmd.CmdType)));
-                ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_ACTIVE_SENSORS_FLAG", Item.Cmd.ActiveSensors));
-                ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_PARAMS", Item.Cmd.ExportParamsIntoString()));
-            }
+                // Create Loops
+                foreach (StrategyItem Item in _Strategy)
+                {
+                    ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_CMD", Command.GetCmdToString(Item.Cmd.Cmd)));
+                    ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_CMD_TYPE", Command.GetCmdTypeToString(Item.Cmd.CmdType)));
+                    ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_ACTIVE_SENSORS_FLAG", Item.Cmd.ActiveSensors));
+                    ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_PARAMS", Item.Cmd.ExportParamsIntoString()));
+                }
 
-            OutputStructuredFile = new StructuredFile(ExportFile);
-            OutputStructuredFile.WriteFile(Filename, PatternFilename);
+                OutputStructuredFile = new StructuredFile(ExportFile);
+                OutputStructuredFile.WriteFile(Filename, PatternFilename);
+            }
 
             return Ret;
         }
