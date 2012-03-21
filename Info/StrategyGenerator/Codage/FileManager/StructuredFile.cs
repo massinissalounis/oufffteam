@@ -174,7 +174,6 @@ namespace StrategyGenerator.FileManager
                         {
                             if (PatternLine[iCurrentLine].Substring(iCurrentPatternChar, 1) != LineToCheck[iCurrentLine].Substring(iCurrentValueChar, 1))
                             {
-
                                 iCurrentPatternChar++;
                                 iCurrentValueChar++;
 
@@ -376,7 +375,7 @@ namespace StrategyGenerator.FileManager
 
             if((CurrentActionID >= LoopID * 100) && (CurrentActionID < (LoopID + 1) * 100))
             {
-                return (CurrentActionID - LoopID * 100);
+                return CurrentActionID;
             }
 
             // Invalid value
@@ -468,21 +467,20 @@ namespace StrategyGenerator.FileManager
             String ReadPatternLine = null;
             String CheckPatternLine = null;
             int CurrentLoop = -1;
-            int LastLoop = -1;
             List<String> PatternBlock = null;
 
             if ((OutputFilename != null) && (PatternFilename != null) && (_Items.Count() > 0))
             {
                 // Create the output file and open the pattern file
-                TextFile PatterFile = new TextFile(PatternFilename);
+                TextFile PatternFile = new TextFile(PatternFilename);
                 _File = new TextFile();
 
                 if (_File != null)
                 {
-                    for (int i = 0; i < PatterFile.GetSize(); i++)
+                    for (int i = 1; i <= PatternFile.GetSize(); i++)
                     {
                         // Check all line to change patterns into real value
-                        ReadPatternLine = PatterFile.GetLine(i);
+                        ReadPatternLine = PatternFile.GetLine(i);
 
                         if (ReadPatternLine != null)
                         {
@@ -494,62 +492,63 @@ namespace StrategyGenerator.FileManager
                             {
                                 // Create the pattern block
                                 PatternBlock = new List<string>();
+                                CurrentLoop++;  // Update the current LoopID
+                                _File.AddLine(ReadPatternLine.Replace("'LOOPID'", CurrentLoop.ToString()));
                             }
 
                             if(CheckPatternLine == "// StructuredFileLoopEnd")
                             {
-                                // 1 -Recherche de la boucle a ecrire
-                                // 2 - Ecriture de la boucle à partir du pattern
-                                CurrentLoop = -1;
-                                
+                                if((PatternBlock != null) && (PatternBlock.Count() > 1))
+                                {
+                                    // Extact values ordered by GID
+                                    List<StructValueList> KeyValues = ExtractValues(CurrentLoop);
+                                    if (KeyValues != null)
+                                    {
+                                        int PatternIterator = 1;    // The first line contains the LOOPID
+
+                                        // Check all items and write only items from current Loop
+                                        foreach (StructValueList Values in KeyValues)
+                                        {
+                                            // Create pattern line
+                                            if (PatternIterator >= PatternBlock.Count())
+                                                PatternIterator = 1;    // The first line contains the LOOPID
+
+                                            string ExportLine = PatternBlock[PatternIterator];
+
+                                            // We have found value for the current GID, we split it to add them to the specific loop
+                                            string[] KeyToAdd = Values.KeyList.Split('|');
+                                            string[] ValueToAdd = Values.ValueList.Split('|');
+
+                                            // Change the 'PATTERN_COUNTER' value
+                                            ExportLine = ExportLine.Replace("'PATTERN_COUNTER'", Values.CaseID.ToString());
+
+                                            // Write values into final string
+                                            for (int j = 0; j < KeyToAdd.Length; j++)
+                                            {
+                                                ExportLine = ExportLine.Replace("'" + KeyToAdd[j] + "'", ValueToAdd[j]);
+                                            }
+
+                                            // Write final line
+                                            _File.AddLine(ExportLine);
+                                        }
+                                    }
+                                }
+
                                 // Clear PatternBlock
                                 PatternBlock = null;
                             }
 
                             if (PatternBlock == null)
                             {
-                                // Do the current line contain data we have to overwrite ?
-                                string[] SplitString = ReadPatternLine.Split('\'');
-
-                                if (SplitString.GetLength(0) > 1)
+                                foreach(StructuredFileKey PatternKey in _Items)
                                 {
-                                    int Count = 0;
-                                    String OutputLine = "";
-
-                                    // Change the value only if a PATTERN_VALUE has been found
-                                    foreach (string s in SplitString)
+                                    if(PatternKey.GetLoopID() == -1)
                                     {
-                                        // We check only odd line
-                                        if(Count%2 == 1)
-                                        {
-                                            foreach(StructuredFileKey PatternKey in _Items)
-                                            {
-                                                // Only data that are not included into loops have to be checked
-                                                if((PatternKey.GetLoopID() == -1) && (PatternKey.GetName() == s))
-                                                {
-                                                    OutputLine = OutputLine + PatternKey.GetValue();
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            // We use the Read line without any modifications
-                                            OutputLine = OutputLine + s;
-                                        }
-
-                                        // Increments counter
-                                        Count++;
+                                        ReadPatternLine = ReadPatternLine.Replace("'" + PatternKey.GetName() + "'", PatternKey.GetValue());
                                     }
+                                }
 
-                                    // Add the modified line into output file
-                                    _File.AddLine(OutputLine);
-                                }
-                                else
-                                {
-                                    // There is no modification to do on the current string
-                                    _File.AddLine(ReadPatternLine);
-                                }
+                                _File.AddLine(ReadPatternLine);
                             }
                             else
                             {
@@ -562,11 +561,84 @@ namespace StrategyGenerator.FileManager
                 }
             }
 
+            _File.Save(OutputFilename);
             return (Ret);
 
         }
 
+
         // Private --------------------------------------------------------------------------------
+        private struct StructValueList
+        {
+            public int CaseID;
+            public String KeyList;
+            public String ValueList;
+        }
+        
+        /// <summary>
+        /// Create a list of key value grouped by GID
+        /// </summary>
+        /// <param name="LoopIDToExtract">Value to extract</param>
+        /// <returns>A list that contains all Key and Values into strings</returns>
+        private List<StructValueList> ExtractValues(int LoopIDToExtract)
+        {
+            List<StructValueList> RetNotSorted = null;
+            StructValueList ValueToAdd;
+            bool IsValueAdded = false;
+
+            if (_Items != null)
+            {
+                // Read all items and try to add values into list
+                foreach (StructuredFileKey CurrentValue in _Items)
+                {
+                    // Clear added flags
+                    IsValueAdded = false;
+
+                    // Check if current value is included in a loop
+                    if (CurrentValue.GetLoopID() == LoopIDToExtract)
+                    {
+                        int CaseID = CurrentValue.GetLoopID() * 100 + CurrentValue.GetGID();
+
+                        if (RetNotSorted == null)
+                        {
+                            RetNotSorted = new List<StructValueList>();
+                            IsValueAdded = false;
+                        }
+                        else
+                        {
+                            // Read all ValueList and add the current value (and key) into the correct loop
+                            for (int i = 0; i < RetNotSorted.Count(); i++)
+                            {
+                                if (RetNotSorted[i].CaseID == CaseID)
+                                {
+                                    ValueToAdd.CaseID = CaseID;
+                                    ValueToAdd.KeyList = RetNotSorted[i].KeyList + "|" + CurrentValue.GetName();
+                                    ValueToAdd.ValueList = RetNotSorted[i].ValueList + "|" + CurrentValue.GetValue();
+
+                                    RetNotSorted[i] = ValueToAdd;
+
+                                    IsValueAdded = true;
+                                }
+                            }
+                        }
+                         
+                        // If current value has not been added, we create a new entry
+                        if (IsValueAdded == false)
+                        {
+                            // Create the new entry
+                            ValueToAdd.CaseID = CaseID;
+                            ValueToAdd.KeyList = CurrentValue.GetName();
+                            ValueToAdd.ValueList = CurrentValue.GetValue();
+
+                            RetNotSorted.Add(ValueToAdd);
+                        }
+                    }
+                }
+            }
+
+            return RetNotSorted;
+        }
+
         private TextFile _File = null;
         List<StructuredFileKey> _Items = null;
     }
