@@ -25,14 +25,44 @@ namespace StrategyGenerator
         public MainWindow()
         {
             InitializeComponent();
+        }
 
-            string Filename = "C:/Users/Philippe/Desktop/Test/FileColorA.c";
-            string OutputFilename = "C:/Users/Philippe/Desktop/Test/OutputFileColorA.c";
-            string PatternFilename = "C:/Users/Philippe/Desktop/Test/PatternFileColorA.c";
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            MainView.Width = 1024;
+            MainView.Height = 600;
+        }
 
-            FullStrategy Strategy = new FullStrategy(Filename, PatternFilename);
-            Strategy.WriteFile(OutputFilename, PatternFilename);
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            // Define Grid size and position
+            // Main Grid
+            MainGrid.Width = MainView.Width;
+            MainGrid.Height = MainView.Height;
 
-         }
+            // MapView ----------------------------------------------------------------------------
+            Map.Margin = new Thickness(0, 0, 0, 0);
+            Map.Width = MainGrid.Width * 0.75;
+            Map.Height = MainGrid.Height * 0.8;
+
+            //CmdListView -------------------------------------------------------------------------
+            CmdListView.Margin = new Thickness(Map.Width, 0, 0, 0);
+            CmdListView.Width = MainGrid.Width - Map.Width;
+            CmdListView.Height = Map.Height;
+
+            lblCmdList.Margin = new Thickness(0,0,0,0);
+            lblStrategyName.Margin = new Thickness(lblCmdList.Width, 0, 0, 0);
+            lblStrategyName.Width = CmdListView.Width - lblCmdList.Width;
+
+            CmdList.Margin = new Thickness(0, lblCmdList.Height, 0, 0);
+            CmdList.Width = CmdListView.Width;
+            CmdList.Height = CmdListView.Height - lblCmdList.Height;
+
+            //CurrentCmdView ----------------------------------------------------------------------
+            CurrentCmdView.Margin = new Thickness(0, Map.Height, 0, 0);
+            CurrentCmdView.Width = MainGrid.Width;
+            CurrentCmdView.Height = MainGrid.Height - Map.Height;
+        }
     }
 }
+
