@@ -55,11 +55,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AskStrategyName.xaml.cs">
+      <DependentUpon>AskStrategyName.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileManager\StructuredFileKey.cs" />
     <Compile Include="Strategy\CommandActiveSensorsFlag.cs" />
     <Compile Include="Strategy\Command.cs" />
     <Compile Include="Strategy\FullStrategy.cs" />
     <Compile Include="Strategy\StrategyItem.cs" />
+    <Page Include="AskStrategyName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -100,7 +107,15 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Robot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Logo_OufffTeam_Ptt.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

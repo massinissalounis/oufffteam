@@ -4,16 +4,86 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Activated="Window_Activated"
         SizeChanged="Window_SizeChanged"
-        Height="600" Width="1024"
-        Background="LightBlue"
-        Title="MainWindow" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" SizeToContent="WidthAndHeight" HorizontalAlignment="Center" VerticalAlignment="Center">
-    <Grid Height="550" Width="1024" Name="MainGrid">
-        <Grid Height="300" HorizontalAlignment="Left" Name="Map" VerticalAlignment="Top" Width="500" />
-        <Grid Height="550" HorizontalAlignment="Left" Margin="733,0,0,0" Name="CmdListView" VerticalAlignment="Top" Width="291">
-            <TreeView Height="408" HorizontalAlignment="Left" Margin="0,92,0,0" Name="CmdList" VerticalAlignment="Top" Width="120" />
-            <Label Content="Stratégie : " HorizontalAlignment="Left" Name="lblCmdList" Height="28" Width="70" VerticalAlignment="Top" />
-            <Label Content="STRATEGY__NOT__SET" HorizontalAlignment="Left" Name="lblStrategyName" Height="28" VerticalAlignment="Top" Margin="72,0,0,0" />
+        Height="800" Width="1200" Title="MainWindow" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" HorizontalAlignment="Center" VerticalAlignment="Center" Icon="/StrategyGenerator;component/Images/Logo_OufffTeam_Ptt.jpg" WindowStyle="ThreeDBorderWindow">
+    <Grid Height="600" Width="1024" Name="MainGrid">
+        <Grid Height="274" HorizontalAlignment="Left" Name="MapView" VerticalAlignment="Top" Width="706">
+            <Border BorderBrush="Black" BorderThickness="1" Height="268" HorizontalAlignment="Left" Name="MapBorder" VerticalAlignment="Top" Width="700" />
+            <Grid Name="MapGrid" Height="400" Width="600" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{x:Null}">
+                <Image Name="MapPicture" Stretch="UniformToFill" Source="/StrategyGenerator;component/Images/Map.png" />
+                <Image Height="60" Name="Robot" Stretch="None" Width="60" Source="/StrategyGenerator;component/Images/Robot.png" VerticalAlignment="Top" HorizontalAlignment="Left" />
+            </Grid>
         </Grid>
-        <Grid Height="244" HorizontalAlignment="Left" Margin="0,306,0,0" Name="CurrentCmdView" VerticalAlignment="Top" Width="727" Background="BlueViolet"/>
+        <Grid Height="264" HorizontalAlignment="Left" Margin="754,28,0,0" Name="CmdListView" VerticalAlignment="Top" Width="217">
+            <ListBox Margin="0, 0, 0, 0" Height="100" Name="CmdList" Width="120" />
+            <Label Content="Stratégie : " HorizontalAlignment="Left" Name="lblCmdList" Height="28" Width="66" VerticalAlignment="Top" />
+            <Label Content="STRATEGY__NOT__SET" HorizontalAlignment="Right" Name="lblStrategyName" Height="28" VerticalAlignment="Top" Margin="0,0,19,0" Grid.ColumnSpan="2" Width="134" />
+            <Border BorderBrush="Black" BorderThickness="1" Height="201" HorizontalAlignment="Left" Margin="11,6,0,0" Name="CmdListViewBorder" VerticalAlignment="Top" Width="200" />
+            <Button Content="Load" Height="23" HorizontalAlignment="Left" Margin="11,235,0,0" Name="CmdList_Load" VerticalAlignment="Top" Width="50" Click="CmdList_Load_Click" />
+            <Button Content="New" Height="23" HorizontalAlignment="Left" Margin="86,235,0,0" Name="CmdList_New" VerticalAlignment="Top" Width="50" Click="CmdList_New_Click" />
+            <Button Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,235,6,0" Name="CmdList_Save" VerticalAlignment="Top" Width="50" Click="CmdList_Save_Click" />
+        </Grid>
+        <Grid Height="232" HorizontalAlignment="Left" Margin="32,306,0,0" Name="CmdView" VerticalAlignment="Top" Width="952" Background="{x:Null}">
+            <Grid Height="110" HorizontalAlignment="Left" Name="CmdViewN2Before" VerticalAlignment="Top" Width="298" Background="{x:Null}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16*" />
+                    <ColumnDefinition Width="282*" />
+                </Grid.ColumnDefinitions>
+                <Border BorderBrush="Black" BorderThickness="1" Height="98" HorizontalAlignment="Center" Margin="6" Name="CmdViewN2BeforeBorder" VerticalAlignment="Center" Width="286" Grid.ColumnSpan="2" Background="{x:Null}">
+                    <Label Content="Command (N-2)" Height="28" Name="label1" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="ExtraBold" />
+                </Border>
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="60,42,0,0" Name="CmdN2BeforeTxt" Text="NOT_SET" VerticalAlignment="Top" Grid.Column="1" />
+            </Grid>
+            <Grid Height="110" HorizontalAlignment="Left" Margin="6,116,0,0" Name="CmdViewN1Before" VerticalAlignment="Top" Width="359" Background="{x:Null}" ShowGridLines="False">
+                <Border BorderBrush="Black" BorderThickness="1" Height="98" HorizontalAlignment="Center" Margin="6" Name="CmdViewN1BeforeBorder" VerticalAlignment="Center" Width="347">
+                    <Label Content="Command (N-1)" Height="28" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="ExtraBold" />
+                </Border>
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="114,49,0,0" Name="CmdN1BeforeTxt" Text="NOT_SET" VerticalAlignment="Top" />
+            </Grid>
+            <Grid Height="205" HorizontalAlignment="Center" Margin="202,11,0,0" Name="CmdViewN" VerticalAlignment="Top" Width="325" Background="{x:Null}">
+                <Border BorderBrush="Black" BorderThickness="1" Height="181" HorizontalAlignment="Center" Margin="14,14,13,10" Name="CmdViewNBorder" VerticalAlignment="Center" Width="298">
+                    <Label Content="Current Command" Height="28" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="ExtraBold" />
+                </Border>
+                <Label Content="Cmd" Height="28" HorizontalAlignment="Left" Margin="33,22,0,0" Name="CmdViewN_Cmd" VerticalAlignment="Top" />
+                <Label Content="Param1" HorizontalAlignment="Left" Margin="33,47,0,130" Name="CmdViewN_LblParam1" />
+                <Label Content="Param2" Height="28" HorizontalAlignment="Left" Margin="33,68,0,0" Name="CmdViewN_LblParam2" VerticalAlignment="Top" />
+                <Label Content="Param3" Height="28" HorizontalAlignment="Left" Margin="33,88,0,0" Name="CmdViewN_LblParam3" VerticalAlignment="Top" />
+                <Label Content="Flag" Height="28" HorizontalAlignment="Left" Margin="36,138,0,0" Name="CmdViewN_Flag" VerticalAlignment="Top" />
+                <Label Content="Param4" Height="28" HorizontalAlignment="Left" Margin="33,111,0,0" Name="CmdViewN_LblParam4" VerticalAlignment="Top" />
+                <Label Content="CmdType" Height="28" HorizontalAlignment="Left" Margin="235,22,0,0" Name="CmdViewN_CmdType" VerticalAlignment="Top" />
+                <Button Content="&lt;-" Height="23" HorizontalAlignment="Left" Margin="25,167,0,0" Name="CmdViewN_ButtonPrev" VerticalAlignment="Top" Width="30" />
+                <Button Content="->" Height="23" HorizontalAlignment="Right" Margin="0,167,30,0" Name="CmdViewN_ButtonNext" VerticalAlignment="Top" Width="32" />
+                <Button Content="Update" Height="23" HorizontalAlignment="Left" Margin="80,167,0,0" Name="CmdViewN_ButtonUpdate" VerticalAlignment="Top" Width="75" />
+                <Button Content="Remove" Height="23" HorizontalAlignment="Left" Margin="170,167,0,0" Name="CmdViewN_ButtonRemove" VerticalAlignment="Top" Width="75" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="91,48,0,0" Name="CmdViewN_Param1" VerticalAlignment="Top" Width="75" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="92,72,0,0" Name="CmdViewN_Param2" VerticalAlignment="Top" Width="75" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="92,95,0,0" Name="CmdViewN_Param3" VerticalAlignment="Top" Width="75" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="92,120,0,0" Name="CmdViewN_Param4" VerticalAlignment="Top" Width="75" />
+                <ComboBox Height="23" HorizontalAlignment="Left" Margin="75,32,0,0" Name="CmdViewN_CmdBox" VerticalAlignment="Top" Width="100" />
+                <ComboBox Height="23" HorizontalAlignment="Left" Margin="256,39,0,0" Name="CmdViewN_CmdTypeBox" VerticalAlignment="Top" Width="50" />
+                <ComboBox Height="23" HorizontalAlignment="Left" Margin="69,138,0,0" Name="CmdViewN_FlagBox" VerticalAlignment="Top" Width="200" />
+                <Button Content="Add" Height="23" HorizontalAlignment="Left" Margin="211,114,0,0" Name="CmdViewN_ButtonAdd" VerticalAlignment="Top" Width="75" />
+                <Label Content="CmdID" Height="28" HorizontalAlignment="Left" Margin="207,74,0,0" Name="CmdViewN_LblCmdID" VerticalAlignment="Top" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="256,76,0,0" Name="CmdViewN_CmdID" VerticalAlignment="Top" Width="39" />
+            </Grid>
+            <Grid Height="85" HorizontalAlignment="Left" Margin="749,25,0,0" Name="CmdViewN1After" VerticalAlignment="Top" Width="147"  Background="{x:Null}">
+                <Border BorderBrush="Black" BorderThickness="1" Height="70" HorizontalAlignment="Center" Margin="17,8,6,8" Name="CmdViewN1AfterBorder" VerticalAlignment="Center" Width="124">
+                    <Label Content="Command (N+1)" Height="28" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="ExtraBold" />
+                </Border>
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="59,39,0,0" Name="CmdN1AfterTxt" Text="NOT_SET" VerticalAlignment="Top" />
+            </Grid>
+            <Grid Height="100" HorizontalAlignment="Left" Margin="749,116,0,0" Name="CmdViewN2After" VerticalAlignment="Top" Width="155" Background="{x:Null}">
+                <Border BorderBrush="Black" BorderThickness="1" Height="70" HorizontalAlignment="Center" Margin="17,15,14,15" Name="CmdViewN2AfterBorder" VerticalAlignment="Center" Width="124">
+                    <Label Content="Command (N+2)" Height="28" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="ExtraBold" />
+                </Border>
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="84,56,0,0" Name="CmdN2AfterTxt" Text="NOT_SET" VerticalAlignment="Top" />
+            </Grid>
+        </Grid>
     </Grid>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+            <GradientStop Color="#FF77C3EF" Offset="0" />
+            <GradientStop Color="#FFB4FFFF" Offset="1" />
+            <GradientStop Color="#FFD1F1FF" Offset="0.907" />
+        </LinearGradientBrush>
+    </Window.Background>
 </Window>
