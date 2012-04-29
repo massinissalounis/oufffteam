@@ -16,11 +16,14 @@ namespace StrategyGenerator.Strategy
         /// <summary>
         /// Default constructor : Create an empty strategy
         /// </summary>
-        public FullStrategy()
+        public FullStrategy(String StrategyName)
         {
-            _StrategyName = "New Strategy";
-            _InitialCmd = null;
-            _Strategy = null;
+            if ((StrategyName != null) && (StrategyName != ""))
+            {
+                _StrategyName = StrategyName;
+                _InitialCmd = null;
+                _Strategy = null;
+            }
         }
 
         /// <summary>
@@ -49,7 +52,7 @@ namespace StrategyGenerator.Strategy
             String ParamX = StrategyFile.GetValue("PATTERN_INIT_POS_X", "0");
             String ParamY = StrategyFile.GetValue("PATTERN_INIT_POS_Y", "0");
             String ParamAngle = StrategyFile.GetValue("PATTERN_INIT_POS_ANGLE", "0.0");
-            String ActiveSensors = StrategyFile.GetValue("PATTERN_INIT_ACTIVE_SENSORS", "APP_PARAM_APPFLAG_NONE");
+            EnumSensorsFlag ActiveSensors = Command.GetSensorsFlagFromString(StrategyFile.GetValue("PATTERN_INIT_ACTIVE_SENSORS", "APP_PARAM_APPFLAG_NONE"));
 
             _InitialCmd = new Command(CurrentCmd, CurrentCmdType, null, ParamX, ParamY, ParamAngle, ActiveSensors);
             
@@ -106,7 +109,7 @@ namespace StrategyGenerator.Strategy
             ExportFile.Add(new StructuredFileKey(-1, 1, "PATTERN_INIT_POS_X", _InitialCmd.Param2));
             ExportFile.Add(new StructuredFileKey(-1, 1, "PATTERN_INIT_POS_Y", _InitialCmd.Param3));
             ExportFile.Add(new StructuredFileKey(-1, 1, "PATTERN_INIT_POS_ANGLE", _InitialCmd.Param4));
-            ExportFile.Add(new StructuredFileKey(-1, 1, "PATTERN_INIT_ACTIVE_SENSORS", _InitialCmd.ActiveSensors));
+            ExportFile.Add(new StructuredFileKey(-1, 1, "PATTERN_INIT_ACTIVE_SENSORS", Command.GetSensorsFlagToString(_InitialCmd.ActiveSensors)));
 
             if (_Strategy != null)
             {
@@ -115,8 +118,9 @@ namespace StrategyGenerator.Strategy
                 {
                     ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_CMD", Command.GetCmdToString(Item.Cmd.Cmd)));
                     ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_CMD_TYPE", Command.GetCmdTypeToString(Item.Cmd.CmdType)));
-                    ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_ACTIVE_SENSORS_FLAG", Item.Cmd.ActiveSensors));
+                    ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_ACTIVE_SENSORS_FLAG", Command.GetSensorsFlagToString(Item.Cmd.ActiveSensors)));
                     ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_PARAMS", Item.Cmd.ExportParamsIntoString()));
+                    ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_NEXT_ACTION_ID", Item.NextActionID.ToString()));
                 }
 
                 OutputStructuredFile = new StructuredFile(ExportFile);
@@ -125,6 +129,47 @@ namespace StrategyGenerator.Strategy
 
             return Ret;
         }
+
+        public int Count()
+        {
+            if (_Strategy == null)
+                return 0;
+
+            return (_Strategy.Count());
+        }
+
+        public String GetName { get { return _StrategyName; } }
+        public Command InitialCmd
+        {
+            get { return _InitialCmd; }
+            set {  
+                if(value != null)
+                {
+                    _InitialCmd = value;
+                }
+            }
+        }
+
+        public Command GetCommand(int CommandID)
+        {
+            if ((_Strategy != null) && (CommandID >= 0) && (CommandID < _Strategy.Count()))
+            {
+                return _Strategy[CommandID].Cmd;
+            }
+
+            return null;
+        }
+
+        public String GetCommandInfo(int CommandID)
+        {
+            if ((_Strategy != null) && (CommandID >= 0) && (CommandID < _Strategy.Count()))
+            {
+                return (_Strategy[CommandID].ActionID.ToString() + " : " + _Strategy[CommandID].Cmd.Cmd.ToString());
+            }
+
+            return "Cmd not defined";
+        }
+
 
         // Private --------------------------------------------------------------------------------
         private String _StrategyName;               // Nom de la strategie pour le #define

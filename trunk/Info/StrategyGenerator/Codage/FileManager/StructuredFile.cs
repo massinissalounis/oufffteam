@@ -418,7 +418,7 @@ namespace StrategyGenerator.FileManager
             EnumCmd CmdFromFile = EnumCmd.NotSet;
             EnumCmdType CmdTypeFromFile = EnumCmdType.NotSet;
             string [] ParamsFromFile = null;
-            String ActiveSensorsFromFile = null;
+            EnumSensorsFlag ActiveSensorsFromFile = EnumSensorsFlag.APPFLAG_NONE;
 
             // Lecture de toute la liste pour trouver la bonne LoopID et GID
             for (int i = 0; i < _Items.Count(); i++)
@@ -437,7 +437,7 @@ namespace StrategyGenerator.FileManager
 
                     // Lecture des flags des sensors
                     if (_Items[i].GetName() == "PATTERN_ACTIVE_SENSORS_FLAG")
-                        ActiveSensorsFromFile = _Items[i].GetValue();
+                        ActiveSensorsFromFile = Command.GetSensorsFlagFromString(_Items[i].GetValue());
 
                     // Lecture des paramètres
                     if (_Items[i].GetName() == "PATTERN_PARAMS")
