@@ -10,7 +10,7 @@
             <Border BorderBrush="Black" BorderThickness="1" Height="268" HorizontalAlignment="Left" Name="MapBorder" VerticalAlignment="Top" Width="700" />
             <Grid Name="MapGrid" Height="400" Width="600" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{x:Null}">
                 <Image Name="MapPicture" Stretch="UniformToFill" Source="/StrategyGenerator;component/Images/Map.png" />
-                <Image Height="60" Name="Robot" Stretch="None" Width="60" Source="/StrategyGenerator;component/Images/Robot.png" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                <Image Height="26" Name="Robot" Stretch="None" Width="67" Source="/StrategyGenerator;component/Images/Robot.png" VerticalAlignment="Top" HorizontalAlignment="Left" />
             </Grid>
         </Grid>
         <Grid Height="264" HorizontalAlignment="Left" Margin="754,28,0,0" Name="CmdListView" VerticalAlignment="Top" Width="217">
