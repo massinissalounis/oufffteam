@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 
 using StrategyGenerator.FileManager;
 using StrategyGenerator.Strategy;
+using System.Threading;
 
 namespace StrategyGenerator
 {
@@ -409,12 +410,16 @@ namespace StrategyGenerator
         {
             if (CmdList.SelectedIndex - 1 >= 0)
                 CmdList.SelectedIndex = CmdList.SelectedIndex - 1;
+
+            SetRobotPos(100, 100, 45 * CmdList.SelectedIndex);
         }
 
         private void CmdViewN_ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             if (CmdList.SelectedIndex + 1 < CmdList.Items.Count)
                 CmdList.SelectedIndex = CmdList.SelectedIndex + 1;
+            
+            SetRobotPos(100, 100, 45 * CmdList.SelectedIndex);
         }
      
         // Private items --------------------------------------------------------------------------
