@@ -14,24 +14,20 @@
             </Grid>
         </Grid>
         <Grid Height="264" HorizontalAlignment="Left" Margin="754,28,0,0" Name="CmdListView" VerticalAlignment="Top" Width="217">
-            <ListBox Margin="0, 0, 0, 0" Height="100" Name="CmdList" Width="120" />
+            <ListBox Name="CmdList" Margin="49,82,0,0" Height="100" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" SelectionChanged="CmdList_SelectionChanged" />
             <Label Content="Stratégie : " HorizontalAlignment="Left" Name="lblCmdList" Height="28" Width="66" VerticalAlignment="Top" />
             <Label Content="STRATEGY__NOT__SET" HorizontalAlignment="Right" Name="lblStrategyName" Height="28" VerticalAlignment="Top" Margin="0,0,19,0" Grid.ColumnSpan="2" Width="134" />
-            <Border BorderBrush="Black" BorderThickness="1" Height="201" HorizontalAlignment="Left" Margin="11,6,0,0" Name="CmdListViewBorder" VerticalAlignment="Top" Width="200" />
+            <Border BorderBrush="Black" BorderThickness="1" Height="201" HorizontalAlignment="Left" Margin="11,6,0,0" Name="CmdListViewBorder" VerticalAlignment="Top" Width="200"></Border>
             <Button Content="Load" Height="23" HorizontalAlignment="Left" Margin="11,235,0,0" Name="CmdList_Load" VerticalAlignment="Top" Width="50" Click="CmdList_Load_Click" />
             <Button Content="New" Height="23" HorizontalAlignment="Left" Margin="86,235,0,0" Name="CmdList_New" VerticalAlignment="Top" Width="50" Click="CmdList_New_Click" />
             <Button Content="Save" Height="23" HorizontalAlignment="Right" Margin="0,235,6,0" Name="CmdList_Save" VerticalAlignment="Top" Width="50" Click="CmdList_Save_Click" />
         </Grid>
         <Grid Height="232" HorizontalAlignment="Left" Margin="32,306,0,0" Name="CmdView" VerticalAlignment="Top" Width="952" Background="{x:Null}">
             <Grid Height="110" HorizontalAlignment="Left" Name="CmdViewN2Before" VerticalAlignment="Top" Width="298" Background="{x:Null}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="16*" />
-                    <ColumnDefinition Width="282*" />
-                </Grid.ColumnDefinitions>
-                <Border BorderBrush="Black" BorderThickness="1" Height="98" HorizontalAlignment="Center" Margin="6" Name="CmdViewN2BeforeBorder" VerticalAlignment="Center" Width="286" Grid.ColumnSpan="2" Background="{x:Null}">
+                <Border BorderBrush="Black" BorderThickness="1" Height="78" HorizontalAlignment="Left" Margin="55,26,0,0" Name="CmdViewN2BeforeBorder" VerticalAlignment="Top" Width="237" Background="{x:Null}">
                     <Label Content="Command (N-2)" Height="28" Name="label1" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="ExtraBold" />
                 </Border>
-                <TextBlock Height="23" HorizontalAlignment="Left" Margin="60,42,0,0" Name="CmdN2BeforeTxt" Text="NOT_SET" VerticalAlignment="Top" Grid.Column="1" />
+                <TextBlock Height="23" HorizontalAlignment="Left" Margin="76,42,0,0" Name="CmdN2BeforeTxt" Text="NOT_SET" VerticalAlignment="Top" />
             </Grid>
             <Grid Height="110" HorizontalAlignment="Left" Margin="6,116,0,0" Name="CmdViewN1Before" VerticalAlignment="Top" Width="359" Background="{x:Null}" ShowGridLines="False">
                 <Border BorderBrush="Black" BorderThickness="1" Height="98" HorizontalAlignment="Center" Margin="6" Name="CmdViewN1BeforeBorder" VerticalAlignment="Center" Width="347">
@@ -50,8 +46,8 @@
                 <Label Content="Flag" Height="28" HorizontalAlignment="Left" Margin="36,138,0,0" Name="CmdViewN_Flag" VerticalAlignment="Top" />
                 <Label Content="Param4" Height="28" HorizontalAlignment="Left" Margin="33,111,0,0" Name="CmdViewN_LblParam4" VerticalAlignment="Top" />
                 <Label Content="CmdType" Height="28" HorizontalAlignment="Left" Margin="235,22,0,0" Name="CmdViewN_CmdType" VerticalAlignment="Top" />
-                <Button Content="&lt;-" Height="23" HorizontalAlignment="Left" Margin="25,167,0,0" Name="CmdViewN_ButtonPrev" VerticalAlignment="Top" Width="30" />
-                <Button Content="->" Height="23" HorizontalAlignment="Right" Margin="0,167,30,0" Name="CmdViewN_ButtonNext" VerticalAlignment="Top" Width="32" />
+                <Button Content="&lt;-" Height="23" HorizontalAlignment="Left" Margin="25,167,0,0" Name="CmdViewN_ButtonPrev" VerticalAlignment="Top" Width="30" Click="CmdViewN_ButtonPrev_Click" />
+                <Button Content="->" Height="23" HorizontalAlignment="Right" Margin="0,167,30,0" Name="CmdViewN_ButtonNext" VerticalAlignment="Top" Width="32" Click="CmdViewN_ButtonNext_Click" />
                 <Button Content="Update" Height="23" HorizontalAlignment="Left" Margin="80,167,0,0" Name="CmdViewN_ButtonUpdate" VerticalAlignment="Top" Width="75" />
                 <Button Content="Remove" Height="23" HorizontalAlignment="Left" Margin="170,167,0,0" Name="CmdViewN_ButtonRemove" VerticalAlignment="Top" Width="75" />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="91,48,0,0" Name="CmdViewN_Param1" VerticalAlignment="Top" Width="75" />

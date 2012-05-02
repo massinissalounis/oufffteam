@@ -24,7 +24,7 @@ namespace StrategyGenerator
     {
         const int CONST_MAINWINDOWS_MIN_WIDTH = 1024;
         const int CONST_MAINWINDOWS_MIN_HEIGHT = 650;
-        const int CONST_CMDVIEW_HEIGHT = 225;
+        const int CONST_CMDVIEW_HEIGHT = 235;
         const int CONST_CMDVIEW_LINE = 30;
 
         public MainWindow()
@@ -224,30 +224,32 @@ namespace StrategyGenerator
             {
                 CmdViewN_isEnabled(true);
 
-                // Display (N-2) Command
-                if (CurrentCmdID - 2 >= 0)
+                // Display Current Command
+                Command CurrentCmd = _CurrentStrategy.GetCommand(CurrentCmdID);
+                if(CurrentCmd != null)
                 {
-
+                    CmdViewN_CmdID.Text = _CurrentStrategy.GetActionID(CurrentCmdID).ToString();
+                    CmdViewN_CmdBox.SelectedItem = CurrentCmd.Cmd.ToString();
+                    CmdViewN_CmdTypeBox.SelectedItem = CurrentCmd.CmdType.ToString();
+                    CmdViewN_FlagBox.SelectedItem = CurrentCmd.ActiveSensors.ToString();
+                    CmdViewN_Param1.Text = CurrentCmd.Param1;
+                    CmdViewN_Param2.Text = CurrentCmd.Param2;
+                    CmdViewN_Param3.Text = CurrentCmd.Param3;
+                    CmdViewN_Param4.Text = CurrentCmd.Param4;
                 }
+
+                // Display (N-2) Command
+                CmdN2BeforeTxt.Text = _CurrentStrategy.GetCommandDetailed(CurrentCmdID - 2);
 
                 // Display (N-1) Command
-                if (CurrentCmdID - 1 >= 0)
-                {
-
-                }
+                CmdN1BeforeTxt.Text = _CurrentStrategy.GetCommandDetailed(CurrentCmdID - 1);
 
                 // Display (N+1) Command
-                if (CurrentCmdID + 1 <= _CurrentStrategy.Count())
-                {
-
-                }
+                CmdN1AfterTxt.Text = _CurrentStrategy.GetCommandDetailed(CurrentCmdID + 1);
 
                 // Display (N+2) Command
-                if (CurrentCmdID + 2 <= _CurrentStrategy.Count())
-                {
-
-                }
-            }
+                CmdN2AfterTxt.Text = _CurrentStrategy.GetCommandDetailed(CurrentCmdID + 2);
+             }
             return;
         }
 
@@ -332,17 +334,18 @@ namespace StrategyGenerator
                 lblStrategyName.Content = _CurrentStrategy.GetName;
 
                 CmdList.Items.Clear();
-                // Red the first item (inital cmd)
-                CmdList.Items.Add("000 : " + _CurrentStrategy.InitialCmd.Cmd.ToString());
 
                 // Read the current strategy
-                for(int iterator = 0; iterator < _CurrentStrategy.Count(); iterator++)
+                for(int iterator = 0; iterator <= _CurrentStrategy.Count(); iterator++)
                 {
                     CmdList.Items.Add(_CurrentStrategy.GetCommandInfo(iterator));
                 }
 
-                                if (_CurrentStrategy.Count() == 0)
+                if (_CurrentStrategy.Count() > 0)
+                {
+                    CmdList.SelectedIndex = 0;
                     CmdViewN_ButtonAdd.IsEnabled = true;
+                }
             }
             else
             {
@@ -360,9 +363,9 @@ namespace StrategyGenerator
                     if (ECmd.ToString() != "NotSet")
                         CmdViewN_CmdBox.Items.Add(ECmd.ToString());
                 }
-    
-                if(CmdViewN_CmdBox.Items.Count > 0)
-                    CmdViewN_CmdBox.Text = CmdViewN_CmdBox.Items[0].ToString();
+
+                if (CmdViewN_CmdBox.Items.Count > 0)
+                    CmdViewN_CmdBox.SelectedIndex = 0;
             }
         }
 
@@ -377,7 +380,7 @@ namespace StrategyGenerator
                 }
 
                 if (CmdViewN_CmdTypeBox.Items.Count > 0)
-                    CmdViewN_CmdTypeBox.Text = CmdViewN_CmdTypeBox.Items[0].ToString();
+                    CmdViewN_CmdTypeBox.SelectedIndex = 0;
             }
         }
 
@@ -391,14 +394,35 @@ namespace StrategyGenerator
                 }
 
                 if (CmdViewN_FlagBox.Items.Count > 0)
-                    CmdViewN_FlagBox.Text = CmdViewN_FlagBox.Items[0].ToString();
+                    CmdViewN_FlagBox.SelectedIndex = 0;
             }
         }
 
+        private 
+
+        void CmdList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetCurrentCmd(((ListBox)sender).SelectedIndex);
+        }
+
+        private void CmdViewN_ButtonPrev_Click(object sender, RoutedEventArgs e)
+        {
+            if (CmdList.SelectedIndex - 1 >= 0)
+                CmdList.SelectedIndex = CmdList.SelectedIndex - 1;
+        }
+
+        private void CmdViewN_ButtonNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (CmdList.SelectedIndex + 1 < CmdList.Items.Count)
+                CmdList.SelectedIndex = CmdList.SelectedIndex + 1;
+        }
+     
         // Private items --------------------------------------------------------------------------
         private String _CurrentStrategyFilename = null;
         private String _CurrentStrategyPatternFilename = null;
         private FullStrategy _CurrentStrategy = null;
+
+
 
     }
 }
