@@ -20,7 +20,9 @@
 #define APP_DEFAULT_ROBOT_SPEED				50			// Speed rate						(0:No Move, 100: Full Speed)
 #define APP_ESCAPE_ROBOT_SPEED				40			// Speed rate for escape seq		(0:No Move, 100: Full Speed)
 #define APP_HOMOL_ROBOT_SPEED				80			// Speed rate for homol strategy	(0:No Move, 100: Full Speed)
+#define APP_TEST_ROBOT_SPEED				30			// Speed rate for test				(0:No Move, 100: Full Speed)
 #define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
+#define APP_INIT_EXEC_STARTUP_SEQ			OS_TRUE		// Flag to indicate if we have to execute the start up sequence
 
 #define APP_GP2D2_LIMIT_FRONT				120			// Threshold for front sensor
 #define APP_GP2D2_LIMIT_BACK				200			// Threshold for rear sensor
@@ -33,12 +35,15 @@
 *                                            TASK MANAGING
 *********************************************************************************************************
 */
-//#define APP_TASK_MAIN_ENABLED							// Activate TaskMain
-//#define APP_TASK_ODO_ENABLED							// Activate TaskOdo
+#define APP_TASK_MAIN_ENABLED							// Activate TaskMain
+#define APP_TASK_ODO_ENABLED							// Activate TaskOdo
 //#define APP_TASK_ASSER_ENABLED							// Activate TaskAsser
-//#define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
+#define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
 #define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
 //#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
+
+//#define APP_TASK_ODO_DISPLAY_POSITION					// Activate the position debug messages
+#define APP_TASK_ODO_DISPLAY_DEBUG						// Activate the other debug messages
 
 /*
 *********************************************************************************************************
@@ -161,7 +166,10 @@
 */
 
 // SENSORS
-//#define AX12_REG_PROGRAMMING
+#define SENSORS_CALIBRATION
+
+// Program AX12
+//#define AX12_REG_PROGRAMMING											// Use this flag for programming the default values into AX12
 
 // POSITION MANAGER MODE
 //#define ODO_CALIBRATION
@@ -201,10 +209,11 @@
 */
 // Only 1 option can be set bellow.
 
-//#define DEFAULT_STRATEGY_ENABLED				// Enable this option to use default strategy
-#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
-//#define STRATEGY_1_ENABLED						// Enable this option to use the strategy 1 (SoSo and FiFi)
-//#define STRATEGY_2_ENABLED						// Enable this option to use the strategy 2 (?????????????)
+#define DEFAULT_STRATEGY_ENABLED				// Enable this option to use default strategy
+//#define TEST_STRATEGY_ENABLED					// Enable this option to use the test strategy
+//#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
+//#define STRATEGY_1_ENABLED					// Enable this option to use the strategy 1 (SoSo and FiFi)
+//#define STRATEGY_2_ENABLED					// Enable this option to use the strategy 2 (?????????????)
 
 /*
 *********************************************************************************************************
@@ -212,8 +221,8 @@
 *********************************************************************************************************
 */
 #ifdef _TARGET_440H
-#define DELAY_MS_BETWEEN_NEXT_STATE				250				// Delay in ms before next state (TaskMvt)
-#define DELAY_S_BETWEEN_NEXT_STATE				0				// Delay in ms before next state (TaskMvt)
+	#define DELAY_MS_BETWEEN_NEXT_STATE				250				// Delay in ms before next state (TaskMvt)
+	#define DELAY_S_BETWEEN_NEXT_STATE				0				// Delay in ms before next state (TaskMvt)
 #endif
 
 #endif

@@ -96,6 +96,7 @@ void  AppTaskStart()
 
 #ifdef AX12_REG_PROGRAMMING
 	ARMS_InitReg(); // Register configuration - Comment for match
+	AppDebugMsg("AX12_REG_PROGRAMMING ok\n");
 	while(1)
 	{
 		OSTimeDlyHMSM(0, 0, 1, 0);

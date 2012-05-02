@@ -531,11 +531,6 @@ unsigned char mode_4_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 	unsigned char end_movement_flag=0;
 	
 
-	//error_debug_3= psetpoint->left_encoder;
-	//error_debug_1= pcurrent->left_encoder;	
-	//error_debug_1= psetpoint->right_encoder;
-	//error_debug_2= pcurrent->right_encoder;
-
 	error_right_wheel = psetpoint->right_encoder - pcurrent->right_encoder;
 	error_left_wheel = -(psetpoint->left_encoder - pcurrent->left_encoder);
 
@@ -544,13 +539,8 @@ unsigned char mode_4_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 		end_movement_flag=1;
 	}
 
-//	error_debug_3=error_left_wheel;
-//	error_debug_4=error_right_wheel;
-	
 	error_filtered_right_wheel = PID_Computation(&wheel_right_pid_data, (float) error_right_wheel);
 	error_filtered_left_wheel = PID_Computation(&wheel_left_pid_data, (float) error_left_wheel);
-
-//	error_debug_5=	error_filtered_left_wheel;
 
 	error_filtered_right_wheel = error_rescale (error_filtered_right_wheel, 1.0, SPEED_PIVOT);
 	error_filtered_left_wheel = error_rescale (error_filtered_left_wheel, 1.0, SPEED_PIVOT);	
@@ -697,7 +687,6 @@ void TaskAsser_Main(void *p_arg)
 					}
 					else
 					{
-						error_debug_4 = (2*M_PI+CurrentCmd.Param4-TaskAsser_CurrentPos.angle) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_RIGHT;
 						setpoint.right_encoder	= TaskAsser_CurrentPos.right_encoder + (CPU_INT16U)((2*M_PI+CurrentCmd.Param4-TaskAsser_CurrentPos.angle) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_RIGHT);
 					}
 
@@ -716,13 +705,6 @@ void TaskAsser_Main(void *p_arg)
 		}
 
 		// MOTION CONTROL LOOP
-
-		//error_debug_1 = setpoint.x;
-		//error_debug_2 = setpoint.y;
-		//error_debug_3 = setpoint.angle;
-		//error_debug_4 = App_CmdToTaskAsserId;
-
-//		error_debug_4 = setpoint.angle;
 
 		// Reset_datas
 		command_left =0;

@@ -26,15 +26,14 @@ void TaskSensors_CheckBumpers();
 	// Check for bumpers status.
 	// In case of collision, this function posts FLAGS to tell main task we are bumping
 
-void TaskSensors_GrabObject();
-	// Function for grabbing an object.
+void TaskSensors_GrabIngotOnFloor();
+	// Function for grabbing an Ingot on the floor.
 
-void TaskSensors_ControlHolder(CPU_INT08U control);
+void TaskSensors_GrabIngotOnTotem();
+	// Function for grabbing an Ingot on totem.
 
-void TaskSensors_SetHolderLevel(INT8U Level);
-	// Function for setting the Holder level.
-	// Level can be set to the following values :
-	// Level = 	HOLDER_LEVEL_LOW, HOLDER_LEVEL_MIDDLE, HOLDER_LEVEL_HIGH
+void TaskSensors_GrabCD();
+	// Function for grabbing a CD 
 
 void TaskSensors_Main(void *p_arg);
 	// Fonction principal du process de gestion des Sensors

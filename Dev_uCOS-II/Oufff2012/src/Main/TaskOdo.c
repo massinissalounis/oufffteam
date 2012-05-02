@@ -320,45 +320,34 @@ void TaskOdo_Main(void *p_arg)
 
 				if(i==0)
 				{
-					AppDebugMsg("ODO_PROCESS : ");
+#ifdef APP_TASK_ODO_DISPLAY_POSITION
+					AppDebugMsg("ODO_PROCESS Position = ");
 					AppDebugMsg("x : ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskOdo_CurrentPos.x, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
-					AppDebugMsg(",y : ");
+					AppDebugMsg(",\ty : ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskOdo_CurrentPos.y, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
-					AppDebugMsg(",alpha : ");
+					AppDebugMsg(",\talpha : ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (TaskOdo_CurrentPos.angle*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
-					AppDebugMsg(",MainState : ");
+					AppDebugMsg(",\tMainState : ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) Debug_MainState, (CPU_INT08U) 3, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
-					AppDebugMsg(",MvtState : ");
+					AppDebugMsg(",\tMvtState : ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) Debug_MvtState, (CPU_INT08U) 3, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
 					AppDebugMsg("\n");
-					AppDebugMsg("1: ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (error_debug_1*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-				//	buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_1, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+#endif
+#ifdef APP_TASK_ODO_DISPLAY_DEBUG
+					AppDebugMsg("GP2_Holder: ");
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_1, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
-					AppDebugMsg(",2: ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (error_debug_2*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-				//	buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_2, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg(",3: ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (error_debug_3*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-				//	buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_3, (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg(",4: ");
-				//	buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (error_debug_4*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_4, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg(",5: ");
-					//buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (error_debug_5*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_5, (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					AppDebugMsg("\tGP2_Test: ");
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_2, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
 					AppDebugMsg("\n");
-
+#endif
 				}
 				i++;
 				if(i==50) i=0;
