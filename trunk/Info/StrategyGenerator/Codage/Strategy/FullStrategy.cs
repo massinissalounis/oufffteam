@@ -139,37 +139,116 @@ namespace StrategyGenerator.Strategy
         }
 
         public String GetName { get { return _StrategyName; } }
-        public Command InitialCmd
-        {
-            get { return _InitialCmd; }
-            set {  
-                if(value != null)
-                {
-                    _InitialCmd = value;
-                }
-            }
-        }
 
         public Command GetCommand(int CommandID)
         {
-            if ((_Strategy != null) && (CommandID >= 0) && (CommandID < _Strategy.Count()))
+            if (CommandID == 0)
+                return _InitialCmd;
+
+            if ((_Strategy != null) && (CommandID > 0) && (CommandID <= _Strategy.Count()))
             {
-                return _Strategy[CommandID].Cmd;
+                return _Strategy[CommandID-1].Cmd;
             }
 
             return null;
         }
 
+        public int GetActionID(int CommandID)
+        {
+            if (CommandID == 0)
+                return 0;
+
+            if ((_Strategy != null) && (CommandID > 0) && (CommandID <= _Strategy.Count()))
+            {
+                return _Strategy[CommandID - 1].ActionID;
+            }
+
+            return (-1);
+        }
+
         public String GetCommandInfo(int CommandID)
         {
-            if ((_Strategy != null) && (CommandID >= 0) && (CommandID < _Strategy.Count()))
+            if (CommandID == 0)
+                return "0 : " + _InitialCmd.Cmd.ToString();
+
+            if ((_Strategy != null) && (CommandID > 0) && (CommandID <= _Strategy.Count()))
             {
-                return (_Strategy[CommandID].ActionID.ToString() + " : " + _Strategy[CommandID].Cmd.Cmd.ToString());
+                return (_Strategy[CommandID - 1].ActionID.ToString() + " : " + _Strategy[CommandID - 1].Cmd.Cmd.ToString());
             }
 
             return "Cmd not defined";
         }
 
+        public String GetCommandDetailed(int Index)
+        {
+            String CommandDetailed = "Command Not Defined";
+
+            if (Index == 0)
+            {
+                CommandDetailed = "0 : ";
+                CommandDetailed += _InitialCmd.Cmd.ToString();
+                CommandDetailed += " (" + _InitialCmd.CmdType.ToString() + ")";
+                CommandDetailed += "\n";
+
+                if(_InitialCmd.Param1 == null)
+                    CommandDetailed += "P1: Not Set";
+                else
+                    CommandDetailed += "P1: " + _InitialCmd.Param1;
+                
+                if(_InitialCmd.Param2 == null)
+                    CommandDetailed += " / P2: Not Set";
+                else
+                    CommandDetailed += " / P2: " + _InitialCmd.Param2;
+    
+                if(_InitialCmd.Param3 == null)
+                    CommandDetailed += "\nP3: Not Set";
+                else
+                    CommandDetailed += "\nP3: " + _InitialCmd.Param3;
+                
+                if(_InitialCmd.Param4 == null)
+                    CommandDetailed += " / P4: Not Set";
+                else
+                    CommandDetailed += " / P4: " + _InitialCmd.Param4;
+    
+                CommandDetailed += "\n";
+                CommandDetailed += "Flag: " + _InitialCmd.ActiveSensors;
+            }
+
+            if ((_Strategy != null) && (Index > 0) && (Index <= _Strategy.Count()))
+            {
+                CommandDetailed = "";
+                CommandDetailed += _Strategy[Index - 1].ActionID.ToString();
+                CommandDetailed += " : ";
+                CommandDetailed += _Strategy[Index - 1].Cmd.Cmd.ToString();
+                CommandDetailed += " (" + _Strategy[Index - 1].Cmd.CmdType.ToString() + ")";
+                CommandDetailed += "\n";
+
+                if (_Strategy[Index - 1].Cmd.Param1 == null)
+                    CommandDetailed += "P1: Not Set";
+                else
+                    CommandDetailed += "P1: " + _Strategy[Index - 1].Cmd.Param1;
+
+                if (_Strategy[Index - 1].Cmd.Param2 == null)
+                    CommandDetailed += " / P2: Not Set";
+                else
+                    CommandDetailed += " / P2: " + _Strategy[Index - 1].Cmd.Param2;
+
+                if (_Strategy[Index - 1].Cmd.Param3 == null)
+                    CommandDetailed += "\nP3: Not Set";
+                else
+                    CommandDetailed += "\nP3: " + _Strategy[Index - 1].Cmd.Param3;
+
+                if (_Strategy[Index - 1].Cmd.Param4 == null)
+                    CommandDetailed += "/ P4: Not Set";
+                else
+                    CommandDetailed += " / P4: " + _Strategy[Index - 1].Cmd.Param4;
+
+                CommandDetailed += "\n";
+                CommandDetailed += "Flag: " + _Strategy[Index - 1].Cmd.ActiveSensors;                
+            }
+
+            return CommandDetailed;
+        }
 
         // Private --------------------------------------------------------------------------------
         private String _StrategyName;               // Nom de la strategie pour le #define
