@@ -45,8 +45,8 @@
 typedef enum
 {
 	c_NotSet = -1,
-	c_ColorA,					// Blue
-	c_ColorB,					// Red
+	c_ColorA,					// Red
+	c_ColorB,					// Purple
 }EnumColor;
 
 // Mvt Mode -------------------------------------

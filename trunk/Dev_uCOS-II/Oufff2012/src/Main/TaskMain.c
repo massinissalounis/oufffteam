@@ -115,14 +115,14 @@ void TaskMain_Main(void *p_arg)
 			// Get CurrentPos for current color
 			if(AppCurrentColor == c_ColorA)
 			{
-				AppDebugMsg("TaskMain : Color = Blue\n");
+				AppDebugMsg("TaskMain : Color = Red\n");
 				#ifdef _TARGET_440H
 					Set_Line_Information( 1, 15, "B", 1);
 				#endif
 			}
 			else
 			{
-				AppDebugMsg("TaskMain : Color = Red\n");
+				AppDebugMsg("TaskMain : Color = Violet\n");
 				#ifdef _TARGET_440H
 					Set_Line_Information( 1, 15, "R", 1);
 				#endif

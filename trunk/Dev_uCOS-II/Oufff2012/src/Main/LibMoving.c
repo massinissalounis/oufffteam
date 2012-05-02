@@ -451,10 +451,6 @@ BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest)
 	else
 		AngleToSetpoint = AngleToSetpoint1;
 
-	error_debug_1=AngleToSetpoint1;
-	error_debug_2=AngleToSetpoint2;
-	error_debug_3=AngleToSetpoint;
-
 	DistToSetpoint = (SetpointToTest->Param2 - CurrentPos.x) * (SetpointToTest->Param2 - CurrentPos.x) + (SetpointToTest->Param3 - CurrentPos.y) * (SetpointToTest->Param3 - CurrentPos.y);
 
     switch(SetpointToTest->Cmd)

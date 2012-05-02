@@ -25,20 +25,35 @@
 */   
 
 void ARMS_InitReg(void);
+void ARMS_Init(void);
+void ARMS_DefaultPos(void);
 
-void ARM_Left_Sleep(void);
-void ARM_Right_Sleep(void);
-
+void ARM_Left_Close(void);
+void ARM_Right_Close(void);
+void ARM_Left_Open(void);
+void ARM_Right_Open(void);
+void ARM_Left_GrabIngotOnFloor(void);
+void ARM_Right_GrabIngotOnFloor(void);
+void ARM_Left_GrabIngotOnTotem(void);
+void ARM_Right_GrabIngotOnTotem(void);
+void ARM_Left_GrabCD(void);
+void ARM_Right_GrabCD(void);
 
 void ELEVATOR_Level_Low(void);
-void ELEVATOR_Level_Middle(void);
+void ELEVATOR_Level_CD(void);
+void ELEVATOR_Level_Ingot(void);
 void ELEVATOR_Level_High(void);
+
+void WRIST_Left_Down(void);
+void WRIST_Right_Down(void);
+void WRIST_Left_Middle(void);
+void WRIST_Right_Middle(void);
+void WRIST_Left_Up(void);
+void WRIST_Right_Up(void);
 
 void PUMP_Right_Suck(void);
 void PUMP_Left_Suck(void);
 void PUMP_Right_Release(void);
 void PUMP_Left_Release(void);
-
-void ARMS_Init(void);
 
 #endif // ARMSCONTROL_H

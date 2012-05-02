@@ -33,7 +33,7 @@ BOOLEAN TaskSensors_IsStartButtonPressed()
 void TaskSensors_ReadColor()
 {
 	// Read current color
-	if(COLOR_Read() == 0)
+	if(COLOR_Read() != 0)
 		AppCurrentColor = c_ColorA;
 	else	
 		AppCurrentColor = c_ColorB;
@@ -84,18 +84,11 @@ void TaskSensors_CheckBumpers()
 	}
 
 	if(GP2DataAvg > APP_GP2D2_LIMIT_FRONT)
-	//if(error_debug_4 > APP_GP2D2_LIMIT_FRONT)
 	{
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_SET, &Err); 
 	}
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_CLR, &Err); 
-
-//	error_debug_4 = GP2DataAvg;
-//	error_debug_5 = GP2DataAvg;
-
-	if(error_debug_5 < error_debug_4)
-		error_debug_5 = error_debug_4;
 
 	//GP2 Back ******************************************************
 	GP2Data  = ADC_GetVal (GP2_REAR);
@@ -105,38 +98,71 @@ void TaskSensors_CheckBumpers()
 	}
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_BACK, OS_FLAG_CLR, &Err); 
-
-
-
-
 	
 #endif
 }
 
+// Grab Functions #################################################################################
 // ------------------------------------------------------------------------------------------------
-void TaskSensors_GrabObject()
+void TaskSensors_GrabIngotOnFloor()
 {
+	if(ADC_GetVal (GP2_HOLDER) > 600)
+	{
+		PUMP_Right_Suck();
+		PUMP_Left_Suck();
+
+		ARM_Left_GrabIngotOnFloor();
+		ARM_Right_GrabIngotOnFloor();
+
+		OSTimeDlyHMSM(0, 0, 0, 500);
+		ELEVATOR_Level_Ingot();
+		OSTimeDlyHMSM(0, 0, 0, 500);
+
+		ELEVATOR_Level_High();
+	}
 	return;
 }
 
 // ------------------------------------------------------------------------------------------------
-void TaskSensors_ControlHolder(CPU_INT08U control)
+void TaskSensors_GrabIngotOnTotem()
 {
-	return;	
-}
+	ARM_Left_GrabIngotOnTotem();
+	ARM_Right_GrabIngotOnTotem();
 
-// ------------------------------------------------------------------------------------------------
-void TaskSensors_SetHolderLevel(INT8U Level)
-{
+	WRIST_Left_Middle();
+	WRIST_Right_Middle();
+
+	PUMP_Left_Suck();
+	PUMP_Right_Suck();
+
 	return;
 }
 
 // ------------------------------------------------------------------------------------------------
-void TaskSensors_CheckObject()
+void TaskSensors_GrabCD()
 {
+	ARM_Left_GrabCD();
+	ARM_Right_GrabCD();
+
+	WRIST_Left_Down();
+	WRIST_Right_Down();
+
+	PUMP_Left_Suck();
+	PUMP_Right_Suck();
+
+	OSTimeDlyHMSM(0, 0, 0, 500);
+	ELEVATOR_Level_CD();
+
+	// TODO : Check if Low Level CD is required
+	// if dist to CD, go to ELEVATOR_Level_Low
+
+	OSTimeDlyHMSM(0, 0, 0, 500);
+
+	ELEVATOR_Level_High();
+	// TODO : Check if CD is grabbed
+
 	return;
 }
-
 
 // ------------------------------------------------------------------------------------------------
 // TaskSensors_Main()
@@ -161,62 +187,27 @@ void TaskSensors_Main(void *p_arg)
 	CurrentState = 0;
 	NextState = 0;
 	pCurrentMsg = NULL;
-	error_debug_5 = 0;
 
 	AppDebugMsg("OUFFF TEAM 2012 : Sensors online\r\n");
 	
-	// FiFi test : 19/02/12
-	AppDebugMsg("OUFFF TEAM 2012 : Sensors -> Test AX12\r\n");
-	
-//	ARM_Right_Sleep();
-//	ELEVATOR_Level_Low();
-//	ELEVATOR_Level_Middle();
-//	ELEVATOR_Level_High();
+#ifdef	APP_INIT_EXEC_STARTUP_SEQ
+	ARMS_Init();
+#endif
 
-	// Test 
+#ifdef SENSORS_CALIBRATION
+	OSTimeDlyHMSM(0, 0, 5, 0);
+	TaskSensors_GrabIngotOnFloor();
+	
 	while(OS_TRUE)
 	{
-
-		// Read Switch and GP2 ------------------------------------------------
-		while(OS_TRUE)
-		{
-			GP2Data  = ADC_GetVal(GP2_1);		// Cf BSP.h pour les déclarations
-			SW_State = CLIC_state(CLIC_1);		// CLIC_1 à CLIC_4
-			
-			// Affichage du debug
-			AppDebugMsg("TaskSensors Test : ");
-			AppDebugMsg("GP2 : ");
-			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) GP2Data, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-			AppDebugMsg(buffer_ptr);
-			AppDebugMsg(", SW : ");
-			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) SW_State, (CPU_INT08U) 2, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-			AppDebugMsg(buffer_ptr);
-			AppDebugMsg("\n");
-
-			OSTimeDlyHMSM(0, 0, 0, 500);
-		}
-
-
-		// Fin Read -----------------------------------------------------------
-
-
-
-//		ARM_Right_Sleep();	
-		ELEVATOR_Level_Low();
-
-//		PUMP_Right_Suck();
-//		PUMP_Left_Suck();
-
-		OSTimeDlyHMSM(0, 0, 5, 0);
-
-//		PUMP_Right_Release();
-//		PUMP_Left_Release();
-
-		ELEVATOR_Level_High();
-//		ARM_Left_Sleep();
-
-//		OSTimeDlyHMSM(0, 0, 5, 0);
+		error_debug_1 = ADC_GetVal(GP2_HOLDER);
+		error_debug_2 = ADC_GetVal(GP2_3);
+		
+		// Proc release
+		OSTimeDlyHMSM(0, 0, 0, 500);
 	}
+#endif
+
 
 	if(APP_INIT_USE_START_BUTTON == OS_TRUE)
 	{
@@ -235,8 +226,6 @@ void TaskSensors_Main(void *p_arg)
 		}
 	}
 
-	LED_On(4);
-
 	TaskSensors_ReadColor();
 
 	// StartButton has been pressed
@@ -249,7 +238,6 @@ void TaskSensors_Main(void *p_arg)
 
 		// First step, we check all external sensors
 		TaskSensors_CheckBumpers();
-		TaskSensors_CheckObject();
 
 		// Then, we use the state machine
 		CurrentState = NextState;
@@ -277,7 +265,7 @@ void TaskSensors_Main(void *p_arg)
 				// Select Action from Cmd
 				switch(pCurrentMsg->Cmd)
 				{
-				case Sensors_GrabObject: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*				case Sensors_GrabObject: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 					TaskSensors_GrabObject();
 					if(CmdType_Blocking == pCurrentMsg->CmdType)
 						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
@@ -303,7 +291,7 @@ void TaskSensors_Main(void *p_arg)
 					}
 					NextState = 1;
 					break;
-
+*/
 				default: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 					NextState = 0;
 					break;

@@ -138,6 +138,9 @@
     <ClCompile Include="..\..\..\src\Main\ArmsControl.c">
       <Filter>Fichiers sources\Main</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestStrategy.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Main\App.h">

@@ -72,6 +72,7 @@
     <ClCompile Include="..\..\..\src\Main\Strategy.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\DefaultStrategy.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\Homol.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestStrategy.c" />
     <ClCompile Include="..\..\..\src\Main\TaskAsser.c" />
     <ClCompile Include="..\..\..\src\Main\TaskMain.c" />
     <ClCompile Include="..\..\..\src\Main\TaskMvt.c" />

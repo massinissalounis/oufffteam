@@ -13,6 +13,7 @@
 
 #include "Strategy.h"
 #include "Strategy/StrategyFromColor.h"
+#include "LibMoving.h"
 
 // ------------------------------------------------------------------------------------------------
 INT8U Strategy_GetInitCmd(EnumColor CurrentColor, StructCmd *InitCmd)

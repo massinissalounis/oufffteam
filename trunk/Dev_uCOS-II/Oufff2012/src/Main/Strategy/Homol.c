@@ -12,6 +12,7 @@
 */
 
 #include "../Strategy.h"
+#include "../LibMoving.h"
 
 #ifdef HOMOL_STRATEGY_ENABLED
 
@@ -23,21 +24,21 @@ INT8U Strategy_GetInitCmd(EnumColor CurrentColor, StructCmd *InitCmd)
 
 	switch(CurrentColor)
 	{
-	case c_ColorA:	// Blue ############################################# 
+	case c_ColorA:	// Red ############################################# 
 		InitCmd->Cmd				= App_SetNewPos;
 		InitCmd->CmdType			= CmdType_NonBlocking;
-		InitCmd->Param2				= 065.0;
-		InitCmd->Param3				= 233.0;
-		InitCmd->Param4				= AppConvertDegInRad(0.0);
+		InitCmd->Param2				= 1435.0;
+		InitCmd->Param3				= 333.0;
+		InitCmd->Param4				= AppConvertDegInRad(180.0);
 		InitCmd->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 		break;
 
-	case c_ColorB:	// Red ##############################################
+	case c_ColorB:	// Purple ##############################################
 		InitCmd->Cmd				= App_SetNewPos;
 		InitCmd->CmdType			= CmdType_NonBlocking;
-		InitCmd->Param2				= 2935.0;
-		InitCmd->Param3				= 233.0;
-		InitCmd->Param4				= AppConvertDegInRad(180.0);
+		InitCmd->Param2				= -1435.0;
+		InitCmd->Param3				= 333.0;
+		InitCmd->Param4				= AppConvertDegInRad(0.0);
 		InitCmd->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 		break;
 
@@ -68,10 +69,12 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 
 	switch(CurrentColor)
 	{
-	case c_ColorA:	// Blue #############################################################
+	case c_ColorA:	// Red #############################################################
 		switch(CurrentActionID)
 		{
-		case 255:
+		case 0:		NextAction->Cmd = MvtSimple_MoveInMM;		LibMoving_MoveInMM(575, APP_HOMOL_ROBOT_SPEED, NextAction);			CurrentActionID++;	break;
+		case 1:		NextAction->Cmd = MvtSimple_RotateInDeg;	LibMoving_RotateInDeg(575, APP_HOMOL_ROBOT_SPEED, NextAction);			CurrentActionID++;	break;
+
 		default:
 			return ERR__NO_MORE_DATA_AVAILABLE;
 			break;
@@ -79,10 +82,9 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 
 	break;
 
-	case c_ColorB:	// Red ##############################################################
+	case c_ColorB:	// Purple ##############################################################
 		switch(CurrentActionID)
 		{
-		case 255:
 		default:
 			return ERR__NO_MORE_DATA_AVAILABLE;
 			break;
@@ -94,11 +96,6 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 	break;
 	}
 
-	// ToDo2012 : Faire la verification des commandes MvtSimple_... et calculer à ce moment les positions
-
-	// Todo2012 : Faire la verification de la commande App_Wait et effectuer l'attente (Action non bloquante).
-
-	// Todo2012 : Faire la verification de la commande App_IfGoto et mettre à jour CurrentActionID en fonction
 
 	return ERR__NO_ERROR;
 }
