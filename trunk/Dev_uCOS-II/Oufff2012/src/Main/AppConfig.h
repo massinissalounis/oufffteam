@@ -24,7 +24,7 @@
 #define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
 #define APP_INIT_EXEC_STARTUP_SEQ			OS_TRUE		// Flag to indicate if we have to execute the start up sequence
 
-#define APP_GP2D2_LIMIT_FRONT				120			// Threshold for front sensor
+#define APP_GP2D2_LIMIT_FRONT				200			// Threshold for front sensor
 #define APP_GP2D2_LIMIT_BACK				200			// Threshold for rear sensor
 #define APP_GP2D2_LIMIT_HOLDER_IN			200			// Threshold for detecting object into holder
 
@@ -37,10 +37,10 @@
 */
 #define APP_TASK_MAIN_ENABLED							// Activate TaskMain
 #define APP_TASK_ODO_ENABLED							// Activate TaskOdo
-//#define APP_TASK_ASSER_ENABLED							// Activate TaskAsser
+#define APP_TASK_ASSER_ENABLED							// Activate TaskAsser
 #define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
 #define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
-//#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
+#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
 
 //#define APP_TASK_ODO_DISPLAY_POSITION					// Activate the position debug messages
 #define APP_TASK_ODO_DISPLAY_DEBUG						// Activate the other debug messages
@@ -166,7 +166,7 @@
 */
 
 // SENSORS
-#define SENSORS_CALIBRATION
+//#define SENSORS_CALIBRATION
 
 // Program AX12
 //#define AX12_REG_PROGRAMMING											// Use this flag for programming the default values into AX12
@@ -209,9 +209,9 @@
 */
 // Only 1 option can be set bellow.
 
-#define DEFAULT_STRATEGY_ENABLED				// Enable this option to use default strategy
+//#define DEFAULT_STRATEGY_ENABLED				// Enable this option to use default strategy
 //#define TEST_STRATEGY_ENABLED					// Enable this option to use the test strategy
-//#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
+#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
 //#define STRATEGY_1_ENABLED					// Enable this option to use the strategy 1 (SoSo and FiFi)
 //#define STRATEGY_2_ENABLED					// Enable this option to use the strategy 2 (?????????????)
 
