@@ -27,8 +27,8 @@ INT8U Strategy_GetInitCmd(EnumColor CurrentColor, StructCmd *InitCmd)
 	case c_ColorA:	// Red ############################################# 
 		InitCmd->Cmd				= App_SetNewPos;
 		InitCmd->CmdType			= CmdType_NonBlocking;
-		InitCmd->Param2				= 1435.0;
-		InitCmd->Param3				= 333.0;
+		InitCmd->Param2				= 2935.0;
+		InitCmd->Param3				= 1667.0;
 		InitCmd->Param4				= AppConvertDegInRad(180.0);
 		InitCmd->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 		break;
@@ -36,8 +36,8 @@ INT8U Strategy_GetInitCmd(EnumColor CurrentColor, StructCmd *InitCmd)
 	case c_ColorB:	// Purple ##############################################
 		InitCmd->Cmd				= App_SetNewPos;
 		InitCmd->CmdType			= CmdType_NonBlocking;
-		InitCmd->Param2				= -1435.0;
-		InitCmd->Param3				= 333.0;
+		InitCmd->Param2				= 65.0;
+		InitCmd->Param3				= 1667.0;
 		InitCmd->Param4				= AppConvertDegInRad(0.0);
 		InitCmd->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 		break;
@@ -72,8 +72,15 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 	case c_ColorA:	// Red #############################################################
 		switch(CurrentActionID)
 		{
-		case 0:		NextAction->Cmd = MvtSimple_MoveInMM;		LibMoving_MoveInMM(575, APP_HOMOL_ROBOT_SPEED, NextAction);			CurrentActionID++;	break;
-		case 1:		NextAction->Cmd = MvtSimple_RotateInDeg;	LibMoving_RotateInDeg(575, APP_HOMOL_ROBOT_SPEED, NextAction);			CurrentActionID++;	break;
+		case 0:		p->Cmd = MvtSimple_MoveInMM;			p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = 580.0;													p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_FRONT;			CurrentActionID++;	break;
+		case 1:		p->Cmd = MvtSimple_RotateToAngleInDeg;	p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;															p->Param4 = 90.0;	p->ActiveSensorsFlag = APP_PARAM_APPFLAG_NONE;					CurrentActionID++;	break;
+		case 2:		p->Cmd = MvtSimple_MoveInMM;			p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = -367;													p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_BACK;			CurrentActionID++;	break;
+		case 3:		p->Cmd = Mvt_UsePivotMode;				p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = RIGHT_WHEEL;						p->Param4 = 180.0;	p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_BACK;			CurrentActionID++;	break;
+		case 4:		p->Cmd = MvtSimple_MoveInMM;			p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = -250;													p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_BACK;			CurrentActionID++;	break;
+		case 5:		p->Cmd = Mvt_UseMixedMode;				p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = 2500;			p->Param3 = 1000;	p->Param4 = -145;	p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_FRONT;			CurrentActionID++;	break;
+		case 6:		p->Cmd = MvtSimple_MoveInMM;			p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = 500;													p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_FRONT;			CurrentActionID++;	break;
+		case 7:		p->Cmd = Mvt_UseMixedMode;				p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = 2260;			p->Param3 = 500;	p->Param4 = 90;		p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_FRONT;			CurrentActionID++;	break;
+		case 8:		p->Cmd = Mvt_UseMixedMode;				p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED * 0.5;	p->Param2 = 2260;			p->Param3 = 65;		p->Param4 = 90;		p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_BACK;			CurrentActionID++;	break;
 
 		default:
 			return ERR__NO_MORE_DATA_AVAILABLE;
@@ -85,6 +92,16 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 	case c_ColorB:	// Purple ##############################################################
 		switch(CurrentActionID)
 		{
+		case 0:		p->Cmd = MvtSimple_MoveInMM;			p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = 580.0;													p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_FRONT;			CurrentActionID++;	break;
+		case 1:		p->Cmd = MvtSimple_RotateToAngleInDeg;	p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;															p->Param4 = 90.0;	p->ActiveSensorsFlag = APP_PARAM_APPFLAG_NONE;					CurrentActionID++;	break;
+		case 2:		p->Cmd = MvtSimple_MoveInMM;			p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = -367;													p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_BACK;			CurrentActionID++;	break;
+		case 3:		p->Cmd = Mvt_UsePivotMode;				p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = LEFT_WHEEL;							p->Param4 = 0;		p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_BACK;			CurrentActionID++;	break;
+		case 4:		p->Cmd = MvtSimple_MoveInMM;			p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = -250;													p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_BACK;			CurrentActionID++;	break;
+		case 5:		p->Cmd = Mvt_UseMixedMode;				p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = 500;			p->Param3 = 1000;	p->Param4 = -55;	p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_FRONT;			CurrentActionID++;	break;
+		case 6:		p->Cmd = MvtSimple_MoveInMM;			p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = 500;													p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_FRONT;			CurrentActionID++;	break;
+		case 7:		p->Cmd = Mvt_UseMixedMode;				p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED;			p->Param2 = 740;			p->Param3 = 500;	p->Param4 = 90;		p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_FRONT;			CurrentActionID++;	break;
+		case 8:		p->Cmd = Mvt_UseMixedMode;				p->CmdType = CmdType_Blocking;	p->Param1 = APP_HOMOL_ROBOT_SPEED * 0.5;	p->Param2 = 740;			p->Param3 = 65;		p->Param4 = 90;		p->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_BACK;			CurrentActionID++;	break;
+
 		default:
 			return ERR__NO_MORE_DATA_AVAILABLE;
 			break;
@@ -96,6 +113,40 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 	break;
 	}
 
+	// Check for Wait command --------------------------------------------
+	if(App_Wait == p->Cmd)
+	{
+		// Execute the wait command
+		OSTimeDlyHMSM(p->Param1, p->Param2, p->Param3, p->Param4);
+		return Strategy_GetNextAction(CurrentColor, p);
+	}
+
+	// Check for conditionnal command ------------------------------------
+	if(App_IfGoto == p->Cmd)
+	{
+		if(p->Param1)
+			CurrentActionID = p->Param2;
+		else
+			CurrentActionID = p->Param3;
+
+		return Strategy_GetNextAction(CurrentColor, p);
+	}
+	
+	// Create the MvtSimple Command --------------------------------------
+	if(MvtSimple_MoveInMM == p->Cmd) 
+		LibMoving_MoveInMM(p->Param2, p->Param1, p);
+
+	if(MvtSimple_RotateInDeg == p->Cmd)
+		LibMoving_RotateInDeg(p->Param4, p->Param1, p);
+	
+	if(MvtSimple_RotateToAngleInDeg == p->Cmd)
+		LibMoving_RotateToAngleInDeg(p->Param4, p->Param1, p);
+
+	// Angle Conversion -----------------------------------------------------
+	if((Mvt_UsePivotMode == p->Cmd) || (Mvt_UseMixedMode == p->Cmd))
+	{
+		p->Param4 = AppConvertDegInRad(p->Param4);
+	}
 
 	return ERR__NO_ERROR;
 }

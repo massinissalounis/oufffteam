@@ -49,10 +49,6 @@ void TaskSensors_CheckBumpers()
 	static CPU_INT16U GP2DataOld1=0;
 	static CPU_INT16U GP2DataOld2=0;
 
-	CPU_INT16U GP2DataAvg;
-	CPU_INT16S GP2DataDiff1=0;
-	CPU_INT16S GP2DataDiff2=0;
-
 	static INT8U voting_logic_idx=0;
 
 #ifdef _TARGET_440H
@@ -60,30 +56,9 @@ void TaskSensors_CheckBumpers()
 #else
 	//GP2 Front ****************************************************
 	GP2Data  = ADC_GetVal (GP2_FRONT);
+	error_debug_1 = GP2Data;
 
-	GP2DataDiff1 = GP2Data-GP2DataOld1;
-	GP2DataDiff2 = GP2Data-GP2DataOld2;
-
-	if(abs(GP2DataDiff1)<abs(GP2DataDiff2)) 
-		GP2DataAvg = (GP2Data+GP2DataOld1)/2;
-	else 
-		GP2DataAvg = (GP2Data+GP2DataOld2)/2;	
-	
-	if(voting_logic_idx==0)
-	{
-		GP2DataOld1 = GP2Data;
-		voting_logic_idx=1;
-	}
-	else
-	{
-		if (voting_logic_idx==1)
-		{
-			GP2DataOld2 = GP2Data;
-			voting_logic_idx=0;
-		}
-	}
-
-	if(GP2DataAvg > APP_GP2D2_LIMIT_FRONT)
+	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
 	{
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_SET, &Err); 
 	}
@@ -92,13 +67,15 @@ void TaskSensors_CheckBumpers()
 
 	//GP2 Back ******************************************************
 	GP2Data  = ADC_GetVal (GP2_REAR);
+	error_debug_2 = GP2Data;
+
 	if(GP2Data > APP_GP2D2_LIMIT_BACK)
 	{
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_BACK, OS_FLAG_SET, &Err); 
 	}
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_BACK, OS_FLAG_CLR, &Err); 
-	
+
 #endif
 }
 
@@ -191,6 +168,7 @@ void TaskSensors_Main(void *p_arg)
 	AppDebugMsg("OUFFF TEAM 2012 : Sensors online\r\n");
 	
 #ifdef	APP_INIT_EXEC_STARTUP_SEQ
+	OSTimeDlyHMSM(0, 0, 2, 0);
 	ARMS_Init();
 #endif
 
@@ -200,8 +178,8 @@ void TaskSensors_Main(void *p_arg)
 	
 	while(OS_TRUE)
 	{
-		error_debug_1 = ADC_GetVal(GP2_HOLDER);
-		error_debug_2 = ADC_GetVal(GP2_3);
+		error_debug_1 = ADC_GetVal(GP2_FRONT);
+		error_debug_2 = ADC_GetVal(GP2_REAR);
 		
 		// Proc release
 		OSTimeDlyHMSM(0, 0, 0, 500);
