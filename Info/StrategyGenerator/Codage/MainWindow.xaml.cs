@@ -349,6 +349,7 @@ namespace StrategyGenerator
             if (_CurrentStrategy == null)
                 isEnabled = false;
 
+            CmdList.IsEnabled = isEnabled;
             CmdViewN_CmdTypeBox.IsEnabled = isEnabled;
             CmdViewN_FlagBox.IsEnabled = isEnabled;
             CmdViewN_Param1.IsEnabled = isEnabled;
@@ -356,22 +357,27 @@ namespace StrategyGenerator
             CmdViewN_Param3.IsEnabled = isEnabled;
             CmdViewN_Param4.IsEnabled = isEnabled;
             CmdViewN_ButtonRemove.IsEnabled = isEnabled;
-            CmdViewN_ButtonAddBefore.IsEnabled = isEnabled;
             CmdViewN_ButtonAddAfter.IsEnabled = isEnabled;
             CmdViewN_ButtonNext.IsEnabled = isEnabled;
             CmdViewN_CmdID.IsEnabled = isEnabled;
             CmdViewN_NextCmdID.IsEnabled = isEnabled;
             General_DefaultSpeed.IsEnabled = isEnabled;
 
-            if((_PositionList == null) || (_PositionList.Count <= 1))
+            if ((_PositionList == null) || (_PositionList.Count <= 1))
                 CmdViewN_ButtonPrev.IsEnabled = false;
             else
                 CmdViewN_ButtonPrev.IsEnabled = isEnabled;
 
-            if(CmdList.SelectedIndex == 0)
+            if (CmdList.SelectedIndex == 0)
+            {
                 CmdViewN_CmdBox.IsEnabled = false;
+                CmdViewN_ButtonAddBefore.IsEnabled = false;
+            }
             else
+            {
                 CmdViewN_CmdBox.IsEnabled = isEnabled;
+                CmdViewN_ButtonAddBefore.IsEnabled = isEnabled;
+            }
         }
 
         private void CmdList_Load_Click(object sender, RoutedEventArgs e)
@@ -464,8 +470,7 @@ namespace StrategyGenerator
                 }
 
                 CmdList.SelectedIndex = 0;
-                CmdViewN_ButtonAddBefore.IsEnabled = true;
-                CmdViewN_ButtonAddAfter.IsEnabled = true;
+                _PositionList = null;
             }
             else
             {
@@ -541,10 +546,21 @@ namespace StrategyGenerator
 
         private void CmdViewN_CmdBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CmdViewN_Param1.Text = "";
-            CmdViewN_Param2.Text = "";
-            CmdViewN_Param3.Text = "";
-            CmdViewN_Param4.Text = "";
+            if (CmdList.SelectedIndex >= 0)
+            {
+                Command SelectedCmd = _CurrentStrategy.GetCommand(CmdList.SelectedIndex);
+                CmdViewN_Param1.Text = SelectedCmd.Param1;
+                CmdViewN_Param2.Text = SelectedCmd.Param2;
+                CmdViewN_Param3.Text = SelectedCmd.Param3;
+                CmdViewN_Param4.Text = SelectedCmd.Param4;
+            }
+            else
+            {
+                CmdViewN_Param1.Text = "";
+                CmdViewN_Param2.Text = "";
+                CmdViewN_Param3.Text = "";
+                CmdViewN_Param4.Text = "";
+            }
 
             CheckParam();
 
@@ -631,10 +647,29 @@ namespace StrategyGenerator
         {
             if (CmdList.SelectedIndex <= 0)
                 return;
+
+            if (_CurrentStrategy != null)
+            {
+                int CurrentIndex = CmdList.SelectedIndex;
+                _CurrentStrategy.InsertNewCmd_Before(CurrentIndex);
+                String CmdListInfo = _CurrentStrategy.GetActionID(CurrentIndex) + " : " + _CurrentStrategy.GetCommand(CurrentIndex).Cmd.ToString();
+                CmdList.Items.Insert(CurrentIndex, CmdListInfo);
+                CmdList.SelectedIndex = CurrentIndex;
+            }
         }
 
         private void CmdViewN_AddAfter_Click(object sender, RoutedEventArgs e)
         {
+            if (CmdList.SelectedIndex < 0)
+                return;
+
+            if (_CurrentStrategy != null)
+            {
+                _CurrentStrategy.InsertNewCmd_After(CmdList.SelectedIndex);
+                String CmdListInfo = _CurrentStrategy.GetActionID(CmdList.SelectedIndex + 1) + " : " + _CurrentStrategy.GetCommand(CmdList.SelectedIndex + 1).Cmd.ToString();
+                CmdList.Items.Insert(CmdList.SelectedIndex + 1, CmdListInfo);
+                CmdList.SelectedIndex = CmdList.SelectedIndex + 1;
+            }
         }
 
         private void MapPicture_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -664,6 +699,7 @@ namespace StrategyGenerator
                 return;
 
             Command SelectedCmd = _CurrentStrategy.GetCommand(CmdList.SelectedIndex);
+            _CurrentStrategy.UpdateNextActionID(CmdList.SelectedIndex, CmdViewN_NextCmdID.Text);
 
             if (SelectedCmd == null)
                 return;
@@ -671,12 +707,11 @@ namespace StrategyGenerator
             // First, check current params
             CheckParam();
 
-
-
             EnumCmd UpdateCmd = Command.GetCmdFromString(CmdViewN_CmdBox.SelectedItem.ToString());
             EnumCmdType UpdateCmdType = Command.GetCmdTypeFromString(CmdViewN_CmdTypeBox.SelectedItem.ToString());
             EnumSensorsFlag ActiveFlags = Command.GetSensorsFlagFromString(CmdViewN_FlagBox.SelectedItem.ToString());
             SelectedCmd.Update(UpdateCmd, UpdateCmdType, CmdViewN_Param1.Text, CmdViewN_Param2.Text, CmdViewN_Param3.Text, CmdViewN_Param4.Text, ActiveFlags);
+
 
             if (_PositionList == null)
             {
@@ -1102,7 +1137,7 @@ namespace StrategyGenerator
                         textBlock_HelpParam1.Text += "Param 1 :\nSpeed";
                         textBlock_CmdHelpParam1.Text = "(PageUp or\nPageDown)";
                         textBlock_HelpParam2.Text += "Param 2 :\nDistance";
-                        textBlock_CmdHelpParam2.Text = "";
+                        textBlock_CmdHelpParam2.Text = "(+ or -)";
                         textBlock_HelpParam3.Text += "Param 3 :\nNot Used";
                         textBlock_CmdHelpParam3.Text = "";
                         textBlock_HelpParam4.Text += "Param 4 :\nNot Used";
@@ -1234,8 +1269,8 @@ namespace StrategyGenerator
                 if (DistToCheck == "")
                     return "0";
 
-                if (Convert.ToInt32(DistToCheck) <= 0)
-                    return "0";
+                if (Convert.ToInt32(DistToCheck) <= -3600)
+                    return "-3600";
 
                 if (Convert.ToInt32(DistToCheck) > 3600)
                     return "3600";

@@ -145,7 +145,6 @@ namespace StrategyGenerator.Strategy
             {
                 // ________________________________________________________ Param1 / Param2
                 case EnumCmd.MvtSimple_MoveInMM:
-                case EnumCmd.MvtSimple_RotateInDeg:
                     if ((Param1 != null) && (Param2 != null))
                     {
                         _Cmd = Cmd;
@@ -158,6 +157,8 @@ namespace StrategyGenerator.Strategy
 
                 // ________________________________________________________ Param1 / Param4
                 case EnumCmd.Mvt_UseAngleOnly:
+                case EnumCmd.MvtSimple_RotateInDeg:
+                case EnumCmd.MvtSimple_RotateToAngleInDeg:
                     if ((Param1 != null) && (Param4 != null))
                     {
                         _Cmd = Cmd;

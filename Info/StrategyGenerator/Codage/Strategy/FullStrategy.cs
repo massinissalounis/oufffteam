@@ -21,6 +21,7 @@ namespace StrategyGenerator.Strategy
             if ((StrategyName != null) && (StrategyName != ""))
             {
                 _StrategyName = StrategyName;
+                _DefaultSpeed = "50";
                 _InitialCmd = new Command(EnumCmd.App_SetNewPos, EnumCmdType.NonBlocking, null, "1500", "1000", "0");
                 _Strategy = null;
             }
@@ -336,15 +337,75 @@ namespace StrategyGenerator.Strategy
             if (Index <= 0)
                 throw (new Exception("Invalid Param"));
 
-            Command NewCommand = new Command(EnumCmd.App_Wait, EnumCmdType.Blocking, "0", "0", "0", "0");
-            int test = GetNextActionID(Index);
-            test = GetPrevFreeActionID(Index);
-            //StrategyItem NewStrategyItem = new StrategyItem(NewCommand, 
+            if (_Strategy == null)
+                throw (new Exception("Invalid Param"));
+
+            if (Index > _Strategy.Count)
+                throw (new Exception("Invalid Param"));
+
+            Command NewCommand = new Command(EnumCmd.App_Wait, EnumCmdType.Blocking, "0", "0", "0", "0"); 
+            int FreeActionID = GetPrevFreeActionID(_Strategy[Index - 1].ActionID);
+            StrategyItem NewStrategyItem = new StrategyItem(NewCommand, FreeActionID, FreeActionID);
+            _Strategy.Insert(Index - 1, NewStrategyItem);
         }
 
         public void InsertNewCmd_After(int Index)
         {
+            int FreeActionID = -1;
+            if (Index < 0)
+                throw (new Exception("Invalid Param"));
 
+            if (_Strategy == null)
+            {
+                _Strategy = new List<StrategyItem>();
+            }
+
+            if (Index > _Strategy.Count)
+                throw (new Exception("Invalid Param"));
+
+            Command NewCommand = new Command(EnumCmd.App_Wait, EnumCmdType.Blocking, "0", "0", "0", "0");
+            
+            if(_Strategy.Count == 0)
+                FreeActionID = 1;
+            else
+                FreeActionID = GetNextFreeActionID(_Strategy[Index - 1].ActionID);
+
+            StrategyItem NewStrategyItem = new StrategyItem(NewCommand, FreeActionID, FreeActionID);
+            _Strategy.Insert(Index, NewStrategyItem);
+        }
+
+        public void UpdateNextActionID(int Index, String NewNextActionIDString)
+        {
+            try
+            {
+                int NewNextActionID = Convert.ToInt32(NewNextActionIDString);
+
+                if(Index < 0)
+                    throw (new Exception("Invalid Param"));
+
+                if (_Strategy == null)
+                    throw (new Exception("Invalid Param"));
+
+                if (Index > _Strategy.Count)
+                    throw (new Exception("Invalid Param"));
+
+                Boolean IsFound = false;
+
+                for (int i = 0; i < _Strategy.Count; i++)
+                {
+                    if (_Strategy[i].ActionID == NewNextActionID)
+                        IsFound = true;
+                }
+
+                if (IsFound == true)
+                {
+                    _Strategy[Index - 1].NextActionID = NewNextActionID;
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
 
         private int GetNextFreeActionID(int MinValue)
@@ -352,9 +413,16 @@ namespace StrategyGenerator.Strategy
             int SelectedValue = MinValue;
             Boolean IsFree = false;
 
+            if(SelectedValue == 0)
+                SelectedValue++;
+
+            if(_Strategy == null)
+                return SelectedValue;
+
             while(IsFree == false)
             {
                 SelectedValue++;
+                IsFree = true;
 
                 for (int i = 0; i < _Strategy.Count; i++)
                 {
@@ -365,15 +433,21 @@ namespace StrategyGenerator.Strategy
             return SelectedValue;
         }
 
-
         private int GetPrevFreeActionID(int MaxValue)
         {
             int SelectedValue = MaxValue;
             Boolean IsFree = false;
 
+            if (SelectedValue == 0)
+                return -1;
+
+            if (_Strategy == null)
+                return MaxValue;
+            
             while((IsFree == false) && (SelectedValue > 0))
             {
                 SelectedValue--;
+                IsFree = true;
 
                 for (int i = 0; i < _Strategy.Count; i++)
                 {
@@ -381,6 +455,9 @@ namespace StrategyGenerator.Strategy
                         IsFree = false;
                 }
             }
+            if (SelectedValue <= 0)
+                SelectedValue = GetNextFreeActionID(MaxValue);
+
             return SelectedValue;
         }
 
