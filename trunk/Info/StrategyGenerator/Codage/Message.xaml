@@ -1,0 +1,16 @@
+﻿<Window x:Class="StrategyGenerator.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Message" Height="171" Width="425" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow" Icon="/StrategyGenerator;component/Images/Logo_OufffTeam_Ptt.jpg">
+    <Grid>
+        <Label Content="Message Description"  Height="63" HorizontalAlignment="Stretch" Margin="10,34,10,0" Name="labelMessage" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+        <Label Content="Message Type" Height="28" HorizontalAlignment="Stretch" Margin="10,10,10,0" Name="labelMessageType" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+        <Button Content="OK" Height="23" Margin="168,101,160,0" Name="buttonOK" VerticalAlignment="Top" Click="buttonOK_Click" />
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                <GradientStop Color="#000000FF" Offset="0" />
+                <GradientStop Color="White" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+    </Grid>
+</Window>

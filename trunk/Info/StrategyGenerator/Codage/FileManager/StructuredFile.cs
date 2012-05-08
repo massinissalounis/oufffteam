@@ -275,11 +275,18 @@ namespace StrategyGenerator.FileManager
                                             iCurrentValueChar++;
                                         }
 
-                                        // if the correct key has been found
-                                        if (LoopToCheck[iCurrentLine].Substring(iCurrentValueChar, 1) == sLastChar)
+                                        if (iCurrentValueChar < LoopToCheck[iCurrentLine].Length)
                                         {
-                                            ResultValue = LoopToCheck[iCurrentLine].Substring(iFirstChar, iCurrentValueChar - iFirstChar);
-                                            _Items.Add(new StructuredFileKey(CurrentLoopID, iCurrentLine, ResultPattern, ResultValue));
+                                            // if the correct key has been found
+                                            if (LoopToCheck[iCurrentLine].Substring(iCurrentValueChar, 1) == sLastChar)
+                                            {
+                                                ResultValue = LoopToCheck[iCurrentLine].Substring(iFirstChar, iCurrentValueChar - iFirstChar);
+                                                _Items.Add(new StructuredFileKey(CurrentLoopID, iCurrentLine, ResultPattern, ResultValue));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            _Items.Add(new StructuredFileKey(CurrentLoopID, iCurrentLine, ResultPattern, "\t"));
                                         }
                                     }
                                 }

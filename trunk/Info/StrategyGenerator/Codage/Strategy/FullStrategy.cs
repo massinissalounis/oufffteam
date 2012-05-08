@@ -21,7 +21,7 @@ namespace StrategyGenerator.Strategy
             if ((StrategyName != null) && (StrategyName != ""))
             {
                 _StrategyName = StrategyName;
-                _InitialCmd = null;
+                _InitialCmd = new Command(EnumCmd.App_SetNewPos, EnumCmdType.NonBlocking, null, "1500", "1000", "0");
                 _Strategy = null;
             }
         }
@@ -45,6 +45,7 @@ namespace StrategyGenerator.Strategy
             // Store data into private data
             // Store PATTERN_STRATEGY_NAME
             _StrategyName = StrategyFile.GetValue("PATTERN_STRATEGY_NAME", "Undefined");
+            _DefaultSpeed = StrategyFile.GetValue("PATTERN_DEFAULT_SPEED", "50");
 
             // Store initial cmd (setpos)
             EnumCmd CurrentCmd = Command.GetCmdFromString(StrategyFile.GetValue("PATTERN_INIT_CMD", "App_SetNewPos"));
@@ -55,7 +56,7 @@ namespace StrategyGenerator.Strategy
             EnumSensorsFlag ActiveSensors = Command.GetSensorsFlagFromString(StrategyFile.GetValue("PATTERN_INIT_ACTIVE_SENSORS", "APP_PARAM_APPFLAG_NONE"));
 
             _InitialCmd = new Command(CurrentCmd, CurrentCmdType, null, ParamX, ParamY, ParamAngle, ActiveSensors);
-            
+
             // Read other items (Loops)
             // Try to read all loops
             for (int iLoop = 0; iLoop <= StrategyFile.GetMaxLoopID(); iLoop++)
@@ -102,6 +103,7 @@ namespace StrategyGenerator.Strategy
             // First, we have to create the StrucuredFileKey in order to create a Strucutred File
             // Create items that are not included into Loop
             ExportFile.Add(new StructuredFileKey(-1, 0, "PATTERN_STRATEGY_NAME", _StrategyName));
+            ExportFile.Add(new StructuredFileKey(-1, 0, "PATTERN_DEFAULT_SPEED", _DefaultSpeed));
             
             // Store initial cmd (setpos)
             ExportFile.Add(new StructuredFileKey(-1, 1, "PATTERN_INIT_CMD", Command.GetCmdToString(_InitialCmd.Cmd)));
@@ -122,10 +124,10 @@ namespace StrategyGenerator.Strategy
                     ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_PARAMS", Item.Cmd.ExportParamsIntoString()));
                     ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_NEXT_ACTION_ID", Item.NextActionID.ToString()));
                 }
-
-                OutputStructuredFile = new StructuredFile(ExportFile);
-                OutputStructuredFile.WriteFile(Filename, PatternFilename);
             }
+            OutputStructuredFile = new StructuredFile(ExportFile);
+            OutputStructuredFile.WriteFile(Filename, PatternFilename);
+           
 
             return Ret;
         }
@@ -138,42 +140,80 @@ namespace StrategyGenerator.Strategy
             return (_Strategy.Count());
         }
 
-        public String GetName { get { return _StrategyName; } }
+        public String StrategyName { get { return _StrategyName; } }
 
-        public Command GetCommand(int CommandID)
+        public int DefaultSpeed
         {
-            if (CommandID == 0)
+            get
+            {
+                try
+                {
+                    return Convert.ToInt32(_DefaultSpeed);
+                }
+                catch (Exception)
+                {
+                    _DefaultSpeed = "50";
+                    return 50;
+                }
+            }
+
+            set
+            {
+                int CheckedValue = value;
+
+                if (CheckedValue <= 0) { CheckedValue = 1; }
+                if (CheckedValue > 100) { CheckedValue = 100; }
+                _DefaultSpeed = CheckedValue.ToString();
+            }
+       }
+
+        public Command GetCommand(int Index)
+        {
+            if (Index == 0)
                 return _InitialCmd;
 
-            if ((_Strategy != null) && (CommandID > 0) && (CommandID <= _Strategy.Count()))
+            if ((_Strategy != null) && (Index > 0) && (Index <= _Strategy.Count()))
             {
-                return _Strategy[CommandID-1].Cmd;
+                return _Strategy[Index-1].Cmd;
             }
 
             return null;
         }
 
-        public int GetActionID(int CommandID)
+        public int GetActionID(int Index)
         {
-            if (CommandID == 0)
+            if (Index == 0)
                 return 0;
 
-            if ((_Strategy != null) && (CommandID > 0) && (CommandID <= _Strategy.Count()))
+            if ((_Strategy != null) && (Index > 0) && (Index <= _Strategy.Count()))
             {
-                return _Strategy[CommandID - 1].ActionID;
+                return _Strategy[Index - 1].ActionID;
             }
 
             return (-1);
         }
 
-        public String GetCommandInfo(int CommandID)
+        public int GetNextActionID(int Index)
         {
-            if (CommandID == 0)
+            if (Index == 0)
+                return 1;
+
+            if ((_Strategy != null) && (Index > 0) && (Index <= _Strategy.Count()))
+            {
+                return _Strategy[Index - 1].NextActionID;
+            }
+
+            return (-1);
+        }
+
+        public String GetCommandInfo(int Index)
+        {
+            if (Index == 0)
                 return "0 : " + _InitialCmd.Cmd.ToString();
 
-            if ((_Strategy != null) && (CommandID > 0) && (CommandID <= _Strategy.Count()))
+            if ((_Strategy != null) && (Index > 0) && (Index <= _Strategy.Count()))
             {
-                return (_Strategy[CommandID - 1].ActionID.ToString() + " : " + _Strategy[CommandID - 1].Cmd.Cmd.ToString());
+                return (_Strategy[Index - 1].ActionID.ToString() + " : " + _Strategy[Index - 1].Cmd.Cmd.ToString());
             }
 
             return "Cmd not defined";
@@ -250,10 +290,106 @@ namespace StrategyGenerator.Strategy
             return CommandDetailed;
         }
 
+        public int GetIndexFromCmdID(int CommandID)
+        {
+            if (CommandID == 0)
+                return 0;
+
+            if (_Strategy != null)
+            {
+                for (int i = 0; i < _Strategy.Count(); i++)
+                {
+                    if (CommandID == _Strategy[i].ActionID)
+                        return (i + 1);
+                }
+            }
+            return (-1);
+        }
+
+        public void RemoveCmd(int Index)
+        {
+            if(Index <= 0)
+                return;
+
+            if ((_Strategy != null) && (Index <= _Strategy.Count()))
+            {
+                // Check if there is no other command that points to this command
+                for (int i = 1; i <= _Strategy.Count; i++)
+                {
+                    if (Index != i)
+                    {
+                        if (_Strategy[i - 1].NextActionID == _Strategy[Index - 1].ActionID)
+                        {
+                            throw (new Exception());
+                        }
+                    }
+                }
+
+                _Strategy.RemoveAt(Index - 1);
+            }
+
+            return;
+        }
+
+        public void InsertNewCmd_Before(int Index)
+        {
+            if (Index <= 0)
+                throw (new Exception("Invalid Param"));
+
+            Command NewCommand = new Command(EnumCmd.App_Wait, EnumCmdType.Blocking, "0", "0", "0", "0");
+            int test = GetNextActionID(Index);
+            test = GetPrevFreeActionID(Index);
+            //StrategyItem NewStrategyItem = new StrategyItem(NewCommand, 
+        }
+
+        public void InsertNewCmd_After(int Index)
+        {
+
+        }
+
+        private int GetNextFreeActionID(int MinValue)
+        {
+            int SelectedValue = MinValue;
+            Boolean IsFree = false;
+
+            while(IsFree == false)
+            {
+                SelectedValue++;
+
+                for (int i = 0; i < _Strategy.Count; i++)
+                {
+                    if (_Strategy[i].ActionID == SelectedValue)
+                        IsFree = false;
+                }
+            }
+            return SelectedValue;
+        }
+
+
+        private int GetPrevFreeActionID(int MaxValue)
+        {
+            int SelectedValue = MaxValue;
+            Boolean IsFree = false;
+
+            while((IsFree == false) && (SelectedValue > 0))
+            {
+                SelectedValue--;
+
+                for (int i = 0; i < _Strategy.Count; i++)
+                {
+                    if (_Strategy[i].ActionID == SelectedValue)
+                        IsFree = false;
+                }
+            }
+            return SelectedValue;
+        }
+
         // Private --------------------------------------------------------------------------------
         private String _StrategyName;               // Nom de la strategie pour le #define
         private Command _InitialCmd;                // Contient les infos relatives à la commande d'initialisation
+        private String _DefaultSpeed;               // Contient la vitesse par defaut pour la strategie
 
         private List<StrategyItem> _Strategy;       // Contient tous les objets de la stratégie
+
     }
 }

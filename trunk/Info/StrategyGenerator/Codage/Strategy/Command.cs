@@ -105,7 +105,7 @@ namespace StrategyGenerator.Strategy
         public EnumCmdType CmdType
         {
             get { return _CmdType;}
-            set { _CmdType = CmdType;}
+            set { _CmdType = value;}
         }
 
         public String Param1                    { get { return _Param1; } }
