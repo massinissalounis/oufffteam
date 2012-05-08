@@ -50,6 +50,29 @@ namespace StrategyGenerator.Strategy
 
             switch (_CurrentCommand.Cmd)
             {
+                // ________________________________________
+                case EnumCmd.Mvt_UseAngleOnly:
+                case EnumCmd.MvtSimple_RotateInDeg:
+                    _ComputedPosX = _PosX;
+                    _ComputedPosY = _PosY;
+                    _ComputedPosAngle = _PosAngle + Convert.ToInt32(_CurrentCommand.Param4);
+                    break;
+
+                // ________________________________________
+                case EnumCmd.Mvt_UseDistOnly:
+                    _ComputedPosX = _PosX;
+                    _ComputedPosY = _PosY;
+                    _ComputedPosAngle = _PosAngle;
+                    break;
+
+                // ________________________________________
+                case EnumCmd.MvtSimple_RotateToAngleInDeg:
+                    _ComputedPosX = _PosX;
+                    _ComputedPosY = _PosY;
+                    _ComputedPosAngle = Convert.ToInt32(_CurrentCommand.Param4);
+                    break;
+
+                // ________________________________________
                 case EnumCmd.App_SetNewPos:
                     _PosX = Convert.ToInt32(_CurrentCommand.Param2);
                     _PosY = Convert.ToInt32(_CurrentCommand.Param3);
@@ -60,13 +83,36 @@ namespace StrategyGenerator.Strategy
                     _ComputedPosAngle = _PosAngle;
                     break;
 
+                // ________________________________________
                 case EnumCmd.Mvt_UseMixedMode:
                     _ComputedPosX = Convert.ToInt32(_CurrentCommand.Param2);
                     _ComputedPosY = Convert.ToInt32(_CurrentCommand.Param3);
                     _ComputedPosAngle = Convert.ToInt32(_CurrentCommand.Param4);
                     break;
 
+                // ________________________________________
+                case EnumCmd.MvtSimple_MoveInMM:
+                    _ComputedPosX = _PosX + Convert.ToInt32(Convert.ToDouble(_CurrentCommand.Param2) * Math.Cos(_PosAngle * Math.PI / 180.0));
+                    _ComputedPosY = _PosY + Convert.ToInt32(Convert.ToDouble(_CurrentCommand.Param2) * Math.Sin(_PosAngle * Math.PI / 180.0));;
+                    _ComputedPosAngle = _PosAngle;
+                    break;
+
+                // ________________________________________
+                case EnumCmd.Mvt_UsePivotMode:
+                    /*
+                     Left = X - d sin(alpha) et Y + d cos(alpha)
+                     Right = X + d sin(alpha) et Y - d cos(alpha)
+                     * */
+                    break;
+                
+                // ________________________________________
+                case EnumCmd.Mvt_Stop:
+                case EnumCmd.App_Wait:
+                case EnumCmd.App_IfGoto:
                 default:
+                    _ComputedPosX = _PosX;
+                    _ComputedPosY = _PosY;
+                    _ComputedPosAngle = _PosAngle;
                     break;
             }
 

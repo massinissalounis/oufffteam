@@ -22,7 +22,7 @@ namespace StrategyGenerator.Strategy
 
         public Command Cmd { get { return _Cmd; } }
         public int ActionID { get { return _ActionID; } }
-        public int NextActionID { get { return _NextActionID; } }
+        public int NextActionID { get { return _NextActionID; } set { _NextActionID = value; } }
 
         public int LoopID
         {
