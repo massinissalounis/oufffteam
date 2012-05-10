@@ -1,0 +1,19 @@
+﻿<Window x:Class="StrategyGenerator.AskNewCmdInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add New Command " Height="164" Width="463" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow" Icon="/StrategyGenerator;component/Images/Logo_OufffTeam_Ptt.jpg">
+    <Grid>
+        <Label Content="Select the command to create : " Height="28" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label1" VerticalAlignment="Top" Width="182" />
+        <Label Content="Enter the command ID : " Height="28" HorizontalAlignment="Left" Margin="12,46,0,0" Name="label2" VerticalAlignment="Top" Width="182" />
+        <Button Content="Valider" Height="23" HorizontalAlignment="Left" Margin="191,88,0,0" Name="ButtonCmd" VerticalAlignment="Top" Width="92" Click="ButtonOK_Click" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="191,14,0,0" Name="comboBox_Cmd" VerticalAlignment="Top" Width="228" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="191,48,0,0" Name="textBox_CmdID" VerticalAlignment="Top" Width="65" IsEnabled="False" Keyboard.KeyDown="textBox_CmdID_KeyDown" />
+        <CheckBox Content="Use Default Value" Height="16" HorizontalAlignment="Left" Margin="286,51,0,0" Name="checkBox_Auto" VerticalAlignment="Top" Checked="checkBox_Auto_Checked" Unchecked="checkBox_Auto_Checked" IsChecked="True" />
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                <GradientStop Color="#000000FF" Offset="0" />
+                <GradientStop Color="White" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+    </Grid>
+</Window>

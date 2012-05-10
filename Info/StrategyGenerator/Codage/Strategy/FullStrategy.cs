@@ -332,8 +332,9 @@ namespace StrategyGenerator.Strategy
             return;
         }
 
-        public void InsertNewCmd_Before(int Index)
+        public void InsertNewCmd_Before(int Index, EnumCmd CmdToAdd, int NewCmdID)
         {
+            int FreeActionID = -1;
             if (Index <= 0)
                 throw (new Exception("Invalid Param"));
 
@@ -343,13 +344,18 @@ namespace StrategyGenerator.Strategy
             if (Index > _Strategy.Count)
                 throw (new Exception("Invalid Param"));
 
-            Command NewCommand = new Command(EnumCmd.App_Wait, EnumCmdType.Blocking, "0", "0", "0", "0"); 
-            int FreeActionID = GetPrevFreeActionID(_Strategy[Index - 1].ActionID);
-            StrategyItem NewStrategyItem = new StrategyItem(NewCommand, FreeActionID, FreeActionID);
+            Command NewCommand = new Command(CmdToAdd);
+
+            if (NewCmdID > 1)
+                FreeActionID = GetPrevFreeActionID(NewCmdID + 1);
+            else
+                FreeActionID = GetPrevFreeActionID(_Strategy[Index - 1].ActionID);
+
+             StrategyItem NewStrategyItem = new StrategyItem(NewCommand, FreeActionID, FreeActionID);
             _Strategy.Insert(Index - 1, NewStrategyItem);
         }
 
-        public void InsertNewCmd_After(int Index)
+        public void InsertNewCmd_After(int Index, EnumCmd CmdToAdd, int NewCmdID)
         {
             int FreeActionID = -1;
             if (Index < 0)
@@ -363,12 +369,17 @@ namespace StrategyGenerator.Strategy
             if (Index > _Strategy.Count)
                 throw (new Exception("Invalid Param"));
 
-            Command NewCommand = new Command(EnumCmd.App_Wait, EnumCmdType.Blocking, "0", "0", "0", "0");
-            
-            if(_Strategy.Count == 0)
+            Command NewCommand = new Command(CmdToAdd);
+
+            if (_Strategy.Count == 0)
                 FreeActionID = 1;
             else
-                FreeActionID = GetNextFreeActionID(_Strategy[Index - 1].ActionID);
+            {
+                if (NewCmdID > 1)
+                    FreeActionID = GetNextFreeActionID(NewCmdID - 1);
+                else
+                    FreeActionID = GetNextFreeActionID(_Strategy[Index - 1].ActionID);
+            }
 
             StrategyItem NewStrategyItem = new StrategyItem(NewCommand, FreeActionID, FreeActionID);
             _Strategy.Insert(Index, NewStrategyItem);
@@ -406,6 +417,46 @@ namespace StrategyGenerator.Strategy
             {
                 return;
             }
+        }
+
+        public void UpdateActionID(int Index, String NewActionIDString)
+        {
+            try
+            {
+                int NewNextActionID = Convert.ToInt32(NewActionIDString);
+
+                if (Index <= 0)
+                    return;
+
+                if (_Strategy == null)
+                    return;
+
+                if (Index > _Strategy.Count)
+                    return;
+
+                // Check if the current NewNextActionID has not already in use
+                for (int i = 0; i < _Strategy.Count; i++)
+                {
+                    if (_Strategy[i].ActionID == NewNextActionID)
+                        return; // If the expected value has been already used, we can't save it
+                }
+
+                // Update all NextActionID to the current NewActionID
+                for (int i = 0; i < _Strategy.Count; i++)
+                {
+                    if (_Strategy[i].NextActionID == _Strategy[Index - 1].ActionID)
+                    {
+                        _Strategy[i].NextActionID = NewNextActionID;
+                    }
+                }
+
+                _Strategy[Index - 1].ActionID = NewNextActionID;
+            }
+            catch (Exception)
+            {
+                return;
+            }
+
         }
 
         private int GetNextFreeActionID(int MinValue)

@@ -10,9 +10,9 @@
             <Border BorderBrush="Black" BorderThickness="1" Height="268" HorizontalAlignment="Left" Name="MapBorder" VerticalAlignment="Top" Width="700">
                 <TextBlock Margin="0, 50, 0, 0" Height="50" Name="textBlock_MousePos" Text="" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" IsHitTestVisible="True" TextAlignment="Center" />
             </Border>
-            <Grid Name="MapGrid" Height="400" Width="600" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{x:Null}">
-                <Image Name="MapPicture" Stretch="UniformToFill" Source="/StrategyGenerator;component/Images/Map.png" MouseLeftButtonDown="MapPicture_MouseLeftButtonDown" Mouse.MouseMove="MapPicture_MouseMove" Mouse.MouseEnter="MapPicture_MouseEnter" Mouse.MouseLeave="MapPicture_MouseLeave" />
-                <Image Height="60" Name="Robot" Stretch="None" Width="67" Source="/StrategyGenerator;component/Images/Robot.png" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Hidden" MouseEnter="MapPicture_MouseEnter" MouseMove="MapPicture_MouseMove" MouseLeftButtonDown="MapPicture_MouseLeftButtonDown"/>
+            <Grid Name="MapGrid" Height="400" Width="625" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{x:Null}">
+                <Image Name="MapPicture" Stretch="UniformToFill" HorizontalAlignment="Left" Source="/StrategyGenerator;component/Images/Map.png" MouseLeftButtonDown="MapPicture_MouseLeftButtonDown" Mouse.MouseMove="MapPicture_MouseMove" Mouse.MouseEnter="MapPicture_MouseEnter" Mouse.MouseLeave="MapPicture_MouseLeave" />
+                <Image Height="60" Name="Robot" Stretch="None" Width="67" Source="/StrategyGenerator;component/Images/Robot.png" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Hidden" MouseEnter="MapPicture_MouseEnter" MouseMove="MapPicture_MouseMove" MouseLeftButtonDown="MapPicture_MouseLeftButtonDown" />
             </Grid>
             <TextBlock Height="50" Width="100" HorizontalAlignment="Left" Margin="0,110,0,0" Name="textBlock_RobotPos" Text="" VerticalAlignment="Top" TextAlignment="Center" />
             <TextBlock Height="23" HorizontalAlignment="Left" Margin="23,14,0,0" Name="textBlock_IsEditing" Text="" VerticalAlignment="Top" TextAlignment="Center" Width="100" Background="{x:Null}" />
@@ -54,19 +54,19 @@
                 <Label Content="Param4" Height="28" HorizontalAlignment="Left" Margin="33,111,0,0" Name="CmdViewN_LblParam4" VerticalAlignment="Top" />
                 <Label Content="CmdType" Height="28" HorizontalAlignment="Left" Margin="235,22,0,0" Name="CmdViewN_CmdType" VerticalAlignment="Top" />
                 <Button Content="->" Height="23" HorizontalAlignment="Left" Margin="263,167,0,0" Name="CmdViewN_ButtonNext" VerticalAlignment="Top" Width="32" Click="CmdViewN_ButtonNext_Click" />
-                <Button Content="&lt;-" Height="23" HorizontalAlignment="Left" Margin="263,167,0,0" Name="CmdViewN_ButtonPrev" VerticalAlignment="Top" Width="32" Click="CmdViewN_ButtonPrev_Click" />
+                <Button Content="&lt;-" HorizontalAlignment="Left" Margin="254,153,0,0" Name="CmdViewN_ButtonPrev" Width="32" Click="CmdViewN_ButtonPrev_Click" Height="23" VerticalAlignment="Top" />
                 <Button Content="Add After" Height="23" HorizontalAlignment="Left" Margin="80,167,0,0" Name="CmdViewN_ButtonAddAfter" VerticalAlignment="Top" Width="75" Click="CmdViewN_AddAfter_Click" />
                 <Button Content="Add Before" Height="23" HorizontalAlignment="Left" Margin="211,114,0,0" Name="CmdViewN_ButtonAddBefore" VerticalAlignment="Top" Width="75" Click="CmdViewN_AddBefore_Click" />
                 <Button Content="Remove" Height="23" HorizontalAlignment="Left" Margin="170,167,0,0" Name="CmdViewN_ButtonRemove" VerticalAlignment="Top" Width="75" Click="CmdViewN_ButtonRemove_Click" />
-                <TextBox Height="23" HorizontalAlignment="Left" Margin="91,48,0,0" Name="CmdViewN_Param1" VerticalAlignment="Top" Width="75" Keyboard.LostKeyboardFocus="CmdViewN_Param_LostKeyboardFocus" Keyboard.KeyDown="CmdViewN_Param_KeyDown" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="91,48,0,0" Name="CmdViewN_Param1" VerticalAlignment="Top" Width="75" Keyboard.LostKeyboardFocus="CmdViewN_Param_LostKeyboardFocus" Keyboard.KeyDown="CmdViewN_Param_KeyDown" GotFocus="CmdViewN_Param1_GotFocus" />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="92,72,0,0" Name="CmdViewN_Param2" VerticalAlignment="Top" Width="75" Keyboard.LostKeyboardFocus="CmdViewN_Param_LostKeyboardFocus" Keyboard.KeyDown="CmdViewN_Param_KeyDown" />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="92,95,0,0" Name="CmdViewN_Param3" VerticalAlignment="Top" Width="75" Keyboard.LostKeyboardFocus="CmdViewN_Param_LostKeyboardFocus" Keyboard.KeyDown="CmdViewN_Param_KeyDown" />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="92,120,0,0" Name="CmdViewN_Param4" VerticalAlignment="Top" Width="75" Keyboard.LostKeyboardFocus="CmdViewN_Param_LostKeyboardFocus" Keyboard.KeyDown="CmdViewN_Param_KeyDown" />
                 <ComboBox Height="23" HorizontalAlignment="Left" Margin="75,32,0,0" Name="CmdViewN_CmdBox" VerticalAlignment="Top" Width="100" SelectionChanged="CmdViewN_CmdBox_SelectionChanged" MouseLeave="CmdViewN_CmdBox_MouseLeave" />
                 <ComboBox Height="23" HorizontalAlignment="Left" Margin="256,39,0,0" Name="CmdViewN_CmdTypeBox" VerticalAlignment="Top" Width="50" SelectionChanged="CmdViewN_CmdTypeBox_SelectionChanged" />
-                <ComboBox Height="23" HorizontalAlignment="Left" Margin="69,138,0,0" Name="CmdViewN_FlagBox" VerticalAlignment="Top" Width="200" SelectionChanged="CmdViewN_FlagBox_SelectionChanged" />
+                <ComboBox Height="23" HorizontalAlignment="Left" Margin="69,138,0,0" Name="CmdViewN_FlagBox" VerticalAlignment="Top" Width="200" SelectionChanged="CmdViewN_FlagBox_SelectionChanged"  />
                 <Label Content="ID" Height="28" HorizontalAlignment="Left" Margin="207,74,0,0" Name="CmdViewN_LblCmdID" VerticalAlignment="Top" />
-                <TextBox Height="23" HorizontalAlignment="Left" Margin="256,76,0,0" Name="CmdViewN_CmdID" VerticalAlignment="Top" Width="39" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="256,76,0,0" Name="CmdViewN_CmdID" VerticalAlignment="Top" Width="39" Keyboard.LostKeyboardFocus="CmdViewN_CmdID_Validate" Keyboard.KeyDown="CmdViewN_CmdID_KeyDown"/>
                 <Label Content="NextID" Height="28" HorizontalAlignment="Left" Margin="210,85,0,0" Name="CmdViewN_LblNextCmdID" VerticalAlignment="Top" />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="256,85,0,0" Name="CmdViewN_NextCmdID" VerticalAlignment="Top" Width="39" Keyboard.KeyDown="CmdViewN_Param_KeyDown" Keyboard.LostKeyboardFocus="CmdViewN_Param_LostKeyboardFocus" />
             </Grid>
@@ -86,6 +86,7 @@
                 <Label Content="After Cmd :" Height="28" HorizontalAlignment="Left" Margin="10,80,0,0" Name="General_RobotPosAfterLabel" VerticalAlignment="Top" />
                 <Label Content="Not Set" Width="100" Height="28" HorizontalAlignment="Left" Margin="96,50,0,0" Name="General_RobotPosBefore" VerticalAlignment="Top" />
                 <Label Content="Not Set" Width="100" Height="28" HorizontalAlignment="Left" Margin="84,78,0,0" Name="General_RobotPosAfter" VerticalAlignment="Top" />
+                <Button Content="Convert Current Strategy" Height="23" HorizontalAlignment="Left" Margin="0,114,0,0" Name="General_buttonConvert" VerticalAlignment="Top" Width="150" Click="General_buttonConvert_Click" />
             </Grid> 
         </Grid>
     </Grid>

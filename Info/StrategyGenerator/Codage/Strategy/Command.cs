@@ -139,7 +139,10 @@ namespace StrategyGenerator.Strategy
 
             if (ActiveSensors != EnumSensorsFlag.APPFLAG_NONE)
                 _ActiveSensorsFlag = ActiveSensors;
-            
+
+            _Cmd = Cmd;
+            _CmdType = CmdType;
+
             // Check Params for Cmd
             switch (Cmd)
             {
@@ -147,10 +150,13 @@ namespace StrategyGenerator.Strategy
                 case EnumCmd.MvtSimple_MoveInMM:
                     if ((Param1 != null) && (Param2 != null))
                     {
-                        _Cmd = Cmd;
-                        _CmdType = CmdType;
                         _Param1 = Param1;
                         _Param2 = Param2;
+                        Ret = true;
+                    }
+                    else
+                    {
+                        LoadDefaultParamsValue();
                         Ret = true;
                     }
                     break;
@@ -161,10 +167,13 @@ namespace StrategyGenerator.Strategy
                 case EnumCmd.MvtSimple_RotateToAngleInDeg:
                     if ((Param1 != null) && (Param4 != null))
                     {
-                        _Cmd = Cmd;
-                        _CmdType = CmdType;
                         _Param1 = Param1;
                         _Param4 = Param4;
+                        Ret = true;
+                    }
+                    else
+                    {
+                        LoadDefaultParamsValue();
                         Ret = true;
                     }
                     break;
@@ -174,11 +183,14 @@ namespace StrategyGenerator.Strategy
                 case EnumCmd.App_IfGoto:
                     if ((Param1 != null) && (Param2 != null) && (Param3 != null))
                     {
-                        _Cmd = Cmd;
-                        _CmdType = CmdType;
                         _Param1 = Param1;
                         _Param2 = Param2;
                         _Param3 = Param3;
+                        Ret = true;
+                    }
+                    else
+                    {
+                        LoadDefaultParamsValue();
                         Ret = true;
                     }
                     break;
@@ -187,11 +199,14 @@ namespace StrategyGenerator.Strategy
                 case EnumCmd.Mvt_UsePivotMode:
                     if ((Param1 != null) && (Param2 != null) && (Param4 != null))
                     {
-                        _Cmd = Cmd;
-                        _CmdType = CmdType;
                         _Param1 = Param1;
                         _Param2 = Param2;
                         _Param4 = Param4;
+                        Ret = true;
+                    }
+                    else
+                    {
+                        LoadDefaultParamsValue();
                         Ret = true;
                     }
                     break;
@@ -200,11 +215,14 @@ namespace StrategyGenerator.Strategy
                 case EnumCmd.App_SetNewPos:
                     if ((Param2 != null) && (Param3 != null) && (Param4 != null))
                     {
-                        _Cmd = Cmd;
-                        _CmdType = CmdType;
                         _Param2 = Param2;
                         _Param3 = Param3;
                         _Param4 = Param4;
+                        Ret = true;
+                    }
+                    else
+                    {
+                        LoadDefaultParamsValue();
                         Ret = true;
                     }
                     break;
@@ -214,20 +232,21 @@ namespace StrategyGenerator.Strategy
                 case EnumCmd.App_Wait:
                     if ((Param1 != null) && (Param2 != null) && (Param3 != null) && (Param4 != null))
                     {
-                        _Cmd = Cmd;
-                        _CmdType = CmdType;
                         _Param1 = Param1;
                         _Param2 = Param2;
                         _Param3 = Param3;
                         _Param4 = Param4;
                         Ret = true;
                     }
+                    else
+                    {
+                        LoadDefaultParamsValue();
+                        Ret = true;
+                    }
                     break;
 
                 // ________________________________________________________ None
                 case EnumCmd.Mvt_Stop:
-                    _Cmd = Cmd;
-                    _CmdType = CmdType;
                     Ret = true;
                     break;  
 
@@ -376,6 +395,20 @@ namespace StrategyGenerator.Strategy
                 Result = Result + "NextAction->Param4 = " + _Param4 + ";    ";
 
             return Result;
+        }
+
+        private void LoadDefaultParamsValue()
+        {
+            // Check Params for Cmd
+            switch (_Cmd)
+            {
+                default:
+                    _Param1 = "0";
+                    _Param2 = "0";
+                    _Param3 = "0";
+                    _Param4 = "0";
+                    break;
+            }
         }
 
         // Private --------------------------------------------------------------------------------
