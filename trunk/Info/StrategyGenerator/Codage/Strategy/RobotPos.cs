@@ -99,11 +99,36 @@ namespace StrategyGenerator.Strategy
 
                 // ________________________________________
                 case EnumCmd.Mvt_UsePivotMode:
-                    /*
-                     Left = X - d sin(alpha) et Y + d cos(alpha)
-                     Right = X + d sin(alpha) et Y - d cos(alpha)
-                     * */
-                    break;
+                    int XWheel = 0;     // X Pos for the locked wheel
+                    int YWheel = 0;     // Y Pos for the locked wheel
+                    int Dist = 135;     // Distance between center and locked Wheel
+                    int ExpectedAngle = Convert.ToInt32(_CurrentCommand.Param4);
+
+                    if (_CurrentCommand.Param2 == "LEFT_WHEEL")
+                    {
+                        // Compute the position of the locked wheel
+                        XWheel = Convert.ToInt32(_PosX - Dist * Math.Sin(_PosAngle * Math.PI / 180.0));
+                        YWheel = Convert.ToInt32(_PosY + Dist * Math.Cos(_PosAngle * Math.PI / 180.0));
+
+                        // Compute the robot center after this movement
+                        _ComputedPosX = Convert.ToInt32(XWheel + Dist * Math.Sin(ExpectedAngle * Math.PI / 180.0));
+                        _ComputedPosY = Convert.ToInt32(YWheel - Dist * Math.Cos(ExpectedAngle * Math.PI / 180.0));
+                        _ComputedPosAngle = ExpectedAngle;
+
+                    }
+                    else
+                    {
+                        // Compute the position of the locked wheel
+                        XWheel = Convert.ToInt32(_PosX + Dist * Math.Sin(_PosAngle * Math.PI / 180.0));
+                        YWheel = Convert.ToInt32(_PosY - Dist * Math.Cos(_PosAngle * Math.PI / 180.0));
+
+                        // Compute the robot center after this movement
+                        _ComputedPosX = Convert.ToInt32(XWheel - Dist * Math.Sin(ExpectedAngle * Math.PI / 180.0));
+                        _ComputedPosY = Convert.ToInt32(YWheel + Dist * Math.Cos(ExpectedAngle * Math.PI / 180.0));
+                        _ComputedPosAngle = ExpectedAngle;
+                    }
+
+                     break;
                 
                 // ________________________________________
                 case EnumCmd.Mvt_Stop:

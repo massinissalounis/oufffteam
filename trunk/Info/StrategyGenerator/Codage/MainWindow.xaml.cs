@@ -54,7 +54,7 @@ namespace StrategyGenerator
 
             // MapView ----------------------------------------------------------------------------
             MapView.Margin = new Thickness(0, 0, 0, 0);
-            MapView.Width = MainGrid.Width * 0.80;
+            MapView.Width = MainGrid.Width * 0.8;
             MapView.Height = MainGrid.Height - CONST_CMDVIEW_HEIGHT;
             MapPicture.Width = 600;
             MapPicture.Height = 400;
@@ -162,6 +162,7 @@ namespace StrategyGenerator
             General_RobotPosAfter.Margin = new Thickness(10 + General_DefaultSpeedLabel.Width, 30 + General_DefaultSpeedLabel.Height + General_RobotPosAfterLabel.Height, 0, 0);
             General_RobotPosAfter.Width = General_DefaultSpeedLabel.Width;
 
+            General_buttonConvert.Margin = new Thickness(GeneralInfo.Width / 2 - General_buttonConvert.Width / 2, General_RobotPosAfter.Margin.Top + 30, 0, 0);
 
             // CmdView Borders --------------------------------------------------------------------
             MapBorder.Margin = new Thickness(0, 0, 0, 0);
@@ -283,20 +284,6 @@ namespace StrategyGenerator
             Robot.Margin = new Thickness(DisplayX - Robot.Width / 2, 400 - DisplayY - Robot.Height / 2, 0, 0);
         }
 
-        public void SetRobotPosFromPivotLeft(double _angle)
-        {
-            Robot.RenderTransform = new RotateTransform(90 + _angle * -1, 6, Robot.Height / 2);
-
-            DisplayRobotPos();
-        }
-
-        public void SetRobotPosFromPivotRight(double _angle)
-        {
-            Robot.RenderTransform = new RotateTransform(90 + _angle * -1, Robot.Width - 6, Robot.Height / 2);
-
-            DisplayRobotPos();
-        }
-
         private void SetCurrentCmd(int CurrentCmdID)
         {
             if ((CurrentCmdID < 0) || (_CurrentStrategy == null) || (_CurrentStrategy.Count() < CurrentCmdID))
@@ -386,7 +373,7 @@ namespace StrategyGenerator
 
             // Ask for file to load
             dlg.Filter = "C Files|*.c|All Files|*.*";
-            dlg.Title = "Select the strategy file";
+            dlg.Title = "Select the strategy file (A=Red, B=Purple)";
             dlg.CheckFileExists = true;
             dlg.ShowDialog();
             _CurrentStrategyFilename = dlg.FileName.ToString();
@@ -395,7 +382,7 @@ namespace StrategyGenerator
             {
                 // Ask for file to load
                 dlg.Filter = "C Files|*.c|All Files|*.*";
-                dlg.Title = "Select the pattern strategy file";
+                dlg.Title = "Select the pattern strategy file (A=Red, B=Purple)";
                 dlg.CheckFileExists = true;
                 dlg.ShowDialog();
                 _CurrentStrategyPatternFilename = dlg.FileName.ToString();
@@ -416,7 +403,7 @@ namespace StrategyGenerator
             {
                 // Ask for file to write
                 dlg.Filter = "C Files|*.c|All Files|*.*";
-                dlg.Title = "Select the output strategy file";
+                dlg.Title = "Select the output strategy file (A=Red, B=Purple)";
                 dlg.FileName = _CurrentStrategyFilename;
                 dlg.CheckFileExists = false;
                 dlg.ShowDialog();
@@ -426,7 +413,7 @@ namespace StrategyGenerator
                 {
                     // Ask for file to load
                     dlg.Filter = "C Files|*.c|All Files|*.*";
-                    dlg.Title = "Select the pattern strategy file to use for wrtting the output file";
+                    dlg.Title = "Select the pattern strategy file to use for wrtting the output file (A=Red, B=Purple)";
                     dlg.FileName = _CurrentStrategyPatternFilename;
                     dlg.CheckFileExists = true;
                     dlg.ShowDialog();
@@ -588,7 +575,6 @@ namespace StrategyGenerator
             }
         }
 
-
          private void CmdList_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             _PositionList = null;
@@ -596,7 +582,22 @@ namespace StrategyGenerator
 
         private void CmdViewN_ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            int NextActionID = _CurrentStrategy.GetNextActionID(CmdList.SelectedIndex);
+            Command SelectedCmd = _CurrentStrategy.GetCommand(CmdList.SelectedIndex);
+            int NextActionID = 0;
+
+            if (SelectedCmd.Cmd == EnumCmd.App_IfGoto)
+            {
+                // If the current command is App_IfGoto, we ask for the next cmd ID
+                AskNextAction NextActionWindow = new AskNextAction(SelectedCmd.Param1, SelectedCmd.Param2, SelectedCmd.Param3);
+                NextActionWindow.ShowDialog();
+
+                NextActionID = NextActionWindow.NextCmdIDSelected;
+            }
+            else
+            {
+                NextActionID = _CurrentStrategy.GetNextActionID(CmdList.SelectedIndex);
+            }
+
             int NextIndex = _CurrentStrategy.GetIndexFromCmdID(NextActionID);
 
             if (_PositionList != null)
@@ -648,10 +649,15 @@ namespace StrategyGenerator
             if (CmdList.SelectedIndex <= 0)
                 return;
 
+            AskNewCmdInfo NewCmdWindow = new AskNewCmdInfo();
+            NewCmdWindow.ShowDialog();
+            EnumCmd NewCommand = Command.GetCmdFromString(NewCmdWindow.NewCmd);
+            int NewCommandID = NewCmdWindow.NewCmdID;
+
             if (_CurrentStrategy != null)
             {
                 int CurrentIndex = CmdList.SelectedIndex;
-                _CurrentStrategy.InsertNewCmd_Before(CurrentIndex);
+                _CurrentStrategy.InsertNewCmd_Before(CurrentIndex, NewCommand, NewCommandID);
                 String CmdListInfo = _CurrentStrategy.GetActionID(CurrentIndex) + " : " + _CurrentStrategy.GetCommand(CurrentIndex).Cmd.ToString();
                 CmdList.Items.Insert(CurrentIndex, CmdListInfo);
                 CmdList.SelectedIndex = CurrentIndex;
@@ -663,13 +669,22 @@ namespace StrategyGenerator
             if (CmdList.SelectedIndex < 0)
                 return;
 
+            AskNewCmdInfo NewCmdWindow = new AskNewCmdInfo();
+            NewCmdWindow.ShowDialog();
+            EnumCmd NewCommand = Command.GetCmdFromString(NewCmdWindow.NewCmd);
+            int NewCommandID = NewCmdWindow.NewCmdID;
+
             if (_CurrentStrategy != null)
             {
-                _CurrentStrategy.InsertNewCmd_After(CmdList.SelectedIndex);
+                _CurrentStrategy.InsertNewCmd_After(CmdList.SelectedIndex, NewCommand, NewCommandID);
                 String CmdListInfo = _CurrentStrategy.GetActionID(CmdList.SelectedIndex + 1) + " : " + _CurrentStrategy.GetCommand(CmdList.SelectedIndex + 1).Cmd.ToString();
                 CmdList.Items.Insert(CmdList.SelectedIndex + 1, CmdListInfo);
-                CmdList.SelectedIndex = CmdList.SelectedIndex + 1;
             }
+
+            // Update the previous NextActionID item
+            _CurrentStrategy.UpdateNextActionID(CmdList.SelectedIndex, _CurrentStrategy.GetActionID(CmdList.SelectedIndex + 1).ToString());
+
+            CmdViewN_ButtonNext.RaiseEvent(e);
         }
 
         private void MapPicture_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -755,27 +770,6 @@ namespace StrategyGenerator
                 General_RobotPosAfter.Content = "Not Set";
             }
 
-
-/*            // Mvt_UsePivotMode
-            if (CurrentCmd == EnumCmd.Mvt_UsePivotMode.ToString())
-            {
-                if (CmdViewN_Param1.Text == "") { CmdViewN_Param1.Text = "0"; }
-                if (CmdViewN_Param2.Text != "LEFT_WHEEL") { CmdViewN_Param2.Text = "RIGHT_WHEEL"; }
-                CmdViewN_Param3.Text = "Not Used";
-                if (CmdViewN_Param4.Text == "") { CmdViewN_Param4.Text = "0"; }
-
-                if (Convert.ToInt32(CmdViewN_Param1.Text) < 0)
-                    CmdViewN_Param1.Text = "0";
-
-                if (Convert.ToInt32(CmdViewN_Param1.Text) > 100)
-                    CmdViewN_Param1.Text = "100";
-
-                if (CmdViewN_Param2.Text == "RIGHT_WHEEL")
-                    SetRobotPosFromPivotRight(Convert.ToDouble(CmdViewN_Param4.Text));
-
-                if (CmdViewN_Param2.Text == "LEFT_WHEEL")
-                    SetRobotPosFromPivotLeft(Convert.ToDouble(CmdViewN_Param4.Text));
-            }*/
             DisplayRobotPos();
         }
 
@@ -868,6 +862,69 @@ namespace StrategyGenerator
             if (CmdViewN_Param2.Text == "Not Used") { CmdViewN_Param2.IsReadOnly = true; } else { CmdViewN_Param2.IsReadOnly = false; }
             if (CmdViewN_Param3.Text == "Not Used") { CmdViewN_Param3.IsReadOnly = true; } else { CmdViewN_Param3.IsReadOnly = false; }
             if (CmdViewN_Param4.Text == "Not Used") { CmdViewN_Param4.IsReadOnly = true; } else { CmdViewN_Param4.IsReadOnly = false; }
+        }
+
+        private void General_buttonConvert_Click(object sender, RoutedEventArgs e)
+        {
+            Command CurrentCmd;
+            EnumCmd Cmd;
+            EnumCmdType CmdType;
+            String NewParam1;
+            String NewParam2;
+            String NewParam3;
+            String NewParam4;
+            EnumSensorsFlag Flags;
+
+            for (int i = 0; i < CmdList.Items.Count; i++)
+            {
+                CurrentCmd = _CurrentStrategy.GetCommand(i);
+                Cmd = CurrentCmd.Cmd;
+                CmdType = CurrentCmd.CmdType;
+                NewParam1 = CurrentCmd.Param1;
+                NewParam2 = CurrentCmd.Param2;
+                NewParam3 = CurrentCmd.Param3;
+                NewParam4 = CurrentCmd.Param4;
+                Flags = CurrentCmd.ActiveSensors;
+
+                // Update value from command
+                switch (CurrentCmd.Cmd)
+                {
+                    case EnumCmd.Mvt_UseAngleOnly:
+                    case EnumCmd.MvtSimple_RotateInDeg:
+                    case EnumCmd.MvtSimple_RotateToAngleInDeg:
+                        NewParam4 = (180 - Convert.ToInt32(CurrentCmd.Param4)).ToString();
+                        CurrentCmd.Update(Cmd, CmdType, NewParam1, NewParam2, NewParam3, NewParam4, Flags);
+                        break;
+
+                    case EnumCmd.Mvt_UsePivotMode:
+                        if (NewParam2 == "RIGHT_WHEEL")
+                            NewParam2 = "LEFT_WHEEL";
+                        else
+                            NewParam2 = "RIGHT_WHEEL";
+
+                        NewParam4 = (180 - Convert.ToInt32(CurrentCmd.Param4)).ToString();
+                        CurrentCmd.Update(Cmd, CmdType, NewParam1, NewParam2, NewParam3, NewParam4, Flags);
+                        break;
+
+                    case EnumCmd.App_SetNewPos:
+                    case EnumCmd.Mvt_UseMixedMode:
+                        NewParam2 = (3000 - Convert.ToInt32(CurrentCmd.Param2)).ToString();
+                        NewParam4 = (180 - Convert.ToInt32(CurrentCmd.Param4)).ToString();
+                        CurrentCmd.Update(Cmd, CmdType, NewParam1, NewParam2, NewParam3, NewParam4, Flags);
+                        break;
+
+                    case EnumCmd.Mvt_UseDistOnly:
+                        NewParam2 = (3000 - Convert.ToInt32(CurrentCmd.Param2)).ToString();
+                        CurrentCmd.Update(Cmd, CmdType, NewParam1, NewParam2, NewParam3, NewParam4, Flags);
+                        break;
+                    
+                    default:
+                        break;
+                }
+            }
+
+            CmdList.SelectedIndex = -1;
+            CmdList.SelectedIndex = 0;
         }
 
         private void Position_KeyDown(object sender, KeyEventArgs e)
@@ -1010,10 +1067,35 @@ namespace StrategyGenerator
             DataChanged();
         }
 
+
+        private void CmdViewN_CmdID_Validate(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            if (CmdList.SelectedIndex > 1)
+                _CurrentStrategy.UpdateActionID(CmdList.SelectedIndex, CmdViewN_CmdID.Text);
+        }
+
+        private void CmdViewN_CmdID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                if(CmdList.SelectedIndex > 1)
+                    _CurrentStrategy.UpdateActionID(CmdList.SelectedIndex, CmdViewN_CmdID.Text);
+        }
+
         private void CmdViewN_Param_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
                 DataChanged();
+        }
+
+        private void CmdViewN_Param1_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (CmdViewN_CmdBox.SelectedItem.ToString() == EnumCmd.App_IfGoto.ToString())
+            {
+                GetSelectedFlags WindowFlags = new GetSelectedFlags(CmdViewN_Param1.Text);
+                WindowFlags.ShowDialog();
+
+                CmdViewN_Param1.Text = WindowFlags.SelectedFlags;
+            }
         }
 
         private void General_DefaultSpeed_KeyUp(object sender, KeyEventArgs e)
@@ -1178,10 +1260,13 @@ namespace StrategyGenerator
             try
             {
                 if (SpeedToCheck == "")
-                    return "50";
+                    return "DEFAULT_SPEED";
+
+                if (SpeedToCheck == "DEFAULT_SPEED")
+                    return "DEFAULT_SPEED";
 
                 if (Convert.ToInt32(SpeedToCheck) <= 0)
-                    return "1";
+                    return "DEFAULT_SPEED";
 
                 if (Convert.ToInt32(SpeedToCheck) > 100)
                     return "100";
@@ -1191,7 +1276,7 @@ namespace StrategyGenerator
             }
             catch (Exception)
             {
-                return "50";
+                return "DEFAULT_SPEED";
             }
         }
 
@@ -1345,6 +1430,7 @@ namespace StrategyGenerator
         private List<RobotPos>_PositionList = null;
 
         private Boolean _IsModificationModeActivated = false;
+
      }
 }
 
