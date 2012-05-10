@@ -174,15 +174,40 @@ void TaskSensors_Main(void *p_arg)
 
 #ifdef SENSORS_CALIBRATION
 	OSTimeDlyHMSM(0, 0, 5, 0);
-	TaskSensors_GrabIngotOnFloor();
 	
 	while(OS_TRUE)
 	{
-		error_debug_1 = ADC_GetVal(GP2_FRONT);
-		error_debug_2 = ADC_GetVal(GP2_REAR);
-		
+		// Tirette + Color
+/*		error_debug_1 = CLIC_state(IO_START);
+		error_debug_2 = CLIC_state(IO_COLOR);
+		error_debug_3 = 0;
+		error_debug_4 = 0;
+		error_debug_5 = 0;
+*/
+
+		// SW Tests : 
+/*		error_debug_1 = CLIC_state(CLIC_1);
+		error_debug_2 = CLIC_state(CLIC_2);
+		error_debug_3 = CLIC_state(CLIC_3);
+		error_debug_4 = CLIC_state(CLIC_4);
+		error_debug_5 = 0;
+*/
+		// GP2 tests (Serie 1) : 
+/*		error_debug_1 = ADC_GetVal(GP2_1);
+		error_debug_2 = ADC_GetVal(GP2_2);
+		error_debug_3 = ADC_GetVal(GP2_3);
+		error_debug_4 = ADC_GetVal(GP2_4);
+		error_debug_5 = ADC_GetVal(GP2_5);
+*/		
+		// GP2 tests (Serie 1) : 
+/*		error_debug_1 = ADC_GetVal(GP2_6);
+		error_debug_2 = ADC_GetVal(GP2_7);
+		error_debug_3 = ADC_GetVal(GP2_8);
+		error_debug_4 = ADC_GetVal(GP2_9);
+		error_debug_5 = ADC_GetVal(GP2_10);
+*/		
 		// Proc release
-		OSTimeDlyHMSM(0, 0, 0, 500);
+		OSTimeDlyHMSM(0, 0, 1, 0);
 	}
 #endif
 

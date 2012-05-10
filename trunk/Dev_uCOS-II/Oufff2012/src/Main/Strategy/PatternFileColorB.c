@@ -19,7 +19,7 @@
 #define DEFAULT_SPEED ('PATTERN_DEFAULT_SPEED')
 
 // ------------------------------------------------------------------------------------------------
-INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
+INT8U StrategyColorB_GetInitCmd(StructCmd *InitCmd)
 {
 	if(NULL == InitCmd)
 		return ERR__INVALID_PARAM;
@@ -35,7 +35,7 @@ INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
 }
 
 // ------------------------------------------------------------------------------------------------
-INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
+INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 {
 	static int		NextActionID = 1;
 	int			CurrentActionID = 0;
@@ -120,7 +120,7 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	{
 		// Execute the wait command
 		OSTimeDlyHMSM(p->Param1, p->Param2, p->Param3, p->Param4);
-		return StrategyColorA_GetNextAction(p);
+		return StrategyColorB_GetNextAction(p);
 	}
 
 	// Check for conditionnal command ------------------------------------
@@ -134,7 +134,7 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 		else
 			CurrentActionID = (int)(p->Param3);
 
-		return StrategyColorA_GetNextAction(p);
+		return StrategyColorB_GetNextAction(p);
 	}
 	
 	// Create the MvtSimple Command --------------------------------------

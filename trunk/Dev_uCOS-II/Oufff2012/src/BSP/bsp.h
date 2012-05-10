@@ -76,7 +76,7 @@
 	#define GP2_6						PIC_ADC_AN9
 	#define GP2_7						PIC_ADC_AN7
 	#define GP2_8						PIC_ADC_AN5
-	//#define GP2_9						PIC_ADC_AN3 //AN3 NON CONNECTE NE PAS UTILISER
+	#define GP2_9						PIC_ADC_AN3 //AN3 NON CONNECTE NE PAS UTILISER
 	#define GP2_10						PIC_ADC_AN1
 
 	#define GP2_REAR					GP2_3

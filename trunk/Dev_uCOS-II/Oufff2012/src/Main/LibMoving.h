@@ -14,21 +14,21 @@
 #include "mathf.h"
 #include "math.h"
 
-void LibMoving_MoveInMM(int Dist, INT8U Speed, StructCmd *NextSetpoint);
+void LibMoving_MoveInMM(int Dist, int Speed, StructCmd *NextSetpoint);
 	// Dist         : in mm for the movement (>0 go forward, <0 go back)
     // Speed        : Speed to use 
 	// NextSetpoint	: pointer to the struct for containing new position
 	// MvtMode is set to 'MvtMode_Simple'
 	// CmdType is set to 'CmdType_Blocking'
 
-void LibMoving_RotateInDeg(int AngleInDeg, INT8U Speed, StructCmd *NextSetpoint);
+void LibMoving_RotateInDeg(int AngleInDeg, int Speed, StructCmd *NextSetpoint);
 	// AngleInDeg   : in mm for the movement (>0 go forward, <0 go back)
     // Speed        : Speed to use 
 	// NextSetpoint	: pointer to the struct for containing new position
 	// MvtMode is set to 'MvtMode_Simple'
 	// CmdType is set to 'CmdType_Blocking'
 
-void LibMoving_RotateToAngleInDeg(int AngleToGoInDeg, INT8U Speed, StructCmd *NextSetpoint);
+void LibMoving_RotateToAngleInDeg(int AngleToGoInDeg, int Speed, StructCmd *NextSetpoint);
 	// AngleToGoInDeg	: angle in degree we want to go
     // Speed            : Speed to use 
 	// NextSetpoint	    : pointer to the struct for containing new position
@@ -40,7 +40,7 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
 	// NewPath						: All commands necessary for reaching ExpectedCmd
 	// NewPathLength				: Nb of command defined in NewPath (0 means, no Path is available)
 
-void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, INT8U Speed, StructCmd *NewPath, INT8S *NewPathLength);
+void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPath, INT8S *NewPathLength);
 	// EscapeSeqType				: Seq type to use for create escape seq
 	//									- APP_MOVING_ESCAPE_SEQ_RIGHT
 	//									- APP_MOVING_ESCAPE_SEQ_LEFT

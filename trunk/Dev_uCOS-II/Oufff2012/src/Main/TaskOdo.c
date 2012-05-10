@@ -340,11 +340,20 @@ void TaskOdo_Main(void *p_arg)
 					AppDebugMsg("\n");
 #endif
 #ifdef APP_TASK_ODO_DISPLAY_DEBUG
-					AppDebugMsg("GP2_Holder: ");
+					AppDebugMsg("Debug1 : ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_1, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
-					AppDebugMsg("\tGP2_Test: ");
+					AppDebugMsg("\tDebug2 : ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_2, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					AppDebugMsg(buffer_ptr);
+					AppDebugMsg("\tDebug3 : ");
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_3, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					AppDebugMsg(buffer_ptr);
+					AppDebugMsg("\tDebug4 : ");
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_4, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					AppDebugMsg(buffer_ptr);
+					AppDebugMsg("\tDebug5 : ");
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_5, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
 					AppDebugMsg("\n");
 #endif
