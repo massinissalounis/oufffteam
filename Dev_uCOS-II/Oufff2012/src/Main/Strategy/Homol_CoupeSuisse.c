@@ -124,10 +124,13 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 	// Check for conditionnal command ------------------------------------
 	if(App_IfGoto == p->Cmd)
 	{
-		if(p->Param1)
-			CurrentActionID = p->Param2;
+		// Read the current Flags
+		CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_WAIT_SET_ANY, &Err);
+
+		if((CurrentFlag & (p->Param1)) != 0)
+			CurrentActionID = (int)(p->Param2);
 		else
-			CurrentActionID = p->Param3;
+			CurrentActionID = (int)(p->Param3);
 
 		return Strategy_GetNextAction(CurrentColor, p);
 	}
@@ -142,11 +145,13 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 	if(MvtSimple_RotateToAngleInDeg == p->Cmd)
 		LibMoving_RotateToAngleInDeg(p->Param4, p->Param1, p);
 
-	// Angle Conversion -----------------------------------------------------
+	// Angle Conversion --------------------------------------------------
 	if((Mvt_UsePivotMode == p->Cmd) || (Mvt_UseMixedMode == p->Cmd))
 	{
 		p->Param4 = AppConvertDegInRad(p->Param4);
 	}
+
+
 
 	return ERR__NO_ERROR;
 }

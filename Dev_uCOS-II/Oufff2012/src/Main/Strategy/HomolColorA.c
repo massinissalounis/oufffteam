@@ -14,9 +14,9 @@
 
 #include "StrategyFromColor.h"
 
-#ifdef 'PATTERN_STRATEGY_NAME'_STRATEGY_ENABLED
+#ifdef HOMOL_STRATEGY_ENABLED
 
-#define DEFAULT_SPEED ('PATTERN_DEFAULT_SPEED')
+#define DEFAULT_SPEED (50)
 
 // ------------------------------------------------------------------------------------------------
 INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
@@ -24,12 +24,12 @@ INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
 	if(NULL == InitCmd)
 		return ERR__INVALID_PARAM;
 
-	InitCmd->Cmd				= 'PATTERN_INIT_CMD';
-	InitCmd->CmdType			= 'PATTERN_INIT_CMD_TYPE';
-	InitCmd->Param2				= 'PATTERN_INIT_POS_X';	
-	InitCmd->Param3				= 'PATTERN_INIT_POS_Y';	
-	InitCmd->Param4				= AppConvertDegInRad('PATTERN_INIT_POS_ANGLE');
-	InitCmd->ActiveSensorsFlag		= 'PATTERN_INIT_ACTIVE_SENSORS';
+	InitCmd->Cmd				= App_SetNewPos;
+	InitCmd->CmdType			= CmdType_Blocking;
+	InitCmd->Param2				= 2935;	
+	InitCmd->Param3				= 1667;	
+	InitCmd->Param4				= AppConvertDegInRad(180);
+	InitCmd->ActiveSensorsFlag		= APP_PARAM_APPFLAG_NONE;
 
 	return ERR__NO_ERROR;
 }
@@ -56,58 +56,56 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	switch(CurrentActionID)
 	{
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+		// LoopID = 0
+		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 100;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 580;    		break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+		// LoopID = 1
+		case 100:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 101;	p->Cmd = MvtSimple_RotateToAngleInDeg;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param4 = 90;    		break;	
+		case 101:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 102;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = -367;    		break;	
+		case 102:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 103;	p->Cmd = Mvt_UsePivotMode;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = RIGHT_WHEEL;    NextAction->Param4 = 180;    		break;	
+		case 103:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 104;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = -250;    		break;	
+		case 104:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 105;	p->Cmd = Mvt_UseMixedMode;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 2500;    NextAction->Param3 = 1000;    NextAction->Param4 = -125;    		break;	
+		case 105:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 106;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 500;    		break;	
+		case 106:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 107;	p->Cmd = Mvt_UseMixedMode;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 2260;    NextAction->Param3 = 500;    NextAction->Param4 = 90;    		break;	
+		case 107:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 107;	p->Cmd = Mvt_UseMixedMode;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 2260;    NextAction->Param3 = 65;    NextAction->Param4 = 90;    		break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+		// LoopID = 2
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+		// LoopID = 3
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+		// LoopID = 4
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+		// LoopID = 5
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+		// LoopID = 6
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+		// LoopID = 7
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+		// LoopID = 8
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+		// LoopID = 9
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+		// LoopID = 10
 		// StructuredFileLoopEnd
 
 		default:

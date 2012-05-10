@@ -141,6 +141,18 @@
     <ClCompile Include="..\..\..\src\Main\Strategy\TestStrategy.c">
       <Filter>Fichiers sources\Main\Strategy</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\PatternFileColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\PatternFileColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Main\App.h">

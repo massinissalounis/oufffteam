@@ -22,7 +22,7 @@
 #define APP_HOMOL_ROBOT_SPEED				80			// Speed rate for homol strategy	(0:No Move, 100: Full Speed)
 #define APP_TEST_ROBOT_SPEED				30			// Speed rate for test				(0:No Move, 100: Full Speed)
 #define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
-#define APP_INIT_EXEC_STARTUP_SEQ			OS_TRUE		// Flag to indicate if we have to execute the start up sequence
+//#define APP_INIT_EXEC_STARTUP_SEQ			OS_TRUE		// Flag to indicate if we have to execute the start up sequence
 
 #define APP_GP2D2_LIMIT_FRONT				200			// Threshold for front sensor
 #define APP_GP2D2_LIMIT_BACK				200			// Threshold for rear sensor
@@ -57,6 +57,7 @@
 #define APP_PARAM_APPFLAG_NONE					0x00000000	//	Don't use sensor
 
 // Value is defined as follow :								//	|Bit| Desctiption				| Value ON 			| Value OFF			| Connection	|	
+// State Flag ____________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
 #define APP_PARAM_APPFLAG_START_BUTTON			0x00000001	//	| 0	| Start Button				| Pressed			| Not Pressed		| Hard			|
 #define APP_PARAM_APPFLAG_BIT01					0x00000002	//	| 1 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT02					0x00000004	//	| 2 | Not Used					| -					| -					| -				|
@@ -65,6 +66,7 @@
 #define APP_PARAM_APPFLAG_BIT05					0x00000020	//	| 5 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_ACTION_STATUS			0x00000040	//	| 6 | Action status				| Action is done	| Action is running	| Soft			|
 #define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running 	| Soft			|	
+// GP2 Flag ______________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
 #define APP_PARAM_APPFLAG_GP2_FRONT				0x00000100	//	| 8 | Front Sensor				| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_BACK				0x00000200	//	| 9 | Rear sensor				| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_HOLDER			0x00000400	//	|10 | GP2 used for detecting obj| Active			| Inactive			| Hard			|
@@ -73,6 +75,7 @@
 #define APP_PARAM_APPFLAG_GP2_6					0x00002000	//	|13 | GP2_6						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_7					0x00004000	//	|14 | GP2_7						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_8					0x00008000	//	|15 | GP2_8						| Active			| Inactive			| Hard			|
+// SW Flag _______________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
 #define APP_PARAM_APPFLAG_SW_1					0x00010000	//	|16 | SW_1						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_SW_2					0x00020000	//	|17 | SW_2						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_SW_3					0x00040000	//	|18 | SW_3						| Active			| Inactive			| Hard			|
@@ -81,6 +84,7 @@
 #define APP_PARAM_APPFLAG_SW_6					0x00200000	//	|21 | SW_6						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_SW_7					0x00400000	//	|22 | SW_7						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_SW_8					0x00800000	//	|23 | SW_8						| Active			| Inactive			| Hard			|
+// State Flag ____________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
 #define APP_PARAM_APPFLAG_BIT24					0x01000000	//	|24 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT25					0x02000000	//	|25 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT26					0x04000000	//	|26 | Not Used					| -					| -					| -				|
@@ -98,6 +102,7 @@
 #define APP_PARAM_APPFLAG_ALL_GP2				0x0000FF00	// All GP2 sensors
 #define APP_PARAM_APPFLAG_ALL_SW				0x00FF0000	// All switches sensors
 #define APP_PARAM_APPFLAG_ALL_SENSORS			0x00FFFF00	// All external sensors
+#define APP_PARAM_APPFLAG_ALL_STATE				0xFF0000FF	// All state flags
 
 // User defined groups
 #ifndef APP_PARAM_DISABLE_ALL_SENSORS
@@ -166,7 +171,7 @@
 */
 
 // SENSORS
-//#define SENSORS_CALIBRATION
+#define SENSORS_CALIBRATION
 
 // Program AX12
 //#define AX12_REG_PROGRAMMING											// Use this flag for programming the default values into AX12

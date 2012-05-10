@@ -21,7 +21,7 @@ extern float error_debug_4;
 extern float error_debug_5;
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_MoveInMM(int Dist, INT8U Speed, StructCmd *NextSetpoint)
+void LibMoving_MoveInMM(int Dist, int Speed, StructCmd *NextSetpoint)
 {
     StructPos CurrentPos;
 
@@ -57,7 +57,7 @@ void LibMoving_MoveInMM(int Dist, INT8U Speed, StructCmd *NextSetpoint)
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_RotateInDeg(int AngleInDeg, INT8U Speed, StructCmd *NextSetpoint)
+void LibMoving_RotateInDeg(int AngleInDeg, int Speed, StructCmd *NextSetpoint)
 {
     StructPos CurrentPos;
 	
@@ -90,7 +90,7 @@ void LibMoving_RotateInDeg(int AngleInDeg, INT8U Speed, StructCmd *NextSetpoint)
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_RotateToAngleInDeg(int AngleToGoInDeg, INT8U Speed, StructCmd *NextSetpoint)
+void LibMoving_RotateToAngleInDeg(int AngleToGoInDeg, int Speed, StructCmd *NextSetpoint)
 {
     StructPos CurrentPos;
 
@@ -228,7 +228,7 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
 }
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, INT8U Speed, StructCmd *NewPath, INT8S *NewPathLength)
+void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPath, INT8S *NewPathLength)
 {
     StructPos CurrentPos;
 	StructCmd *Action = NULL;

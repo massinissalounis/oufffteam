@@ -78,4 +78,4 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 	return Ret;
 }
 
-#endif
+
