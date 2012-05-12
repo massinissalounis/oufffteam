@@ -14,12 +14,12 @@
 
 #include "StrategyFromColor.h"
 
-#ifdef HOMOL_STRATEGY_ENABLED
+#ifdef TEST_STRATEGY_ENABLED
 
-#define DEFAULT_SPEED (70)
+#define DEFAULT_SPEED (50)
 
 // ------------------------------------------------------------------------------------------------
-INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
+INT8U StrategyColorB_GetInitCmd(StructCmd *InitCmd)
 {
 	if(NULL == InitCmd)
 		return ERR__INVALID_PARAM;
@@ -35,7 +35,7 @@ INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
 }
 
 // ------------------------------------------------------------------------------------------------
-INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
+INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 {
 	static int		NextActionID = 1;
 	int			CurrentActionID = 0;
@@ -69,8 +69,7 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 		case 104:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_FRONT;	NextActionID = 105;	p->Cmd = Mvt_UseMixedMode;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 2500;    NextAction->Param3 = 1000;    NextAction->Param4 = -125;    		break;	
 		case 105:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_FRONT;	NextActionID = 106;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 500;    		break;	
 		case 106:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_FRONT;	NextActionID = 107;	p->Cmd = Mvt_UseMixedMode;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 2260;    NextAction->Param3 = 500;    NextAction->Param4 = 90;    		break;	
-		case 107:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_BACK;	NextActionID = 108;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = -425;    		break;	
-		case 108:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_FRONT;	NextActionID = -1;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 200;    		break;	
+		case 107:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_BACK;	NextActionID = 107;	p->Cmd = Mvt_UseMixedMode;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 2260;    NextAction->Param3 = 75;    NextAction->Param4 = 90;    		break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
@@ -119,7 +118,7 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	{
 		// Execute the wait command
 		OSTimeDlyHMSM(p->Param1, p->Param2, p->Param3, p->Param4);
-		return StrategyColorA_GetNextAction(p);
+		return StrategyColorB_GetNextAction(p);
 	}
 
 	// Check for conditionnal command ------------------------------------
@@ -129,11 +128,11 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 		CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_WAIT_SET_ANY, &Err);
 
 		if((CurrentFlag & (p->Param1)) != 0)
-			NextActionID = (int)(p->Param2);
+			CurrentActionID = (int)(p->Param2);
 		else
-			NextActionID = (int)(p->Param3);
+			CurrentActionID = (int)(p->Param3);
 
-		return StrategyColorA_GetNextAction(p);
+		return StrategyColorB_GetNextAction(p);
 	}
 	
 	// Create the MvtSimple Command --------------------------------------

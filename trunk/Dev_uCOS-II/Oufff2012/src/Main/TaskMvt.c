@@ -76,6 +76,7 @@ void TaskMvt_Main(void *p_arg)
     StructCmd       CurrentCmd;                             // Data for storing current order from TaskMain (to be done)
     StructCmd       CurrentCmdForTest;                      // Data for testing current order from TaskMain (to be done)
     StructCmd       StopCmd;								// Command used for stopping the current mvt
+	StructCmd	    LastSetpointSent;		    			// Data to store last setpoint sent to TaskAsser
 	StructPos	    CurrentPos;		    					// Data used for storing current pos from TaskOdo
 	OS_FLAGS		CurrentFlag;							// Var to read current flag								
  	OS_FLAGS		CurrentActivatedSensors;				// Sensors used for collision
@@ -305,8 +306,8 @@ void TaskMvt_Main(void *p_arg)
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
 
 				// Disable all current path
-				CurrentSetpoint = -1;
-				memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
+				//CurrentSetpoint = -1;
+				//memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
 
 				do
 				{
@@ -314,7 +315,9 @@ void TaskMvt_Main(void *p_arg)
 					CurrentFlag = OSFlagAccept(AppFlags, TASK_MVT_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ANY, &Err);
 				}while((CurrentFlag & APP_PARAM_APPFLAG_SENSORS_FRONT) != 0);
 
-				NextState = 253;
+				TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
+				NextState = 9;
+				//NextState = 253;
 				break;
 
 			// CASE 006 ---------------------------------------------------------------------------
@@ -323,8 +326,8 @@ void TaskMvt_Main(void *p_arg)
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
 
 				// Disable all current path
-				CurrentSetpoint = -1;
-				memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
+				//CurrentSetpoint = -1;
+				//memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
 
 				do
 				{
@@ -332,7 +335,9 @@ void TaskMvt_Main(void *p_arg)
 					CurrentFlag = OSFlagAccept(AppFlags, TASK_MVT_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ANY, &Err);
 				}while((CurrentFlag & APP_PARAM_APPFLAG_SENSORS_BACK) != 0);
 
-				NextState = 253;
+				TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
+				NextState = 9;
+				//NextState = 253;
 				break;
 
 			// CASE 007 ---------------------------------------------------------------------------
@@ -438,7 +443,9 @@ void TaskMvt_Main(void *p_arg)
 				{
 					// Send new command to TaskAsser
 					TaskMvt_SendSetpointToTaskAsser(CurrentPath + CurrentSetpoint);
+					memcpy(&LastSetpointSent, CurrentPath + CurrentSetpoint, sizeof(StructCmd));
 					CurrentActivatedSensors = CurrentPath[CurrentSetpoint].ActiveSensorsFlag;
+					
 				}
 				NextState = 1;
 				break;

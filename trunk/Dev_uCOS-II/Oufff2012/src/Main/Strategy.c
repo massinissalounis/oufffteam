@@ -66,15 +66,6 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 		break;
 	}
 
-	if(ERR__NO_ERROR == Ret)
-	{
-		// ToDo2012 : Faire la verification des commandes MvtSimple_... et calculer à ce moment les positions
-
-		// Todo2012 : Faire la verification de la commande App_Wait et effectuer l'attente (Action non bloquante).
-
-		// Todo2012 : Faire la verification de la commande App_IfGoto et mettre à jour CurrentActionID en fonction
-	}
-
 	return Ret;
 }
 

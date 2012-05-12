@@ -14,7 +14,7 @@
 #include "../Strategy.h"
 #include "../LibMoving.h"
 
-#ifdef HOMOL_STRATEGY_ENABLED
+#ifdef SUISSE_STRATEGY_ENABLED
 
 // ------------------------------------------------------------------------------------------------
 INT8U Strategy_GetInitCmd(EnumColor CurrentColor, StructCmd *InitCmd)

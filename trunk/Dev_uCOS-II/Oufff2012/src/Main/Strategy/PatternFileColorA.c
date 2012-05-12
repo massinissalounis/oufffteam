@@ -130,9 +130,9 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 		CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_WAIT_SET_ANY, &Err);
 
 		if((CurrentFlag & (p->Param1)) != 0)
-			CurrentActionID = (int)(p->Param2);
+			NextActionID = (int)(p->Param2);
 		else
-			CurrentActionID = (int)(p->Param3);
+			NextActionID = (int)(p->Param3);
 
 		return StrategyColorA_GetNextAction(p);
 	}

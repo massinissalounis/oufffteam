@@ -72,9 +72,6 @@
     <ClCompile Include="..\..\..\src\Main\Strategy\DefaultStrategy.c">
       <Filter>Fichiers sources\Main\Strategy</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\Homol.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Microchip\PeripheralsLibs\PIC32INTlib.c">
       <Filter>Fichiers de ressources</Filter>
     </ClCompile>
@@ -138,9 +135,6 @@
     <ClCompile Include="..\..\..\src\Main\ArmsControl.c">
       <Filter>Fichiers sources\Main</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestStrategy.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorA.c">
       <Filter>Fichiers sources\Main\Strategy</Filter>
     </ClCompile>
@@ -151,6 +145,12 @@
       <Filter>Fichiers sources\Main\Strategy</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestStrategyColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\Homol_CoupeSuisse.c">
       <Filter>Fichiers sources\Main\Strategy</Filter>
     </ClCompile>
   </ItemGroup>

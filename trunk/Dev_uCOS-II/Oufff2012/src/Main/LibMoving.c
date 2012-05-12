@@ -48,6 +48,8 @@ void LibMoving_MoveInMM(int Dist, int Speed, StructCmd *NextSetpoint)
 	NextSetpoint->Param3 = CurrentPos.y + Dist * sinf(CurrentPos.angle);
 	NextSetpoint->Param4 = USE_CURRENT_VALUE;
 
+	error_debug_4 = NextSetpoint->Param2;
+
 	if(Dist >= 0)
 		NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_FRONT;
 	else
