@@ -11,6 +11,7 @@
 #define STRATEGYFROMCOLOR_H
 
 #include "AppIncludes.h"
+#include "../LibMoving.h"
 
 // Color A ----------------------------------------------------------------------------------------
 INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd);

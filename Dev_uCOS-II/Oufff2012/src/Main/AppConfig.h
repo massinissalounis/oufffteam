@@ -171,7 +171,7 @@
 */
 
 // SENSORS
-#define SENSORS_CALIBRATION
+//#define SENSORS_CALIBRATION
 
 // Program AX12
 //#define AX12_REG_PROGRAMMING											// Use this flag for programming the default values into AX12
@@ -217,8 +217,6 @@
 //#define DEFAULT_STRATEGY_ENABLED				// Enable this option to use default strategy
 //#define TEST_STRATEGY_ENABLED					// Enable this option to use the test strategy
 #define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
-//#define STRATEGY_1_ENABLED					// Enable this option to use the strategy 1 (SoSo and FiFi)
-//#define STRATEGY_2_ENABLED					// Enable this option to use the strategy 2 (?????????????)
 
 /*
 *********************************************************************************************************

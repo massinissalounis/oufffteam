@@ -56,7 +56,6 @@ void TaskSensors_CheckBumpers()
 #else
 	//GP2 Front ****************************************************
 	GP2Data  = ADC_GetVal (GP2_FRONT);
-	error_debug_1 = GP2Data;
 
 	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
 	{
@@ -67,7 +66,6 @@ void TaskSensors_CheckBumpers()
 
 	//GP2 Back ******************************************************
 	GP2Data  = ADC_GetVal (GP2_REAR);
-	error_debug_2 = GP2Data;
 
 	if(GP2Data > APP_GP2D2_LIMIT_BACK)
 	{

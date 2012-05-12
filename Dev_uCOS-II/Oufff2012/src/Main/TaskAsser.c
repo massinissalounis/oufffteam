@@ -712,6 +712,8 @@ void TaskAsser_Main(void *p_arg)
 
 		TaskOdo_GetCurrentPos(&TaskAsser_CurrentPos);
 
+		error_debug_3 = setpoint.x;
+
 		// Asser mode control
 		switch(mode_control)
 		{
