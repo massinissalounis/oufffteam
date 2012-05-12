@@ -76,7 +76,7 @@
 	#define GP2_6						PIC_ADC_AN9
 	#define GP2_7						PIC_ADC_AN7
 	#define GP2_8						PIC_ADC_AN5
-	#define GP2_9						PIC_ADC_AN3 //AN3 NON CONNECTE NE PAS UTILISER
+	//#define GP2_9						PIC_ADC_AN3 //AN3 NON CONNECTE NE PAS UTILISER
 	#define GP2_10						PIC_ADC_AN1
 
 	#define GP2_REAR					GP2_3
@@ -85,7 +85,7 @@
 	
 	#define IO_CLIC_1					IOPORT_G, BIT_0
 	#define IO_CLIC_2					IOPORT_A, BIT_7
-	#define IO_CLIC_3					IOPORT_C, BIT_3
+	//#define IO_CLIC_3					IOPORT_C, BIT_3
 	#define IO_CLIC_4					IOPORT_C, BIT_4
 	
 	#define IO_START					IOPORT_F, BIT_1

@@ -96,7 +96,6 @@ void CLIC_Init (void)
 #else
 	PORTSetPinsDigitalIn(IO_CLIC_1);
 	PORTSetPinsDigitalIn(IO_CLIC_2);
-	PORTSetPinsDigitalIn(IO_CLIC_3);
 	PORTSetPinsDigitalIn(IO_CLIC_4);
 #endif
 }
@@ -125,10 +124,6 @@ CPU_INT08U CLIC_state (CPU_INT08U clic)
 
         case CLIC_2:
 			if(PORTReadBits(IO_CLIC_2)==0) state = 1;
-			break;
-
-        case CLIC_3:
-			if(PORTReadBits(IO_CLIC_3)==0) state = 1;
 			break;
 
         case CLIC_4:
