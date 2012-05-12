@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using StrategyGenerator.FileManager;
 using StrategyGenerator.Strategy;
 using System.Threading;
+using System.Windows.Threading;
 
 namespace StrategyGenerator
 {
@@ -540,6 +541,7 @@ namespace StrategyGenerator
                 CmdViewN_Param2.Text = SelectedCmd.Param2;
                 CmdViewN_Param3.Text = SelectedCmd.Param3;
                 CmdViewN_Param4.Text = SelectedCmd.Param4;
+                CmdViewN_FlagBox.SelectedItem = SelectedCmd.ActiveSensors.ToString();
             }
             else
             {
@@ -547,6 +549,7 @@ namespace StrategyGenerator
                 CmdViewN_Param2.Text = "";
                 CmdViewN_Param3.Text = "";
                 CmdViewN_Param4.Text = "";
+                CmdViewN_FlagBox.SelectedItem = EnumSensorsFlag.APPFLAG_NONE.ToString();
             }
 
             CheckParam();
@@ -1430,7 +1433,6 @@ namespace StrategyGenerator
         private List<RobotPos>_PositionList = null;
 
         private Boolean _IsModificationModeActivated = false;
-
      }
 }
 

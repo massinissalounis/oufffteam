@@ -351,7 +351,7 @@ namespace StrategyGenerator.Strategy
             else
                 FreeActionID = GetPrevFreeActionID(_Strategy[Index - 1].ActionID);
 
-             StrategyItem NewStrategyItem = new StrategyItem(NewCommand, FreeActionID, FreeActionID);
+             StrategyItem NewStrategyItem = new StrategyItem(NewCommand, FreeActionID, -1);
             _Strategy.Insert(Index - 1, NewStrategyItem);
         }
 
@@ -381,7 +381,7 @@ namespace StrategyGenerator.Strategy
                     FreeActionID = GetNextFreeActionID(_Strategy[Index - 1].ActionID);
             }
 
-            StrategyItem NewStrategyItem = new StrategyItem(NewCommand, FreeActionID, FreeActionID);
+            StrategyItem NewStrategyItem = new StrategyItem(NewCommand, FreeActionID, -1);
             _Strategy.Insert(Index, NewStrategyItem);
         }
 

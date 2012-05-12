@@ -324,7 +324,7 @@ namespace StrategyGenerator.Strategy
 
         public static EnumSensorsFlag GetSensorsFlagFromString(String SensorsFlagString)
         {
-            String SensorsStringToCheck = SensorsFlagString.Replace("APP_PARAMS_", "");
+            String SensorsStringToCheck = SensorsFlagString.Replace("APP_PARAM_", "");
 
             foreach (EnumSensorsFlag ESensorsFlag in Enum.GetValues(typeof(EnumSensorsFlag)))
             {
