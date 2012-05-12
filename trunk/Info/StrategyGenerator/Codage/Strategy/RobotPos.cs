@@ -7,6 +7,13 @@ namespace StrategyGenerator.Strategy
 {
     class RobotPos
     {
+        public struct StructPos
+        {
+            public int x;
+            public int y;
+            public int angle;
+        }
+
         public RobotPos(int x, int y, int angle, Command CurrentCmd, int Index)
         {
             _PosX = x;
@@ -140,7 +147,62 @@ namespace StrategyGenerator.Strategy
                     _ComputedPosAngle = _PosAngle;
                     break;
             }
+        }
 
+        public List<StructPos> ComputeRobotMvt()
+        {
+            List<StructPos> Ret = null;
+            int AngleStep = 10;
+            int DistStep = 10;
+            int Count = 0;
+            int Sign = 1;
+
+            switch (_CurrentCommand.Cmd)
+            {
+                // ________________________________________
+                case EnumCmd.Mvt_UseAngleOnly:
+                case EnumCmd.MvtSimple_RotateInDeg:
+                case EnumCmd.MvtSimple_RotateToAngleInDeg:
+                    Count = Math.Abs(Convert.ToInt32((_ComputedPosAngle - _PosAngle) / AngleStep));
+                    
+                    if (_ComputedPosAngle - _PosAngle < 0)
+                        Sign = -1;
+                    else
+                        Sign = 1;
+
+                    Ret = new List<StructPos>();
+
+                    for (int i = 0; i < Count; i++)
+                    {
+                        StructPos RobotPosition = new StructPos();
+                        RobotPosition.x = _ComputedPosX;
+                        RobotPosition.y = _ComputedPosY;
+                        RobotPosition.angle = _ComputedPosAngle + i * AngleStep * Sign;
+
+                        Ret.Add(RobotPosition);
+                    }
+                    break;
+
+                // ________________________________________
+                case EnumCmd.Mvt_UseDistOnly:
+                case EnumCmd.MvtSimple_MoveInMM:
+                    break;
+
+                // ________________________________________
+                case EnumCmd.Mvt_UseMixedMode:
+                case EnumCmd.Mvt_UsePivotMode:
+                    break;
+
+                // ________________________________________
+                case EnumCmd.App_SetNewPos:
+                case EnumCmd.Mvt_Stop:
+                case EnumCmd.App_Wait:
+                case EnumCmd.App_IfGoto:
+                default:
+                    break;
+            }
+
+            return Ret;
         }
 
         // ----------------------------------------------------------------------------------------
