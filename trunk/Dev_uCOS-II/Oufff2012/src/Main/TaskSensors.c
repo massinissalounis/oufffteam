@@ -178,8 +178,8 @@ void TaskSensors_Main(void *p_arg)
 	while(OS_TRUE)
 	{
 		// Tirette + Color
-/*		error_debug_1 = CLIC_state(IO_START);
-		error_debug_2 = CLIC_state(IO_COLOR);
+/*		error_debug_1 = START_State();
+		error_debug_2 = COLOR_Read();
 		error_debug_3 = 0;
 		error_debug_4 = 0;
 		error_debug_5 = 0;

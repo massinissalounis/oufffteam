@@ -275,19 +275,6 @@ ToolArgsString=-g
 TraceCmdString=
 DebugOptions=
 [File021]
-Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\TaskTempo.o
-Folder=Intermediary
-DeviceName=PIC32MX460F512L
-LanguageToolSuiteID={14495C23-81F8-43F3-8A44-859C583D7760}
-LanguageToolID={430F471F-7ECB-4852-A80D-DEF9A5C8E751}
-LanguageToolLocation=C:\Program Files (x86)\Microchip\MPLAB C32\bin\pic32-gcc.exe
-PPAD=$(BINDIR)|./output||$(TMPDIR)|./objects||$(AINDIR)||$(INCDIR)|..\..\Src\Microchip\Sys;..\..\Src\Main;..\..\Src\BSP;..\..\Src\Microchip\PeripheralsLibs;..\..\Src\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC;..\..\Src\uC-CPU;..\..\Src\uC-LIB;..\..\Src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC;..\..\Src\uCOS-II\Source||$(LIBDIR)||$(LKRDIR)||
-SOLK=<src>|..\..\src\BSP\bsp.c|..\..\src\BSP\bsp_a.S|..\..\src\BSP\crt0.S|..\..\src\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC\cpu_a.s|..\..\src\uC-LIB\lib_mem.c|..\..\src\uC-LIB\lib_str.c|..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu_a.S|..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu_c.c|..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_dbg.c|..\..\src\uCOS-II\Source\os_core.c|..\..\src\uCOS-II\Source\os_flag.c|..\..\src\uCOS-II\Source\os_mbox.c|..\..\src\uCOS-II\Source\os_mem.c|..\..\src\uCOS-II\Source\os_mutex.c|..\..\src\uCOS-II\Source\os_q.c|..\..\src\uCOS-II\Source\os_sem.c|..\..\src\uCOS-II\Source\os_task.c|..\..\src\uCOS-II\Source\os_time.c|..\..\src\uCOS-II\Source\os_tmr.c|..\..\src\Microchip\PeripheralsLibs\PIC32INTlib.c|..\..\src\BSP\bsp_fpga.c|..\..\src\Main\TaskTempo.c|..\..\src\Main\App.c|..\..\src\Main\AppGlobalFunc.c|..\..\src\Main\AppHooks.c|..\..\src\Main\LibMoving.c|..\..\src\Main\TaskAsser.c|..\..\src\Main\TaskMain.c|..\..\src\Main\TaskMvt.c|..\..\src\Main\TaskOdo.c|..\..\src\Main\TaskSensors.c|..\..\src\Main\ArmsControl.c|D:\Robotique\Dev_uCOS-II\Oufff2012\src\Main\Strategy\HomolColorA.c|D:\Robotique\Dev_uCOS-II\Oufff2012\src\Main\Strategy\HomolColorB.c|D:\Robotique\Dev_uCOS-II\Oufff2012\src\Main\Strategy.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=-nostartfiles
-ToolArgsString=-g
-TraceCmdString=
-DebugOptions=
-[File022]
 Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\App.o
 Folder=Intermediary
 DeviceName=PIC32MX460F512L
@@ -300,7 +287,7 @@ SuiteArgsString=-nostartfiles
 ToolArgsString=-g
 TraceCmdString=
 DebugOptions=
-[File023]
+[File022]
 Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\AppGlobalFunc.o
 Folder=Intermediary
 DeviceName=PIC32MX460F512L
@@ -313,7 +300,7 @@ SuiteArgsString=-nostartfiles
 ToolArgsString=-g
 TraceCmdString=
 DebugOptions=
-[File024]
+[File023]
 Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\AppHooks.o
 Folder=Intermediary
 DeviceName=PIC32MX460F512L
@@ -326,7 +313,7 @@ SuiteArgsString=-nostartfiles
 ToolArgsString=-g
 TraceCmdString=
 DebugOptions=
-[File025]
+[File024]
 Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\LibMoving.o
 Folder=Intermediary
 DeviceName=PIC32MX460F512L
@@ -339,7 +326,7 @@ SuiteArgsString=-nostartfiles
 ToolArgsString=-g
 TraceCmdString=
 DebugOptions=
-[File026]
+[File025]
 Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\TaskAsser.o
 Folder=Intermediary
 DeviceName=PIC32MX460F512L
@@ -352,7 +339,7 @@ SuiteArgsString=-nostartfiles
 ToolArgsString=-g
 TraceCmdString=
 DebugOptions=
-[File027]
+[File026]
 Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\TaskMain.o
 Folder=Intermediary
 DeviceName=PIC32MX460F512L
@@ -365,7 +352,7 @@ SuiteArgsString=-nostartfiles
 ToolArgsString=-g
 TraceCmdString=
 DebugOptions=
-[File028]
+[File027]
 Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\TaskMvt.o
 Folder=Intermediary
 DeviceName=PIC32MX460F512L
@@ -378,7 +365,7 @@ SuiteArgsString=-nostartfiles
 ToolArgsString=-g
 TraceCmdString=
 DebugOptions=
-[File029]
+[File028]
 Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\TaskOdo.o
 Folder=Intermediary
 DeviceName=PIC32MX460F512L
@@ -391,7 +378,7 @@ SuiteArgsString=-nostartfiles
 ToolArgsString=-g
 TraceCmdString=
 DebugOptions=
-[File030]
+[File029]
 Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\TaskSensors.o
 Folder=Intermediary
 DeviceName=PIC32MX460F512L
@@ -404,7 +391,7 @@ SuiteArgsString=-nostartfiles
 ToolArgsString=-g
 TraceCmdString=
 DebugOptions=
-[File031]
+[File030]
 Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\ArmsControl.o
 Folder=Intermediary
 DeviceName=PIC32MX460F512L
@@ -417,46 +404,7 @@ SuiteArgsString=-nostartfiles
 ToolArgsString=-g
 TraceCmdString=
 DebugOptions=
-[File032]
-Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\HomolColorA.o
-Folder=Intermediary
-DeviceName=PIC32MX460F512L
-LanguageToolSuiteID={14495C23-81F8-43F3-8A44-859C583D7760}
-LanguageToolID={430F471F-7ECB-4852-A80D-DEF9A5C8E751}
-LanguageToolLocation=C:\Program Files (x86)\Microchip\MPLAB C32\bin\pic32-gcc.exe
-PPAD=$(BINDIR)|./output||$(TMPDIR)|./objects||$(AINDIR)||$(INCDIR)|..\..\Src\Microchip\Sys;..\..\Src\Main;..\..\Src\BSP;..\..\Src\Microchip\PeripheralsLibs;..\..\Src\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC;..\..\Src\uC-CPU;..\..\Src\uC-LIB;..\..\Src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC;..\..\Src\uCOS-II\Source||$(LIBDIR)||$(LKRDIR)||
-SOLK=<src>|..\..\src\BSP\bsp.c|..\..\src\BSP\bsp_a.S|..\..\src\BSP\crt0.S|..\..\src\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC\cpu_a.s|..\..\src\uC-LIB\lib_mem.c|..\..\src\uC-LIB\lib_str.c|..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu_a.S|..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu_c.c|..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_dbg.c|..\..\src\uCOS-II\Source\os_core.c|..\..\src\uCOS-II\Source\os_flag.c|..\..\src\uCOS-II\Source\os_mbox.c|..\..\src\uCOS-II\Source\os_mem.c|..\..\src\uCOS-II\Source\os_mutex.c|..\..\src\uCOS-II\Source\os_q.c|..\..\src\uCOS-II\Source\os_sem.c|..\..\src\uCOS-II\Source\os_task.c|..\..\src\uCOS-II\Source\os_time.c|..\..\src\uCOS-II\Source\os_tmr.c|..\..\src\Microchip\PeripheralsLibs\PIC32INTlib.c|..\..\src\BSP\bsp_fpga.c|..\..\src\Main\TaskTempo.c|..\..\src\Main\App.c|..\..\src\Main\AppGlobalFunc.c|..\..\src\Main\AppHooks.c|..\..\src\Main\LibMoving.c|..\..\src\Main\TaskAsser.c|..\..\src\Main\TaskMain.c|..\..\src\Main\TaskMvt.c|..\..\src\Main\TaskOdo.c|..\..\src\Main\TaskSensors.c|..\..\src\Main\ArmsControl.c|D:\Robotique\Dev_uCOS-II\Oufff2012\src\Main\Strategy\HomolColorA.c|D:\Robotique\Dev_uCOS-II\Oufff2012\src\Main\Strategy\HomolColorB.c|D:\Robotique\Dev_uCOS-II\Oufff2012\src\Main\Strategy.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=-nostartfiles
-ToolArgsString=-g
-TraceCmdString=
-DebugOptions=
-[File033]
-Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\HomolColorB.o
-Folder=Intermediary
-DeviceName=PIC32MX460F512L
-LanguageToolSuiteID={14495C23-81F8-43F3-8A44-859C583D7760}
-LanguageToolID={430F471F-7ECB-4852-A80D-DEF9A5C8E751}
-LanguageToolLocation=C:\Program Files (x86)\Microchip\MPLAB C32\bin\pic32-gcc.exe
-PPAD=$(BINDIR)|./output||$(TMPDIR)|./objects||$(AINDIR)||$(INCDIR)|..\..\Src\Microchip\Sys;..\..\Src\Main;..\..\Src\BSP;..\..\Src\Microchip\PeripheralsLibs;..\..\Src\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC;..\..\Src\uC-CPU;..\..\Src\uC-LIB;..\..\Src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC;..\..\Src\uCOS-II\Source||$(LIBDIR)||$(LKRDIR)||
-SOLK=<src>|..\..\src\BSP\bsp.c|..\..\src\BSP\bsp_a.S|..\..\src\BSP\crt0.S|..\..\src\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC\cpu_a.s|..\..\src\uC-LIB\lib_mem.c|..\..\src\uC-LIB\lib_str.c|..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu_a.S|..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu_c.c|..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_dbg.c|..\..\src\uCOS-II\Source\os_core.c|..\..\src\uCOS-II\Source\os_flag.c|..\..\src\uCOS-II\Source\os_mbox.c|..\..\src\uCOS-II\Source\os_mem.c|..\..\src\uCOS-II\Source\os_mutex.c|..\..\src\uCOS-II\Source\os_q.c|..\..\src\uCOS-II\Source\os_sem.c|..\..\src\uCOS-II\Source\os_task.c|..\..\src\uCOS-II\Source\os_time.c|..\..\src\uCOS-II\Source\os_tmr.c|..\..\src\Microchip\PeripheralsLibs\PIC32INTlib.c|..\..\src\BSP\bsp_fpga.c|..\..\src\Main\TaskTempo.c|..\..\src\Main\App.c|..\..\src\Main\AppGlobalFunc.c|..\..\src\Main\AppHooks.c|..\..\src\Main\LibMoving.c|..\..\src\Main\TaskAsser.c|..\..\src\Main\TaskMain.c|..\..\src\Main\TaskMvt.c|..\..\src\Main\TaskOdo.c|..\..\src\Main\TaskSensors.c|..\..\src\Main\ArmsControl.c|D:\Robotique\Dev_uCOS-II\Oufff2012\src\Main\Strategy\HomolColorA.c|D:\Robotique\Dev_uCOS-II\Oufff2012\src\Main\Strategy\HomolColorB.c|D:\Robotique\Dev_uCOS-II\Oufff2012\src\Main\Strategy.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=-nostartfiles
-ToolArgsString=-g
-TraceCmdString=
-DebugOptions=
-[File034]
-Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\objects\Strategy.o
-Folder=Intermediary
-DeviceName=PIC32MX460F512L
-LanguageToolSuiteID={14495C23-81F8-43F3-8A44-859C583D7760}
-LanguageToolID={430F471F-7ECB-4852-A80D-DEF9A5C8E751}
-LanguageToolLocation=C:\Program Files (x86)\Microchip\MPLAB C32\bin\pic32-gcc.exe
-PPAD=$(BINDIR)|./output||$(TMPDIR)|./objects||$(AINDIR)||$(INCDIR)|..\..\Src\Microchip\Sys;..\..\Src\Main;..\..\Src\BSP;..\..\Src\Microchip\PeripheralsLibs;..\..\Src\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC;..\..\Src\uC-CPU;..\..\Src\uC-LIB;..\..\Src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC;..\..\Src\uCOS-II\Source||$(LIBDIR)||$(LKRDIR)||
-SOLK=<src>|..\..\src\BSP\bsp.c|..\..\src\BSP\bsp_a.S|..\..\src\BSP\crt0.S|..\..\src\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC\cpu_a.s|..\..\src\uC-LIB\lib_mem.c|..\..\src\uC-LIB\lib_str.c|..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu_a.S|..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu_c.c|..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_dbg.c|..\..\src\uCOS-II\Source\os_core.c|..\..\src\uCOS-II\Source\os_flag.c|..\..\src\uCOS-II\Source\os_mbox.c|..\..\src\uCOS-II\Source\os_mem.c|..\..\src\uCOS-II\Source\os_mutex.c|..\..\src\uCOS-II\Source\os_q.c|..\..\src\uCOS-II\Source\os_sem.c|..\..\src\uCOS-II\Source\os_task.c|..\..\src\uCOS-II\Source\os_time.c|..\..\src\uCOS-II\Source\os_tmr.c|..\..\src\Microchip\PeripheralsLibs\PIC32INTlib.c|..\..\src\BSP\bsp_fpga.c|..\..\src\Main\TaskTempo.c|..\..\src\Main\App.c|..\..\src\Main\AppGlobalFunc.c|..\..\src\Main\AppHooks.c|..\..\src\Main\LibMoving.c|..\..\src\Main\TaskAsser.c|..\..\src\Main\TaskMain.c|..\..\src\Main\TaskMvt.c|..\..\src\Main\TaskOdo.c|..\..\src\Main\TaskSensors.c|..\..\src\Main\ArmsControl.c|D:\Robotique\Dev_uCOS-II\Oufff2012\src\Main\Strategy\HomolColorA.c|D:\Robotique\Dev_uCOS-II\Oufff2012\src\Main\Strategy\HomolColorB.c|D:\Robotique\Dev_uCOS-II\Oufff2012\src\Main\Strategy.c||<obj>||<lib>||<lkr>||
-SuiteArgsString=-nostartfiles
-ToolArgsString=-g
-TraceCmdString=
-DebugOptions=
-[File035]
+[File031]
 Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\.\output\Oufff2012.elf
 Folder=Output
 DeviceName=PIC32MX460F512L
@@ -469,7 +417,7 @@ SuiteArgsString=-nostartfiles
 ToolArgsString=-Map="$(BINDIR_)$(TARGETBASE).map" -o"$(BINDIR_)$(TARGETBASE).$(TARGETSUFFIX)"
 TraceCmdString=
 DebugOptions=
-[File036]
+[File032]
 Location=D:\Robotique\Dev_uCOS-II\Oufff2012\Projets\MPLAB_ocore_v1\.\output\Oufff2012.hex
 Folder=Output
 DeviceName=PIC32MX460F512L
