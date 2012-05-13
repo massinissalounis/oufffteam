@@ -1,6 +1,9 @@
 #include "AppIncludes.h"
 #include "ArmsControl.h"
 
+#define DEFAULT_WAIT_S 1
+#define DEFAULT_WAIT_MS 0
+
 void ARMS_InitReg(void)
 {
 	// Alarm: All alarms
@@ -48,65 +51,90 @@ void ARMS_InitReg(void)
 
 void ARMS_Init(void)
 {
-	// Stopper la pompe
-	PUMP_Right_Release();
-	PUMP_Left_Release();
-
-	ELEVATOR_Level_Ingot();
-
-	// Ouvre le bras
-	ARM_Left_Open();		
-	ARM_Right_Open();		
-	OSTimeDlyHMSM(0, 0, 1, 0);
-
-	// Monte le bras
-	ELEVATOR_Level_High();	
-	OSTimeDlyHMSM(0, 0, 1, 0);
-	
-	// Monte les ventouses
-	WRIST_Left_Up();
-	WRIST_Right_Up();
-	OSTimeDlyHMSM(0, 0, 1, 0);
-
-	// Baisse les ventouses
-	WRIST_Left_Down();
-	WRIST_Right_Down();
-	OSTimeDlyHMSM(0, 0, 1, 0);
-
-	// Ferme le bras
-	ARM_Left_Close();		
-	ARM_Right_Close();		
-	OSTimeDlyHMSM(0, 0, 1, 0);
-
-	// Se positionne pour la prise d'un lingot
-	ELEVATOR_Level_Ingot();
-
-	// Démarrer la pompe
-	PUMP_Right_Suck();
-	PUMP_Left_Suck();
-	OSTimeDlyHMSM(0, 0, 3, 0);
-
-	// Stopper la pompe
+	// Shutdown the pump
 	PUMP_Right_Release();
 	PUMP_Left_Release();
 	
-	// Monte le bras
-	ELEVATOR_Level_High();	
+	ELEVATOR_Level_Ingot();
+	ARMS_Open_Ingot();
+	ARMS_Sleep();
 
 	LED_On(4);
 }
 
 void ARMS_DefaultPos(void)
 {
-	WRIST_Left_Down();
+	WRIST_Left_Up();
 	WRIST_Right_Up();
 
-	ELEVATOR_Level_High();
+	ELEVATOR_Level_Ingot();
 
 	ARM_Left_Close();
 	ARM_Right_Close();
 }
 
+void ARMS_Sleep(void)
+{
+	WRIST_Right_Up();
+	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
+	WRIST_Left_Up();
+	ARM_Right_Close();
+	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);	
+	ARM_Left_Close();		
+	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
+}
+
+void ARMS_Open_Ingot(void)
+{
+	ARM_Left_Open();		
+	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
+	ARM_Right_Open();		
+	WRIST_Left_Down();
+	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
+	WRIST_Right_Down();
+	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
+}
+
+void ARMS_GrabTotem(void)
+{
+	ARM_Left_GrabTotem();
+	ARM_Right_GrabTotem();
+}
+
+void ARMS_Catch(void)
+{
+	ARM_Left_Catch();
+	ARM_Right_Catch();
+}
+
+void ARMS_Open_Map(void)
+{
+	ARM_Left_Open();		
+	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
+	ARM_Right_Open();		
+	WRIST_Left_Middle();
+	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
+	WRIST_Right_Middle();
+	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
+}
+
+void ARMS_Open_Map(void)
+{
+	ARM_Left_Open();		
+	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
+	ARM_Right_Open();		
+	WRIST_Left_Middle();
+	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
+	WRIST_Right_Middle();
+}
+
+void ARMS_Grab_Map(void)
+{
+	ELEVATOR_Level_Up();
+	WRIST_Left_Up();
+	WRIST_Right_Up();
+}
+	
 void ARM_Left_Close(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
@@ -131,42 +159,66 @@ void ARM_Right_Open(void)
 	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x02, 0x53);
 }
 
-void ARM_Left_GrabIngotOnFloor(void)
-{
-	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0xD0);
-}
-
-void ARM_Right_GrabIngotOnTotem(void)
-{
-	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0xC0);
-}
-
-void ARM_Left_GrabIngotOnTotem(void)
-{
-	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0x33);
-}
-
-void ARM_Right_GrabIngotOnFloor(void)
+void ARM_Right_GrabTotem(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
 	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0x2C);
 }
 
-void ARM_Left_GrabCD(void)
+void ARM_Left_GrabTotem(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0x00);
+	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0xD0);
 }
 
-void ARM_Right_GrabCD(void)
+void ARM_Right_Catch(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x02, 0x00);
+	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0x2C);
 }
 
+void ARM_Left_Catch(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
+	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0xD0);
+}
+
+// Functions for Pneumatic control of objects
+//void ARM_Right_GrabIngotOnFloor(void)
+//{
+//	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
+//	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0x2C);
+//}
+//
+//void ARM_Left_GrabIngotOnFloor(void)
+//{
+//	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
+//	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0xD0);
+//}
+//
+//void ARM_Right_GrabIngotOnTotem(void)
+//{
+//	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
+//	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0xC0);
+//}
+
+//void ARM_Left_GrabIngotOnTotem(void)
+//{
+//	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
+//	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0x33);
+//}
+
+//void ARM_Left_GrabCD(void)
+//{
+//	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
+//	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0x00);
+//}
+
+//void ARM_Right_GrabCD(void)
+//{
+//	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
+//	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x02, 0x00);
+//}
 
 void ELEVATOR_Level_Low(void)
 {
@@ -228,17 +280,17 @@ void WRIST_Right_Up(void)
 	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x00, 0xFA);
 }
 
-
-void PUMP_Right_Suck(void)
-{
-	GPIO_Action (PUMP_RIGHT, 1);
-}
-
-void PUMP_Left_Suck(void)
-{
-	GPIO_Action (PUMP_LEFT, 1);
-}
-
+// Not used in 2012 --> Keep in code for future release
+//void PUMP_Right_Suck(void)
+//{
+//	GPIO_Action (PUMP_RIGHT, 1);
+//}
+//
+//void PUMP_Left_Suck(void)
+//{
+//	GPIO_Action (PUMP_LEFT, 1);
+//}
+//
 void PUMP_Right_Release(void)
 {
 	GPIO_Action (PUMP_RIGHT, 0);
