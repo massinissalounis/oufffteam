@@ -164,6 +164,7 @@ namespace StrategyGenerator
             General_RobotPosAfter.Width = General_DefaultSpeedLabel.Width;
 
             General_buttonConvert.Margin = new Thickness(GeneralInfo.Width / 2 - General_buttonConvert.Width / 2, General_RobotPosAfter.Margin.Top + 30, 0, 0);
+            General_buttonImport.Margin = new Thickness(General_buttonConvert.Margin.Left, General_buttonConvert.Margin.Top + 30, 0, 0);
 
             // CmdView Borders --------------------------------------------------------------------
             MapBorder.Margin = new Thickness(0, 0, 0, 0);
@@ -304,13 +305,13 @@ namespace StrategyGenerator
                 {
                     CmdViewN_CmdID.Text = _CurrentStrategy.GetActionID(CurrentCmdID).ToString();
                     CmdViewN_NextCmdID.Text = _CurrentStrategy.GetNextActionID(CurrentCmdID).ToString();
-                    CmdViewN_CmdBox.SelectedItem = CurrentCmd.Cmd.ToString();
-                    CmdViewN_CmdTypeBox.SelectedItem = CurrentCmd.CmdType.ToString();
-                    CmdViewN_FlagBox.SelectedItem = CurrentCmd.ActiveSensors.ToString();
                     CmdViewN_Param1.Text = CurrentCmd.Param1;
                     CmdViewN_Param2.Text = CurrentCmd.Param2;
                     CmdViewN_Param3.Text = CurrentCmd.Param3;
                     CmdViewN_Param4.Text = CurrentCmd.Param4;
+                    CmdViewN_CmdBox.SelectedItem = CurrentCmd.Cmd.ToString();
+                    CmdViewN_CmdTypeBox.SelectedItem = CurrentCmd.CmdType.ToString();
+                    CmdViewN_FlagBox.SelectedItem = CurrentCmd.ActiveSensors.ToString();
 
                     DataChanged();
                 }
@@ -373,7 +374,7 @@ namespace StrategyGenerator
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
             // Ask for file to load
-            dlg.Filter = "C Files|*.c|All Files|*.*";
+            dlg.Filter = "C Files|*.c";
             dlg.Title = "Select the strategy file (A=Red, B=Purple)";
             dlg.CheckFileExists = true;
             dlg.ShowDialog();
@@ -382,7 +383,7 @@ namespace StrategyGenerator
             if (_CurrentStrategyFilename != "")
             {
                 // Ask for file to load
-                dlg.Filter = "C Files|*.c|All Files|*.*";
+                dlg.Filter = "Pattern Files|*.pattern";
                 dlg.Title = "Select the pattern strategy file (A=Red, B=Purple)";
                 dlg.CheckFileExists = true;
                 dlg.ShowDialog();
@@ -403,9 +404,9 @@ namespace StrategyGenerator
             if (_CurrentStrategy != null)
             {
                 // Ask for file to write
-                dlg.Filter = "C Files|*.c|All Files|*.*";
+                dlg.Filter = "C Files|*.c";
                 dlg.Title = "Select the output strategy file (A=Red, B=Purple)";
-                dlg.FileName = _CurrentStrategyFilename;
+                dlg.FileName = "";
                 dlg.CheckFileExists = false;
                 dlg.ShowDialog();
                 _CurrentStrategyFilename = dlg.FileName.ToString();
@@ -413,13 +414,12 @@ namespace StrategyGenerator
                 if (_CurrentStrategyFilename != "")
                 {
                     // Ask for file to load
-                    dlg.Filter = "C Files|*.c|All Files|*.*";
+                    dlg.Filter = "Pattern Files|*.pattern";
                     dlg.Title = "Select the pattern strategy file to use for wrtting the output file (A=Red, B=Purple)";
-                    dlg.FileName = _CurrentStrategyPatternFilename;
+                    dlg.FileName = "";
                     dlg.CheckFileExists = true;
                     dlg.ShowDialog();
                     _CurrentStrategyPatternFilename = dlg.FileName.ToString();
-
 
                     if (_CurrentStrategyPatternFilename != "")
                     {
@@ -458,7 +458,6 @@ namespace StrategyGenerator
                 }
 
                 CmdList.SelectedIndex = 0;
-                _PositionList = null;
             }
             else
             {
@@ -519,7 +518,9 @@ namespace StrategyGenerator
             if (CmdList.SelectedIndex <= 0)
                 CmdViewN_CmdBox.IsEnabled = false;
             else
+            {
                 CmdViewN_CmdBox.IsEnabled = true;
+            }
         }
 
         private void CmdViewN_CmdTypeBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -578,7 +579,7 @@ namespace StrategyGenerator
             }
         }
 
-         private void CmdList_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private void CmdList_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             _PositionList = null;
         }
@@ -588,7 +589,7 @@ namespace StrategyGenerator
             Command SelectedCmd = _CurrentStrategy.GetCommand(CmdList.SelectedIndex);
             int NextActionID = 0;
 
-            if (SelectedCmd.Cmd == EnumCmd.App_IfGoto)
+            if ((SelectedCmd.Cmd == EnumCmd.App_IfGoto_Strategy) || (SelectedCmd.Cmd == EnumCmd.App_IfGoto_System))
             {
                 // If the current command is App_IfGoto, we ask for the next cmd ID
                 AskNextAction NextActionWindow = new AskNextAction(SelectedCmd.Param1, SelectedCmd.Param2, SelectedCmd.Param3);
@@ -601,21 +602,24 @@ namespace StrategyGenerator
                 NextActionID = _CurrentStrategy.GetNextActionID(CmdList.SelectedIndex);
             }
 
-            int NextIndex = _CurrentStrategy.GetIndexFromCmdID(NextActionID);
-
-            if (_PositionList != null)
+            if (NextActionID > 0)
             {
-                int x = _PositionList[0].X;
-                int y = _PositionList[0].Y;
-                int angle = _PositionList[0].Angle;
+                int NextIndex = _CurrentStrategy.GetIndexFromCmdID(NextActionID);
 
-                Command Cmd = _CurrentStrategy.GetCommand(CmdList.SelectedIndex);
+                if (_PositionList != null)
+                {
+                    int x = _PositionList[0].X;
+                    int y = _PositionList[0].Y;
+                    int angle = _PositionList[0].Angle;
 
-                _PositionList.Insert(0, new RobotPos(x, y, angle, Cmd, NextIndex));
-                CmdViewN_ButtonPrev.IsEnabled = true;
+                    Command Cmd = _CurrentStrategy.GetCommand(CmdList.SelectedIndex);
+
+                    _PositionList.Insert(0, new RobotPos(x, y, angle, Cmd, NextIndex));
+                    CmdViewN_ButtonPrev.IsEnabled = true;
+                }
+
+                CmdList.SelectedIndex = NextIndex;
             }
-
-            CmdList.SelectedIndex = NextIndex;
         }
 
         private void CmdViewN_ButtonPrev_Click(object sender, RoutedEventArgs e)
@@ -782,8 +786,9 @@ namespace StrategyGenerator
 
             switch (CurrentCmd)
             {
+                // Cmd Modif : Add new command here
                 // ________________________________________
-                case EnumCmd.App_SetNewPos: 
+                case EnumCmd.App_SetNewPos:
                     CmdViewN_Param1.Text = "Not Used";
                     CmdViewN_Param2.Text = CheckParam_XPos(CmdViewN_Param2.Text);
                     CmdViewN_Param3.Text = CheckParam_YPos(CmdViewN_Param3.Text);
@@ -809,12 +814,21 @@ namespace StrategyGenerator
                     break;
 
                 // ________________________________________
-                case EnumCmd.App_IfGoto:
+                case EnumCmd.App_IfGoto_System:
+                case EnumCmd.App_IfGoto_Strategy:
                     //CmdViewN_Param1.Text = Check ??
                     CmdViewN_Param2.Text = CheckParam_Goto(CmdViewN_Param2.Text);
                     CmdViewN_Param3.Text = CheckParam_Goto(CmdViewN_Param3.Text);
                     CmdViewN_Param4.Text = "Not Used";
                     CmdViewN_NextCmdID.Text = _CurrentStrategy.GetActionID(CmdList.SelectedIndex).ToString();
+                    break;
+
+                // ________________________________________
+                case EnumCmd.App_SetStrategyFlags:
+                    //CmdViewN_Param1.Text = Check ??
+                    CmdViewN_Param2.Text = CheckParam_Bool(CmdViewN_Param2.Text);
+                    CmdViewN_Param3.Text = "Not Used";
+                    CmdViewN_Param4.Text = "Not Used";
                     break;
 
                 // ________________________________________
@@ -930,6 +944,55 @@ namespace StrategyGenerator
             CmdList.SelectedIndex = 0;
         }
 
+        private void General_buttonImport_Click(object sender, RoutedEventArgs e)
+        {
+            String LoopFilename = "";
+            String PatternFileName = "";
+            FullStrategy LoopsToImport = null;
+
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+
+            // Ask for file to load
+            dlg.Filter = "C Files|*.c";
+            dlg.Title = "Select the strategy file (A=Red, B=Purple)";
+            dlg.CheckFileExists = true;
+            dlg.ShowDialog();
+            LoopFilename = dlg.FileName.ToString();
+
+            if (LoopFilename != "")
+            {
+                // Ask for file to load
+                dlg.Filter = "Pattern Files|*.pattern";
+                dlg.Title = "Select the pattern strategy file (A=Red, B=Purple)";
+                dlg.CheckFileExists = true;
+                dlg.ShowDialog();
+                PatternFileName = dlg.FileName.ToString();
+
+                if (PatternFileName != "")
+                {
+                    LoopsToImport = new FullStrategy(LoopFilename, PatternFileName);
+                    
+                    // Check for imported loops
+                    if (LoopsToImport != null)
+                    {
+                        for (int i = 0; i<=LoopsToImport.Count(); i++)
+                        {
+                            Command CommandToAdd = LoopsToImport.GetCommand(i);
+                            int CommandIDToAdd = LoopsToImport.GetActionID(i);
+                            int NextCommandIDToAdd = LoopsToImport.GetNextActionID(i);
+
+                            if (CommandIDToAdd >= 100)
+                            {
+                                _CurrentStrategy.InsertCmd(CommandToAdd, CommandIDToAdd, NextCommandIDToAdd);
+                            }
+                        }
+
+                        LoadNewStrategy();
+                    }
+                }
+            }
+        }
+
         private void Position_KeyDown(object sender, KeyEventArgs e)
         {
             EnumCmd CurrentCmd = Command.GetCmdFromString(CmdViewN_CmdBox.SelectedItem.ToString());
@@ -1008,10 +1071,6 @@ namespace StrategyGenerator
                         break;
 
                     // ________________________________________
-                    case EnumCmd.App_Wait:
-                    case EnumCmd.App_IfGoto:
-                    case EnumCmd.NotSet:
-                    case EnumCmd.Mvt_Stop:
                     default:
                         break;
                 }
@@ -1074,14 +1133,19 @@ namespace StrategyGenerator
         private void CmdViewN_CmdID_Validate(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (CmdList.SelectedIndex > 1)
+            {
                 _CurrentStrategy.UpdateActionID(CmdList.SelectedIndex, CmdViewN_CmdID.Text);
+                
+                int SelectedIndex = CmdList.SelectedIndex;
+                LoadNewStrategy();
+                CmdList.SelectedIndex = SelectedIndex;
+            }
         }
 
         private void CmdViewN_CmdID_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
-                if(CmdList.SelectedIndex > 1)
-                    _CurrentStrategy.UpdateActionID(CmdList.SelectedIndex, CmdViewN_CmdID.Text);
+                CmdViewN_CmdID_Validate(sender, null);
         }
 
         private void CmdViewN_Param_KeyDown(object sender, KeyEventArgs e)
@@ -1092,9 +1156,19 @@ namespace StrategyGenerator
 
         private void CmdViewN_Param1_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (CmdViewN_CmdBox.SelectedItem.ToString() == EnumCmd.App_IfGoto.ToString())
+            if (CmdViewN_CmdBox.SelectedItem.ToString() == EnumCmd.App_IfGoto_System.ToString())
             {
-                GetSelectedFlags WindowFlags = new GetSelectedFlags(CmdViewN_Param1.Text);
+                GetSystemFlags WindowFlags = new GetSystemFlags(CmdViewN_Param1.Text);
+                WindowFlags.ShowDialog();
+
+                CmdViewN_Param1.Text = WindowFlags.SelectedFlags;
+            }
+            
+
+            if ((CmdViewN_CmdBox.SelectedItem.ToString() == EnumCmd.App_SetStrategyFlags.ToString()) ||
+                (CmdViewN_CmdBox.SelectedItem.ToString() == EnumCmd.App_IfGoto_Strategy.ToString()))
+            {
+                GetStrategyFlags WindowFlags = new GetStrategyFlags(CmdViewN_Param1.Text);
                 WindowFlags.ShowDialog();
 
                 CmdViewN_Param1.Text = WindowFlags.SelectedFlags;
@@ -1131,6 +1205,7 @@ namespace StrategyGenerator
 
                 switch (CurrentCmd)
                 {
+                    // Cmd Modif : Add new command here
                     // ________________________________________
                     case EnumCmd.App_SetNewPos:
 
@@ -1171,7 +1246,8 @@ namespace StrategyGenerator
                         break;
 
                     // ________________________________________
-                    case EnumCmd.App_IfGoto:
+                    case EnumCmd.App_IfGoto_System:
+                    case EnumCmd.App_IfGoto_Strategy:
                         textBlock_HelpParam1.Text += "Param 1 :\nTest";
                         textBlock_CmdHelpParam1.Text = "";
                         textBlock_HelpParam2.Text += "Param 2 :\nID if True";
@@ -1181,6 +1257,19 @@ namespace StrategyGenerator
                         textBlock_HelpParam4.Text += "Param 4 :\nNot Used";
                         textBlock_CmdHelpParam4.Text = "";
                         break;
+
+                    // ________________________________________
+                    case EnumCmd.App_SetStrategyFlags:
+                        textBlock_HelpParam1.Text += "Param 1 :\nFlags to Set";
+                        textBlock_CmdHelpParam1.Text = "";
+                        textBlock_HelpParam2.Text += "Param 2 :\nNew Value";
+                        textBlock_CmdHelpParam2.Text = "";
+                        textBlock_HelpParam3.Text += "Param 3 :\nNot Used";
+                        textBlock_CmdHelpParam3.Text = "";
+                        textBlock_HelpParam4.Text += "Param 4 :\nNot Used";
+                        textBlock_CmdHelpParam4.Text = "";
+                        break;
+
                     // ________________________________________
                     case EnumCmd.Mvt_UseMixedMode:
                         textBlock_HelpParam1.Text += "Param 1 :\nSpeed";
@@ -1424,6 +1513,16 @@ namespace StrategyGenerator
                 return "RIGHT_WHEEL";
         }
 
+        private string CheckParam_Bool(string ValueToCheck)
+        {
+            if (ValueToCheck == "")
+                return "0";
+
+            if (ValueToCheck == "0")
+                return ValueToCheck;
+
+            return "1";
+        }
 
         // Private items --------------------------------------------------------------------------
         private String _CurrentStrategyFilename = null;

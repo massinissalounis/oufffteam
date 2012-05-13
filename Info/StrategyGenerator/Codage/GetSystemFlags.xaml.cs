@@ -16,7 +16,7 @@ namespace StrategyGenerator
     /// <summary>
     /// Logique d'interaction pour Window1.xaml
     /// </summary>
-    public partial class GetSelectedFlags : Window
+    public partial class GetSystemFlags : Window
     {
         enum EnumFlags
         {
@@ -29,7 +29,7 @@ namespace StrategyGenerator
             APP_PARAM_APPFLAG_GP2_HOLDER
         }
 
-        public GetSelectedFlags(String CurrentFlags)
+        public GetSystemFlags(String CurrentFlags)
         {
             InitializeComponent();
 

@@ -138,9 +138,6 @@ namespace StrategyGenerator.Strategy
                      break;
                 
                 // ________________________________________
-                case EnumCmd.Mvt_Stop:
-                case EnumCmd.App_Wait:
-                case EnumCmd.App_IfGoto:
                 default:
                     _ComputedPosX = _PosX;
                     _ComputedPosY = _PosY;
@@ -194,10 +191,6 @@ namespace StrategyGenerator.Strategy
                     break;
 
                 // ________________________________________
-                case EnumCmd.App_SetNewPos:
-                case EnumCmd.Mvt_Stop:
-                case EnumCmd.App_Wait:
-                case EnumCmd.App_IfGoto:
                 default:
                     break;
             }
