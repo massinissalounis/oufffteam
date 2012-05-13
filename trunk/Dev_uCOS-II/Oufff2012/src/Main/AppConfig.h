@@ -53,9 +53,12 @@
 #define	APP_PARAM_GAME_DURATION					90			//  in sec: Time until the end of the game				
 #define APP_PARAM_TEMPO_RESOLUTION				500			//  in ms (0 to 999): Delay before 2 ticks check in TaskTempo		
 
-#define APP_PARAM_APPFLAG_INITAL_VALUE			0x00000000	//  Initial value for AppFlags var 
+#define APP_PARAM_APPFLAG_INITAL_VALUE			0x00000000	//  Initial value for AppFlags  
+#define APP_PARAM_STRATEGYFLAG_INITAL_VALUE		0x00000000	//  Initial value for AppStrategyFlags 
 #define APP_PARAM_APPFLAG_NONE					0x00000000	//	Don't use sensor
+#define APP_PARAM_STRATEGYFLAG_NONE				0x00000000	//	Don't use flags
 
+// APP FLAGS --------------------------------------------------------------------------------------------------------------------------------------------
 // Value is defined as follow :								//	|Bit| Desctiption				| Value ON 			| Value OFF			| Connection	|	
 // State Flag ____________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
 #define APP_PARAM_APPFLAG_START_BUTTON			0x00000001	//	| 0	| Start Button				| Pressed			| Not Pressed		| Hard			|
@@ -93,6 +96,45 @@
 #define APP_PARAM_APPFLAG_BIT29					0x20000000	//	|29 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT30					0x40000000	//	|30 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT31					0x80000000	//	|31 | Not Used					| -					| -					| -				|
+
+// STRATEGY FLAGS ---------------------------------------------------------------------------------------------------------------------------------------
+// Value is defined as follow :								//	|Bit| Desctiption				| Value ON 			| Value OFF			| Connection	|	
+// Actions Done __________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
+#define APP_PARAM_STRATEGYFLAG_BIT00			0x00000001	//	| 0	| Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT01			0x00000002	//	| 1 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT02			0x00000004	//	| 2 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT03			0x00000008	//	| 3 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT04			0x00000010	//	| 4 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT05			0x00000020	//	| 5 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT06			0x00000040	//	| 6 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT07			0x00000080	//	| 7 | Not Used					| -					| -				 	| -				|	
+// Forbbiden Zone ________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
+#define APP_PARAM_STRATEGYFLAG_BIT08			0x00000100	//	| 8 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT09			0x00000200	//	| 9 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT10			0x00000400	//	|10 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT11			0x00000800	//	|11 | Not Used					| -					| -					| -				|	
+#define APP_PARAM_STRATEGYFLAG_BIT12			0x00001000	//	|12 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT13			0x00002000	//	|13 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT14			0x00004000	//	|14 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT15			0x00008000	//	|15 | Not Used					| -					| -					| -				|
+// SW Flag _______________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
+#define APP_PARAM_STRATEGYFLAG_BIT16			0x00010000	//	|16 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT17			0x00020000	//	|17 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT18			0x00040000	//	|18 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT19			0x00080000	//	|19 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT20			0x00100000	//	|20 | Not Used					| -					| -					| -				|			|
+#define APP_PARAM_STRATEGYFLAG_BIT21			0x00200000	//	|21 | Not Used					| -					| -					| -				|			|
+#define APP_PARAM_STRATEGYFLAG_BIT22			0x00400000	//	|22 | Not Used					| -					| -					| -				|			|
+#define APP_PARAM_STRATEGYFLAG_BIT23			0x00800000	//	|23 | Not Used					| -					| -					| -				|			|
+// State Flag ____________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
+#define APP_PARAM_STRATEGYFLAG_BIT24			0x01000000	//	|24 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT25			0x02000000	//	|25 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT26			0x04000000	//	|26 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT27			0x08000000	//	|27 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT28			0x10000000	//	|28 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT29			0x20000000	//	|29 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT30			0x40000000	//	|30 | Not Used					| -					| -					| -				|
+#define APP_PARAM_STRATEGYFLAG_BIT31			0x80000000	//	|31 | Not Used					| -					| -					| -				|
 
 // Groups ------------------------------------------------------------------------------------------------
 // Sensors Groups
@@ -216,7 +258,8 @@
 
 //#define DEFAULT_STRATEGY_ENABLED				// Enable this option to use default strategy
 //#define TEST_STRATEGY_ENABLED					// Enable this option to use the test strategy
-#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
+//#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
+#define STRAT1_STRATEGY_ENABLED				// Enable this option to use the strategy n°1
 
 /*
 *********************************************************************************************************

@@ -117,14 +117,14 @@ void TaskMain_Main(void *p_arg)
 			{
 				AppDebugMsg("TaskMain : Color = Red\n");
 				#ifdef _TARGET_440H
-					Set_Line_Information( 1, 15, "B", 1);
+					Set_Line_Information( 1, 15, "R", 1);
 				#endif
 			}
 			else
 			{
 				AppDebugMsg("TaskMain : Color = Violet\n");
 				#ifdef _TARGET_440H
-					Set_Line_Information( 1, 15, "R", 1);
+					Set_Line_Information( 1, 15, "V", 1);
 				#endif
 			}
 			

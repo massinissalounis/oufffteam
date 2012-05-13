@@ -79,7 +79,7 @@ void TaskSensors_CheckBumpers()
 
 // Grab Functions #################################################################################
 // ------------------------------------------------------------------------------------------------
-void TaskSensors_GrabIngotOnFloor()
+/*void TaskSensors_GrabIngotOnFloor()
 {
 	if(ADC_GetVal (GP2_HOLDER) > 600)
 	{
@@ -138,6 +138,7 @@ void TaskSensors_GrabCD()
 
 	return;
 }
+*/
 
 // ------------------------------------------------------------------------------------------------
 // TaskSensors_Main()

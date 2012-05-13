@@ -277,6 +277,17 @@ void AppCreateIPCS()
 			OSTimeDlyHMSM(1, 0, 0, 0);		
 	}
 
+	// Strategy Flags
+	AppStrategyFlags = OSFlagCreate(APP_PARAM_STRATEGYFLAG_INITAL_VALUE, &perr);
+	if(NULL == AppStrategyFlags)
+	{
+		AppDebugMsg("DEBUG (App.c) : Error -> Unable to create Strategy Flag\n");
+		AppDebugMsg("DEBUG (App.c) : Entering in sleeping mode...\n");	
+
+        while(OS_TRUE)		// Infinite Loop
+			OSTimeDlyHMSM(1, 0, 0, 0);		
+	}
+
 	return;
 }
 
@@ -295,6 +306,7 @@ void AppInitVar()
 	// Vars
     AppQueueSensors = NULL;
 	AppFlags = NULL;														/* Application Flags							*/
+	AppStrategyFlags = NULL;												/* Strategy Flags								*/
 	AppCurrentColor = c_NotSet;												/* Set CurrentColor to NotSet					*/
     App_CmdToTaskMvtId = 0;                                               // Var to store MsgID of App_CmdToTaskMvt
     App_CmdToTaskAsserId = 0;                                             // Var to store MsgID of App_CmdToTaskAsser

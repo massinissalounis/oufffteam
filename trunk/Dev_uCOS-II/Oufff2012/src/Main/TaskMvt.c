@@ -305,10 +305,6 @@ void TaskMvt_Main(void *p_arg)
 				// Ask for stopping Mvt
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
 
-				// Disable all current path
-				//CurrentSetpoint = -1;
-				//memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
-
 				do
 				{
 					OSTimeDlyHMSM(0, 0, 0, 500);
@@ -317,17 +313,12 @@ void TaskMvt_Main(void *p_arg)
 
 				TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
 				NextState = 9;
-				//NextState = 253;
 				break;
 
 			// CASE 006 ---------------------------------------------------------------------------
 			case 6:		// Escape Seq (Back)
 				// Ask for stopping Mvt
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
-
-				// Disable all current path
-				//CurrentSetpoint = -1;
-				//memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
 
 				do
 				{
@@ -337,7 +328,6 @@ void TaskMvt_Main(void *p_arg)
 
 				TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
 				NextState = 9;
-				//NextState = 253;
 				break;
 
 			// CASE 007 ---------------------------------------------------------------------------

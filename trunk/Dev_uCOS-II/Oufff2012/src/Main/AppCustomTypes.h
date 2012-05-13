@@ -64,8 +64,10 @@ typedef enum
 	Mvt_Stop						= 17,   // Used to stop current mvt
 	// Command APP ______________________
 	App_Wait						= 20,	// Wait (if all params = 0, wait for ever)
-	App_IfGoto						= 21,	// Go to a specific step
-	App_SetNewPos					= 22,	// Msg used to define a new position
+	App_IfGoto_System				= 21,	// Go to a specific step based on System Flags
+	App_IfGoto_Strategy				= 22,	// Go to a specific step based on Strategy Flags
+	App_SetNewPos					= 23,	// Msg used to define a new position
+	App_SetStrategyFlags			= 24,	// Set the stratgey flags
 	// Command SENSORS __________________
 	Sensors_GrabObject				= 30,	// Grab an object
 	Sensors_SetHolderStatus			= 31,	// Change Holder status (open/close/etc...)
