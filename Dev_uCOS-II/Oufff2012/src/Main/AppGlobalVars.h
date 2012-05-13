@@ -36,5 +36,6 @@ extern EnumColor		AppCurrentColor;						// Contains current color (read from bsp
 
 /***** FLAGS *****/
 extern OS_FLAG_GRP		*AppFlags;								// Contains all flags for this application							
+extern OS_FLAG_GRP		*AppStrategyFlags;						// Contains all flags for the Strategy							
 
 #endif // APPGLOBALVARS_H

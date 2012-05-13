@@ -25,7 +25,7 @@ INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
 		return ERR__INVALID_PARAM;
 
 	InitCmd->Cmd				= App_SetNewPos;
-	InitCmd->CmdType			= CmdType_NonBlocking;
+	InitCmd->CmdType			= CmdType_Blocking;
 	InitCmd->Param2				= 2935;	
 	InitCmd->Param3				= 1667;	
 	InitCmd->Param4				= AppConvertDegInRad(180);
@@ -41,6 +41,7 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	int			CurrentActionID = 0;
 	INT8U 			Err = 0;
 	OS_FLAGS		CurrentFlag = 0;
+	OS_FLAGS		StrategyFlagsToSet = 0;
 	StructCmd 		*p = NextAction;
 
 	if(NULL == NextAction)
@@ -136,6 +137,17 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 			NextActionID = (int)(p->Param3);
 
 		return StrategyColorA_GetNextAction(p);
+	}
+	
+	// Set / Clear Strategy Flags --------------------------------------
+	if(App_SetStrategyFlags == p->Cmd)
+	{
+		StrategyFlagsToSet = (OS_FLAGS)p->Param1;
+
+		if(p->Param2 != 0)
+			OSFlagPost(AppStrategyFlags, StrategyFlagsToSet, OS_FLAG_SET, &Err);
+		else
+			OSFlagPost(AppStrategyFlags, StrategyFlagsToSet, OS_FLAG_CLR, &Err);
 	}
 	
 	// Create the MvtSimple Command --------------------------------------

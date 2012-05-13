@@ -57,15 +57,15 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	{
 		// StructuredFileLoopBegin
 		// LoopID = 0
-		case 1:	p->CmdType = CmdType_NonBlocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 100;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 670;    		break;	
+		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 100;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 670;    		break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
 		// LoopID = 1
-		case 100:	p->CmdType = CmdType_NonBlocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 101;	p->Cmd = MvtSimple_RotateToAngleInDeg;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param4 = 65;    		break;	
-		case 101:	p->CmdType = CmdType_NonBlocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 102;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = -736;    		break;	
-		case 102:	p->CmdType = CmdType_NonBlocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 103;	p->Cmd = MvtSimple_RotateToAngleInDeg;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param4 = 0;    		break;	
-		case 103:	p->CmdType = CmdType_NonBlocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = -1;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 364;    		break;	
+		case 100:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 101;	p->Cmd = MvtSimple_RotateToAngleInDeg;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param4 = 65;    		break;	
+		case 101:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 102;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = -736;    		break;	
+		case 102:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 103;	p->Cmd = MvtSimple_RotateToAngleInDeg;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param4 = 0;    		break;	
+		case 103:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = -1;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 364;    		break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin

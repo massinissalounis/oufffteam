@@ -55,7 +55,7 @@ void ARMS_Init(void)
 	PUMP_Right_Release();
 	PUMP_Left_Release();
 	
-	ELEVATOR_Level_Ingot();
+//	ELEVATOR_Level_Ingot();
 	ARMS_Open_Ingot();
 	ARMS_Sleep();
 
@@ -67,7 +67,7 @@ void ARMS_DefaultPos(void)
 	WRIST_Left_Up();
 	WRIST_Right_Up();
 
-	ELEVATOR_Level_Ingot();
+//	ELEVATOR_Level_Ingot();
 
 	ARM_Left_Close();
 	ARM_Right_Close();
@@ -125,22 +125,11 @@ void ARMS_Open_Map(void)
 	WRIST_Left_Middle();
 	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
 	WRIST_Right_Middle();
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
-}
-
-void ARMS_Open_Map(void)
-{
-	ARM_Left_Open();		
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
-	ARM_Right_Open();		
-	WRIST_Left_Middle();
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
-	WRIST_Right_Middle();
 }
 
 void ARMS_Grab_Map(void)
 {
-	ELEVATOR_Level_Up();
+	ELEVATOR_Level_High();
 	WRIST_Left_Up();
 	WRIST_Right_Up();
 }
