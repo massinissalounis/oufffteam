@@ -55,6 +55,8 @@
 
 #define APP_PARAM_APPFLAG_INITAL_VALUE			0x00000000	//  Initial value for AppFlags  
 #define APP_PARAM_STRATEGYFLAG_INITAL_VALUE		0x00000000	//  Initial value for AppStrategyFlags 
+#define APP_PARAM_APPFLAG_ALL					0xFFFFFFFF	//	Read all sensors
+#define APP_PARAM_STRATEGYFLAG_ALL				0xFFFFFFFF	//	Read all flags
 #define APP_PARAM_APPFLAG_NONE					0x00000000	//	Don't use sensor
 #define APP_PARAM_STRATEGYFLAG_NONE				0x00000000	//	Don't use flags
 
