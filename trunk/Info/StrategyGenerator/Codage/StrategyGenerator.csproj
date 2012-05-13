@@ -64,14 +64,17 @@
     <Compile Include="AskNextAction.xaml.cs">
       <DependentUpon>AskNextAction.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GetStrategyFlags.xaml.cs">
+      <DependentUpon>GetStrategyFlags.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileManager\StructuredFileKey.cs" />
     <Compile Include="Strategy\CommandActiveSensorsFlag.cs" />
     <Compile Include="Strategy\Command.cs" />
     <Compile Include="Strategy\FullStrategy.cs" />
     <Compile Include="Strategy\RobotPos.cs" />
     <Compile Include="Strategy\StrategyItem.cs" />
-    <Compile Include="GetSelectedFlags.xaml.cs">
-      <DependentUpon>GetSelectedFlags.xaml</DependentUpon>
+    <Compile Include="GetSystemFlags.xaml.cs">
+      <DependentUpon>GetSystemFlags.xaml</DependentUpon>
     </Compile>
     <Page Include="AskStrategyName.xaml">
       <SubType>Designer</SubType>
@@ -82,6 +85,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AskNextAction.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GetStrategyFlags.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -99,7 +106,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="GetSelectedFlags.xaml">
+    <Page Include="GetSystemFlags.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

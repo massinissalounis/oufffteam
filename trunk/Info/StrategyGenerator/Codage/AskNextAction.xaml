@@ -1,12 +1,12 @@
 ﻿<Window x:Class="StrategyGenerator.AskNextAction"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Add New Command " Height="130" Width="404" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow" Icon="/StrategyGenerator;component/Images/Logo_OufffTeam_Ptt.jpg">
+        Title="Add New Command " Height="430" Width="404" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Center" WindowStartupLocation="CenterScreen" WindowStyle="ThreeDBorderWindow" Icon="/StrategyGenerator;component/Images/Logo_OufffTeam_Ptt.jpg">
     <Grid>
-        <Label Content="Condition : " Height="28" HorizontalAlignment="Left" Margin="12,8,0,0" Name="label2" VerticalAlignment="Top" Width="182" />
-        <Button Content="True" Height="23" HorizontalAlignment="Left" Margin="75,52,0,0" Name="ButtonCmdTrue" VerticalAlignment="Top" Width="92" Click="Button_Click" />
-        <Button Content="False" Height="23" HorizontalAlignment="Left" Margin="228,52,0,0" Name="ButtonCmdValse" VerticalAlignment="Top" Width="92" Click="Button_Click" />
-        <TextBox Height="23" HorizontalAlignment="Left" Margin="98,10,0,0" Name="textBox_Condition" VerticalAlignment="Top" Width="259" IsEnabled="False" IsReadOnly="True" />
+        <Label Content="Condition : " Height="28" HorizontalAlignment="Left" Margin="12,8,0,0" Name="label2" VerticalAlignment="Top" Width="358" HorizontalContentAlignment="Center" />
+        <Button Content="True" Height="23" HorizontalAlignment="Left" Margin="68,356,0,0" Name="ButtonCmdTrue" VerticalAlignment="Top" Width="92" Click="Button_Click" />
+        <Button Content="False" Height="23" HorizontalAlignment="Left" Margin="221,356,0,0" Name="ButtonCmdValse" VerticalAlignment="Top" Width="92" Click="Button_Click" />
+        <TextBox Height="308" HorizontalAlignment="Left" Margin="12,42,0,0" Name="textBox_Condition" VerticalAlignment="Top" Width="358" IsEnabled="False" IsReadOnly="True" />
         <Grid.Background>
             <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
                 <GradientStop Color="#000000FF" Offset="0" />

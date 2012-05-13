@@ -87,6 +87,7 @@
                 <Label Content="Not Set" Width="100" Height="28" HorizontalAlignment="Left" Margin="96,50,0,0" Name="General_RobotPosBefore" VerticalAlignment="Top" />
                 <Label Content="Not Set" Width="100" Height="28" HorizontalAlignment="Left" Margin="84,78,0,0" Name="General_RobotPosAfter" VerticalAlignment="Top" />
                 <Button Content="Convert Current Strategy" Height="23" HorizontalAlignment="Left" Margin="0,114,0,0" Name="General_buttonConvert" VerticalAlignment="Top" Width="150" Click="General_buttonConvert_Click" />
+                <Button Content="Import External Loop" Height="23" HorizontalAlignment="Left" Margin="0,149,0,0" Name="General_buttonImport" VerticalAlignment="Top" Width="150" Click="General_buttonImport_Click" />
             </Grid> 
         </Grid>
     </Grid>

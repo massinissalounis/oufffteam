@@ -332,6 +332,30 @@ namespace StrategyGenerator.Strategy
             return;
         }
 
+        public Boolean InsertCmd(Command CommandToAdd, int CmdIDToAdd, int NextCmdIDToAdd)
+        {
+            int CheckID = 0;
+            int i = 0;
+
+            if((CommandToAdd == null) || (CmdIDToAdd <= 0))
+                return false;
+
+
+            while(i < _Strategy.Count && CheckID < CmdIDToAdd)
+            {
+                CheckID = _Strategy[i].ActionID;
+                i++;
+            }
+            
+            if(CheckID == CmdIDToAdd)
+                return false;
+            
+            // We can add the new command to the current ID
+            _Strategy.Insert(i, new StrategyItem(CommandToAdd, CmdIDToAdd, NextCmdIDToAdd));
+
+            return true;
+        }
+
         public void InsertNewCmd_Before(int Index, EnumCmd CmdToAdd, int NewCmdID)
         {
             int FreeActionID = -1;
@@ -399,6 +423,12 @@ namespace StrategyGenerator.Strategy
 
                 if (Index > _Strategy.Count)
                     throw (new Exception("Invalid Param"));
+
+                if (NewNextActionID == -1)
+                {
+                    _Strategy[Index - 1].NextActionID = NewNextActionID;
+                    return;
+                }
 
                 Boolean IsFound = false;
 

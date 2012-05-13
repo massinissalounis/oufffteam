@@ -25,7 +25,8 @@ namespace StrategyGenerator
 
             try
             {
-                textBox_Condition.Text = Condition;
+                String ConditionText = Condition.Replace("+ ", "+\n");
+                textBox_Condition.Text = ConditionText;
                 _ActionID_True = Convert.ToInt32(ActionID_True);
                 _ActionID_False = Convert.ToInt32(ActionID_False);
             }

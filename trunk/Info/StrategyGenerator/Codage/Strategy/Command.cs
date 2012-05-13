@@ -19,8 +19,11 @@ namespace StrategyGenerator.Strategy
         Mvt_Stop                            = 17,   // Used to stop current mvt
         // Command APP ______________________
         App_Wait                            = 20,	// Wait (if all params = 0, wait for ever)
-        App_IfGoto                          = 21,	// Go to a specific step
-        App_SetNewPos                       = 22,	// Msg used to define a new position
+        App_IfGoto_System                   = 21,	// Go to a specific step based on System Flags
+        App_IfGoto_Strategy                 = 22,	// Go to a specific step based on Strategy Flags
+        App_SetNewPos                       = 23,	// Msg used to define a new position
+        App_SetStrategyFlags                = 24,	// Set the stratgey flags
+        // Cmd Modif : Add new command here
     }
 
     enum EnumCmdType
@@ -144,10 +147,12 @@ namespace StrategyGenerator.Strategy
             _CmdType = CmdType;
 
             // Check Params for Cmd
+            // Cmd Modif : Add new command here
             switch (Cmd)
             {
                 // ________________________________________________________ Param1 / Param2
                 case EnumCmd.MvtSimple_MoveInMM:
+                case EnumCmd.App_SetStrategyFlags:
                     if ((Param1 != null) && (Param2 != null))
                     {
                         _Param1 = Param1;
@@ -180,7 +185,8 @@ namespace StrategyGenerator.Strategy
 
                 // ________________________________________________________ Param1 / Param2 / Param3
                 case EnumCmd.Mvt_UseDistOnly:
-                case EnumCmd.App_IfGoto:
+                case EnumCmd.App_IfGoto_System:
+                case EnumCmd.App_IfGoto_Strategy:
                     if ((Param1 != null) && (Param2 != null) && (Param3 != null))
                     {
                         _Param1 = Param1;
@@ -383,16 +389,16 @@ namespace StrategyGenerator.Strategy
             
             // Create the string that contains all data
             if (_Param1 != null)
-                Result = Result + "NextAction->Param1 = " + _Param1 + ";    ";
+                Result = Result + "p->Param1 = " + _Param1 + ";    ";
 
             if (_Param2 != null)
-                Result = Result + "NextAction->Param2 = " + _Param2 + ";    ";
+                Result = Result + "p->Param2 = " + _Param2 + ";    ";
 
             if (_Param3 != null)
-                Result = Result + "NextAction->Param3 = " + _Param3 + ";    ";
+                Result = Result + "p->Param3 = " + _Param3 + ";    ";
 
             if (_Param4 != null)
-                Result = Result + "NextAction->Param4 = " + _Param4 + ";    ";
+                Result = Result + "p->Param4 = " + _Param4 + ";    ";
 
             return Result;
         }
