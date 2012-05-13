@@ -70,13 +70,11 @@
     <ClCompile Include="..\..\..\src\Main\ArmsControl.c" />
     <ClCompile Include="..\..\..\src\Main\LibMoving.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\DefaultStrategy.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorA.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\Homol_CoupeSuisse.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\PatternFileColorA.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\PatternFileColorB.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestStrategyColorA.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\Strat1ColorA.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\Strat1ColorB.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\Test.c" />
     <ClCompile Include="..\..\..\src\Main\TaskAsser.c" />
     <ClCompile Include="..\..\..\src\Main\TaskMain.c" />
     <ClCompile Include="..\..\..\src\Main\TaskMvt.c" />
