@@ -240,7 +240,8 @@ void TaskMain_Main(void *p_arg)
 						break;
 
 					// To TaskSensors ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-					case Sensors_ArmsOpen:
+					case Sensors_ArmsOpenDown:
+					case Sensors_ArmsOpenUp:
 					case Sensors_ArmsDeployment:
 					case Sensors_ArmsOpenTotem:
 					case Sensors_ArmsOpenOneCD:

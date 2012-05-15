@@ -100,13 +100,25 @@ void ARMS_DeploymentPurple(void)
 	OSTimeDlyHMSM(0, 0, 0, 250);
 }
 
-void ARMS_Open(void)
+void ARMS_OpenDown(void)
 {
 	WRIST_Left_Open();
 	ARM_Left_Open();
 	WRIST_Right_Open();
 	ARM_Right_Open();
 	ELEVATOR_Level_Open();
+	OSTimeDlyHMSM(0, 0, 1, 0);
+}
+
+void ARMS_OpenUp(void)
+{
+	ELEVATOR_Level_GrabTotem();
+	OSTimeDlyHMSM(0, 0, 0, 100);
+	WRIST_Left_Open();
+	ARM_Left_Open();
+	WRIST_Right_Open();
+	ARM_Right_Open();
+	OSTimeDlyHMSM(0, 0, 1, 0);
 }
 
 void ARMS_Close(void)
@@ -130,13 +142,12 @@ void ARMS_OpenOneCD(void)
 	WRIST_Right_OpenOneCD();
 	ARM_Right_Open();
 	ELEVATOR_Level_Open();
-	OSTimeDlyHMSM(0, 0, 0, 250);
+	OSTimeDlyHMSM(0, 0, 1, 0);
 }
 
 void ARMS_OpenTotem(void)
 {
-	ARMS_Open();
-	OSTimeDlyHMSM(0, 0, 1, 0);
+	ARMS_OpenDown();
 	ELEVATOR_Level_GrabTotem();
 }
 
@@ -157,8 +168,7 @@ void ARMS_CloseTotem(void)
 
 void ARMS_Ungrab(void)
 {
-	ARMS_Open();
-	OSTimeDlyHMSM(0, 0, 1, 0);
+	ARMS_OpenDown();
 	ARM_Left_Ungrab();
 	OSTimeDlyHMSM(0, 0, 1, 0);
 	ARM_Right_Ungrab();

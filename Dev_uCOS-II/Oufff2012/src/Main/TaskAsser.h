@@ -53,9 +53,9 @@
 #define DEFAULT_ACC_DISTANCE	1.0		// n % of maximum speed per 10 ms
 
 // Used in hold speed control
-#define SPEED_ANGLE		0.5 	// n % of maximum speed
+#define SPEED_ANGLE		0.9 	// n % of maximum speed
 
-#define SPEED_PIVOT		0.2
+#define SPEED_PIVOT		0.9
 
 //////////////////////////////////////////////
 // General Coefficients

@@ -69,13 +69,14 @@ typedef enum
 	App_SetNewPos					= 23,	// Msg used to define a new position
 	App_SetStrategyFlags			= 24,	// Set the stratgey flags
 	// Command SENSORS __________________
-	Sensors_ArmsOpen				= 30,	// Open arms (Use for grabbing objects on floor)
-	Sensors_ArmsDeployment			= 31,	// Open arms with delay 
-	Sensors_ArmsOpenTotem			= 32,	// Open arms (Use for the arrival on the totem) 
-	Sensors_ArmsOpenOneCD			= 33,	// Open arms (Use for grabbing only one CD)
-	Sensors_ArmsClose				= 34,	// Close arms (Use for keeping objects into arms)
-	Sensors_ArmsCloseTotem			= 35,	// Close arms (Use for keeping objects into arms on totem (elevator is up))
-	Sensors_ArmsUngrab				= 36,	// Open arms for putting down the objects
+	Sensors_ArmsOpenDown			= 30,	// Open arms (Use for grabbing objects on floor)
+	Sensors_ArmsOpenUp				= 31,	// Open arms (Use for grabbing objects on totem)
+	Sensors_ArmsDeployment			= 32,	// Open arms with delay 
+	Sensors_ArmsOpenTotem			= 33,	// Open arms (Use for the arrival on the totem) 
+	Sensors_ArmsOpenOneCD			= 34,	// Open arms (Use for grabbing only one CD)
+	Sensors_ArmsClose				= 35,	// Close arms (Use for keeping objects into arms)
+	Sensors_ArmsCloseTotem			= 36,	// Close arms (Use for keeping objects into arms on totem (elevator is up))
+	Sensors_ArmsUngrab				= 37,	// Open arms for putting down the objects
 }EnumCmd;
 
 typedef enum
