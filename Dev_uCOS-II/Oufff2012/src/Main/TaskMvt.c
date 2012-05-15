@@ -14,8 +14,6 @@
 #include "TaskMvt.h"
 #include "AppGlobalVars.h"
 
-#define TASK_MVT_FLAGS_TO_READ	(APP_PARAM_APPFLAG_TIMER_STATUS + APP_PARAM_APPFLAG_START_BUTTON + APP_PARAM_APPFLAG_ALL_SENSORS)
-
 INT8U	Debug_MvtState = 0;
 
 extern float error_debug_1;
@@ -79,7 +77,8 @@ void TaskMvt_Main(void *p_arg)
     StructCmd       StopCmd;								// Command used for stopping the current mvt
 	StructCmd	    LastSetpointSent;		    			// Data to store last setpoint sent to TaskAsser
 	StructPos	    CurrentPos;		    					// Data used for storing current pos from TaskOdo
-	OS_FLAGS		CurrentFlag;							// Var to read current flag								
+	OS_FLAGS		SystemCurrentFlag;						// Var to read system current flag								
+	OS_FLAGS		StrategyCurrentFlag;					// Var to read strategy current flag								
  	OS_FLAGS		CurrentActivatedSensors;				// Sensors used for collision
 	OS_FLAGS		SensorsCurrentStatus;					// Var to store current sensors status
 	INT8U			CurrentState;							// Var used for storing current state for state machine
@@ -110,7 +109,8 @@ void TaskMvt_Main(void *p_arg)
 	StopCmd.Param4				= USE_CURRENT_VALUE;
 	StopCmd. ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
 
-	CurrentFlag				= 0;
+	SystemCurrentFlag		= 0;
+	StrategyCurrentFlag		= 0;
 	CurrentState			= 0;
 	NextState				= 0;
 	Err						= 0;
@@ -140,7 +140,8 @@ void TaskMvt_Main(void *p_arg)
 		Debug_MvtState = CurrentState;
 
 		// Check FLAGS for MvtTask
-		CurrentFlag = OSFlagAccept(AppFlags, TASK_MVT_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ANY, &Err);
+		SystemCurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
+		StrategyCurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
 		
 		#ifdef _TARGET_440H
 			sprintf(Debug_State, "%03d", CurrentState);
@@ -154,7 +155,7 @@ void TaskMvt_Main(void *p_arg)
 			// CASE 000 ---------------------------------------------------------------------------
 			case 0:		// Init state
 				// Check for 'start button' status
-				if((CurrentFlag & APP_PARAM_APPFLAG_START_BUTTON) != 0)
+				if((SystemCurrentFlag & APP_PARAM_APPFLAG_START_BUTTON) != 0)
 				{
 					// Start button has been pressed
 					NextState = 1;
@@ -187,7 +188,7 @@ void TaskMvt_Main(void *p_arg)
 
 			// CASE 001 ---------------------------------------------------------------------------
 			case 1:		// Read Timer flag
-				if((CurrentFlag & APP_PARAM_APPFLAG_TIMER_STATUS) == APP_PARAM_APPFLAG_TIMER_STATUS)
+				if((SystemCurrentFlag & APP_PARAM_APPFLAG_TIMER_STATUS) == APP_PARAM_APPFLAG_TIMER_STATUS)
 					NextState = 255;		// Time is up
 				else
 					NextState = 2;			// Time is running
@@ -244,23 +245,23 @@ void TaskMvt_Main(void *p_arg)
 			// CASE 003 ---------------------------------------------------------------------------
 			case 3:		// Read Bumpers Status
 				// Read the current sensors status
-				SensorsCurrentStatus = CurrentFlag & CurrentActivatedSensors;
+				SensorsCurrentStatus = StrategyCurrentFlag & CurrentActivatedSensors;
 
 				// One sensor has been activated
 				// Which sensors are active
-				if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_FRONT) != 0)
+				if((SensorsCurrentStatus & APP_PARAM_STRATEGYFLAG_COLLISION_FRONT) != 0)
 				{	// Front sensors are activated
 					NextState = 5;
 				}
-				else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_LEFT) != 0)
+				else if((SensorsCurrentStatus & APP_PARAM_STRATEGYFLAG_COLLISION_LEFT) != 0)
 				{	// Left sensors are activated
 					NextState = 7;
 				}
-				else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_RIGHT) != 0)
+				else if((SensorsCurrentStatus & APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT) != 0)
 				{	// Right sensors are activated
 					NextState = 8;
 				}
-				else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_BACK) != 0)
+				else if((SensorsCurrentStatus & APP_PARAM_STRATEGYFLAG_COLLISION_REAR) != 0)
 				{	// Back sensors are activated
 					NextState = 6;
 				}
@@ -301,8 +302,8 @@ void TaskMvt_Main(void *p_arg)
 				do
 				{
 					OSTimeDlyHMSM(0, 0, 0, 500);
-					CurrentFlag = OSFlagAccept(AppFlags, TASK_MVT_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ANY, &Err);
-				}while((CurrentFlag & APP_PARAM_APPFLAG_SENSORS_FRONT) != 0);
+					StrategyCurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
+				}while((StrategyCurrentFlag & APP_PARAM_STRATEGYFLAG_COLLISION_FRONT) != 0);
 
 				TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
 				
@@ -320,8 +321,8 @@ void TaskMvt_Main(void *p_arg)
 				do
 				{
 					OSTimeDlyHMSM(0, 0, 0, 500);
-					CurrentFlag = OSFlagAccept(AppFlags, TASK_MVT_FLAGS_TO_READ, OS_FLAG_WAIT_SET_ANY, &Err);
-				}while((CurrentFlag & APP_PARAM_APPFLAG_SENSORS_BACK) != 0);
+					StrategyCurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
+				}while((StrategyCurrentFlag & APP_PARAM_STRATEGYFLAG_COLLISION_REAR) != 0);
 
 				TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
 

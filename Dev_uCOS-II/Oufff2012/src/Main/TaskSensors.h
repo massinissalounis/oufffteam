@@ -26,6 +26,13 @@ void TaskSensors_CheckBumpers();
 	// Check for bumpers status.
 	// In case of collision, this function posts FLAGS to indicate we are bumping something
 
+void TaskSensors_GenerateStrategyFlags();
+	// Generate all Strategy Flags associated to the TaskSensors task
+
+// ARMS functions _________________________________________________________________________________
+void TaskSensors_ArmsClearStatus();
+	// Function for clearing all arms state flags
+
 void TaskSensors_ArmsInit();
 	// Send the init command for each arms from selected colors
 

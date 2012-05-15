@@ -69,14 +69,14 @@
 #define APP_PARAM_APPFLAG_ACTION_STATUS			0x00000040	//	| 6 | Action status				| Action is done	| Action is running	| Soft			|
 #define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running 	| Soft			|	
 // GP2 Flag ______________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
-#define APP_PARAM_APPFLAG_GP2_FRONT				0x00000100	//	| 8 | Front Sensor				| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_BACK				0x00000200	//	| 9 | Rear sensor				| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_HOLDER			0x00000400	//	|10 | GP2 used for detecting obj| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_4					0x00000800	//	|11 | GP2_4						| Active			| Inactive			| Hard			|	
-#define APP_PARAM_APPFLAG_GP2_5					0x00001000	//	|12 | GP2_5						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_6					0x00002000	//	|13 | GP2_6						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_7					0x00004000	//	|14 | GP2_7						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_8					0x00008000	//	|15 | GP2_8						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT_CENTER		0x00000100	//	| 8 | Front Sensor				| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_REAR_CENTER		0x00000200	//	| 9 | Rear sensor				| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1		0x00000400	//	|10 | GP2 on left Arm (Front)	| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2		0x00000800	//	|11 | GP2 on left Arm (Inside)	| Active			| Inactive			| Hard			|	
+#define APP_PARAM_APPFLAG_GP2_FRONT_LEFT_3		0x00001000	//	|12 | GP2 on left Arm (Outside)	| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1		0x00002000	//	|13 | GP2 on right Arm (Front)	| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2		0x00004000	//	|14 | GP2 on right Arm (Inside)	| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_3		0x00008000	//	|15 | GP2 on right Arm (Outside)| Active			| Inactive			| Hard			|
 // SW Flag _______________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
 #define APP_PARAM_APPFLAG_SW_1					0x00010000	//	|16 | SW_1						| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_SW_2					0x00020000	//	|17 | SW_2						| Active			| Inactive			| Hard			|
@@ -96,44 +96,44 @@
 #define APP_PARAM_APPFLAG_BIT30					0x40000000	//	|30 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT31					0x80000000	//	|31 | Not Used					| -					| -					| -				|
 
-// STRATEGY FLAGS ---------------------------------------------------------------------------------------------------------------------------------------
-// Value is defined as follow :								//	|Bit| Desctiption				| Value ON 			| Value OFF			| Connection	|	
-// Actions Done __________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
-#define APP_PARAM_STRATEGYFLAG_BIT00			0x00000001	//	| 0	| Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT01			0x00000002	//	| 1 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT02			0x00000004	//	| 2 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT03			0x00000008	//	| 3 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT04			0x00000010	//	| 4 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT05			0x00000020	//	| 5 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT06			0x00000040	//	| 6 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT07			0x00000080	//	| 7 | Not Used					| -					| -				 	| -				|	
-// Forbbiden Zone ________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
-#define APP_PARAM_STRATEGYFLAG_BIT08			0x00000100	//	| 8 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT09			0x00000200	//	| 9 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT10			0x00000400	//	|10 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT11			0x00000800	//	|11 | Not Used					| -					| -					| -				|	
-#define APP_PARAM_STRATEGYFLAG_BIT12			0x00001000	//	|12 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT13			0x00002000	//	|13 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT14			0x00004000	//	|14 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT15			0x00008000	//	|15 | Not Used					| -					| -					| -				|
-// SW Flag _______________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
-#define APP_PARAM_STRATEGYFLAG_BIT16			0x00010000	//	|16 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT17			0x00020000	//	|17 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT18			0x00040000	//	|18 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT19			0x00080000	//	|19 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT20			0x00100000	//	|20 | Not Used					| -					| -					| -				|			|
-#define APP_PARAM_STRATEGYFLAG_BIT21			0x00200000	//	|21 | Not Used					| -					| -					| -				|			|
-#define APP_PARAM_STRATEGYFLAG_BIT22			0x00400000	//	|22 | Not Used					| -					| -					| -				|			|
-#define APP_PARAM_STRATEGYFLAG_BIT23			0x00800000	//	|23 | Not Used					| -					| -					| -				|			|
-// State Flag ____________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
-#define APP_PARAM_STRATEGYFLAG_BIT24			0x01000000	//	|24 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT25			0x02000000	//	|25 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT26			0x04000000	//	|26 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT27			0x08000000	//	|27 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT28			0x10000000	//	|28 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT29			0x20000000	//	|29 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT30			0x40000000	//	|30 | Not Used					| -					| -					| -				|
-#define APP_PARAM_STRATEGYFLAG_BIT31			0x80000000	//	|31 | Not Used					| -					| -					| -				|
+// STRATEGY FLAGS -----------------------------------------------------------------------------------------------------------------------
+// Value is defined as follow :								//	|Bit| Desctiption				| Value ON 			| Value OFF			|	
+// Actions Done __________________________________________	//  |---|---------------------------|-------------------|-------------------|											
+#define APP_PARAM_STRATEGYFLAG_BIT00			0x00000001	//	| 0	| Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT01			0x00000002	//	| 1 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT02			0x00000004	//	| 2 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT03			0x00000008	//	| 3 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT04			0x00000010	//	| 4 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT05			0x00000020	//	| 5 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT06			0x00000040	//	| 6 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT07			0x00000080	//	| 7 | Not Used					| -					| -				 	| 	
+// Forbbiden Zone ________________________________________	//  |---|---------------------------|-------------------|-------------------|														
+#define APP_PARAM_STRATEGYFLAG_BIT08			0x00000100	//	| 8 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT09			0x00000200	//	| 9 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT10			0x00000400	//	|10 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT11			0x00000800	//	|11 | Not Used					| -					| -					| 	
+#define APP_PARAM_STRATEGYFLAG_BIT12			0x00001000	//	|12 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT13			0x00002000	//	|13 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT14			0x00004000	//	|14 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT15			0x00008000	//	|15 | Not Used					| -					| -					| 
+// SW Flag _______________________________________________	//  |---|---------------------------|-------------------|-------------------|														
+#define APP_PARAM_STRATEGYFLAG_BIT16			0x00010000	//	|16 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT17			0x00020000	//	|17 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT18			0x00040000	//	|18 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT19			0x00080000	//	|19 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT20			0x00100000	//	|20 | Not Used					| -					| -					| 	
+#define APP_PARAM_STRATEGYFLAG_BIT21			0x00200000	//	|21 | Not Used					| -					| -					| 		
+#define APP_PARAM_STRATEGYFLAG_BIT22			0x00400000	//	|22 | Not Used					| -					| -					| 	
+#define APP_PARAM_STRATEGYFLAG_BIT23			0x00800000	//	|23 | Not Used					| -					| -					| 		
+// State Flag ____________________________________________	//  |---|---------------------------|-------------------|-------------------|													
+#define APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT		0x01000000	//	|24 | Init postion for arms		| In init Pos		| Not in init pos	| 
+#define APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED	0x02000000	//	|25 | Arms is opened			| Arms opened		| Arms not opened	| 
+#define APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED	0x04000000	//	|26 | Arms is closed			| Arms closed		| Arms not closed	| 
+#define APP_PARAM_STRATEGYFLAG_COLLISION_FRONT	0x08000000	//	|27 | Collision state (front)	| Collision active  | Collision inactive|
+#define APP_PARAM_STRATEGYFLAG_COLLISION_REAR	0x10000000	//	|28 | Collision state (rear)	| Collision active  | Collision inactive|
+#define APP_PARAM_STRATEGYFLAG_COLLISION_LEFT	0x20000000	//	|29 | Collision state (left)	| Collision active  | Collision inactive|
+#define APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT	0x40000000	//	|30 | Collision state (right)	| Collision active  | Collision inactive| 
+#define APP_PARAM_STRATEGYFLAG_BIT31			0x80000000	//	|31 | Not Used					| -					| -					| 
 
 // Groups ------------------------------------------------------------------------------------------------
 // Sensors Groups
@@ -144,6 +144,9 @@
 #define APP_PARAM_APPFLAG_ALL_SW				0x00FF0000	// All switches sensors
 #define APP_PARAM_APPFLAG_ALL_SENSORS			0x00FFFF00	// All external sensors
 #define APP_PARAM_APPFLAG_ALL_STATE				0xFF0000FF	// All state flags
+
+// For storing the arms status
+#define APP_PARAM_STRATEGYFLAG_ARMS_STATUS		(APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT + APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED + APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED)
 
 // User defined groups
 #ifndef APP_PARAM_DISABLE_ALL_SENSORS
