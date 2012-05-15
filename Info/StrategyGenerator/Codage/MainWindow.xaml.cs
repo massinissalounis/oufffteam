@@ -550,7 +550,7 @@ namespace StrategyGenerator
                 CmdViewN_Param2.Text = "";
                 CmdViewN_Param3.Text = "";
                 CmdViewN_Param4.Text = "";
-                CmdViewN_FlagBox.SelectedItem = EnumSensorsFlag.APPFLAG_NONE.ToString();
+                CmdViewN_FlagBox.SelectedItem = EnumSensorsFlag.APP_PARAM_STRATEGYFLAG_NONE.ToString();
             }
 
             CheckParam();

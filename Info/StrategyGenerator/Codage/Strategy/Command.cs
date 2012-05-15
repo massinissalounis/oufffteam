@@ -44,14 +44,11 @@ namespace StrategyGenerator.Strategy
     enum EnumSensorsFlag
     {
         // APP_PARAM_
-        APPFLAG_NONE            = 0,
-        APPFLAG_SENSORS_FRONT   = 10,
-        APPFLAG_SENSORS_BACK    = 11,
-        APPFLAG_SENSORS_LEFT    = 12,
-        APPFLAG_SENSORS_RIGHT   = 13,
-        APPFLAG_ALL_GP2         = 20,
-        APPFLAG_ALL_SW          = 21,
-        APPFLAG_ALL_SENSORS     = 22
+        APP_PARAM_STRATEGYFLAG_NONE = 0,
+        APP_PARAM_STRATEGYFLAG_COLLISION_FRONT = 10,
+        APP_PARAM_STRATEGYFLAG_COLLISION_REAR = 11,
+        APP_PARAM_STRATEGYFLAG_COLLISION_LEFT = 12,
+        APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT = 13,
     }
 
     /// <summary>
@@ -65,7 +62,7 @@ namespace StrategyGenerator.Strategy
         /// </summary>
         public Command()
         {
-            Update(EnumCmd.NotSet, EnumCmdType.NotSet, null, null, null, null, EnumSensorsFlag.APPFLAG_NONE);
+            Update(EnumCmd.NotSet, EnumCmdType.NotSet, null, null, null, null, EnumSensorsFlag.APP_PARAM_STRATEGYFLAG_NONE);
             return;
         }
 
@@ -75,7 +72,7 @@ namespace StrategyGenerator.Strategy
         /// </summary>
         public Command(EnumCmd Cmd)
         {
-            Update(Cmd, EnumCmdType.NotSet, null, null, null, null, EnumSensorsFlag.APPFLAG_NONE);
+            Update(Cmd, EnumCmdType.NotSet, null, null, null, null, EnumSensorsFlag.APP_PARAM_STRATEGYFLAG_NONE);
             return;
         }
 
@@ -85,7 +82,7 @@ namespace StrategyGenerator.Strategy
         /// </summary>
         public Command(EnumCmd Cmd, EnumCmdType CmdType)
         {
-            Update(Cmd, CmdType, null, null, null, null, EnumSensorsFlag.APPFLAG_NONE);
+            Update(Cmd, CmdType, null, null, null, null, EnumSensorsFlag.APP_PARAM_STRATEGYFLAG_NONE);
             return;
         }
 
@@ -94,7 +91,7 @@ namespace StrategyGenerator.Strategy
         /// </summary>
         public Command(EnumCmd Cmd, EnumCmdType CmdType, String Param1, String Param2, String Param3, String Param4)
         {
-            Update(Cmd, CmdType, Param1, Param2, Param3, Param4, EnumSensorsFlag.APPFLAG_NONE);
+            Update(Cmd, CmdType, Param1, Param2, Param3, Param4, EnumSensorsFlag.APP_PARAM_STRATEGYFLAG_NONE);
             return;
         }
 
@@ -148,7 +145,7 @@ namespace StrategyGenerator.Strategy
             _Param3 = null;
             _Param4 = null;
 
-            if (ActiveSensors != EnumSensorsFlag.APPFLAG_NONE)
+            if (ActiveSensors != EnumSensorsFlag.APP_PARAM_STRATEGYFLAG_NONE)
                 _ActiveSensorsFlag = ActiveSensors;
 
             _Cmd = Cmd;
@@ -353,7 +350,7 @@ namespace StrategyGenerator.Strategy
                     return ESensorsFlag;
             }
 
-            return EnumSensorsFlag.APPFLAG_NONE;
+            return EnumSensorsFlag.APP_PARAM_STRATEGYFLAG_NONE;
         }
 
         public static String GetSensorsFlagToString(EnumSensorsFlag SensorsFlag)

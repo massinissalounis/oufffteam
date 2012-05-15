@@ -425,7 +425,7 @@ namespace StrategyGenerator.FileManager
             EnumCmd CmdFromFile = EnumCmd.NotSet;
             EnumCmdType CmdTypeFromFile = EnumCmdType.NotSet;
             string [] ParamsFromFile = null;
-            EnumSensorsFlag ActiveSensorsFromFile = EnumSensorsFlag.APPFLAG_NONE;
+            EnumSensorsFlag ActiveSensorsFromFile = EnumSensorsFlag.APP_PARAM_STRATEGYFLAG_NONE;
 
             // Lecture de toute la liste pour trouver la bonne LoopID et GID
             for (int i = 0; i < _Items.Count(); i++)
