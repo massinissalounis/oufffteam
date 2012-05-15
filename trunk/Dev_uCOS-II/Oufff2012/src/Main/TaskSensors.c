@@ -267,8 +267,16 @@ void TaskSensors_Main(void *p_arg)
 				switch(pCurrentMsg->Cmd)
 				{
 				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				case Sensors_ArmsOpen: 
-					ARMS_Open();
+				case Sensors_ArmsOpenDown: 
+					ARMS_OpenDown();
+					if(CmdType_Blocking == pCurrentMsg->CmdType)
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
+					NextState = 1;
+					break;
+
+				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				case Sensors_ArmsOpenUp: 
+					ARMS_OpenUp();
 					if(CmdType_Blocking == pCurrentMsg->CmdType)
 						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
 					NextState = 1;
