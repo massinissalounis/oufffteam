@@ -50,6 +50,7 @@
 #define AX12_REG_CW_LIMIT			0x06
 #define AX12_REG_CCW_LIMIT			0x08
 #define AX12_REG_TORQUE_ENABLE		0x18
+#define AX12_REG_SPEED				0x20
 
 /*
 *********************************************************************************************************

@@ -21,7 +21,7 @@ extern float error_debug_4;
 extern float error_debug_5;
 
 // ------------------------------------------------------------------------------------------------
-void LibMoving_MoveInMM(int Dist, int Speed, StructCmd *NextSetpoint)
+void LibMoving_MoveInMM(float Dist, int Speed, StructCmd *NextSetpoint)
 {
     StructPos CurrentPos;
 
@@ -47,13 +47,6 @@ void LibMoving_MoveInMM(int Dist, int Speed, StructCmd *NextSetpoint)
 	NextSetpoint->Param2 = CurrentPos.x + Dist * cosf(CurrentPos.angle);
 	NextSetpoint->Param3 = CurrentPos.y + Dist * sinf(CurrentPos.angle);
 	NextSetpoint->Param4 = USE_CURRENT_VALUE;
-
-	error_debug_4 = NextSetpoint->Param2;
-
-	if(Dist >= 0)
-		NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_FRONT;
-	else
-		NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_SENSORS_BACK;
 
 	return;
 }
@@ -86,8 +79,6 @@ void LibMoving_RotateInDeg(int AngleInDeg, int Speed, StructCmd *NextSetpoint)
 	NextSetpoint->Param3 = USE_CURRENT_VALUE; 
 	NextSetpoint->Param4 = AppCheckAngleInRad(CurrentPos.angle + AppConvertDegInRad(AngleInDeg));
 
-	NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_NONE;
-
 	return;
 }
 
@@ -118,8 +109,6 @@ void LibMoving_RotateToAngleInDeg(int AngleToGoInDeg, int Speed, StructCmd *Next
 	NextSetpoint->Param2 = USE_CURRENT_VALUE;
 	NextSetpoint->Param3 = USE_CURRENT_VALUE; 
 	NextSetpoint->Param4 = AppConvertDegInRad(AngleToGoInDeg);
-
-	NextSetpoint->ActiveSensorsFlag = APP_PARAM_APPFLAG_NONE;
 
 	return;
 }

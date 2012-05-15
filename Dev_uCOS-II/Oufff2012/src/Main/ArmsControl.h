@@ -24,47 +24,60 @@
 *********************************************************************************************************
 */   
 
+// ARMS ---------------------------------------------------------------------------------
 void ARMS_InitReg(void);
-void ARMS_Init(void);
-void ARMS_DefaultPos(void);
-void ARMS_Sleep(void);
-void ARMS_Open_Ingot(void);
-void ARMS_GrabTotem(void);
-void ARMS_Catch(void);
-void ARMS_Open_Map(void);
-void ARMS_Grab_Map(void);
+void ARMS_SetSpeed(void);
+void ARMS_DefaultPosRed(void);
+void ARMS_DefaultPosPurple(void);
+void ARMS_DeploymentRed(void);
+void ARMS_DeploymentPurple(void);
+void ARMS_Open(void);
+void ARMS_Close(void);
+void ARMS_OpenOneCD(void);
+void ARMS_OpenTotem(void);
+void ARMS_CloseTotem(void);
+void ARMS_Ungrab(void);
 
-void ARM_Left_Close(void);
-void ARM_Right_Close(void);
+// ARM Left -----------------------------------------------------------------------------
+void ARM_Left_DefaultPosRed(void);
+void ARM_Left_DefaultPosPurple(void);
 void ARM_Left_Open(void);
+void ARM_Left_Close(void);
+void ARM_Left_Ungrab(void);
+
+// ARM Right ----------------------------------------------------------------------------
+void ARM_Right_DefaultPosRed(void);
+void ARM_Right_DefaultPosPurple(void);
 void ARM_Right_Open(void);
-void ARM_Right_GrabTotem(void);
-void ARM_Left_GrabTotem(void);
-void ARM_Right_Catch(void);
-void ARM_Left_Catch(void);
-//void ARM_Left_GrabIngotOnFloor(void);
-//void ARM_Right_GrabIngotOnFloor(void);
-//void ARM_Left_GrabIngotOnTotem(void);
-//void ARM_Right_GrabIngotOnTotem(void);
-//void ARM_Left_GrabCD(void);
-//void ARM_Right_GrabCD(void);
+void ARM_Right_Close(void);
+void ARM_Right_Ungrab(void);
 
+// ELEVATOR -----------------------------------------------------------------------------
+void ELEVATOR_DefaultPos(void);
 void ELEVATOR_Level_Low(void);
-void ELEVATOR_Level_Catch(void);
-//void ELEVATOR_Level_CD(void);
-//void ELEVATOR_Level_Ingot(void);
 void ELEVATOR_Level_High(void);
+void ELEVATOR_Level_GrabTotem(void);
+void ELEVATOR_Level_Open(void);
 
-void WRIST_Left_Down(void);
-void WRIST_Right_Down(void);
-void WRIST_Left_Middle(void);
-void WRIST_Right_Middle(void);
-void WRIST_Left_Up(void);
-void WRIST_Right_Up(void);
+// WRIST Left ---------------------------------------------------------------------------
+void WRIST_Left_DefaultPosRed(void);
+void WRIST_Left_DefaultPosPurple(void);
+void WRIST_Left_Open(void);
+void WRIST_Left_OpenOneCD(void);
+void WRIST_Left_Close(void);
+void WRIST_Left_CloseTotem(void);
 
-//void PUMP_Right_Suck(void);
-//void PUMP_Left_Suck(void);
+// WRIST Right --------------------------------------------------------------------------
+void WRIST_Right_DefaultPosRed(void);
+void WRIST_Right_DefaultPosPurple(void);
+void WRIST_Right_Open(void);
+void WRIST_Right_OpenOneCD(void);
+void WRIST_Right_Close(void);
+void WRIST_Right_CloseTotem(void);
+
+// PUMP ---------------------------------------------------------------------------------
 void PUMP_Right_Release(void);
 void PUMP_Left_Release(void);
+
 
 #endif // ARMSCONTROL_H

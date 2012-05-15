@@ -310,7 +310,6 @@ void TaskOdo_Main(void *p_arg)
 		OSSemPend(SemOdo,100,&err);
 		if(err==OS_NO_ERR)
 		{
-			LED_Toggle(5);
 			#ifdef ODO_CALIBRATION
 				encoders_calibration_measure();
 			#else

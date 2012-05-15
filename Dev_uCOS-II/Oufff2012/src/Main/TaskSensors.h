@@ -24,16 +24,13 @@ void TaskSensors_ReadColor();
 
 void TaskSensors_CheckBumpers();
 	// Check for bumpers status.
-	// In case of collision, this function posts FLAGS to tell main task we are bumping
+	// In case of collision, this function posts FLAGS to indicate we are bumping something
 
-void TaskSensors_GrabIngotOnFloor();
-	// Function for grabbing an Ingot on the floor.
+void TaskSensors_ArmsInit();
+	// Send the init command for each arms from selected colors
 
-void TaskSensors_GrabIngotOnTotem();
-	// Function for grabbing an Ingot on totem.
-
-void TaskSensors_GrabCD();
-	// Function for grabbing a CD 
+void TaskSensors_ArmsDeployment();
+	// Send command for deploying arms
 
 void TaskSensors_Main(void *p_arg);
 	// Fonction principal du process de gestion des Sensors

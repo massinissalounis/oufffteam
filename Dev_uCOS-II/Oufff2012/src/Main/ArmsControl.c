@@ -1,9 +1,6 @@
 #include "AppIncludes.h"
 #include "ArmsControl.h"
 
-#define DEFAULT_WAIT_S 1
-#define DEFAULT_WAIT_MS 0
-
 void ARMS_InitReg(void)
 {
 	// Alarm: All alarms
@@ -35,256 +32,308 @@ void ARMS_InitReg(void)
 	AX12_Write_Reg_2_Datas_Sync(AX12_ELEVATOR_ID, AX12_REG_TORQUE_LIMIT, 0x00, 0x03);
 
 	// CW limits
-	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_ARM_ID, AX12_REG_CW_LIMIT, 0xA9, 0x01);
-	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_ARM_ID, AX12_REG_CW_LIMIT, 0x0E, 0x01);
-	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_WRIST_ID, AX12_REG_CW_LIMIT, 0xC8, 0x00);
-	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_WRIST_ID, AX12_REG_CW_LIMIT, 0xFA, 0x00);
-	AX12_Write_Reg_2_Datas_Sync(AX12_ELEVATOR_ID, AX12_REG_CW_LIMIT, 0x4B, 0x00);
+	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_ARM_ID, AX12_REG_CW_LIMIT, 0x40, 0x01);
+	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_ARM_ID, AX12_REG_CW_LIMIT, 0xE9, 0x00);
+	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_WRIST_ID, AX12_REG_CW_LIMIT, 0x7B, 0x00);
+	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_WRIST_ID, AX12_REG_CW_LIMIT, 0x03, 0x00);
+	AX12_Write_Reg_2_Datas_Sync(AX12_ELEVATOR_ID, AX12_REG_CW_LIMIT, 0x63, 0x02);
 
 	// CCW limits
-	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_ARM_ID, AX12_REG_CCW_LIMIT, 0xD0, 0x02);
-	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_ARM_ID, AX12_REG_CCW_LIMIT, 0x53, 0x02);
-	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_WRIST_ID, AX12_REG_CCW_LIMIT, 0x20, 0x03);
-	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_WRIST_ID, AX12_REG_CCW_LIMIT, 0x1C, 0x02);
-	AX12_Write_Reg_2_Datas_Sync(AX12_ELEVATOR_ID, AX12_REG_CCW_LIMIT, 0xFF, 0x03);
+	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_ARM_ID, AX12_REG_CCW_LIMIT, 0x18, 0x03);
+	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_ARM_ID, AX12_REG_CCW_LIMIT, 0xB9, 0x02);
+	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_WRIST_ID, AX12_REG_CCW_LIMIT, 0xC6, 0x03);
+	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_WRIST_ID, AX12_REG_CCW_LIMIT, 0x3A, 0x03);
+	AX12_Write_Reg_2_Datas_Sync(AX12_ELEVATOR_ID, AX12_REG_CCW_LIMIT, 0x89, 0x03);
 }
 
-void ARMS_Init(void)
+void ARMS_SetSpeed(void)
 {
-	// Shutdown the pump
-	PUMP_Right_Release();
-	PUMP_Left_Release();
-	
-//	ELEVATOR_Level_Ingot();
-	ARMS_Open_Ingot();
-	ARMS_Sleep();
-
-	LED_On(4);
+	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_ARM_ID, AX12_REG_SPEED, 0x90, 0x01);
+	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_ARM_ID, AX12_REG_SPEED, 0x90, 0x01);
+	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_WRIST_ID, AX12_REG_SPEED, 0x90, 0x01);
+	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_WRIST_ID, AX12_REG_SPEED, 0x90, 0x01);
+	AX12_Write_Reg_2_Datas_Sync(AX12_ELEVATOR_ID, AX12_REG_SPEED, 0xFF, 0x03);
 }
 
-void ARMS_DefaultPos(void)
+// ARMS ---------------------------------------------------------------------------------
+void ARMS_DefaultPosRed(void)
 {
-	WRIST_Left_Up();
-	WRIST_Right_Up();
+	WRIST_Left_DefaultPosRed();
+	ARM_Left_DefaultPosRed();
+	WRIST_Right_DefaultPosRed();
+	ARM_Right_DefaultPosRed();
+	ELEVATOR_DefaultPos();	
+}
 
-//	ELEVATOR_Level_Ingot();
+void ARMS_DefaultPosPurple(void)
+{
+	WRIST_Left_DefaultPosPurple();
+	ARM_Left_DefaultPosPurple();
+	WRIST_Right_DefaultPosPurple();
+	ARM_Right_DefaultPosPurple();
+	ELEVATOR_DefaultPos();	
+}
 
+void ARMS_DeploymentRed(void)
+{
+	WRIST_Left_Open();
+	ARM_Left_Open();
+	OSTimeDlyHMSM(0, 0, 0, 300);
+	WRIST_Right_Open();
+	OSTimeDlyHMSM(0, 0, 0, 300);
+	ARM_Right_Open();
+	OSTimeDlyHMSM(0, 0, 0, 250);
+	ELEVATOR_Level_Open();
+	OSTimeDlyHMSM(0, 0, 0, 250);
+}
+
+void ARMS_DeploymentPurple(void)
+{
+	WRIST_Right_Open();
+	ARM_Right_Open();
+	OSTimeDlyHMSM(0, 0, 0, 300);
+	WRIST_Left_Open();
+	OSTimeDlyHMSM(0, 0, 0, 300);
+	ARM_Left_Open();
+	OSTimeDlyHMSM(0, 0, 0, 250);
+	ELEVATOR_Level_Open();
+	OSTimeDlyHMSM(0, 0, 0, 250);
+}
+
+void ARMS_Open(void)
+{
+	WRIST_Left_Open();
+	ARM_Left_Open();
+	WRIST_Right_Open();
+	ARM_Right_Open();
+	ELEVATOR_Level_Open();
+}
+
+void ARMS_Close(void)
+{
+	ELEVATOR_Level_Low();
+	OSTimeDlyHMSM(0, 0, 0, 250);
+	ARM_Right_Close();
+	OSTimeDlyHMSM(0, 0, 0, 500);
+	WRIST_Right_Close();
+	OSTimeDlyHMSM(0, 0, 0, 500);
 	ARM_Left_Close();
-	ARM_Right_Close();
+	OSTimeDlyHMSM(0, 0, 0, 500);
+	WRIST_Left_Close();
+	OSTimeDlyHMSM(0, 0, 0, 500);
 }
 
-void ARMS_Sleep(void)
+void ARMS_OpenOneCD(void)
 {
-	WRIST_Right_Up();
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
-	WRIST_Left_Up();
-	ARM_Right_Close();
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);	
-	ARM_Left_Close();		
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
+	WRIST_Left_OpenOneCD();
+	ARM_Left_Open();
+	WRIST_Right_OpenOneCD();
+	ARM_Right_Open();
+	ELEVATOR_Level_Open();
+	OSTimeDlyHMSM(0, 0, 0, 250);
 }
 
-void ARMS_Open_Ingot(void)
+void ARMS_OpenTotem(void)
 {
-	ARM_Left_Open();		
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
-	ARM_Right_Open();		
-	WRIST_Left_Down();
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
-	WRIST_Right_Down();
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
+	ARMS_Open();
+	OSTimeDlyHMSM(0, 0, 1, 0);
+	ELEVATOR_Level_GrabTotem();
 }
 
-void ARMS_Open_Totem(void)
-{
-	ARM_Left_Open();		
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
-	ARM_Right_Open();		
-	WRIST_Left_Down();
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
-	WRIST_Right_Down();
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
-}
-
-void ARMS_GrabTotem(void)
-{
-	ARM_Left_GrabTotem();
-	ARM_Right_GrabTotem();
-}
-
-void ARMS_Catch(void)
-{
-	ELEVATOR_Level_Catch();
-}
-
-void ARMS_Open_Map(void)
-{
-	ARM_Left_Open();		
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
-	ARM_Right_Open();		
-	WRIST_Left_Middle();
-	OSTimeDlyHMSM(0, 0, DEFAULT_WAIT_S, DEFAULT_WAIT_MS);
-	WRIST_Right_Middle();
-}
-
-void ARMS_Grab_Map(void)
+void ARMS_CloseTotem(void)
 {
 	ELEVATOR_Level_High();
-	WRIST_Left_Up();
-	WRIST_Right_Up();
+	ARM_Right_Close();
+	OSTimeDlyHMSM(0, 0, 0, 500);
+	WRIST_Right_Close();
+	OSTimeDlyHMSM(0, 0, 0, 500);
+	ARM_Left_Close();
+	OSTimeDlyHMSM(0, 0, 0, 500);
+	WRIST_Left_Close();
+	OSTimeDlyHMSM(0, 0, 0, 500);
+	ELEVATOR_Level_GrabTotem();
+	OSTimeDlyHMSM(0, 0, 0, 100);
 }
-	
-void ARM_Left_Close(void)
+
+void ARMS_Ungrab(void)
+{
+	ARMS_Open();
+	OSTimeDlyHMSM(0, 0, 1, 0);
+	ARM_Left_Ungrab();
+	OSTimeDlyHMSM(0, 0, 1, 0);
+	ARM_Right_Ungrab();
+	ELEVATOR_Level_High();
+	OSTimeDlyHMSM(0, 0, 0, 100);
+}
+
+// ARM Left -----------------------------------------------------------------------------
+void ARM_Left_DefaultPosRed(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
 	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0xD0);
 }
 
-void ARM_Right_Close(void)
+void ARM_Left_DefaultPosPurple(void)
 {
-	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0x0E);
+	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
+	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x01, 0x45);
 }
 
 void ARM_Left_Open(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x01, 0xA9);
+	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0x8F);
+}
+
+void ARM_Left_Close(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
+	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x01, 0x86);
+}
+
+void ARM_Left_Ungrab(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
+	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x01, 0x9A);
+}
+
+// ARM Right ----------------------------------------------------------------------------
+void ARM_Right_DefaultPosRed(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
+	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x02, 0xA8);
+}
+
+void ARM_Right_DefaultPosPurple(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
+	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0x6D);
 }
 
 void ARM_Right_Open(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
+	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0x98);
+}
+
+void ARM_Right_Close(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
 	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x02, 0x62);
 }
 
-void ARM_Right_GrabTotem(void)
+void ARM_Right_Ungrab(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0xFD);
+	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x02, 0x62);
 }
 
-void ARM_Left_GrabTotem(void)
+// ELEVATOR -----------------------------------------------------------------------------
+void ELEVATOR_DefaultPos(void)
 {
-	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0xD0);
+	AX12_Write_Torque_On_Sync (AX12_ELEVATOR_ID);
+	AX12_Write_Position_Sync(AX12_ELEVATOR_ID, 0x03, 0x07);
 }
-
-void ARM_Right_Catch(void)
-{
-	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0x2C);
-}
-
-void ARM_Left_Catch(void)
-{
-	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0xD0);
-}
-
-// Functions for Pneumatic control of objects
-//void ARM_Right_GrabIngotOnFloor(void)
-//{
-//	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
-//	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0x2C);
-//}
-//
-//void ARM_Left_GrabIngotOnFloor(void)
-//{
-//	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-//	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0xD0);
-//}
-//
-//void ARM_Right_GrabIngotOnTotem(void)
-//{
-//	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
-//	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0xC0);
-//}
-
-//void ARM_Left_GrabIngotOnTotem(void)
-//{
-//	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-//	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0x33);
-//}
-
-//void ARM_Left_GrabCD(void)
-//{
-//	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-//	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0x00);
-//}
-
-//void ARM_Right_GrabCD(void)
-//{
-//	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
-//	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x02, 0x00);
-//}
 
 void ELEVATOR_Level_Low(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_ELEVATOR_ID);
-	AX12_Write_Position_Sync(AX12_ELEVATOR_ID, 0x00, 0x4B);
+	AX12_Write_Position_Sync(AX12_ELEVATOR_ID, 0x02, 0x75);
 }
-
-void ELEVATOR_Level_Catch(void)
-{
-	AX12_Write_Torque_On_Sync (AX12_ELEVATOR_ID);
-	AX12_Write_Position_Sync(AX12_ELEVATOR_ID, 0x03, 0x61);
-}
-
-//void ELEVATOR_Level_CD(void)
-//{
-//	AX12_Write_Torque_On_Sync (AX12_ELEVATOR_ID);
-//	AX12_Write_Position_Sync(AX12_ELEVATOR_ID, 0x01, 0xC2);
-//}
-//
-//void ELEVATOR_Level_Ingot(void)
-//{
-//	AX12_Write_Torque_On_Sync (AX12_ELEVATOR_ID);
-//	AX12_Write_Position_Sync(AX12_ELEVATOR_ID, 0x02, 0xF8);
-//}
 
 void ELEVATOR_Level_High(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_ELEVATOR_ID);
-	AX12_Write_Position_Sync(AX12_ELEVATOR_ID, 0x03, 0xFF);
+	AX12_Write_Position_Sync(AX12_ELEVATOR_ID, 0x03, 0x84);
 }
 
-void WRIST_Left_Down(void)
+void ELEVATOR_Level_GrabTotem(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_ELEVATOR_ID);
+	AX12_Write_Position_Sync(AX12_ELEVATOR_ID, 0x03, 0x57);
+}
+
+void ELEVATOR_Level_Open(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_ELEVATOR_ID);
+	AX12_Write_Position_Sync(AX12_ELEVATOR_ID, 0x02, 0x9E);
+}
+
+// WRIST Left ---------------------------------------------------------------------------
+void WRIST_Left_DefaultPosRed(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_WRIST_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_WRIST_ID, 0x00, 0xC8);
+	AX12_Write_Position_Sync(AX12_LEFT_WRIST_ID, 0x01, 0xBD);
 }
 
-void WRIST_Right_Down(void)
-{
-	AX12_Write_Torque_On_Sync (AX12_RIGHT_WRIST_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x01, 0xF7);
-}
-
-void WRIST_Left_Middle(void)
+void WRIST_Left_DefaultPosPurple(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_WRIST_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_WRIST_ID, 0x02, 0x00);
+	AX12_Write_Position_Sync(AX12_LEFT_WRIST_ID, 0x03, 0xC5);
 }
 
-void WRIST_Right_Middle(void)
-{
-	AX12_Write_Torque_On_Sync (AX12_RIGHT_WRIST_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x02, 0x00);
-}
-
-void WRIST_Left_Up(void)
+void WRIST_Left_Open(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_WRIST_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_WRIST_ID, 0x03, 0x20);
+	AX12_Write_Position_Sync(AX12_LEFT_WRIST_ID, 0x00, 0x82);
 }
 
-void WRIST_Right_Up(void)
+void WRIST_Left_OpenOneCD(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_LEFT_WRIST_ID);
+	AX12_Write_Position_Sync(AX12_LEFT_WRIST_ID, 0x00, 0xF3);
+}
+
+void WRIST_Left_Close(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_LEFT_WRIST_ID);
+	AX12_Write_Position_Sync(AX12_LEFT_WRIST_ID, 0x02, 0x9E);
+}
+
+void WRIST_Left_CloseTotem(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_LEFT_WRIST_ID);
+	AX12_Write_Position_Sync(AX12_LEFT_WRIST_ID, 0x02, 0x8A);
+}
+
+// WRIST Right --------------------------------------------------------------------------
+void WRIST_Right_DefaultPosRed(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_RIGHT_WRIST_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x00, 0xFA);
+	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x00, 0x0F);
 }
 
+void WRIST_Right_DefaultPosPurple(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_RIGHT_WRIST_ID);
+	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x01, 0xB8);
+}
+
+void WRIST_Right_Open(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_RIGHT_WRIST_ID);
+	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x03, 0x39);
+}
+
+void WRIST_Right_OpenOneCD(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_RIGHT_WRIST_ID);
+	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x02, 0xB0);
+}
+
+void WRIST_Right_Close(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_RIGHT_WRIST_ID);
+	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x01, 0x2C);
+}
+
+void WRIST_Right_CloseTotem(void)
+{
+	AX12_Write_Torque_On_Sync (AX12_RIGHT_WRIST_ID);
+	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x01, 0x72);
+}
+
+// PUMP ---------------------------------------------------------------------------------
 // Not used in 2012 --> Keep in code for future release
 //void PUMP_Right_Suck(void)
 //{

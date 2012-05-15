@@ -14,7 +14,7 @@
 #include "mathf.h"
 #include "math.h"
 
-void LibMoving_MoveInMM(int Dist, int Speed, StructCmd *NextSetpoint);
+void LibMoving_MoveInMM(float Dist, int Speed, StructCmd *NextSetpoint);
 	// Dist         : in mm for the movement (>0 go forward, <0 go back)
     // Speed        : Speed to use 
 	// NextSetpoint	: pointer to the struct for containing new position
