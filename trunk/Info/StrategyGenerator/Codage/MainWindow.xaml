@@ -12,7 +12,7 @@
             </Border>
             <Grid Name="MapGrid" Height="400" Width="625" VerticalAlignment="Center" HorizontalAlignment="Center" Background="{x:Null}">
                 <Image Name="MapPicture" Stretch="UniformToFill" HorizontalAlignment="Left" Source="/StrategyGenerator;component/Images/Map.png" MouseLeftButtonDown="MapPicture_MouseLeftButtonDown" Mouse.MouseMove="MapPicture_MouseMove" Mouse.MouseEnter="MapPicture_MouseEnter" Mouse.MouseLeave="MapPicture_MouseLeave" />
-                <Image Height="60" Name="Robot" Stretch="None" Width="67" Source="/StrategyGenerator;component/Images/Robot.png" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Hidden" MouseEnter="MapPicture_MouseEnter" MouseMove="MapPicture_MouseMove" MouseLeftButtonDown="MapPicture_MouseLeftButtonDown" />
+                <Image Height="64" Width="68" Name="Robot" Stretch="None" Source="/StrategyGenerator;component/Images/RobotStart.png" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="Hidden" MouseEnter="MapPicture_MouseEnter" MouseMove="MapPicture_MouseMove" MouseLeftButtonDown="MapPicture_MouseLeftButtonDown" />
             </Grid>
             <TextBlock Height="50" Width="100" HorizontalAlignment="Left" Margin="0,110,0,0" Name="textBlock_RobotPos" Text="" VerticalAlignment="Top" TextAlignment="Center" />
             <TextBlock Height="23" HorizontalAlignment="Left" Margin="23,14,0,0" Name="textBlock_IsEditing" Text="" VerticalAlignment="Top" TextAlignment="Center" Width="100" Background="{x:Null}" />

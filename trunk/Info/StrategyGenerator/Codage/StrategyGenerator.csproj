@@ -140,13 +140,19 @@
     <Resource Include="Images\Map.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Robot.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Logo_OufffTeam_Ptt.jpg" />
+    <Resource Include="Images\Logo_OufffTeam_Ptt.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Logo_OufffTeam_Ptt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RobotClose.png" />
+    <Resource Include="Images\RobotOpen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RobotStart.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
