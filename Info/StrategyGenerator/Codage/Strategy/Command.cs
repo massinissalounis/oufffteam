@@ -8,7 +8,7 @@ namespace StrategyGenerator.Strategy
     enum EnumCmd
     {
         NotSet                              = 0,	// Current Cmd is not set
-        // Command MVT ______________________
+        // Command MVT _________________________
         Mvt_UseAngleOnly                    = 10,	// Use Asser Mode 1
         Mvt_UseDistOnly                     = 11,	// Use Asser Mode 2
         Mvt_UseMixedMode                    = 12,	// Use Asser Mode 3
@@ -17,13 +17,20 @@ namespace StrategyGenerator.Strategy
         MvtSimple_RotateInDeg               = 15,	// Use a simple mvt for rotating in deg (don't divide this mvt)
         MvtSimple_RotateToAngleInDeg        = 16,	// Use a simple mvt for rotating to a specified angle in deg (don't divide this mvt)
         Mvt_Stop                            = 17,   // Used to stop current mvt
-        // Command APP ______________________
+        // Command APP _________________________
         App_Wait                            = 20,	// Wait (if all params = 0, wait for ever)
         App_IfGoto_System                   = 21,	// Go to a specific step based on System Flags
         App_IfGoto_Strategy                 = 22,	// Go to a specific step based on Strategy Flags
         App_SetNewPos                       = 23,	// Msg used to define a new position
         App_SetStrategyFlags                = 24,	// Set the stratgey flags
-        // Cmd Modif : Add new command here
+        // Cmd Modif : Add new command here ____
+        Sensors_ArmsOpen                    = 30,	// Open arms (Use for grabbing objects on floor)
+        Sensors_ArmsDeployment              = 31,	// Open arms with delay 
+        Sensors_ArmsOpenTotem               = 32,	// Open arms (Use for the arrival on the totem) 
+        Sensors_ArmsOpenOneCD               = 33,	// Open arms (Use for grabbing only one CD)
+        Sensors_ArmsClose                   = 34,	// Close arms (Use for keeping objects into arms)
+        Sensors_ArmsCloseTotem              = 35,	// Close arms (Use for keeping objects into arms on totem (elevator is up))
+        Sensors_ArmsUngrab                  = 36,	// Open arms for putting down the objects
     }
 
     enum EnumCmdType
@@ -253,6 +260,12 @@ namespace StrategyGenerator.Strategy
 
                 // ________________________________________________________ None
                 case EnumCmd.Mvt_Stop:
+                case EnumCmd.Sensors_ArmsClose:
+                case EnumCmd.Sensors_ArmsCloseTotem:
+                case EnumCmd.Sensors_ArmsOpen:
+                case EnumCmd.Sensors_ArmsOpenOneCD:
+                case EnumCmd.Sensors_ArmsOpenTotem:
+                case EnumCmd.Sensors_ArmsUngrab:
                     Ret = true;
                     break;  
 

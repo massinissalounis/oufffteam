@@ -612,9 +612,9 @@ namespace StrategyGenerator
                     int y = _PositionList[0].Y;
                     int angle = _PositionList[0].Angle;
 
-                    Command Cmd = _CurrentStrategy.GetCommand(CmdList.SelectedIndex);
+                    Command Cmd = _CurrentStrategy.GetCommand(NextActionID);
 
-                    _PositionList.Insert(0, new RobotPos(x, y, angle, Cmd, NextIndex));
+                    _PositionList.Insert(0, new RobotPos(x, y, angle, Cmd, NextActionID));
                     CmdViewN_ButtonPrev.IsEnabled = true;
                 }
 
@@ -734,13 +734,13 @@ namespace StrategyGenerator
             EnumSensorsFlag ActiveFlags = Command.GetSensorsFlagFromString(CmdViewN_FlagBox.SelectedItem.ToString());
             SelectedCmd.Update(UpdateCmd, UpdateCmdType, CmdViewN_Param1.Text, CmdViewN_Param2.Text, CmdViewN_Param3.Text, CmdViewN_Param4.Text, ActiveFlags);
 
+            BitmapImage NewRobot = null;
 
             if (_PositionList == null)
             {
                 switch (SelectedCmd.Cmd)
                 {
                     case EnumCmd.App_SetNewPos:
-                    case EnumCmd.Mvt_UseMixedMode:
                         // Convert Values
                         int x = Convert.ToInt32(Convert.ToDouble(CmdViewN_Param2.Text));
                         int y = Convert.ToInt32(Convert.ToDouble(CmdViewN_Param3.Text));
@@ -750,6 +750,11 @@ namespace StrategyGenerator
                         _PositionList.Add(new RobotPos(x, y, angle, SelectedCmd, CmdList.SelectedIndex));
 
                         CmdViewN_ButtonNext.IsEnabled = true;
+
+                        NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\Codage\\Images\\RobotStart.png"));
+                        Robot.Source = NewRobot;
+                        Robot.Width = NewRobot.Width;
+                        Robot.Height = NewRobot.Height;
                         break;
 
                     default:
@@ -758,9 +763,32 @@ namespace StrategyGenerator
             }
             else
             {
-
                 switch(SelectedCmd.Cmd)
                 {
+                    case EnumCmd.Sensors_ArmsOpen:
+                    case EnumCmd.Sensors_ArmsOpenTotem:
+                    case EnumCmd.Sensors_ArmsDeployment:
+                        NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\Codage\\Images\\RobotOpen.png"));
+                        Robot.Source = NewRobot;
+                        Robot.Width = NewRobot.Width;
+                        Robot.Height = NewRobot.Height;
+                        break;
+
+                    case EnumCmd.Sensors_ArmsClose:
+                    case EnumCmd.Sensors_ArmsCloseTotem:
+                        NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\Codage\\Images\\RobotClose.png"));
+                        Robot.Source = NewRobot;
+                        Robot.Width = NewRobot.Width;
+                        Robot.Height = NewRobot.Height;
+                        break;
+
+                    case EnumCmd.Sensors_ArmsUngrab:
+                        NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\Codage\\Images\\RobotUngrab.png"));
+                        Robot.Source = NewRobot;
+                        Robot.Width = NewRobot.Width;
+                        Robot.Height = NewRobot.Height;
+                        break;
+
                     default:
                         _PositionList[0].UpdateCmd(SelectedCmd);
                         break;
@@ -1208,7 +1236,6 @@ namespace StrategyGenerator
                     // Cmd Modif : Add new command here
                     // ________________________________________
                     case EnumCmd.App_SetNewPos:
-
                         textBlock_HelpParam1.Text += "Param 1 :\nNot Used";
                         textBlock_CmdHelpParam1.Text = "";
                         textBlock_HelpParam2.Text += "Param 2 :\nPos X";
@@ -1319,8 +1346,6 @@ namespace StrategyGenerator
                         break;
 
                     // ________________________________________
-                    case EnumCmd.NotSet:
-                    case EnumCmd.Mvt_Stop:
                     default:
                         textBlock_HelpParam1.Text += "Param 1 :\nNot Used";
                         textBlock_CmdHelpParam1.Text = "";
