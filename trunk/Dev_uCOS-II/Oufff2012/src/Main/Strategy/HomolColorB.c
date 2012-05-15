@@ -122,20 +122,6 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 		return StrategyColorB_GetNextAction(p);
 	}
 
-	// Check for conditionnal command ------------------------------------
-	if(App_IfGoto == p->Cmd)
-	{
-		// Read the current Flags
-		CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_START_BUTTON, OS_FLAG_WAIT_SET_ANY, &Err);
-
-		if((CurrentFlag & (p->Param1)) != 0)
-			NextActionID = (int)(p->Param2);
-		else
-			NextActionID = (int)(p->Param3);
-
-		return StrategyColorB_GetNextAction(p);
-	}
-	
 	// Create the MvtSimple Command --------------------------------------
 	if(MvtSimple_MoveInMM == p->Cmd) 
 		LibMoving_MoveInMM(p->Param2, p->Param1, p);

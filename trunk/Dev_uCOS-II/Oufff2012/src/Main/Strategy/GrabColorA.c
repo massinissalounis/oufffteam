@@ -14,9 +14,9 @@
 
 #include "StrategyFromColor.h"
 
-#ifdef HOMOL_STRATEGY_ENABLED
+#ifdef GRAB_STRATEGY_ENABLED
 
-#define DEFAULT_SPEED (70)
+#define DEFAULT_SPEED (60)
 
 // ------------------------------------------------------------------------------------------------
 INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
@@ -41,6 +41,7 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	int			CurrentActionID = 0;
 	INT8U 			Err = 0;
 	OS_FLAGS		CurrentFlag = 0;
+	OS_FLAGS		StrategyFlagsToSet = 0;
 	StructCmd 		*p = NextAction;
 
 	if(NULL == NextAction)
@@ -57,20 +58,22 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	{
 		// StructuredFileLoopBegin
 		// LoopID = 0
-		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_FRONT;	NextActionID = 100;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 580;    		break;	
+		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 2;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 600;    		break;	
+		case 2:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 3;	p->Cmd = Sensors_ArmsDeployment;				break;	
+		case 3:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 100;	p->Cmd = Mvt_UseMixedMode;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 1904;    p->Param3 = 1660;    p->Param4 = -90;    		break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
 		// LoopID = 1
-		case 100:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_FRONT;	NextActionID = 101;	p->Cmd = MvtSimple_RotateToAngleInDeg;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param4 = 90;    		break;	
-		case 101:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_BACK;	NextActionID = 102;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = -367;    		break;	
-		case 102:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_BACK;	NextActionID = 103;	p->Cmd = Mvt_UsePivotMode;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = RIGHT_WHEEL;    NextAction->Param4 = 180;    		break;	
-		case 103:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_BACK;	NextActionID = 104;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = -250;    		break;	
-		case 104:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_FRONT;	NextActionID = 105;	p->Cmd = Mvt_UseMixedMode;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 2500;    NextAction->Param3 = 1000;    NextAction->Param4 = -125;    		break;	
-		case 105:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_FRONT;	NextActionID = 106;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 500;    		break;	
-		case 106:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_FRONT;	NextActionID = 107;	p->Cmd = Mvt_UseMixedMode;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 2260;    NextAction->Param3 = 500;    NextAction->Param4 = 90;    		break;	
-		case 107:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_BACK;	NextActionID = 108;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = -425;    		break;	
-		case 108:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_SENSORS_FRONT;	NextActionID = -1;	p->Cmd = MvtSimple_MoveInMM;		NextAction->Param1 = DEFAULT_SPEED;    NextAction->Param2 = 200;    		break;	
+		case 100:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 101;	p->Cmd = Sensors_ArmsOpenOneCD;				break;	
+		case 101:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 102;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 130;    		break;	
+		case 102:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 103;	p->Cmd = Sensors_ArmsOpenTotem;				break;	
+		case 103:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 104;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 150;    		break;	
+		case 104:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 105;	p->Cmd = Sensors_ArmsCloseTotem;				break;	
+		case 105:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 106;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = -120;    		break;	
+		case 106:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 107;	p->Cmd = Sensors_ArmsOpenTotem;				break;	
+		case 107:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 108;	p->Cmd = Sensors_ArmsClose;				break;	
+		case 108:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = -1;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = -170;    		break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
@@ -122,6 +125,45 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 		return StrategyColorA_GetNextAction(p);
 	}
 
+	// Check for conditionnal system command -----------------------------
+	if(App_IfGoto_System == p->Cmd)
+	{
+		// Read the current Flags
+		CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
+
+		if((CurrentFlag & (p->Param1)) != 0)
+			NextActionID = (int)(p->Param2);
+		else
+			NextActionID = (int)(p->Param3);
+
+		return StrategyColorA_GetNextAction(p);
+	}
+	
+	// Check for conditionnal strategy command ---------------------------
+	if(App_IfGoto_System == p->Cmd)
+	{
+		// Read the current Flags
+		CurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
+
+		if((CurrentFlag & (p->Param1)) != 0)
+			NextActionID = (int)(p->Param2);
+		else
+			NextActionID = (int)(p->Param3);
+
+		return StrategyColorA_GetNextAction(p);
+	}
+	
+	// Set / Clear Strategy Flags --------------------------------------
+	if(App_SetStrategyFlags == p->Cmd)
+	{
+		StrategyFlagsToSet = p->Param1;
+
+		if(p->Param2 != 0)
+			OSFlagPost(AppStrategyFlags, StrategyFlagsToSet, OS_FLAG_SET, &Err);
+		else
+			OSFlagPost(AppStrategyFlags, StrategyFlagsToSet, OS_FLAG_CLR, &Err);
+	}
+	
 	// Create the MvtSimple Command --------------------------------------
 	if(MvtSimple_MoveInMM == p->Cmd) 
 		LibMoving_MoveInMM(p->Param2, p->Param1, p);
@@ -137,6 +179,8 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	{
 		p->Param4 = AppConvertDegInRad(p->Param4);
 	}
+
+
 
 	return ERR__NO_ERROR;
 }

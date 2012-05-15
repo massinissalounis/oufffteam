@@ -37,6 +37,9 @@
     <Filter Include="Fichiers d%27en-tête\Main\Strategy">
       <UniqueIdentifier>{8119cb04-654b-4d7c-906d-ebfae26dc0f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Main\Strategy\Patterns">
+      <UniqueIdentifier>{5c082411-2a2d-4336-9572-ea80b9b31cdb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Main\App.c">
@@ -144,7 +147,10 @@
     <ClCompile Include="..\..\..\src\Main\Strategy\Strat1ColorB.c">
       <Filter>Fichiers sources\Main\Strategy</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\Test.c">
+    <ClCompile Include="..\..\..\src\Main\Strategy\GrabColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\GrabColorB.c">
       <Filter>Fichiers sources\Main\Strategy</Filter>
     </ClCompile>
   </ItemGroup>
@@ -294,6 +300,15 @@
     </None>
     <None Include="..\..\..\src\BSP\crt0.S">
       <Filter>Fichiers sources\BSP</Filter>
+    </None>
+    <None Include="..\..\..\src\Main\Strategy\PatternFileColorA.pattern">
+      <Filter>Fichiers sources\Main\Strategy\Patterns</Filter>
+    </None>
+    <None Include="..\..\..\src\Main\Strategy\PatternFileColorB.pattern">
+      <Filter>Fichiers sources\Main\Strategy\Patterns</Filter>
+    </None>
+    <None Include="..\..\..\src\Main\Strategy\PatternLoop.pattern">
+      <Filter>Fichiers sources\Main\Strategy\Patterns</Filter>
     </None>
   </ItemGroup>
 </Project>

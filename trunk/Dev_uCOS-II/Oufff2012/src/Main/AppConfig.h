@@ -140,7 +140,7 @@
 
 // Groups ------------------------------------------------------------------------------------------------
 // Sensors Groups
-//#define APP_PARAM_DISABLE_ALL_SENSORS						// Use this flag for disabling all sensors (SW + GP2)
+#define APP_PARAM_DISABLE_ALL_SENSORS						// Use this flag for disabling all sensors (SW + GP2)
 //#define APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE				// Use this flag for disabling sensors during an escape sequence
 
 #define APP_PARAM_APPFLAG_ALL_GP2				0x0000FF00	// All GP2 sensors
@@ -258,11 +258,9 @@
 */
 // Only 1 option can be set bellow.
 
-//#define DEFAULT_STRATEGY_ENABLED				// Enable this option to use default strategy
-//#define TEST_STRATEGY_ENABLED					// Enable this option to use the test strategy
 //#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
-#define STRAT1_STRATEGY_ENABLED				// Enable this option to use the strategy n°1
-
+//#define STRAT1_STRATEGY_ENABLED				// Enable this option to use the strategy n°1
+#define GRAB_STRATEGY_ENABLED				// Strategy for grabbing objects on totems
 /*
 *********************************************************************************************************
 *                                      CONSTANTS FOR DEV CARD

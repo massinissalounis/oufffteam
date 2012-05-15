@@ -55,7 +55,7 @@ void TaskSensors_CheckBumpers()
 
 #else
 	//GP2 Front ****************************************************
-	GP2Data  = ADC_GetVal (GP2_FRONT);
+	GP2Data  = ADC_GetVal (GP2_FRONT_CENTER);
 
 	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
 	{
@@ -65,7 +65,7 @@ void TaskSensors_CheckBumpers()
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_CLR, &Err); 
 
 	//GP2 Back ******************************************************
-	GP2Data  = ADC_GetVal (GP2_REAR);
+	GP2Data  = ADC_GetVal (GP2_REAR_CENTER);
 
 	if(GP2Data > APP_GP2D2_LIMIT_BACK)
 	{
@@ -77,68 +77,28 @@ void TaskSensors_CheckBumpers()
 #endif
 }
 
+// ------------------------------------------------------------------------------------------------
+void TaskSensors_ArmsInit()
+{
+	if(AppCurrentColor == c_ColorA)		// Red
+		ARMS_DefaultPosRed();
+
+	if(AppCurrentColor == c_ColorB)		// Purple
+		ARMS_DefaultPosPurple();
+}
+
+// ------------------------------------------------------------------------------------------------
+void TaskSensors_ArmsDeployment()
+{
+	if(AppCurrentColor == c_ColorA)		// Red
+		ARMS_DeploymentRed();
+
+	if(AppCurrentColor == c_ColorB)		// Purple
+		ARMS_DeploymentPurple();
+}
+
 // Grab Functions #################################################################################
 // ------------------------------------------------------------------------------------------------
-/*void TaskSensors_GrabIngotOnFloor()
-{
-	if(ADC_GetVal (GP2_HOLDER) > 600)
-	{
-		PUMP_Right_Suck();
-		PUMP_Left_Suck();
-
-		ARM_Left_GrabIngotOnFloor();
-		ARM_Right_GrabIngotOnFloor();
-
-		OSTimeDlyHMSM(0, 0, 0, 500);
-		ELEVATOR_Level_Ingot();
-		OSTimeDlyHMSM(0, 0, 0, 500);
-
-		ELEVATOR_Level_High();
-	}
-	return;
-}
-
-// ------------------------------------------------------------------------------------------------
-void TaskSensors_GrabIngotOnTotem()
-{
-	ARM_Left_GrabIngotOnTotem();
-	ARM_Right_GrabIngotOnTotem();
-
-	WRIST_Left_Middle();
-	WRIST_Right_Middle();
-
-	PUMP_Left_Suck();
-	PUMP_Right_Suck();
-
-	return;
-}
-
-// ------------------------------------------------------------------------------------------------
-void TaskSensors_GrabCD()
-{
-	ARM_Left_GrabCD();
-	ARM_Right_GrabCD();
-
-	WRIST_Left_Down();
-	WRIST_Right_Down();
-
-	PUMP_Left_Suck();
-	PUMP_Right_Suck();
-
-	OSTimeDlyHMSM(0, 0, 0, 500);
-	ELEVATOR_Level_CD();
-
-	// TODO : Check if Low Level CD is required
-	// if dist to CD, go to ELEVATOR_Level_Low
-
-	OSTimeDlyHMSM(0, 0, 0, 500);
-
-	ELEVATOR_Level_High();
-	// TODO : Check if CD is grabbed
-
-	return;
-}
-*/
 
 // ------------------------------------------------------------------------------------------------
 // TaskSensors_Main()
@@ -149,7 +109,7 @@ void TaskSensors_Main(void *p_arg)
 	INT8U		CurrentState;		// Used into state machine
 	INT8U		NextState;			// Used into state machine
 	StructMsg	*pCurrentMsg;		// For retreiving data from TaskMain
-
+	EnumColor	LastColorRead;		// Used to check color modification
 
 	// Debug ----------------
 	CPU_INT16U  GP2Data;
@@ -159,10 +119,11 @@ void TaskSensors_Main(void *p_arg)
 	// ----------------------
 
 	// Init
-	Err = 0;
-	CurrentState = 0;
-	NextState = 0;
-	pCurrentMsg = NULL;
+	Err					= 0;
+	CurrentState		= 0;
+	NextState			= 0;
+	pCurrentMsg			= NULL;
+	LastColorRead		= c_NotSet;
 
 	AppDebugMsg("OUFFF TEAM 2012 : Sensors online\r\n");
 	
@@ -171,9 +132,36 @@ void TaskSensors_Main(void *p_arg)
 	ARMS_Init();
 #endif
 
+	ARMS_SetSpeed();
+
 #ifdef SENSORS_CALIBRATION
-	OSTimeDlyHMSM(0, 0, 5, 0);
+	TaskSensors_ReadColor();
 	
+	// Arms Init from color
+//	OSTimeDlyHMSM(0, 0, 1, 0);
+//	TaskSensors_ArmsInit();
+
+	// Deployment
+//	OSTimeDlyHMSM(0, 0, 3, 0);
+//	TaskSensors_ArmsDeployment();
+
+//	ARMS_Open();
+
+//	OSTimeDlyHMSM(0, 0, 3, 0);
+//	ARMS_OpenOneCD();
+
+//	OSTimeDlyHMSM(0, 0, 10, 0);
+//	ARMS_OpenTotem();
+
+//	OSTimeDlyHMSM(0, 0, 10, 0);
+//	ARMS_CloseTotem();
+	
+//	OSTimeDlyHMSM(0, 0, 10, 0);
+//	ARMS_Close();
+
+//	OSTimeDlyHMSM(0, 0, 3, 0);
+	ARMS_Ungrab();
+
 	while(OS_TRUE)
 	{
 		// Tirette + Color
@@ -210,7 +198,6 @@ void TaskSensors_Main(void *p_arg)
 	}
 #endif
 
-
 	if(APP_INIT_USE_START_BUTTON == OS_TRUE)
 	{
 		// We're waiting for Start button release
@@ -218,6 +205,12 @@ void TaskSensors_Main(void *p_arg)
 		{
 			TaskSensors_ReadColor();
 			OSTimeDly(1);	// Release proc
+
+			if(LastColorRead != AppCurrentColor)
+			{
+				LastColorRead = AppCurrentColor;
+				TaskSensors_ArmsInit();
+			}
 		}
 
 		// We're waiting for start button activation
@@ -225,6 +218,12 @@ void TaskSensors_Main(void *p_arg)
 		{
 			TaskSensors_ReadColor();
 			OSTimeDly(1);	// Release proc
+
+			if(LastColorRead != AppCurrentColor)
+			{
+				LastColorRead = AppCurrentColor;
+				TaskSensors_ArmsInit();
+			}
 		}
 	}
 
@@ -267,34 +266,64 @@ void TaskSensors_Main(void *p_arg)
 				// Select Action from Cmd
 				switch(pCurrentMsg->Cmd)
 				{
-/*				case Sensors_GrabObject: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-					TaskSensors_GrabObject();
+				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				case Sensors_ArmsOpen: 
+					ARMS_Open();
 					if(CmdType_Blocking == pCurrentMsg->CmdType)
 						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
 					NextState = 1;
 					break;
 
-				case Sensors_SetHolderStatus: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-					TaskSensors_ControlHolder(pCurrentMsg->Param1);
+				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				case Sensors_ArmsDeployment: 
+					TaskSensors_ArmsDeployment();
 					if(CmdType_Blocking == pCurrentMsg->CmdType)
-					{
-						OSTimeDlyHMSM(0,0,0,50);
 						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
-					}
 					NextState = 1;
 					break;
 
-				case Sensors_SetHolderLevel: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-					TaskSensors_SetHolderLevel(pCurrentMsg->Param1);
+				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				case Sensors_ArmsOpenTotem:
+					ARMS_OpenTotem();
 					if(CmdType_Blocking == pCurrentMsg->CmdType)
-					{
-						OSTimeDlyHMSM(0,0,1,200);
 						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
-					}
 					NextState = 1;
 					break;
-*/
-				default: // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				case Sensors_ArmsOpenOneCD:
+					ARMS_OpenOneCD();
+					if(CmdType_Blocking == pCurrentMsg->CmdType)
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
+					NextState = 1;
+					break;
+
+				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				case Sensors_ArmsClose:
+					ARMS_Close();
+					if(CmdType_Blocking == pCurrentMsg->CmdType)
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
+					NextState = 1;
+					break;
+
+				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				case Sensors_ArmsCloseTotem:
+					ARMS_CloseTotem();
+					if(CmdType_Blocking == pCurrentMsg->CmdType)
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
+					NextState = 1;
+					break;
+
+				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				case Sensors_ArmsUngrab:
+					ARMS_Ungrab();
+					if(CmdType_Blocking == pCurrentMsg->CmdType)
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
+					NextState = 1;
+					break;
+
+				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				default: 
 					NextState = 0;
 					break;
 				}

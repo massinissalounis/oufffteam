@@ -240,21 +240,16 @@ void TaskMain_Main(void *p_arg)
 						break;
 
 					// To TaskSensors ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-					case Sensors_GrabObject:
+					case Sensors_ArmsOpen:
+					case Sensors_ArmsDeployment:
+					case Sensors_ArmsOpenTotem:
+					case Sensors_ArmsOpenOneCD:
+					case Sensors_ArmsClose:
+					case Sensors_ArmsCloseTotem:
+					case Sensors_ArmsUngrab:
 						// Copy data to MsgToPost
 						MsgToPost.Cmd		= CurrentCmd.Cmd;
 						MsgToPost.CmdType	= CurrentCmd.CmdType;
-
-						// Send Msg
-						AppPostQueueMsg(AppQueueSensors, &MsgToPost);
-						break;
-
-
-					case Sensors_SetHolderStatus:
-					case Sensors_SetHolderLevel:
-						MsgToPost.Cmd		= CurrentCmd.Cmd;
-						MsgToPost.CmdType	= CurrentCmd.CmdType;
-						MsgToPost.Param1	= CurrentCmd.Param1;
 
 						// Send Msg
 						AppPostQueueMsg(AppQueueSensors, &MsgToPost);

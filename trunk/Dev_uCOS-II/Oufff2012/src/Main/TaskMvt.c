@@ -22,6 +22,7 @@ extern float error_debug_1;
 extern float error_debug_2;
 extern float error_debug_3;
 extern float error_debug_4;
+extern float error_debug_5;
 
 // ------------------------------------------------------------------------------------------------
 void TaskMvt_SendSetpointToTaskAsser(StructCmd *Setpoint)
@@ -103,7 +104,7 @@ void TaskMvt_Main(void *p_arg)
 
 	// Define stop cmd
 	StopCmd.Cmd					= Mvt_Stop;
-	StopCmd.Param1				= 0.4;
+	StopCmd.Param1				= 40;
 	StopCmd.Param2				= USE_CURRENT_VALUE;
 	StopCmd.Param3				= USE_CURRENT_VALUE;
 	StopCmd.Param4				= USE_CURRENT_VALUE;
@@ -242,41 +243,32 @@ void TaskMvt_Main(void *p_arg)
 
 			// CASE 003 ---------------------------------------------------------------------------
 			case 3:		// Read Bumpers Status
-				// Save current sensors status
-//				SensorsPreviousStatus = SensorsCurrentStatus;
-
 				// Read the current sensors status
 				SensorsCurrentStatus = CurrentFlag & CurrentActivatedSensors;
 
-/*				if(SensorsCurrentStatus == SensorsPreviousStatus)
-				{	// There is no change
-					NextState = 4;
+				// One sensor has been activated
+				// Which sensors are active
+				if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_FRONT) != 0)
+				{	// Front sensors are activated
+					NextState = 5;
+				}
+				else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_LEFT) != 0)
+				{	// Left sensors are activated
+					NextState = 7;
+				}
+				else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_RIGHT) != 0)
+				{	// Right sensors are activated
+					NextState = 8;
+				}
+				else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_BACK) != 0)
+				{	// Back sensors are activated
+					NextState = 6;
 				}
 				else
-				{	// Todo : Gerer les flags de maniere indépendantes
-*/					// One sensor has been activated
-					// Which sensors are active
-					if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_FRONT) != 0)
-					{	// Front sensors are activated
-						NextState = 5;
-					}
-					else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_LEFT) != 0)
-					{	// Left sensors are activated
-						NextState = 7;
-					}
-					else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_RIGHT) != 0)
-					{	// Right sensors are activated
-						NextState = 8;
-					}
-					else if((SensorsCurrentStatus & APP_PARAM_APPFLAG_SENSORS_BACK) != 0)
-					{	// Back sensors are activated
-						NextState = 6;
-					}
-					else
-					{	// There is no sensor activated
-						NextState = 4;
-					}
-//				}
+				{	// There is no sensor activated
+					NextState = 4;
+				}
+
 				break;
 
 			// CASE 004 ---------------------------------------------------------------------------
@@ -302,6 +294,7 @@ void TaskMvt_Main(void *p_arg)
 
 			// CASE 005 ---------------------------------------------------------------------------
 			case 5:		// Escape Seq (Front)
+				LED_On(3);
 				// Ask for stopping Mvt
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
 
@@ -312,11 +305,15 @@ void TaskMvt_Main(void *p_arg)
 				}while((CurrentFlag & APP_PARAM_APPFLAG_SENSORS_FRONT) != 0);
 
 				TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
+				
+				LED_Off(3);
+
 				NextState = 9;
 				break;
 
 			// CASE 006 ---------------------------------------------------------------------------
 			case 6:		// Escape Seq (Back)
+				LED_On(3);
 				// Ask for stopping Mvt
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
 
@@ -327,19 +324,26 @@ void TaskMvt_Main(void *p_arg)
 				}while((CurrentFlag & APP_PARAM_APPFLAG_SENSORS_BACK) != 0);
 
 				TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
+
+				LED_Off(3);
+
 				NextState = 9;
 				break;
 
 			// CASE 007 ---------------------------------------------------------------------------
 			case 7:		// Escape Seq (Right)
+				LED_On(3);
 				// Ask for stopping Mvt
 				NextState = 254;
+				LED_Off(3);
 				break;
 
 			// CASE 008 ---------------------------------------------------------------------------
 			case 8:		// Escape Seq (Left)
+				LED_On(3);
 				// Ask for stopping Mvt
 				NextState = 254;
+				LED_Off(3);
 				break;
 
 			// CASE 009 ---------------------------------------------------------------------------
