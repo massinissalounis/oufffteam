@@ -148,11 +148,11 @@
     <Resource Include="Images\Logo_OufffTeam_Ptt.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\RobotClose.png" />
-    <Resource Include="Images\RobotOpen.png" />
+    <EmbeddedResource Include="Images\RobotClose.png" />
+    <EmbeddedResource Include="Images\RobotOpen.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\RobotStart.png" />
+    <EmbeddedResource Include="Images\RobotStart.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -614,7 +614,7 @@ namespace StrategyGenerator
 
                     Command Cmd = _CurrentStrategy.GetCommand(NextActionID);
 
-                    _PositionList.Insert(0, new RobotPos(x, y, angle, Cmd, NextActionID));
+                    _PositionList.Insert(0, new RobotPos(x, y, angle, Cmd, NextIndex));
                     CmdViewN_ButtonPrev.IsEnabled = true;
                 }
 
@@ -765,7 +765,8 @@ namespace StrategyGenerator
             {
                 switch(SelectedCmd.Cmd)
                 {
-                    case EnumCmd.Sensors_ArmsOpen:
+                    case EnumCmd.Sensors_ArmsOpenDown:
+                    case EnumCmd.Sensors_ArmsOpenUp:
                     case EnumCmd.Sensors_ArmsOpenTotem:
                     case EnumCmd.Sensors_ArmsDeployment:
                         NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\Codage\\Images\\RobotOpen.png"));
