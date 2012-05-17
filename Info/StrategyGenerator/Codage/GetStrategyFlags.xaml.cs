@@ -20,7 +20,7 @@ namespace StrategyGenerator
     {
         enum EnumFlags
         {
-            APP_PARAM_STRATEGYFLAG_NONE
+            STRATEGYFLAG_NONE
         }
 
         public GetStrategyFlags(String CurrentFlags)
