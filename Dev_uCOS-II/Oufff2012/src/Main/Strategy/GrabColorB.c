@@ -16,7 +16,7 @@
 
 #ifdef GRAB_STRATEGY_ENABLED
 
-#define DEFAULT_SPEED (30)
+#define DEFAULT_SPEED (70)
 
 // ------------------------------------------------------------------------------------------------
 INT8U StrategyColorB_GetInitCmd(StructCmd *InitCmd)
@@ -26,7 +26,7 @@ INT8U StrategyColorB_GetInitCmd(StructCmd *InitCmd)
 
 	InitCmd->Cmd				= App_SetNewPos;
 	InitCmd->CmdType			= CmdType_Blocking;
-	InitCmd->Param2				= 65;	
+	InitCmd->Param2				= 69;	
 	InitCmd->Param3				= 1667;	
 	InitCmd->Param4				= AppConvertDegInRad(0);
 	InitCmd->ActiveSensorsFlag		= APP_PARAM_APPFLAG_NONE;

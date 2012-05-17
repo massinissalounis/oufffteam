@@ -302,7 +302,7 @@ void TaskMvt_Main(void *p_arg)
 				do
 				{
 					OSTimeDlyHMSM(0, 0, 0, 500);
-					StrategyCurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
+					StrategyCurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
 				}while((StrategyCurrentFlag & APP_PARAM_STRATEGYFLAG_COLLISION_FRONT) != 0);
 
 				TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
@@ -321,7 +321,7 @@ void TaskMvt_Main(void *p_arg)
 				do
 				{
 					OSTimeDlyHMSM(0, 0, 0, 500);
-					StrategyCurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
+					StrategyCurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
 				}while((StrategyCurrentFlag & APP_PARAM_STRATEGYFLAG_COLLISION_REAR) != 0);
 
 				TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);

@@ -46,10 +46,6 @@ void TaskSensors_CheckBumpers()
 {
 	INT8U	Err = 0;						// Var to get error status
 	CPU_INT16U  GP2Data;
-	static CPU_INT16U GP2DataOld1=0;
-	static CPU_INT16U GP2DataOld2=0;
-
-	static INT8U voting_logic_idx=0;
 
 #ifdef _TARGET_440H
 
@@ -57,7 +53,7 @@ void TaskSensors_CheckBumpers()
 	//GP2_REAR_CENTER ***********************************************
 	GP2Data  = ADC_GetVal (GP2_REAR_CENTER);
 
-	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
+	if(GP2Data > APP_GP2_LIMIT_REAR_CENTER)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_CENTER, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_CENTER, OS_FLAG_CLR, &Err); 
@@ -65,7 +61,7 @@ void TaskSensors_CheckBumpers()
 	//GP2_FRONT_CENTER **********************************************
 	GP2Data  = ADC_GetVal (GP2_FRONT_CENTER);
 
-	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
+	if(GP2Data > APP_GP2_LIMIT_FRONT_CENTER)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_CENTER, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_CENTER, OS_FLAG_CLR, &Err); 
@@ -73,7 +69,7 @@ void TaskSensors_CheckBumpers()
 	//GP2_FRONT_LEFT_1 **********************************************
 	GP2Data  = ADC_GetVal (GP2_FRONT_LEFT_1);
 
-	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
+	if(GP2Data > APP_GP2_LIMIT_FRONT_LEFT_1)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1, OS_FLAG_CLR, &Err); 
@@ -81,23 +77,15 @@ void TaskSensors_CheckBumpers()
 	//GP2_FRONT_LEFT_2 **********************************************
 	GP2Data  = ADC_GetVal (GP2_FRONT_LEFT_2);
 
-	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
+	if(GP2Data > APP_GP2_LIMIT_FRONT_LEFT_2)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2, OS_FLAG_CLR, &Err); 
 
-	//GP2_FRONT_LEFT_3 **********************************************
-	GP2Data  = ADC_GetVal (GP2_FRONT_LEFT_3);
-
-	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT_3, OS_FLAG_SET, &Err); 
-	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT_3, OS_FLAG_CLR, &Err); 
-
 	//GP2_FRONT_RIGHT_1 *********************************************
 	GP2Data  = ADC_GetVal (GP2_FRONT_RIGHT_1);
 
-	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
+	if(GP2Data > APP_GP2_LIMIT_FRONT_RIGHT_1)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1, OS_FLAG_CLR, &Err); 
@@ -105,7 +93,7 @@ void TaskSensors_CheckBumpers()
 	//GP2_FRONT_RIGHT_2 *********************************************
 	GP2Data  = ADC_GetVal (GP2_FRONT_RIGHT_2);
 
-	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
+	if(GP2Data > APP_GP2_LIMIT_FRONT_RIGHT_2)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2, OS_FLAG_CLR, &Err); 
@@ -113,7 +101,7 @@ void TaskSensors_CheckBumpers()
 	//GP2_FRONT_RIGHT_3 *********************************************
 	GP2Data  = ADC_GetVal (GP2_FRONT_RIGHT_3);
 
-	if(GP2Data > APP_GP2D2_LIMIT_FRONT)
+	if(GP2Data > APP_GP2_LIMIT_FRONT_RIGHT_3)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_3, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_3, OS_FLAG_CLR, &Err); 
@@ -138,9 +126,11 @@ void TaskSensors_GenerateStrategyFlags()
 	SystemReadValue = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ALL_GP2, OS_FLAG_WAIT_SET_ANY, &Err);
 
 	// Rear Sensors ########################################################################
+	FlagsToCheck = 0;
 	// All case ---------------
-	FlagsToCheck = (GP2_REAR_CENTER);
 
+	FlagsToCheck = (APP_PARAM_APPFLAG_GP2_REAR_CENTER);
+		
 	// Check Sensors
 	if((SystemReadValue & FlagsToCheck) != 0)
 		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR, OS_FLAG_SET, &Err); 
@@ -148,32 +138,40 @@ void TaskSensors_GenerateStrategyFlags()
 		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR, OS_FLAG_CLR, &Err); 
 
 	// Front Sensors #######################################################################
+	FlagsToCheck = 0;
 	// Arms Init ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT) != 0)
-		FlagsToCheck = (GP2_FRONT_CENTER);
+	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT) == APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT)
+	{
+		if(AppCurrentColor == c_ColorA)		// Red
+			FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_CENTER + APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1 + APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2);
+
+		if(AppCurrentColor == c_ColorB)		// Purple
+			FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_CENTER + APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1 + APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2);
+	}
 
 	// Arms Opened ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED) != 0)
-		FlagsToCheck = (GP2_FRONT_LEFT_2 + GP2_FRONT_RIGHT_2);
+	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED) == APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED)
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_3);
 
 	// Arms Closed ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED) != 0)
-		FlagsToCheck = (GP2_FRONT_LEFT_1 + GP2_FRONT_RIGHT_1);
+	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED) == APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED)
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1 + APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1);
 
 	// Check Sensors
 	if((SystemReadValue & FlagsToCheck) != 0)
 		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_FRONT, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_FRONT, OS_FLAG_CLR, &Err); 
-
+	
 	// Left Sensors #####################################################################
+	FlagsToCheck = 0;
 	// Arms Opened ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED) != 0)
-		FlagsToCheck = (GP2_FRONT_LEFT_1);
+	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED) == APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED)
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1 + APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2);
 
 	// Arms Closed ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED) != 0)
-		FlagsToCheck = (GP2_FRONT_LEFT_3);
+	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED) == APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED)
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2);
 
 	// Check Sensors
 	if((SystemReadValue & FlagsToCheck) != 0)
@@ -182,13 +180,14 @@ void TaskSensors_GenerateStrategyFlags()
 		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_LEFT, OS_FLAG_CLR, &Err); 
 
 	// Right Sensors #####################################################################
+	FlagsToCheck = 0;
 	// Arms Opened ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED) != 0)
-		FlagsToCheck = (GP2_FRONT_RIGHT_1);
+	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED) == APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED)
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1 + APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2);
 
 	// Arms Closed ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED) != 0)
-		FlagsToCheck = (GP2_FRONT_RIGHT_3);
+	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED) == APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED)
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2);
 
 	// Check Sensors
 	if((SystemReadValue & FlagsToCheck) != 0)
@@ -416,6 +415,7 @@ void TaskSensors_Main(void *p_arg)
 
 		// First step, we check all external sensors
 		TaskSensors_CheckBumpers();
+		TaskSensors_GenerateStrategyFlags();
 
 		// Then, we use the state machine
 		CurrentState = NextState;

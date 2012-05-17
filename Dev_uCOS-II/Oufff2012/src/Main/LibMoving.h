@@ -40,6 +40,14 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
 	// NewPath						: All commands necessary for reaching ExpectedCmd
 	// NewPathLength				: Nb of command defined in NewPath (0 means, no Path is available)
 
+void LibMoving_CreateTimeoutSeq(INT8U TimeoutSeqType, int Speed, StructCmd *NewPath, INT8S *NewPathLength);
+	// EscapeSeqType				: Seq type to use for create timeout seq
+	//									- APP_MOVING_TIMEOUT_SEQ_FRONT
+	//									- APP_MOVING_TIMEOUT_SEQ_BACK
+	// Speed						: Speed to use for this escape sequence
+	// NewPath						: All commands necessary for this escape seq
+	// NewPathLength				: Nb of command defined in NewPath (0 means, no Path is available)
+
 void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPath, INT8S *NewPathLength);
 	// EscapeSeqType				: Seq type to use for create escape seq
 	//									- APP_MOVING_ESCAPE_SEQ_RIGHT

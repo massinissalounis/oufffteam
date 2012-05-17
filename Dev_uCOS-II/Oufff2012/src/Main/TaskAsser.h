@@ -30,12 +30,12 @@
 #define IMAX_DISTANCE 			1000.0
 
 // Wheel loop for separated control
-#define KP_WHEEL_L	 			50.0
+#define KP_WHEEL_L	 			50.0 // 100
 #define KI_WHEEL_L	 			0.0
 #define KD_WHEEL_L	 			750.0
 #define IMAX_WHEEL_L 			1000.0
 
-#define KP_WHEEL_R	 			50.0
+#define KP_WHEEL_R	 			50.0 // 100
 #define KI_WHEEL_R	 			0.0
 #define KD_WHEEL_R	 			750.0
 #define IMAX_WHEEL_R 			1000.0
@@ -53,9 +53,9 @@
 #define DEFAULT_ACC_DISTANCE	1.0		// n % of maximum speed per 10 ms
 
 // Used in hold speed control
-#define SPEED_ANGLE		0.9 	// n % of maximum speed
+#define SPEED_ANGLE		0.70 //0.9 	// n % of maximum speed
 
-#define SPEED_PIVOT		0.9
+#define SPEED_PIVOT		0.70 //0.9
 
 //////////////////////////////////////////////
 // General Coefficients

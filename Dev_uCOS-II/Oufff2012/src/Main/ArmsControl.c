@@ -33,7 +33,7 @@ void ARMS_InitReg(void)
 
 	// CW limits
 	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_ARM_ID, AX12_REG_CW_LIMIT, 0x40, 0x01);
-	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_ARM_ID, AX12_REG_CW_LIMIT, 0xE9, 0x00);
+	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_ARM_ID, AX12_REG_CW_LIMIT, 0xE1, 0x00);
 	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_WRIST_ID, AX12_REG_CW_LIMIT, 0x7B, 0x00);
 	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_WRIST_ID, AX12_REG_CW_LIMIT, 0x03, 0x00);
 	AX12_Write_Reg_2_Datas_Sync(AX12_ELEVATOR_ID, AX12_REG_CW_LIMIT, 0x63, 0x02);
@@ -41,7 +41,7 @@ void ARMS_InitReg(void)
 	// CCW limits
 	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_ARM_ID, AX12_REG_CCW_LIMIT, 0x18, 0x03);
 	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_ARM_ID, AX12_REG_CCW_LIMIT, 0xB9, 0x02);
-	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_WRIST_ID, AX12_REG_CCW_LIMIT, 0xC6, 0x03);
+	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_WRIST_ID, AX12_REG_CCW_LIMIT, 0xF2, 0x03);
 	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_WRIST_ID, AX12_REG_CCW_LIMIT, 0x3A, 0x03);
 	AX12_Write_Reg_2_Datas_Sync(AX12_ELEVATOR_ID, AX12_REG_CCW_LIMIT, 0x89, 0x03);
 }
@@ -180,13 +180,13 @@ void ARMS_Ungrab(void)
 void ARM_Left_DefaultPosRed(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0xD0);
+	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0xFF); //2D0
 }
 
 void ARM_Left_DefaultPosPurple(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x01, 0x45);
+	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x01, 0x4C); //145
 }
 
 void ARM_Left_Open(void)
@@ -211,13 +211,13 @@ void ARM_Left_Ungrab(void)
 void ARM_Right_DefaultPosRed(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x02, 0xA8);
+	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x02, 0x7B);//2A8
 }
 
 void ARM_Right_DefaultPosPurple(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0x6D);
+	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x00, 0xE8); //16D
 }
 
 void ARM_Right_Open(void)
@@ -273,13 +273,13 @@ void ELEVATOR_Level_Open(void)
 void WRIST_Left_DefaultPosRed(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_WRIST_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_WRIST_ID, 0x01, 0xBD);
+	AX12_Write_Position_Sync(AX12_LEFT_WRIST_ID, 0x01, 0x73); //1BD
 }
 
 void WRIST_Left_DefaultPosPurple(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_WRIST_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_WRIST_ID, 0x03, 0xC5);
+	AX12_Write_Position_Sync(AX12_LEFT_WRIST_ID, 0x03, 0xEC); //3C5
 }
 
 void WRIST_Left_Open(void)
@@ -310,13 +310,13 @@ void WRIST_Left_CloseTotem(void)
 void WRIST_Right_DefaultPosRed(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_RIGHT_WRIST_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x00, 0x0F);
+	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x00, 0x0C); //0F
 }
 
 void WRIST_Right_DefaultPosPurple(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_RIGHT_WRIST_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x01, 0xB8);
+	AX12_Write_Position_Sync(AX12_RIGHT_WRIST_ID, 0x02, 0x5A); //1B8
 }
 
 void WRIST_Right_Open(void)
