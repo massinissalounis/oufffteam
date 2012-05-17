@@ -153,6 +153,12 @@
     <ClCompile Include="..\..\..\src\Main\Strategy\GrabColorB.c">
       <Filter>Fichiers sources\Main\Strategy</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\Match1ColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\Match1ColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\Main\App.h">
@@ -307,7 +313,7 @@
     <None Include="..\..\..\src\Main\Strategy\PatternFileColorB.pattern">
       <Filter>Fichiers sources\Main\Strategy\Patterns</Filter>
     </None>
-    <None Include="..\..\..\src\Main\Strategy\PatternLoop.pattern">
+    <None Include="..\..\..\src\Main\Strategy\Loop\PatternLoop.pattern">
       <Filter>Fichiers sources\Main\Strategy\Patterns</Filter>
     </None>
   </ItemGroup>

@@ -74,6 +74,8 @@
     <ClCompile Include="..\..\..\src\Main\Strategy\GrabColorB.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorA.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\Match1ColorA.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\Match1ColorB.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\Strat1ColorA.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\Strat1ColorB.c" />
     <ClCompile Include="..\..\..\src\Main\TaskAsser.c" />
@@ -147,9 +149,9 @@
   <ItemGroup>
     <None Include="..\..\..\src\BSP\bsp_a.S" />
     <None Include="..\..\..\src\BSP\crt0.S" />
+    <None Include="..\..\..\src\Main\Strategy\Loop\PatternLoop.pattern" />
     <None Include="..\..\..\src\Main\Strategy\PatternFileColorA.pattern" />
     <None Include="..\..\..\src\Main\Strategy\PatternFileColorB.pattern" />
-    <None Include="..\..\..\src\Main\Strategy\PatternLoop.pattern" />
     <None Include="..\..\..\src\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC\cpu_a.s" />
     <None Include="..\..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu_a.S" />
   </ItemGroup>
