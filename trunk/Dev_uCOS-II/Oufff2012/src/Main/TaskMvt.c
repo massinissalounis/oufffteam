@@ -364,6 +364,9 @@ void TaskMvt_Main(void *p_arg)
 
 					if(MvtTimeout > APP_MVT_TIMEOUT)
 					{
+						// Set flag to indicate the last action finished with a timeout
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_TIMEOUT, OS_FLAG_SET, &Err); 
+
 						// Indicates we are stopped if current action is a blocking mvt
 						if(CmdType_Blocking == CurrentCmd.CmdType)
 							OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err); 
@@ -440,7 +443,9 @@ void TaskMvt_Main(void *p_arg)
 					TaskMvt_SendSetpointToTaskAsser(CurrentPath + CurrentSetpoint);
 					memcpy(&LastSetpointSent, CurrentPath + CurrentSetpoint, sizeof(StructCmd));
 					CurrentActivatedSensors = CurrentPath[CurrentSetpoint].ActiveSensorsFlag;
-					
+
+					// Clear the timeout flag
+					OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_TIMEOUT, OS_FLAG_CLR, &Err);
 				}
 				NextState = 1;
 				break;

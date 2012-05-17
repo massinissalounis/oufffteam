@@ -30,12 +30,12 @@
 #define IMAX_DISTANCE 			1000.0
 
 // Wheel loop for separated control
-#define KP_WHEEL_L	 			50.0 // 100
+#define KP_WHEEL_L	 			75.0 // 100
 #define KI_WHEEL_L	 			0.0
 #define KD_WHEEL_L	 			750.0
 #define IMAX_WHEEL_L 			1000.0
 
-#define KP_WHEEL_R	 			50.0 // 100
+#define KP_WHEEL_R	 			75.0 // 100
 #define KI_WHEEL_R	 			0.0
 #define KD_WHEEL_R	 			750.0
 #define IMAX_WHEEL_R 			1000.0

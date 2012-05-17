@@ -51,17 +51,21 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	// Set all actions as blocking actions
 	p->CmdType = CmdType_Blocking;
 
-	// Set CurrentID to NextID
-	CurrentActionID = NextActionID;
+	// Set CurrentID 
+	CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ACTION_TIMEOUT, OS_FLAG_WAIT_SET_ANY, &Err);
+	if(((CurrentFlag & APP_PARAM_APPFLAG_ACTION_TIMEOUT) == APP_PARAM_APPFLAG_ACTION_TIMEOUT) && (TimeoutID != -1))
+		CurrentActionID = TimeoutID;
+	else
+		CurrentActionID = NextActionID;
 
 	// Read Next Action
 	switch(CurrentActionID)
 	{
 		// StructuredFileLoopBegin
 		// LoopID = 0
-		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;	NextActionID = 2;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 600;    		break;	
-		case 2:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 3;	p->Cmd = Sensors_ArmsDeployment;				break;	
-		case 3:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;	NextActionID = 100;	p->Cmd = Mvt_UseMixedMode;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 1900;    p->Param3 = 1660;    p->Param4 = -90;    		break;	
+		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;	NextActionID = 2;	TimeoutID = -1; p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 600;    		break;	
+		case 2:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 3;	TimeoutID = -1; p->Cmd = Sensors_ArmsDeployment;				break;	
+		case 3:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;	NextActionID = 100;	TimeoutID = -1; p->Cmd = Mvt_UseMixedMode;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 1900;    p->Param3 = 1660;    p->Param4 = -90;    		break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin

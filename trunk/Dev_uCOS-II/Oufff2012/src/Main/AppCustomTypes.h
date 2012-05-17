@@ -62,6 +62,7 @@ typedef enum
 	MvtSimple_RotateInDeg			= 15,	// Use a simple mvt for rotating in deg (don't divide this mvt)
 	MvtSimple_RotateToAngleInDeg	= 16,	// Use a simple mvt for rotating to a specified angle in deg (don't divide this mvt)
 	Mvt_Stop						= 17,   // Used to stop current mvt
+	Mvt_UseSpline					= 18,	// Send the expected point directly to the task asser (without computation)
 	// Command APP ______________________
 	App_Wait						= 20,	// Wait (if all params = 0, wait for ever)
 	App_IfGoto_System				= 21,	// Go to a specific step based on System Flags
