@@ -550,7 +550,7 @@ namespace StrategyGenerator
                 CmdViewN_Param2.Text = "";
                 CmdViewN_Param3.Text = "";
                 CmdViewN_Param4.Text = "";
-                CmdViewN_FlagBox.SelectedItem = EnumSensorsFlag.APP_PARAM_STRATEGYFLAG_NONE.ToString();
+                CmdViewN_FlagBox.SelectedItem = EnumSensorsFlag.STRATEGYFLAG_NONE.ToString();
             }
 
             CheckParam();
@@ -769,6 +769,7 @@ namespace StrategyGenerator
                     case EnumCmd.Sensors_ArmsOpenUp:
                     case EnumCmd.Sensors_ArmsOpenTotem:
                     case EnumCmd.Sensors_ArmsDeployment:
+                    case EnumCmd.Sensors_ArmsOpenOneCD:
                         NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\Codage\\Images\\RobotOpen.png"));
                         Robot.Source = NewRobot;
                         Robot.Width = NewRobot.Width;
