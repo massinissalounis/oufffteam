@@ -21,9 +21,14 @@
 #define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
 //#define APP_INIT_EXEC_STARTUP_SEQ			OS_TRUE		// Flag to indicate if we have to execute the start up sequence
 
-#define APP_GP2D2_LIMIT_FRONT				200			// Threshold for front sensor
-#define APP_GP2D2_LIMIT_BACK				200			// Threshold for rear sensor
-#define APP_GP2D2_LIMIT_HOLDER_IN			200			// Threshold for detecting object into holder
+#define APP_GP2_LIMIT_FRONT_CENTER			150			// Threshold 
+#define APP_GP2_LIMIT_REAR_CENTER			200			// Threshold
+#define APP_GP2_LIMIT_FRONT_LEFT_1			200			// Threshold
+#define APP_GP2_LIMIT_FRONT_LEFT_2			200			// Threshold
+#define APP_GP2_LIMIT_FRONT_LEFT_3			200			// Threshold
+#define APP_GP2_LIMIT_FRONT_RIGHT_1			200			// Threshold
+#define APP_GP2_LIMIT_FRONT_RIGHT_2			200			// Threshold
+#define APP_GP2_LIMIT_FRONT_RIGHT_3			200			// Threshold
 
 #define APP_NOT_USED						0			// Not Used value
 
@@ -39,8 +44,8 @@
 #define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
 #define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
 
-//#define APP_TASK_ODO_DISPLAY_POSITION					// Activate the position debug messages
-#define APP_TASK_ODO_DISPLAY_DEBUG						// Activate the other debug messages
+#define APP_TASK_ODO_DISPLAY_POSITION					// Activate the position debug messages
+//#define APP_TASK_ODO_DISPLAY_DEBUG						// Activate the other debug messages
 
 /*
 *********************************************************************************************************
@@ -58,7 +63,7 @@
 #define APP_PARAM_STRATEGYFLAG_NONE				0x00000000	//	Don't use flags
 
 // APP FLAGS --------------------------------------------------------------------------------------------------------------------------------------------
-// Value is defined as follow :								//	|Bit| Desctiption				| Value ON 			| Value OFF			| Connection	|	
+// Value is defined as follow :								//	|Bit| Description				| Value ON 			| Value OFF			| Connection	|	
 // State Flag ____________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
 #define APP_PARAM_APPFLAG_START_BUTTON			0x00000001	//	| 0	| Start Button				| Pressed			| Not Pressed		| Hard			|
 #define APP_PARAM_APPFLAG_BIT01					0x00000002	//	| 1 | Not Used					| -					| -					| -				|
@@ -137,8 +142,9 @@
 
 // Groups ------------------------------------------------------------------------------------------------
 // Sensors Groups
-#define APP_PARAM_DISABLE_ALL_SENSORS						// Use this flag for disabling all sensors (SW + GP2)
+//#define APP_PARAM_DISABLE_ALL_SENSORS						// Use this flag for disabling all sensors (SW + GP2)
 //#define APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE				// Use this flag for disabling sensors during an escape sequence
+//#define APP_PARAM_DISABLE_SENSORS_DURING_TIMEOUT				// Use this flag for disabling sensors during a timeout sequence
 
 #define APP_PARAM_APPFLAG_ALL_GP2				0x0000FF00	// All GP2 sensors
 #define APP_PARAM_APPFLAG_ALL_SW				0x00FF0000	// All switches sensors
@@ -149,21 +155,12 @@
 #define APP_PARAM_STRATEGYFLAG_ARMS_STATUS		(APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT + APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED + APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED)
 
 // User defined groups
-#ifndef APP_PARAM_DISABLE_ALL_SENSORS
-	// - Front sensors
-	#define APP_PARAM_APPFLAG_SENSORS_FRONT			(APP_PARAM_APPFLAG_GP2_FRONT)	
-	// - Back sensors
-	#define APP_PARAM_APPFLAG_SENSORS_BACK			(APP_PARAM_APPFLAG_GP2_BACK)	
-	// - Left sensors
-	#define APP_PARAM_APPFLAG_SENSORS_LEFT			(APP_PARAM_APPFLAG_NONE)	
-	// - Right sensors
-	#define APP_PARAM_APPFLAG_SENSORS_RIGHT			(APP_PARAM_APPFLAG_NONE)
-#else
+#ifdef APP_PARAM_DISABLE_ALL_SENSORS
 	// Don't change this part !!!!
-	#define APP_PARAM_APPFLAG_SENSORS_FRONT			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!
-	#define APP_PARAM_APPFLAG_SENSORS_BACK			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!
-	#define APP_PARAM_APPFLAG_SENSORS_LEFT			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!	
-	#define APP_PARAM_APPFLAG_SENSORS_RIGHT			(APP_PARAM_APPFLAG_NONE)	// Don't change this value !!!!
+	#define APP_PARAM_STRATEGYFLAG_COLLISION_FRONT			(APP_PARAM_STRATEGYFLAG_NONE)	// Don't change this value !!!!
+	#define APP_PARAM_STRATEGYFLAG_COLLISION_REAR			(APP_PARAM_STRATEGYFLAG_NONE)	// Don't change this value !!!!
+	#define APP_PARAM_STRATEGYFLAG_COLLISION_LEFT			(APP_PARAM_STRATEGYFLAG_NONE)	// Don't change this value !!!!	
+	#define APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT			(APP_PARAM_STRATEGYFLAG_NONE)	// Don't change this value !!!!
 #endif	
 
 /*
@@ -231,6 +228,10 @@
 #define APP_MOVING_ESCAPE_SEQ_BACK				3						// Create escape sequence by going back
 #define APP_MOVING_ESCAPE_SEQ_FRONT				4						// Create escape sequence by going forward
 
+#define APP_MOVING_TIMEOUT_SEQ_BACK				3						// Create timeout sequence by going back
+#define APP_MOVING_TIMEOUT_SEQ_FRONT			4						// Create timeout sequence by going forward
+
+
 #define APP_MOVING_ASSER_INITIAL_MODE_CTRL		3					    // Initial Mode Control
 
 #define APP_MOVING_DIST_APPROACH_PRECISION      50.0       			    // Distance in mm to consider the change of control mode (arrival zone)  
@@ -260,7 +261,10 @@
 
 //#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
 //#define STRAT1_STRATEGY_ENABLED				// Enable this option to use the strategy n°1
-#define GRAB_STRATEGY_ENABLED				// Strategy for grabbing objects on totems
+//#define GRAB_STRATEGY_ENABLED				// Strategy for grabbing objects on totems
+//#define TESTGRAB_STRATEGY_ENABLED
+//#define TESTCD_STRATEGY_ENABLED
+#define MATCH1_STRATEGY_ENABLED
 /*
 *********************************************************************************************************
 *                                      CONSTANTS FOR DEV CARD

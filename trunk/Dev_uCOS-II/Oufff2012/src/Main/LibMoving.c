@@ -244,9 +244,9 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPat
 			Action->Param3 				= CurrentPos.y + (-200.0) * sinf(CurrentPos.angle);		
 			Action->Param4 				= CurrentPos.angle;	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_BACK;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_COLLISION_REAR;
 #else
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_NONE;
 #endif			
 
 			// Compute Second mvt
@@ -258,9 +258,9 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPat
 			Action->Param3 				= (Action+1)->Param3;		
 			Action->Param4 				= AppCheckAngleInRad((Action+1)->Param4 + AppConvertDegInRad(-45.0));	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_RIGHT;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT;
 #else
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_NONE;
 #endif			
 
 			// Compute Third mvt
@@ -272,9 +272,9 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPat
 			Action->Param3 				= (Action+1)->Param3 + (600.0) * sinf((Action+1)->Param4);		
 			Action->Param4 				= (Action+1)->Param4;	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_FRONT;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;
 #else
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_NONE;
 #endif			
 
 			// Compute Fourth mvt
@@ -286,9 +286,9 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPat
 			Action->Param3 				= (Action+1)->Param3;		
 			Action->Param4 				= AppCheckAngleInRad((Action+1)->Param4 + AppConvertDegInRad(45.0));	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_LEFT;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_COLLISION_LEFT;
 #else
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_NONE;
 #endif			
 
 			// Compute Fifth mvt
@@ -300,9 +300,9 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPat
 			Action->Param3 				= (Action+1)->Param3 + (400.0) * sinf((Action+1)->Param4);		
 			Action->Param4 				= (Action+1)->Param4;	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_FRONT;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;
 #else
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_NONE;
 #endif			
 
 			*NewPathLength = 5;
@@ -319,9 +319,9 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPat
 			Action->Param3 				= CurrentPos.y + (-200.0) * sinf(CurrentPos.angle);		
 			Action->Param4 				= CurrentPos.angle;	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_BACK;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_COLLISION_REAR;
 #else
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_NONE;
 #endif			
 			
 			// Compute Second mvt
@@ -333,9 +333,9 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPat
 			Action->Param3 				= (Action+1)->Param3;		
 			Action->Param4 				= (Action+1)->Param4 + AppConvertDegInRad(45.0);	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_LEFT;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_COLLISION_LEFT;
 #else
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_NONE;
 #endif			
 
 			// Compute Third mvt
@@ -347,9 +347,9 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPat
 			Action->Param3 				= (Action+1)->Param3 + (600.0) * sinf((Action+1)->Param4);		
 			Action->Param4 				= (Action+1)->Param4;	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_FRONT;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;
 #else
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_NONE;
 #endif			
 
 			// Compute Fourth mvt
@@ -361,9 +361,9 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPat
 			Action->Param3 				= (Action+1)->Param3;		
 			Action->Param4 				= (Action+1)->Param4 + AppConvertDegInRad(-45.0);	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_RIGHT;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT;
 #else
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_NONE;
 #endif			
 
 			// Compute Fifth mvt
@@ -375,9 +375,9 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPat
 			Action->Param3 				= (Action+1)->Param3 + (400.0) * sinf((Action+1)->Param4);		
 			Action->Param4 				= (Action+1)->Param4;	
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_FRONT;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;
 #else
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_NONE;
 #endif			
 
 			*NewPathLength = 5;
@@ -389,9 +389,9 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPat
 			LibMoving_MoveInMM(-150, Speed, Action);										// Define first movement	
 
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_BACK;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_COLLISION_REAR;
 #else
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_NONE;
 #endif			
 			*NewPathLength = 1;
 			break;
@@ -402,9 +402,9 @@ void LibMoving_CreateEscapeSeq(INT8U EscapeSeqType, int Speed, StructCmd *NewPat
 			LibMoving_MoveInMM(150, Speed, Action);									// Define first movement	
 
 #ifndef APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_SENSORS_FRONT;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;
 #else
-			Action->ActiveSensorsFlag	= APP_PARAM_APPFLAG_NONE;
+			Action->ActiveSensorsFlag	= APP_PARAM_STRATEGYFLAG_NONE;
 #endif			
 			*NewPathLength = 1;
 			break;

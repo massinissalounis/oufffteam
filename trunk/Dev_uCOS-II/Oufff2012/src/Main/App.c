@@ -90,8 +90,8 @@ void  AppTaskStart()
 
 	// --------------------------------------------------------------------------------------------
 	// Init BSP and FPGA module
-	BSP_Dly(1000);			// to wait FPGA to be loaded
-	BSP_InitIO();                                                       // Initialize BSP functions
+	BSP_Dly(10000);			// to wait FPGA to be loaded (time in us)
+	BSP_InitIO();           // Initialize BSP functions
 	BSPFPGA_Reset();
 
 #ifdef AX12_REG_PROGRAMMING
