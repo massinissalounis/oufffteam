@@ -44,8 +44,8 @@
 #define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
 #define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
 
-#define APP_TASK_ODO_DISPLAY_POSITION					// Activate the position debug messages
-//#define APP_TASK_ODO_DISPLAY_DEBUG						// Activate the other debug messages
+//#define APP_TASK_ODO_DISPLAY_POSITION					// Activate the position debug messages
+#define APP_TASK_ODO_DISPLAY_DEBUG						// Activate the other debug messages
 
 /*
 *********************************************************************************************************
@@ -70,7 +70,7 @@
 #define APP_PARAM_APPFLAG_BIT02					0x00000004	//	| 2 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT03					0x00000008	//	| 3 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT04					0x00000010	//	| 4 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_ACTION_TIMEOUT		0x00000020	//	| 5 | Timeout status			| Timeout reached	| Timeout unreached	| Soft			|
+#define APP_PARAM_APPFLAG_BIT05					0x00000020	//	| 5 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_ACTION_STATUS			0x00000040	//	| 6 | Action status				| Action is done	| Action is running	| Soft			|
 #define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running 	| Soft			|	
 // GP2 Flag ______________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
@@ -144,7 +144,6 @@
 // Sensors Groups
 //#define APP_PARAM_DISABLE_ALL_SENSORS						// Use this flag for disabling all sensors (SW + GP2)
 //#define APP_PARAM_DISABLE_SENSORS_DURING_ESCAPE				// Use this flag for disabling sensors during an escape sequence
-//#define APP_PARAM_DISABLE_SENSORS_DURING_TIMEOUT				// Use this flag for disabling sensors during a timeout sequence
 
 #define APP_PARAM_APPFLAG_ALL_GP2				0x0000FF00	// All GP2 sensors
 #define APP_PARAM_APPFLAG_ALL_SW				0x00FF0000	// All switches sensors
@@ -228,10 +227,6 @@
 #define APP_MOVING_ESCAPE_SEQ_BACK				3						// Create escape sequence by going back
 #define APP_MOVING_ESCAPE_SEQ_FRONT				4						// Create escape sequence by going forward
 
-#define APP_MOVING_TIMEOUT_SEQ_BACK				3						// Create timeout sequence by going back
-#define APP_MOVING_TIMEOUT_SEQ_FRONT			4						// Create timeout sequence by going forward
-
-
 #define APP_MOVING_ASSER_INITIAL_MODE_CTRL		3					    // Initial Mode Control
 
 #define APP_MOVING_DIST_APPROACH_PRECISION      50.0       			    // Distance in mm to consider the change of control mode (arrival zone)  
@@ -259,12 +254,9 @@
 */
 // Only 1 option can be set bellow.
 
-//#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
+#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
 //#define STRAT1_STRATEGY_ENABLED				// Enable this option to use the strategy n°1
 //#define GRAB_STRATEGY_ENABLED				// Strategy for grabbing objects on totems
-//#define TESTGRAB_STRATEGY_ENABLED
-//#define TESTCD_STRATEGY_ENABLED
-#define MATCH1_STRATEGY_ENABLED
 /*
 *********************************************************************************************************
 *                                      CONSTANTS FOR DEV CARD
