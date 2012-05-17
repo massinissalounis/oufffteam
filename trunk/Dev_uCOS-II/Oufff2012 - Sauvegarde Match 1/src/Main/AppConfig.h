@@ -70,7 +70,7 @@
 #define APP_PARAM_APPFLAG_BIT02					0x00000004	//	| 2 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT03					0x00000008	//	| 3 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT04					0x00000010	//	| 4 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_ACTION_TIMEOUT		0x00000020	//	| 5 | Timeout status			| Timeout reached	| Timeout unreached	| Soft			|
+#define APP_PARAM_APPFLAG_BIT05					0x00000020	//	| 5 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_ACTION_STATUS			0x00000040	//	| 6 | Action status				| Action is done	| Action is running	| Soft			|
 #define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running 	| Soft			|	
 // GP2 Flag ______________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
