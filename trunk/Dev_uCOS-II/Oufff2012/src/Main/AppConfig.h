@@ -23,10 +23,10 @@
 
 #define APP_GP2_LIMIT_FRONT_CENTER			150			// Threshold 
 #define APP_GP2_LIMIT_REAR_CENTER			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_LEFT_1			200			// Threshold
+#define APP_GP2_LIMIT_FRONT_LEFT_1			250			// Threshold
 #define APP_GP2_LIMIT_FRONT_LEFT_2			200			// Threshold
 #define APP_GP2_LIMIT_FRONT_LEFT_3			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_RIGHT_1			200			// Threshold
+#define APP_GP2_LIMIT_FRONT_RIGHT_1			250			// Threshold
 #define APP_GP2_LIMIT_FRONT_RIGHT_2			200			// Threshold
 #define APP_GP2_LIMIT_FRONT_RIGHT_3			200			// Threshold
 
@@ -242,7 +242,8 @@
 																		// If dist is under this value, command is not sent 
 																		// This limitation is made to prevent small moves (big angle and small length)
 
-#define APP_MVT_TIMEOUT							100						// Nb of iteration before considering position is unreachable
+#define APP_MVT_TIMEOUT							50						// Nb of iteration before considering position is unreachable
+#define APP_COLLISION_TIMEOUT					10						// Nb of iteration before considering position is unreachable due to obstacle			
 
 /*
 *********************************************************************************************************
@@ -260,11 +261,12 @@
 // Only 1 option can be set bellow.
 
 //#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
-//#define STRAT1_STRATEGY_ENABLED				// Enable this option to use the strategy n°1
-//#define GRAB_STRATEGY_ENABLED				// Strategy for grabbing objects on totems
-//#define TESTGRAB_STRATEGY_ENABLED
-//#define TESTCD_STRATEGY_ENABLED
-#define MATCH1_STRATEGY_ENABLED
+//#define TEST_STRATEGY_ENABLED
+//#define MATCH1_STRATEGY_ENABLED
+//#define MATCH2_STRATEGY_ENABLED
+//#define MATCH3_STRATEGY_ENABLED
+#define MATCH4_STRATEGY_ENABLED
+
 /*
 *********************************************************************************************************
 *                                      CONSTANTS FOR DEV CARD

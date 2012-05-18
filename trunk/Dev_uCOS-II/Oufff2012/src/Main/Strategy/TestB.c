@@ -8,34 +8,34 @@
 *
 * Suivi de version :
 * 2011-06-01 | PBE | Creation de la version de base pour la coupe 2011
-* 2011-11-02 | PBE | Mise a jour du fichier pour en faire un fichier pattern pour la couleur A
+* 2011-11-02 | PBE | Mise a jour du fichier pour en faire un fichier pattern pour la couleur B
 *********************************************************************************************************
 */
 
 #include "StrategyFromColor.h"
 
-#ifdef 'PATTERN_STRATEGY_NAME'_STRATEGY_ENABLED
+#ifdef TEST_STRATEGY_ENABLED
 
-#define DEFAULT_SPEED ('PATTERN_DEFAULT_SPEED')
+#define DEFAULT_SPEED (50)
 
 // ------------------------------------------------------------------------------------------------
-INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
+INT8U StrategyColorB_GetInitCmd(StructCmd *InitCmd)
 {
 	if(NULL == InitCmd)
 		return ERR__INVALID_PARAM;
 
-	InitCmd->Cmd				= 'PATTERN_INIT_CMD';
-	InitCmd->CmdType			= 'PATTERN_INIT_CMD_TYPE';
-	InitCmd->Param2				= 'PATTERN_INIT_POS_X';	
-	InitCmd->Param3				= 'PATTERN_INIT_POS_Y';	
-	InitCmd->Param4				= AppConvertDegInRad('PATTERN_INIT_POS_ANGLE');
-	InitCmd->ActiveSensorsFlag		= 'PATTERN_INIT_ACTIVE_SENSORS';
+	InitCmd->Cmd				= App_SetNewPos;
+	InitCmd->CmdType			= CmdType_NonBlocking;
+	InitCmd->Param2				= 1500;	
+	InitCmd->Param3				= 1000;	
+	InitCmd->Param4				= AppConvertDegInRad(0);
+	InitCmd->ActiveSensorsFlag		= APP_PARAM_STRATEGYFLAG_NONE;
 
 	return ERR__NO_ERROR;
 }
 
 // ------------------------------------------------------------------------------------------------
-INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
+INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 {
 	static int		NextActionID = 1;
 	static int		TimeoutID = -1;
@@ -62,58 +62,49 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	switch(CurrentActionID)
 	{
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'	break;	
+		// LoopID = 0
+		case 1:	p->CmdType = CmdType_NonBlocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 1;	TimeoutID = -1; p->Cmd = App_IfGoto_Strategy;		p->Param1 = (APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT);    p->Param2 = 2;    p->Param3 = 3;    		break;	
+		case 2:	p->CmdType = CmdType_NonBlocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = -1;	TimeoutID = -1; p->Cmd = Sensors_ArmsDeployment;				break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'	break;	
+		// LoopID = 1
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'	break;	
+		// LoopID = 2
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'	break;	
+		// LoopID = 3
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'	break;	
+		// LoopID = 4
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'	break;	
+		// LoopID = 5
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'	break;	
+		// LoopID = 6
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; 	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'	break;	
+		// LoopID = 7
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; 	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'	break;	
+		// LoopID = 8
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; 	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'	break;	
+		// LoopID = 9
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
-		// LoopID = 'LOOPID'
-		case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; 	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'	break;	
+		// LoopID = 10
 		// StructuredFileLoopEnd
 
 		default:
@@ -126,7 +117,7 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	{
 		// Execute the wait command
 		OSTimeDlyHMSM(p->Param1, p->Param2, p->Param3, p->Param4);
-		return StrategyColorA_GetNextAction(p);
+		return StrategyColorB_GetNextAction(p);
 	}
 
 	// Check for conditionnal system command -----------------------------
@@ -140,7 +131,7 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 		else
 			NextActionID = (int)(p->Param3);
 
-		return StrategyColorA_GetNextAction(p);
+		return StrategyColorB_GetNextAction(p);
 	}
 	
 	// Check for conditionnal strategy command ---------------------------
@@ -154,7 +145,7 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 		else
 			NextActionID = (int)(p->Param3);
 
-		return StrategyColorA_GetNextAction(p);
+		return StrategyColorB_GetNextAction(p);
 	}
 	
 	// Set / Clear Strategy Flags --------------------------------------

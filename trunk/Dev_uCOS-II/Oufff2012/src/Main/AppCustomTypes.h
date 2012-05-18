@@ -78,6 +78,7 @@ typedef enum
 	Sensors_ArmsClose				= 35,	// Close arms (Use for keeping objects into arms)
 	Sensors_ArmsCloseTotem			= 36,	// Close arms (Use for keeping objects into arms on totem (elevator is up))
 	Sensors_ArmsUngrab				= 37,	// Open arms for putting down the objects
+	Sensors_ElevatorLow				= 38,	// Set the elevator level to low
 }EnumCmd;
 
 typedef enum

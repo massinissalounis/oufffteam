@@ -142,11 +142,12 @@ void TaskSensors_GenerateStrategyFlags()
 	// Arms Init ---------------
 	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT) == APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT)
 	{
-		if(AppCurrentColor == c_ColorA)		// Red
-			FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_CENTER + APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1 + APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2);
-
-		if(AppCurrentColor == c_ColorB)		// Purple
-			FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_CENTER + APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1 + APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2);
+//		if(AppCurrentColor == c_ColorA)		// Red
+//			FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_CENTER) + APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1 + APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2);
+//
+//		if(AppCurrentColor == c_ColorB)		// Purple
+//			FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_CENTER + APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1 + APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2);
+		FlagsToCheck = APP_PARAM_APPFLAG_GP2_FRONT_CENTER;
 	}
 
 	// Arms Opened ---------------
@@ -276,6 +277,11 @@ void TaskSensors_ArmsUngrab()
 {
 	ARMS_Ungrab();
 	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED);
+}
+
+void TaskSensors_ElevatorDown()
+{
+	ELEVATOR_Level_Open();
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -506,6 +512,16 @@ void TaskSensors_Main(void *p_arg)
 						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
 					NextState = 1;
 					break;
+
+				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				case Sensors_ElevatorLow:
+					TaskSensors_ElevatorDown();
+					if(CmdType_Blocking == pCurrentMsg->CmdType)
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
+					NextState = 1;
+					break;
+
+					
 
 				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				default: 

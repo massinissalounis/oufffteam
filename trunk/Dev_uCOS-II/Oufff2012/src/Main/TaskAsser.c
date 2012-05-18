@@ -645,6 +645,7 @@ void TaskAsser_Main(void *p_arg)
 			case MvtSimple_MoveInMM:
 			case MvtSimple_RotateToAngleInDeg:
             case Mvt_UseMixedMode:
+			case Mvt_UseSpline:
 				mode_control						= 3;	// Use Mixed Mode
 				setpoint.angle						= CurrentCmd.Param4;
 				setpoint.x							= CurrentCmd.Param2;
