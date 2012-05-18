@@ -412,6 +412,22 @@ namespace StrategyGenerator.FileManager
             return NextActionID;
         }
 
+        public int GetTimeoutID(int LoopID, int GID)
+        {
+            int TimeoutID = -1;
+
+            for (int i = 0; i < _Items.Count(); i++)
+            {
+                if ((_Items[i].GetLoopID() == LoopID) && (_Items[i].GetGID() == GID))
+                {
+                    if (_Items[i].GetName() == "PATTERN_TIMEOUT_ID")
+                        TimeoutID = int.Parse(_Items[i].GetValue());
+                }
+            }
+
+            // Invalid value
+            return TimeoutID;
+        }
 
         /// <summary>
         /// Récupère la commande complète d'après la Loop et le GID
@@ -425,7 +441,7 @@ namespace StrategyGenerator.FileManager
             EnumCmd CmdFromFile = EnumCmd.NotSet;
             EnumCmdType CmdTypeFromFile = EnumCmdType.NotSet;
             string [] ParamsFromFile = null;
-            EnumSensorsFlag ActiveSensorsFromFile = EnumSensorsFlag.STRATEGYFLAG_NONE;
+            EnumStrategyFlag ActiveSensorsFromFile = EnumStrategyFlag.STRATEGYFLAG_NONE;
 
             // Lecture de toute la liste pour trouver la bonne LoopID et GID
             for (int i = 0; i < _Items.Count(); i++)

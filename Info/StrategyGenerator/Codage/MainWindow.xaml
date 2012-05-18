@@ -68,7 +68,9 @@
                 <Label Content="ID" Height="28" HorizontalAlignment="Left" Margin="207,74,0,0" Name="CmdViewN_LblCmdID" VerticalAlignment="Top" />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="256,76,0,0" Name="CmdViewN_CmdID" VerticalAlignment="Top" Width="39" Keyboard.LostKeyboardFocus="CmdViewN_CmdID_Validate" Keyboard.KeyDown="CmdViewN_CmdID_KeyDown"/>
                 <Label Content="NextID" Height="28" HorizontalAlignment="Left" Margin="210,85,0,0" Name="CmdViewN_LblNextCmdID" VerticalAlignment="Top" />
+                <Label Content="TimeoutID" Height="28" Margin="210,85,0,0" Name="CmdViewN_LblTimeoutID" VerticalAlignment="Top" HorizontalAlignment="Left" Width="65" />
                 <TextBox Height="23" HorizontalAlignment="Left" Margin="256,85,0,0" Name="CmdViewN_NextCmdID" VerticalAlignment="Top" Width="39" Keyboard.KeyDown="CmdViewN_Param_KeyDown" Keyboard.LostKeyboardFocus="CmdViewN_Param_LostKeyboardFocus" />
+                <TextBox Height="23" HorizontalAlignment="Left" Margin="256,85,0,0" Name="CmdViewN_TimeoutID" VerticalAlignment="Top" Width="39" Keyboard.KeyDown="CmdViewN_Param_KeyDown" Keyboard.LostKeyboardFocus="CmdViewN_Param_LostKeyboardFocus" />
             </Grid>
             <Grid Height="85" HorizontalAlignment="Left" Margin="100,125,0,0" Name="CmdViewN1After" VerticalAlignment="Top" Width="147"  Background="{x:Null}">
                 <Border BorderBrush="Black" BorderThickness="1" Height="70" HorizontalAlignment="Center" Margin="17,8,6,8" Name="CmdViewN1AfterBorder" VerticalAlignment="Center" Width="124">
