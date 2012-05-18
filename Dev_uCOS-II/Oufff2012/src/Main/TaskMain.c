@@ -230,6 +230,7 @@ void TaskMain_Main(void *p_arg)
 					case Mvt_UseDistOnly:
 					case Mvt_UseMixedMode:
 					case Mvt_UsePivotMode:
+					case Mvt_UseSpline:
 				    case MvtSimple_RotateInDeg:
 					case MvtSimple_MoveInMM:
 					case MvtSimple_RotateToAngleInDeg:
@@ -248,6 +249,7 @@ void TaskMain_Main(void *p_arg)
 					case Sensors_ArmsClose:
 					case Sensors_ArmsCloseTotem:
 					case Sensors_ArmsUngrab:
+					case Sensors_ElevatorLow:
 						// Copy data to MsgToPost
 						MsgToPost.Cmd		= CurrentCmd.Cmd;
 						MsgToPost.CmdType	= CurrentCmd.CmdType;

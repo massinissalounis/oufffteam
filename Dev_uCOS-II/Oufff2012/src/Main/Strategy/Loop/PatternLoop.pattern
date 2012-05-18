@@ -13,55 +13,55 @@ PATTERN_INIT_ACTIVE_SENSORS = ('PATTERN_INIT_ACTIVE_SENSORS')
 
 // StructuredFileLoopBegin
 // LoopID = 'LOOPID'
-case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
 // StructuredFileLoopEnd
 
 // StructuredFileLoopBegin
 // LoopID = 'LOOPID'
-case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
 // StructuredFileLoopEnd
 
 // StructuredFileLoopBegin
 // LoopID = 'LOOPID'
-case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
 // StructuredFileLoopEnd
 
 // StructuredFileLoopBegin
 // LoopID = 'LOOPID'
-case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
 // StructuredFileLoopEnd
 
 // StructuredFileLoopBegin
 // LoopID = 'LOOPID'
-case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
 // StructuredFileLoopEnd
 
 // StructuredFileLoopBegin
 // LoopID = 'LOOPID'
-case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
 // StructuredFileLoopEnd
 
 // StructuredFileLoopBegin
 // LoopID = 'LOOPID'
-case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
 // StructuredFileLoopEnd
 
 // StructuredFileLoopBegin
 // LoopID = 'LOOPID'
-case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
 // StructuredFileLoopEnd
 
 // StructuredFileLoopBegin
 // LoopID = 'LOOPID'
-case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
 // StructuredFileLoopEnd
 
 // StructuredFileLoopBegin
 // LoopID = 'LOOPID'
-case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
 // StructuredFileLoopEnd
 
 // StructuredFileLoopBegin
 // LoopID = 'LOOPID'
-case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID'; p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
+case 'PATTERN_COUNTER':	p->CmdType = 'PATTERN_CMD_TYPE';		p->ActiveSensorsFlag =	'PATTERN_ACTIVE_SENSORS_FLAG';	NextActionID = 'PATTERN_NEXT_ACTION_ID';	TimeoutID = 'PATTERN_TIMEOUT_ID';	p->Cmd = 'PATTERN_CMD';		'PATTERN_PARAMS'		break;	
 // StructuredFileLoopEnd

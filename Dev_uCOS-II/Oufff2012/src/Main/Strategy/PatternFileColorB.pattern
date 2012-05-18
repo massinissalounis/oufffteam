@@ -144,7 +144,7 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	}
 	
 	// Check for conditionnal strategy command ---------------------------
-	if(App_IfGoto_System == p->Cmd)
+	if(App_IfGoto_Strategy == p->Cmd)
 	{
 		// Read the current Flags
 		CurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);

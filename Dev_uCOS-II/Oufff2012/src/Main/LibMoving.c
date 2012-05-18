@@ -147,6 +147,7 @@ void LibMoving_ComputeNewPath(StructCmd *ExpectedCmd, StructCmd *NewPath, INT8S 
     case MvtSimple_RotateInDeg:
     case MvtSimple_RotateToAngleInDeg:
 	case App_SetNewPos:
+	case Mvt_UseSpline:
 		// There is only 1 cmd to compute
 		memcpy(NewPath + 0, ExpectedCmd, sizeof(StructCmd));
 		*NewPathLength = 1;
