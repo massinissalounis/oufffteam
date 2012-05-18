@@ -54,7 +54,7 @@ namespace StrategyGenerator.Strategy
             String ParamX = StrategyFile.GetValue("PATTERN_INIT_POS_X", "0");
             String ParamY = StrategyFile.GetValue("PATTERN_INIT_POS_Y", "0");
             String ParamAngle = StrategyFile.GetValue("PATTERN_INIT_POS_ANGLE", "0.0");
-            EnumSensorsFlag ActiveSensors = Command.GetSensorsFlagFromString(StrategyFile.GetValue("PATTERN_INIT_ACTIVE_SENSORS", "APP_PARAM_APPFLAG_NONE"));
+            EnumStrategyFlag ActiveSensors = Command.GetSensorsFlagFromString(StrategyFile.GetValue("PATTERN_INIT_ACTIVE_SENSORS", "APP_PARAM_APPFLAG_NONE"));
 
             _InitialCmd = new Command(CurrentCmd, CurrentCmdType, null, ParamX, ParamY, ParamAngle, ActiveSensors);
 
@@ -67,6 +67,7 @@ namespace StrategyGenerator.Strategy
                     // Read ActionID and NextActionID
                     int ActionID = StrategyFile.GetActionID(iLoop, iCount);
                     int NextActionID = StrategyFile.GetNextActionID(iLoop, iCount);
+                    int TimeoutID = StrategyFile.GetTimeoutID(iLoop, iCount);
 
                     // If current action is valid
                     if (ActionID >= 0)
@@ -82,7 +83,7 @@ namespace StrategyGenerator.Strategy
                                 _Strategy = new List<StrategyItem>();
 
                             // Create new entry
-                            _Strategy.Add(new StrategyItem(ReadCommand, ActionID, NextActionID));
+                            _Strategy.Add(new StrategyItem(ReadCommand, ActionID, NextActionID, TimeoutID));
                         }
                     }
                 }
@@ -124,6 +125,7 @@ namespace StrategyGenerator.Strategy
                     ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_ACTIVE_SENSORS_FLAG", Command.GetSensorsFlagToString(Item.Cmd.ActiveSensors)));
                     ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_PARAMS", Item.Cmd.ExportParamsIntoString()));
                     ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_NEXT_ACTION_ID", Item.NextActionID.ToString()));
+                    ExportFile.Add(new StructuredFileKey(Item.LoopID, Item.GID, "PATTERN_TIMEOUT_ID", Item.TimeoutID.ToString()));
                 }
             }
             OutputStructuredFile = new StructuredFile(ExportFile);
@@ -202,6 +204,19 @@ namespace StrategyGenerator.Strategy
             if ((_Strategy != null) && (Index > 0) && (Index <= _Strategy.Count()))
             {
                 return _Strategy[Index - 1].NextActionID;
+            }
+
+            return (-1);
+        }
+
+        public int GetTimeoutID(int Index)
+        {
+            if (Index == 0)
+                return -1;
+
+            if ((_Strategy != null) && (Index > 0) && (Index <= _Strategy.Count()))
+            {
+                return _Strategy[Index - 1].TimeoutID;
             }
 
             return (-1);
@@ -332,7 +347,7 @@ namespace StrategyGenerator.Strategy
             return;
         }
 
-        public Boolean InsertCmd(Command CommandToAdd, int CmdIDToAdd, int NextCmdIDToAdd)
+        public Boolean InsertCmd(Command CommandToAdd, int CmdIDToAdd, int NextCmdIDToAdd, int TimeoutID)
         {
             int CheckID = 0;
             int i = 0;
@@ -351,7 +366,7 @@ namespace StrategyGenerator.Strategy
                 return false;
             
             // We can add the new command to the current ID
-            _Strategy.Insert(i, new StrategyItem(CommandToAdd, CmdIDToAdd, NextCmdIDToAdd));
+            _Strategy.Insert(i, new StrategyItem(CommandToAdd, CmdIDToAdd, NextCmdIDToAdd, TimeoutID));
 
             return true;
         }
@@ -375,7 +390,7 @@ namespace StrategyGenerator.Strategy
             else
                 FreeActionID = GetPrevFreeActionID(_Strategy[Index - 1].ActionID);
 
-             StrategyItem NewStrategyItem = new StrategyItem(NewCommand, FreeActionID, -1);
+             StrategyItem NewStrategyItem = new StrategyItem(NewCommand, FreeActionID, -1, -1);
             _Strategy.Insert(Index - 1, NewStrategyItem);
         }
 
@@ -405,7 +420,7 @@ namespace StrategyGenerator.Strategy
                     FreeActionID = GetNextFreeActionID(_Strategy[Index - 1].ActionID);
             }
 
-            StrategyItem NewStrategyItem = new StrategyItem(NewCommand, FreeActionID, -1);
+            StrategyItem NewStrategyItem = new StrategyItem(NewCommand, FreeActionID, -1, -1);
             _Strategy.Insert(Index, NewStrategyItem);
         }
 
@@ -441,6 +456,51 @@ namespace StrategyGenerator.Strategy
                 if (IsFound == true)
                 {
                     _Strategy[Index - 1].NextActionID = NewNextActionID;
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        public void UpdateTimeoutID(int Index, String NewTimeoutIDString)
+        {
+            try
+            {
+                int NewTimeoutID = Convert.ToInt32(NewTimeoutIDString);
+
+                if (Index < 0)
+                    throw (new Exception("Invalid Param"));
+
+                if (_Strategy == null)
+                    throw (new Exception("Invalid Param"));
+
+                if (Index > _Strategy.Count)
+                    throw (new Exception("Invalid Param"));
+
+                if (Index == 0)
+                {
+                    return;
+                }
+
+                if (NewTimeoutID == -1)
+                {
+                    _Strategy[Index - 1].TimeoutID = NewTimeoutID;
+                    return;
+                }
+
+                Boolean IsFound = false;
+
+                for (int i = 0; i < _Strategy.Count; i++)
+                {
+                    if (_Strategy[i].ActionID == NewTimeoutID)
+                        IsFound = true;
+                }
+
+                if (IsFound == true)
+                {
+                    _Strategy[Index - 1].TimeoutID = NewTimeoutID;
                 }
             }
             catch (Exception)

@@ -17,6 +17,7 @@ namespace StrategyGenerator.Strategy
         MvtSimple_RotateInDeg               = 15,	// Use a simple mvt for rotating in deg (don't divide this mvt)
         MvtSimple_RotateToAngleInDeg        = 16,	// Use a simple mvt for rotating to a specified angle in deg (don't divide this mvt)
         Mvt_Stop                            = 17,   // Used to stop current mvt
+        Mvt_UseSpline                       = 18,	// Send the expected point directly to the task asser (without computation)
         // Command APP _________________________
         App_Wait                            = 20,	// Wait (if all params = 0, wait for ever)
         App_IfGoto_System                   = 21,	// Go to a specific step based on System Flags
@@ -32,6 +33,7 @@ namespace StrategyGenerator.Strategy
         Sensors_ArmsClose                   = 35,	// Close arms (Use for keeping objects into arms)
         Sensors_ArmsCloseTotem              = 36,	// Close arms (Use for keeping objects into arms on totem (elevator is up))
         Sensors_ArmsUngrab                  = 37,	// Open arms for putting down the objects
+        Sensors_ElevatorLow                 = 38,	// Set the elevator level to low
     }
 
     enum EnumCmdType
@@ -41,10 +43,13 @@ namespace StrategyGenerator.Strategy
 	    NonBlocking,		// Command is a non-blocking action
     }
 
-    enum EnumSensorsFlag
+    enum EnumStrategyFlag
     {
         // APP_PARAM_
         STRATEGYFLAG_NONE = 0,
+        APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT = 1,
+        APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED = 2,
+        APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED = 3,
         STRATEGYFLAG_COLLISION_FRONT = 10,
         STRATEGYFLAG_COLLISION_REAR = 11,
         STRATEGYFLAG_COLLISION_LEFT = 12,
@@ -62,7 +67,7 @@ namespace StrategyGenerator.Strategy
         /// </summary>
         public Command()
         {
-            Update(EnumCmd.NotSet, EnumCmdType.NotSet, null, null, null, null, EnumSensorsFlag.STRATEGYFLAG_NONE);
+            Update(EnumCmd.NotSet, EnumCmdType.NotSet, null, null, null, null, EnumStrategyFlag.STRATEGYFLAG_NONE);
             return;
         }
 
@@ -72,7 +77,7 @@ namespace StrategyGenerator.Strategy
         /// </summary>
         public Command(EnumCmd Cmd)
         {
-            Update(Cmd, EnumCmdType.NotSet, null, null, null, null, EnumSensorsFlag.STRATEGYFLAG_NONE);
+            Update(Cmd, EnumCmdType.NotSet, null, null, null, null, EnumStrategyFlag.STRATEGYFLAG_NONE);
             return;
         }
 
@@ -82,7 +87,7 @@ namespace StrategyGenerator.Strategy
         /// </summary>
         public Command(EnumCmd Cmd, EnumCmdType CmdType)
         {
-            Update(Cmd, CmdType, null, null, null, null, EnumSensorsFlag.STRATEGYFLAG_NONE);
+            Update(Cmd, CmdType, null, null, null, null, EnumStrategyFlag.STRATEGYFLAG_NONE);
             return;
         }
 
@@ -91,14 +96,14 @@ namespace StrategyGenerator.Strategy
         /// </summary>
         public Command(EnumCmd Cmd, EnumCmdType CmdType, String Param1, String Param2, String Param3, String Param4)
         {
-            Update(Cmd, CmdType, Param1, Param2, Param3, Param4, EnumSensorsFlag.STRATEGYFLAG_NONE);
+            Update(Cmd, CmdType, Param1, Param2, Param3, Param4, EnumStrategyFlag.STRATEGYFLAG_NONE);
             return;
         }
 
         /// <summary>
         /// Create a new 'Cmd' command with the 'CmdType' type, 'Params' parameters and ActiveSensors parameters
         /// </summary>
-        public Command(EnumCmd Cmd, EnumCmdType CmdType, String Param1, String Param2, String Param3, String Param4, EnumSensorsFlag ActiveSensors)
+        public Command(EnumCmd Cmd, EnumCmdType CmdType, String Param1, String Param2, String Param3, String Param4, EnumStrategyFlag ActiveSensors)
         {
             Update(Cmd, CmdType, Param1, Param2, Param3, Param4, ActiveSensors);
             return;
@@ -120,7 +125,7 @@ namespace StrategyGenerator.Strategy
         public String Param2                    { get { return _Param2; } }
         public String Param3                    { get { return _Param3; } }
         public String Param4                    { get { return _Param4; } }
-        public EnumSensorsFlag ActiveSensors    { get { return _ActiveSensorsFlag; } }
+        public EnumStrategyFlag ActiveSensors    { get { return _ActiveSensorsFlag; } }
 
         /// <summary>
         /// Update the current command with the given data
@@ -133,7 +138,7 @@ namespace StrategyGenerator.Strategy
         /// <param name="Param4">Param 4</param>
         /// <param name="ActiveSensors"></param>
         /// <returns></returns>
-        public bool Update(EnumCmd Cmd, EnumCmdType CmdType, String Param1, String Param2, String Param3, String Param4, EnumSensorsFlag ActiveSensors)
+        public bool Update(EnumCmd Cmd, EnumCmdType CmdType, String Param1, String Param2, String Param3, String Param4, EnumStrategyFlag ActiveSensors)
         {
             bool Ret = false;
 
@@ -145,7 +150,7 @@ namespace StrategyGenerator.Strategy
             _Param3 = null;
             _Param4 = null;
 
-            if (ActiveSensors != EnumSensorsFlag.STRATEGYFLAG_NONE)
+            if (ActiveSensors != EnumStrategyFlag.STRATEGYFLAG_NONE)
                 _ActiveSensorsFlag = ActiveSensors;
 
             _Cmd = Cmd;
@@ -241,6 +246,7 @@ namespace StrategyGenerator.Strategy
                 // ________________________________________________________ Param1 / Param2 / Param3 / Param4
                 case EnumCmd.Mvt_UseMixedMode:
                 case EnumCmd.App_Wait:
+                case EnumCmd.Mvt_UseSpline:
                     if ((Param1 != null) && (Param2 != null) && (Param3 != null) && (Param4 != null))
                     {
                         _Param1 = Param1;
@@ -265,6 +271,7 @@ namespace StrategyGenerator.Strategy
                 case EnumCmd.Sensors_ArmsOpenOneCD:
                 case EnumCmd.Sensors_ArmsOpenTotem:
                 case EnumCmd.Sensors_ArmsUngrab:
+                case EnumCmd.Sensors_ElevatorLow:
                     Ret = true;
                     break;  
 
@@ -340,20 +347,20 @@ namespace StrategyGenerator.Strategy
             return "CmdType_NotSet";
         }
 
-        public static EnumSensorsFlag GetSensorsFlagFromString(String SensorsFlagString)
+        public static EnumStrategyFlag GetSensorsFlagFromString(String SensorsFlagString)
         {
             String SensorsStringToCheck = SensorsFlagString.Replace("APP_PARAM_", "");
 
-            foreach (EnumSensorsFlag ESensorsFlag in Enum.GetValues(typeof(EnumSensorsFlag)))
+            foreach (EnumStrategyFlag ESensorsFlag in Enum.GetValues(typeof(EnumStrategyFlag)))
             {
                 if (SensorsStringToCheck == ESensorsFlag.ToString())
                     return ESensorsFlag;
             }
 
-            return EnumSensorsFlag.STRATEGYFLAG_NONE;
+            return EnumStrategyFlag.STRATEGYFLAG_NONE;
         }
 
-        public static String GetSensorsFlagToString(EnumSensorsFlag SensorsFlag)
+        public static String GetSensorsFlagToString(EnumStrategyFlag SensorsFlag)
         {
             return ("APP_PARAM_" + SensorsFlag.ToString());
         }
@@ -431,7 +438,7 @@ namespace StrategyGenerator.Strategy
 
         // Private --------------------------------------------------------------------------------
         private EnumCmdType _CmdType;
-        private EnumSensorsFlag _ActiveSensorsFlag;
+        private EnumStrategyFlag _ActiveSensorsFlag;
         private EnumCmd _Cmd;
         private String _Param1;
         private String _Param2;

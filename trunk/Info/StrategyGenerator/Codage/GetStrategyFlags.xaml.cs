@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using StrategyGenerator.Strategy;
 
 namespace StrategyGenerator
 {
@@ -18,16 +19,11 @@ namespace StrategyGenerator
     /// </summary>
     public partial class GetStrategyFlags : Window
     {
-        enum EnumFlags
-        {
-            STRATEGYFLAG_NONE
-        }
-
         public GetStrategyFlags(String CurrentFlags)
         {
             InitializeComponent();
 
-            foreach (EnumFlags EFlags in Enum.GetValues(typeof(EnumFlags)))
+            foreach (EnumStrategyFlag EFlags in Enum.GetValues(typeof(EnumStrategyFlag)))
             {
                 _ValueFlags.Add(EFlags.ToString());
             }

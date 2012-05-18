@@ -92,6 +92,7 @@ namespace StrategyGenerator.Strategy
 
                 // ________________________________________
                 case EnumCmd.Mvt_UseMixedMode:
+                case EnumCmd.Mvt_UseSpline:
                     _ComputedPosX = Convert.ToInt32(_CurrentCommand.Param2);
                     _ComputedPosY = Convert.ToInt32(_CurrentCommand.Param3);
                     _ComputedPosAngle = Convert.ToInt32(_CurrentCommand.Param4);
@@ -188,6 +189,7 @@ namespace StrategyGenerator.Strategy
                 // ________________________________________
                 case EnumCmd.Mvt_UseMixedMode:
                 case EnumCmd.Mvt_UsePivotMode:
+                case EnumCmd.Mvt_UseSpline:
                     break;
 
                 // ________________________________________

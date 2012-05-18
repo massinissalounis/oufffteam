@@ -195,9 +195,9 @@ namespace StrategyGenerator
             CmdViewN_Cmd.Margin = new Thickness(10, 25, 0, 0);
 
             // CmdView N --------------------------------------------------------------------
-            CmdViewN_ButtonAddBefore.Margin = new Thickness(CmdViewN.Width * 0.1, CmdViewN.Height - 40, 0, 0);
-            CmdViewN_ButtonRemove.Margin = new Thickness(CmdViewN.Width * 0.4, CmdViewN.Height - 40, 0, 0);
-            CmdViewN_ButtonAddAfter.Margin = new Thickness(CmdViewN.Width * 0.7, CmdViewN.Height - 40, 0, 0);
+            CmdViewN_ButtonAddBefore.Margin = new Thickness(CmdViewN.Width * 0.05, CmdViewN.Height - 40, 0, 0);
+            CmdViewN_ButtonRemove.Margin = new Thickness(CmdViewN.Width * 0.25, CmdViewN.Height - 40, 0, 0);
+            CmdViewN_ButtonAddAfter.Margin = new Thickness(CmdViewN.Width * 0.45, CmdViewN.Height - 40, 0, 0);
             CmdViewN_ButtonNext.Margin = new Thickness(CmdViewN.Width * 0.87, 3, 0, 0);
             CmdViewN_ButtonPrev.Margin = new Thickness(CmdViewN.Width * 0.78, 3, 0, 0);
 
@@ -232,6 +232,10 @@ namespace StrategyGenerator
             CmdViewN_LblNextCmdID.Margin = new Thickness(CmdViewN.Width * 0.73, CONST_CMDVIEW_LINE * 4, 0, 0);
             CmdViewN_NextCmdID.Margin = new Thickness(CmdViewN.Width * 0.78 + 25, CONST_CMDVIEW_LINE * 4, 0, 0);
             CmdViewN_NextCmdID.Width = CmdViewN.Width * 0.10;
+
+            CmdViewN_LblTimeoutID.Margin = new Thickness(CmdViewN.Width * 0.68, CmdViewN.Height - 40, 0, 0);
+            CmdViewN_TimeoutID.Margin = new Thickness(CmdViewN.Width * 0.78 + 25, CmdViewN.Height - 40, 0, 0);
+            CmdViewN_TimeoutID.Width = CmdViewN.Width * 0.10;
 
             CmdViewN_Flag.Margin = new Thickness(10, CONST_CMDVIEW_LINE * 4, 0, 0);
             CmdViewN_FlagBox.Margin = new Thickness(60, CONST_CMDVIEW_LINE * 4, 0, 0);
@@ -305,6 +309,7 @@ namespace StrategyGenerator
                 {
                     CmdViewN_CmdID.Text = _CurrentStrategy.GetActionID(CurrentCmdID).ToString();
                     CmdViewN_NextCmdID.Text = _CurrentStrategy.GetNextActionID(CurrentCmdID).ToString();
+                    CmdViewN_TimeoutID.Text = _CurrentStrategy.GetTimeoutID(CurrentCmdID).ToString();
                     CmdViewN_Param1.Text = CurrentCmd.Param1;
                     CmdViewN_Param2.Text = CurrentCmd.Param2;
                     CmdViewN_Param3.Text = CurrentCmd.Param3;
@@ -350,6 +355,7 @@ namespace StrategyGenerator
             CmdViewN_ButtonNext.IsEnabled = isEnabled;
             CmdViewN_CmdID.IsEnabled = isEnabled;
             CmdViewN_NextCmdID.IsEnabled = isEnabled;
+            CmdViewN_TimeoutID.IsEnabled = isEnabled;
             General_DefaultSpeed.IsEnabled = isEnabled;
 
             if ((_PositionList == null) || (_PositionList.Count <= 1))
@@ -501,7 +507,7 @@ namespace StrategyGenerator
         {
             if (CmdViewN_FlagBox.Items.Count == 0)
             {
-                foreach (EnumSensorsFlag EActiveFlag in Enum.GetValues(typeof(EnumSensorsFlag)))
+                foreach (EnumStrategyFlag EActiveFlag in Enum.GetValues(typeof(EnumStrategyFlag)))
                 {
                      CmdViewN_FlagBox.Items.Add(EActiveFlag.ToString());
                 }
@@ -550,7 +556,7 @@ namespace StrategyGenerator
                 CmdViewN_Param2.Text = "";
                 CmdViewN_Param3.Text = "";
                 CmdViewN_Param4.Text = "";
-                CmdViewN_FlagBox.SelectedItem = EnumSensorsFlag.STRATEGYFLAG_NONE.ToString();
+                CmdViewN_FlagBox.SelectedItem = EnumStrategyFlag.STRATEGYFLAG_NONE.ToString();
             }
 
             CheckParam();
@@ -704,6 +710,7 @@ namespace StrategyGenerator
                 {
                     case EnumCmd.App_SetNewPos:
                     case EnumCmd.Mvt_UseMixedMode:
+                    case EnumCmd.Mvt_UseSpline:
                         // Change the robot position
                         Point MousePoint = e.GetPosition(MapGrid);
                         CmdViewN_Param2.Text = Convert.ToInt32((MousePoint.X * 5)).ToString();
@@ -722,6 +729,7 @@ namespace StrategyGenerator
 
             Command SelectedCmd = _CurrentStrategy.GetCommand(CmdList.SelectedIndex);
             _CurrentStrategy.UpdateNextActionID(CmdList.SelectedIndex, CmdViewN_NextCmdID.Text);
+            _CurrentStrategy.UpdateTimeoutID(CmdList.SelectedIndex, CmdViewN_TimeoutID.Text);
 
             if (SelectedCmd == null)
                 return;
@@ -731,7 +739,7 @@ namespace StrategyGenerator
 
             EnumCmd UpdateCmd = Command.GetCmdFromString(CmdViewN_CmdBox.SelectedItem.ToString());
             EnumCmdType UpdateCmdType = Command.GetCmdTypeFromString(CmdViewN_CmdTypeBox.SelectedItem.ToString());
-            EnumSensorsFlag ActiveFlags = Command.GetSensorsFlagFromString(CmdViewN_FlagBox.SelectedItem.ToString());
+            EnumStrategyFlag ActiveFlags = Command.GetSensorsFlagFromString(CmdViewN_FlagBox.SelectedItem.ToString());
             SelectedCmd.Update(UpdateCmd, UpdateCmdType, CmdViewN_Param1.Text, CmdViewN_Param2.Text, CmdViewN_Param3.Text, CmdViewN_Param4.Text, ActiveFlags);
 
             BitmapImage NewRobot = null;
@@ -863,6 +871,7 @@ namespace StrategyGenerator
 
                 // ________________________________________
                 case EnumCmd.Mvt_UseMixedMode:
+                case EnumCmd.Mvt_UseSpline:
                     CmdViewN_Param1.Text = CheckParam_Speed(CmdViewN_Param1.Text);
                     CmdViewN_Param2.Text = CheckParam_XPos(CmdViewN_Param2.Text);
                     CmdViewN_Param3.Text = CheckParam_YPos(CmdViewN_Param3.Text);
@@ -920,7 +929,7 @@ namespace StrategyGenerator
             String NewParam2;
             String NewParam3;
             String NewParam4;
-            EnumSensorsFlag Flags;
+            EnumStrategyFlag Flags;
 
             for (int i = 0; i < CmdList.Items.Count; i++)
             {
@@ -955,6 +964,7 @@ namespace StrategyGenerator
 
                     case EnumCmd.App_SetNewPos:
                     case EnumCmd.Mvt_UseMixedMode:
+                    case EnumCmd.Mvt_UseSpline:
                         NewParam2 = (3000 - Convert.ToInt32(CurrentCmd.Param2)).ToString();
                         NewParam4 = (180 - Convert.ToInt32(CurrentCmd.Param4)).ToString();
                         CurrentCmd.Update(Cmd, CmdType, NewParam1, NewParam2, NewParam3, NewParam4, Flags);
@@ -1010,10 +1020,11 @@ namespace StrategyGenerator
                             Command CommandToAdd = LoopsToImport.GetCommand(i);
                             int CommandIDToAdd = LoopsToImport.GetActionID(i);
                             int NextCommandIDToAdd = LoopsToImport.GetNextActionID(i);
+                            int TimeoutID = LoopsToImport.GetTimeoutID(i);
 
                             if (CommandIDToAdd >= 100)
                             {
-                                _CurrentStrategy.InsertCmd(CommandToAdd, CommandIDToAdd, NextCommandIDToAdd);
+                                _CurrentStrategy.InsertCmd(CommandToAdd, CommandIDToAdd, NextCommandIDToAdd, TimeoutID);
                             }
                         }
 
@@ -1067,6 +1078,7 @@ namespace StrategyGenerator
 
                     // ________________________________________
                     case EnumCmd.Mvt_UseMixedMode:
+                    case EnumCmd.Mvt_UseSpline:
                         if (e.Key == Key.PageUp)    { CmdViewN_Param1.Text = (Convert.ToDouble(CmdViewN_Param1.Text) + SpeedStep).ToString(); }
                         if (e.Key == Key.PageDown)  { CmdViewN_Param1.Text = (Convert.ToDouble(CmdViewN_Param1.Text) - SpeedStep).ToString(); }
                         if (e.Key == Key.Left)      { CmdViewN_Param2.Text = (Convert.ToDouble(CmdViewN_Param2.Text) - MvtStep).ToString(); }
@@ -1301,6 +1313,7 @@ namespace StrategyGenerator
 
                     // ________________________________________
                     case EnumCmd.Mvt_UseMixedMode:
+                    case EnumCmd.Mvt_UseSpline:
                         textBlock_HelpParam1.Text += "Param 1 :\nSpeed";
                         textBlock_CmdHelpParam1.Text = "(PageUp or\nPageDown)";
                         textBlock_HelpParam2.Text += "Param 2 :\nPos X";
