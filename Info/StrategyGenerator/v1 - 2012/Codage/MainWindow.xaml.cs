@@ -759,7 +759,7 @@ namespace StrategyGenerator
 
                         CmdViewN_ButtonNext.IsEnabled = true;
 
-                        NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\Codage\\Images\\RobotStart.png"));
+                        NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\v1 - 2012\\Codage\\Images\\RobotStart.png"));
                         Robot.Source = NewRobot;
                         Robot.Width = NewRobot.Width;
                         Robot.Height = NewRobot.Height;
@@ -778,7 +778,7 @@ namespace StrategyGenerator
                     case EnumCmd.Sensors_ArmsOpenTotem:
                     case EnumCmd.Sensors_ArmsDeployment:
                     case EnumCmd.Sensors_ArmsOpenOneCD:
-                        NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\Codage\\Images\\RobotOpen.png"));
+                        NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\v1 - 2012\\Codage\\Images\\RobotOpen.png"));
                         Robot.Source = NewRobot;
                         Robot.Width = NewRobot.Width;
                         Robot.Height = NewRobot.Height;
@@ -786,14 +786,14 @@ namespace StrategyGenerator
 
                     case EnumCmd.Sensors_ArmsClose:
                     case EnumCmd.Sensors_ArmsCloseTotem:
-                        NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\Codage\\Images\\RobotClose.png"));
+                        NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\v1 - 2012\\Codage\\Images\\RobotClose.png"));
                         Robot.Source = NewRobot;
                         Robot.Width = NewRobot.Width;
                         Robot.Height = NewRobot.Height;
                         break;
 
                     case EnumCmd.Sensors_ArmsUngrab:
-                        NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\Codage\\Images\\RobotUngrab.png"));
+                        NewRobot = new BitmapImage(new Uri("D:\\Robotique\\Info\\StrategyGenerator\\v1 - 2012\\Codage\\Images\\RobotUngrab.png"));
                         Robot.Source = NewRobot;
                         Robot.Width = NewRobot.Width;
                         Robot.Height = NewRobot.Height;
