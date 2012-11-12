@@ -96,7 +96,6 @@ file_068=Main
 file_069=Main
 file_070=Main
 file_071=Main
-file_072=Main
 [GENERATED_FILES]
 file_000=no
 file_001=no
@@ -170,7 +169,6 @@ file_068=no
 file_069=no
 file_070=no
 file_071=no
-file_072=no
 [OTHER_FILES]
 file_000=no
 file_001=no
@@ -244,7 +242,6 @@ file_068=no
 file_069=no
 file_070=no
 file_071=no
-file_072=no
 [FILE_INFO]
 file_000=..\..\..\Src\BSP\bsp.c
 file_001=..\..\..\Src\BSP\bsp_a.S
@@ -318,7 +315,6 @@ file_068=..\..\..\Src\Main\TaskSensors.h
 file_069=..\..\..\Src\Main\ArmsControl.h
 file_070=D:\Robotique\Dev_uCOS-II\Oufff2013\src\Main\AppGlobalConfig.h
 file_071=D:\Robotique\Dev_uCOS-II\Oufff2013\src\Main\AppPrimaryConfig.h
-file_072=D:\Robotique\Dev_uCOS-II\Oufff2013\src\Main\AppSecondaryConfig.h
 [SUITE_INFO]
 suite_guid={14495C23-81F8-43F3-8A44-859C583D7760}
 suite_state=-nostartfiles
