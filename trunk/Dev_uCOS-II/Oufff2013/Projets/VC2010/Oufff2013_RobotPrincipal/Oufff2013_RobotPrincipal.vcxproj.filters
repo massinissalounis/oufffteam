@@ -175,9 +175,6 @@
     <ClInclude Include="..\..\..\src\Main\App.h">
       <Filter>Fichiers d%27en-tête\Main</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\Main\AppConfig.h">
-      <Filter>Fichiers d%27en-tête\Main</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\src\Main\AppCustomTypes.h">
       <Filter>Fichiers d%27en-tête\Main</Filter>
     </ClInclude>
@@ -285,6 +282,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\uC-LIB\lib_str.h">
       <Filter>Fichiers d%27en-tête\uC-OSII</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppGlobalConfig.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppPrimaryConfig.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppSecondaryConfig.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

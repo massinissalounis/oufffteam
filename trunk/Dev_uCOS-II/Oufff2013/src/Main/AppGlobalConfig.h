@@ -6,6 +6,8 @@
 * File : AppGlobalConfig.h
 *********************************************************************************************************
 */
+#include "AppPrimaryConfig.h"
+#include "AppSecondaryConfig.h"
 
 #ifndef  APPGLOBALCONFIG_H
 #define  APPGLOBALCONFIG_H
@@ -15,20 +17,6 @@
 *                                            GLOBAL SETTINGS
 *********************************************************************************************************
 */
-#define APP_USE_DEBUG						1			// If defined, debug msg are sent to UART2.
-
-#define APP_ESCAPE_ROBOT_SPEED				40			// Speed rate for escape seq		(0:No Move, 100: Full Speed)
-#define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
-//#define APP_INIT_EXEC_STARTUP_SEQ			OS_TRUE		// Flag to indicate if we have to execute the start up sequence
-
-#define APP_GP2_LIMIT_FRONT_CENTER			150			// Threshold 
-#define APP_GP2_LIMIT_REAR_CENTER			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_LEFT_1			250			// Threshold
-#define APP_GP2_LIMIT_FRONT_LEFT_2			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_LEFT_3			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_RIGHT_1			250			// Threshold
-#define APP_GP2_LIMIT_FRONT_RIGHT_2			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_RIGHT_3			200			// Threshold
 
 #define APP_NOT_USED						0			// Not Used value
 
@@ -37,15 +25,6 @@
 *                                            TASK MANAGING
 *********************************************************************************************************
 */
-#define APP_TASK_MAIN_ENABLED							// Activate TaskMain
-#define APP_TASK_ODO_ENABLED							// Activate TaskOdo
-#define APP_TASK_ASSER_ENABLED							// Activate TaskAsser
-#define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
-#define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
-#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
-
-#define APP_TASK_ODO_DISPLAY_POSITION					// Activate the position debug messages
-//#define APP_TASK_ODO_DISPLAY_DEBUG						// Activate the other debug messages
 
 /*
 *********************************************************************************************************
@@ -258,9 +237,6 @@
 *											STRATEGY
 *********************************************************************************************************
 */
-// Only 1 option can be set bellow.
-
-#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
 
 /*
 *********************************************************************************************************

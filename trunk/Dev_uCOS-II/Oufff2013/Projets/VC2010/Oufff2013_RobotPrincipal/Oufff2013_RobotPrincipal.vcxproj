@@ -41,6 +41,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions); _TARGET_440H; _PRIMARY_ROBOT</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -106,11 +107,13 @@
     <ClInclude Include="..\..\..\src\BSP\mini_libdef.h" />
     <ClInclude Include="..\..\..\src\DevCard\1602D.h" />
     <ClInclude Include="..\..\..\src\Main\App.h" />
-    <ClInclude Include="..\..\..\src\Main\AppConfig.h" />
     <ClInclude Include="..\..\..\src\Main\AppCustomTypes.h" />
+    <ClInclude Include="..\..\..\src\Main\AppGlobalConfig.h" />
     <ClInclude Include="..\..\..\src\Main\AppGlobalFunc.h" />
     <ClInclude Include="..\..\..\src\Main\AppGlobalVars.h" />
     <ClInclude Include="..\..\..\src\Main\AppIncludes.h" />
+    <ClInclude Include="..\..\..\src\Main\AppPrimaryConfig.h" />
+    <ClInclude Include="..\..\..\src\Main\AppSecondaryConfig.h" />
     <ClInclude Include="..\..\..\src\Main\ArmsControl.h" />
     <ClInclude Include="..\..\..\src\Main\LibMoving.h" />
     <ClInclude Include="..\..\..\src\Main\os_cfg.h" />
