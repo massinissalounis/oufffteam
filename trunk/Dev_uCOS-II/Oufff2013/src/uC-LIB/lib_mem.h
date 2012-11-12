@@ -87,7 +87,7 @@
 
 #include  <cpu.h>
 #include  <lib_def.h>
-#include  <AppConfig.h>
+#include  <AppGlobalConfig.h>
 
 
 /*

@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6C8F23B5-97D9-4DC7-BD8D-6833B885A6AA}</ProjectGuid>
+    <RootNamespace>Oufff2013_CarteDeDev</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions); _TARGET_440H</PreprocessorDefinitions>
+      <CompileAs>CompileAsC</CompileAs>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions); _TARGET_440H</PreprocessorDefinitions>
+      <CompileAs>CompileAsC</CompileAs>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\BSP\bsp.c" />
+    <ClCompile Include="..\..\..\src\BSP\bsp_fpga.c" />
+    <ClCompile Include="..\..\..\src\BSP\bsp_iic.c" />
+    <ClCompile Include="..\..\..\src\DevCard\1602D.c" />
+    <ClCompile Include="..\..\..\src\Main\App.c" />
+    <ClCompile Include="..\..\..\src\Main\AppGlobalFunc.c" />
+    <ClCompile Include="..\..\..\src\Main\AppHooks.c" />
+    <ClCompile Include="..\..\..\src\Main\ArmsControl.c" />
+    <ClCompile Include="..\..\..\src\Main\LibMoving.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorA.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c" />
+    <ClCompile Include="..\..\..\src\Main\TaskAsser.c" />
+    <ClCompile Include="..\..\..\src\Main\TaskMain.c" />
+    <ClCompile Include="..\..\..\src\Main\TaskMvt.c" />
+    <ClCompile Include="..\..\..\src\Main\TaskOdo.c" />
+    <ClCompile Include="..\..\..\src\Main\TaskSensors.c" />
+    <ClCompile Include="..\..\..\src\Main\TaskTempo.c" />
+    <ClCompile Include="..\..\..\src\Microchip\PeripheralsLibs\PIC32INTlib.c" />
+    <ClCompile Include="..\..\..\src\uC-LIB\lib_mem.c" />
+    <ClCompile Include="..\..\..\src\uC-LIB\lib_str.c" />
+    <ClCompile Include="..\..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu_c.c" />
+    <ClCompile Include="..\..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_dbg.c" />
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_core.c" />
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_flag.c" />
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_mbox.c" />
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_mem.c" />
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_mutex.c" />
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_q.c" />
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_sem.c" />
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_task.c" />
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_time.c" />
+    <ClCompile Include="..\..\..\src\uCOS-II\Source\os_tmr.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\BSP\bsp_a.S" />
+    <None Include="..\..\..\src\BSP\crt0.S" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\BSP\bsp.h" />
+    <ClInclude Include="..\..\..\src\BSP\bsp_fpga.h" />
+    <ClInclude Include="..\..\..\src\BSP\bsp_iic.h" />
+    <ClInclude Include="..\..\..\src\BSP\bsp_peripherals.h" />
+    <ClInclude Include="..\..\..\src\BSP\mini_libdef.h" />
+    <ClInclude Include="..\..\..\src\DevCard\1602D.h" />
+    <ClInclude Include="..\..\..\src\Main\App.h" />
+    <ClInclude Include="..\..\..\src\Main\AppConfig.h" />
+    <ClInclude Include="..\..\..\src\Main\AppCustomTypes.h" />
+    <ClInclude Include="..\..\..\src\Main\AppGlobalFunc.h" />
+    <ClInclude Include="..\..\..\src\Main\AppGlobalVars.h" />
+    <ClInclude Include="..\..\..\src\Main\AppIncludes.h" />
+    <ClInclude Include="..\..\..\src\Main\ArmsControl.h" />
+    <ClInclude Include="..\..\..\src\Main\LibMoving.h" />
+    <ClInclude Include="..\..\..\src\Main\os_cfg.h" />
+    <ClInclude Include="..\..\..\src\Main\Strategy.h" />
+    <ClInclude Include="..\..\..\src\Main\Strategy\StrategyFromColor.h" />
+    <ClInclude Include="..\..\..\src\Main\TaskAsser.h" />
+    <ClInclude Include="..\..\..\src\Main\TaskMain.h" />
+    <ClInclude Include="..\..\..\src\Main\TaskMvt.h" />
+    <ClInclude Include="..\..\..\src\Main\TaskOdo.h" />
+    <ClInclude Include="..\..\..\src\Main\TaskSensors.h" />
+    <ClInclude Include="..\..\..\src\Main\TaskTempo.h" />
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\adc10.h" />
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\CoreTimer.h" />
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\i2c.h" />
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\INT.h" />
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\math.h" />
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\mathf.h" />
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\osc.h" />
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\outcompare.h" />
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\pmp.h" />
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\ports.h" />
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\system.h" />
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\timer.h" />
+    <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\uart.h" />
+    <ClInclude Include="..\..\..\src\Microchip\Sys\attribs.h" />
+    <ClInclude Include="..\..\..\src\uC-CPU\cpu_def.h" />
+    <ClInclude Include="..\..\..\src\uC-CPU\MIPS32-4K\MPLAB-PIC32-GCC\cpu.h" />
+    <ClInclude Include="..\..\..\src\uC-LIB\lib_def.h" />
+    <ClInclude Include="..\..\..\src\uC-LIB\lib_mem.h" />
+    <ClInclude Include="..\..\..\src\uC-LIB\lib_str.h" />
+    <ClInclude Include="..\..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu.h" />
+    <ClInclude Include="..\..\..\src\uCOS-II\Source\ucos_ii.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

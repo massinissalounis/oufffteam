@@ -41,7 +41,7 @@ extern "C" {
 *********************************************************************************************************
 */
 
-#include  <AppConfig.h>
+#include  <AppGlobalConfig.h>
 #include <os_cfg.h>
 #include <os_cpu.h>
 
