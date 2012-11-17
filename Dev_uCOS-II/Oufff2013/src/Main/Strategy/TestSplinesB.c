@@ -14,7 +14,7 @@
 
 #include "StrategyFromColor.h"
 
-#ifdef TESTCD_STRATEGY_ENABLED
+#ifdef TEST_STRATEGY_ENABLED
 
 #define DEFAULT_SPEED (50)
 
@@ -26,8 +26,8 @@ INT8U StrategyColorB_GetInitCmd(StructCmd *InitCmd)
 
 	InitCmd->Cmd				= App_SetNewPos;
 	InitCmd->CmdType			= CmdType_Blocking;
-	InitCmd->Param2				= 1500;	
-	InitCmd->Param3				= 1000;	
+	InitCmd->Param2				= 69;	
+	InitCmd->Param3				= 1667;	
 	InitCmd->Param4				= AppConvertDegInRad(0);
 	InitCmd->ActiveSensorsFlag		= APP_PARAM_STRATEGYFLAG_NONE;
 
@@ -38,7 +38,8 @@ INT8U StrategyColorB_GetInitCmd(StructCmd *InitCmd)
 INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 {
 	static int		NextActionID = 1;
-	int			CurrentActionID = 0;
+	static int		TimeoutID = -1;
+	int				CurrentActionID = 0;
 	INT8U 			Err = 0;
 	OS_FLAGS		CurrentFlag = 0;
 	OS_FLAGS		StrategyFlagsToSet = 0;
@@ -51,16 +52,24 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	p->CmdType = CmdType_Blocking;
 
 	// Set CurrentID to NextID
-	CurrentActionID = NextActionID;
+	CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ACTION_TIMEOUT, OS_FLAG_WAIT_SET_ANY, &Err);
+	if(((CurrentFlag & APP_PARAM_APPFLAG_ACTION_TIMEOUT) == APP_PARAM_APPFLAG_ACTION_TIMEOUT) && (TimeoutID != -1))
+		CurrentActionID = TimeoutID;
+	else
+		CurrentActionID = NextActionID;
 
 	// Read Next Action
 	switch(CurrentActionID)
 	{
 		// StructuredFileLoopBegin
 		// LoopID = 0
-		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 2;	p->Cmd = Sensors_ArmsDeployment;				break;	
-		case 2:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 3;	p->Cmd = Sensors_ArmsOpenDown;				break;	
-		case 3:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = -1;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 600;    		break;	
+		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 5;	TimeoutID = -1; p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 650;    		break;	
+		case 5:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 2;	TimeoutID = -1; p->Cmd = App_Wait;		p->Param1 = 0;    p->Param2 = 0;    p->Param3 = 10;    p->Param4 = 0;    		break;	
+		case 2:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 6;	TimeoutID = -1; p->Cmd = Mvt_UseSpline;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 1050;    p->Param3 = 1667;    p->Param4 = 310;    		break;	
+		case 6:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 3;	TimeoutID = -1; p->Cmd = App_Wait;		p->Param1 = 0;    p->Param2 = 0;    p->Param3 = 10;    p->Param4 = 0;    		break;	
+		case 3:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 7;	TimeoutID = -1; p->Cmd = Mvt_UseSpline;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 1490;    p->Param3 = 1442;    p->Param4 = 0;    		break;	
+		case 7:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 4;	TimeoutID = -1; p->Cmd = App_Wait;		p->Param1 = 0;    p->Param2 = 0;    p->Param3 = 10;    p->Param4 = 0;    		break;	
+		case 4:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = -1;	TimeoutID = -1; p->Cmd = Mvt_UseSpline;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 1956;    p->Param3 = 1667;    p->Param4 = 60;    		break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
@@ -131,7 +140,7 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	}
 	
 	// Check for conditionnal strategy command ---------------------------
-	if(App_IfGoto_System == p->Cmd)
+	if(App_IfGoto_Strategy == p->Cmd)
 	{
 		// Read the current Flags
 		CurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
@@ -165,7 +174,7 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	if(MvtSimple_RotateToAngleInDeg == p->Cmd)
 		LibMoving_RotateToAngleInDeg(p->Param4, p->Param1, p);
 
-	// Angle Conversion --------------------------------------------------
+	// Angle Conversion --------------------------------------------------	
 	if((Mvt_UsePivotMode == p->Cmd) || (Mvt_UseMixedMode == p->Cmd) || (Mvt_UseSpline == p->Cmd))
 	{
 		p->Param4 = AppConvertDegInRad(p->Param4);

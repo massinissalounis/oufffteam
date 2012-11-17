@@ -178,8 +178,8 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	if(MvtSimple_RotateToAngleInDeg == p->Cmd)
 		LibMoving_RotateToAngleInDeg(p->Param4, p->Param1, p);
 
-	// Angle Conversion --------------------------------------------------
-	if((Mvt_UsePivotMode == p->Cmd) || (Mvt_UseMixedMode == p->Cmd))
+	// Angle Conversion --------------------------------------------------	
+	if((Mvt_UsePivotMode == p->Cmd) || (Mvt_UseMixedMode == p->Cmd) || (Mvt_UseSpline == p->Cmd))
 	{
 		p->Param4 = AppConvertDegInRad(p->Param4);
 	}
