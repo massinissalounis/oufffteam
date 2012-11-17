@@ -146,7 +146,7 @@ INT8U Strategy_GetNextAction(EnumColor CurrentColor, StructCmd *NextAction)
 		LibMoving_RotateToAngleInDeg(p->Param4, p->Param1, p);
 
 	// Angle Conversion --------------------------------------------------
-	if((Mvt_UsePivotMode == p->Cmd) || (Mvt_UseMixedMode == p->Cmd))
+	if((Mvt_UsePivotMode == p->Cmd) || (Mvt_UseMixedMode == p->Cmd) || (Mvt_UseSpline == p->Cmd))
 	{
 		p->Param4 = AppConvertDegInRad(p->Param4);
 	}

@@ -8,37 +8,38 @@
 *
 * Suivi de version :
 * 2011-06-01 | PBE | Creation de la version de base pour la coupe 2011
-* 2011-11-02 | PBE | Mise a jour du fichier pour en faire un fichier pattern pour la couleur B
+* 2011-11-02 | PBE | Mise a jour du fichier pour en faire un fichier pattern pour la couleur A
 *********************************************************************************************************
 */
 
 #include "StrategyFromColor.h"
 
-#ifdef TESTCD_STRATEGY_ENABLED
+#ifdef MVT_STRATEGY_ENABLED
 
 #define DEFAULT_SPEED (50)
 
 // ------------------------------------------------------------------------------------------------
-INT8U StrategyColorB_GetInitCmd(StructCmd *InitCmd)
+INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
 {
 	if(NULL == InitCmd)
 		return ERR__INVALID_PARAM;
 
 	InitCmd->Cmd				= App_SetNewPos;
 	InitCmd->CmdType			= CmdType_Blocking;
-	InitCmd->Param2				= 1500;	
-	InitCmd->Param3				= 1000;	
-	InitCmd->Param4				= AppConvertDegInRad(0);
+	InitCmd->Param2				= 2880;	
+	InitCmd->Param3				= 1252;	
+	InitCmd->Param4				= AppConvertDegInRad(180);
 	InitCmd->ActiveSensorsFlag		= APP_PARAM_STRATEGYFLAG_NONE;
 
 	return ERR__NO_ERROR;
 }
 
 // ------------------------------------------------------------------------------------------------
-INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
+INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 {
 	static int		NextActionID = 1;
-	int			CurrentActionID = 0;
+	static int		TimeoutID = -1;
+	int				CurrentActionID = 0;
 	INT8U 			Err = 0;
 	OS_FLAGS		CurrentFlag = 0;
 	OS_FLAGS		StrategyFlagsToSet = 0;
@@ -51,16 +52,18 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	p->CmdType = CmdType_Blocking;
 
 	// Set CurrentID to NextID
-	CurrentActionID = NextActionID;
+	CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ACTION_TIMEOUT, OS_FLAG_WAIT_SET_ANY, &Err);
+	if(((CurrentFlag & APP_PARAM_APPFLAG_ACTION_TIMEOUT) == APP_PARAM_APPFLAG_ACTION_TIMEOUT) && (TimeoutID != -1))
+		CurrentActionID = TimeoutID;
+	else
+		CurrentActionID = NextActionID;
 
 	// Read Next Action
 	switch(CurrentActionID)
 	{
 		// StructuredFileLoopBegin
 		// LoopID = 0
-		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 2;	p->Cmd = Sensors_ArmsDeployment;				break;	
-		case 2:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 3;	p->Cmd = Sensors_ArmsOpenDown;				break;	
-		case 3:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = -1;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 600;    		break;	
+		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = -1;	TimeoutID = -1;	p->Cmd = Mvt_UseSpline;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 1744;    p->Param3 = 942;    p->Param4 = 180;    	break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
@@ -113,7 +116,7 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	{
 		// Execute the wait command
 		OSTimeDlyHMSM(p->Param1, p->Param2, p->Param3, p->Param4);
-		return StrategyColorB_GetNextAction(p);
+		return StrategyColorA_GetNextAction(p);
 	}
 
 	// Check for conditionnal system command -----------------------------
@@ -127,11 +130,11 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 		else
 			NextActionID = (int)(p->Param3);
 
-		return StrategyColorB_GetNextAction(p);
+		return StrategyColorA_GetNextAction(p);
 	}
 	
 	// Check for conditionnal strategy command ---------------------------
-	if(App_IfGoto_System == p->Cmd)
+	if(App_IfGoto_Strategy == p->Cmd)
 	{
 		// Read the current Flags
 		CurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
@@ -141,7 +144,7 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 		else
 			NextActionID = (int)(p->Param3);
 
-		return StrategyColorB_GetNextAction(p);
+		return StrategyColorA_GetNextAction(p);
 	}
 	
 	// Set / Clear Strategy Flags --------------------------------------

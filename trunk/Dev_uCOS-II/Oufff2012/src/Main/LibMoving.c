@@ -473,6 +473,7 @@ BOOLEAN LibMoving_IsSetpointReached(StructCmd *SetpointToTest)
 	case MvtSimple_MoveInMM:
 	case MvtSimple_RotateToAngleInDeg:
     case Mvt_UseMixedMode:
+	case Mvt_UseSpline:
         if((AngleToSetpoint <= APP_MOVING_APPROACH_PRECISION_COEF * APP_MOVING_ANGLE_APPROACH_PRECISION) && (DistToSetpoint <= (APP_MOVING_APPROACH_PRECISION_COEF * APP_MOVING_DIST_APPROACH_PRECISION * APP_MOVING_DIST_APPROACH_PRECISION)))
             Ret = OS_TRUE;
         else

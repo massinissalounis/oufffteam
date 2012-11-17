@@ -44,7 +44,7 @@
 
 // Generic parameters
 #define PID_SUM_NB_SAMPLES 		3		// 1000 à l'origine CBE
-#define PID_D_PERIOD			1		//100 à l'origine CBE
+#define PID_D_PERIOD			1		// 100 à l'origine CBE
 
 // ------------------------------------------------------------------------------------------------
 // Speed control Coefficients 
@@ -63,7 +63,7 @@
 // ------------------------------------------------------------------------------------------------
 #define MAX_MOTOR_COMMAND 		        32000	                            // doit être < à 32768
 #define PIVOT_APPROACH_PRECISION		 2.00
-#define ANGLE_VS_DISTANCE_RATIO	0.5											// n % used for angle on full scale
+#define ANGLE_VS_DISTANCE_RATIO	0.2											// n % used for angle on full scale
 #define ASSER_SAMPLING		10												// in ms
 
 
@@ -111,7 +111,9 @@
 //#define AX12_REG_PROGRAMMING				// Use this flag for programming the default values into AX12
 //#define ODO_CALIBRATION					// Use this flag for testing the Odometry configuration
 
-#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
+//#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
+//#define MVT_STRATEGY_ENABLED
+#define TEST_STRATEGY_ENABLED
 
 #endif // _PRIMARY_ROBOT
 
