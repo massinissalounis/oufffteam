@@ -1,0 +1,38 @@
+carte alim
+
+via un peu etroit sous RL3
+
+pastilles du traco un peu petites
+
+Module traco sur la mauvaise face
+
+Carte connectique
+
+Remplacer les translateurs de niveaux par Texas Instruments Référence fabricant TXS0104ED
+http://radiospares-fr.rs-online.com/web/p/translateurs-de-tension/7093309/
+
+Ajouter une ligne couleur + une des capas correspondante et la placer à la place d'une entrée laser
+Alim 3.3V du coté CM du GTL2010 U5
+
+Enlever lasers
+
+Enlever GPIO2 et AX12_2 (verifier lequel des AX12 est utilisé actuellement !)
+et remplacer par balise
+
+Passer les GPIOs en sortie 5v (changement PU)
+
+connection balise en 5v --> 4 signaux GPIOs + masse
+
+
+Carte capteur couleur
+
+SUpport de carte pour le capteur
+Connexion molex 5 points depuis la CM.
+
+COnnexion en dur des bits de config S0 et S1 (choix par strap soudure ??)
+Soudure en direct de la carte couleur ...
+signal LED en direct sur Vdd
+protection plexi de la carte support pour proteger electriquement
+
+alimentation en 5v
+
