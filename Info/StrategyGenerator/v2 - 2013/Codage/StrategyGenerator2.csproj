@@ -66,6 +66,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FileManager\IFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileManager\StructuredFile.cs" />
+    <Compile Include="FileManager\StructuredFileKey.cs" />
+    <Compile Include="FileManager\TextFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Model\MainModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
@@ -110,7 +119,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\FileManager\" />
+    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

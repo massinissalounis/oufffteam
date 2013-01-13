@@ -1,0 +1,103 @@
+﻿        ///<summary>
+        /// Remove unused line (empty line or comment line)
+        /// Line iterator is reset to 0 after this call
+        ///</summary>
+        public void RemoveUnusedLine()
+        {
+            if (null == _FileContents)
+                return;
+
+            for (int i = _FileContents.Count()-1; i >= 0; i--)
+            {
+                // Remove tabulations
+                _FileContents[i] = _FileContents[i].Replace("\t", "");
+                
+                // Remove unecessary space
+                for (int j = 20; j > 1; j--)
+                {
+                    string stringToRemove = new string(new char[j]);
+                    stringToRemove = stringToRemove.Replace("\0", " ");
+
+                    _FileContents[i] = _FileContents[i].Replace(stringToRemove, " ");
+                }
+                if ((_FileContents[i].Length > 0) && (_FileContents[i].Substring(0, 1) == " "))
+                {
+                    _FileContents[i] = _FileContents[i].Substring(1);
+                }
+
+                // Remove all emtpy line
+                if((_FileContents[i].ToString() == "") || (_FileContents[i].ToString() == " "))
+                {
+                    _FileContents.RemoveAt(i);
+                }
+            }
+
+            return;
+        }
+
+        ///<summary>
+        /// Remove a specific line (pointed by LineNumber)
+        ///</summary>
+        public void RemoveLine(int LineNumber)
+        {
+            if (null == _FileContents)
+                return;
+
+            if ((LineNumber <= 0) || (LineNumber > _FileContents.Count()))
+                return;
+
+            _FileContents.RemoveAt(LineNumber - 1);
+        }
+
+            
+        ///<summary>
+        /// Search the pattern 'TextToFind' into current file. All lines that contain 'TextToFind are returned
+        ///</summary>
+        public List<String> Search(String TextToFind)
+        {
+            List<String> Result = null;
+
+            if((TextToFind == null) || (_FileContents == null) || (_FileContents.Count() == 0))
+                return null;
+
+            for (int i = 0; i < _FileContents.Count(); i++)
+            {
+                // Search pattern into all lines
+                if(_FileContents[i].Contains(TextToFind) == true)
+                {
+                    if(Result == null)
+                        Result = new List<string>();
+
+                    Result.Add(_FileContents[i].ToString());
+                }
+            }
+
+            return Result;
+        }
+
+
+        ///<summary>
+        /// Returns the nb of line 
+        ///</summary>
+        public int GetSize()
+        {
+            if (_FileContents == null)
+                return 0;
+
+            return _FileContents.Count();
+        }
+
+        /// <summary>
+        /// Add a new line at the index specified
+        /// </summary>
+        /// <param name="LineToAdd">Line to add</param>
+        /// <param name="IndexToAdd">Index where the line will be inserted</param>
+        public void AddLine(String LineToAdd, int IndexToAdd)
+        {
+            if((LineToAdd != null) && (IndexToAdd >= 0))
+            {
+                _FileContents.Insert(IndexToAdd, LineToAdd);
+            }
+        }
+
+
