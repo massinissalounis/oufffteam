@@ -1,38 +1,39 @@
-carte alim
+##### carte alim
 
 via un peu etroit sous RL3
 
 pastilles du traco un peu petites
 
-Module traco sur la mauvaise face
-
-Carte connectique
-
-Remplacer les translateurs de niveaux par Texas Instruments Référence fabricant TXS0104ED
-http://radiospares-fr.rs-online.com/web/p/translateurs-de-tension/7093309/
-
-Ajouter une ligne couleur + une des capas correspondante et la placer à la place d'une entrée laser
-Alim 3.3V du coté CM du GTL2010 U5
-
-Enlever lasers
-
-Enlever GPIO2 et AX12_2 (verifier lequel des AX12 est utilisé actuellement !)
-et remplacer par balise
-
-Passer les GPIOs en sortie 5v (changement PU)
-
-connection balise en 5v --> 4 signaux GPIOs + masse
+##### Carte connectique
 
 
-Carte capteur couleur
+Pourquoi le choix de connecter les Cm_COLOR non continus ? Pour des questions de routage ?
 
-SUpport de carte pour le capteur
-Connexion molex 5 points depuis la CM.
 
-COnnexion en dur des bits de config S0 et S1 (choix par strap soudure ??)
-Soudure en direct de la carte couleur ...
-signal LED en direct sur Vdd
-protection plexi de la carte support pour proteger electriquement
+As tu vérifié que l'on utilise bien la bonne pin pour les AX12 actuellement ?
 
-alimentation en 5v
+J'ai verifié pour les PUs des TXS0104, c'est bon, mais chute la PU à 5k ... C'est bon ?
+
+
+Balises : MOLEX5 uniquement (besoin de GND uniquement)
+
+J'ai peur des diodes de protections : ca me semble vraiment tout petit...
+Est ce qu'il existe d'autre fabricants ?
+
+Je trouve les vias un peu petits. (Car on doit les faire à la main ...)
+
+Sur la carte connectique CM, tu as un plan de masse TOP au final ???
+
+Bon ca devrait aller, je n'ai pas vérifié chaque connexion une à une ... j'ai fait confiance au chevelu :-)
+
+##### Carte capteur couleur
+
+LE connecteur J1 n'est pas du bon coté (impossible de le connecter)
+
+Il faut prevoir à mon sens un connecteur coudé !
+
+Comment fixe t'on la carte sur le bras ? (ajout d'une plaque en plexi ?)
+
+vias petits
+
 
