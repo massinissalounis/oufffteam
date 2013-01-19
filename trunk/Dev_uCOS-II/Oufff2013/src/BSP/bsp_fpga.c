@@ -260,6 +260,14 @@ CPU_INT08U GPIO_Action (CPU_INT08U bit_position, CPU_INT08U bit_value)
 	return reg;
 }
 
+CPU_INT08U BEACON_Read (void)
+{
+	CPU_INT08U reg;
+	reg = PMP_Read(BEACON_REGISTER);
+	return reg;
+}
+
+
 void BSPFPGA_Reset(void)
 {
 

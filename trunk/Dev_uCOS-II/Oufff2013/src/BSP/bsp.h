@@ -81,11 +81,8 @@
 
 	#define GP2_REAR_CENTER				GP2_3
 	#define GP2_FRONT_CENTER			GP2_2
-	#define GP2_FRONT_LEFT_1			GP2_8
-	#define GP2_FRONT_LEFT_2			GP2_7
-	#define GP2_FRONT_RIGHT_1			GP2_5
-	#define GP2_FRONT_RIGHT_2			GP2_4
-	#define GP2_FRONT_RIGHT_3			GP2_6
+	#define GP2_REAR_HOOP				GP2_8
+	#define GP2_FRONT_HOOP				GP2_7
 	
 	#define IO_CLIC_1					IOPORT_G, BIT_0
 	#define IO_CLIC_2					IOPORT_A, BIT_7
