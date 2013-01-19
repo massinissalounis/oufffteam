@@ -42,6 +42,7 @@ void TaskSensors_ReadColor()
 }
 
 // ------------------------------------------------------------------------------------------------
+/// TO DO: update the main code as we have less GP2 flags now !!!
 void TaskSensors_CheckBumpers()
 {
 	INT8U	Err = 0;						// Var to get error status
@@ -66,45 +67,21 @@ void TaskSensors_CheckBumpers()
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_CENTER, OS_FLAG_CLR, &Err); 
 
-	//GP2_FRONT_LEFT_1 **********************************************
-	GP2Data  = ADC_GetVal (GP2_FRONT_LEFT_1);
+/*	//GP2_REAR_HOOP *************************************************
+	GP2Data  = ADC_GetVal (GP2_REAR_HOOP);
 
-	if(GP2Data > APP_GP2_LIMIT_FRONT_LEFT_1)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1, OS_FLAG_SET, &Err); 
+	if(GP2Data > APP_GP2_LIMIT_REAR_HOOP)
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_HOOP, OS_FLAG_SET, &Err); 
 	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1, OS_FLAG_CLR, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_HOOP, OS_FLAG_CLR, &Err); 
 
-	//GP2_FRONT_LEFT_2 **********************************************
-	GP2Data  = ADC_GetVal (GP2_FRONT_LEFT_2);
+	//GP2_FRONT_HOOP ************************************************
+	GP2Data  = ADC_GetVal (GP2_FRONT_HOOP);
 
-	if(GP2Data > APP_GP2_LIMIT_FRONT_LEFT_2)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2, OS_FLAG_SET, &Err); 
+	if(GP2Data > APP_GP2_LIMIT_FRONT_HOOP)
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_HOOP, OS_FLAG_SET, &Err); 
 	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2, OS_FLAG_CLR, &Err); 
-
-	//GP2_FRONT_RIGHT_1 *********************************************
-	GP2Data  = ADC_GetVal (GP2_FRONT_RIGHT_1);
-
-	if(GP2Data > APP_GP2_LIMIT_FRONT_RIGHT_1)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1, OS_FLAG_SET, &Err); 
-	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1, OS_FLAG_CLR, &Err); 
-
-	//GP2_FRONT_RIGHT_2 *********************************************
-	GP2Data  = ADC_GetVal (GP2_FRONT_RIGHT_2);
-
-	if(GP2Data > APP_GP2_LIMIT_FRONT_RIGHT_2)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2, OS_FLAG_SET, &Err); 
-	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2, OS_FLAG_CLR, &Err); 
-
-	//GP2_FRONT_RIGHT_3 *********************************************
-	GP2Data  = ADC_GetVal (GP2_FRONT_RIGHT_3);
-
-	if(GP2Data > APP_GP2_LIMIT_FRONT_RIGHT_3)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_3, OS_FLAG_SET, &Err); 
-	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_3, OS_FLAG_CLR, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_HOOP, OS_FLAG_CLR, &Err); */
 #endif
 }
 
@@ -210,10 +187,10 @@ void TaskSensors_ArmsSetStatus(OS_FLAGS flags)
 void TaskSensors_ArmsInit()
 {
 	if(AppCurrentColor == c_ColorA)		// Red
-		ARMS_DefaultPosRed();
+//		ARMS_DefaultPosRed();
 
 	if(AppCurrentColor == c_ColorB)		// Purple
-		ARMS_DefaultPosPurple();
+//		ARMS_DefaultPosPurple();
 
 	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT);
 }
@@ -222,10 +199,10 @@ void TaskSensors_ArmsInit()
 void TaskSensors_ArmsDeployment()
 {
 	if(AppCurrentColor == c_ColorA)		// Red
-		ARMS_DeploymentRed();
+//		ARMS_DeploymentRed();
 
 	if(AppCurrentColor == c_ColorB)		// Purple
-		ARMS_DeploymentPurple();
+//		ARMS_DeploymentPurple();
 
 	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED);
 }
@@ -233,55 +210,55 @@ void TaskSensors_ArmsDeployment()
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_ArmsOpenDown()
 {
-	ARMS_OpenDown();
+//	ARMS_OpenDown();
 	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED);
 }
 
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_ArmsOpenUp()
 {
-	ARMS_OpenUp();
+//	ARMS_OpenUp();
 	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED);
 }
 
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_ArmsClose()
 {
-	ARMS_Close();
+//	ARMS_Close();
 	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED);
 }
 
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_ArmsOpenOneCD()
 {
-	ARMS_OpenOneCD();
+//	ARMS_OpenOneCD();
 	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED);
 }
 
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_ArmsOpenTotem()
 {
-	ARMS_OpenTotem();
+//	ARMS_OpenTotem();
 	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED);
 }
 
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_ArmsCloseTotem()
 {
-	ARMS_CloseTotem();
+//	ARMS_CloseTotem();
 	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED);
 }
 
 // ------------------------------------------------------------------------------------------------
 void TaskSensors_ArmsUngrab()
 {
-	ARMS_Ungrab();
+//	ARMS_Ungrab();
 	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED);
 }
 
 void TaskSensors_ElevatorDown()
 {
-	ELEVATOR_Level_Open();
+//	ELEVATOR_Level_Open();
 }
 
 // ------------------------------------------------------------------------------------------------

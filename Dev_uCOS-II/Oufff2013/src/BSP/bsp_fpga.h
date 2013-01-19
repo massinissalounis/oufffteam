@@ -16,6 +16,8 @@
 #define  QUADG_LO_REGISTER          0x000B
 #define  QUADG_HI_REGISTER          0x000C
 #define  GPIO_REGISTER		        0x0010
+#define  BEACON_REGISTER	        0x0011
+//#define  COLOR_CONTROL_REGISTER     0x0012
 
 #define  AX12_UART_FIFO				0x0020 // RBR + THR registers
 #define  AX12_UART_STATUS			0x0025 // LSR regsiter
