@@ -1,28 +1,28 @@
 ##### carte alim
 
-via un peu etroit sous RL3
+via un peu etroit sous RL3  --> fait
 
-pastilles du traco un peu petites
+pastilles du traco un peu petites  --> fait
 
 ##### Carte connectique
 
 
-Pourquoi le choix de connecter les Cm_COLOR non continus ? Pour des questions de routage ?
+Pourquoi le choix de connecter les Cm_COLOR non continus ? Pour des questions de routage ? --> oui
 
 
-As tu vérifié que l'on utilise bien la bonne pin pour les AX12 actuellement ?
+As tu vérifié que l'on utilise bien la bonne pin pour les AX12 actuellement ? --> oui
 
-J'ai verifié pour les PUs des TXS0104, c'est bon, mais chute la PU à 5k ... C'est bon ?
+J'ai verifié pour les PUs des TXS0104, c'est bon, mais chute la PU à 5k ... C'est bon ? --> oui et on pourra réduire si vraiment on a des capas parasites
 
 
-Balises : MOLEX5 uniquement (besoin de GND uniquement)
+Balises : MOLEX5 uniquement (besoin de GND uniquement) --> j'ai confondu avec le capteur couleur.
 
 J'ai peur des diodes de protections : ca me semble vraiment tout petit...
-Est ce qu'il existe d'autre fabricants ?
+Est ce qu'il existe d'autre fabricants ?  --> On les vire
 
 Je trouve les vias un peu petits. (Car on doit les faire à la main ...)
 
-Sur la carte connectique CM, tu as un plan de masse TOP au final ???
+Sur la carte connectique CM, tu as un plan de masse TOP au final ??? --> du coup non. J'avais du le mettre au cas où.
 
 Bon ca devrait aller, je n'ai pas vérifié chaque connexion une à une ... j'ai fait confiance au chevelu :-)
 
