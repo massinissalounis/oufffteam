@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using StrategyGenerator2.Tools;
 
 namespace StrategyGenerator2.FileManager
 {
@@ -17,6 +18,7 @@ namespace StrategyGenerator2.FileManager
             // Clear current content
             _fileContents = null;
             _currentFileName = null;
+            _debugTool = new DebugTool(DebugTool.EDebugToolType.Disabled);
         }
 
         // Properties -----------------------------------------------------------------------------
@@ -54,12 +56,13 @@ namespace StrategyGenerator2.FileManager
             {
                 _fileContents = null;
                 _currentFileName = null;
-                Console.WriteLine("TextFile = " + ex.Message);
+                _debugTool.WriteLine("TextFile = " + ex.Message);
                 return -1;
             }
 
             // Le fichier a été correctement lu
             _currentFileName = fileName;
+            Ret = _fileContents.Count;
 
             return Ret;
         }
@@ -87,13 +90,13 @@ namespace StrategyGenerator2.FileManager
             {
                 if ((fileName == null) || (fileName == ""))
                 {
-                    Console.WriteLine("TextFile (SaveTo) : Nom de fichier invalide");
+                    _debugTool.WriteLine("TextFile (SaveTo) : Nom de fichier invalide");
                     return Ret;
                 }
 
                 if (contentIsValid() == false)
                 {
-                    Console.WriteLine("TextFile (SaveTo) : Pas de données à sauvegarder");
+                    _debugTool.WriteLine("TextFile (SaveTo) : Pas de données à sauvegarder");
                     return Ret;
                 }
 
@@ -133,14 +136,14 @@ namespace StrategyGenerator2.FileManager
             // Verification du fichier courant
             if (contentIsValid() == false)
             {
-                Console.WriteLine("TextFile (GetLine) : Fichier vide, pas de ligne disponible");
+                _debugTool.WriteLine("TextFile (GetLine) : Fichier vide, pas de ligne disponible");
                 return Ret;
             }
 
             // Verification des paramètres d'entrée
             if ((lineNumber < _fileContents.Count) || (lineNumber >= _fileContents.Count))
             {
-                Console.WriteLine("TextFile (GetLine) : Numéro de ligne invalide");
+                _debugTool.WriteLine("TextFile (GetLine) : Numéro de ligne invalide");
                 return Ret;
             }
 
@@ -189,7 +192,7 @@ namespace StrategyGenerator2.FileManager
             }
             else
             {   // Ligne non valide
-                Console.WriteLine("TextFile (AddLine) : Paramètre d'entrée non valide");
+                _debugTool.WriteLine("TextFile (AddLine) : Paramètre d'entrée non valide");
             }
         }
 
@@ -197,7 +200,8 @@ namespace StrategyGenerator2.FileManager
 
         // Private --------------------------------------------------------------------------------
         private List<String>    _fileContents;              // Permet de stocker le contenu du fichier
-        private String          _currentFileName;           // Permet de stocker le chemin d'accès courrant 
+        private String          _currentFileName;           // Permet de stocker le chemin d'accès courrant
+        private DebugTool       _debugTool;                 // Outil pour contrôler les informations de débug 
 
         private bool contentIsValid()
         {
