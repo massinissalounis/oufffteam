@@ -14,23 +14,26 @@ architecture testbench of PMP_TB is
 	constant period_PIC_TPB		: time := 12.5 ns; 	-- 80 MHz //TO update !!!
 	constant period_FPGA		: time := 20 ns ;  	-- 50 MHz
 	
-	-- paramètres du bus PMP réglables dans le microcontrôleur (en nombre de fronts de fclk)
-	constant WAITB	: integer := 2; -- 1 to 3
-	constant WAITM	: integer := 2; -- 1 to 15
-	constant WAITE	: integer := 2; -- 0 to 3
+	-- paramï¿½tres du bus PMP rï¿½glables dans le microcontrï¿½leur (en nombre de fronts de fclk)
+	constant WAITB	: integer := 1; -- 1 to 3
+	constant WAITM	: integer := 3; -- 1 to 15
+	constant WAITE	: integer := 0; -- 0 to 3
 
 	
-	-- Addresse des IP esclaves (Début de la plage d'adressage) 
-	constant Address_LED		: std_logic_vector (15 downto 0)	:= X"0000";
+	-- Addresse des IP esclaves (Dï¿½but de la plage d'adressage) 
+	constant Address_LED		: std_logic_vector (15 downto 0)	:= X"A55A";
 	
 	procedure pmp_wait_states (
 		signal fPB			: in std_logic;
-		signal wait_states	: in integer
+		constant wait_states	: in integer
 		) is
+		variable i: integer;
 		begin
-			loop1: FOR i IN wait_states DONWTO 0 LOOP
+		  i := wait_states;
+		  WHILE (i > 0) LOOP
 				wait until rising_edge (fPB);
-			END LOOP loop1;
+				i := i-1;
+			END LOOP;
 	end procedure pmp_wait_states;
 	
 	procedure pmp_read_access (
@@ -47,16 +50,16 @@ architecture testbench of PMP_TB is
 		begin
 			PMALL <= '0'; PMALH <= '0'; PMRD <= '0'; PMWR <= '0';
 			wait until rising_edge (fPB);
-			PMD <= address(7:0);
+			PMD <= address(7 downto 0);
 			wait until rising_edge (fPB);
 			PMALL <= '1';
 			pmp_wait_states(fPB, WAITB);
 			PMALL <='0';
 			wait until rising_edge (fPB);			
-			PMD <= address(15:8);
-			pmp_wait_states(fPB, WAITB);
-			PMALH <= '1';
+			PMD <= address(15 downto 8);
 			wait until rising_edge (fPB);
+			PMALH <= '1';
+			pmp_wait_states(fPB, WAITB);
 			PMALH <='0';			
 			wait until rising_edge (fPB);
 			PMD <= (others => 'Z');
@@ -82,16 +85,16 @@ architecture testbench of PMP_TB is
 		begin
 			PMALL <= '0'; PMALH <= '0'; PMRD <= '0'; PMWR <= '0';
 			wait until rising_edge (fPB);
-			PMD <= address(7:0);
+			PMD <= address(7 downto 0);
 			wait until rising_edge (fPB);
 			PMALL <= '1';
 			pmp_wait_states(fPB, WAITB);
 			PMALL <='0';
 			wait until rising_edge (fPB);			
-			PMD <= address(15:8);
-			pmp_wait_states(fPB, WAITB);
-			PMALH <= '1';
+			PMD <= address(15 downto 8);
 			wait until rising_edge (fPB);
+			PMALH <= '1';
+			pmp_wait_states(fPB, WAITB);
 			PMALH <='0';			
 			wait until rising_edge (fPB);
 			PMD <= PMDIN;
@@ -135,7 +138,7 @@ architecture testbench of PMP_TB is
 		FPGA_SERVO_4		: out std_logic;
 		FPGA_SERVO_5		: out std_logic;
 		FPGA_SERVO_6		: out std_logic;
-		FPGA_SERVO_7		: out std_logic;;
+		FPGA_SERVO_7		: out std_logic;
 		FPGA_SERVO_8		: out std_logic;
 		FPGA_SERVO_9		: out std_logic;
 		-- PMP
@@ -147,7 +150,7 @@ architecture testbench of PMP_TB is
 		PIC_PMP_PMWR		: in std_logic;
 		-- Led
 		LED1			: out std_logic;
-		LED2			: out std_logic;
+		LED2			: out std_logic
                 );
 end component FPGA_Oufff;
 	
@@ -267,16 +270,16 @@ end component FPGA_Oufff;
 		
 		---- Test RESET ----
 			assert false report ("Test RESET") severity note;
-			wait for 1 us;
+			wait for 50 ns;
 			RESET <= '1';
-			wait for 1 us;
+			wait for 50 ns;
 			RESET <= '0';
 			-- DO AN FPGA RESET
 
 		---- Test LED ----
 			assert false report ("Test LED") severity note;
 			
-			PIC_ADDR <= Adress_LED;
+			PIC_ADDR <= Address_LED;
 			PIC_PMDIN <=  X"01"; -- LED1 On
 			pmp_write_access (PIC_PB_CLK, PIC_ADDR, PIC_PMDIN, PIC_PMP_PMD, PIC_PMP_PMALL, PIC_PMP_PMALH, PIC_PMP_PMRD, PIC_PMP_PMWR);
 			PIC_PMDIN <=  X"00"; -- Look at the data back
