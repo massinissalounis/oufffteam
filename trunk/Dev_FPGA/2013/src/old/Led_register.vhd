@@ -1,28 +1,34 @@
 -- Oufffteam
 -- Projet carte mère
--- Device: Led register
+-- Device: LED
 
--- 02/02/2010			CBE			Création
+-- 29/12/2009			CBE			Création
+-- 20/01/2013			PEG			Refonte
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-library work;
-use work.pmp_p.all;
+--library work;
 
-entity led_register is
+entity LED is
 	port (
-		PMP_in		: in PMP_SLV_IN_TYPE;
-		PMP_out		: out PMP_SLV_OUT_TYPE;
+		clock		: in std_logic;
+		reset		: in std_logic;
+		-- Internal Bus inputs
+		BUS_D		: inout std_logic_vector (7 downto 0);
+		BUS_RD		: in std_logic;
+		BUS_WR		: in std_logic;
+		BUS_CS		: in std_logic;
+		-- Module out
 		LED1		: out std_logic;
 		LED2		: out std_logic
 	);
-end entity led_register;
+end entity LED;
 
-architecture parallel_IO of led_register is
+architecture synchronous of LED is
 	
-	signal led_register : std_logic_vector (7 downto 0);
+	signal LED_register : std_logic_vector (7 downto 0);
 	
 	begin
 		pmp_write: process (PMP_in)
@@ -32,9 +38,11 @@ architecture parallel_IO of led_register is
 					led_register <= PMP_in.PMP_WDATA;
 				end if;
 		end process pmp_write;
+		
+		
 	
 	LED1	<= led_register(0);
 	LED2	<= led_register(1);
 	PMP_out.PMP_RDATA <= led_register;
 	
-end architecture parallel_IO;
+end architecture synchronous;
