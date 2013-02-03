@@ -66,10 +66,8 @@
 *********************************************************************************************************
 */    
 
-void AX12_UART_Init (void);
-
 CPU_INT08U AX12_UART_Read_Status (void);
-CPU_INT08U AX12_UART_Data_Sent (void);
+CPU_INT08U AX12_UART_Busy (void);
 
 void AX12_UART_Write (CPU_INT08U data);
 void AX12_Dual_Write_Position_Sync (CPU_INT08U ax12_id1, CPU_INT08U ax12_id2, CPU_INT08U setpoint1_high, CPU_INT08U setpoint1_low, CPU_INT08U setpoint2_high, CPU_INT08U setpoint2_low);
