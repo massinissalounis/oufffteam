@@ -36,8 +36,6 @@ void AX12_UART_Write (CPU_INT08U data)
 	PMP_Write(AX12_UART_OUT_REGISTER, data);
 }
 
-/// TO DO : Stop 02/02/2013
-
 // AX12 CONTROL FUNCTIONS
 
 void AX12_Dual_Write_Position_Sync (CPU_INT08U ax12_id1, CPU_INT08U ax12_id2, CPU_INT08U setpoint1_high, CPU_INT08U setpoint1_low, CPU_INT08U setpoint2_high, CPU_INT08U setpoint2_low)
@@ -48,7 +46,7 @@ void AX12_Dual_Write_Position_Sync (CPU_INT08U ax12_id1, CPU_INT08U ax12_id2, CP
 
 	checksum = ~(0xFE + length + AX12_CMD_SYNC_WRITE + AX12_REG_GOAL_POSITION + L + ax12_id1 + setpoint1_low + setpoint1_high + ax12_id2 + setpoint2_low + setpoint2_high);
 
-    AX12_UART_Write (0xFF); 
+	AX12_UART_Write (0xFF); 
 	AX12_UART_Write (0xFF);
 	AX12_UART_Write (0xFE); // ID BROADCAST
 	AX12_UART_Write (length); // LENGTH
@@ -67,7 +65,7 @@ void AX12_Dual_Write_Position_Sync (CPU_INT08U ax12_id1, CPU_INT08U ax12_id2, CP
 
 	AX12_UART_Write ( (CPU_INT08U) checksum); // CHECKSUM
 
-	while(AX12_UART_Data_Sent()!=1);
+	while(AX12_UART_Busy());
 }
 
 void AX12_Write_Position_Sync (CPU_INT08U ax12_id, CPU_INT08U setpoint_high, CPU_INT08U setpoint_low)
@@ -78,7 +76,7 @@ void AX12_Write_Position_Sync (CPU_INT08U ax12_id, CPU_INT08U setpoint_high, CPU
 
 	checksum = ~(0xFE + length + AX12_CMD_SYNC_WRITE + AX12_REG_GOAL_POSITION + L + ax12_id + setpoint_low + setpoint_high);
 
-    AX12_UART_Write (0xFF); 
+	AX12_UART_Write (0xFF); 
 	AX12_UART_Write (0xFF);
 	AX12_UART_Write (0xFE); // ID BROADCAST
 	AX12_UART_Write (length); // LENGTH
@@ -93,7 +91,7 @@ void AX12_Write_Position_Sync (CPU_INT08U ax12_id, CPU_INT08U setpoint_high, CPU
 
 	AX12_UART_Write ( (CPU_INT08U) checksum); // CHECKSUM
 
-	while(AX12_UART_Data_Sent()!=1);
+	while(AX12_UART_Busy());
 }
 
 void AX12_Dual_Write_Torque_On_Sync (CPU_INT08U ax12_id1, CPU_INT08U ax12_id2)
@@ -104,7 +102,7 @@ void AX12_Dual_Write_Torque_On_Sync (CPU_INT08U ax12_id1, CPU_INT08U ax12_id2)
 
 	checksum = ~(0xFE + length + AX12_CMD_SYNC_WRITE + AX12_REG_TORQUE_ENABLE + L + ax12_id1 + 0x01 + ax12_id2 + 0x01);
 
-    AX12_UART_Write (0xFF); 
+	AX12_UART_Write (0xFF); 
 	AX12_UART_Write (0xFF);
 	AX12_UART_Write (0xFE); // ID BROADCAST
 	AX12_UART_Write (length); // LENGTH
@@ -121,7 +119,7 @@ void AX12_Dual_Write_Torque_On_Sync (CPU_INT08U ax12_id1, CPU_INT08U ax12_id2)
 
 	AX12_UART_Write ( (CPU_INT08U) checksum); // CHECKSUM
 
-	while(AX12_UART_Data_Sent()!=1);
+	while(AX12_UART_Busy());
 }
 
 void AX12_Write_Torque_On_Sync (CPU_INT08U ax12_id)
@@ -132,7 +130,7 @@ void AX12_Write_Torque_On_Sync (CPU_INT08U ax12_id)
 
 	checksum = ~(0xFE + length + AX12_CMD_SYNC_WRITE + AX12_REG_TORQUE_ENABLE + L + ax12_id + 0x01);
 
-    AX12_UART_Write (0xFF); 
+	AX12_UART_Write (0xFF); 
 	AX12_UART_Write (0xFF);
 	AX12_UART_Write (0xFE); // ID BROADCAST
 	AX12_UART_Write (length); // LENGTH
@@ -146,7 +144,7 @@ void AX12_Write_Torque_On_Sync (CPU_INT08U ax12_id)
 
 	AX12_UART_Write ( (CPU_INT08U) checksum); // CHECKSUM
 
-	while(AX12_UART_Data_Sent()!=1);
+	while(AX12_UART_Busy());
 }
 
 CPU_INT08U AX12_Write_Reg_Sync (CPU_INT08U ax12_id, CPU_INT08U reg_address, CPU_INT08U data)
@@ -157,7 +155,7 @@ CPU_INT08U AX12_Write_Reg_Sync (CPU_INT08U ax12_id, CPU_INT08U reg_address, CPU_
 
 	checksum = ~(0xFE + length + AX12_CMD_SYNC_WRITE + reg_address + L + ax12_id + data);
 
-    AX12_UART_Write (0xFF); 
+	AX12_UART_Write (0xFF); 
 	AX12_UART_Write (0xFF);
 	AX12_UART_Write (0xFE); // ID BROADCAST
 	AX12_UART_Write (length); // LENGTH
@@ -171,7 +169,7 @@ CPU_INT08U AX12_Write_Reg_Sync (CPU_INT08U ax12_id, CPU_INT08U reg_address, CPU_
 
 	AX12_UART_Write ( (CPU_INT08U) checksum); // CHECKSUM
 
-	while(AX12_UART_Data_Sent()!=1);
+	while(AX12_UART_Busy());
 }
 
 CPU_INT08U AX12_Write_Reg_2_Datas_Sync( CPU_INT08U ax12_id, CPU_INT08U reg_address, CPU_INT08U data1, CPU_INT08U data2)
@@ -182,7 +180,7 @@ CPU_INT08U AX12_Write_Reg_2_Datas_Sync( CPU_INT08U ax12_id, CPU_INT08U reg_addre
 
 	checksum = ~(0xFE + length + AX12_CMD_SYNC_WRITE + reg_address + L + ax12_id + data1 + data2);
 
-    AX12_UART_Write (0xFF); 
+	AX12_UART_Write (0xFF); 
 	AX12_UART_Write (0xFF);
 	AX12_UART_Write (0xFE); // ID BROADCAST
 	AX12_UART_Write (length); // LENGTH
@@ -197,8 +195,20 @@ CPU_INT08U AX12_Write_Reg_2_Datas_Sync( CPU_INT08U ax12_id, CPU_INT08U reg_addre
 
 	AX12_UART_Write ( (CPU_INT08U) checksum); // CHECKSUM
 
-	while(AX12_UART_Data_Sent()!=1);
+	while(AX12_UART_Busy());
 }
+
+/// TO DO : Stop 3/02/2013 --> Fct test lecture AX12
+/// TO DO : integration code fifi
+/// TO DO : COLOR Sensor control
+/// TO DO : SERVO CONTROL
+/// TO DO : fonctions balises haut niveau ?
+/// TO DO : fonctions debug code FPGA ! --> ecriture LED !
+/// TO DO : fonctions debug code FPGA ! --> lecture odo avec tache associée
+/// TO DO : fonctions debug code FPGA ! --> servo
+/// TO DO : fonctions debug code FPGA ! --> AX12 + procedure pour cyril !
+/// TO DO : regarder les fonctions d'asser ! rampes de vitesses ! ...
+
 
 void QUAD_Latch (void)
 {
@@ -256,39 +266,7 @@ CPU_INT08U BEACON_Read (void)
 void BSPFPGA_Reset(void)
 {
 
-	char test;
 	PMP_Write(RESET_REGISTER,0xFF);
 	PMP_Write(RESET_REGISTER,0x00);
 	PMP_Write(LED_REGISTER,0x01);
-
-	AX12_UART_Init ();
-	
-	//DEBUG UART AX12
-	//AX12_UART_Write (0X55);
-	//AX12_UART_Write (0XAA);
-	//AX12_UART_Write (0X55);
-
-//	HOLDER_Init();
-
-/*	HOLDER_Open();
-	BSP_Dly(100000);
-	HOLDER_Close();
-
-	BSP_Dly(200000);
-	HOLDER_Level_Middle();
-
-	BSP_Dly(200000);
-	HOLDER_Level_Low();
-
-	BSP_Dly(200000);
-	HOLDER_Level_High();
-
-	BSP_Dly(200000);
-	HOLDER_Level_Middle();
-
-	BSP_Dly(200000);
-	HOLDER_Level_Low();
-
-	BSP_Dly(200000);
-	HOLDER_Open();*/
 }
