@@ -45,7 +45,7 @@ architecture wrapper of SERVO_CONTROL is
 	end component;
   
  	-- Declaration de etats  
-	type state_machine is (high, sig, low);
+	type state_machine is (sleep, high, sig, low);
 	-- Declaration de signaux   
 	signal current_state, next_state : state_machine;
 	
@@ -54,8 +54,9 @@ architecture wrapper of SERVO_CONTROL is
 	signal base_clk, base_clk_old : std_logic;
 	signal BC_edge: std_logic;
 	
-	signal period_counter : natural range 5121 downto 0;
-	signal sig_counter : natural range 256 downto 0;
+
+signal period_counter : natural range 5121 downto 0;
+signal sig_counter : natural range 256 downto 0;
 	
 	
 	begin
@@ -66,12 +67,12 @@ architecture wrapper of SERVO_CONTROL is
 				period_reg <= (others => '0');
 			elsif (clock'event and clock ='1') then
 				if (BUS_CS = '1' and BUS_WR = '1') then
-					BUS_D <= period_reg;
+					period_reg <= BUS_D;
 				end if;
 			end if;
 	end process registers_interface;
 	
-	Base_clk: BAUD_RATE_GENERATOR 
+	Base_clk_gen: BAUD_RATE_GENERATOR 
 		generic map (159)
 		port map (clock, reset, base_clk);
 		
@@ -89,49 +90,49 @@ architecture wrapper of SERVO_CONTROL is
 	state_update: process(clock, reset)
 		begin
 			if(reset='1') then
-				current_state <= high;
+				current_state <= sleep;
 			elsif (clock'event and clock='1') then
 				current_state <= next_state; 
 			end if;
 	end process;
 
-	next_state_prep: process(BC_edge, Rx, counter_int)
+	next_state_proc: process(BC_edge, period_counter, sig_counter)
 
 		begin
 			case current_state is
 			
 				when sleep =>		next_state <= high;
 				
-				when high =>		if(counter_period=256) then
+				when high =>		if(period_counter=256) then
 								next_state<=sig;
 							end if;
 							
-				when sig =>		if(counter_sig = period_reg) then -- Syncho clock
+				when sig =>		if(sig_counter = to_integer(unsigned(period_reg))) then -- Syncho clock
 								next_state<=low;
 							end if;  
 					
-				when low =>		if(counter_period = 5120) then
-								next_state<=high;
+				when low =>		if(period_counter = 5120) then
+								next_state<=sleep;
 							end if;
 							
-				when others =>		next_state<=high;
+				when others =>		next_state<=sleep;
 			end case;
 	end process;
 	
-	period_counter: process (BC_edge, reset)
+	period_counter_proc: process (BC_edge, reset)
 		begin
 			if(reset='1' or current_state=sleep) then
 				period_counter <= 0;
-			elsif(BR_edge='1') then
+			elsif(BC_edge='1') then
 				period_counter <= period_counter + 1;
 			end if;
 	end process;
 	
-	sig_counter: process (BC_edge, reset)
+	sig_counter_proc: process (BC_edge, reset)
 		begin
 			if(reset='1' or current_state=sleep) then
 				sig_counter <= 0;
-			elsif(BR_edge='1' and  current_state=sig) then
+			elsif(BC_edge='1' and  current_state=sig) then
 				sig_counter <= sig_counter + 1;
 			end if;
 	end process;

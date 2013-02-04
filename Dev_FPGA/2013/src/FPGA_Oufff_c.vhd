@@ -17,6 +17,7 @@ use work.LED_p.all;
 use work.ENCODER_p.all;
 use work.HALF_DUPLEX_UART_p.all;
 use work.TCS3200_p.all;
+use work.GPIO_p.all;
 use work.SERVO_CONTROL_p.all;
 
 entity FPGA_Oufff is
@@ -115,14 +116,16 @@ architecture mapping of FPGA_Oufff is
 	signal BUS_CS_COLOR_CONTROL:                 std_logic;
 	signal BUS_CS_BEACON:                 std_logic;
 	signal BUS_CS_GPIO:                 std_logic;
+	signal BUS_CS_SERVO_0:                 std_logic;
+	signal BUS_CS_SERVO_1:                 std_logic;
 	
 	signal SOFT_RESET:	           std_logic;
 	signal SOFT_RESET_N:               std_logic;
 	signal HARD_SOFT_RESET:		    std_logic;
 	
-	signal COLOR_CONTROL_REG:		std_logic_vectore (7 downto 0);
-	signal GPIO_REG:		std_logic_vectore (7 downto 0);
-	signal BEACON_REG:		std_logic_vectore (7 downto 0);
+	signal COLOR_CONTROL_REG:		std_logic_vector (7 downto 0);
+	signal GPIO_REG:		std_logic_vector (7 downto 0);
+	signal BEACON_REG:		std_logic_vector (7 downto 0);
 	
 	begin
 		-- Interface with the PIC PMP
@@ -293,9 +296,8 @@ architecture mapping of FPGA_Oufff is
 			
 		BUS_CS_COLOR_CONTROL <= '1' when (BUS_A >= BUS_COLOR_CONTROL_ADD_START and BUS_A <= BUS_COLOR_CONTROL_ADD_STOP) else '0';
 		
-		COLOR_CONTROL_REG(7 downto 2) <= (others => '0'); 
-		COLOR_CONTROL_REG(1) <= FPGA_SERVO_5; --S2 
-		COLOR_CONTROL_REG(0) <= FPGA_SERVO_3; -- S3
+    FPGA_SERVO_5 <=	COLOR_CONTROL_REG(1); --S2 
+    FPGA_SERVO_3 <=	COLOR_CONTROL_REG(0); -- S3
 		
 		-- Control signals of color sensors
 		COLOR_CONTROL: GPIO_OUT
@@ -338,10 +340,9 @@ architecture mapping of FPGA_Oufff is
 		-- GPIO
 		BUS_CS_GPIO <= '1' when (BUS_A >= BUS_GPIO_ADD_START and BUS_A <= BUS_GPIO_ADD_STOP) else '0';
 		
-		GPIO_REG(7 downto 3) <= (others => '0');
-		GPIO_REG(2) <= FPGA_GPIO_1; -- GPIO3
-		GPIO_REG(1) <= FPGA_GPIO_3; --GPIO2
-		GPIO_REG(0) <= FPGA_GPIO_7; -- GPIO1
+    FPGA_GPIO_1	<= GPIO_REG(2); -- GPIO3
+		FPGA_GPIO_3 <= GPIO_REG(1); --GPIO2
+		FPGA_GPIO_7 <= GPIO_REG(0); -- GPIO1
 
 		GPIOs : GPIO_OUT
 			port map (
@@ -358,7 +359,7 @@ architecture mapping of FPGA_Oufff is
 			);
 		
 		-- SERVO CONTROLLER
-		BUS_CS_SERVO_O <= '1' when (BUS_A >= BUS_SERV0_0_ADD_START and BUS_A <= BUS_SERVO_0_ADD_STOP) else '0';
+		BUS_CS_SERVO_0 <= '1' when (BUS_A >= BUS_SERVO_0_ADD_START and BUS_A <= BUS_SERVO_0_ADD_STOP) else '0';
 		
 		SERVO_0: SERVO_CONTROL
 			port map (
@@ -369,7 +370,7 @@ architecture mapping of FPGA_Oufff is
 				BUS_D			=> BUS_D,
 				BUS_RD			=> BUS_RD,
 				BUS_WR			=> BUS_WR,
-				BUS_CS			=> BUS_CS_SERVO_O,
+				BUS_CS			=> BUS_CS_SERVO_0,
 				-- servo
 				OUT_SIGNAL		=> FPGA_SERVO_9
 			);
