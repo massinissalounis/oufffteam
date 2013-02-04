@@ -42,7 +42,7 @@ add wave -noupdate -group AX12_1 /pmp_tb/DUT/AX12_1_interface/UART/BAUD_RATE
 add wave -noupdate -group AX12_1 /pmp_tb/DUT/AX12_1_interface/RxTx
 add wave -noupdate -group AX12_1 /pmp_tb/DUT/AX12_1_interface/BUS_CS
 add wave -noupdate -group AX12_1 /pmp_tb/DUT/AX12_1_interface/status_reg
-add wave -noupdate -group AX12_1 /pmp_tb/DUT/AX12_1_interface/input_reg
+add wave -noupdate -group AX12_1 -radix hexadecimal /pmp_tb/DUT/AX12_1_interface/input_reg
 add wave -noupdate -group AX12_1 /pmp_tb/DUT/AX12_1_interface/output_reg
 add wave -noupdate -group AX12_1 /pmp_tb/DUT/AX12_1_interface/dummy_reg
 add wave -noupdate -group AX12_1 /pmp_tb/DUT/AX12_1_interface/received_flag
@@ -58,14 +58,36 @@ add wave -noupdate -group AX12_1 -expand -group RECEIVER /pmp_tb/DUT/AX12_1_inte
 add wave -noupdate -group AX12_1 -expand -group RECEIVER /pmp_tb/DUT/AX12_1_interface/UART/Receiver/buffer_received
 add wave -noupdate -group AX12_1 -expand -group RECEIVER /pmp_tb/DUT/AX12_1_interface/UART/Receiver/Data_Received
 add wave -noupdate -group AX12_1 -expand -group RECEIVER /pmp_tb/DUT/AX12_1_interface/UART/Receiver/current_state
-add wave -noupdate -expand -group COLOR_SENSOR_1 /pmp_tb/DUT/COLOR_SENSOR_1/IN_SIGNAL
-add wave -noupdate -expand -group COLOR_SENSOR_1 /pmp_tb/DUT/BUS_CS_COLOR_SENSOR_1
-add wave -noupdate -expand -group COLOR_SENSOR_1 /pmp_tb/DUT/COLOR_SENSOR_1/IN_SIGNAL_RISING_EDGE
-add wave -noupdate -expand -group COLOR_SENSOR_1 /pmp_tb/DUT/COLOR_SENSOR_1/IN_SIGNAL_FALLING_EDGE
-add wave -noupdate -expand -group COLOR_SENSOR_1 -radix hexadecimal /pmp_tb/DUT/COLOR_SENSOR_1/period_reg
-add wave -noupdate -expand -group COLOR_SENSOR_1 -radix unsigned /pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter
+add wave -noupdate -group COLOR_SENSOR_1 /pmp_tb/DUT/COLOR_SENSOR_1/IN_SIGNAL
+add wave -noupdate -group COLOR_SENSOR_1 /pmp_tb/DUT/BUS_CS_COLOR_SENSOR_1
+add wave -noupdate -group COLOR_SENSOR_1 /pmp_tb/DUT/COLOR_SENSOR_1/IN_SIGNAL_RISING_EDGE
+add wave -noupdate -group COLOR_SENSOR_1 /pmp_tb/DUT/COLOR_SENSOR_1/IN_SIGNAL_FALLING_EDGE
+add wave -noupdate -group COLOR_SENSOR_1 -radix hexadecimal /pmp_tb/DUT/COLOR_SENSOR_1/period_reg
+add wave -noupdate -group COLOR_SENSOR_1 -radix unsigned -childformat {{/pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(7) -radix unsigned} {/pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(6) -radix unsigned} {/pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(5) -radix unsigned} {/pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(4) -radix unsigned} {/pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(3) -radix unsigned} {/pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(2) -radix unsigned} {/pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(1) -radix unsigned} {/pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(0) -radix unsigned}} -subitemconfig {/pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(7) {-height 16 -radix unsigned} /pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(6) {-height 16 -radix unsigned} /pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(5) {-height 16 -radix unsigned} /pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(4) {-height 16 -radix unsigned} /pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(3) {-height 16 -radix unsigned} /pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(2) {-height 16 -radix unsigned} /pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(1) {-height 16 -radix unsigned} /pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter(0) {-height 16 -radix unsigned}} /pmp_tb/DUT/COLOR_SENSOR_1/half_period_counter
+add wave -noupdate -group COLOR_CONTROL /pmp_tb/DUT/FPGA_SERVO_5
+add wave -noupdate -group COLOR_CONTROL /pmp_tb/DUT/FPGA_SERVO_3
+add wave -noupdate -group COLOR_CONTROL /pmp_tb/DUT/COLOR_CONTROL/GPIO_REG
+add wave -noupdate -group BEACON /pmp_tb/DUT/BEACON_CONTROL/GPIO_REG
+add wave -noupdate -group BEACON /pmp_tb/FPGA_GPIO_4
+add wave -noupdate -group BEACON /pmp_tb/FPGA_GPIO_2
+add wave -noupdate -group BEACON /pmp_tb/FPGA_GPIO_9
+add wave -noupdate -group BEACON /pmp_tb/FPGA_GPIO_6
+add wave -noupdate -group GPIO /pmp_tb/DUT/GPIOs/GPIO_REG
+add wave -noupdate -group GPIO /pmp_tb/DUT/FPGA_GPIO_1
+add wave -noupdate -group GPIO /pmp_tb/DUT/FPGA_GPIO_3
+add wave -noupdate -group GPIO /pmp_tb/DUT/FPGA_GPIO_7
+add wave -noupdate -expand -group SERVO_0 /pmp_tb/DUT/SERVO_0/period_reg
+add wave -noupdate -expand -group SERVO_0 /pmp_tb/DUT/BUS_CS_SERVO_0
+add wave -noupdate -expand -group SERVO_0 /pmp_tb/DUT/SERVO_0/current_state
+add wave -noupdate -expand -group SERVO_0 /pmp_tb/DUT/SERVO_0/next_state
+add wave -noupdate -expand -group SERVO_0 /pmp_tb/DUT/SERVO_0/period_counter
+add wave -noupdate -expand -group SERVO_0 /pmp_tb/DUT/SERVO_0/sig_counter
+add wave -noupdate -expand -group SERVO_0 /pmp_tb/DUT/FPGA_SERVO_9
+add wave -noupdate -expand -group SERVO_0 /pmp_tb/DUT/SERVO_0/base_clk
+add wave -noupdate -expand -group SERVO_0 /pmp_tb/DUT/SERVO_0/BC_edge
+add wave -noupdate -expand -group SERVO_1 /pmp_tb/DUT/FPGA_SERVO_7
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {209813 ns} 0}
+WaveRestoreCursors {{Cursor 1} {20872332 ns} 0}
 configure wave -namecolwidth 241
 configure wave -valuecolwidth 100
 configure wave -justifyvalue left
@@ -80,4 +102,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {198682 ns} {202264 ns}
+WaveRestoreZoom {0 ns} {42420 us}

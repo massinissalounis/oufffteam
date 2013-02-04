@@ -310,13 +310,10 @@ end component FPGA_Oufff;
 			FPGA_PHA4	<= '0';
 			FPGA_PHB4	<= '0';
 			
-			FPGA_GPIO_1	<= '0';
 			FPGA_GPIO_2	<= '0';
-			FPGA_GPIO_3	<= '0';
 			FPGA_GPIO_4	<= '0';
 			FPGA_GPIO_5	<= '0';
 			FPGA_GPIO_6	<= '0';
-			FPGA_GPIO_7	<= '0';
 			FPGA_GPIO_8	<= 'Z'; -- AX12_1 link
 			FPGA_GPIO_9	<= '0';
 
@@ -399,7 +396,8 @@ end component FPGA_Oufff;
 			PIC_ADDR <= Address_AX12_1_IN;
 			wait for 50 ns;
 			pmp_read_access (PIC_PB_CLK, PIC_ADDR, PIC_PMDIN, PIC_PMP_PMD, PIC_PMP_PMALL, PIC_PMP_PMALH, PIC_PMP_PMRD, PIC_PMP_PMWR);
-			
+
+		---- Test COLOR_SENSOR ----			
 			assert false report ("Test COLOR_SENSOR_1") severity note;
 			PIC_ADDR <= Address_COLOR_SENSOR_1;
 			pmp_read_access (PIC_PB_CLK, PIC_ADDR, PIC_PMDIN, PIC_PMP_PMD, PIC_PMP_PMALL, PIC_PMP_PMALH, PIC_PMP_PMRD, PIC_PMP_PMWR);
@@ -422,7 +420,7 @@ end component FPGA_Oufff;
 			
 		---- Test GPIO ----
 			assert false report ("Test GPIO") severity note;
-			PIC_ADDR <= Address_COLOR_CONTROL;
+			PIC_ADDR <= Address_GPIO;
 			PIC_PMDIN <=  X"FF";
 			pmp_write_access (PIC_PB_CLK, PIC_ADDR, PIC_PMDIN, PIC_PMP_PMD, PIC_PMP_PMALL, PIC_PMP_PMALH, PIC_PMP_PMRD, PIC_PMP_PMWR);
 			PIC_PMDIN <=  X"00";
