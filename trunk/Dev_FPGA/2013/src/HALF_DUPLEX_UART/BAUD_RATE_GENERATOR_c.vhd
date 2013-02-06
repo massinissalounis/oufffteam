@@ -49,27 +49,6 @@ architecture synchronous of BAUD_RATE_GENERATOR is -- Vue interne
               
           end if;
       end process;   
-      			
-			
- --           if(division_factor=1) then -- Rising and Falling edges
- --              internal_clk <= not internal_clk; 
- --           elsif(clock='1') then -- Rising edge
- --             if(count=division_factor/2) then
- --               count<=1;
- --             else
- --               count<=count+1;
- --             end if;  
-                        
- --             if(count=division_factor/2) then
- --              internal_clk <= not internal_clk;
-  --            end if;  
- --           end if;
- --        elsif (clock'event and clock='0') then
---				if (division_factor=1) then
---					internal_clk <= not internal_clk;
---				end if;
---         end if;
---      end process;   
       
       baud_rate<= internal_clk;      
 end synchronous;

@@ -5,6 +5,7 @@ use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 
 library work;
+use work.FPGA_OUFFF_p.all;
 
 entity PMP_TB is
 end entity PMP_TB;
@@ -12,7 +13,7 @@ end entity PMP_TB;
 architecture testbench of PMP_TB is
 
 	constant period_PIC_TPB		: time := 12.5 ns; 	-- 80 MHz
-	constant period_FPGA		: time := 24.6 ns;  	-- 40.69 MHz
+	constant period_FPGA		: time := 1/FPGA_FREQUENCY;	-- 40.69 MHz
 	
 	constant period_BR		: time := 8.7 us;  	-- 115200 BPS
 	

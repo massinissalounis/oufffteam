@@ -16,6 +16,9 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+library work;
+use work.FPGA_OUFFF_p.all;
+
 entity SERVO_CONTROL is
   port (
 		-- in
@@ -73,7 +76,7 @@ signal sig_counter : natural range 256 downto 0;
 	end process registers_interface;
 	
 	Base_clk_gen: BAUD_RATE_GENERATOR 
-		generic map (159)
+		generic map (3906E-9*FPGA_FREQUENCY)
 		port map (clock, reset, base_clk);
 		
 	BC_edge_detection: process(clock, reset)

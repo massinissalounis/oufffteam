@@ -2,6 +2,9 @@
 
 Library IEEE; -- Librairies
     use IEEE.STD_LOGIC_1164.all;
+    
+library work;
+use work.FPGA_OUFFF_p.all;
 
 entity FULL_DUPLEX_UART is -- Vue externe
 	generic (
@@ -86,7 +89,7 @@ architecture wrapper of FULL_DUPLEX_UART is
 	begin
 		--Intensiation des composants
 		Baud_Rate_Gen: BAUD_RATE_GENERATOR 
-			generic map (40690000/Speed) -- Rapport de division
+			generic map (FPGA_FREQUENCY/Speed) -- Rapport de division
 			port map (clock, reset, BAUD_RATE);
 
 		Transmitter: UART_TRANSMITTER 
