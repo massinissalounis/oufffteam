@@ -37,6 +37,12 @@ architecture synchronous of PMP_interface is
 	signal BUS_A_L	: std_logic_vector (7 downto 0);
 	signal BUS_A_H	: std_logic_vector (7 downto 0);
 	
+	attribute TIG : string;
+	attribute ASYNC_REG : string;
+	
+	attribute TIG of PMP_PMALH, PMP_PMALL, PMP_PMCS, PMP_PMD, PMP_PMRD, PMP_PMWR : signal is "TRUE";
+	attribute ASYNC_REG of BUS_D, BUS_A_L, BUS_A_H, BUS_RD, BUS_WR : signal is "TRUE";
+	
 	begin
 		latch: process (reset, clock)
 			begin
@@ -62,14 +68,23 @@ architecture synchronous of PMP_interface is
 						PMP_PMD <= (others => 'Z');
 						BUS_D <= (others => 'Z');					      
 				  end if;
-				  
-
 				end if;
 		  end process latch;
 
 		BUS_A (7 downto 0)	<= BUS_A_L;
 		BUS_A (15 downto 8)	<= BUS_A_H;
 		
-	  BUS_RD <= PMP_PMRD;
-		BUS_WR <= PMP_PMWR;
+		latch_control_sig: process (reset, clock)
+			begin
+				if (reset = '1') then
+					BUS_RD	<= '0';
+					BUS_WR <= '0';
+				elsif (clock'event and clock='0') then
+					BUS_RD <= PMP_PMRD;
+					BUS_WR <= PMP_PMWR;
+				end if;
+		  end process latch_control_sig;
+		
+--	  BUS_RD <= PMP_PMRD;
+--		BUS_WR <= PMP_PMWR;
 end architecture synchronous;

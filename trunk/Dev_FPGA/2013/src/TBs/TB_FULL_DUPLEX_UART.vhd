@@ -9,13 +9,13 @@ end TB_FULL_DUPLEX_UART;
 architecture simulation of TB_FULL_DUPLEX_UART is
 
 	constant period_FPGA		: time := 24.6 ns;  	-- 40.69 MHz
-	constant period_BR		: time := 1 us;  	-- 1 MHz
+	constant period_BR		: time := 8.6 us;  	-- 1 MHz
 
 	component FULL_DUPLEX_UART is -- Vue externe
-		generic (
-			N_interrupt: integer := 3; -- Duree du signal d'interruption (cycles)
-			Speed: integer := 115200 -- Vitesse de fonctionnement de l'horloge en bauds
-		);
+--		generic (
+--			N_interrupt: integer := 3; -- Duree du signal d'interruption (cycles)
+--			Speed: integer := 115200 -- Vitesse de fonctionnement de l'horloge en bauds
+--		);
 		port (
 			clock:in std_logic;
 			reset:in std_logic;
@@ -37,7 +37,7 @@ architecture simulation of TB_FULL_DUPLEX_UART is
 
 	signal FPGA_CLK, RESET: std_logic;
 	signal Rx, Tx: std_logic;
-	signal Int_DataReceived, Int_DataSent, Send: std_logic;
+	signal Int_DataReceived, Int_DataSent, Send, busy: std_logic;
 	signal Data_Received, Data_ToSend : std_logic_vector ( 7 downto 0 );
     
 	begin
@@ -55,7 +55,7 @@ architecture simulation of TB_FULL_DUPLEX_UART is
 		
 		main_tb: process
 		begin
-			Rx<='Z';
+			Rx<='1';
 
 			---- Test RESET ----
 			assert false report (" HARD RESET") severity note;
@@ -94,7 +94,7 @@ architecture simulation of TB_FULL_DUPLEX_UART is
 		end process;
 		
         UUT : FULL_DUPLEX_UART
-		generic map(4,1000000)
-		port map ( FPGA_CLK, RESET, Rx, Tx, Int_DataReceived, Int_DataSent, Send, Data_Received, Data_ToSend);
+--		generic map(4,1000000)
+		port map ( FPGA_CLK, RESET, Rx, Tx, Int_DataReceived, Int_DataSent, Send, Data_Received, Data_ToSend, Busy);
 
 end architecture;

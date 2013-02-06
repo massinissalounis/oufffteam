@@ -48,7 +48,19 @@ architecture synchronous of RESET is
 			end if;
 		end process bus_interface;
 		
-	SOFT_RESET	<= '1' when RESET_register = X"FF" else '0';
-	SOFT_RESET_N	<= '0' when RESET_register = X"FF" else '1';
-
+		out_update: process (reset, clock)
+		begin
+			if (reset = '1') then
+				SOFT_RESET <='0';
+				SOFT_RESET_N <='1';
+			elsif (clock'event and clock='1') then
+				if(RESET_register=X"FF") then
+					SOFT_RESET	<= '1';-- when RESET_register = X"FF" else '0';
+					SOFT_RESET_N <= '0';-- when RESET_register = X"FF" else '1';
+				else
+					SOFT_RESET <= '0';
+					SOFT_RESET_N <= '1';
+				end if;
+			end if;
+		end process;
 end architecture synchronous;

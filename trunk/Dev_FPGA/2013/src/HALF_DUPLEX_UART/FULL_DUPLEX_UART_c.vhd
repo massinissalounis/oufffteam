@@ -98,5 +98,6 @@ architecture wrapper of FULL_DUPLEX_UART is
 			port map (clock, reset, BAUD_RATE, Rx, Data_Received, Int_DataReceived, Busy_receiver);
 			
 		Busy <= Busy_receiver or Busy_transmitter;
-
+--		Busy <= Busy_transmitter;
+--		Int_DataReceived <= '0';
 end wrapper;

@@ -8,6 +8,10 @@
 
 Library IEEE; -- Librairies
     use IEEE.STD_LOGIC_1164.all;
+	 
+--attribute KEEP_HIERARCHY : string;
+--attribute KEEP_HIERARCHY of 
+--BAUD_RATE_GENERATOR: label is "TRUE";
 
 entity BAUD_RATE_GENERATOR is -- Vue externe
 	generic (
@@ -28,29 +32,44 @@ architecture synchronous of BAUD_RATE_GENERATOR is -- Vue interne
    begin
     
       transition : process(clock,reset)
-
       begin
          if(reset='1') then
             internal_clk<='0';
             count<=1;
-         elsif (clock'event) then
-            if(division_factor=1) then -- Rising and Falling edges
-               internal_clk <= not internal_clk; 
-            elsif(clock='1') then -- Rising edge
+         elsif (clock'event and clock='1') then
               if(count=division_factor/2) then
                 count<=1;
               else
                 count<=count+1;
               end if;  
-                        
+              
               if(count=division_factor/2) then
-               internal_clk <= not internal_clk;
-              end if;  
-            end if;
-            
- 
+                  internal_clk <= not internal_clk;
+              end if;
+              
           end if;
       end process;   
+      			
+			
+ --           if(division_factor=1) then -- Rising and Falling edges
+ --              internal_clk <= not internal_clk; 
+ --           elsif(clock='1') then -- Rising edge
+ --             if(count=division_factor/2) then
+ --               count<=1;
+ --             else
+ --               count<=count+1;
+ --             end if;  
+                        
+ --             if(count=division_factor/2) then
+ --              internal_clk <= not internal_clk;
+  --            end if;  
+ --           end if;
+ --        elsif (clock'event and clock='0') then
+--				if (division_factor=1) then
+--					internal_clk <= not internal_clk;
+--				end if;
+--         end if;
+--      end process;   
       
       baud_rate<= internal_clk;      
 end synchronous;

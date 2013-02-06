@@ -16,7 +16,7 @@ architecture testbench of PMP_TB is
 	
 	constant period_BR		: time := 8.7 us;  	-- 115200 BPS
 	
-	constant period_ENCODER_edges	: time := 500 ns;	-- 5 MHz --> 976 RPS --> Not physical but used for simulation purpose
+	constant period_ENCODER_edges	: time := 20*period_FPGA;
 	constant period_COLOR		: time := 10 us;	-- 100kHz
 	
 	-- parametres du bus PMP reglables dans le microcontroleur (en nombre de fronts de fclk)
@@ -314,7 +314,7 @@ end component FPGA_Oufff;
 			FPGA_GPIO_4	<= '0';
 			FPGA_GPIO_5	<= '0';
 			FPGA_GPIO_6	<= '0';
-			FPGA_GPIO_8	<= 'Z'; -- AX12_1 link
+			FPGA_GPIO_8	<= 'H'; -- AX12_1 link
 			FPGA_GPIO_9	<= '0';
 
 			FPGA_SERVO_1	<= '0';
@@ -365,7 +365,7 @@ end component FPGA_Oufff;
 			pmp_read_access (PIC_PB_CLK, PIC_ADDR, PIC_PMDIN, PIC_PMP_PMD, PIC_PMP_PMALL, PIC_PMP_PMALH, PIC_PMP_PMRD, PIC_PMP_PMWR);
 			
 		---- Test AX12_1 ----
-			assert false report ("Test AX12_1") severity note;
+--			assert false report ("Test AX12_1") severity note;
 			
 			assert false report ("AX12_1 Write") severity note;
 			PIC_ADDR <= Address_AX12_1_OUT;
@@ -377,20 +377,21 @@ end component FPGA_Oufff;
 			wait for 50 ns;
 			pmp_read_access (PIC_PB_CLK, PIC_ADDR, PIC_PMDIN, PIC_PMP_PMD, PIC_PMP_PMALL, PIC_PMP_PMALH, PIC_PMP_PMRD, PIC_PMP_PMWR);
 			wait for 11*period_BR;
+--			wait for 2*period_BR;
 		
 			assert false report ("AX12_1 Read") severity note;
-			FPGA_GPIO_8<='1';			wait for period_BR;
+			FPGA_GPIO_8<='H';			wait for period_BR;
 			FPGA_GPIO_8<='0';			wait for period_BR; -- Start
-			FPGA_GPIO_8<='1';			wait for period_BR;
-			FPGA_GPIO_8<='1';			wait for period_BR;
+			FPGA_GPIO_8<='H';			wait for period_BR;
+			FPGA_GPIO_8<='H';			wait for period_BR;
 			FPGA_GPIO_8<='0';			wait for period_BR;
 			FPGA_GPIO_8<='0';			wait for period_BR;
-			FPGA_GPIO_8<='1';			wait for period_BR;
-			FPGA_GPIO_8<='1';			wait for period_BR;
+			FPGA_GPIO_8<='H';			wait for period_BR;
+			FPGA_GPIO_8<='H';			wait for period_BR;
 			FPGA_GPIO_8<='0';			wait for period_BR;
 			FPGA_GPIO_8<='0';			wait for period_BR;
-			FPGA_GPIO_8<='1';			wait for 2*period_BR; -- Stop
-			FPGA_GPIO_8<='Z';				
+			FPGA_GPIO_8<='H';			wait for 2*period_BR; -- Stop
+			FPGA_GPIO_8<='H';				
 			PIC_ADDR <= Address_AX12_1_STATUS;
 			pmp_read_access (PIC_PB_CLK, PIC_ADDR, PIC_PMDIN, PIC_PMP_PMD, PIC_PMP_PMALL, PIC_PMP_PMALH, PIC_PMP_PMRD, PIC_PMP_PMWR);
 			PIC_ADDR <= Address_AX12_1_IN;

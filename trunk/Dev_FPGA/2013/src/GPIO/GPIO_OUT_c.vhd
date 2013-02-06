@@ -43,6 +43,13 @@ architecture synchronous of GPIO_OUT is
 			end if;
 		end process bus_interface;
 		
-	GPIO_REG <= GPIO_register;
+		output_latch: process (reset, clock)
+		begin
+			if (reset = '1') then
+				GPIO_REG <= (others => '0');
+			elsif (clock'event and clock ='1') then
+				GPIO_REG <= GPIO_register;
+			end if;
+		end process output_latch;
 	
 end architecture synchronous;
