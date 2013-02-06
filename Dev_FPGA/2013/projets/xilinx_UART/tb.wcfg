@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/Oufff_Team/SVN/Dev_FPGA/2013/projets/UART/TB_FULL_DUPLEX_UART_isim_par.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="std_logic_1164" />
+            <top_module name="tb_full_duplex_uart" />
+            <top_module name="vl_types" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="20" />
+   <wvobject fp_name="/tb_full_duplex_uart/fpga_clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">fpga_clk</obj_property>
+      <obj_property name="ObjectShortName">fpga_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/reset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/rx" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rx</obj_property>
+      <obj_property name="ObjectShortName">rx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/tx" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">tx</obj_property>
+      <obj_property name="ObjectShortName">tx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/int_datareceived" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">int_datareceived</obj_property>
+      <obj_property name="ObjectShortName">int_datareceived</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/int_datasent" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">int_datasent</obj_property>
+      <obj_property name="ObjectShortName">int_datasent</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/send" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">send</obj_property>
+      <obj_property name="ObjectShortName">send</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/data_received" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_received[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_received[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/data_tosend" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data_tosend[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data_tosend[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/period_fpga" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">period_fpga</obj_property>
+      <obj_property name="ObjectShortName">period_fpga</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/period_br" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">period_br</obj_property>
+      <obj_property name="ObjectShortName">period_br</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/UUT/BAUD_RATE" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BAUD_RATE</obj_property>
+      <obj_property name="ObjectShortName">BAUD_RATE</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/UUT/\Transmitter/BR_edge " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\Transmitter/BR_edge </obj_property>
+      <obj_property name="ObjectShortName">\Transmitter/BR_edge </obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/UUT/Busy" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">Busy</obj_property>
+      <obj_property name="ObjectShortName">Busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/busy" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">busy</obj_property>
+      <obj_property name="ObjectShortName">busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/UUT/\Transmitter/counter_data " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\Transmitter/counter_data [3:0]</obj_property>
+      <obj_property name="ObjectShortName">\Transmitter/counter_data [3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/UUT/\Transmitter/counter_int " type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">\Transmitter/counter_int [1:0]</obj_property>
+      <obj_property name="ObjectShortName">\Transmitter/counter_int [1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/UUT/\Transmitter/current_state_FSM_FFd1_376 " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\Transmitter/current_state_FSM_FFd1_376 </obj_property>
+      <obj_property name="ObjectShortName">\Transmitter/current_state_FSM_FFd1_376 </obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/UUT/\Transmitter/current_state_FSM_FFd2_375 " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\Transmitter/current_state_FSM_FFd2_375 </obj_property>
+      <obj_property name="ObjectShortName">\Transmitter/current_state_FSM_FFd2_375 </obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_full_duplex_uart/UUT/\Transmitter/current_state_FSM_FFd3_374 " type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">\Transmitter/current_state_FSM_FFd3_374 </obj_property>
+      <obj_property name="ObjectShortName">\Transmitter/current_state_FSM_FFd3_374 </obj_property>
+   </wvobject>
+</wave_config>

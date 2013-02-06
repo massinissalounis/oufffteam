@@ -28,6 +28,12 @@ signal B_temp : std_logic_vector (2 downto 0 ) := (others => '0'); -- interferen
 
 signal tmp : unsigned (15 downto 0) := (others => '0');
 
+	attribute TIG : string;
+	attribute ASYNC_REG : string;
+	
+	attribute TIG of A,B : signal is "TRUE";
+	attribute ASYNC_REG of A_temp, B_temp : signal is "TRUE";
+
 begin
 
 	latch_channel : process ( clock, reset )
@@ -46,7 +52,7 @@ begin
 	
 		if(reset = '1') then
 			tmp <= ( others => '0' );
-		elsif (clock'event and clock='1' ) then
+		elsif (clock'event and clock='0' ) then
 			if 	((A_temp(1) = '0' and B_temp(1) = '0' and A_temp(2) = '1' and B_temp(2) = '0')
 				or	(A_temp(1) = '1' and B_temp(1) = '0' and A_temp(2) = '1' and B_temp(2) = '1')
 				or	(A_temp(1) = '1' and B_temp(1) = '1' and A_temp(2) = '0' and B_temp(2) = '1')

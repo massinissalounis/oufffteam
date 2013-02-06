@@ -105,34 +105,40 @@ signal sig_counter : natural range 256 downto 0;
 				
 				when high =>		if(period_counter=256) then
 								next_state<=sig;
+										else
+								next_state<=high;
 							end if;
 							
 				when sig =>		if(sig_counter = to_integer(unsigned(period_reg))) then -- Syncho clock
 								next_state<=low;
+									else
+								next_state<=sig;
 							end if;  
 					
 				when low =>		if(period_counter = 5120) then
 								next_state<=sleep;
+									else
+								next_state<=low;
 							end if;
 							
 				when others =>		next_state<=sleep;
 			end case;
 	end process;
 	
-	period_counter_proc: process (BC_edge, reset)
+	period_counter_proc: process (BC_edge, reset, clock)
 		begin
 			if(reset='1' or current_state=sleep) then
 				period_counter <= 0;
-			elsif(BC_edge='1') then
+			elsif(clock'event and clock='1' and BC_edge='1') then
 				period_counter <= period_counter + 1;
 			end if;
 	end process;
 	
-	sig_counter_proc: process (BC_edge, reset)
+	sig_counter_proc: process (BC_edge, reset, clock)
 		begin
 			if(reset='1' or current_state=sleep) then
 				sig_counter <= 0;
-			elsif(BC_edge='1' and  current_state=sig) then
+			elsif(clock'event and clock='1' and BC_edge='1' and current_state=sig) then
 				sig_counter <= sig_counter + 1;
 			end if;
 	end process;

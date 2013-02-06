@@ -61,8 +61,8 @@ architecture wrapper of HALF_DUPLEX_UART is
 	signal Int_DataReceived: std_logic;
 	signal Int_DataSent: std_logic;
 
-	signal BUS_WR_old: std_logic;
-	signal BUS_RD_old: std_logic;
+	signal BUS_WR_old, BUS_WR_old_2: std_logic;
+	signal BUS_RD_old, BUS_RD_old_2: std_logic;
 		
 	signal WR_falling_edge: std_logic;
 	signal RD_falling_edge: std_logic;
@@ -103,15 +103,19 @@ architecture wrapper of HALF_DUPLEX_UART is
 		begin
 			if(reset='1') then
 				BUS_WR_old <= BUS_WR;
+				BUS_WR_old_2 <= BUS_WR_old;
 				BUS_RD_old <= BUS_RD;
+				BUS_RD_old_2 <= BUS_RD_old;
 			elsif (clock'event and clock='1') then
 				BUS_WR_old <= BUS_WR;
+				BUS_WR_old_2 <= BUS_WR_old;
 				BUS_RD_old <= BUS_RD;
+				BUS_RD_old_2 <= BUS_RD_old;
 			end if;
 	end process;
 
-	WR_falling_edge <= (BUS_WR xor BUS_WR_old) and (BUS_WR_old);
-	RD_falling_edge <= (BUS_RD xor BUS_RD_old) and (BUS_RD_old);
+	WR_falling_edge <= (BUS_WR xor BUS_WR_old_2) and (BUS_WR_old_2);
+	RD_falling_edge <= (BUS_RD xor BUS_RD_old_2) and (BUS_RD_old_2);
 	
 	trig_send: process (reset, clock)
 		begin
@@ -146,7 +150,7 @@ architecture wrapper of HALF_DUPLEX_UART is
 	end process;
 	
 	-- Status reg filling
-	status_reg(0) <= Busy;
+	status_reg(0) <= busy;
 	status_reg(1) <= received_flag;
 					
 	UART: FULL_DUPLEX_UART 
@@ -155,6 +159,6 @@ architecture wrapper of HALF_DUPLEX_UART is
 
 
 	RxTx <= Tx when send_flag='1' else 'Z';
-	Rx <= RxTx when send_flag='0' else 'Z';
+	Rx <= RxTx when send_flag='0' else '1';
     
 end architecture wrapper;

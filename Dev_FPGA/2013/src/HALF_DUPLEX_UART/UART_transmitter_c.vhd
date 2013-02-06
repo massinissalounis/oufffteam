@@ -43,6 +43,9 @@ architecture synchronous of UART_TRANSMITTER is -- Vue interne
 	signal counter_data : natural range 8 downto 0;
 	signal counter_int : natural range N_interrupt downto 0;
 
+	attribute keep : boolean;
+	attribute keep of current_state, next_state, clock_UART_old, counter_data, counter_int : signal is true;
+
 	begin
 	
 	state_update: process(clock, reset)
@@ -65,44 +68,58 @@ architecture synchronous of UART_TRANSMITTER is -- Vue interne
 
 	BR_edge <= (clock_UART xor clock_UART_old) and (clock_UART);
 
-	next_state_prep: process(BR_edge, Send, counter_int)
+	next_state_prep: process(BR_edge, Send, counter_int, current_state)
 
 		begin
 			case current_state is
 				when sleep =>		if(Send='1') then -- Start new transmission
 								next_state<=sync_clk;
+										else
+								next_state<=sleep;
 							end if;
 
 				when sync_clk =>		if(BR_edge = '1') then  -- BR clock synchronization
 								next_state<=start;
+										else
+								next_state<=sync_clk;
 							end if;
 					
 				when start =>		if(BR_edge = '1') then
 								next_state<=data;
+										else
+								next_state<=start;
 							end if;
 			
 				when data =>		if(BR_edge = '1' and counter_data=7) then -- On a eu un front sur la clock de transfert
 								next_state<=stop;
+										else
+								next_state<=data;
 							end if;	
 										
 				when stop =>		if(BR_edge = '1') then -- On a eu un front sur la clock de transfert
 								next_state<=interrupt;
+										else
+								next_state<=stop;
 							end if;
 											
 				when interrupt =>	if(counter_int=N_interrupt-1) then 
 								next_state<=sleep;
+										else
+								next_state<=interrupt;
 							end if;
 
 				when others =>		next_state<=sleep; --En cas d'etat inconnu, on passe dans l'etat de repos 
 			end case;
 	end process;
 
-	data_counter: process (BR_edge, reset)
+	data_counter: process (clock,BR_edge, reset)
 		begin
 			if(reset='1' or current_state=sleep) then
 				counter_data <= 0;
-			elsif(current_state=data and BR_edge='1') then
-				counter_data <= counter_data + 1;
+			elsif(clock'event and clock='1') then
+				if(current_state=data and BR_edge='1') then
+					counter_data <= counter_data + 1;
+				end if;
 			end if;
 	end process;
 
@@ -137,12 +154,16 @@ architecture synchronous of UART_TRANSMITTER is -- Vue interne
 			end if;
 	end process;
 	
-	busy_update: process(current_state)
+	busy_update: process(clock, reset, current_state)
 		begin
-			if(current_state=sleep) then
-		    Busy<='0';
-		  else
-		    Busy<='1';
+			if(reset='1') then
+				Busy<='0';
+			elsif (clock'event and clock='1') then
+				if(current_state=sleep) then
+					Busy<='0';
+				else
+					Busy<='1';
+				end if;
 		  end if;
 	end process;
 	

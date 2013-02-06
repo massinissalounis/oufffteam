@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/Oufff_Team/SVN/Dev_FPGA/2013/projets/BRGenerator/TB_BAUD_RATE_GENERATOR_isim_par.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="std_logic_1164" />
+            <top_module name="tb_baud_rate_generator" />
+            <top_module name="vl_types" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="4" />
+   <wvobject fp_name="/tb_baud_rate_generator/fpga_clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">fpga_clk</obj_property>
+      <obj_property name="ObjectShortName">fpga_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_baud_rate_generator/reset" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_baud_rate_generator/period_fpga" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">period_fpga</obj_property>
+      <obj_property name="ObjectShortName">period_fpga</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_baud_rate_generator/UUT/internal_clk_98" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">internal_clk_98</obj_property>
+      <obj_property name="ObjectShortName">internal_clk_98</obj_property>
+   </wvobject>
+</wave_config>
