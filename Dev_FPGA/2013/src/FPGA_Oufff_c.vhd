@@ -100,6 +100,10 @@ architecture mapping of FPGA_Oufff is
 	signal GPIO_REG:		std_logic_vector (7 downto 0);
 	signal BEACON_REG:		std_logic_vector (7 downto 0);
 	
+	--Component configuration
+	for PMP: PMP_interface
+			use entity work.PMP_interface (semi_synchronous);
+	
 	begin
 		-- Interface with the PIC PMP
 		PMP: PMP_interface

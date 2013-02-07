@@ -76,7 +76,7 @@ signal sig_counter : natural range 256 downto 0;
 	end process registers_interface;
 	
 	Base_clk_gen: BAUD_RATE_GENERATOR 
-		generic map (3906E-9*FPGA_FREQUENCY)
+		generic map ((3906*(FPGA_FREQUENCY/1000000))/1000)
 		port map (clock, reset, base_clk);
 		
 	BC_edge_detection: process(clock, reset)

@@ -85,6 +85,48 @@ architecture synchronous of PMP_interface is
 				end if;
 		  end process latch_control_sig;
 		
---	  BUS_RD <= PMP_PMRD;
---		BUS_WR <= PMP_PMWR;
 end architecture synchronous;
+
+architecture semi_synchronous of PMP_interface is
+	
+	signal BUS_A_L	: std_logic_vector (7 downto 0);
+	signal BUS_A_H	: std_logic_vector (7 downto 0);
+	
+	begin
+		latch_data: process (reset, clock)
+			begin
+				if (reset = '1') then
+					BUS_D <= (others => '0');
+					PMP_PMD <= (others => 'Z');
+				elsif (clock'event and clock='1') then
+					if (PMP_PMWR = '1') then
+						BUS_D <= PMP_PMD;
+						PMP_PMD <= (others => 'Z');
+					elsif (PMP_PMRD = '1') then
+						PMP_PMD <= BUS_D;
+						BUS_D <= (others => 'Z');
+					else
+						PMP_PMD <= (others => 'Z');
+						BUS_D <= (others => 'Z');					      
+				  end if;
+				end if;
+		  end process latch_data;
+		  
+		latch_address: process(reset, PMP_PMALH, PMP_PMALL)
+			begin
+				if (reset='1') then
+					BUS_A_L <= (others =>'1');
+					BUS_A_H <= (others =>'1');
+				elsif (PMP_PMALL ='1') then
+					BUS_A_L <= PMP_PMD;
+				elsif (PMP_PMALH ='1') then
+					BUS_A_H <= PMP_PMD;
+				end if;
+		end process latch_address;
+		
+		BUS_A (7 downto 0)	<= BUS_A_L;
+		BUS_A (15 downto 8)	<= BUS_A_H;
+		
+		BUS_RD <= PMP_PMRD;
+		BUS_WR <= PMP_PMWR;
+end architecture semi_synchronous;

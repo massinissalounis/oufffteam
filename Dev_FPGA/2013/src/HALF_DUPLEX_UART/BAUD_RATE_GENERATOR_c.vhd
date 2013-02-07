@@ -15,7 +15,7 @@ Library IEEE; -- Librairies
 
 entity BAUD_RATE_GENERATOR is -- Vue externe
 	generic (
-		division_factor:integer:=41
+		division_factor: natural :=41
 	); -- Updated according to the AX12 freq
 	port (
 		clock: in  std_logic;
