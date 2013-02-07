@@ -13,7 +13,7 @@ use ieee.std_logic_1164.all;
 
 package FPGA_OUFFF_p is
  
-	constant FPGA_FREQUENCY:		integer := 20E6;
+	constant FPGA_FREQUENCY:		integer := 20000000;
 
 	constant BUS_RESET_ADD_START:		    std_logic_vector (15 downto 0) := X"0000";
 	constant BUS_RESET_ADD_STOP:		     std_logic_vector (15 downto 0) := X"0000";

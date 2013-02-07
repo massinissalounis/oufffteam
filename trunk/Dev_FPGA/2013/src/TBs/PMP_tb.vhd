@@ -4,16 +4,13 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 
-library work;
-use work.FPGA_OUFFF_p.all;
-
 entity PMP_TB is
 end entity PMP_TB;
 
 architecture testbench of PMP_TB is
 
 	constant period_PIC_TPB		: time := 12.5 ns; 	-- 80 MHz
-	constant period_FPGA		: time := 1/FPGA_FREQUENCY;	-- 40.69 MHz
+	constant period_FPGA		: time := 50 ns;	-- 20.00 MHz
 	
 	constant period_BR		: time := 8.7 us;  	-- 115200 BPS
 	
@@ -22,7 +19,7 @@ architecture testbench of PMP_TB is
 	
 	-- parametres du bus PMP reglables dans le microcontroleur (en nombre de fronts de fclk)
 	constant WAITB	: integer := 3; -- 1 to 3
-	constant WAITM	: integer := 7; -- 1 to 15
+	constant WAITM	: integer := 9; -- 1 to 15
 	constant WAITE	: integer := 3; -- 0 to 3
 
 	

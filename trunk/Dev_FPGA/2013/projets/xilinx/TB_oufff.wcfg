@@ -71,10 +71,23 @@
          <obj_property name="ElementShortName">pic_pmdin[7:0]</obj_property>
          <obj_property name="ObjectShortName">pic_pmdin[7:0]</obj_property>
       </wvobject>
+      <wvobject fp_name="/pmp_tb/pic_pmp_pmd" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">pic_pmp_pmd[7:0]</obj_property>
+         <obj_property name="ObjectShortName">pic_pmp_pmd[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/bus_d" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">bus_d[7:0]</obj_property>
+         <obj_property name="ObjectShortName">bus_d[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
    </wvobject>
    <wvobject fp_name="group88" type="group">
       <obj_property name="label">LED</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/pmp_tb/DUT/led_interface_led_register" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">led_interface_led_register[7:0]</obj_property>
+         <obj_property name="ObjectShortName">led_interface_led_register[7:0]</obj_property>
+      </wvobject>
       <wvobject fp_name="/pmp_tb/DUT/led1" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">led1</obj_property>
          <obj_property name="ObjectShortName">led1</obj_property>
@@ -115,7 +128,7 @@
       <wvobject fp_name="/pmp_tb/DUT/ENCODER1_interface_counter_R/tmp" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">tmp[15:0]</obj_property>
          <obj_property name="ObjectShortName">tmp[15:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/pmp_tb/DUT/ENCODER1_interface_counter_L/count_out" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">count_out[15:0]</obj_property>
@@ -124,6 +137,7 @@
       <wvobject fp_name="/pmp_tb/DUT/ENCODER1_interface_counter_L/tmp" type="array" db_ref_id="1">
          <obj_property name="ElementShortName">tmp[15:0]</obj_property>
          <obj_property name="ObjectShortName">tmp[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/pmp_tb/DUT/fpga_pha2" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">fpga_pha2</obj_property>
@@ -155,8 +169,8 @@
          <obj_property name="ObjectShortName">busy</obj_property>
       </wvobject>
       <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Baud_Rate_Gen/count" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">count[8:0]</obj_property>
-         <obj_property name="ObjectShortName">count[8:0]</obj_property>
+         <obj_property name="ElementShortName">count[7:0]</obj_property>
+         <obj_property name="ObjectShortName">count[7:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Baud_Rate_Gen/baud_rate" type="logic" db_ref_id="1">
@@ -232,6 +246,16 @@
       <wvobject fp_name="/pmp_tb/DUT/fpga_gpio_0" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">fpga_gpio_0</obj_property>
          <obj_property name="ObjectShortName">fpga_gpio_0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/color_sensor_1_half_period_counter" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">color_sensor_1_half_period_counter[7:0]</obj_property>
+         <obj_property name="ObjectShortName">color_sensor_1_half_period_counter[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/color_sensor_1_period_reg" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">color_sensor_1_period_reg[7:0]</obj_property>
+         <obj_property name="ObjectShortName">color_sensor_1_period_reg[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/pmp_tb/DUT/fpga_servo_5" type="logic" db_ref_id="1">
          <obj_property name="ElementShortName">fpga_servo_5</obj_property>
