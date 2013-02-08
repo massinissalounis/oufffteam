@@ -11,7 +11,7 @@
 *                                               O'CORE
 *********************************************************************************************************
 */
-// CBE	21/05/2011	Remplacement des PORTx ,BIT_n par un define dans bsp.h pour facilité les changements de brochage
+// CBE	21/05/2011	Remplacement des PORTx ,BIT_n par un define dans bsp.h pour facilitÃ© les changements de brochage
 
 
 #include "AppIncludes.h"
@@ -96,6 +96,7 @@ void CLIC_Init (void)
 #else
 	PORTSetPinsDigitalIn(IO_CLIC_1);
 	PORTSetPinsDigitalIn(IO_CLIC_2);
+	PORTSetPinsDigitalIn(IO_CLIC_3);
 	PORTSetPinsDigitalIn(IO_CLIC_4);
 #endif
 }
@@ -124,6 +125,10 @@ CPU_INT08U CLIC_state (CPU_INT08U clic)
 
         case CLIC_2:
 			if(PORTReadBits(IO_CLIC_2)==0) state = 1;
+			break;
+			
+        case CLIC_3:
+			if(PORTReadBits(IO_CLIC_3)==0) state = 1;
 			break;
 
         case CLIC_4:
@@ -643,39 +648,16 @@ void  BSP_Except_Handler (void)
 *********************************************************************************************************
 */
 
-//void __ISR(_UART_2_VECTOR, ipl2) UART_Handler (void)
-//{
-//    CPU_INT32U  status;
-//    CPU_INT32U  int_en;
-
-//#define  BSP_UART_PUTCHAR(x)      putcUART2(x)
-//#define  BSP_UART_DATARDY()       DataRdyUART2()
-//#define  BSP_UART_GETCHAR()       ReadUART2()
-//#define  BSP_UART_INTCONFIG(x)    ConfigIntUART2(x)
-//#define  BSP_UART_START(x, y, z)  OpenUART2(x, y, z)
-//#define  BSP_UART_INTENABLE(x)    EnIntUART2(x)
-//#define  BSP_UART_INTDISABLE(x)   DisIntUART2(x)
-//#define  BSP_UART_INTEN           IEC1
-//#define  BSP_UART_INTSTAT         IFS1
-//#define  BSP_UART_INTCLR          IFS1CLR
-//#define  BSP_UART_INTMASK         0x00000700
-//#define  BSP_UART_INTTX           0x00000400
-//#define  BSP_UART_INTRX           0x00000200
-//#define  BSP_UART_INTERR          0x00000100
-
+void __ISR(_UART_1_VECTOR, ipl3) UART_Handler (void)
+{
+    char data_received;
     
+    data_received = getcUART1();
     
-//    status           = BSP_UART_INTSTAT;                                /* Read the interrupt status register               */
-//    int_en           = BSP_UART_INTEN;                                  /* Read the interrupt enabled register              */
+    XBEE_Rx_handler(data_received);
     
-//    status          &= BSP_UART_INTMASK;                                /* Mask all other interrupts                        */
-//    BSP_UART_INTCLR  = status;                                          /* Clear all triggered interrupts                   */
-//    status          &= int_en;                                          /* Mask non-enabled interrupts                      */
-    
-//    if (status & BSP_UART_INTRX) {                                      /* If a Rx interrupt has occured and is enabled...  */
-//        UART_TxByte(UART_RxByte());                                     /* Notify Probe and provide the incoming character  */
-//    }
-//}
+    mU1RXClearIntFlag();
+}
 
 /*
 *********************************************************************************************************
@@ -689,7 +671,44 @@ void  BSP_Except_Handler (void)
 *********************************************************************************************************
 */
 
-void  UART_Init (void)
+void  LS1_UART_Init (void)
+{
+    CPU_INT08U  config;
+    CPU_INT32U  config1;
+    CPU_INT32U  config2;
+       
+    config1 = UART_EN                                                   // UART module enabled                              
+            | UART_IDLE_CON                                             // UART works in IDLE mode                          
+            | UART_RX_TX                                                // Communication is done through the normal pins    
+            | UART_DIS_WAKE                                             // Disable Wake-up on START bit detect during SLEEP
+            | UART_DIS_LOOPBACK                                         // Disable loop back                               
+            | UART_DIS_ABAUD                                            // Input to capture module from ICx pin           
+            | UART_NO_PAR_8BIT                                          // 8 bits no parity                               
+            | UART_1STOPBIT                                             // 1 stop bit                                      
+            | UART_IRDA_DIS                                             // IrDA disabled                                    
+            | UART_MODE_FLOWCTRL                                        // UART pins in flow control mode                   
+            | UART_DIS_BCLK_CTS_RTS                                     // Disable BCLK, CTS, and RTS pins                  
+            | UART_NORMAL_RX                                            // UxRX idle stat is '1'                            
+            | UART_BRGH_SIXTEEN;                                        // 16x baud clock                                   
+           
+    config2 = UART_TX_PIN_LOW                                           // IrDA encoded UxTx idle stat is '0'               
+            | UART_RX_ENABLE                                            // Enable UxRx pin                                  
+            | UART_TX_ENABLE                                            // Enable UxTx pin                                  
+ //           | UART_INT_TX                                               // Interrupt on trasnfer of each character to TSR   
+            | UART_INT_RX_CHAR                                          // Interrupt on every char received                 
+            | UART_ADR_DETECT_DIS                                       // Disable 9-bit address detect                     
+            | UART_RX_OVERRUN_CLEAR;                                    // Rx buffer overrun status bit clear               
+                                 
+    OpenUART1(config1, config2, BSP_CLK_FREQ / (16 * UART1_BAUDRATE) - 1);  // Configure the settings                           
+
+    config = UART_INT_PR3
+           | UART_INT_SUB_PR0
+           | UART_RX_INT_EN;
+  
+    ConfigIntUART1(config);
+}
+
+void  LS2_UART_Init (void)
 {
     CPU_INT08U  config;
     CPU_INT32U  config1;
@@ -882,8 +901,8 @@ CPU_INT16U  ADC_GetVal (CPU_INT08U channel_to_convert)
 		}
 
 	SetChanADC10(config);
-	//pour le changement de voie en entrée de l'adc, il faudra prévoir un temps pour que la tension se
-	//stabilise entre la comutation et l'échantillonnage. Le top se serait de changer de voie à la fin de la conversion précédente. 
+	//pour le changement de voie en entrÃ©e de l'adc, il faudra prÃ©voir un temps pour que la tension se
+	//stabilise entre la comutation et l'Ã©chantillonnage. Le top se serait de changer de voie Ã  la fin de la conversion prÃ©cÃ©dente. 
 	//Ce qui laisse du temps avant la conversion suivante.    CBE
 	OSTimeDlyHMSM(0, 0, 0, 5);
 	
@@ -1111,7 +1130,7 @@ void  BSP_InitIO (void)
 //    PB_Init();                                                        // Initialize the push buttons
     ADC_Init();
 	PMP_Init();
-	UART_Init();
+	LS2_UART_Init();
 	PWM_Init();
 #endif
 }

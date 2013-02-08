@@ -199,7 +199,6 @@ CPU_INT08U AX12_Write_Reg_2_Datas_Sync( CPU_INT08U ax12_id, CPU_INT08U reg_addre
 }
 
 /// TO DO : Stop 3/02/2013 --> Fct test lecture AX12
-/// TO DO : integration code fifi
 /// TO DO : COLOR Sensor control
 /// TO DO : SERVO CONTROL
 /// TO DO : fonctions balises haut niveau ?
@@ -252,6 +251,38 @@ CPU_INT08U GPIO_Action (CPU_INT08U bit_position, CPU_INT08U bit_value)
 	}
 
 	PMP_Write(GPIO_REGISTER, reg);
+	return reg;
+}
+
+CPU_INT08U FPGA_LED1_Action (CPU_INT08U bit_value)
+{
+	CPU_INT08U reg;
+	reg= bit_value;
+
+//	reg = PMP_Read(LED_REGISTER);
+
+//	if(bit_value==0)
+//		reg = reg & ~(0x01);
+
+//	if(bit_value==1)
+//		reg = reg | (0x01);
+
+	PMP_Write(LED_REGISTER, reg);
+	return reg;
+}
+
+CPU_INT08U FPGA_LED2_Action (CPU_INT08U bit_value)
+{
+	CPU_INT08U reg;
+	reg = PMP_Read(LED_REGISTER);
+
+	if(bit_value==0)
+		reg = reg & ~(0x02);
+
+	if(bit_value==1)
+		reg = reg | (0x02);
+
+	PMP_Write(LED_REGISTER, reg);
 	return reg;
 }
 

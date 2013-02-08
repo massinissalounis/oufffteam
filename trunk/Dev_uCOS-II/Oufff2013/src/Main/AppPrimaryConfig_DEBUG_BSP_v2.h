@@ -92,12 +92,12 @@
 *                                            TASK MANAGING
 *********************************************************************************************************
 */
-#define APP_TASK_MAIN_ENABLED							// Activate TaskMain
-#define APP_TASK_ODO_ENABLED							// Activate TaskOdo
-#define APP_TASK_ASSER_ENABLED							// Activate TaskAsser
-#define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
-#define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
-#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
+//#define APP_TASK_MAIN_ENABLED							// Activate TaskMain
+//#define APP_TASK_ODO_ENABLED							// Activate TaskOdo
+//#define APP_TASK_ASSER_ENABLED							// Activate TaskAsser
+//#define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
+//#define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
+//#define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
 
 #define APP_TASK_ODO_DISPLAY_POSITION					// Activate the position debug messages
 //#define APP_TASK_ODO_DISPLAY_DEBUG						// Activate the other debug messages
@@ -111,9 +111,9 @@
 //#define AX12_REG_PROGRAMMING				// Use this flag for programming the default values into AX12
 //#define ODO_CALIBRATION					// Use this flag for testing the Odometry configuration
 
-//#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
+#define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
 //#define MVT_STRATEGY_ENABLED
-#define TEST_STRATEGY_ENABLED
+//#define TEST_STRATEGY_ENABLED
 
 #endif // _PRIMARY_ROBOT
 
