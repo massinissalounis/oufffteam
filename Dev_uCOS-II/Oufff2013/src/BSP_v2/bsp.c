@@ -251,7 +251,7 @@ void  PMP_Init (void)
                      		PMP_WRITE_POL_HI | PMP_READ_POL_HI;
 
 	unsigned int mode = PMP_IRQ_OFF | PMP_AUTO_ADDR_OFF | PMP_DATA_BUS_8 | PMP_MODE_MASTER2 |\
-                     	PMP_WAIT_BEG_3 | PMP_WAIT_MID_7 | PMP_WAIT_END_3;
+                     	PMP_WAIT_BEG_3 | PMP_WAIT_MID_9 | PMP_WAIT_END_3;
 
 	unsigned int port = PMP_PEN_OFF | PMP_PEN_0 | PMP_PEN_1;
 
@@ -1127,7 +1127,7 @@ void  BSP_InitIO (void)
 #endif
 
     LED_Init();                                                         // Initialize LEDs
-//    PB_Init();                                                        // Initialize the push buttons
+    //PB_Init();                                                        // Initialize the push buttons
     ADC_Init();
 	PMP_Init();
 	LS2_UART_Init();
