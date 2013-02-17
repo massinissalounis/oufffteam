@@ -16,7 +16,7 @@
 
 #ifdef HOMOL_STRATEGY_ENABLED
 
-#define DEFAULT_SPEED (60)
+#define DEFAULT_SPEED (30)
 
 // ------------------------------------------------------------------------------------------------
 INT8U StrategyColorB_GetInitCmd(StructCmd *InitCmd)
@@ -26,9 +26,9 @@ INT8U StrategyColorB_GetInitCmd(StructCmd *InitCmd)
 
 	InitCmd->Cmd				= App_SetNewPos;
 	InitCmd->CmdType			= CmdType_Blocking;
-	InitCmd->Param2				= 69;	
-	InitCmd->Param3				= 1667;	
-	InitCmd->Param4				= AppConvertDegInRad(0);
+	InitCmd->Param2				= 1000;	
+	InitCmd->Param3				= 1000;	
+	InitCmd->Param4				= AppConvertDegInRad(30);
 	InitCmd->ActiveSensorsFlag		= APP_PARAM_STRATEGYFLAG_NONE;
 
 	return ERR__NO_ERROR;
@@ -38,7 +38,8 @@ INT8U StrategyColorB_GetInitCmd(StructCmd *InitCmd)
 INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 {
 	static int		NextActionID = 1;
-	int			CurrentActionID = 0;
+	static int		TimeoutID = -1;
+	int				CurrentActionID = 0;
 	INT8U 			Err = 0;
 	OS_FLAGS		CurrentFlag = 0;
 	OS_FLAGS		StrategyFlagsToSet = 0;
@@ -51,27 +52,21 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	p->CmdType = CmdType_Blocking;
 
 	// Set CurrentID to NextID
-	CurrentActionID = NextActionID;
+	CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ACTION_TIMEOUT, OS_FLAG_WAIT_SET_ANY, &Err);
+	if(((CurrentFlag & APP_PARAM_APPFLAG_ACTION_TIMEOUT) == APP_PARAM_APPFLAG_ACTION_TIMEOUT) && (TimeoutID != -1))
+		CurrentActionID = TimeoutID;
+	else
+		CurrentActionID = NextActionID;
 
 	// Read Next Action
 	switch(CurrentActionID)
 	{
 		// StructuredFileLoopBegin
 		// LoopID = 0
-		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;	NextActionID = 100;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 576;    		break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
 		// LoopID = 1
-		case 100:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_REAR;	NextActionID = 101;	p->Cmd = MvtSimple_RotateToAngleInDeg;		p->Param1 = DEFAULT_SPEED;    p->Param4 = 90;    		break;	
-		case 101:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_REAR;	NextActionID = 102;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = -367;    		break;	
-		case 102:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_REAR;	NextActionID = 103;	p->Cmd = Mvt_UsePivotMode;		p->Param1 = DEFAULT_SPEED;    p->Param2 = LEFT_WHEEL;    p->Param4 = 0;    		break;	
-		case 103:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_REAR;	NextActionID = 104;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = -250;    		break;	
-		case 104:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;	NextActionID = 105;	p->Cmd = Mvt_UseMixedMode;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 500;    p->Param3 = 1000;    p->Param4 = -55;    		break;	
-		case 105:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;	NextActionID = 106;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 500;    		break;	
-		case 106:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;	NextActionID = 107;	p->Cmd = Mvt_UseMixedMode;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 740;    p->Param3 = 500;    p->Param4 = 90;    		break;	
-		case 107:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_REAR;	NextActionID = 108;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = -425;    		break;	
-		case 108:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_COLLISION_FRONT;	NextActionID = -1;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 200;    		break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin
@@ -138,7 +133,7 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	}
 	
 	// Check for conditionnal strategy command ---------------------------
-	if(App_IfGoto_System == p->Cmd)
+	if(App_IfGoto_Strategy == p->Cmd)
 	{
 		// Read the current Flags
 		CurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
@@ -172,8 +167,8 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	if(MvtSimple_RotateToAngleInDeg == p->Cmd)
 		LibMoving_RotateToAngleInDeg(p->Param4, p->Param1, p);
 
-	// Angle Conversion --------------------------------------------------
-	if((Mvt_UsePivotMode == p->Cmd) || (Mvt_UseMixedMode == p->Cmd))
+	// Angle Conversion --------------------------------------------------	
+	if((Mvt_UsePivotMode == p->Cmd) || (Mvt_UseMixedMode == p->Cmd) || (Mvt_UseSpline == p->Cmd))
 	{
 		p->Param4 = AppConvertDegInRad(p->Param4);
 	}

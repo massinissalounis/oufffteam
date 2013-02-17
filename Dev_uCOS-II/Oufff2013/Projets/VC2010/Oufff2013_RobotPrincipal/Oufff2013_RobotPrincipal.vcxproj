@@ -61,14 +61,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\BSP\bsp.c" />
-    <ClCompile Include="..\..\..\src\BSP\bsp_fpga.c" />
-    <ClCompile Include="..\..\..\src\BSP\bsp_iic.c" />
     <ClCompile Include="..\..\..\src\DevCard\1602D.c" />
     <ClCompile Include="..\..\..\src\Main\App.c" />
     <ClCompile Include="..\..\..\src\Main\AppGlobalFunc.c" />
     <ClCompile Include="..\..\..\src\Main\AppHooks.c" />
     <ClCompile Include="..\..\..\src\Main\ArmsControl.c" />
+    <ClCompile Include="..\..\..\src\Main\HoopsControl.c" />
     <ClCompile Include="..\..\..\src\Main\LibMoving.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorA.c" />
@@ -96,15 +94,6 @@
     <ClCompile Include="..\..\..\src\uCOS-II\Source\os_tmr.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\src\BSP\bsp_a.S" />
-    <None Include="..\..\..\src\BSP\crt0.S" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\src\BSP\bsp.h" />
-    <ClInclude Include="..\..\..\src\BSP\bsp_fpga.h" />
-    <ClInclude Include="..\..\..\src\BSP\bsp_iic.h" />
-    <ClInclude Include="..\..\..\src\BSP\bsp_peripherals.h" />
-    <ClInclude Include="..\..\..\src\BSP\mini_libdef.h" />
     <ClInclude Include="..\..\..\src\DevCard\1602D.h" />
     <ClInclude Include="..\..\..\src\Main\App.h" />
     <ClInclude Include="..\..\..\src\Main\AppCustomTypes.h" />
@@ -115,6 +104,7 @@
     <ClInclude Include="..\..\..\src\Main\AppPrimaryConfig.h" />
     <ClInclude Include="..\..\..\src\Main\AppSecondaryConfig.h" />
     <ClInclude Include="..\..\..\src\Main\ArmsControl.h" />
+    <ClInclude Include="..\..\..\src\Main\HoopsControl.h" />
     <ClInclude Include="..\..\..\src\Main\LibMoving.h" />
     <ClInclude Include="..\..\..\src\Main\os_cfg.h" />
     <ClInclude Include="..\..\..\src\Main\Strategy.h" />

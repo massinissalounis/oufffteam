@@ -29,6 +29,7 @@ extern float error_debug_5;
 
 extern INT8U Debug_MainState;
 extern INT8U Debug_MvtState;
+extern INT8U Debug_AsserRampState;
 
 // Initialize data types
 // Struc position
@@ -336,23 +337,26 @@ void TaskOdo_Main(void *p_arg)
 					AppDebugMsg(",\tMvtState : ");
 					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) Debug_MvtState, (CPU_INT08U) 3, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
+					AppDebugMsg(",\tRampState : ");
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) Debug_AsserRampState, (CPU_INT08U) 1, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					AppDebugMsg(buffer_ptr);
 					AppDebugMsg("\n");
 #endif
 #ifdef APP_TASK_ODO_DISPLAY_DEBUG
 					AppDebugMsg("Debug1 : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_1, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_1, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
 					AppDebugMsg("\tDebug2 : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_2, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_2, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
 					AppDebugMsg("\tDebug3 : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_3, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_3, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
 					AppDebugMsg("\tDebug4 : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_4, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_4, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
 					AppDebugMsg("\tDebug5 : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_5, (CPU_INT08U) 4, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_5, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 					AppDebugMsg(buffer_ptr);
 					AppDebugMsg("\n");
 #endif

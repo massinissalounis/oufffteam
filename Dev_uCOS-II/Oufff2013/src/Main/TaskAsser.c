@@ -16,6 +16,9 @@
 
 #include "TaskAsser.h"
 #include "TaskOdo.h"
+
+INT8U	Debug_AsserRampState = 0;
+
 //////////////////////////////////////////////
 // Global Vars Coefficients
 //////////////////////////////////////////////
@@ -136,7 +139,7 @@ float QUADRAMP_Compute(QUADRAMP_data *data, float dist2dest)
 			data->origin=dist2dest_abs; // Update the origin for the next movement
 			data->speed=data->speed_order; // Speed at the limit to ensure a good reactivity
 
-			if(dist2dest_abs>data->final_approach_limit)
+			if(dist2dest_abs > data->final_approach_limit)
 			{
 				data->speed=0; // Initialize the speed of the new movement
 				data->state=1; // Go into acc state
@@ -146,7 +149,7 @@ float QUADRAMP_Compute(QUADRAMP_data *data, float dist2dest)
 		case 1:
 			data->speed+=data->acceleration_order;
 
-			if(dist2dest_abs<=data->origin/2)
+			if(dist2dest_abs <= (data->origin - data->final_approach_limit/2) / 2)
 			{
 				data->state=3; // Go to decc state
 			}
@@ -154,7 +157,7 @@ float QUADRAMP_Compute(QUADRAMP_data *data, float dist2dest)
 			if(data->speed>=data->speed_order)
 			{
 				data->speed=data->speed_order; // Limit the speed
-				data->acc_distance=data->origin-dist2dest_abs; // Store the distance requirement for the next decelleration
+				data->acc_distance = data->origin - dist2dest_abs - data->final_approach_limit/2; // Store the distance requirement for the next decelleration
 				data->state=2; // Go to cte speed state
 			}
 			break;
@@ -162,7 +165,7 @@ float QUADRAMP_Compute(QUADRAMP_data *data, float dist2dest)
 		case 2:
 			data->speed=data->speed_order; // Update the speed
 
-			if(dist2dest_abs<=data->acc_distance)
+			if(dist2dest_abs <= data->acc_distance)
 			{
 				data->state=3;
 			}
@@ -181,6 +184,7 @@ float QUADRAMP_Compute(QUADRAMP_data *data, float dist2dest)
 			break;	
 	}	
 
+	Debug_AsserRampState = data->state;
 	return data->speed;
 }
 
@@ -384,22 +388,16 @@ void distance_by_vector_projection_angle_between_robot_and_direction (float fina
 	// Calcul du sinus de l'angle à parcourir pour avoir le sens de rotation. Avec la produit vectoriel
 	angle_sign = vector_product_between_robot_and_direction(final_x, final_y, robot_x, robot_y, robot_angle); // ATTENTION : on avait divisé par error_distance .. normalement ca ne sert à rien mais au cas ou ... / error_distance );
 
+	// Détermination si l'on doit reculer plutôt qu'avancer.
+	if (*angle >= M_PI/2)		// quart arrière gauche
+	{
+		*angle = *angle - M_PI;					// on replace l'angle devant le robot
+		*distance = (*distance) * (-1);		// on recule
+	}
+
 	if ( angle_sign < 0.0 )
 	{
-		*angle = - *angle;		// Application du signe.
-	}
-						
-	// Détermination si l'on doit reculer plutôt qu'avancer.
-	if (*angle <= -M_PI/2 && *angle >= - M_PI)	//quart arrière droit
-	{
-		*angle = *angle + M_PI;		// on replace l'angle devant le robot
-		*distance = - *distance;		// on recule
-	}
-						
-	if (*angle < M_PI && *angle >= M_PI/2)		// quart arrière gauche
-	{
-		*angle = *angle - M_PI;		// on replace l'angle devant le robot
-		*distance = - *distance;		// on recule
+		*angle = (*angle) * (-1);		// Application du signe.
 	}
 }
 

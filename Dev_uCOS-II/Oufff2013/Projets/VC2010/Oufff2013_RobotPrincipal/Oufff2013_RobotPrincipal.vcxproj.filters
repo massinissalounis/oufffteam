@@ -19,14 +19,8 @@
     <Filter Include="Fichiers sources\Main\Strategy">
       <UniqueIdentifier>{b8acc936-4f03-42c5-a515-0da1764c40ce}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\BSP">
-      <UniqueIdentifier>{69795c8f-88c1-4c4c-b449-2236deea40a3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\CarteDeDev">
       <UniqueIdentifier>{1572abb4-b709-403c-8237-f331e3813932}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\BSP">
-      <UniqueIdentifier>{3c609546-682b-45f8-992a-0e48fd6b7dce}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers d%27en-tête\Main">
       <UniqueIdentifier>{f3c39d35-004d-4045-9e67-bb3230ff253c}</UniqueIdentifier>
@@ -87,15 +81,6 @@
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c">
       <Filter>Fichiers sources\Main\Strategy</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\BSP\bsp.c">
-      <Filter>Fichiers sources\BSP</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\BSP\bsp_fpga.c">
-      <Filter>Fichiers sources\BSP</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\BSP\bsp_iic.c">
-      <Filter>Fichiers sources\BSP</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\DevCard\1602D.c">
       <Filter>Fichiers sources\CarteDeDev</Filter>
     </ClCompile>
@@ -144,33 +129,13 @@
     <ClCompile Include="..\..\..\src\uC-LIB\lib_mem.c">
       <Filter>Fichiers d%27en-tête\uC-OSII</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\..\src\BSP\bsp_a.S">
-      <Filter>Fichiers sources\BSP</Filter>
-    </None>
-    <None Include="..\..\..\src\BSP\crt0.S">
-      <Filter>Fichiers sources\BSP</Filter>
-    </None>
+    <ClCompile Include="..\..\..\src\Main\HoopsControl.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\DevCard\1602D.h">
       <Filter>Fichiers d%27en-tête\CarteDeDev</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\BSP\bsp.h">
-      <Filter>Fichiers d%27en-tête\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\BSP\bsp_fpga.h">
-      <Filter>Fichiers d%27en-tête\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\BSP\bsp_iic.h">
-      <Filter>Fichiers d%27en-tête\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\BSP\bsp_peripherals.h">
-      <Filter>Fichiers d%27en-tête\BSP</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\BSP\mini_libdef.h">
-      <Filter>Fichiers d%27en-tête\BSP</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Main\App.h">
       <Filter>Fichiers d%27en-tête\Main</Filter>
@@ -290,6 +255,9 @@
       <Filter>Fichiers d%27en-tête\Main</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Main\AppSecondaryConfig.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\HoopsControl.h">
       <Filter>Fichiers d%27en-tête\Main</Filter>
     </ClInclude>
   </ItemGroup>

@@ -88,7 +88,7 @@ void TaskMvt_Main(void *p_arg)
 	INT8U			EscapeFrontFlag;						// Flag used to select which side to use during an escape seq (front)								
 	INT8U			EscapeRearFlag;							// Flag used to select which side to use during an escape seq (rear)								
     INT8S           CurrentSetpoint;                        // Pointer to Current setpoint to reach
-	INT8S			MvtTimeout;								// Counter to detect blocked mvt
+	INT16U			MvtTimeout;								// Counter to detect blocked mvt
 	INT8S			CollisionTimeout;						// Counter to detect a blocking movment (due to a GP2 detection)
     unsigned int    LastMainCmdId;                          // Var to store last command received from TaskMain
 	unsigned int	SensorsPreviousStatus;					// Var to store previous sensors status to detect Sensors status modification
