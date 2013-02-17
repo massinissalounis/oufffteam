@@ -202,11 +202,8 @@ CPU_INT08U AX12_Write_Reg_2_Datas_Sync( CPU_INT08U ax12_id, CPU_INT08U reg_addre
 /// TO DO : COLOR Sensor control
 /// TO DO : SERVO CONTROL
 /// TO DO : fonctions balises haut niveau ?
-/// TO DO : fonctions debug code FPGA ! --> ecriture LED !
-/// TO DO : fonctions debug code FPGA ! --> lecture odo avec tache associée
 /// TO DO : fonctions debug code FPGA ! --> servo
 /// TO DO : fonctions debug code FPGA ! --> AX12 + procedure pour cyril !
-/// TO DO : regarder les fonctions d'asser ! rampes de vitesses ! ...
 
 
 void QUAD_Latch (void)
@@ -257,15 +254,14 @@ CPU_INT08U GPIO_Action (CPU_INT08U bit_position, CPU_INT08U bit_value)
 CPU_INT08U FPGA_LED1_Action (CPU_INT08U bit_value)
 {
 	CPU_INT08U reg;
-	reg= bit_value;
 
-//	reg = PMP_Read(LED_REGISTER);
+	reg = PMP_Read(LED_REGISTER);
 
-//	if(bit_value==0)
-//		reg = reg & ~(0x01);
+	if(bit_value==0)
+		reg = reg & ~(0x01);
 
-//	if(bit_value==1)
-//		reg = reg | (0x01);
+	if(bit_value==1)
+		reg = reg | (0x01);
 
 	PMP_Write(LED_REGISTER, reg);
 	return reg;
