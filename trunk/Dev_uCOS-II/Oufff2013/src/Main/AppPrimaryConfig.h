@@ -50,8 +50,8 @@
 // Speed control Coefficients 
 // ------------------------------------------------------------------------------------------------
 // Used in quadramp
-#define DEFAULT_SPEED_DISTANCE	1.0		// n % of maximum speed
-#define DEFAULT_ACC_DISTANCE	1.0		// n % of maximum speed per 10 ms
+#define DEFAULT_SPEED_DISTANCE	0.30	// n % of maximum speed
+#define DEFAULT_ACC_DISTANCE	0.005	// n % of maximum speed per 10 ms
 
 // Used in hold speed control
 #define SPEED_ANGLE		0.90 //0.9 	// n % of maximum speed

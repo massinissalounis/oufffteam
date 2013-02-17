@@ -386,6 +386,15 @@ void TaskSensors_Main(void *p_arg)
 		}
 	}
 
+	//HOOPS_InitReg();
+	
+	while(OS_TRUE)
+	{
+		//HOOPS_Up();
+		PMP_Write(AX12_UART_OUT_REGISTER, 0xAA);
+		OSTimeDlyHMSM(0, 0, 1, 0);
+	}
+
 	TaskSensors_ReadColor();
 
 	// StartButton has been pressed

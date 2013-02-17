@@ -39,7 +39,7 @@ void HOOPS_SetSpeed(void)
 
 void HOOPS_Up(void)
 {
-	HOOP_Front_Up();
+	//HOOP_Front_Up();
 	HOOP_Back_Up();
 //	OSTimeDlyHMSM(0, 0, 1, 0);
 }
@@ -67,7 +67,7 @@ void HOOP_Front_Down(void)
 // HOOP Back ----------------------------------------------------------------------------
 void HOOP_Back_Up(void)
 {
-	AX12_Write_Torque_On_Sync (AX12_BACK_HOOP_ID);
+	//AX12_Write_Torque_On_Sync (AX12_BACK_HOOP_ID);
 	AX12_Write_Position_Sync(AX12_BACK_HOOP_ID, 0x02, 0x8F);
 }
 

@@ -221,7 +221,7 @@
 																		// If dist is under this value, command is not sent 
 																		// This limitation is made to prevent small moves (big angle and small length)
 
-#define APP_MVT_TIMEOUT							50						// Nb of iteration before considering position is unreachable
+#define APP_MVT_TIMEOUT							5000						// Nb of iteration before considering position is unreachable
 #define APP_COLLISION_TIMEOUT					10						// Nb of iteration before considering position is unreachable due to obstacle			
 
 /*
