@@ -24,7 +24,7 @@ use work.SERVO_CONTROL_p.all;
 entity FPGA_Oufff is
 	port (
 		FPGA_CLK		: in std_logic;
-		FPGA_RESET		: in std_logic;
+		FPGA_RESET_n	: in std_logic;
 		PIC_INT1		: out std_logic;
 		-- GPIO
 		FPGA_GPIO_0		: in std_logic;		-- CM_COLOR_1
@@ -92,6 +92,7 @@ architecture mapping of FPGA_Oufff is
 	signal BUS_CS_SERVO_0:                 std_logic;
 	signal BUS_CS_SERVO_1:                 std_logic;
 	
+	signal FPGA_RESET:	           std_logic;
 	signal SOFT_RESET:	           std_logic;
 	signal SOFT_RESET_N:               std_logic;
 	signal HARD_SOFT_RESET:		    std_logic;
@@ -99,12 +100,18 @@ architecture mapping of FPGA_Oufff is
 	signal COLOR_CONTROL_REG:		std_logic_vector (7 downto 0);
 	signal GPIO_REG:		std_logic_vector (7 downto 0);
 	signal BEACON_REG:		std_logic_vector (7 downto 0);
+	signal tmp:		std_logic_vector (7 downto 0);
+	signal tmp2 : std_logic;
+	signal tmp_LED1 : std_logic;
 	
 	--Component configuration
 	for PMP: PMP_interface
 			use entity work.PMP_interface (semi_synchronous);
 	
 	begin
+		
+		FPGA_RESET <= not FPGA_RESET_n;
+		
 		-- Interface with the PIC PMP
 		PMP: PMP_interface
 			port map (
@@ -158,10 +165,15 @@ architecture mapping of FPGA_Oufff is
 				BUS_WR		=> BUS_WR,
 				BUS_CS		=> BUS_CS_LED,
 				-- Module Output
-				LED1		=> LED1, --open,
-				LED2		=> LED2 --open
+				LED1		=> open, --LED1,
+				LED2		=> open --LED2
 			);
 
+		--LED2 <= '1' when BUS_D = X"AA" else '0';
+		--tmp_LED1 <= '1' when BUS_D = X"AA" and BUS_WR = '1' and BUS_CS_AX12_1 = '1' else 
+--					'0' when BUS_D = X"55" and BUS_WR = '1' and BUS_CS_AX12_1 = '1' else tmp_LED1;
+		LED1 <= tmp_LED1;
+		
 		-- ENCODER 1 Module
 		-- Address decoding
 		BUS_CS_ENCODER_1 <= '1' when (BUS_A >= BUS_ENCODER_1_ADD_START and BUS_A <= BUS_ENCODER_1_ADD_STOP) else '0';
@@ -202,8 +214,12 @@ architecture mapping of FPGA_Oufff is
 				BUS_WR			=> BUS_WR,
 				BUS_CS			=> BUS_CS_AX12_1,
 				-- external pin
-				RxTx			=> FPGA_GPIO_8
+				RxTx			=> tmp2, --FPGA_GPIO_8
+				tmp_LED1		=> tmp_LED1
 			);
+ 
+		FPGA_GPIO_8 <= tmp2;
+		LED2 <= BUS_WR;
  
 		-- TCS3200 Color Sensor 1
  		BUS_CS_COLOR_SENSOR_1 <= '1' when (BUS_A >= BUS_COLOR_SENSOR_1_ADD_START and BUS_A <= BUS_COLOR_SENSOR_1_ADD_STOP) else '0';

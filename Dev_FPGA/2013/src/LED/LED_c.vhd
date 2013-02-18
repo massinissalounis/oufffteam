@@ -48,6 +48,7 @@ architecture synchronous of LED is
 			end if;
 		end process bus_interface;
 		
+
 	LED1	<= LED_register(0);
 	LED2	<= LED_register(1);
 	
