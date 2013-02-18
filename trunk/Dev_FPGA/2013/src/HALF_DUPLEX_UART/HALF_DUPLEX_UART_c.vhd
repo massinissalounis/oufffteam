@@ -20,7 +20,8 @@ entity HALF_DUPLEX_UART is
 		BUS_WR		: in std_logic;
 		BUS_CS		: in std_logic;
 		-- output_signal
-		RxTx		: inout std_logic
+		RxTx		: inout std_logic;
+		tmp_LED1 : out std_logic
 		);
 end entity HALF_DUPLEX_UART;
 
@@ -71,8 +72,16 @@ architecture wrapper of HALF_DUPLEX_UART is
 	signal send_flag: std_logic;
 	
 	signal busy: std_logic;
+	
+	signal tmp_LED: std_logic;
 
 	begin
+	
+	tmp_LED1 <= tmp_LED;
+	tmp_LED <= '1' when output_reg = X"AA" else
+				'0';
+--				when output_reg = X"55" else
+--				tmp_LED;
 	
 	registers_interface: process (reset, clock)
 		begin

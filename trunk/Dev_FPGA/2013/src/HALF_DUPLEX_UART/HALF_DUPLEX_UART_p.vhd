@@ -22,7 +22,8 @@ package HALF_DUPLEX_UART_P is
 			BUS_WR		: in std_logic;
 			BUS_CS		: in std_logic;
 			-- coder
-			RxTx	: inout std_logic
+			RxTx	: inout std_logic;
+			tmp_LED1 : out std_logic
 		);
 	end component HALF_DUPLEX_UART;
  
