@@ -33,8 +33,9 @@ CPU_INT08U AX12_UART_Busy (void)
 
 void AX12_UART_Write (CPU_INT08U data)
 {
+	while(AX12_UART_Busy())
+		OSTimeDlyHMSM(0, 0, 0, 1);
 	PMP_Write(AX12_UART_OUT_REGISTER, data);
-	OSTimeDlyHMSM(0, 0, 0, 10);
 }
 
 // AX12 CONTROL FUNCTIONS
@@ -293,7 +294,6 @@ CPU_INT08U BEACON_Read (void)
 
 void BSPFPGA_Reset(void)
 {
-
 	PMP_Write(RESET_REGISTER,0xFF);
 	PMP_Write(RESET_REGISTER,0x00);
 	PMP_Write(LED_REGISTER,0x01);

@@ -91,7 +91,7 @@ architecture wrapper of HALF_DUPLEX_UART is
 				output_reg <= (others => '0');
 				dummy_reg <= (others => '0');
 			elsif (clock'event and clock ='1') then
-				if (BUS_CS = '1' and  BUS_WR ='1') then
+				if (BUS_CS = '1' and  BUS_WR ='1' and busy='0') then
 					case BUS_A is
 						when "10"	=> output_reg <= BUS_D;
 						when others	=> dummy_reg <= BUS_D;
@@ -131,7 +131,7 @@ architecture wrapper of HALF_DUPLEX_UART is
 			if (reset = '1') then
 				send_flag <= '0';
 			elsif (clock'event and clock ='1') then
-				if (BUS_CS = '1' and  WR_falling_edge ='1') then
+				if (BUS_CS = '1' and  WR_falling_edge ='1' and busy='0') then
 					case BUS_A is
 						when "10"	=> send_flag <= '1';
 						when others	=> null;
