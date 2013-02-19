@@ -270,28 +270,6 @@ void TaskOdo_Main(void *p_arg)
 	char *buffer_ptr;
 
 	unsigned char no_movement_flag = 1;
-
-	// LED FPGA Debug
-	//AppDebugMsg("LED debug ok\n");
-	// Look the behavior like that then uncomment the part in the functions
-	FPGA_LED1_Action (1);
-	//FPGA_LED2_Action (1);
-	LED_On (3);
-//	while(1)
-//	{
-		OSTimeDlyHMSM(0, 0, 1, 0);
-		//BSP_Dly(10000);
-		FPGA_LED1_Action (1);
-		FPGA_LED2_Action (1);
-		LED_Off (3);
-		AppDebugMsg("LED debug off\n");
-		OSTimeDlyHMSM(0, 0, 1, 0);
-		//BSP_Dly(10000);
-//		FPGA_LED1_Action (1);
-		FPGA_LED2_Action (0);
-		LED_On (3);
-		AppDebugMsg("LED debug on\n");
-//	}	
 	
 	AppDebugMsg("OUFFF TEAM 2013 : Odo online\n");
 
