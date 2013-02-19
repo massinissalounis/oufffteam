@@ -390,9 +390,13 @@ void TaskSensors_Main(void *p_arg)
 	
 	while(OS_TRUE)
 	{
-		//HOOPS_Up();
-		PMP_Write(AX12_UART_OUT_REGISTER, 0xAA);
+		HOOPS_Up();
 		OSTimeDlyHMSM(0, 0, 1, 0);
+		HOOPS_Down();
+		
+			// PMP_Write(AX12_UART_OUT_REGISTER, 0xAA);
+	// PMP_Write(AX12_UART_OUT_REGISTER, 0x55);
+		// OSTimeDlyHMSM(0, 0, 1, 0);
 	}
 
 	TaskSensors_ReadColor();
