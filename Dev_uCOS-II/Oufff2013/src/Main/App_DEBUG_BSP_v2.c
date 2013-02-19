@@ -92,7 +92,7 @@ void  AppTaskStart()
 	// Init BSP and FPGA module
 	BSP_Dly(10000);			// to wait FPGA to be loaded (time in us)
 	BSP_InitIO();           // Initialize BSP functions
-	BSPFPGA_Reset();
+	//BSPFPGA_Reset();
 
 #ifdef AX12_REG_PROGRAMMING
 	ARMS_InitReg(); // Register configuration - Comment for match
@@ -102,18 +102,6 @@ void  AppTaskStart()
 		OSTimeDlyHMSM(0, 0, 1, 0);
 	}
 #endif
-
-	// LED FPGA Debug
-	AppDebugMsg("LED debug ok\n");
-	// Look the behavior like that then uncomment the part in the functions
-	FPGA_LED1_Action (1);
-	while(1)
-	{
-		OSTimeDlyHMSM(0, 0, 1, 0);
-		FPGA_LED1_Action (0);
-		OSTimeDlyHMSM(0, 0, 1, 0);
-		FPGA_LED1_Action (1);
-	}
 
 #if (OS_TASK_STAT_EN > 0)
     OSStatInit();                                                       // Determine CPU capacity

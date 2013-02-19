@@ -34,6 +34,7 @@ CPU_INT08U AX12_UART_Busy (void)
 void AX12_UART_Write (CPU_INT08U data)
 {
 	PMP_Write(AX12_UART_OUT_REGISTER, data);
+	OSTimeDlyHMSM(0, 0, 0, 10);
 }
 
 // AX12 CONTROL FUNCTIONS
