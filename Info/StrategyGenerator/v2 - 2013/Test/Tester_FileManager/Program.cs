@@ -594,7 +594,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Constructeur vide :");
                 testKeyGroup = new StructuredFileGroup();
-                if (true)
+                if ((testKeyGroup.groupID == -1) && (testKeyGroup.GetAllKeys() == null))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -602,6 +602,53 @@ namespace FileManagerTester
                 {
                     Console.Write(" Error !\n"); Validated = false;
                 }
+
+                Console.Write(" -> Constructeur avec paramètres (groupID = -50) :");
+                testKeyGroup = new StructuredFileGroup(-50, new StructuredFileKey("TestID", "TestValue"));
+                if ((testKeyGroup.groupID == -1) && (testKeyGroup.GetAllKeys() == null))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                Console.Write(" -> Constructeur avec paramètres (groupID = 0 et key = null) :");
+                testKeyGroup = new StructuredFileGroup(0, null);
+                if ((testKeyGroup.groupID == -1) && (testKeyGroup.GetAllKeys() == null))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                Console.Write(" -> Constructeur avec paramètres (groupID = 0 et key = (TestKey, TestValue) :");
+                testKeyGroup = new StructuredFileGroup(5, new StructuredFileKey("TestKey", "TestValue");
+                if ((testKeyGroup.groupID == 5) && (testKeyGroup.GetAllKeys().Count == 1))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                Console.Write(" -> Test de la fonction GetAllKeys() :");
+                testKeyGroup = new StructuredFileGroup();
+                Faire la fonction d'ajout
+                if ((testKeyGroup.groupID == 5) && (testKeyGroup.GetAllKeys().Count == 1))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+
             }
             catch (Exception ex)
             {
