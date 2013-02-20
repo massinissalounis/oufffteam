@@ -22,6 +22,17 @@ namespace StrategyGenerator2.FileManager
         }
 
         // Properties -----------------------------------------------------------------------------
+        public int Count
+        {
+            get
+            {
+                if (_fileContents == null)
+                    return 0;
+                else
+                    return _fileContents.Count;
+            }
+        }
+            
 
         // Public ---------------------------------------------------------------------------------
         /// <summary>
@@ -42,7 +53,7 @@ namespace StrategyGenerator2.FileManager
                 _fileContents = new List<String>();
 
                 // Création d'une instance de StreamReader pour permettre la lecture de notre fichier 
-                StreamReader monStreamReader = new StreamReader(fileName);
+                StreamReader monStreamReader = new StreamReader(fileName, Encoding.Default);
 
                 while (monStreamReader.EndOfStream != true)
                 {
@@ -101,7 +112,7 @@ namespace StrategyGenerator2.FileManager
                 }
 
                 // Instanciation du StreamWriter avec passage du nom du fichier 
-                StreamWriter monStreamWriter = new StreamWriter(fileName);
+                StreamWriter monStreamWriter = new StreamWriter(fileName, false, Encoding.Default);
 
                 //Ecriture du texte dans votre fichier
                 for (int i = 0; i < _fileContents.Count(); i++)
@@ -128,10 +139,10 @@ namespace StrategyGenerator2.FileManager
         /// Permet de récupérer la ligne numéro 'lineNumber'
         /// </summary>
         /// <param name="lineNumber">Numéro de la ligne à lire (de 0 à MaxLine-1)</param>
-        /// <returns>Retourne la ligne au format string</returns>
+        /// <returns>Retourne la ligne au format string (null en cas d'erreur)</returns>
         public String GetLine(int lineNumber)
         {
-            String Ret = "";
+            String Ret = null;
 
             // Verification du fichier courant
             if (contentIsValid() == false)
@@ -141,7 +152,7 @@ namespace StrategyGenerator2.FileManager
             }
 
             // Verification des paramètres d'entrée
-            if ((lineNumber < _fileContents.Count) || (lineNumber >= _fileContents.Count))
+            if ((lineNumber < 0) || (lineNumber >= _fileContents.Count))
             {
                 _debugTool.WriteLine("TextFile (GetLine) : Numéro de ligne invalide");
                 return Ret;
@@ -196,8 +207,40 @@ namespace StrategyGenerator2.FileManager
             }
         }
 
+        public void RemoveLine(int indexToRemove)
+        {
+            // Verification de la structure du fichier
+            if(_fileContents == null)
+            {
+                _debugTool.WriteLine("TextFile (RemoveLine) : Impossible de supprimer la ligne, le fichier est vide");
+            }
+            else
+            {
+                // Verification des paramètres d'entrée
+                if ((indexToRemove >= 0) && (indexToRemove < _fileContents.Count()))
+                {
+                    _fileContents.RemoveAt(indexToRemove);
+                }
+                else
+                {   // Ligne non valide
+                    _debugTool.WriteLine("TextFile (RemoveLine) : Paramètre d'entrée non valide");
+                }
+            }
+        }
 
-
+        public void RemoveAllLine()
+        {
+            // Verification de la structure du fichier
+            if (_fileContents == null)
+            {
+                _debugTool.WriteLine("TextFile (RemoveAllLine) : Impossible de supprimer, le fichier est vide");
+            }
+            else
+            {
+                _fileContents.Clear();
+            }
+        }
+        
         // Private --------------------------------------------------------------------------------
         private List<String>    _fileContents;              // Permet de stocker le contenu du fichier
         private String          _currentFileName;           // Permet de stocker le chemin d'accès courrant
