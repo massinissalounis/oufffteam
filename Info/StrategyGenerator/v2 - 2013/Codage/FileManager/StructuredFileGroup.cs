@@ -8,19 +8,19 @@ namespace StrategyGenerator2.FileManager
     public class StructuredFileGroup
     { 
         // Constructor ----------------------------------------------------------------------------
-        public StructuredFileGroup()
+        public StructuredFileGroup(uint groupID)
         {
-            _groupID = -1;
+            _groupID = groupID;
             _keys = null;
         }
 
-        public StructuredFileGroup(int groupID, StructuredFileKey newKey)
+        public StructuredFileGroup(uint groupID, StructuredFileKey newKey)
         {
             // Verification des paramètres d'entrée
-            if ((groupID < 0) || (newKey == null))
+            if (newKey == null)
             {
                 // En cas de paramètre non valide, on ne crée pas l'objet
-                _groupID = -1;
+                _groupID = 0;
                 _keys = null;
             }
             else
@@ -37,7 +37,7 @@ namespace StrategyGenerator2.FileManager
         }
         
         // Properties -----------------------------------------------------------------------------
-        public int groupID
+        public uint groupID
         {
             get { return _groupID; }
             internal set { return; }
@@ -86,8 +86,62 @@ namespace StrategyGenerator2.FileManager
             return retKeys;
         }
 
+        /// <summary>
+        /// Permet d'ajouter une clé au groupe
+        /// </summary>
+        /// <param name="newKeyID">clé à ajouter</param>
+        public void AddKey(StructuredFileKey newKeyID)
+        {
+            // Verification des paramètres
+            if (newKeyID != null)
+            {
+                // Verification de la liste actuelle
+                if (_keys == null)
+                    _keys = new List<StructuredFileKey>();
+
+                // Ajout de la clé
+                _keys.Add(newKeyID);
+            }                
+        }
+
+        /// <summary>
+        /// Permet d'ajouter une liste de clé au groupe
+        /// </summary>
+        /// <param name="listNewKeyID">Liste de clé à ajouter</param>
+        public void AddKey(List<StructuredFileKey> listNewKeyID)
+        {
+            // Verification des paramètres
+            if ((listNewKeyID != null) && (listNewKeyID.Count() > 0))
+            {
+                // Verification de la liste actuelle
+                if(_keys == null)
+                    _keys = new List<StructuredFileKey>();
+
+                // Ajout de toutes les clés
+                foreach(StructuredFileKey currentKeyID in listNewKeyID)
+                {
+                    _keys.Add(currentKeyID);
+                }
+            }
+            return;
+        }
+
+        public int Count()
+        {
+            int Ret = 0;
+
+            // Verification de la liste actuelle
+            if (_keys != null)
+            {
+                // Recupération de la valeur
+                Ret = _keys.Count();
+            }
+
+            return Ret;
+        }
+
         // Private --------------------------------------------------------------------------------
-        private int _groupID = -1;                              // ID du groupe
+        private uint _groupID = 0;                              // ID du groupe
         private List<StructuredFileKey> _keys = null;           // Contient toutes les clées du groupe considéré
     }
 }

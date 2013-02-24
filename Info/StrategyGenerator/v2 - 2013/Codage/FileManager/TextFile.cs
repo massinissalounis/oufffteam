@@ -22,16 +22,6 @@ namespace StrategyGenerator2.FileManager
         }
 
         // Properties -----------------------------------------------------------------------------
-        public int Count
-        {
-            get
-            {
-                if (_fileContents == null)
-                    return 0;
-                else
-                    return _fileContents.Count;
-            }
-        }
             
 
         // Public ---------------------------------------------------------------------------------
@@ -44,7 +34,7 @@ namespace StrategyGenerator2.FileManager
         {
             int Ret = -1;   // Valeur de retour
 
-            if ("" == fileName)
+            if ((fileName == null) || (fileName == ""))
                 return -1;
 
             try
@@ -207,6 +197,10 @@ namespace StrategyGenerator2.FileManager
             }
         }
 
+        /// <summary>
+        /// Supprime une ligne à l'index selectionné
+        /// </summary>
+        /// <param name="indexToRemove">Index de la ligne à supprimer</param>
         public void RemoveLine(int indexToRemove)
         {
             // Verification de la structure du fichier
@@ -228,6 +222,9 @@ namespace StrategyGenerator2.FileManager
             }
         }
 
+        /// <summary>
+        /// Supprime toutes les lignes du fichier
+        /// </summary>
         public void RemoveAllLine()
         {
             // Verification de la structure du fichier
@@ -238,9 +235,22 @@ namespace StrategyGenerator2.FileManager
             else
             {
                 _fileContents.Clear();
+                _fileContents = null;
             }
         }
-        
+
+        /// <summary>
+        /// Retourne le nombre de lignes du fichier
+        /// </summary>
+        /// <returns>Nombre de ligne</returns>
+        public int Count()
+        {
+            if (_fileContents == null)
+                return 0;
+            else
+                return _fileContents.Count;
+        }
+
         // Private --------------------------------------------------------------------------------
         private List<String>    _fileContents;              // Permet de stocker le contenu du fichier
         private String          _currentFileName;           // Permet de stocker le chemin d'accès courrant
