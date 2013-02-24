@@ -84,7 +84,7 @@ namespace StrategyGenerator2.FileManager
         // Public ---------------------------------------------------------------------------------
 
         // Private --------------------------------------------------------------------------------
-        private String _ID;            // Clé permettant d'identifier la donnée 
+        private String _ID;             // Clé permettant d'identifier la donnée 
         private String _value;          // Valeur de la clé
     }
 }

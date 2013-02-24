@@ -122,7 +122,7 @@ namespace FileManagerTester
 
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Count sur un fichier vide :");
-                if (newTextFile.Count == 0)
+                if (newTextFile.Count() == 0)
                 {
                     Console.Write(" Ok\n");
                 }
@@ -134,7 +134,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Count sur un fichier normal (100 Lignes) :");
                 newTextFile.Load("TestFiles/Test_100Lines.txt");
-                if (newTextFile.Count == 100)
+                if (newTextFile.Count() == 100)
                 {
                     Console.Write(" Ok\n");
                 }
@@ -146,7 +146,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Count sur un fichier normal (1000 Lignes) :");
                 newTextFile.Load("TestFiles/Test_1000Lines.txt");
-                if (newTextFile.Count == 1000)
+                if (newTextFile.Count() == 1000)
                 {
                     Console.Write(" Ok\n");
                 }
@@ -173,7 +173,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Ajout d'une ligne dans un fichier vide:");
                 newTextFile.AddLine("Ligne 01");
-                if (newTextFile.Count == 1)
+                if (newTextFile.Count() == 1)
                 {
                     Console.Write(" Ok\n");
                 }
@@ -185,7 +185,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Ajout d'une ligne vide :");
                 newTextFile.AddLine(null);
-                if (newTextFile.Count == 1)
+                if (newTextFile.Count() == 1)
                 {
                     Console.Write(" Ok\n");
                 }
@@ -197,7 +197,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Ajout d'une ligne sans contenu :");
                 newTextFile.AddLine("");
-                if (newTextFile.Count == 2)
+                if (newTextFile.Count() == 2)
                 {
                     Console.Write(" Ok\n");
                 }
@@ -209,7 +209,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Ajout d'une ligne avec un index erroné :");
                 newTextFile.AddLine("Ligne -1", -1);
-                if (newTextFile.Count == 2)
+                if (newTextFile.Count() == 2)
                 {
                     Console.Write(" Ok\n");
                 }
@@ -221,7 +221,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Ajout d'une ligne à un index spécifié :");
                 newTextFile.AddLine("Ligne 00", 0);
-                if (newTextFile.Count == 3)
+                if (newTextFile.Count() == 3)
                 {
                     Console.Write(" Ok\n");
                 }
@@ -233,7 +233,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Ajout d'une ligne null à un index spécifié :");
                 newTextFile.AddLine(null, 0);
-                if (newTextFile.Count == 3)
+                if (newTextFile.Count() == 3)
                 {
                     Console.Write(" Ok\n");
                 }
@@ -245,7 +245,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Ajout d'une ligne à un index erroné :");
                 newTextFile.AddLine(null, -1);
-                if (newTextFile.Count == 3)
+                if (newTextFile.Count() == 3)
                 {
                     Console.Write(" Ok\n");
                 }
@@ -457,7 +457,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Suppression d'une ligne dans un fichier vide :");
                 newTextFile.RemoveLine(0);
-                if (newTextFile.Count == 0)
+                if (newTextFile.Count() == 0)
                 {
                     Console.Write(" Ok\n");
                 }
@@ -469,7 +469,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Suppression d'une ligne non valide :");
                 newTextFile.RemoveLine(-1);
-                if (newTextFile.Count == 0)
+                if (newTextFile.Count() == 0)
                 {
                     Console.Write(" Ok\n");
                 }
@@ -484,7 +484,7 @@ namespace FileManagerTester
                 newTextFile.AddLine("Ligne02");
                 newTextFile.AddLine("Ligne03");
                 newTextFile.RemoveLine(0);
-                if ((newTextFile.Count == 2) && (newTextFile.GetLine(0) == "Ligne02"))
+                if ((newTextFile.Count() == 2) && (newTextFile.GetLine(0) == "Ligne02"))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -499,7 +499,7 @@ namespace FileManagerTester
                 newTextFile.AddLine("Ligne02");
                 newTextFile.AddLine("Ligne03");
                 newTextFile.RemoveAllLine();
-                if (newTextFile.Count == 0)
+                if (newTextFile.Count() == 0)
                 {
                     Console.Write(" Ok\n");
                 }
@@ -586,6 +586,8 @@ namespace FileManagerTester
             // ############################################################################################################################
             #region StructuredFileGroup
             StructuredFileGroup testKeyGroup = null;
+            StructuredFileGroup testKeyGroup1 = null;
+            StructuredFileGroup testKeyGroup2 = null;
             // Test 0301 : Constructeurs ________________________________________________________________________________________
             try
             {
@@ -593,19 +595,8 @@ namespace FileManagerTester
                 Console.WriteLine("Test 0301 - StructuredFileGroup : \n");
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Constructeur vide :");
-                testKeyGroup = new StructuredFileGroup();
-                if ((testKeyGroup.groupID == -1) && (testKeyGroup.GetAllKeys() == null))
-                {
-                    Console.Write(" Ok\n");
-                }
-                else
-                {
-                    Console.Write(" Error !\n"); Validated = false;
-                }
-
-                Console.Write(" -> Constructeur avec paramètres (groupID = -50) :");
-                testKeyGroup = new StructuredFileGroup(-50, new StructuredFileKey("TestID", "TestValue"));
-                if ((testKeyGroup.groupID == -1) && (testKeyGroup.GetAllKeys() == null))
+                testKeyGroup = new StructuredFileGroup(0);
+                if ((testKeyGroup.groupID == 0) && (testKeyGroup.GetAllKeys() == null))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -616,7 +607,7 @@ namespace FileManagerTester
 
                 Console.Write(" -> Constructeur avec paramètres (groupID = 0 et key = null) :");
                 testKeyGroup = new StructuredFileGroup(0, null);
-                if ((testKeyGroup.groupID == -1) && (testKeyGroup.GetAllKeys() == null))
+                if ((testKeyGroup.groupID == 0) && (testKeyGroup.GetAllKeys() == null))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -625,9 +616,51 @@ namespace FileManagerTester
                     Console.Write(" Error !\n"); Validated = false;
                 }
 
-                Console.Write(" -> Constructeur avec paramètres (groupID = 0 et key = (TestKey, TestValue) :");
-                testKeyGroup = new StructuredFileGroup(5, new StructuredFileKey("TestKey", "TestValue");
+                Console.Write(" -> Constructeur avec paramètres (groupID=0 et key=(TestKey, TestValue) :");
+                testKeyGroup = new StructuredFileGroup(5, new StructuredFileKey("TestKey", "TestValue"));
                 if ((testKeyGroup.groupID == 5) && (testKeyGroup.GetAllKeys().Count == 1))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                Console.Write(" -> Test de la fonction Add() :");
+                testKeyGroup = new StructuredFileGroup(1);
+                testKeyGroup.AddKey(new StructuredFileKey("1", "1"));
+                testKeyGroup.AddKey(new StructuredFileKey("2", "2"));
+                if ((testKeyGroup.groupID == 1) && (testKeyGroup.GetAllKeys().Count == 2))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+                
+                Console.Write(" -> Test de la fonction Add(List<>) :");
+                testKeyGroup = new StructuredFileGroup(1);
+                List<StructuredFileKey> listToAdd = new List<StructuredFileKey>();
+                listToAdd.Add(new StructuredFileKey("1", "1"));
+                listToAdd.Add(new StructuredFileKey("2", "2"));
+                testKeyGroup.AddKey(listToAdd);
+                if ((testKeyGroup.groupID == 1) && (testKeyGroup.Count() == 2))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+                
+                Console.Write(" -> Test de la fonction Count() :");
+                testKeyGroup = new StructuredFileGroup(1, null);
+                testKeyGroup1 = new StructuredFileGroup(1, new StructuredFileKey("Key1", "Value1"));
+                testKeyGroup2 = new StructuredFileGroup(2, new StructuredFileKey("Key1", "Value1"));
+                testKeyGroup2.AddKey(new StructuredFileKey("Key2", "Value2"));
+                if ((testKeyGroup.Count() == 0) && (testKeyGroup1.Count() == 1) && (testKeyGroup2.Count() == 2))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -637,9 +670,10 @@ namespace FileManagerTester
                 }
 
                 Console.Write(" -> Test de la fonction GetAllKeys() :");
-                testKeyGroup = new StructuredFileGroup();
-                Faire la fonction d'ajout
-                if ((testKeyGroup.groupID == 5) && (testKeyGroup.GetAllKeys().Count == 1))
+                testKeyGroup = new StructuredFileGroup(1);
+                testKeyGroup.AddKey(new StructuredFileKey("Key1", "Value1"));
+                testKeyGroup.AddKey(new StructuredFileKey("Key2", "Value2"));
+                if ((testKeyGroup.groupID == 1) && (testKeyGroup.GetAllKeys().Count() == 2))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -648,7 +682,19 @@ namespace FileManagerTester
                     Console.Write(" Error !\n"); Validated = false;
                 }
 
-
+                Console.Write(" -> Test de la fonction GetKeys(keyID) :");
+                testKeyGroup = new StructuredFileGroup(1);
+                testKeyGroup.AddKey(new StructuredFileKey("Key1", "Value1"));
+                testKeyGroup.AddKey(new StructuredFileKey("Key2", "Value2"));
+                testKeyGroup.AddKey(new StructuredFileKey("Key2", "Value22"));
+                if ((testKeyGroup.groupID == 1) && (testKeyGroup.GetKeys("Key3") == null) && (testKeyGroup.GetKeys("Key2").Count() == 2))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
             }
             catch (Exception ex)
             {
@@ -663,6 +709,7 @@ namespace FileManagerTester
             // ############################################################################################################################
             #region StructuredFile
             StructuredFile testStructuredFile = null;
+            StructuredFile testStructuredFile2 = null;
             // Test 0401 : Constructeurs ________________________________________________________________________________________
             try
             {
@@ -679,6 +726,167 @@ namespace FileManagerTester
                 {
                     Console.Write(" Error !\n"); Validated = false;
                 }
+
+                // ------------------------------------------------------------------------------------------
+                Console.Write(" -> Constructeur avec paramètre :");
+                testStructuredFile = new StructuredFile("CheminInvalid");
+                if (null != testStructuredFile)
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                // ------------------------------------------------------------------------------------------
+                Console.Write(" -> Fonction GetAllGroupID vide :");
+                testStructuredFile = new StructuredFile();
+                if (testStructuredFile.GetAllGroup() == null)
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+                
+                // ------------------------------------------------------------------------------------------
+                Console.Write(" -> Fonction d'ajout :");
+                testStructuredFile = new StructuredFile();
+                testStructuredFile2 = new StructuredFile();
+                testStructuredFile.AddGroup(new StructuredFileGroup(1));
+                testStructuredFile.AddGroup(null);
+                testStructuredFile2.AddGroup(new StructuredFileGroup(1, new StructuredFileKey("Key1", 1)));
+                testStructuredFile2.AddGroup(new StructuredFileGroup(1, new StructuredFileKey("Key2", 2)));
+                testStructuredFile2.AddGroup(new StructuredFileGroup(2, new StructuredFileKey("Key3", 3)));
+                if ((testStructuredFile.GetAllGroup().Count() == 1) && (testStructuredFile.GetAllGroup().Count() == 1))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                // ------------------------------------------------------------------------------------------
+                Console.Write(" -> Fonction de suppression totale :");
+                testStructuredFile = new StructuredFile();
+                testStructuredFile2 = new StructuredFile();
+                testStructuredFile.AddGroup(new StructuredFileGroup(1));
+                testStructuredFile.AddGroup(new StructuredFileGroup(2));
+                testStructuredFile.AddGroup(new StructuredFileGroup(3));
+                testStructuredFile.RemoveAllGroup();
+                testStructuredFile2.RemoveAllGroup();
+                if ((testStructuredFile.GetAllGroup() == null) && (testStructuredFile2.GetAllGroup() == null))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                // ------------------------------------------------------------------------------------------
+                Console.Write(" -> Fonction de suppression à partir de l'ID :");
+                testStructuredFile = new StructuredFile();
+                testStructuredFile2 = new StructuredFile();
+                testStructuredFile.AddGroup(new StructuredFileGroup(1));
+                testStructuredFile.AddGroup(new StructuredFileGroup(2));
+                testStructuredFile.AddGroup(new StructuredFileGroup(3));
+                testStructuredFile.RemoveGroupByID(2);
+                testStructuredFile.RemoveGroupByID(5);
+                testStructuredFile2.RemoveGroupByID(5);
+                if (testStructuredFile.GetAllGroup().Count() == 2)
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                // ------------------------------------------------------------------------------------------
+                Console.Write(" -> Fonction de recherche à partir de l'ID :");
+                testStructuredFile = new StructuredFile();
+                testStructuredFile2 = new StructuredFile();
+                testStructuredFile.AddGroup(new StructuredFileGroup(1));
+                testStructuredFile.AddGroup(new StructuredFileGroup(2));
+                testStructuredFile.AddGroup(new StructuredFileGroup(3));
+                if ((testStructuredFile2.GetGroupByID(5) == null) && (testStructuredFile.GetGroupByID(5) == null) && (testStructuredFile.GetGroupByID(2).groupID == 2))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                // ------------------------------------------------------------------------------------------
+                Console.Write(" -> Ecriture du fichier via SaveTo (format par défaut) :");
+                testStructuredFile = new StructuredFile();
+                testStructuredFile2 = new StructuredFile();
+                testStructuredFile.AddGroup(new StructuredFileGroup(1));
+                StructuredFileGroup newGroup = new StructuredFileGroup(2,new StructuredFileKey("Key1", 1));
+                newGroup.AddKey(new StructuredFileKey("Key2", 2));
+                newGroup.AddKey(new StructuredFileKey("Key3", 3));
+                testStructuredFile.AddGroup(newGroup);
+                testStructuredFile.AddGroup(new StructuredFileGroup(3,new StructuredFileKey("Key1", 10)));
+
+                if ((testStructuredFile.SaveTo("TestFiles/StructuredFile.sfile") > 0) && (testStructuredFile2.SaveTo("TestFiles/StructuredFileErr.sfile") == -1))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                Console.Write(" -> Ecriture du fichier via Save (format par défaut) :");
+                if ((testStructuredFile.Save() > 0) && (testStructuredFile2.Save() == -1))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                // ------------------------------------------------------------------------------------------
+                Console.Write(" -> Lecture d'un fichier :");
+                newTextFile = new TextFile();
+                newTextFile.AddLine("key1 = A");
+                newTextFile.AddLine("key2 = B");
+                newTextFile.AddLine("[Groupe 5]");
+                newTextFile.AddLine("key3 = C");
+                newTextFile.AddLine("key4 = D");
+                newTextFile.AddLine("key5 E");
+                newTextFile.AddLine("key6 = F");
+                newTextFile.AddLine("key7 = G");
+                newTextFile.AddLine("key8 = H");
+                newTextFile.AddLine("key9 = I");
+                newTextFile.AddLine("      ");
+                newTextFile.AddLine("key10 = J");
+                newTextFile.AddLine("[Groupe A]");
+                newTextFile.AddLine("key11 = K");
+                newTextFile.AddLine("key12 = L");
+                newTextFile.AddLine("[ Groupe 5]");
+                newTextFile.AddLine("[Groupe 7]");
+                newTextFile.AddLine("[Groupe 5]");
+                newTextFile.AddLine("key13 = M");
+                
+                testStructuredFile = new StructuredFile();
+                
+                if ((testStructuredFile.Load(newTextFile) > 0) && (testStructuredFile.SaveTo("TestFiles/StructuredFile2.sfile") > 0))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+
             }
             catch (Exception ex)
             {
