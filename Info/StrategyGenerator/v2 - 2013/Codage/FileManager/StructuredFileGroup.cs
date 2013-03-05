@@ -126,6 +126,10 @@ namespace StrategyGenerator2.FileManager
             return;
         }
 
+        /// <summary>
+        /// Retourne le nombre de clé du groupe
+        /// </summary>
+        /// <returns>Nombre de clé</returns>
         public int Count()
         {
             int Ret = 0;

@@ -29,14 +29,6 @@ namespace StrategyGenerator2.Model
         // Constructeur privé (dû au singleton)
         private MainModel()
         {
-            // Test !! ########################################################
-            TextFile FichierTest = new TextFile();
-            FichierTest.Load("D:/Robotique/Info/StrategyGenerator/v2 - 2013/Test/TestLoad.txt");
-            FichierTest.Save();
-            FichierTest.SaveTo("D:/Robotique/Info/StrategyGenerator/v2 - 2013/Test/TestLoadOutput.txt");
-
-            // ################################################################
-
             return;
         }
 

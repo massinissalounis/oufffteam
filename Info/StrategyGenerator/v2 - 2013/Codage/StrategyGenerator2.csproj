@@ -76,6 +76,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\MainModel.cs" />
+    <Compile Include="StrategyManager\Action.cs" />
+    <Compile Include="StrategyManager\EnumStrategy.cs" />
+    <Compile Include="StrategyManager\Strategy.cs" />
     <Compile Include="Tools\DebugTool.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

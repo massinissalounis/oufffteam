@@ -1,0 +1,26 @@
+Test pour export pour variable globale : 'Key1@0' et 'Key2@0'
+Sur le groupe 2 : 'Key1@2' et 'Key2@2'
+Sur le groupe 3 : 'Key1@3' et 'Key2@3'
+
+Lecture de groupe
+GroupeID = 'gID':	Var1 = 'Var1@gID';		Var2 =	'Var2@gID';		Var3 = 'Var3@gID';		Var4 = 'Var4@gID';		Var5 = 'Var5@gID';	
+GroupeID = 'gID':	Var1 = 'Var1@gID';		Var2 =	'Var2@gID';		Var3 = 'Var3@gID';		Var4 = 'Var4@gID';		Var5 = 'Var5@gID';	
+GroupeID = 'gID':	Var1 = 'Var1@gID';		Var2 =	'Var2@gID';		Var3 = 'Var3@gID';		Var4 = 'Var4@gID';		Var5 = 'Var5@gID';	
+GroupeID = 'gID':	Var1 = 'Var1@gID';		Var2 =	'Var2@gID';		Var3 = 'Var3@gID';		Var4 = 'Var4@gID';		Var5 = 'Var5@gID';	
+GroupeID = 'gID':	Var1 = 'Var1@gID';		Var2 =	'Var2@gID';		Var3 = 'Var3@gID';		Var4 = 'Var4@gID';		Var5 = 'Var5@gID';	
+01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+0         1         2         3         4         5         6         7         8         9         0         1         2         3
+0                                                                                                   1
+
+
+
+
+A l écriture Si on a 'gID' on utilise le premier groupID > 0, à chaque nouvelle occurence de groupID on change de groupe
+S il n y a pas assez de groupe par rapport au pattern, on ecrit la ligne du pattern à l'identique dans le fichier de sortie 
+
+
+A la lecture si nous n'avons pas le bon nombre de ligne entre le fichier et le pattern -> lecture impossible
+On supprime toutes les lignes identiques entre pattern et fichier puis, on met en correspondance les données
+
+
+A la lecture
