@@ -876,7 +876,7 @@ namespace FileManagerTester
                 newTextFile.AddLine("key13 = M");
                 
                 testStructuredFile = new StructuredFile();
-                
+
                 if ((testStructuredFile.Load(newTextFile) > 0) && (testStructuredFile.SaveTo("TestFiles/StructuredFile2.sfile") > 0))
                 {
                     Console.Write(" Ok\n");
@@ -886,6 +886,75 @@ namespace FileManagerTester
                     Console.Write(" Error !\n"); Validated = false;
                 }
 
+                // ------------------------------------------------------------------------------------------
+                Console.Write(" -> Export d'un fichier :");
+                newTextFile = new TextFile();
+                newTextFile.AddLine("[Groupe 0]");
+                newTextFile.AddLine("Key1 = (0,1)");
+                newTextFile.AddLine("Key2 = (0,2)");
+                newTextFile.AddLine("[Groupe 2]");
+                newTextFile.AddLine("Key1 = (2,1)");
+                newTextFile.AddLine("Key2 = (2,2)");
+                newTextFile.AddLine("[Groupe 3]");
+                newTextFile.AddLine("Key1 = (3,1)");
+                newTextFile.AddLine("Key2 = (3,2)");
+                newTextFile.AddLine("[Groupe 1]");
+                newTextFile.AddLine("Var1 = Var1-1");
+                newTextFile.AddLine("Var2 = Var2-1");
+                newTextFile.AddLine("Var3 = Var3-1");
+                newTextFile.AddLine("Var4 = Var4-1");
+                newTextFile.AddLine("Var5 = Var5-1");
+                newTextFile.AddLine("[Groupe 2]");
+                newTextFile.AddLine("Var1 = Var1-2");
+                newTextFile.AddLine("Var2 = Var2-2");
+                newTextFile.AddLine("Var3 = Var3-2");
+                newTextFile.AddLine("Var4 = Var4-2");
+                newTextFile.AddLine("Var5 = Var5-2");
+                newTextFile.AddLine("[Groupe 3]");
+                newTextFile.AddLine("Var1 = Var1-3");
+                newTextFile.AddLine("Var2 = Var2-3");
+                newTextFile.AddLine("Var3 = Var3-3");
+                newTextFile.AddLine("Var4 = Var4-3");
+                newTextFile.AddLine("Var5 = Var5-3");
+                newTextFile.AddLine("[Groupe 4]");
+                newTextFile.AddLine("Var1 = Var1-4");
+                newTextFile.AddLine("Var2 = Var2-4");
+                newTextFile.AddLine("Var3 = Var3-4");
+                newTextFile.AddLine("Var4 = Var4-4");
+                newTextFile.AddLine("Var5 = Var5-4");
+                newTextFile.AddLine("[Groupe 5]");
+                newTextFile.AddLine("Var1 = Var1-5");
+                newTextFile.AddLine("Var2 = Var2-5");
+                newTextFile.AddLine("Var3 = Var3-5");
+                newTextFile.AddLine("Var4 = Var4-5");
+                newTextFile.AddLine("Var5 = Var5-5");
+
+                testStructuredFile = new StructuredFile();
+                testStructuredFile.Load(newTextFile);
+                testStructuredFile.SetPatternFile("TestFiles/ExportPatternFile.pattern");
+
+                if (testStructuredFile.Export("TestFiles/ExportPatternFile.output") == 6)
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                // ------------------------------------------------------------------------------------------
+                Console.Write(" -> Import d'un fichier :");
+                testStructuredFile = new StructuredFile();
+                testStructuredFile.SetPatternFile("TestFiles/ImportPatternFile.pattern");
+
+                if ((testStructuredFile.Import("TestFiles/ImportFile.txt") > 0) && (testStructuredFile.SaveTo("TestFiles/ImportFile.sfile") > 0))
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
 
             }
             catch (Exception ex)

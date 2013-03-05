@@ -137,7 +137,7 @@ namespace StrategyGenerator2.FileManager
                     {
                         // Analyse de la ligne lue
                         // Est-ce une ligne d'entête
-                        if (currentLine.Contains(DefaultPattern.HeaderBegin) == true)
+                        if (currentLine.Contains(DefaultPatternTag.HeaderBegin) == true)
                         {
                             // Si jamais il y a déjà un groupe en cours de traitement, on l'ajoute à la liste
                             if (currentGroup != null)
@@ -153,11 +153,11 @@ namespace StrategyGenerator2.FileManager
                             // Suppression de la balise d'entête
                             parsedLine = currentLine;
 
-                            if (DefaultPattern.HeaderBegin.Length > 0)
-                                parsedLine = parsedLine.Replace(DefaultPattern.HeaderBegin, "");
+                            if (DefaultPatternTag.HeaderBegin.Length > 0)
+                                parsedLine = parsedLine.Replace(DefaultPatternTag.HeaderBegin, "");
 
-                            if (DefaultPattern.HeaderEnd.Length > 0) 
-                                parsedLine = parsedLine.Replace(DefaultPattern.HeaderEnd, "");
+                            if (DefaultPatternTag.HeaderEnd.Length > 0) 
+                                parsedLine = parsedLine.Replace(DefaultPatternTag.HeaderEnd, "");
 
                             // On essaye de lire le numéro du groupe
                             try
@@ -175,22 +175,22 @@ namespace StrategyGenerator2.FileManager
                         {
                             // C'est une ligne à analyser
                             // Verification si la ligne est valable (si elle est non valable, elle est non traitée)
-                            if (currentLine.Contains(DefaultPattern.LineBegin) && currentLine.Contains(DefaultPattern.LineSeparator) && currentLine.Contains(DefaultPattern.LineEnd))
+                            if (currentLine.Contains(DefaultPatternTag.LineBegin) && currentLine.Contains(DefaultPatternTag.LineSeparator) && currentLine.Contains(DefaultPatternTag.LineEnd))
                             {
                                 // La ligne est valide, on la traite
                                 // On supprime les entete et les fin de ligne
                                 parsedLine = currentLine;
 
-                                if (DefaultPattern.LineBegin.Length > 0)
-                                    parsedLine = currentLine.Replace(DefaultPattern.LineBegin, "");
+                                if (DefaultPatternTag.LineBegin.Length > 0)
+                                    parsedLine = currentLine.Replace(DefaultPatternTag.LineBegin, "");
 
-                                if (DefaultPattern.LineEnd.Length > 0)
-                                    parsedLine = parsedLine.Replace(DefaultPattern.LineEnd, "");
+                                if (DefaultPatternTag.LineEnd.Length > 0)
+                                    parsedLine = parsedLine.Replace(DefaultPatternTag.LineEnd, "");
 
                                 // Récupération des noms de chaines et valeurs
-                                currentIndex = parsedLine.IndexOf(DefaultPattern.LineSeparator);
+                                currentIndex = parsedLine.IndexOf(DefaultPatternTag.LineSeparator);
                                 currentKeyName = parsedLine.Substring(0, currentIndex);
-                                currentKeyValue = parsedLine.Substring(currentIndex + DefaultPattern.LineSeparator.Length);
+                                currentKeyValue = parsedLine.Substring(currentIndex + DefaultPatternTag.LineSeparator.Length);
 
                                 // Ajout de la clé considérée
                                 if (currentGroup == null)
@@ -284,13 +284,13 @@ namespace StrategyGenerator2.FileManager
             foreach (StructuredFileGroup tmpGroup in _group)
             {
                 // Creation de l'entête du groupe
-                outputFile.AddLine(DefaultPattern.HeaderBegin + tmpGroup.groupID.ToString() + DefaultPattern.HeaderEnd);
+                outputFile.AddLine(DefaultPatternTag.HeaderBegin + tmpGroup.groupID.ToString() + DefaultPatternTag.HeaderEnd);
 
                 if(tmpGroup.GetAllKeys() != null)
                 {
                     foreach (StructuredFileKey tmpKey in tmpGroup.GetAllKeys())
                     {
-                        outputFile.AddLine(DefaultPattern.LineBegin +  tmpKey.ID + DefaultPattern.LineSeparator + tmpKey.valueString + DefaultPattern.LineEnd);
+                        outputFile.AddLine(DefaultPatternTag.LineBegin +  tmpKey.ID + DefaultPatternTag.LineSeparator + tmpKey.valueString + DefaultPatternTag.LineEnd);
                     }
                 }
                 
@@ -418,19 +418,354 @@ namespace StrategyGenerator2.FileManager
             return _group;
         }
 
+        /// <summary>
+        /// Exporte tous les groupes définis dans le fichier en suivant le pattern file précédemment défini
+        /// </summary>
+        /// <param name="fileName">Nom du fichier pour l'export</param>
+        /// <returns>Nombre de groupe ecrit (-1 en cas d'erreur)</returns>
+        public int Export(String fileName)
+        {
+            int Ret = -1;
+            TextFile outputFile = new TextFile();
+            List<String> outputBuffer = new List<string>();
+            int currentGroupIndex = -1;                         // Index du groupe pour le remplacement des gID
+            int indexInLine = -1;                               // Index pour parser les différentes lignes
+            String flagToCheck = null;                          // Permet l'analyse du tag
+
+
+            // Verification des params d'entrée
+            if (fileName != null)
+            {
+                // Verification des paramètres internes
+                if ((_patternFile != null) && (_group != null))
+                {
+                    // Récupération du fichier pattern
+                    for(int i=0; i<_patternFile.Count(); i++)
+                    {
+                        outputBuffer.Add(_patternFile.GetLine(i));
+                    }
+
+                    // Lecture de tout le fichier pour remplacer les Tags 'gID' par l'identifiant du groupe
+                    for(int i=0; i<outputBuffer.Count(); i++)
+                    {
+                        // Permet d'initialiser la position de l'index pour la recherche par ligne
+                        indexInLine = 0;
+
+                        // Recherche sur la ligne de tous les Tags 'gID'
+                        do
+                        {
+                            // Recherche de l'index dans la portion de la ligne (à chaque passage on se décale sur la ligne)
+                            indexInLine = outputBuffer[i].IndexOf("gID", indexInLine);
+
+                            if (indexInLine > 1) // Il y a dans tous les cas un caractère avant le Tag gID
+                            {
+                                // Analyse du tag pour connaitre le type ('gID ou @gID)
+                                flagToCheck = outputBuffer[i].Substring(indexInLine - 1, 4);
+                                if (flagToCheck == "'gID") // Il s'agit d'un flag de groupe, il faut changer de groupe
+                                {
+                                    currentGroupIndex = GetNextGroupIndex(currentGroupIndex);   // On change de groupe
+                                    if (currentGroupIndex >= 0) // On verifie que le groupe est valide
+                                    {
+                                        outputBuffer[i] = outputBuffer[i].Substring(0, indexInLine - 1) + _group[currentGroupIndex].groupID.ToString() + outputBuffer[i].Substring(indexInLine + 5);
+                                    }
+                                }
+
+                                if ((flagToCheck == "@gID") && (currentGroupIndex >= 0)) // Il s'agit d'un flag à remplacer et le groupe est valide
+                                {
+                                    // On remplace ce gID avec la valeur du groupe actuel
+                                    outputBuffer[i] = outputBuffer[i].Substring(0, indexInLine) + _group[currentGroupIndex].groupID.ToString() + outputBuffer[i].Substring(indexInLine + 3);
+                                }
+                            }
+                        } while ((indexInLine >= 0) && (currentGroupIndex > 0));
+                    }
+
+                    // Export des données du groupe pour toutes les lignes du fichier
+                    for (int i = 0; i < outputBuffer.Count(); i++)
+                    {
+                        // On verifie si la ligne doit être traitée (présence du caractère @)
+                        if (outputBuffer[i].Contains("@") == true)
+                        {
+                            // On parcourt toute la liste des groupes
+                            foreach (StructuredFileGroup currentGroup in _group)
+                            {
+                                // On verifie si la ligne contient des données du groupe
+                                if (outputBuffer[i].Contains("@" + currentGroup.groupID.ToString()) == true)
+                                {
+                                    // On parcourt toutes les clées
+                                    foreach (StructuredFileKey currentKey in currentGroup.GetAllKeys())
+                                    {
+                                        outputBuffer[i] = outputBuffer[i].Replace("'" + currentKey.ID + "@" + currentGroup.groupID.ToString() + "'", currentKey.valueString);
+                                    }
+                                }
+                            }
+                        }
+ 
+                        // Ecriture de la ligne dans le fichier de sortie
+                        outputFile.AddLine(outputBuffer[i]);
+                    }
+
+                    // Ecriture du fichier final
+                    outputFile.SaveTo(fileName);
+                    Ret = _group.Count();
+                }
+            }
+
+            return Ret;
+        }
+
+        public int Import(String fileName)
+        {
+            int Ret = -1;
+            int iCurrentIndex = -1;
+            TextFile inputFile = new TextFile();
+            List<String> inputBuffer = new List<string>();
+            List<String> patternBuffer = new List<string>();
+            string[] splitLinePattern = null;
+            string[] patternSeparator = new string[1];
+            String currentFullKey = null;
+            String currentValueKey = null;
+            String currentGroupID = "0";
+
+            // Verification des params d'entrée
+            if (fileName != null)
+            {
+                // Verification des paramètres internes
+                if (_patternFile != null) 
+                {
+                    // Lecture du fichier
+                    inputFile.Load(fileName);
+
+                    // Comparaison des tailles de fichier
+                    if (inputFile.Count() == _patternFile.Count())
+                    {
+                        // Comparaison des fichiers lignes à lignes, les lignes identiques sont supprimées, les lignes différentes sont stockées
+                        for (int i = 0; i < inputFile.Count(); i++)
+                        {
+                            if (inputFile.GetLine(i) != _patternFile.GetLine(i)) // Les lignes sont différentes, on les ajoute pour traitement
+                            {
+                                inputBuffer.Add(inputFile.GetLine(i));
+                                patternBuffer.Add(_patternFile.GetLine(i));
+                            }
+                        }
+
+                        // Si des lignes doivent être traitées
+                        if (inputBuffer.Count() > 0)
+                        {
+                            // Initialisation du séparateur
+                            patternSeparator[0] = "'";
+
+                            // analyse des lignes pour extraire les données
+                            for (int iLine = 0; iLine < inputBuffer.Count(); iLine++)
+                            {
+                                // On découpe la ligne avec les caractères '
+                                splitLinePattern = patternBuffer[iLine].Split(patternSeparator, StringSplitOptions.RemoveEmptyEntries);
+
+                                foreach (string splitPattern in splitLinePattern)
+                                {
+                                    // Verification s'il s'agit d'une clé ou pas
+                                    if ((splitPattern.Contains("@") == true) || (splitPattern.Contains(PatternTag.gID)))
+                                    {
+                                        // S'il s'agit d'un gID, il aut stocker la valeur pour les lectures successives
+                                        if (splitPattern == PatternTag.gID)
+                                        {
+                                            // Il s'agit d'une déclaration de gID
+                                            currentFullKey = PatternTag.gID;
+                                        }
+                                        else
+                                        {
+                                            // Il s'agit d'une clé
+                                            currentFullKey = splitPattern.ToString();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Il ne s'agit pas d'une clé
+                                        // Verification du positionnement de la chaine actuelle
+                                        iCurrentIndex = inputBuffer[iLine].IndexOf(splitPattern.ToString());
+
+                                        if (iCurrentIndex >= 0)     // La chaine a été trouvée
+                                        {
+                                            if (iCurrentIndex == 0)  // La chaine actuelle est la première de la ligne
+                                            {
+                                                // Suppression de la section sans clé
+                                                inputBuffer[iLine] = inputBuffer[iLine].Substring(splitPattern.Length);
+                                            }
+                                            else
+                                            {
+                                                // Il y a une clé avant la chaine recherchée
+                                                // On récupère la clé
+                                                currentValueKey = inputBuffer[iLine].Substring(0, iCurrentIndex);
+
+                                                // On supprime la section sans clé
+                                                inputBuffer[iLine] = inputBuffer[iLine].Substring(iCurrentIndex + splitPattern.Length);
+
+                                                // Verification des données avant l'ajout des clés
+                                                if (currentFullKey == PatternTag.gID)
+                                                {
+                                                    // Il s'agit d'une clé générique 'groupID'
+                                                    currentGroupID = currentValueKey;
+                                                }
+                                                else
+                                                {
+                                                    // Avant d'ajouter la clé, on remplace les données 'gID' par la valeur du groupe
+                                                    if (currentFullKey.Contains("@" + PatternTag.gID) == true)
+                                                    {
+                                                        currentFullKey = currentFullKey.Replace("@" + PatternTag.gID, "@" + currentGroupID);
+                                                    }
+
+                                                    // Il faut ajouter la clé
+                                                    AddKeyAndValue(currentFullKey, currentValueKey);
+                                                }
+
+                                                // Réinitialisation de la valeur de clé
+                                                currentFullKey = null;
+                                                currentValueKey = null;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            // La chaine n'a pas été trouvée
+                                        }
+                                    }
+                                }
+
+                                // Si le buffer de lecture n'est pas vide et une clé est en attente de lecture, on la traite
+                                if (inputBuffer[iLine].Length > 0 && currentFullKey != null)
+                                {
+                                    currentValueKey = inputBuffer[iLine];
+                                    inputBuffer[iLine] = "";
+
+                                    // Verification des données avant l'ajout des clés
+                                    if (currentFullKey == PatternTag.gID)
+                                    {
+                                        // Il s'agit d'une clé générique 'groupID'
+                                        currentGroupID = currentValueKey;
+                                    }
+                                    else
+                                    {
+                                        // Avant d'ajouter la clé, on remplace les données 'gID' par la valeur du groupe
+                                        if (currentFullKey.Contains("@" + PatternTag.gID) == true)
+                                        {
+                                            currentFullKey = currentFullKey.Replace("@" + PatternTag.gID, "@" + currentGroupID);
+                                        }
+
+                                        // Il faut ajouter la clé
+                                        AddKeyAndValue(currentFullKey, currentValueKey);
+                                    }
+
+                                    // Réinitialisation de la valeur de clé
+                                    currentFullKey = null;
+                                    currentValueKey = null;
+                                }
+                            }
+                        }
+
+                        Ret = _group.Count();
+                    }
+                    else
+                    {
+                        _debugTool.WriteLine("StructuredFile (Import) : Impossible d'importer les données, les tailles de fichier sont différentes");
+                    }
+                }
+            }
+
+            return Ret;
+        }
+
+        // Private Functions ----------------------------------------------------------------------
+        /// <summary>
+        /// Permet de récupérer le gID suivant le gID donné en paramètre (le gID = 0 n'est pas pris en compte)
+        /// Si le gID n'est pas défini, utiliser -1 pour currentGroupIndex
+        /// </summary>
+        /// <param name="currentGroupIndex">Groupe ID actuel</param>
+        /// <returns>gID suivant (-2 en cas d'erreur)</returns>
+        private int GetNextGroupIndex(int currentGroupIndex)
+        {
+            int Ret = -1;
+
+            if (currentGroupIndex  < 0)  // Il n'y a pas de groupe actuellement configuré, utilisation du groupe pas défaut
+            {
+                if (currentGroupIndex == -1)
+                    currentGroupIndex = 0;
+                else
+                    currentGroupIndex = -2;
+            }
+            else
+            {
+                currentGroupIndex = currentGroupIndex + 1;
+            }
+
+            // Verification des données
+            if ((currentGroupIndex >= _group.Count()) || (currentGroupIndex < 0))    // Il n'y a plus de groupe disponible
+            {
+                Ret = -2;
+            }
+            else
+            {
+                // Verification du groupe (le groupe 0 ne peut pas être utilisé)
+                if (_group[currentGroupIndex].groupID == 0)
+                {
+                    Ret = GetNextGroupIndex(currentGroupIndex);
+                }
+                else
+                {
+                    Ret = currentGroupIndex;
+                }
+            }
+
+            return Ret;
+        }
+
+        /// <summary>
+        /// Ajoute une clé depuis le fichier d'import
+        /// </summary>
+        /// <param name="FullKey">Clé au format KeyName@GroupID</param>
+        /// <param name="ValueKey">Valeur de la clé</param>
+        private void AddKeyAndValue(String FullKey, String ValueKey)
+        {
+            string[] splitKey = null;
+            string[] patternSeparator = new string[1]; patternSeparator[0] = "@";
+            StructuredFileGroup groupToAdd = null;
+
+            if ((FullKey != null) && (ValueKey != null))
+            {
+                // On verifie que la chaine est correctement formée
+                if (FullKey.Contains("@") == true)
+                {
+                    splitKey = FullKey.Split(patternSeparator, StringSplitOptions.RemoveEmptyEntries);
+                    if (splitKey != null)
+                    {
+                        try
+                        {
+                            groupToAdd = new StructuredFileGroup(Convert.ToUInt32(splitKey[1].ToString()), new StructuredFileKey(splitKey[0].ToString(), ValueKey));
+                            AddGroup(groupToAdd);
+                        }
+                        catch (Exception)
+                        {
+                        }
+                    }
+                }
+            }
+        }
+
         // Private --------------------------------------------------------------------------------
         private TextFile _patternFile = null;               // Fichier texte contenant le pattern du fichier utilisé
         private List<StructuredFileGroup> _group = null;    // Liste de Keys spécifiques à écrire et/ou charger du fichier
         private DebugTool _debugTool;                       // Outil pour contrôler les informations de débug 
         private String _currentFileName = null;             // Chemin d'accès pour enregistrer le fichier
 
-        private struct DefaultPattern
+        private struct DefaultPatternTag
         {
             public const String HeaderBegin = "[Groupe ";   // Début de la chaine d'entête
             public const String HeaderEnd = "]";            // Fin de la chaine d'entête
             public const String LineBegin = "";             // Début de la ligne
             public const String LineSeparator = " = ";      // Séparateur de la ligne
             public const String LineEnd = "";               // Fin de la ligne
+        }
+
+        private struct PatternTag
+        {
+            public const String gID = "gID";
         }
     }
 }
