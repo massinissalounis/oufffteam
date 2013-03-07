@@ -27,7 +27,7 @@ namespace StrategyGenerator2.StrategyManager
                     _param1 = "(true == true)";                         // Test
                     _param2 = "-1";                                     // nextID si le test est vrai
                     _param3 = "-1";                                     // nextID si le test est faux
-                    _param4 = null;                                     // Not Set
+                    _param4 = null;                                     // Not Used
                     _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
                     break;
 
@@ -41,12 +41,60 @@ namespace StrategyGenerator2.StrategyManager
                     break;
                     
                 // _______________________________________________________
-                case EnumCmd.
+                case EnumCmd.App_SetStrategyFlags:
+                    _param1 = EnumStrategyFlags.NotSet.ToString();      // Flag à modifier
+                    _param2 = "OS_FALSE";                               // Nouvelle valeur du flag
+                    _param3 = null;                                     // Not Set
+                    _param4 = null;                                     // Not Set
+                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    break;
 
                 // _______________________________________________________
-                
+                case EnumCmd.App_Wait:
+                    _param1 = "0";                                      // Temps d'attente en heure
+                    _param2 = "0";                                      // Temps d'attente en minute
+                    _param3 = "5";                                      // Temps d'attente en sec
+                    _param4 = "0";                                      // Temps d'attente en msec
+                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    break;
+
                 // _______________________________________________________
-                
+                case EnumCmd.Mvt_Stop:
+                    _param1 = null;                                     // Not Used
+                    _param2 = null;                                     // Not Used
+                    _param3 = null;                                     // Not Used
+                    _param4 = null;                                     // Not Used
+                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.Mvt_UseAngleOnly:
+                case EnumCmd.MvtSimple_RotateInDeg:
+                case EnumCmd.MvtSimple_RotateToAngleInDeg:
+                    _param1 = "DEFAULT_SPEED";                          // Vitesse du déplacement
+                    _param2 = null;                                     // Not Used
+                    _param3 = null;                                     // Not Used
+                    _param4 = "0";                                      // Angle
+                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.Mvt_UseDistOnly:
+                    _param1 = "DEFAULT_SPEED";                          // Vitesse du déplacement
+                    _param2 = "1500";                                   // Position en x
+                    _param3 = "1000";                                   // Position en y
+                    _param4 = null;                                     // Pas d'angle
+                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    break;
+
+                // _______________________________________________________
+
+                // _______________________________________________________
+
+                // _______________________________________________________
+
+                // _______________________________________________________
+
                 // _______________________________________________________
 
 
