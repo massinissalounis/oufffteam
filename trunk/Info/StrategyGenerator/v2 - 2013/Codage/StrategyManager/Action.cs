@@ -11,11 +11,12 @@ namespace StrategyGenerator2.StrategyManager
 
 
         // Properties -----------------------------------------------------------------------------
+        public 
 
 
         // Private functions ----------------------------------------------------------------------
         /// <summary>
-        /// Fontion charger les valeurs par défaut pour les commandes
+        /// Fontion charger les valeurs par défaut pour la commande actuelle
         /// </summary>
         private void LoadDefaultValue()
         {
@@ -83,27 +84,48 @@ namespace StrategyGenerator2.StrategyManager
                     _param1 = "DEFAULT_SPEED";                          // Vitesse du déplacement
                     _param2 = "1500";                                   // Position en x
                     _param3 = "1000";                                   // Position en y
-                    _param4 = null;                                     // Pas d'angle
+                    _param4 = null;                                     // Not Used
                     _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
+                case EnumCmd.Mvt_UseMixedMode:
+                case EnumCmd.Mvt_UseSpline:
+                    _param1 = "DEFAULT_SPEED";                          // Vitesse du déplacement
+                    _param2 = "1500";                                   // Position en x
+                    _param3 = "1000";                                   // Position en y
+                    _param4 = "0";                                      // Angle
+                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    break;
 
                 // _______________________________________________________
+                case EnumCmd.Mvt_UsePivotMode:
+                    _param1 = "DEFAULT_SPEED";                          // Vitesse du déplacement
+                    _param2 = "RIGHT_WHEEL";                            // Roue bloquée
+                    _param3 = null;                                     // Not Used
+                    _param4 = "0";                                      // Angle
+                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    break;
 
                 // _______________________________________________________
-
-                // _______________________________________________________
-
-                // _______________________________________________________
-
-
+                case EnumCmd.MvtSimple_MoveInMM:
+                    _param1 = "DEFAULT_SPEED";                          // Vitesse du déplacement
+                    _param2 = "100";                                    // Distance en mm
+                    _param3 = null;                                     // Not Used
+                    _param4 = null;                                     // Not Used
+                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    break;
 
                 // _______________________________________________________
                 case EnumCmd.NotSet:
                 default:
+                     _param1 = null;                                    // Not Used
+                    _param2 = null;                                     // Not Used
+                    _param3 = null;                                     // Not Used
+                    _param4 = null;                                     // Not Used
+                    _activeSensors = EnumActiveSensors.NotSet;          // Not Used
                     break;
-            }
+             }
         }
 
         // Private --------------------------------------------------------------------------------
@@ -117,5 +139,6 @@ namespace StrategyGenerator2.StrategyManager
         private EnumActiveSensors _activeSensors;       // Sensors actifs durant le mouvement
         private int _nextActionID;                      // Action suivante
         private int _timeoutID;                         // Action à réaliser en cas de timeout
+        private List<String> _information;
     }
 }
