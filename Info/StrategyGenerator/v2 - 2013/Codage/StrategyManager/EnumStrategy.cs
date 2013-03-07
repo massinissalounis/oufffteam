@@ -48,4 +48,9 @@ namespace StrategyGenerator2.StrategyManager
         COLLISION_RIGHT = 14,
     }
 
+    enum EnumStrategyFlags
+    {
+        NotSet = 0,
+    }
+
 }
