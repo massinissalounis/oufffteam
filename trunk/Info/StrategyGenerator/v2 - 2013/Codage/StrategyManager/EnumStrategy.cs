@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StrategyGenerator2.StrategyManager
 {
-    enum EnumCmd
+    public enum EnumCmd
     {
         NotSet = 0,	// Current Cmd is not set
         // Command MVT _________________________
@@ -30,14 +30,14 @@ namespace StrategyGenerator2.StrategyManager
 
     }
 
-    enum EnumCmdType
+    public enum EnumCmdType
     {
         NotSet = 0,         // Undefined CmdType
         Blocking,			// Command is a blocking action
         NonBlocking,		// Command is a non-blocking action
     }
 
-    enum EnumActiveSensors
+    public enum EnumActiveSensors
     {
         NotSet = 0,
         // Sensors COLLISION ____________________
@@ -48,7 +48,7 @@ namespace StrategyGenerator2.StrategyManager
         COLLISION_RIGHT = 14,
     }
 
-    enum EnumStrategyFlags
+    public enum EnumStrategyFlags
     {
         NotSet = 0,
     }

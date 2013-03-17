@@ -37,7 +37,7 @@ namespace StrategyGenerator2.FileManager
         }
         
         // Properties -----------------------------------------------------------------------------
-        public uint groupID
+        public uint ID
         {
             get { return _groupID; }
             internal set { return; }
@@ -56,7 +56,7 @@ namespace StrategyGenerator2.FileManager
         /// <summary>
         /// Permet de retourner toutes les clés contenues dans ce groupID pour un ID spécifique
         /// </summary>
-        /// <param name="keyID"></param>
+        /// <param name="keyID">Clé à rechercher</param>
         /// <returns>La liste de toutes les clés trouvées (null si la liste est vide)</returns>
         public List<StructuredFileKey> GetKeys(String keyID)
         {
@@ -71,7 +71,7 @@ namespace StrategyGenerator2.FileManager
                 foreach (StructuredFileKey tmpKey in _keys)
                 {
                     // Si la clé attendue est trouvée
-                    if (tmpKey.ID == keyID)
+                    if (tmpKey.keyName == keyID)
                     {
                         // Ajout de la clé dans l'objet de retour 
                         // (si la structure de retour est vide, on commence par la créer)
@@ -84,6 +84,23 @@ namespace StrategyGenerator2.FileManager
             }
 
             return retKeys;
+        }
+
+        /// <summary>
+        /// Retourne la première clé ayant l'ID spécifié
+        /// </summary>
+        /// <param name="keyID">Clé à rechercher</param>
+        /// <returns>Première clé trouvée (null si la liste est vide)</returns>
+        public StructuredFileKey GetFirstKey(String keyID)
+        {
+            StructuredFileKey Ret = null;
+            List<StructuredFileKey> keyList = null;
+
+            keyList = GetKeys(keyID);
+            if ((keyList != null) && (keyList.Count() > 0))
+                Ret = keyList[0];
+
+            return Ret;
         }
 
         /// <summary>

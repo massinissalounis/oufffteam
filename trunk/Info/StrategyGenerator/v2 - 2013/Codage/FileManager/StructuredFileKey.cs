@@ -11,36 +11,36 @@ namespace StrategyGenerator2.FileManager
         public StructuredFileKey()
         {
             // Initialisation des valeurs par défaut
-            _ID = null;
+            _keyName = null;
             _value = null;
         }
 
         public StructuredFileKey(String keyID, String newValue)
         {
             // Initialisation des valeurs par défaut
-            ID = keyID;
+            keyName = keyID;
             valueString = newValue;
         }
 
         public StructuredFileKey(String keyID, int newValue)
         {
             // Initialisation des valeurs par défaut
-            ID = keyID;
+            keyName = keyID;
             valueInt = newValue;
         }
 
         public StructuredFileKey(String keyID, double newValue)
         {
             // Initialisation des valeurs par défaut
-            ID = keyID;
+            keyName = keyID;
             valueDouble = newValue;
         }
 
         // Properties -----------------------------------------------------------------------------
-        public String ID 
+        public String keyName 
         {
-            get { return _ID; }
-            set { _ID = value; }
+            get { return _keyName; }
+            set { _keyName = value; }
         }
         
         public String valueString
@@ -84,7 +84,7 @@ namespace StrategyGenerator2.FileManager
         // Public ---------------------------------------------------------------------------------
 
         // Private --------------------------------------------------------------------------------
-        private String _ID;             // Clé permettant d'identifier la donnée 
+        private String _keyName;        // Clé permettant d'identifier la donnée 
         private String _value;          // Valeur de la clé
     }
 }
