@@ -284,13 +284,13 @@ namespace StrategyGenerator2.FileManager
             foreach (StructuredFileGroup tmpGroup in _group)
             {
                 // Creation de l'entête du groupe
-                outputFile.AddLine(DefaultPatternTag.HeaderBegin + tmpGroup.groupID.ToString() + DefaultPatternTag.HeaderEnd);
+                outputFile.AddLine(DefaultPatternTag.HeaderBegin + tmpGroup.ID.ToString() + DefaultPatternTag.HeaderEnd);
 
                 if(tmpGroup.GetAllKeys() != null)
                 {
                     foreach (StructuredFileKey tmpKey in tmpGroup.GetAllKeys())
                     {
-                        outputFile.AddLine(DefaultPatternTag.LineBegin +  tmpKey.ID + DefaultPatternTag.LineSeparator + tmpKey.valueString + DefaultPatternTag.LineEnd);
+                        outputFile.AddLine(DefaultPatternTag.LineBegin +  tmpKey.keyName + DefaultPatternTag.LineSeparator + tmpKey.valueString + DefaultPatternTag.LineEnd);
                     }
                 }
                 
@@ -337,7 +337,7 @@ namespace StrategyGenerator2.FileManager
                    foreach(StructuredFileGroup tmpGroup in _group)
                    {
                        //Si le groupe existe déjà, on ajoute tous les éléments dans le groupe existant
-                       if(tmpGroup.groupID == groupToAdd.groupID)
+                       if(tmpGroup.ID == groupToAdd.ID)
                        {
                            // On copie toute les clés dans la nouvelle liste
                            tmpGroup.AddKey(groupToAdd.GetAllKeys());
@@ -380,7 +380,7 @@ namespace StrategyGenerator2.FileManager
             {
                 for (int i = 0; i<_group.Count(); i++) 
                 {
-                    if (_group[i].groupID == groupID)
+                    if (_group[i].ID == groupID)
                         _group.RemoveAt(i);
                 }
             }
@@ -401,7 +401,7 @@ namespace StrategyGenerator2.FileManager
                 // Recherche du groupe
                 foreach (StructuredFileGroup tmpGroup in _group)
                 {
-                    if (tmpGroup.groupID == groupID)
+                    if (tmpGroup.ID == groupID)
                         Ret = tmpGroup;
                 }
             }
@@ -466,14 +466,14 @@ namespace StrategyGenerator2.FileManager
                                     currentGroupIndex = GetNextGroupIndex(currentGroupIndex);   // On change de groupe
                                     if (currentGroupIndex >= 0) // On verifie que le groupe est valide
                                     {
-                                        outputBuffer[i] = outputBuffer[i].Substring(0, indexInLine - 1) + _group[currentGroupIndex].groupID.ToString() + outputBuffer[i].Substring(indexInLine + 5);
+                                        outputBuffer[i] = outputBuffer[i].Substring(0, indexInLine - 1) + _group[currentGroupIndex].ID.ToString() + outputBuffer[i].Substring(indexInLine + 5);
                                     }
                                 }
 
                                 if ((flagToCheck == "@gID") && (currentGroupIndex >= 0)) // Il s'agit d'un flag à remplacer et le groupe est valide
                                 {
                                     // On remplace ce gID avec la valeur du groupe actuel
-                                    outputBuffer[i] = outputBuffer[i].Substring(0, indexInLine) + _group[currentGroupIndex].groupID.ToString() + outputBuffer[i].Substring(indexInLine + 3);
+                                    outputBuffer[i] = outputBuffer[i].Substring(0, indexInLine) + _group[currentGroupIndex].ID.ToString() + outputBuffer[i].Substring(indexInLine + 3);
                                 }
                             }
                         } while ((indexInLine >= 0) && (currentGroupIndex > 0));
@@ -489,12 +489,12 @@ namespace StrategyGenerator2.FileManager
                             foreach (StructuredFileGroup currentGroup in _group)
                             {
                                 // On verifie si la ligne contient des données du groupe
-                                if (outputBuffer[i].Contains("@" + currentGroup.groupID.ToString()) == true)
+                                if (outputBuffer[i].Contains("@" + currentGroup.ID.ToString()) == true)
                                 {
                                     // On parcourt toutes les clées
                                     foreach (StructuredFileKey currentKey in currentGroup.GetAllKeys())
                                     {
-                                        outputBuffer[i] = outputBuffer[i].Replace("'" + currentKey.ID + "@" + currentGroup.groupID.ToString() + "'", currentKey.valueString);
+                                        outputBuffer[i] = outputBuffer[i].Replace("'" + currentKey.keyName + "@" + currentGroup.ID.ToString() + "'", currentKey.valueString);
                                     }
                                 }
                             }
@@ -703,7 +703,7 @@ namespace StrategyGenerator2.FileManager
             else
             {
                 // Verification du groupe (le groupe 0 ne peut pas être utilisé)
-                if (_group[currentGroupIndex].groupID == 0)
+                if (_group[currentGroupIndex].ID == 0)
                 {
                     Ret = GetNextGroupIndex(currentGroupIndex);
                 }

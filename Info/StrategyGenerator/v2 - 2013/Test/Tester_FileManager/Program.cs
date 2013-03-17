@@ -529,7 +529,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Constructeur vide :");
                 testKey = new StructuredFileKey();
-                if ((null != testKey) && (testKey.ID == null) && (testKey.valueString == null))
+                if ((null != testKey) && (testKey.keyName == null) && (testKey.valueString == null))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -540,7 +540,7 @@ namespace FileManagerTester
 
                 Console.Write(" -> Constructeur avec paramètres ('keyString', 'valueString') :");
                 testKey = new StructuredFileKey("keyString", "valueString");
-                if ((null != testKey) && (testKey.ID == "keyString") && (testKey.valueString == "valueString"))
+                if ((null != testKey) && (testKey.keyName == "keyString") && (testKey.valueString == "valueString"))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -551,7 +551,7 @@ namespace FileManagerTester
 
                 Console.Write(" -> Constructeur avec paramètres ('keyInt', 100) :");
                 testKey = new StructuredFileKey("keyInt", 100);
-                if ((null != testKey) && (testKey.ID == "keyInt") && (testKey.valueInt == 100))
+                if ((null != testKey) && (testKey.keyName == "keyInt") && (testKey.valueInt == 100))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -562,7 +562,7 @@ namespace FileManagerTester
 
                 Console.Write(" -> Constructeur avec paramètres ('keyDouble', 1.2) :");
                 testKey = new StructuredFileKey("keyDouble", 1.2);
-                if ((null != testKey) && (testKey.ID == "keyDouble") && (testKey.valueDouble == 1.2))
+                if ((null != testKey) && (testKey.keyName == "keyDouble") && (testKey.valueDouble == 1.2))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -596,7 +596,7 @@ namespace FileManagerTester
                 // ------------------------------------------------------------------------------------------
                 Console.Write(" -> Constructeur vide :");
                 testKeyGroup = new StructuredFileGroup(0);
-                if ((testKeyGroup.groupID == 0) && (testKeyGroup.GetAllKeys() == null))
+                if ((testKeyGroup.ID == 0) && (testKeyGroup.GetAllKeys() == null))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -607,7 +607,7 @@ namespace FileManagerTester
 
                 Console.Write(" -> Constructeur avec paramètres (groupID = 0 et key = null) :");
                 testKeyGroup = new StructuredFileGroup(0, null);
-                if ((testKeyGroup.groupID == 0) && (testKeyGroup.GetAllKeys() == null))
+                if ((testKeyGroup.ID == 0) && (testKeyGroup.GetAllKeys() == null))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -618,7 +618,7 @@ namespace FileManagerTester
 
                 Console.Write(" -> Constructeur avec paramètres (groupID=0 et key=(TestKey, TestValue) :");
                 testKeyGroup = new StructuredFileGroup(5, new StructuredFileKey("TestKey", "TestValue"));
-                if ((testKeyGroup.groupID == 5) && (testKeyGroup.GetAllKeys().Count == 1))
+                if ((testKeyGroup.ID == 5) && (testKeyGroup.GetAllKeys().Count == 1))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -631,7 +631,7 @@ namespace FileManagerTester
                 testKeyGroup = new StructuredFileGroup(1);
                 testKeyGroup.AddKey(new StructuredFileKey("1", "1"));
                 testKeyGroup.AddKey(new StructuredFileKey("2", "2"));
-                if ((testKeyGroup.groupID == 1) && (testKeyGroup.GetAllKeys().Count == 2))
+                if ((testKeyGroup.ID == 1) && (testKeyGroup.GetAllKeys().Count == 2))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -646,7 +646,7 @@ namespace FileManagerTester
                 listToAdd.Add(new StructuredFileKey("1", "1"));
                 listToAdd.Add(new StructuredFileKey("2", "2"));
                 testKeyGroup.AddKey(listToAdd);
-                if ((testKeyGroup.groupID == 1) && (testKeyGroup.Count() == 2))
+                if ((testKeyGroup.ID == 1) && (testKeyGroup.Count() == 2))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -673,7 +673,7 @@ namespace FileManagerTester
                 testKeyGroup = new StructuredFileGroup(1);
                 testKeyGroup.AddKey(new StructuredFileKey("Key1", "Value1"));
                 testKeyGroup.AddKey(new StructuredFileKey("Key2", "Value2"));
-                if ((testKeyGroup.groupID == 1) && (testKeyGroup.GetAllKeys().Count() == 2))
+                if ((testKeyGroup.ID == 1) && (testKeyGroup.GetAllKeys().Count() == 2))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -687,7 +687,7 @@ namespace FileManagerTester
                 testKeyGroup.AddKey(new StructuredFileKey("Key1", "Value1"));
                 testKeyGroup.AddKey(new StructuredFileKey("Key2", "Value2"));
                 testKeyGroup.AddKey(new StructuredFileKey("Key2", "Value22"));
-                if ((testKeyGroup.groupID == 1) && (testKeyGroup.GetKeys("Key3") == null) && (testKeyGroup.GetKeys("Key2").Count() == 2))
+                if ((testKeyGroup.ID == 1) && (testKeyGroup.GetKeys("Key3") == null) && (testKeyGroup.GetKeys("Key2").Count() == 2))
                 {
                     Console.Write(" Ok\n");
                 }
@@ -813,7 +813,7 @@ namespace FileManagerTester
                 testStructuredFile.AddGroup(new StructuredFileGroup(1));
                 testStructuredFile.AddGroup(new StructuredFileGroup(2));
                 testStructuredFile.AddGroup(new StructuredFileGroup(3));
-                if ((testStructuredFile2.GetGroupByID(5) == null) && (testStructuredFile.GetGroupByID(5) == null) && (testStructuredFile.GetGroupByID(2).groupID == 2))
+                if ((testStructuredFile2.GetGroupByID(5) == null) && (testStructuredFile.GetGroupByID(5) == null) && (testStructuredFile.GetGroupByID(2).ID == 2))
                 {
                     Console.Write(" Ok\n");
                 }
