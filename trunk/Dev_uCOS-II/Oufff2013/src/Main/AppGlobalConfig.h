@@ -112,7 +112,7 @@
 #define APP_PARAM_STRATEGYFLAG_BIT13			0x00002000	//	|13 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT14			0x00004000	//	|14 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT15			0x00008000	//	|15 | Not Used					| -					| -					| 
-// Forbbiden Zone ________________________________________	//  |---|---------------------------|-------------------|-------------------|														
+// Valid Zone ____________________________________________	//  |---|---------------------------|-------------------|-------------------|														
 #define APP_PARAM_STRATEGYFLAG_BIT16			0x00010000	//	|16 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT17			0x00020000	//	|17 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT18			0x00040000	//	|18 | Not Used					| -					| -					| 
@@ -141,6 +141,9 @@
 #define APP_PARAM_APPFLAG_ALL_SW				0x00FF0000	// All switches sensors
 #define APP_PARAM_APPFLAG_ALL_SENSORS			0x00FFFF00	// All external sensors
 #define APP_PARAM_APPFLAG_ALL_STATE				0xFF0000FF	// All state flags
+#define APP_PARAM_STRATEGYFLAG_ALL_ACTION		0x0000FFFF	// All strategy action
+#define APP_PARAM_STRATEGYFLAG_ALL_VALID_ZONE	0x00FF0000	// All valid zone
+#define APP_PARAM_STRATEGYFLAG_ALL_STATE		0xFF000000	// All state strategy flags
 
 // User defined groups
 #ifdef APP_PARAM_DISABLE_ALL_SENSORS
