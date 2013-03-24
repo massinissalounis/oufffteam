@@ -58,6 +58,7 @@ void TaskMain_Main(void *p_arg)
 	StructCmd	CurrentCmd;							// Var to store current action to be done
 	StructCmd	NextCmd;							// Var to store next action to be done
 	StructMsg	MsgToPost;							// Var to store data to be sent
+	OS_FLAGS	NewStrategyFlag;					// Var to store new strategy flag to apply (SetStrategyFlag command)
 
 	// Debug vars
 	char 		uart_buffer[20];
@@ -72,6 +73,7 @@ void TaskMain_Main(void *p_arg)
 	CurrentState			= 0;
 	NextState				= 0;
 	Err						= 0;
+	NewStrategyFlag			= 0;
 
 	memset(&CurrentCmd,		0, sizeof(StructCmd));
 	memset(&NextCmd,		0, sizeof(StructCmd));
@@ -256,13 +258,25 @@ void TaskMain_Main(void *p_arg)
 
 					// Change StrategyFlag ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 					case App_SetStrategyFlags:
-						// TODO
+						// First we apply the readonly flag (for strategyflag state items)
+						NewStrategyFlag = (CurrentCmd.Param1 & (APP_PARAM_STRATEGYFLAG_ALL_ACTION + APP_PARAM_STRATEGYFLAG_ALL_VALID_ZONE));
+
+						// Apply the new value
+						if(OS_FALSE == (int)(CurrentCmd.Param2))
+						{
+							OSFlagPost(AppStrategyFlags, NewStrategyFlag, OS_FLAG_CLR, &Err);
+						}
+						else
+						{
+							OSFlagPost(AppStrategyFlags, NewStrategyFlag, OS_FLAG_SET, &Err);
+						}
 						break;
 
 					// Nothing to do ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 					case NotSet:
 					case App_IfGoto_Strategy:
 					case App_IfGoto_System:
+						// This command are already done
 						break;
 
 					// Destination not defined ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
