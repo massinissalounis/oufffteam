@@ -16,12 +16,6 @@
 
 INT8U	Debug_MvtState = 0;
 
-extern float error_debug_1;
-extern float error_debug_2;
-extern float error_debug_3;
-extern float error_debug_4;
-extern float error_debug_5;
-
 // ------------------------------------------------------------------------------------------------
 void TaskMvt_SendSetpointToTaskAsser(StructCmd *Setpoint)
 {
@@ -129,7 +123,11 @@ void TaskMvt_Main(void *p_arg)
 	#endif
 
 	AppDebugMsg("OUFFF TEAM 2013 : Mvt online\n");
-	
+
+#ifdef TASKDEBUG_ENABLED
+	TaskDebug_RegisterNewData(TASKDEBUG_ID_MVT_STATE, "Mvt State");
+#endif
+
 	// MAIN LOOP ==================================================================================
 	do
 	{
@@ -149,6 +147,8 @@ void TaskMvt_Main(void *p_arg)
 			Set_Line_Information( 1, 0, Debug_State, 3);
 			OSTimeDlyHMSM(0, 0, DELAY_S_BETWEEN_NEXT_STATE, DELAY_MS_BETWEEN_NEXT_STATE);
 		#endif
+
+		TaskDebug_UpdateValueInt(TASKDEBUG_ID_MVT_STATE, CurrentState);
 
 		// State machine
 		switch(CurrentState)
@@ -468,6 +468,10 @@ void TaskMvt_Main(void *p_arg)
 					if(CurrentSetpoint >= 0)
 						MvtTimeout++;
 					else
+						MvtTimeout = 0;
+
+					// Activate or Desactivate timeout action
+					if(APP_MVT_TIMEOUT_ENABLED == OS_FALSE)
 						MvtTimeout = 0;
 
 					if(MvtTimeout > APP_MVT_TIMEOUT)

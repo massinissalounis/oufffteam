@@ -53,8 +53,6 @@
 
 void	Tmr_Init    (void);
 
-void	UART_Init   (void);
-
 void	PB_IntInit  (void);
 void	PB_Config   (void);
 void	PB_Init     (void);
@@ -1116,7 +1114,7 @@ void  BSP_InitIO (void)
 	LCD_Init();
 	Tmr_Init();
     LED_Init();                                                         /* Initialize LEDs                                  */
-	UART_Init();
+	LS2_UART_Init();
 #else
 	SYSTEMConfig(BSP_CLK_FREQ, SYS_CFG_WAIT_STATES | SYS_CFG_PCACHE);
 	

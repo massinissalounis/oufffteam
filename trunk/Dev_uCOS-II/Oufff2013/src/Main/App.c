@@ -19,8 +19,11 @@
 #include "TaskAsser.h"
 #include "TaskSensors.h"
 #include "TaskMain.h"
-#include "TaskTempo.h"
 #include "TaskMvt.h"
+#include "TaskDebug.h"
+#include "TaskTempo.h"
+#include "TaskTest.h"
+
 
 /***** Calling Stacks *****/
 static OS_STK       AppTaskOdoStk[APP_TASK_ODO_STK_SIZE];
@@ -28,7 +31,9 @@ static OS_STK       AppTaskAsserStk[APP_TASK_ASSER_STK_SIZE];
 static OS_STK       AppTaskSensorsStk[APP_TASK_SENSORS_STK_SIZE];
 static OS_STK       AppTaskMainStk[APP_TASK_MAIN_STK_SIZE];
 static OS_STK       AppTaskMvtStk[APP_TASK_MVT_STK_SIZE];
+static OS_STK       AppTaskDebugStk[APP_TASK_DEBUG_STK_SIZE];
 static OS_STK       AppTaskTempoStk[APP_TASK_TEMPO_STK_SIZE];
+static OS_STK       AppTaskTestStk[APP_TASK_TEST_STK_SIZE];
 
 /*
 *********************************************************************************************************
@@ -105,6 +110,24 @@ void  AppTaskStart()
 
 #if (OS_TASK_STAT_EN > 0)
     OSStatInit();                                                       // Determine CPU capacity
+#endif
+
+#ifdef APP_TASK_DEBUG_ENABLED
+	// --------------------------------------------------------------------------------------------
+	// Starts TaskDebug
+    OSTaskCreateExt( TaskDebug_Main,                                       
+				    (void *)0,
+                    (OS_STK *)&AppTaskDebugStk[APP_TASK_DEBUG_STK_SIZE - 1],
+                    APP_TASK_DEBUG_PRIO,
+                    APP_TASK_DEBUG_PRIO,
+                    (OS_STK *)&AppTaskDebugStk[0],
+                    APP_TASK_DEBUG_STK_SIZE,
+                    (void *)0,
+                    OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR);
+
+#if OS_TASK_NAME_SIZE > 13
+    OSTaskNameSet(APP_TASK_DEBUG_PRIO, "TaskDebug", &err);
+#endif
 #endif
 
 #ifdef APP_TASK_ODO_ENABLED
@@ -214,6 +237,25 @@ void  AppTaskStart()
 					
 #if OS_TASK_NAME_SIZE > 13
     OSTaskNameSet(APP_TASK_MAIN_PRIO, "TaskTempo", &err);
+#endif
+#endif
+
+
+#ifdef APP_TASK_TEST_ENABLED
+	// --------------------------------------------------------------------------------------------
+	// Starts TaskTest
+    OSTaskCreateExt( TaskTest_Main,                                       
+				    (void *)0,
+                    (OS_STK *)&AppTaskTestStk[APP_TASK_TEST_STK_SIZE - 1],
+                    APP_TASK_TEST_PRIO,
+                    APP_TASK_TEST_PRIO,
+                    (OS_STK *)&AppTaskTestStk[0],
+                    APP_TASK_TEST_STK_SIZE,
+                    (void *)0,
+                    OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR);
+
+#if OS_TASK_NAME_SIZE > 13
+    OSTaskNameSet(APP_TASK_TEST_PRIO, "TaskTest", &err);
 #endif
 #endif
 

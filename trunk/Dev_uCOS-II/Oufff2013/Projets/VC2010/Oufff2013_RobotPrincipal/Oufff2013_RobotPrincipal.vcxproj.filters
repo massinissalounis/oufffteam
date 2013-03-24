@@ -37,6 +37,12 @@
     <Filter Include="Fichiers d%27en-tête\uC-OSII">
       <UniqueIdentifier>{95ed5e12-400d-44a5-beea-b869e20ae2a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\BSP">
+      <UniqueIdentifier>{438e7cf9-76fa-47d1-99c3-4269ca69182e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\BSP">
+      <UniqueIdentifier>{83ca2aed-ae42-4583-be06-3f156379f990}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\Main\App.c">
@@ -46,9 +52,6 @@
       <Filter>Fichiers sources\Main</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Main\AppHooks.c">
-      <Filter>Fichiers sources\Main</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\ArmsControl.c">
       <Filter>Fichiers sources\Main</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\Main\LibMoving.c">
@@ -132,6 +135,21 @@
     <ClCompile Include="..\..\..\src\Main\HoopsControl.c">
       <Filter>Fichiers sources\Main</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskDebug.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskTest.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BSP_v2\bsp.c">
+      <Filter>Fichiers sources\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BSP_v2\bsp_fpga.c">
+      <Filter>Fichiers sources\BSP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\BSP_v2\bsp_iic.c">
+      <Filter>Fichiers sources\BSP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\DevCard\1602D.h">
@@ -150,9 +168,6 @@
       <Filter>Fichiers d%27en-tête\Main</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Main\AppIncludes.h">
-      <Filter>Fichiers d%27en-tête\Main</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Main\ArmsControl.h">
       <Filter>Fichiers d%27en-tête\Main</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Main\LibMoving.h">
@@ -259,6 +274,27 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\Main\HoopsControl.h">
       <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskDebug.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskTest.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP_v2\bsp.h">
+      <Filter>Fichiers d%27en-tête\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP_v2\bsp_fpga.h">
+      <Filter>Fichiers d%27en-tête\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP_v2\bsp_iic.h">
+      <Filter>Fichiers d%27en-tête\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP_v2\bsp_peripherals.h">
+      <Filter>Fichiers d%27en-tête\BSP</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP_v2\mini_libdef.h">
+      <Filter>Fichiers d%27en-tête\BSP</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -40,11 +40,6 @@ PID_data wheel_left_pid_data;
 QUADRAMP_data distance_quadramp_data;
 
 // Loop datas
-float error_debug_1;
-float error_debug_2;
-float error_debug_3;
-float error_debug_4;
-float error_debug_5;
 float index_old_debug;
 float error_old_debug;
 float error_current_debug;

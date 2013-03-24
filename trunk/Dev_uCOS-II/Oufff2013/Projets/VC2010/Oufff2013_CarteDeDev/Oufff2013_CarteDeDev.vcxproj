@@ -41,6 +41,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions); _PRIMARY_ROBOT;_TARGET_440H</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -60,10 +61,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\BSP\bsp.c" />
-    <ClCompile Include="..\..\..\src\BSP\bsp_fpga.c" />
-    <ClCompile Include="..\..\..\src\BSP\bsp_iic.c" />
+    <ClCompile Include="..\..\..\src\BSP_v2\bsp.c" />
+    <ClCompile Include="..\..\..\src\BSP_v2\bsp_fpga.c" />
     <ClCompile Include="..\..\..\src\DevCard\1602D.c" />
+    <ClCompile Include="..\..\..\src\DevCard\DevCardA.c" />
+    <ClCompile Include="..\..\..\src\DevCard\DevCardB.c" />
     <ClCompile Include="..\..\..\src\Main\App.c" />
     <ClCompile Include="..\..\..\src\Main\AppGlobalFunc.c" />
     <ClCompile Include="..\..\..\src\Main\AppHooks.c" />
@@ -73,11 +75,13 @@
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorA.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c" />
     <ClCompile Include="..\..\..\src\Main\TaskAsser.c" />
+    <ClCompile Include="..\..\..\src\Main\TaskDebug.c" />
     <ClCompile Include="..\..\..\src\Main\TaskMain.c" />
     <ClCompile Include="..\..\..\src\Main\TaskMvt.c" />
     <ClCompile Include="..\..\..\src\Main\TaskOdo.c" />
     <ClCompile Include="..\..\..\src\Main\TaskSensors.c" />
     <ClCompile Include="..\..\..\src\Main\TaskTempo.c" />
+    <ClCompile Include="..\..\..\src\Main\TaskTest.c" />
     <ClCompile Include="..\..\..\src\Microchip\PeripheralsLibs\PIC32INTlib.c" />
     <ClCompile Include="..\..\..\src\uC-LIB\lib_mem.c" />
     <ClCompile Include="..\..\..\src\uC-LIB\lib_str.c" />
@@ -95,33 +99,32 @@
     <ClCompile Include="..\..\..\src\uCOS-II\Source\os_tmr.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\src\BSP\bsp_a.S" />
-    <None Include="..\..\..\src\BSP\crt0.S" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\src\BSP\bsp.h" />
-    <ClInclude Include="..\..\..\src\BSP\bsp_fpga.h" />
-    <ClInclude Include="..\..\..\src\BSP\bsp_iic.h" />
-    <ClInclude Include="..\..\..\src\BSP\bsp_peripherals.h" />
-    <ClInclude Include="..\..\..\src\BSP\mini_libdef.h" />
+    <ClInclude Include="..\..\..\src\BSP_v2\bsp.h" />
+    <ClInclude Include="..\..\..\src\BSP_v2\bsp_fpga.h" />
+    <ClInclude Include="..\..\..\src\BSP_v2\bsp_peripherals.h" />
+    <ClInclude Include="..\..\..\src\BSP_v2\mini_libdef.h" />
     <ClInclude Include="..\..\..\src\DevCard\1602D.h" />
     <ClInclude Include="..\..\..\src\Main\App.h" />
-    <ClInclude Include="..\..\..\src\Main\AppConfig.h" />
     <ClInclude Include="..\..\..\src\Main\AppCustomTypes.h" />
+    <ClInclude Include="..\..\..\src\Main\AppGlobalConfig.h" />
     <ClInclude Include="..\..\..\src\Main\AppGlobalFunc.h" />
     <ClInclude Include="..\..\..\src\Main\AppGlobalVars.h" />
     <ClInclude Include="..\..\..\src\Main\AppIncludes.h" />
+    <ClInclude Include="..\..\..\src\Main\AppPrimaryConfig.h" />
+    <ClInclude Include="..\..\..\src\Main\AppSecondaryConfig.h" />
     <ClInclude Include="..\..\..\src\Main\ArmsControl.h" />
     <ClInclude Include="..\..\..\src\Main\LibMoving.h" />
     <ClInclude Include="..\..\..\src\Main\os_cfg.h" />
     <ClInclude Include="..\..\..\src\Main\Strategy.h" />
     <ClInclude Include="..\..\..\src\Main\Strategy\StrategyFromColor.h" />
     <ClInclude Include="..\..\..\src\Main\TaskAsser.h" />
+    <ClInclude Include="..\..\..\src\Main\TaskDebug.h" />
     <ClInclude Include="..\..\..\src\Main\TaskMain.h" />
     <ClInclude Include="..\..\..\src\Main\TaskMvt.h" />
     <ClInclude Include="..\..\..\src\Main\TaskOdo.h" />
     <ClInclude Include="..\..\..\src\Main\TaskSensors.h" />
     <ClInclude Include="..\..\..\src\Main\TaskTempo.h" />
+    <ClInclude Include="..\..\..\src\Main\TaskTest.h" />
     <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\adc10.h" />
     <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\CoreTimer.h" />
     <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\i2c.h" />
@@ -143,6 +146,10 @@
     <ClInclude Include="..\..\..\src\uC-LIB\lib_str.h" />
     <ClInclude Include="..\..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu.h" />
     <ClInclude Include="..\..\..\src\uCOS-II\Source\ucos_ii.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\BSP_v2\bsp_a.S" />
+    <None Include="..\..\..\src\BSP_v2\crt0.S" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

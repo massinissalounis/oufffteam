@@ -22,9 +22,22 @@
 
 /*
 *********************************************************************************************************
-*                                            TASK MANAGING
+*                                            DEBUG CONFIG
 *********************************************************************************************************
 */
+#define TASKDEBUG_MAX_MSG			12	// Nombre de message maximum pour le débug
+
+#define TASKDEBUG_ID_POS_X			0	// debugID = 0 (ne doit pas > TASKDEBUG_MAX_MSG)
+#define TASKDEBUG_ID_POS_Y			1	// debugID = 1 (ne doit pas > TASKDEBUG_MAX_MSG)
+#define TASKDEBUG_ID_POS_ANGLE		2	// debugID = 2 (ne doit pas > TASKDEBUG_MAX_MSG)
+#define TASKDEBUG_ID_MVT_STATE		3	// debugID = 3 (ne doit pas > TASKDEBUG_MAX_MSG)
+#define TASKDEBUG_ID_GP2_FRONT		4	// debugID = 4 (ne doit pas > TASKDEBUG_MAX_MSG)
+#define TASKDEBUG_ID_GP2_REAR		5	// debugID = 5 (ne doit pas > TASKDEBUG_MAX_MSG)
+#define TASKDEBUG_ID_TEST			11	// debugID = 11(ne doit pas > TASKDEBUG_MAX_MSG)
+
+#define TASKDEBUG_ENABLED			OS_TRUE // Permet d'activer ou non les informations de debug
+
+#define TASKDEBUG_REFRESH_MS		500 // Time in ms between 2 displays of debug data (0 to 999)
 
 /*
 *********************************************************************************************************
@@ -53,23 +66,23 @@
 #define APP_PARAM_APPFLAG_ACTION_STATUS			0x00000040	//	| 6 | Action status				| Action is done	| Action is running	| Soft			|
 #define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running 	| Soft			|	
 // GP2 Flag ______________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
-#define APP_PARAM_APPFLAG_GP2_FRONT_CENTER		0x00000100	//	| 8 | Front Sensor				| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_REAR_CENTER		0x00000200	//	| 9 | Rear sensor				| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1		0x00000400	//	|10 | GP2 on left Arm (Front)	| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2		0x00000800	//	|11 | GP2 on left Arm (Inside)	| Active			| Inactive			| Hard			|	
-#define APP_PARAM_APPFLAG_GP2_FRONT_LEFT_3		0x00001000	//	|12 | GP2 on left Arm (Outside)	| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1		0x00002000	//	|13 | GP2 on right Arm (Front)	| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2		0x00004000	//	|14 | GP2 on right Arm (Inside)	| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_3		0x00008000	//	|15 | GP2 on right Arm (Outside)| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_INTERNAL_FRONT	0x00000100	//	| 8 | Internal Front Sensor		| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_INTERNAL_REAR		0x00000200	//	| 9 | Internal Rear sensor		| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_REAR_HOOP			0x00000400	//	|10 | Hoop Rear Sensor			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT_HOOP		0x00000800	//	|11 | Hoop Front Sensor			| Active			| Inactive			| Hard			|	
+#define APP_PARAM_APPFLAG_GP2_5					0x00001000	//	|12 | GP2_5 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_6					0x00002000	//	|13 | GP2_6	(Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_7					0x00004000	//	|14 | GP2_7	(Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_8					0x00008000	//	|15 | GP2_8	(Not Used)			| Active			| Inactive			| Hard			|
 // SW Flag _______________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
-#define APP_PARAM_APPFLAG_SW_1					0x00010000	//	|16 | SW_1						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_2					0x00020000	//	|17 | SW_2						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_3					0x00040000	//	|18 | SW_3						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_4					0x00080000	//	|19 | SW_4						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_5					0x00100000	//	|20 | SW_5						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_6					0x00200000	//	|21 | SW_6						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_7					0x00400000	//	|22 | SW_7						| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_8					0x00800000	//	|23 | SW_8						| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_1					0x00010000	//	|16 | SW_1 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_2					0x00020000	//	|17 | SW_2 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_3					0x00040000	//	|18 | SW_3 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_4					0x00080000	//	|19 | SW_4 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_5					0x00100000	//	|20 | SW_5 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_6					0x00200000	//	|21 | SW_6 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_7					0x00400000	//	|22 | SW_7 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_8					0x00800000	//	|23 | SW_8 (Not Used)			| Active			| Inactive			| Hard			|
 // State Flag ____________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
 #define APP_PARAM_APPFLAG_BIT24					0x01000000	//	|24 | Not Used					| -					| -					| -				|
 #define APP_PARAM_APPFLAG_BIT25					0x02000000	//	|25 | Not Used					| -					| -					| -				|
@@ -91,7 +104,6 @@
 #define APP_PARAM_STRATEGYFLAG_BIT05			0x00000020	//	| 5 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT06			0x00000040	//	| 6 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT07			0x00000080	//	| 7 | Not Used					| -					| -				 	| 	
-// Forbbiden Zone ________________________________________	//  |---|---------------------------|-------------------|-------------------|														
 #define APP_PARAM_STRATEGYFLAG_BIT08			0x00000100	//	| 8 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT09			0x00000200	//	| 9 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT10			0x00000400	//	|10 | Not Used					| -					| -					| 
@@ -100,7 +112,7 @@
 #define APP_PARAM_STRATEGYFLAG_BIT13			0x00002000	//	|13 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT14			0x00004000	//	|14 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT15			0x00008000	//	|15 | Not Used					| -					| -					| 
-// SW Flag _______________________________________________	//  |---|---------------------------|-------------------|-------------------|														
+// Forbbiden Zone ________________________________________	//  |---|---------------------------|-------------------|-------------------|														
 #define APP_PARAM_STRATEGYFLAG_BIT16			0x00010000	//	|16 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT17			0x00020000	//	|17 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT18			0x00040000	//	|18 | Not Used					| -					| -					| 
@@ -110,13 +122,13 @@
 #define APP_PARAM_STRATEGYFLAG_BIT22			0x00400000	//	|22 | Not Used					| -					| -					| 	
 #define APP_PARAM_STRATEGYFLAG_BIT23			0x00800000	//	|23 | Not Used					| -					| -					| 		
 // State Flag ____________________________________________	//  |---|---------------------------|-------------------|-------------------|													
-#define APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT		0x01000000	//	|24 | Init postion for arms		| In init Pos		| Not in init pos	| 
-#define APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED	0x02000000	//	|25 | Arms is opened			| Arms opened		| Arms not opened	| 
-#define APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED	0x04000000	//	|26 | Arms is closed			| Arms closed		| Arms not closed	| 
-#define APP_PARAM_STRATEGYFLAG_COLLISION_FRONT	0x08000000	//	|27 | Collision state (front)	| Collision active  | Collision inactive|
-#define APP_PARAM_STRATEGYFLAG_COLLISION_REAR	0x10000000	//	|28 | Collision state (rear)	| Collision active  | Collision inactive|
-#define APP_PARAM_STRATEGYFLAG_COLLISION_LEFT	0x20000000	//	|29 | Collision state (left)	| Collision active  | Collision inactive|
-#define APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT	0x40000000	//	|30 | Collision state (right)	| Collision active  | Collision inactive| 
+#define APP_PARAM_STRATEGYFLAG_COLLISION_FRONT	0x01000000	//	|24 | Collision state (front)	| Collision active  | Collision inactive| 
+#define APP_PARAM_STRATEGYFLAG_COLLISION_REAR	0x02000000	//	|25 | Collision state (rear)	| Collision active  | Collision inactive| 
+#define APP_PARAM_STRATEGYFLAG_COLLISION_LEFT	0x04000000	//	|26 | Collision state (left)	| Collision active  | Collision inactive|
+#define APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT	0x08000000	//	|27 | Collision state (right)	| Collision active  | Collision inactive| 
+#define APP_PARAM_STRATEGYFLAG_FRONT_HOOPS_DOWN	0x10000000	//	|28 | Is front hoops down ?		| Hoops is down		| Hoops is up		|  
+#define APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN	0x20000000	//	|29 | Is rear hoops down ?		| Hoops is down		| Hoops is up		| 
+#define APP_PARAM_STRATEGYFLAG_BIT30			0x40000000	//	|30 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT31			0x80000000	//	|31 | Not Used					| -					| -					| 
 
 // Groups ------------------------------------------------------------------------------------------------
@@ -130,16 +142,13 @@
 #define APP_PARAM_APPFLAG_ALL_SENSORS			0x00FFFF00	// All external sensors
 #define APP_PARAM_APPFLAG_ALL_STATE				0xFF0000FF	// All state flags
 
-// For storing the arms status
-#define APP_PARAM_STRATEGYFLAG_ARMS_STATUS		(APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT + APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED + APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED)
-
 // User defined groups
 #ifdef APP_PARAM_DISABLE_ALL_SENSORS
 	// Don't change this part !!!!
 	#define APP_PARAM_STRATEGYFLAG_COLLISION_FRONT			(APP_PARAM_STRATEGYFLAG_NONE)	// Don't change this value !!!!
 	#define APP_PARAM_STRATEGYFLAG_COLLISION_REAR			(APP_PARAM_STRATEGYFLAG_NONE)	// Don't change this value !!!!
-	#define APP_PARAM_STRATEGYFLAG_COLLISION_LEFT			(APP_PARAM_STRATEGYFLAG_NONE)	// Don't change this value !!!!	
 	#define APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT			(APP_PARAM_STRATEGYFLAG_NONE)	// Don't change this value !!!!
+	#define APP_PARAM_STRATEGYFLAG_COLLISION_LEFT			(APP_PARAM_STRATEGYFLAG_NONE)	// Don't change this value !!!!
 #endif	
 
 /*
@@ -160,7 +169,9 @@
 #define APP_TASK_SENSORS_PRIO					24
 #define APP_TASK_MVT_PRIO						28
 #define APP_TASK_MAIN_PRIO						32
+#define APP_TASK_DEBUG_PRIO						36
 #define APP_TASK_TEMPO_PRIO						40
+#define APP_TASK_TEST_PRIO						42
 
 /*
 *********************************************************************************************************
@@ -173,7 +184,9 @@
 #define APP_TASK_SENSORS_STK_SIZE	            300
 #define APP_TASK_MVT_STK_SIZE					300
 #define APP_TASK_MAIN_STK_SIZE					300
+#define APP_TASK_DEBUG_STK_SIZE					300
 #define APP_TASK_TEMPO_STK_SIZE	            	300
+#define APP_TASK_TEST_STK_SIZE	            	300
 
 /*
 *********************************************************************************************************
@@ -221,8 +234,9 @@
 																		// If dist is under this value, command is not sent 
 																		// This limitation is made to prevent small moves (big angle and small length)
 
-#define APP_MVT_TIMEOUT							5000						// Nb of iteration before considering position is unreachable
-#define APP_COLLISION_TIMEOUT					10						// Nb of iteration before considering position is unreachable due to obstacle			
+#define APP_MVT_TIMEOUT_ENABLED					OS_FALSE				// OS_TRUE : Use Timeout action if we are blocked, OS_FALSE : We wait for ever if we are blocked
+#define APP_MVT_TIMEOUT							50						// Nb of iteration before considering position is unreachable
+#define APP_COLLISION_TIMEOUT					10						// Nb of iteration before considering position is unreachable due to obstacle
 
 /*
 *********************************************************************************************************

@@ -14,12 +14,6 @@
 
 #include "LibMoving.h"
 
-extern float error_debug_1;
-extern float error_debug_2;
-extern float error_debug_3;
-extern float error_debug_4;
-extern float error_debug_5;
-
 // ------------------------------------------------------------------------------------------------
 void LibMoving_MoveInMM(float Dist, int Speed, StructCmd *NextSetpoint)
 {
