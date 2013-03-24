@@ -149,13 +149,6 @@ void TaskSensors_Main(void *p_arg)
 	StructMsg	*pCurrentMsg;		// For retreiving data from TaskMain
 	EnumColor	LastColorRead;		// Used to check color modification
 
-	// Debug ----------------
-	CPU_INT16U  GP2Data;
-	CPU_INT08U	SW_State;
-	char		uart_buffer[8];
-	char		*buffer_ptr;
-	// ----------------------
-
 	// Init
 	Err					= 0;
 	CurrentState		= 0;
@@ -241,8 +234,30 @@ void TaskSensors_Main(void *p_arg)
 				switch(pCurrentMsg->Cmd)
 				{
 				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				case Sensors_FrontLevel: 
-					HOOP_Front_Up();
+				case Sensors_SetHoopLevel: 
+					// Front hoop
+					if(pCurrentMsg->Param1 == FRONT_HOOP)
+					{
+						switch(pCurrentMsg->Param2)
+						{
+						case LEVEL_DOWN:	HOOP_Front_Down;	break;
+						case LEVEL_UP:		HOOP_Front_Up;		break;
+						default:								break;
+						}
+					}
+
+					// Rear hoop
+					if(pCurrentMsg->Param2 == REAR_HOOP)
+					{
+						switch(pCurrentMsg->Param2)
+						{
+						case LEVEL_DOWN:	HOOP_Back_Down;		break;
+						case LEVEL_UP:		HOOP_Back_Up;		break;
+						default:								break;
+						}
+					}
+
+
 					if(CmdType_Blocking == pCurrentMsg->CmdType)
 						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
 					NextState = 1;

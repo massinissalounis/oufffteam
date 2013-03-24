@@ -16,8 +16,11 @@
 #define RIGHT_WHEEL								1		// Used for pivot mode
 #define LEFT_WHEEL								-1		// Used for pivot mode
 
-#define HOOP_UP									1		// Hoop position 
-#define HOOP_DOWN								2		// Hoop position
+#define FRONT_HOOP								10		// Front Hoop
+#define REAR_HOOP								11		// Rear Hoop
+
+#define LEVEL_UP								20		// Level position (for hoop)
+#define LEVEL_DOWN								21		// Level position (for hoop)
 
 #define USE_CURRENT_VALUE						-9999	// Used into Cmd msg to indicate we want to keep current value 
 														// (Thus no computation is needed for this param)
@@ -62,8 +65,7 @@ typedef enum
 	App_SetNewPos					= 33,	// Msg used to define a new position
 	App_SetStrategyFlags			= 34,	// Set the stratgey flags
 	// Command SENSORS __________________
-	// TODO : A reprendre suivant DSL
-	Sensors_SetHoopLevel			= 40,	// Change 
+	Sensors_SetHoopLevel			= 40,	// Configure the hoops status 
 }EnumCmd;
 
 typedef enum
@@ -101,6 +103,10 @@ typedef struct
     BOOLEAN		IsRead;				// Read Flag
     EnumCmd		Cmd;				// Command for the current Msg
 	EnumCmdType	CmdType;			// Var to define if the current action is a blocking action or not
+	int			Param1;				
+	int			Param2;				
+	int			Param3;				
+	int			Param4;				
 }StructMsg;
 
 #endif // APPCUSTOMTYPES_H

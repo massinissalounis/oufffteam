@@ -241,16 +241,28 @@ void TaskMain_Main(void *p_arg)
 						break;
 
 					// To TaskSensors ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-					case Sensors_FrontHoopUp:
-					case Sensors_FrontHoopDown:
-					case Sensors_RearHoopUp:
-					case Sensors_RearHoopDown:
+					case Sensors_SetHoopLevel:
 						// Copy data to MsgToPost
 						MsgToPost.Cmd		= CurrentCmd.Cmd;
 						MsgToPost.CmdType	= CurrentCmd.CmdType;
+						MsgToPost.Param1	= CurrentCmd.Param1;
+						MsgToPost.Param2	= (int)(CurrentCmd.Param2);
+						MsgToPost.Param3	= 0;
+						MsgToPost.Param4	= 0;
 
 						// Send Msg
 						AppPostQueueMsg(AppQueueSensors, &MsgToPost);
+						break;
+
+					// Change StrategyFlag ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+					case App_SetStrategyFlags:
+						// TODO
+						break;
+
+					// Nothing to do ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+					case NotSet:
+					case App_IfGoto_Strategy:
+					case App_IfGoto_System:
 						break;
 
 					// Destination not defined ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
