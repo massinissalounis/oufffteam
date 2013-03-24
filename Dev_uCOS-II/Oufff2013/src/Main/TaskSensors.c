@@ -14,12 +14,6 @@
 
 #include "TaskSensors.h"
 
-extern float error_debug_1;
-extern float error_debug_2;
-extern float error_debug_3;
-extern float error_debug_4;
-extern float error_debug_5;
-
 // ------------------------------------------------------------------------------------------------
 BOOLEAN TaskSensors_IsStartButtonPressed()
 {
@@ -51,23 +45,24 @@ void TaskSensors_CheckBumpers()
 #ifdef _TARGET_440H
 
 #else
-	//GP2_REAR_CENTER ***********************************************
-	GP2Data  = ADC_GetVal (GP2_REAR_CENTER);
-
+	//GP2_REAR_INTERNAL *********************************************
+	GP2Data  = ADC_GetVal (GP2_REAR_INTERNAL);
+	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_REAR, GP2Data);
 	if(GP2Data > APP_GP2_LIMIT_REAR_CENTER)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_CENTER, OS_FLAG_SET, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR, OS_FLAG_SET, &Err); 
 	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_CENTER, OS_FLAG_CLR, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR, OS_FLAG_CLR, &Err); 
 
-	//GP2_FRONT_CENTER **********************************************
-	GP2Data  = ADC_GetVal (GP2_FRONT_CENTER);
+	//GP2_FRONT_INTERNAL **********************************************
+	GP2Data  = ADC_GetVal (GP2_FRONT_INTERNAL);
+	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_FRONT, GP2Data);
 
 	if(GP2Data > APP_GP2_LIMIT_FRONT_CENTER)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_CENTER, OS_FLAG_SET, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_FRONT, OS_FLAG_SET, &Err); 
 	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_CENTER, OS_FLAG_CLR, &Err); 
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_FRONT, OS_FLAG_CLR, &Err); 
 
-/*	//GP2_REAR_HOOP *************************************************
+	//GP2_REAR_HOOP *************************************************
 	GP2Data  = ADC_GetVal (GP2_REAR_HOOP);
 
 	if(GP2Data > APP_GP2_LIMIT_REAR_HOOP)
@@ -81,7 +76,7 @@ void TaskSensors_CheckBumpers()
 	if(GP2Data > APP_GP2_LIMIT_FRONT_HOOP)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_HOOP, OS_FLAG_SET, &Err); 
 	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_HOOP, OS_FLAG_CLR, &Err); */
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_HOOP, OS_FLAG_CLR, &Err); 
 #endif
 }
 
@@ -99,14 +94,21 @@ void TaskSensors_GenerateStrategyFlags()
 	StrategyReadValue = 0;
 	FlagsToCheck = 0;		
 
-	StrategyReadValue = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ARMS_STATUS, OS_FLAG_WAIT_SET_ANY, &Err);
 	SystemReadValue = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ALL_GP2, OS_FLAG_WAIT_SET_ANY, &Err);
 
 	// Rear Sensors ########################################################################
 	FlagsToCheck = 0;
-	// All case ---------------
-
-	FlagsToCheck = (APP_PARAM_APPFLAG_GP2_REAR_CENTER);
+	// Hoops is down ---------------
+	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN) == APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN)
+	{
+		// Rear hoop is down, we use only rear sensor
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_REAR_HOOP);
+	}
+	else
+	{
+		// Rear hoop is up, we use internal sensor
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_INTERNAL_REAR);
+	}
 		
 	// Check Sensors
 	if((SystemReadValue & FlagsToCheck) != 0)
@@ -116,149 +118,24 @@ void TaskSensors_GenerateStrategyFlags()
 
 	// Front Sensors #######################################################################
 	FlagsToCheck = 0;
-	// Arms Init ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT) == APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT)
+	// Hoops is down ---------------
+	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_FRONT_HOOPS_DOWN) == APP_PARAM_STRATEGYFLAG_FRONT_HOOPS_DOWN)
 	{
-//		if(AppCurrentColor == c_ColorA)		// Red
-//			FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_CENTER) + APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1 + APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2);
-//
-//		if(AppCurrentColor == c_ColorB)		// Purple
-//			FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_CENTER + APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1 + APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2);
-		FlagsToCheck = APP_PARAM_APPFLAG_GP2_FRONT_CENTER;
+		// Front hoop is down, we use only front sensor
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_HOOP);
 	}
-
-	// Arms Opened ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED) == APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED)
-		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_3);
-
-	// Arms Closed ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED) == APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED)
-		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1 + APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1);
-
+	else
+	{
+		// Front hoop is up, we use internal sensor
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_INTERNAL_FRONT);
+	}
+		
 	// Check Sensors
 	if((SystemReadValue & FlagsToCheck) != 0)
 		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_FRONT, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_FRONT, OS_FLAG_CLR, &Err); 
 	
-	// Left Sensors #####################################################################
-	FlagsToCheck = 0;
-	// Arms Opened ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED) == APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED)
-		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_LEFT_1 + APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2);
-
-	// Arms Closed ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED) == APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED)
-		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_LEFT_2);
-
-	// Check Sensors
-	if((SystemReadValue & FlagsToCheck) != 0)
-		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_LEFT, OS_FLAG_SET, &Err); 
-	else
-		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_LEFT, OS_FLAG_CLR, &Err); 
-
-	// Right Sensors #####################################################################
-	FlagsToCheck = 0;
-	// Arms Opened ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED) == APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED)
-		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_1 + APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2);
-
-	// Arms Closed ---------------
-	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED) == APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED)
-		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_RIGHT_2);
-
-	// Check Sensors
-	if((SystemReadValue & FlagsToCheck) != 0)
-		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT, OS_FLAG_SET, &Err); 
-	else
-		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT, OS_FLAG_CLR, &Err); 
-}
-
-// ARMS functions _________________________________________________________________________________
-// ------------------------------------------------------------------------------------------------
-void TaskSensors_ArmsSetStatus(OS_FLAGS flags)
-{	
-	INT8U		Err;				// Var to get error status
-	OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ARMS_STATUS, OS_FLAG_CLR, &Err);
-	OSFlagPost(AppStrategyFlags, flags, OS_FLAG_SET, &Err); 
-}
-
-// ------------------------------------------------------------------------------------------------
-void TaskSensors_ArmsInit()
-{
-	if(AppCurrentColor == c_ColorA)		// Red
-//		ARMS_DefaultPosRed();
-
-	if(AppCurrentColor == c_ColorB)		// Purple
-//		ARMS_DefaultPosPurple();
-
-	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_INIT);
-}
-
-// ------------------------------------------------------------------------------------------------
-void TaskSensors_ArmsDeployment()
-{
-	if(AppCurrentColor == c_ColorA)		// Red
-//		ARMS_DeploymentRed();
-
-	if(AppCurrentColor == c_ColorB)		// Purple
-//		ARMS_DeploymentPurple();
-
-	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED);
-}
-
-// ------------------------------------------------------------------------------------------------
-void TaskSensors_ArmsOpenDown()
-{
-//	ARMS_OpenDown();
-	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED);
-}
-
-// ------------------------------------------------------------------------------------------------
-void TaskSensors_ArmsOpenUp()
-{
-//	ARMS_OpenUp();
-	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED);
-}
-
-// ------------------------------------------------------------------------------------------------
-void TaskSensors_ArmsClose()
-{
-//	ARMS_Close();
-	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED);
-}
-
-// ------------------------------------------------------------------------------------------------
-void TaskSensors_ArmsOpenOneCD()
-{
-//	ARMS_OpenOneCD();
-	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED);
-}
-
-// ------------------------------------------------------------------------------------------------
-void TaskSensors_ArmsOpenTotem()
-{
-//	ARMS_OpenTotem();
-	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED);
-}
-
-// ------------------------------------------------------------------------------------------------
-void TaskSensors_ArmsCloseTotem()
-{
-//	ARMS_CloseTotem();
-	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_CLOSED);
-}
-
-// ------------------------------------------------------------------------------------------------
-void TaskSensors_ArmsUngrab()
-{
-//	ARMS_Ungrab();
-	TaskSensors_ArmsSetStatus(APP_PARAM_STRATEGYFLAG_ARMS_IS_OPENED);
-}
-
-void TaskSensors_ElevatorDown()
-{
-//	ELEVATOR_Level_Open();
 }
 
 // ------------------------------------------------------------------------------------------------
@@ -286,76 +163,15 @@ void TaskSensors_Main(void *p_arg)
 	pCurrentMsg			= NULL;
 	LastColorRead		= c_NotSet;
 
-	AppDebugMsg("OUFFF TEAM 2012 : Sensors online\r\n");
+	AppDebugMsg("OUFFF TEAM 2013 : Sensors online\r\n");
 	
+	// Task init : initialize all sensors
+	HOOPS_InitReg();
+	HOOPS_SetSpeed();
+
 #ifdef	APP_INIT_EXEC_STARTUP_SEQ
 #endif
 
-	ARMS_SetSpeed();
-
-#ifdef SENSORS_CALIBRATION
-	TaskSensors_ReadColor();
-	
-// Arms Init from color
-//	OSTimeDlyHMSM(0, 0, 1, 0);
-//	TaskSensors_ArmsInit();
-
-	// Deployment
-//	OSTimeDlyHMSM(0, 0, 3, 0);
-//	TaskSensors_ArmsDeployment();
-
-//	TaskSensors_Armspen();
-
-//	OSTimeDlyHMSM(0, 0, 3, 0);
-//	TaskSensors_ArmsOpenOneCD();
-
-//	OSTimeDlyHMSM(0, 0, 10, 0);
-//	TaskSensors_ArmsOpenTotem();
-
-//	OSTimeDlyHMSM(0, 0, 10, 0);
-//	TaskSensors_ArmsCloseTotem();
-	
-//	OSTimeDlyHMSM(0, 0, 10, 0);
-//	TaskSensors_ArmsClose();
-
-//	OSTimeDlyHMSM(0, 0, 3, 0);
-	TaskSensors_ArmsUngrab();
-
-	while(OS_TRUE)
-	{
-		// Tirette + Color
-/*		error_debug_1 = START_State();
-		error_debug_2 = COLOR_Read();
-		error_debug_3 = 0;
-		error_debug_4 = 0;
-		error_debug_5 = 0;
-*/
-
-		// SW Tests : 
-/*		error_debug_1 = CLIC_state(CLIC_1);
-		error_debug_2 = CLIC_state(CLIC_2);
-		error_debug_3 = CLIC_state(CLIC_3);
-		error_debug_4 = CLIC_state(CLIC_4);
-		error_debug_5 = 0;
-*/
-		// GP2 tests (Serie 1) : 
-/*		error_debug_1 = ADC_GetVal(GP2_1);
-		error_debug_2 = ADC_GetVal(GP2_2);
-		error_debug_3 = ADC_GetVal(GP2_3);
-		error_debug_4 = ADC_GetVal(GP2_4);
-		error_debug_5 = ADC_GetVal(GP2_5);
-*/		
-		// GP2 tests (Serie 1) : 
-/*		error_debug_1 = ADC_GetVal(GP2_6);
-		error_debug_2 = ADC_GetVal(GP2_7);
-		error_debug_3 = ADC_GetVal(GP2_8);
-		error_debug_4 = ADC_GetVal(GP2_9);
-		error_debug_5 = ADC_GetVal(GP2_10);
-*/		
-		// Proc release
-		OSTimeDlyHMSM(0, 0, 1, 0);
-	}
-#endif
 
 	if(APP_INIT_USE_START_BUTTON == OS_TRUE)
 	{
@@ -368,7 +184,6 @@ void TaskSensors_Main(void *p_arg)
 			if(LastColorRead != AppCurrentColor)
 			{
 				LastColorRead = AppCurrentColor;
-				TaskSensors_ArmsInit();
 			}
 		}
 
@@ -381,22 +196,8 @@ void TaskSensors_Main(void *p_arg)
 			if(LastColorRead != AppCurrentColor)
 			{
 				LastColorRead = AppCurrentColor;
-				TaskSensors_ArmsInit();
 			}
 		}
-	}
-
-	//HOOPS_InitReg();
-	
-	while(OS_TRUE)
-	{
-		HOOPS_Up();
-		OSTimeDlyHMSM(0, 0, 1, 0);
-		HOOPS_Down();
-		
-			// PMP_Write(AX12_UART_OUT_REGISTER, 0xAA);
-	// PMP_Write(AX12_UART_OUT_REGISTER, 0x55);
-		// OSTimeDlyHMSM(0, 0, 1, 0);
 	}
 
 	TaskSensors_ReadColor();
@@ -440,78 +241,12 @@ void TaskSensors_Main(void *p_arg)
 				switch(pCurrentMsg->Cmd)
 				{
 				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				case Sensors_ArmsOpenDown: 
-					TaskSensors_ArmsOpenDown();
+				case Sensors_FrontLevel: 
+					HOOP_Front_Up();
 					if(CmdType_Blocking == pCurrentMsg->CmdType)
 						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
 					NextState = 1;
 					break;
-
-				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				case Sensors_ArmsOpenUp: 
-					TaskSensors_ArmsOpenUp();
-					if(CmdType_Blocking == pCurrentMsg->CmdType)
-						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
-					NextState = 1;
-					break;
-
-				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				case Sensors_ArmsDeployment: 
-					TaskSensors_ArmsDeployment();
-					if(CmdType_Blocking == pCurrentMsg->CmdType)
-						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
-					NextState = 1;
-					break;
-
-				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				case Sensors_ArmsOpenTotem:
-					TaskSensors_ArmsOpenTotem();
-					if(CmdType_Blocking == pCurrentMsg->CmdType)
-						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
-					NextState = 1;
-					break;
-
-				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				case Sensors_ArmsOpenOneCD:
-					TaskSensors_ArmsOpenOneCD();
-					if(CmdType_Blocking == pCurrentMsg->CmdType)
-						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
-					NextState = 1;
-					break;
-
-				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				case Sensors_ArmsClose:
-					TaskSensors_ArmsClose();
-					if(CmdType_Blocking == pCurrentMsg->CmdType)
-						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
-					NextState = 1;
-					break;
-
-				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				case Sensors_ArmsCloseTotem:
-					TaskSensors_ArmsCloseTotem();
-					if(CmdType_Blocking == pCurrentMsg->CmdType)
-						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
-					NextState = 1;
-					break;
-
-				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				case Sensors_ArmsUngrab:
-					TaskSensors_ArmsUngrab();
-					if(CmdType_Blocking == pCurrentMsg->CmdType)
-						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
-					NextState = 1;
-					break;
-
-				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-				case Sensors_ElevatorLow:
-					TaskSensors_ElevatorDown();
-					if(CmdType_Blocking == pCurrentMsg->CmdType)
-						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
-					NextState = 1;
-					break;
-
-					
 
 				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				default: 

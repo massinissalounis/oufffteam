@@ -78,14 +78,10 @@
 #define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
 //#define APP_INIT_EXEC_STARTUP_SEQ			OS_TRUE		// Flag to indicate if we have to execute the start up sequence
 
-#define APP_GP2_LIMIT_FRONT_CENTER			150			// Threshold 
-#define APP_GP2_LIMIT_REAR_CENTER			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_LEFT_1			250			// Threshold
-#define APP_GP2_LIMIT_FRONT_LEFT_2			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_LEFT_3			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_RIGHT_1			250			// Threshold
-#define APP_GP2_LIMIT_FRONT_RIGHT_2			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_RIGHT_3			200			// Threshold
+#define APP_GP2_LIMIT_FRONT_CENTER			250			// Threshold 
+#define APP_GP2_LIMIT_REAR_CENTER			250			// Threshold
+#define APP_GP2_LIMIT_REAR_HOOP				250			// Threshold
+#define APP_GP2_LIMIT_FRONT_HOOP			250			// Threshold
 
 /*
 *********************************************************************************************************
@@ -97,16 +93,16 @@
 #define APP_TASK_ASSER_ENABLED							// Activate TaskAsser
 #define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
 #define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
+#define APP_TASK_DEBUG_ENABLED							// Activate TaskDebug
 #define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
-
-#define APP_TASK_ODO_DISPLAY_POSITION					// Activate the position debug messages
-//#define APP_TASK_ODO_DISPLAY_DEBUG						// Activate the other debug messages
+//#define APP_TASK_TEST_ENABLED							// Activate TaskTest (Only for specific tests)
 
 /*
 *********************************************************************************************************
 *											STRATEGY
 *********************************************************************************************************
 */
+#ifndef _TARGET_440H
 //#define SENSORS_CALIBRATION				// Enable this option for testing sensors
 //#define AX12_REG_PROGRAMMING				// Use this flag for programming the default values into AX12
 //#define ODO_CALIBRATION					// Use this flag for testing the Odometry configuration
@@ -114,6 +110,9 @@
 #define HOMOL_STRATEGY_ENABLED				// Enable this option to use the homol strategy
 //#define MVT_STRATEGY_ENABLED
 //#define TEST_STRATEGY_ENABLED
+#else
+#define DEV_CARD_STRATEGY_ENABLED
+#endif
 
 #endif // _PRIMARY_ROBOT
 

@@ -79,12 +79,6 @@
 
 #define APP_GP2_LIMIT_FRONT_CENTER			150			// Threshold 
 #define APP_GP2_LIMIT_REAR_CENTER			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_LEFT_1			250			// Threshold
-#define APP_GP2_LIMIT_FRONT_LEFT_2			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_LEFT_3			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_RIGHT_1			250			// Threshold
-#define APP_GP2_LIMIT_FRONT_RIGHT_2			200			// Threshold
-#define APP_GP2_LIMIT_FRONT_RIGHT_3			200			// Threshold
 
 /*
 *********************************************************************************************************
@@ -97,9 +91,7 @@
 #define APP_TASK_MVT_ENABLED							// Acvivate TaskMvt
 #define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
 #define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
-
-#define APP_TASK_ODO_DISPLAY_POSITION					// Activate the position debug messages
-//#define APP_TASK_ODO_DISPLAY_DEBUG						// Activate the other debug messages
+#define APP_TASK_TEST_ENABLED							// Activate TaskTest (Only for specific tests)
 
 /*
 *********************************************************************************************************

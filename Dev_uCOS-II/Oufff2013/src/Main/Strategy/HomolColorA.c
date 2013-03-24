@@ -16,7 +16,7 @@
 
 #ifdef HOMOL_STRATEGY_ENABLED
 
-#define DEFAULT_SPEED (30)
+#define DEFAULT_SPEED (60)
 
 // ------------------------------------------------------------------------------------------------
 INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
@@ -26,9 +26,9 @@ INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
 
 	InitCmd->Cmd				= App_SetNewPos;
 	InitCmd->CmdType			= CmdType_Blocking;
-	InitCmd->Param2				= 1000;	
-	InitCmd->Param3				= 1000;	
-	InitCmd->Param4				= AppConvertDegInRad(30);
+	InitCmd->Param2				= 0;	
+	InitCmd->Param3				= 0;	
+	InitCmd->Param4				= AppConvertDegInRad(0);
 	InitCmd->ActiveSensorsFlag		= APP_PARAM_STRATEGYFLAG_NONE;
 
 	return ERR__NO_ERROR;
@@ -63,6 +63,9 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	{
 		// StructuredFileLoopBegin
 		// LoopID = 0
+		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 2;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 2000;    		break;	
+		case 2:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 3;	p->Cmd = App_Wait;					p->Param1 = 0;    p->Param2 = 0;    	p->Param3 = 5;    p->Param4 = 0;    		break;	
+		case 3:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = -1;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = -2000;    		break;	
 		// StructuredFileLoopEnd
 
 		// StructuredFileLoopBegin

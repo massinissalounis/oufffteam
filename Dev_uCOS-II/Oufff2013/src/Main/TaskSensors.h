@@ -29,16 +29,6 @@ void TaskSensors_CheckBumpers();
 void TaskSensors_GenerateStrategyFlags();
 	// Generate all Strategy Flags associated to the TaskSensors task
 
-// ARMS functions _________________________________________________________________________________
-void TaskSensors_ArmsClearStatus();
-	// Function for clearing all arms state flags
-
-void TaskSensors_ArmsInit();
-	// Send the init command for each arms from selected colors
-
-void TaskSensors_ArmsDeployment();
-	// Send command for deploying arms
-
 void TaskSensors_Main(void *p_arg);
 	// Fonction principal du process de gestion des Sensors
 	// void *p_arg		: Arg for this task

@@ -115,16 +115,16 @@ void TaskMain_Main(void *p_arg)
 			// Get CurrentPos for current color
 			if(AppCurrentColor == c_ColorA)
 			{
-				AppDebugMsg("TaskMain : Color = Red\n");
+				AppDebugMsg("TaskMain : Color = Blue\n");
 				#ifdef _TARGET_440H
-					Set_Line_Information( 1, 15, "R", 1);
+					Set_Line_Information( 1, 15, "B", 1);
 				#endif
 			}
 			else
 			{
-				AppDebugMsg("TaskMain : Color = Violet\n");
+				AppDebugMsg("TaskMain : Color = Red\n");
 				#ifdef _TARGET_440H
-					Set_Line_Information( 1, 15, "V", 1);
+					Set_Line_Information( 1, 15, "R", 1);
 				#endif
 			}
 			
@@ -241,15 +241,10 @@ void TaskMain_Main(void *p_arg)
 						break;
 
 					// To TaskSensors ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-					case Sensors_ArmsOpenDown:
-					case Sensors_ArmsOpenUp:
-					case Sensors_ArmsDeployment:
-					case Sensors_ArmsOpenTotem:
-					case Sensors_ArmsOpenOneCD:
-					case Sensors_ArmsClose:
-					case Sensors_ArmsCloseTotem:
-					case Sensors_ArmsUngrab:
-					case Sensors_ElevatorLow:
+					case Sensors_FrontHoopUp:
+					case Sensors_FrontHoopDown:
+					case Sensors_RearHoopUp:
+					case Sensors_RearHoopDown:
 						// Copy data to MsgToPost
 						MsgToPost.Cmd		= CurrentCmd.Cmd;
 						MsgToPost.CmdType	= CurrentCmd.CmdType;

@@ -21,16 +21,6 @@ StructPos TaskOdo_CurrentPos;
 OS_EVENT	*SemOdo = NULL;
 OS_EVENT	*MutexCurrentPos = NULL;				// Mutex to limit access (RW) for CurrentPos variable
 
-extern float error_debug_1;
-extern float error_debug_2;
-extern float error_debug_3;
-extern float error_debug_4;
-extern float error_debug_5;
-
-extern INT8U Debug_MainState;
-extern INT8U Debug_MvtState;
-extern INT8U Debug_AsserRampState;
-
 // Initialize data types
 // Struc position
 // Impulsed position
@@ -266,8 +256,6 @@ void TaskOdo_Main(void *p_arg)
 {
 	INT8U err		= ERR__NO_ERROR;
 	static int i	= 0;				// Refresh sending UART
-	char uart_buffer[8];
-	char *buffer_ptr;
 
 	unsigned char no_movement_flag = 1;
 	
@@ -283,22 +271,17 @@ void TaskOdo_Main(void *p_arg)
 			OSTimeDlyHMSM(1, 0, 0, 0);		
 	}
 
+
 	#ifdef _TARGET_440H
 		while(OS_TRUE)
 		{
-			OSTimeDlyHMSM(0, 0, 1, 0);		
+			// Update current Odo value
 
-			AppDebugMsg("ODO_PROCESS : ");
-			AppDebugMsg("x : ");
-			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskOdo_CurrentPos.x, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-			AppDebugMsg(buffer_ptr);
-			AppDebugMsg(", y : ");
-			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskOdo_CurrentPos.y, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-			AppDebugMsg(buffer_ptr);
-			AppDebugMsg(", alpha : ");
-			buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (TaskOdo_CurrentPos.angle*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-			AppDebugMsg(buffer_ptr);
-			AppDebugMsg("\n");
+			TaskDebug_UpdateValueFloat(TASKDEBUG_ID_POS_X, TaskOdo_CurrentPos.x);
+			TaskDebug_UpdateValueFloat(TASKDEBUG_ID_POS_Y, TaskOdo_CurrentPos.y);
+			TaskDebug_UpdateValueAngle(TASKDEBUG_ID_POS_ANGLE, TaskOdo_CurrentPos.angle);
+			
+			OSTimeDlyHMSM(0, 0, 1, 0);		
 		}
 	#endif
 
@@ -317,54 +300,14 @@ void TaskOdo_Main(void *p_arg)
 				position_manager_process();
 
 				//no_movement_flag = movement_detection();
-
-				if(i==0)
-				{
-#ifdef APP_TASK_ODO_DISPLAY_POSITION
-					AppDebugMsg("ODO_PROCESS Position = ");
-					AppDebugMsg("x : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskOdo_CurrentPos.x, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg(",\ty : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) TaskOdo_CurrentPos.y, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg(",\talpha : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) (TaskOdo_CurrentPos.angle*180.0/M_PI), (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg(",\tMainState : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) Debug_MainState, (CPU_INT08U) 3, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg(",\tMvtState : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) Debug_MvtState, (CPU_INT08U) 3, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg(",\tRampState : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) Debug_AsserRampState, (CPU_INT08U) 1, (CPU_INT08U) 0, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg("\n");
-#endif
-#ifdef APP_TASK_ODO_DISPLAY_DEBUG
-					AppDebugMsg("Debug1 : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_1, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg("\tDebug2 : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_2, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg("\tDebug3 : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_3, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg("\tDebug4 : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_4, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg("\tDebug5 : ");
-					buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) error_debug_5, (CPU_INT08U) 4, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
-					AppDebugMsg(buffer_ptr);
-					AppDebugMsg("\n");
-#endif
-				}
-				i++;
-				if(i==50) i=0;
 			#endif
 		}
 
+		// Update current Odo value
+		TaskDebug_UpdateValueFloat(TASKDEBUG_ID_POS_X, TaskOdo_CurrentPos.x);
+		TaskDebug_UpdateValueFloat(TASKDEBUG_ID_POS_Y, TaskOdo_CurrentPos.y);
+		TaskDebug_UpdateValueAngle(TASKDEBUG_ID_POS_ANGLE, TaskOdo_CurrentPos.angle);
+
+		OSTimeDly(1);
 	}
 }
