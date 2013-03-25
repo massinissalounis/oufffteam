@@ -60,7 +60,16 @@ namespace StrategyGenerator2.StrategyManager
                     }
                 }
 
-                Ret = counter;
+                try
+                {
+                    outputFile.SaveTo(fileName);
+                    Ret = counter;
+                }
+                catch (Exception ex)
+                {
+                    Ret = -1;
+                }
+                
             }
 
             return Ret;
@@ -75,7 +84,7 @@ namespace StrategyGenerator2.StrategyManager
         public int Load(String filename)
         {
             int Ret = -1;
-            StructuredFile inputFile = null;
+            StructuredFile inputFile = new StructuredFile();
             StructuredFileGroup globalGroup = null;
             List<StructuredFileGroup> actionsGroup = null;
             StructuredFileKey currentKey = null;
@@ -143,7 +152,7 @@ namespace StrategyGenerator2.StrategyManager
         /// Retourne l'objet RobotAction ayant l'ID spécifié
         /// </summary>
         /// <param name="actionID">ID de l'objet recherché</param>
-        /// <returns>Un objet RobotAction</returns>
+        /// <returns>Un objet RobotAction, null si l'objet n'est pas trouvé</returns>
         public RobotAction GetAction(int actionID)
         {
             RobotAction Ret = null;
@@ -171,20 +180,38 @@ namespace StrategyGenerator2.StrategyManager
 
         /// <summary>
         /// Ajoute un nouvel objet RobotAction dans la sub-stratégie
+        /// Si l'ID est déjà utilisé, on met à jour les données avec l'objet en paramètre
         /// </summary>
         /// <param name="newAction">Nouvel objet à ajouter</param>
         /// <returns>True si l'ajout s'effectue correctement, False sinon</returns>
         public bool AddAction(RobotAction newAction)
         {
             bool Ret = false;
-
+            
             if (newAction != null)
             {
                 // On ajoute l'objet dans la liste
                 if (_actions == null)
+                {
                     _actions = new List<RobotAction>();
+                    _actions.Add(newAction);
+                }
+                else
+                {
+                    // On verifie si l'ID n'est pas déjà utilisé
+                    RobotAction isPresent = GetAction(newAction.ID);
+                    if (isPresent != null)
+                    {
+                        // L'ID existe déjà, on le met à jour
+                        isPresent.UpdateValue(newAction);
+                    }
+                    else
+                    {
+                        // L'objet n'existe pas, on peut l'ajouter
+                        _actions.Add(newAction);
+                    }
+                }
 
-                _actions.Add(newAction);
                 Ret = true;
             }
 
@@ -219,6 +246,66 @@ namespace StrategyGenerator2.StrategyManager
             return Ret;
         }
 
+        /// <summary>
+        /// Permet de mettre à jour l'action ayant l'id actionID avec les données en paramètre
+        /// L'ID n'est pas mis à jour
+        /// </summary>
+        /// <param name="actionID">ID de l'action à mettre à jour</param>
+        /// <param name="newAction">Nouvelles données à mettre à jour</param>
+        /// <returns>True si l'ajout a été fait correctement, False sinon</returns>
+        public bool UpdateAction(int actionID, RobotAction newAction)
+        {
+            bool Ret = false;
+
+            if ((newAction != null) && (_actions != null) && (actionID > 0))
+            {
+                // On verifie les ID
+                // On met à jour les données que si on modifie l'objet courant ou si le nouvel ID n'est pas utilisé
+                if ((newAction.ID == actionID) || (GetAction(newAction.ID) == null))
+                {
+                    // On parcourt tous les objets pour mettre à jour les actions ayant le bon ID
+                    foreach (RobotAction currentRobotAction in _actions)
+                    {
+                        if (currentRobotAction.ID == actionID)
+                        {
+                            currentRobotAction.UpdateValue(newAction);
+                            Ret = true;
+                        }
+                    }
+                }
+            }
+
+            return Ret;
+        }
+
+        /// <summary>
+        /// Retourne le nombre d'action dans la stratégie
+        /// </summary>
+        /// <returns>Nombre d'actions</returns>
+        public int Count()
+        {
+            int Ret = 0;
+
+            if (_actions != null)
+                Ret = _actions.Count();
+
+            return Ret;
+        }
+
+        public SubStrategy Clone()
+        {
+            SubStrategy newObject = new SubStrategy(_subStrategyName);
+            if (_actions != null)
+            {
+                foreach (RobotAction currentRobotAction in _actions)
+                {
+                    newObject.AddAction(currentRobotAction);
+                }
+            }
+
+            return newObject;
+        }
+
         // Properties -----------------------------------------------------------------------------
         public String Name
         {
@@ -226,7 +313,7 @@ namespace StrategyGenerator2.StrategyManager
             set { _subStrategyName = value; }
         }
 
-        
+          
         // Private functions ----------------------------------------------------------------------
         
         // Private --------------------------------------------------------------------------------

@@ -1,0 +1,20 @@
+Test pour export pour variable globale : 'Key1@0' et 'Key2@0'
+Sur le groupe 2 : 'Key1@2' et 'Key2@2';
+Sur le groupe 3 : 'Key1@3' et 'Key2@3'
+
+Lecture de groupe
+	// SUB_STRATEGY_BEGIN_LOOP
+	case 'gID':		p->CmdType = 'CmdType@gID';	p->ActiveSensorsFlag =	'ActiveSensors@gID';	NextActionID = 'nextID@gID';	TimeoutID = 'timeoutID@gID';	p->Cmd = 'Cmd@gID';	p->Param1 = 'Param1@gID';	p->Param2 = 'Param2@gID';	p->Param3 = 'Param3@gID';	p->Param4 = 'Param4@gID';	break;	// SubStrategyName = 'SubStrategyName@gID'
+	// SUB_STRATEGY_END_LOOP
+
+
+
+A l écriture Si on a 'gID' on utilise le premier groupID > 0, à chaque nouvelle occurence de groupID on change de groupe
+S il n y a pas assez de groupe par rapport au pattern, on ecrit la ligne du pattern à l'identique dans le fichier de sortie 
+
+
+A la lecture si nous n'avons pas le bon nombre de ligne entre le fichier et le pattern -> lecture impossible
+On supprime toutes les lignes identiques entre pattern et fichier puis, on met en correspondance les données
+
+
+A la lecture

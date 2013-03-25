@@ -23,6 +23,41 @@ namespace StrategyGenerator2.StrategyManager
             _timeoutID = -1;                                // Action à réaliser en cas de timeout
         }
 
+        public RobotAction(int ID)
+        {
+            _uID = ID;                                      // Identifiant unique pour l'action
+            _cmd = EnumCmd.NotSet;                          // Commande
+            _cmdType = EnumCmdType.NotSet;                  // Type de l'action à réaliser
+            _param1 = "";                                   // Param 1
+            _param2 = "";                                   // Param 2
+            _param3 = "";                                   // Param 3
+            _param4 = "";                                   // Param 4
+            _activeSensors = EnumActiveSensors.NotSet;      // Sensors actifs durant le mouvement
+            _nextID = -1;                                   // Action suivante
+            _timeoutID = -1;                                // Action à réaliser en cas de timeout
+        }
+
+        /// <summary>
+        /// Permet de mettre à jour les données de l'objet en cours à partir d'un autre objet passé en paramètre
+        /// </summary>
+        /// <param name="newValues">Objet contenant les nouvelles valeurs à assigner</param>
+        public void UpdateValue(RobotAction newValues)
+        {
+            if (newValues != null)
+            {
+                this.ID = newValues.ID;
+                this.cmd = newValues.cmd;
+                this.cmdType = newValues.cmdType;
+                this.param1 = newValues.param1;
+                this.param2 = newValues.param2;
+                this.param3 = newValues.param3;
+                this.param4 = newValues.param4;
+                this.activeSensors = newValues.activeSensors;
+                this.nextID = newValues.nextID;
+                this.timeoutID = newValues.timeoutID;
+            }
+        }
+
         /// <summary>
         /// Fonction pour verifier toutes les fonctions private du modules
         /// </summary>
@@ -79,13 +114,13 @@ namespace StrategyGenerator2.StrategyManager
             if (CheckWheelValue("Test", "NOK") != "NOK")
                 Ret = false;
 
-            if (CheckAngleValue("360,55555", "NOK") != "0,6")
+            if (CheckAngleValue("360,55555", "NOK") != "0.6")
                 Ret = false;
 
-            if (CheckAngleValue("-270,0", "NOK") != "90,0")
+            if (CheckAngleValue("-270.0", "NOK") != "90.0")
                 Ret = false;
 
-            if (CheckAngleValue(null, "NOK") != "0,0")
+            if (CheckAngleValue(null, "0.0") != "0.0")
                 Ret = false;
 
             if (CheckAngleValue("ERR", "NOK") != "NOK")
@@ -324,7 +359,7 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.NotSet:
                     case EnumCmd.App_SetNewPos:
                     default:
-                        _param1 = null;                                    // Not Used
+                        _param1 = "NotUsed";                                    // Not Used
                         break;
                 }
             }
@@ -381,7 +416,7 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.MvtSimple_RotateInDeg:
                     case EnumCmd.MvtSimple_RotateToAngleInDeg:
                     default:
-                        _param2 = null;
+                        _param2 = "NotUsed";
                         break;
                 }
             }
@@ -426,7 +461,7 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.MvtSimple_RotateInDeg:
                     case EnumCmd.MvtSimple_RotateToAngleInDeg:
                     default:
-                        _param3 = null;
+                        _param3 = "NotUsed";
                         break;
                 }
             }
@@ -449,7 +484,7 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.Mvt_UseSpline:
                     case EnumCmd.MvtSimple_RotateInDeg:
                     case EnumCmd.MvtSimple_RotateToAngleInDeg:
-                        _param4 = CheckAngleValue(value, "0,0");                // Verification de la valeur de l'angle
+                        _param4 = CheckAngleValue(value, "0.0");                // Verification de la valeur de l'angle
                         break;
 
                     // _______________________________________________________
@@ -467,7 +502,7 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.Mvt_Stop:
                     case EnumCmd.NotSet:
                     default:
-                        _param4 = null;
+                        _param4 = "NotUsed";
                         break;
                 }
             }
@@ -750,6 +785,9 @@ namespace StrategyGenerator2.StrategyManager
 
             try
             {
+                // Conversion du signe virgule vers point
+                valueToCheck = valueToCheck.Replace(".", ",");
+
                 RetFloat = Convert.ToDouble(valueToCheck);
 
                 // Verification des valeurs > 360°
@@ -763,6 +801,9 @@ namespace StrategyGenerator2.StrategyManager
                 // Création de la chaine de retour
                 
                 Ret = RetFloat.ToString("N1");
+
+                // Conversion du signe point vers virgule
+                Ret = Ret.Replace(",", ".");
             }
             catch
             {
