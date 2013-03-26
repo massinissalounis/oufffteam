@@ -251,6 +251,41 @@ namespace StrategyGenerator2.FileManager
                 return _fileContents.Count;
         }
 
+        /// <summary>
+        /// Fonction pour remplacer l'occurrence 'oldTring" par la valeur 'newString' dans tout le fichier
+        /// </summary>
+        /// <param name="oldString">Motif à remplacer dans le fichier</param>
+        /// <param name="newString">Nouveau motif à mettre à la place</param>
+        public void ReplaceInFile(String oldString, String newString)
+        {
+            if ((_fileContents != null) && (_fileContents.Count() > 0))
+            {
+                for (int iLine = 0; iLine < _fileContents.Count(); iLine++)
+                {
+                    _fileContents[iLine] = _fileContents[iLine].Replace(oldString, newString);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Supprime toutes les lignes vides du fichier
+        /// </summary>
+        public void RemoveEmptyLine()
+        {
+            List<String> newFileContents = new List<string>();
+
+            if ((_fileContents != null) && (_fileContents.Count() > 0))
+            {
+                foreach (String currentLine in _fileContents)
+                {
+                    if (currentLine != "")
+                        newFileContents.Add(currentLine);
+                }
+
+                _fileContents = newFileContents;
+            }
+        }
+
         // Private --------------------------------------------------------------------------------
         private List<String>    _fileContents;              // Permet de stocker le contenu du fichier
         private String          _currentFileName;           // Permet de stocker le chemin d'accès courrant

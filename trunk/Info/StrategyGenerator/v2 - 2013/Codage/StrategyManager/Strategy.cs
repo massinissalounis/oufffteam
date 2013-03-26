@@ -247,7 +247,12 @@ namespace StrategyGenerator2.StrategyManager
             }
         }
 
-
+        /// <summary>
+        /// Export current strategy into an external file (given as parameter)
+        /// </summary>
+        /// <param name="outputFileName">filename of output file</param>
+        /// <param name="patternFileName">pattern file to use for the exportation</param>
+        /// <returns></returns>
         public int Export(String outputFileName, String patternFileName)
         {
             int Ret = -1;
@@ -259,118 +264,166 @@ namespace StrategyGenerator2.StrategyManager
             TextFile outputPatternFile = new TextFile();                // Fichier pattern à utiliser pour écrire le fichier de sortie
             List<String> loopSubStrategyPattern = new List<string>();   // Lignes à répéter pour les subStratégies dans le fichier de sortie
 
-            // Verification des paramètres d'entrée et des paramètres internes
-            if ((outputFileName != null) && (patternFileName != null) && (_subStrategies != null))
+            try
             {
-                // Chargement du fichier model
-                patternFile.Load(patternFileName);
-
-                // Verification du fichier pattern et création du fichier réel de sortie
-                if (patternFile.Count() > 0)
+                // Verification des paramètres d'entrée et des paramètres internes
+                if ((outputFileName != null) && (patternFileName != null) && (_subStrategies != null))
                 {
-                    // On parcourt tout le fichier et on copie toutes les lignes qui n'appartiennent pas à boucle de stratégie
-                    for (iLine = 0; iLine < patternFile.Count(); iLine++)
-                    {
-                        // Lecture de la ligne
-                        currentLine = patternFile.GetLine(iLine);
+                    // Chargement du fichier model
+                    patternFile.Load(patternFileName);
 
-                        // Analyse de la ligne
-                        // Est-ce dans une boucle de lecture de pattern
-                        if (loopSubStrategyPatternFlag == true)
+                    // Verification du fichier pattern et création du fichier réel de sortie
+                    if (patternFile.Count() > 0)
+                    {
+                        // On parcourt tout le fichier et on copie toutes les lignes qui n'appartiennent pas à boucle de stratégie
+                        for (iLine = 0; iLine < patternFile.Count(); iLine++)
                         {
+                            // Lecture de la ligne
+                            currentLine = patternFile.GetLine(iLine);
+
+                            // Analyse de la ligne
+                            // Est-ce dans une boucle de lecture de pattern
                             if (loopSubStrategyPatternFlag == true)
                             {
-                                // A-t-on trouver le flag de fin de boucle
-                                if (currentLine.ToUpper().Contains(PrivateConst.subStrategyEndTag.ToUpper()) == true)
+                                if (loopSubStrategyPatternFlag == true)
                                 {
-                                    // La fin de boucle a été trouvée. On abaisse le flag
-                                    loopSubStrategyPatternFlag = false;
-
-                                    // On duplique le modèle en fonction des données en interne
-                                    // Pour toutes les sub-stratégies
-                                    for (int iSubStrategy = 0; iSubStrategy < _subStrategies.Count(); iSubStrategy++)
+                                    // A-t-on trouver le flag de fin de boucle
+                                    if (currentLine.ToUpper().Contains(PrivateConst.subStrategyEndTag.ToUpper()) == true)
                                     {
-                                        SubStrategy currentSubStrategy = _subStrategies[iSubStrategy];
+                                        // La fin de boucle a été trouvée. On abaisse le flag
+                                        loopSubStrategyPatternFlag = false;
 
-                                        // Export des données de la sous-stratégie
-                                        for (int i = 0; i < currentSubStrategy.Count(); i++)
+                                        // On duplique le modèle en fonction des données en interne
+                                        // Pour toutes les sub-stratégies
+                                        for (int iSubStrategy = 0; iSubStrategy < _subStrategies.Count(); iSubStrategy++)
                                         {
-                                            // Ecriture des infos de la stratégie
-                                            foreach (String patternLineToAdd in loopSubStrategyPattern)
-                                                outputPatternFile.AddLine(patternLineToAdd);
+                                            SubStrategy currentSubStrategy = _subStrategies[iSubStrategy];
+
+                                            // Export des données de la sous-stratégie
+                                            for (int i = 0; i < currentSubStrategy.Count(); i++)
+                                            {
+                                                // Ecriture des infos de la stratégie
+                                                foreach (String patternLineToAdd in loopSubStrategyPattern)
+                                                    outputPatternFile.AddLine(patternLineToAdd);
+                                            }
+
+                                            // Ecriture d'un saut de ligne pour la mise en page
+                                            outputPatternFile.AddLine("");
                                         }
 
-                                        // Ecriture d'un saut de ligne pour la mise en page
-                                        outputPatternFile.AddLine("");
+                                        // On ajoute la Tag de fin de boucle
+                                        outputPatternFile.AddLine(currentLine);
                                     }
-
-                                    // On ajoute la Tag de fin de boucle
-                                    outputPatternFile.AddLine(currentLine);
-                                }
-                                else
-                                {   
-                                    // Nous ajoutons la ligne courante au pattern
-                                    loopSubStrategyPattern.Add(currentLine);
+                                    else
+                                    {
+                                        // Nous ajoutons la ligne courante au pattern
+                                        loopSubStrategyPattern.Add(currentLine);
+                                    }
                                 }
                             }
-                        }
-                        else
-                        {
-                            if (currentLine.ToUpper().Contains(PrivateConst.subStrategyBeginTag.ToUpper()) == true)
-                                loopSubStrategyPatternFlag = true;
-
-                            // Nous sommes en lecture normale, cette ligne sera copiée dans le fichier de pattern final
-                            outputPatternFile.AddLine(currentLine);
-                        }
-                    }
-                }
-
-                // Si le fichier pattern est prêt, nous écrivons les données dans le fichier de sortie
-                if (outputPatternFile.Count() > 0)
-                {
-                    StructuredFileGroup groupToAdd = null;
-
-                    // Creation des données génériques
-                    groupToAdd = new StructuredFileGroup(0);     // Creation du groupe générique
-                    groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_StrategyName, _strategyName));
-
-                    // Ajout du groupe
-                    outputFile.AddGroup(groupToAdd);
-                    
-                    // Creation des données spécifiques
-                    if(_subStrategies.Count() > 0)
-                    {
-                        // Pour chaque sous stratégies
-                        foreach(SubStrategy currentSubStrategy in _subStrategies)
-                        {
-                            String currentSubStrategyName = currentSubStrategy.Name;
-
-                            if (currentSubStrategy.Count() > 0)
+                            else
                             {
-                                // Pour chacune des actions de la stratégie
-                                foreach (RobotAction currentAction in currentSubStrategy.GetAllActions())
-                                {
-                                    groupToAdd = currentAction.Export();
-                                    groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_SubStrategyName, currentSubStrategyName));
-                                    outputFile.AddGroup(groupToAdd);
-                                }
+                                if (currentLine.ToUpper().Contains(PrivateConst.subStrategyBeginTag.ToUpper()) == true)
+                                    loopSubStrategyPatternFlag = true;
+
+                                // Nous sommes en lecture normale, cette ligne sera copiée dans le fichier de pattern final
+                                outputPatternFile.AddLine(currentLine);
                             }
                         }
                     }
 
-                    // Ecriture du fichier final
-                    outputFile.SetPatternFile(outputPatternFile);
-                    outputFile.Export(outputFileName);
+                    // Si le fichier pattern est prêt, nous écrivons les données dans le fichier de sortie
+                    if (outputPatternFile.Count() > 0)
+                    {
+                        StructuredFileGroup groupToAdd = null;
+
+                        // Creation des données génériques
+                        groupToAdd = new StructuredFileGroup(0);     // Creation du groupe générique
+                        groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_StrategyName, _strategyName));
+
+                        // Ajout du groupe
+                        outputFile.AddGroup(groupToAdd);
+
+                        // Creation des données spécifiques
+                        if (_subStrategies.Count() > 0)
+                        {
+                            // Pour chaque sous stratégies
+                            foreach (SubStrategy currentSubStrategy in _subStrategies)
+                            {
+                                String currentSubStrategyName = currentSubStrategy.Name;
+
+                                if (currentSubStrategy.Count() > 0)
+                                {
+                                    // Pour chacune des actions de la stratégie
+                                    foreach (RobotAction currentAction in currentSubStrategy.GetAllActions())
+                                    {
+                                        groupToAdd = currentAction.Export();
+                                        groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_SubStrategyName, currentSubStrategyName));
+                                        outputFile.AddGroup(groupToAdd);
+                                    }
+                                }
+                            }
+                        }
+
+                        // Ecriture du fichier final
+                        outputFile.SetPatternFile(outputPatternFile);
+                        outputFile.Export(outputFileName);
+
+                        // Sauvegarde des données
+                        Save();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                _debugTool.WriteLine("Strategy Export() : " + ex.Message);
+                Ret = -1;
             }
 
             return Ret;
         }
 
-
+        /// <summary>
+        /// Import a new strategy from an external file (given as parameter)
+        /// </summary>
+        /// <param name="inputFileName">filename of internal file</param>
+        /// <param name="patternFileName">pattern file to use for the importation</param>
+        /// <returns></returns>
         public int Import(String inputFileName, String patternFileName)
         {
             int Ret = -1;
+            TextFile patternFile = new TextFile();                              // Fichier pattern pour l'import des données
+            TextFile fileToImport = new TextFile();                             // Fichier à importer
+
+            try
+            {
+                // Verification des paramètres
+                if ((inputFileName != null) && (patternFileName != null))
+                {
+                    // Lecture du fichier modele
+                    patternFile.Load(patternFileName);
+
+                    // Lecture du fichier à importer
+                    fileToImport.Load(inputFileName);
+
+                    // Si les fichiers sont valides, on les prépare pour les importer
+                    if ((patternFile.Count() > 0) && (fileToImport.Count() > 0))
+                    {
+                        // Suppression des tabulations
+                        patternFile.ReplaceInFile("\t", "");
+                        fileToImport.ReplaceInFile("\t", "");
+
+                        // Suppression des lignes inutiles
+                        patternFile.RemoveEmptyLine();
+                        fileToImport.RemoveEmptyLine();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _debugTool.WriteLine("Strategy Import() : " + ex.Message);
+                Ret = -1;
+            }
 
             return Ret;
         }
