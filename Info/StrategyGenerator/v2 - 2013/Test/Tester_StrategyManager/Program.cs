@@ -308,6 +308,21 @@ namespace Tester_Strategy
                     Console.Write(" Error !\n"); Validated = false;
                 }
 
+                Console.WriteLine(" -> Import : ");
+
+                Strategy testImportStrategy = new Strategy("ImportStrategy");
+
+                testImportStrategy.Import("./Data/TestOutputStrategy.c", "./patternFiles/ImportPatternFile.spattern");
+                if (true)
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+
             }
             catch (Exception ex)
             {
