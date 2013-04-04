@@ -252,7 +252,7 @@ namespace StrategyGenerator2.FileManager
         }
 
         /// <summary>
-        /// Fonction pour remplacer l'occurrence 'oldTring" par la valeur 'newString' dans tout le fichier
+        /// Fonction pour remplacer l'occurrence 'oldTring' par la valeur 'newString' dans tout le fichier
         /// </summary>
         /// <param name="oldString">Motif à remplacer dans le fichier</param>
         /// <param name="newString">Nouveau motif à mettre à la place</param>
@@ -284,6 +284,39 @@ namespace StrategyGenerator2.FileManager
 
                 _fileContents = newFileContents;
             }
+        }
+
+        /// <summary>
+        /// Fonction pour obtenir l'index de la ligne passée en parametre
+        /// </summary>
+        /// <param name="lineToFind">Ligne à rechercher dans le fichier (sensible à la casse)</param>
+        /// <param name="startIndex">Index de départ pour la recherche (entre 0 et MaxLine - 1)</param>
+        /// <returns>Index entre 0 et MaxLine - 1 (Retourne -1 si la ligne n'est pas trouvée)</returns>
+        public int GetFirstIndexLine(String lineToFind, int startIndex)
+        {
+            int Ret = -1;
+            String lineToFindFiltered;
+            String currentLineFiltered;
+
+            // Verification des paramètres
+            if ((_fileContents != null) && (_fileContents.Count() > 0) && (lineToFind != null) && (startIndex < _fileContents.Count()))
+            {
+                // Préparation de la chaine
+                lineToFindFiltered = lineToFind.Replace("\t", "");
+
+                // Verification Ligne à Ligne
+                for (int i = startIndex; i < _fileContents.Count(); i++)
+                {
+                    currentLineFiltered = _fileContents[i].Replace("\t", "");
+
+                    if (currentLineFiltered.Contains(lineToFindFiltered) == true)
+                    {
+                        return i;
+                    }
+                }
+            }
+
+            return Ret;
         }
 
         // Private --------------------------------------------------------------------------------

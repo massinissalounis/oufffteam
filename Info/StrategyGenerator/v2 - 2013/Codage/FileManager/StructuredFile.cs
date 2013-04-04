@@ -466,7 +466,7 @@ namespace StrategyGenerator2.FileManager
                                     currentGroupIndex = GetNextGroupIndex(currentGroupIndex);   // On change de groupe
                                     if (currentGroupIndex >= 0) // On verifie que le groupe est valide
                                     {
-                                        outputBuffer[i] = outputBuffer[i].Substring(0, indexInLine - 1) + _group[currentGroupIndex].ID.ToString() + outputBuffer[i].Substring(indexInLine + 5);
+                                        outputBuffer[i] = outputBuffer[i].Substring(0, indexInLine - 1) + _group[currentGroupIndex].ID.ToString() + outputBuffer[i].Substring(indexInLine + 4);
                                     }
                                 }
 
@@ -513,11 +513,16 @@ namespace StrategyGenerator2.FileManager
             return Ret;
         }
 
-        public int Import(String fileName)
+        /// <summary>
+        /// Charge les données à partir d'un fichier de type 'TextFile'
+        /// ATTENTION, le pattern de fichier pour la lecture doit être définie avant d'appeler cette fonction
+        /// </summary>
+        /// <param name="inputFile">Fichier à importer</param>
+        /// <returns>Nombre de groupe chargé (-1 en cas d'erreur)</returns>
+        public int Import(TextFile inputFile)
         {
             int Ret = -1;
             int iCurrentIndex = -1;
-            TextFile inputFile = new TextFile();
             List<String> inputBuffer = new List<string>();
             List<String> patternBuffer = new List<string>();
             string[] splitLinePattern = null;
@@ -527,14 +532,11 @@ namespace StrategyGenerator2.FileManager
             String currentGroupID = "0";
 
             // Verification des params d'entrée
-            if (fileName != null)
+            if (inputFile != null)
             {
                 // Verification des paramètres internes
                 if (_patternFile != null) 
                 {
-                    // Lecture du fichier
-                    inputFile.Load(fileName);
-
                     // Comparaison des tailles de fichier
                     if (inputFile.Count() == _patternFile.Count())
                     {
@@ -668,6 +670,47 @@ namespace StrategyGenerator2.FileManager
                     }
                 }
             }
+
+            return Ret;
+        }
+
+        /// <summary>
+        /// Charge les données à partir d'un nom de fichier
+        /// ATTENTION, le pattern de fichier pour la lecture doit être définie avant d'appeler cette fonction
+        /// </summary>
+        /// <param name="inputFileName">Nom du fichier à importer</param>
+        /// <returns>Nombre de groupe chargé (-1 en cas d'erreur)</returns>
+        public int Import(String inputFileName)
+        {
+            int Ret = -1;
+            TextFile inputFile = null;
+
+            // Verification des paramètres
+            if (inputFileName != null)
+            {
+                // Lecture du fichier 
+                inputFile = new TextFile();
+                inputFile.Load(inputFileName);
+
+                if (inputFile.Count() > 0)
+                {
+                    Ret = Import(inputFile);
+                }
+            }
+            
+            return Ret;
+        }
+
+        /// <summary>
+        /// Retourne le nombre de groupe contenu dans le fichier
+        /// </summary>
+        /// <returns>Nombre de groupe dans le fichier (0 si le fichier est vide)</returns>
+        public int Count()
+        {
+            int Ret = 0;
+
+            if (_group != null)
+                Ret = _group.Count();
 
             return Ret;
         }

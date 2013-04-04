@@ -22,6 +22,18 @@ namespace StrategyGenerator2.StrategyManager
             _subStrategies = new List<SubStrategy>();
             _subStrategies.Add(new SubStrategy(PrivateConst.mainStrategyName));
 
+            // Creation de la position du robot initial
+            _initialPos = new RobotAction(0);
+            _initialPos.cmdType = EnumCmdType.CmdType_Blocking;                     // Blocking Action
+            _initialPos.cmd = EnumCmd.App_SetNewPos;                        // Defines the first robot position
+            _initialPos.param2 = "0";                                       // X
+            _initialPos.param3 = "0";                                       // Y
+            _initialPos.param4 = "0";                                       // Angle
+            _initialPos.activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;   // Do not use bumpers
+
+            // Creation de la vitesse par défaut 
+            _defaultSpeed = 50;
+
             _debugTool = new DebugTool(DebugTool.EDebugToolType.Console);
         }
 
@@ -87,6 +99,16 @@ namespace StrategyGenerator2.StrategyManager
         {
             _subStrategies = new List<SubStrategy>();
             _subStrategies.Add(new SubStrategy(PrivateConst.mainStrategyName));
+
+            _initialPos = new RobotAction(0);
+            _initialPos.cmdType = EnumCmdType.CmdType_Blocking;                     // Blocking Action
+            _initialPos.cmd = EnumCmd.App_SetNewPos;                        // Defines the first robot position
+            _initialPos.param2 = "0";                                       // X
+            _initialPos.param3 = "0";                                       // Y
+            _initialPos.param4 = "0";                                       // Angle
+            _initialPos.activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;   // Do not use bumpers
+
+            _defaultSpeed = 50;
         }
 
         /// <summary>
@@ -340,6 +362,10 @@ namespace StrategyGenerator2.StrategyManager
                         // Creation des données génériques
                         groupToAdd = new StructuredFileGroup(0);     // Creation du groupe générique
                         groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_StrategyName, _strategyName));
+                        groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_DefaultSpeed, _defaultSpeed));
+                        groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_InitialPosX, _initialPos.param2));
+                        groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_InitialPosY, _initialPos.param3));
+                        groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_InitialPosA, _initialPos.param4));
 
                         // Ajout du groupe
                         outputFile.AddGroup(groupToAdd);
@@ -392,8 +418,18 @@ namespace StrategyGenerator2.StrategyManager
         public int Import(String inputFileName, String patternFileName)
         {
             int Ret = -1;
+            int patternLineIndex = 0;
+            int importLineIndex = 0;
+            int minLineIndex = 0;
+            int nbLineToRemove = 0;
+            int currentLineIndex = 0;
+            int counter = 0;
             TextFile patternFile = new TextFile();                              // Fichier pattern pour l'import des données
             TextFile fileToImport = new TextFile();                             // Fichier à importer
+            StructuredFile importFile = new StructuredFile();                   // Fichier utiliser pour lire les données
+            List<String> patternLoop = new List<string>();                      // Pour stocker les lignes du pattern à repeter dans la rubrique LOOP
+            String lineRead = "";                                               // Variable pour lire les données du fichier
+            StructuredFileKey currentKey = null;
 
             try
             {
@@ -409,6 +445,7 @@ namespace StrategyGenerator2.StrategyManager
                     // Si les fichiers sont valides, on les prépare pour les importer
                     if ((patternFile.Count() > 0) && (fileToImport.Count() > 0))
                     {
+                        #region PreparationDesFichiers
                         // Suppression des tabulations
                         patternFile.ReplaceInFile("\t", "");
                         fileToImport.ReplaceInFile("\t", "");
@@ -416,6 +453,161 @@ namespace StrategyGenerator2.StrategyManager
                         // Suppression des lignes inutiles
                         patternFile.RemoveEmptyLine();
                         fileToImport.RemoveEmptyLine();
+
+                        // Mise en correspondance des fichiers
+                        // Recherche de l'index du début de boucle
+                        importLineIndex = fileToImport.GetFirstIndexLine(PrivateConst.subStrategyBeginTag, 0);
+                        patternLineIndex = patternFile.GetFirstIndexLine(PrivateConst.subStrategyBeginTag, 0);
+
+                        // Verification de la presence de la boucle dans les 2 fichiers
+                        if ((importLineIndex >= 0) && (patternLineIndex >= 0))
+                        {
+                            // Lecture du minimum de ligne
+                            minLineIndex = Math.Min(importLineIndex, patternLineIndex);
+
+                            // Verification si un ecart existe dans le positionnement du tag de debut de boucle
+                            if (importLineIndex != patternLineIndex)
+                            {
+
+                                // Suppression des lignes en trop dans le fichier d'import
+                                nbLineToRemove = importLineIndex - minLineIndex;
+                                for (int i = 0; i < nbLineToRemove; i++)
+                                    fileToImport.RemoveLine(minLineIndex);
+
+                                // Suppression des lignes en trop dans le fichier de modèle
+                                nbLineToRemove = patternLineIndex - minLineIndex;
+                                for (int i = 0; i < nbLineToRemove; i++)
+                                    patternFile.RemoveLine(minLineIndex);
+
+                            }
+
+                            // Creation des boucles 
+                            // 1 - Lecture des lignes du modèle
+                            do
+                            {
+                                // Lecture de la ligne
+                                lineRead = patternFile.GetLine(minLineIndex + 1);
+
+                                // Verification du contenu
+                                if ((lineRead != null) && (lineRead.Contains(PrivateConst.subStrategyBeginTag) == false) && (lineRead.Contains(PrivateConst.subStrategyEndTag) == false))
+                                {
+                                    patternLoop.Add(lineRead);      // Ajout de la ligne courante 
+                                    patternFile.RemoveLine(minLineIndex + 1);
+                                }
+                            }
+                            while ((lineRead != null) && (lineRead.Contains(PrivateConst.subStrategyEndTag) == false));
+
+                            if (patternLoop.Count() > 0)
+                            {
+                                // 2 - Duplication des données du modele en fonction des données du fichier à importer
+                                currentLineIndex = minLineIndex + 1;    // On se place au début de la boucle
+                                counter = 0;                            // Initialisation du compteur pour dupliquer le pattern
+                                do
+                                {
+                                    // Lecture de la ligne
+                                    lineRead = fileToImport.GetLine(currentLineIndex);
+
+                                    if ((lineRead != null) && (lineRead.Contains(PrivateConst.subStrategyBeginTag) == false) && (lineRead.Contains(PrivateConst.subStrategyEndTag) == false))
+                                    {
+                                        // Verification du compteur
+                                        if (counter >= patternLoop.Count())
+                                            counter = 0;
+
+                                        // Ajout de la ligne de pattern en conséquence
+                                        patternFile.AddLine(patternLoop[counter], currentLineIndex);
+
+                                        counter = counter + 1;
+                                    }
+
+                                    currentLineIndex = currentLineIndex + 1;
+                                }
+                                while ((lineRead != null) && (lineRead.Contains(PrivateConst.subStrategyEndTag) == false));
+                            }
+                        }
+
+                        // Ajout des lignes dans le fichier d'import si les tailles ne correspondent pas
+                        while(patternFile.Count() > fileToImport.Count())
+                            fileToImport.AddLine("EMPTY LINE");
+
+                        // Ajout des lignes dans le fichier pattern si les tailles ne correspondent pas
+                        while (fileToImport.Count() > patternFile.Count())
+                            patternFile.AddLine("EMPTY LINE");
+                        #endregion
+
+                        #region LectureDesDonnees
+                        // Ajout du fichier pattern
+                        importFile.SetPatternFile(patternFile);
+
+                        // Lecture du fichier
+                        importFile.Import(fileToImport);
+                        #endregion
+
+                        #region TraitementDesDonnees
+                        if (importFile.Count() > 0)
+                        {
+                            // Lecture des groupes un par un
+                            foreach (StructuredFileGroup currentGroup in importFile.GetAllGroup())
+                            {
+                                // Lecture de la clé contenant le nom de la Stategy
+                                currentKey = currentGroup.GetFirstKey(PrivateConst.TAG_SubStrategyName);
+                                
+                                // Si la clé courante fait partie d'une stratégie
+                                if(currentKey != null)
+                                {
+                                    // Si le group actuel appartient à une stratégie, lecture du nom de la stratégie
+                                    String subStrategyName = currentKey.valueString;
+                                    RobotAction actionToImport = new RobotAction();
+                                    
+                                    // Si il s'agit d'une action à ajouter à la stratégie
+                                    if (actionToImport.Import(currentGroup) == true)
+                                    {
+                                        bool isAdded = false;
+
+                                        for (int i = 0; i < _subStrategies.Count(); i++)
+                                        {
+                                            // Si la clé lue appartient à la stratégie courante, on l'ajoute
+                                            if (subStrategyName == _subStrategies[i].Name)
+                                            {
+                                                _subStrategies[i].AddAction(actionToImport);
+                                                isAdded = true;
+                                            }
+                                        }
+
+                                        // Si la clé n'a pas été ajoutée, on l'ajoute
+                                        if (isAdded == false)
+                                        {
+                                            SubStrategy subStrategyToAdd = new SubStrategy(subStrategyName);
+                                            subStrategyToAdd.AddAction(actionToImport);
+                                            _subStrategies.Add(subStrategyToAdd);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    // Sinon la clé est ajoutée aux variables globales de l'appli (si la clé est nécessaire)
+                                    // Lecture du nom de la stratégie
+                                    currentKey = currentGroup.GetFirstKey(PrivateConst.TAG_StrategyName);
+                                    if (currentKey != null)
+                                        _strategyName = currentKey.valueString;
+
+                                    // Variables pour la position initiale
+                                    currentKey = currentGroup.GetFirstKey(PrivateConst.TAG_InitialPosX);
+                                    if (currentKey != null) { _initialPos.param2 = currentKey.valueString; }
+
+                                    currentKey = currentGroup.GetFirstKey(PrivateConst.TAG_InitialPosY);
+                                    if (currentKey != null) { _initialPos.param3 = currentKey.valueString; }
+
+                                    currentKey = currentGroup.GetFirstKey(PrivateConst.TAG_InitialPosA);
+                                    if (currentKey != null) { _initialPos.param4 = currentKey.valueString; }
+
+                                    // Valeur par défaut
+                                    currentKey = currentGroup.GetFirstKey(PrivateConst.TAG_DefaultSpeed);
+                                    if (currentKey != null) { _defaultSpeed = currentKey.valueInt; }
+                                }
+                            }
+                        }
+                        #endregion
+
                     }
                 }
             }
@@ -500,11 +692,69 @@ namespace StrategyGenerator2.StrategyManager
             }
         }
 
+        /// <summary>
+        /// Vitesse par défaut de la stratégie (entre 0 et 100 %)
+        /// </summary>
+        public int DefaultSpeed
+        {
+            get { return _defaultSpeed; }
+            set
+            {
+                if ((value > 0) && (value <= 100))
+                {
+                    _defaultSpeed = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Valeur par défaut du robot en X en mm (entre 0 et 3000)
+        /// </summary>
+        public int DefaultPosX
+        {
+            get { return Convert.ToInt32(_initialPos.param2); }
+            set
+            {
+                if ((value >= 0) && (value <= 3000))
+                    _initialPos.param2 = value.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Valeur par défaut du robot en Y en mm (entre 0 et 2000)
+        /// </summary>
+        public int DefaultPosY
+        {
+            get { return Convert.ToInt32(_initialPos.param3); }
+            set
+            {
+                if ((value >= 0) && (value <= 2000))
+                    _initialPos.param3 = value.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Valeur par défaut pour l'angle du robot (entre -180 et 180)
+        /// </summary>
+        public int DefaultPosA
+        {
+            get { return Convert.ToInt32(_initialPos.param4); }
+            set
+            {
+                if ((value >= -180) && (value <= 180))
+                    _initialPos.param4 = value.ToString();
+            }
+        }
+
+
         // Private functions ----------------------------------------------------------------------
 
         // Private --------------------------------------------------------------------------------
+        // ATTENTION, ne pas oublier de modifier les fonction import/export pour l'ajout de nouvelles valeurs globales
         private String _strategyName = "NewStrategy";               // Nom de la stragégie (utilisé pour le répertoire de sortie)
+        private RobotAction _initialPos = null;                     // Position initial du robot dans cette stratégie
         private List<SubStrategy> _subStrategies = null;            // Toutes les sous stratégies 
+        private int _defaultSpeed = 0;                              // Vitesse par défaut
         private DebugTool _debugTool;                               // Outil pour contrôler les informations de débug 
 
         private struct PrivateConst
@@ -513,8 +763,13 @@ namespace StrategyGenerator2.StrategyManager
             public const String outputDir = "Data/";
             public const String subStrategyBeginTag = "SUB_STRATEGY_BEGIN_LOOP";
             public const String subStrategyEndTag = "SUB_STRATEGY_END_LOOP";
+            public const String emptyLineTag = "Empty Line";
             public const String TAG_StrategyName = "StrategyName";
             public const String TAG_SubStrategyName = "SubStrategyName";
+            public const String TAG_InitialPosX = "InitialPosX";
+            public const String TAG_InitialPosY = "InitialPosY";
+            public const String TAG_InitialPosA = "InitialPosA";
+            public const String TAG_DefaultSpeed = "DefaultSpeed";
         }
     }
 }

@@ -13,7 +13,7 @@ namespace StrategyGenerator2.StrategyManager
         {
             _uID = 0;                                       // Identifiant unique pour l'action
             _cmd = EnumCmd.NotSet;                          // Commande
-            _cmdType = EnumCmdType.NotSet;                  // Type de l'action à réaliser
+            _cmdType = EnumCmdType.CmdType_NotSet;                  // Type de l'action à réaliser
             _param1 = "";                                   // Param 1
             _param2 = "";                                   // Param 2
             _param3 = "";                                   // Param 3
@@ -27,7 +27,7 @@ namespace StrategyGenerator2.StrategyManager
         {
             _uID = ID;                                      // Identifiant unique pour l'action
             _cmd = EnumCmd.NotSet;                          // Commande
-            _cmdType = EnumCmdType.NotSet;                  // Type de l'action à réaliser
+            _cmdType = EnumCmdType.CmdType_NotSet;                  // Type de l'action à réaliser
             _param1 = "";                                   // Param 1
             _param2 = "";                                   // Param 2
             _param3 = "";                                   // Param 3
@@ -132,16 +132,16 @@ namespace StrategyGenerator2.StrategyManager
             if (CheckEnumCmdValue("Err", EnumCmd.NotSet) != EnumCmd.NotSet)
                 Ret = false;
 
-            if (CheckEnumCmdTypeValue("Blocking", EnumCmdType.NotSet) != EnumCmdType.Blocking)
+            if (CheckEnumCmdTypeValue("Blocking", EnumCmdType.CmdType_NotSet) != EnumCmdType.CmdType_Blocking)
                 Ret = false;
 
-            if (CheckEnumCmdTypeValue("NonBlocking", EnumCmdType.NotSet) != EnumCmdType.NonBlocking)
+            if (CheckEnumCmdTypeValue("NonBlocking", EnumCmdType.CmdType_NotSet) != EnumCmdType.CmdType_NonBlocking)
                 Ret = false;
 
-            if (CheckEnumCmdTypeValue("ERR", EnumCmdType.NotSet) != EnumCmdType.NotSet)
+            if (CheckEnumCmdTypeValue("ERR", EnumCmdType.CmdType_NotSet) != EnumCmdType.CmdType_NotSet)
                 Ret = false;
 
-            if (CheckEnumActiveSensorsValue("COLLISION_FRONT", EnumActiveSensors.NotSet) != EnumActiveSensors.COLLISION_FRONT)
+            if (CheckEnumActiveSensorsValue("COLLISION_FRONT", EnumActiveSensors.NotSet) != EnumActiveSensors.APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
                 Ret = false;
 
             if (CheckEnumActiveSensorsValue("ERR", EnumActiveSensors.NotSet) != EnumActiveSensors.NotSet)
@@ -201,7 +201,7 @@ namespace StrategyGenerator2.StrategyManager
                     currentKey = actionToImport.GetFirstKey(ExchangeTag.cmdType);
                     if (currentKey != null)
                     {
-                        cmdType = CheckEnumCmdTypeValue(currentKey.valueString, EnumCmdType.NotSet);
+                        cmdType = CheckEnumCmdTypeValue(currentKey.valueString, EnumCmdType.CmdType_NotSet);
                     }
 
                     // Lecture du Param1
@@ -236,7 +236,7 @@ namespace StrategyGenerator2.StrategyManager
                     currentKey = actionToImport.GetFirstKey(ExchangeTag.activeSensors);
                     if (currentKey != null)
                     {
-                        activeSensors = CheckEnumActiveSensorsValue(currentKey.valueString, EnumActiveSensors.COLLISION_NONE);
+                        activeSensors = CheckEnumActiveSensorsValue(currentKey.valueString, EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE);
                     }
 
                     // Lecture du param nextID
@@ -484,6 +484,7 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.Mvt_UseSpline:
                     case EnumCmd.MvtSimple_RotateInDeg:
                     case EnumCmd.MvtSimple_RotateToAngleInDeg:
+                    case EnumCmd.App_SetNewPos:
                         _param4 = CheckAngleValue(value, "0.0");                // Verification de la valeur de l'angle
                         break;
 
@@ -494,7 +495,6 @@ namespace StrategyGenerator2.StrategyManager
 
                     // _______________________________________________________
                     case EnumCmd.Mvt_UseDistOnly:
-                    case EnumCmd.App_SetNewPos:
                     case EnumCmd.App_IfGoto_Strategy:
                     case EnumCmd.App_IfGoto_System:
                     case EnumCmd.MvtSimple_MoveInMM:
@@ -539,7 +539,7 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.App_SetStrategyFlags:
                     case EnumCmd.NotSet:
                     default:
-                        _activeSensors = EnumActiveSensors.COLLISION_NONE;
+                        _activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;
                         break;
                 }
             }
@@ -560,7 +560,7 @@ namespace StrategyGenerator2.StrategyManager
                     _param2 = "-1";                                     // nextID si le test est vrai
                     _param3 = "-1";                                     // nextID si le test est faux
                     _param4 = null;                                     // Not Used
-                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    _activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -569,7 +569,7 @@ namespace StrategyGenerator2.StrategyManager
                     _param2 = "1000";                                   // Position en y
                     _param3 = "-90";                                    // Angle
                     _param4 = null;                                     // Not Set
-                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    _activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
                     break;
                     
                 // _______________________________________________________
@@ -578,7 +578,7 @@ namespace StrategyGenerator2.StrategyManager
                     _param2 = "OS_FALSE";                               // Nouvelle valeur du flag
                     _param3 = null;                                     // Not Set
                     _param4 = null;                                     // Not Set
-                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    _activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -587,7 +587,7 @@ namespace StrategyGenerator2.StrategyManager
                     _param2 = "0";                                      // Temps d'attente en minute
                     _param3 = "5";                                      // Temps d'attente en sec
                     _param4 = "0";                                      // Temps d'attente en msec
-                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    _activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -596,7 +596,7 @@ namespace StrategyGenerator2.StrategyManager
                     _param2 = null;                                     // Not Used
                     _param3 = null;                                     // Not Used
                     _param4 = null;                                     // Not Used
-                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    _activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -607,7 +607,7 @@ namespace StrategyGenerator2.StrategyManager
                     _param2 = null;                                     // Not Used
                     _param3 = null;                                     // Not Used
                     _param4 = "0";                                      // Angle
-                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    _activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -616,7 +616,7 @@ namespace StrategyGenerator2.StrategyManager
                     _param2 = "1500";                                   // Position en x
                     _param3 = "1000";                                   // Position en y
                     _param4 = null;                                     // Not Used
-                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    _activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -626,7 +626,7 @@ namespace StrategyGenerator2.StrategyManager
                     _param2 = "1500";                                   // Position en x
                     _param3 = "1000";                                   // Position en y
                     _param4 = "0";                                      // Angle
-                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    _activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -635,7 +635,7 @@ namespace StrategyGenerator2.StrategyManager
                     _param2 = "RIGHT_WHEEL";                            // Roue bloquée
                     _param3 = null;                                     // Not Used
                     _param4 = "0";                                      // Angle
-                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    _activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -644,7 +644,7 @@ namespace StrategyGenerator2.StrategyManager
                     _param2 = "100";                                    // Distance en mm
                     _param3 = null;                                     // Not Used
                     _param4 = null;                                     // Not Used
-                    _activeSensors = EnumActiveSensors.COLLISION_NONE;  // Pas de sensors d'activé
+                    _activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________

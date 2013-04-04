@@ -36,7 +36,7 @@ namespace Tester_Strategy
                 Console.WriteLine(" -> Test de la fonction d'export() : ");
                 testAction.ID = 1;
                 testAction.cmd = EnumCmd.Mvt_UseMixedMode;
-                testAction.cmdType = EnumCmdType.Blocking;
+                testAction.cmdType = EnumCmdType.CmdType_Blocking;
                 testAction.param1 = "11";
                 testAction.param2 = "12";
                 testAction.param3 = "13";
@@ -105,7 +105,7 @@ namespace Tester_Strategy
                 // Creation de l'action 1
                 RobotAction Action1 = new RobotAction(1);
                 Action1.cmd = EnumCmd.Mvt_UseMixedMode;
-                Action1.cmdType = EnumCmdType.Blocking;
+                Action1.cmdType = EnumCmdType.CmdType_Blocking;
                 Action1.param1 = "1";
                 Action1.param2 = "2";
                 Action1.param3 = "3";
@@ -115,7 +115,7 @@ namespace Tester_Strategy
 
                 RobotAction Action10 = new RobotAction(10);
                 Action1.cmd = EnumCmd.Mvt_UseMixedMode;
-                Action1.cmdType = EnumCmdType.Blocking;
+                Action1.cmdType = EnumCmdType.CmdType_Blocking;
                 Action1.param1 = "10";
                 Action1.param2 = "20";
                 Action1.param3 = "30";
@@ -125,7 +125,7 @@ namespace Tester_Strategy
 
                 RobotAction Action2 = new RobotAction(2);
                 Action2.cmd = EnumCmd.App_Wait;
-                Action2.cmdType = EnumCmdType.Blocking;
+                Action2.cmdType = EnumCmdType.CmdType_Blocking;
                 Action2.param1 = "4";
                 Action2.param2 = "3";
                 Action2.param3 = "2";
@@ -213,9 +213,9 @@ namespace Tester_Strategy
                 Strategy testLoadStrategy = new Strategy("LoadStrategy");
 
                 // Creation de l'action 1
-                RobotAction Action1 = new RobotAction(1);       Action1.cmd = EnumCmd.Mvt_UseMixedMode; Action1.cmdType = EnumCmdType.Blocking; Action1.param1 = "1";   Action1.param2 = "2";   Action1.param3 = "3";   Action1.param4 = "4";   Action1.nextID = -1;    Action1.timeoutID = -1;     
-                RobotAction Action10 = new RobotAction(10);     Action1.cmd = EnumCmd.Mvt_UseMixedMode; Action1.cmdType = EnumCmdType.Blocking; Action1.param1 = "10";  Action1.param2 = "20";  Action1.param3 = "30";  Action1.param4 = "40";  Action1.nextID = -1;    Action1.timeoutID = -1;
-                RobotAction Action2 = new RobotAction(2); Action2.cmd = EnumCmd.App_Wait; Action2.cmdType = EnumCmdType.Blocking; Action2.param1 = "4"; Action2.param2 = "3"; Action2.param3 = "2"; Action2.param4 = "1"; Action2.nextID = -1; Action2.timeoutID = -1;
+                RobotAction Action1 = new RobotAction(1); Action1.cmd = EnumCmd.Mvt_UseMixedMode; Action1.cmdType = EnumCmdType.CmdType_Blocking; Action1.param1 = "1"; Action1.param2 = "2"; Action1.param3 = "3"; Action1.param4 = "4"; Action1.nextID = -1; Action1.timeoutID = -1;
+                RobotAction Action10 = new RobotAction(10); Action1.cmd = EnumCmd.Mvt_UseMixedMode; Action1.cmdType = EnumCmdType.CmdType_Blocking; Action1.param1 = "10"; Action1.param2 = "20"; Action1.param3 = "30"; Action1.param4 = "40"; Action1.nextID = -1; Action1.timeoutID = -1;
+                RobotAction Action2 = new RobotAction(2); Action2.cmd = EnumCmd.App_Wait; Action2.cmdType = EnumCmdType.CmdType_Blocking; Action2.param1 = "4"; Action2.param2 = "3"; Action2.param3 = "2"; Action2.param4 = "1"; Action2.nextID = -1; Action2.timeoutID = -1;
 
                 subStrategy1.AddAction(Action1); subStrategy1.AddAction(Action2); subStrategy1.AddAction(Action10);
                 subStrategy2.AddAction(Action1); subStrategy2.AddAction(Action2); subStrategy2.AddAction(Action10);
@@ -283,11 +283,11 @@ namespace Tester_Strategy
 
                 Console.WriteLine(" -> Export : ");
 
-                RobotAction Action100 = new RobotAction(100); Action100.cmd = EnumCmd.App_Wait; Action100.cmdType = EnumCmdType.Blocking; Action100.param1 = "40"; Action100.param2 = "30"; Action100.param3 = "20"; Action100.param4 = "10"; Action100.nextID = 101; Action100.timeoutID = 901;
-                RobotAction Action101 = new RobotAction(101); Action101.cmd = EnumCmd.Mvt_UseMixedMode; Action101.cmdType = EnumCmdType.NonBlocking; Action101.param1 = "41"; Action101.param2 = "31"; Action101.param3 = "21"; Action101.param4 = "11.5"; Action101.nextID = 102; Action101.timeoutID = 902;
-                RobotAction Action102 = new RobotAction(102); Action102.cmd = EnumCmd.MvtSimple_MoveInMM; Action102.cmdType = EnumCmdType.Blocking; Action102.param1 = "42"; Action102.param2 = "32"; Action102.param3 = "22"; Action102.param4 = "12"; Action102.nextID = 103; Action102.timeoutID = 903;
-                RobotAction Action103 = new RobotAction(103); Action103.cmd = EnumCmd.Mvt_UsePivotMode; Action103.cmdType = EnumCmdType.NonBlocking; Action103.param1 = "43"; Action103.param2 = "33"; Action103.param3 = "23"; Action103.param4 = "13"; Action103.nextID = 104; Action103.timeoutID = 904;
-                RobotAction Action200 = new RobotAction(200); Action200.cmd = EnumCmd.Mvt_UseSpline; Action200.cmdType = EnumCmdType.NonBlocking; Action200.param1 = "44"; Action200.param2 = "34"; Action200.param3 = "24"; Action200.param4 = "14"; Action103.nextID = -1; Action200.timeoutID = 905;
+                RobotAction Action100 = new RobotAction(100); Action100.cmd = EnumCmd.App_Wait; Action100.cmdType = EnumCmdType.CmdType_Blocking; Action100.param1 = "40"; Action100.param2 = "30"; Action100.param3 = "20"; Action100.param4 = "10"; Action100.nextID = 101; Action100.timeoutID = 901;
+                RobotAction Action101 = new RobotAction(101); Action101.cmd = EnumCmd.Mvt_UseMixedMode; Action101.cmdType = EnumCmdType.CmdType_NonBlocking; Action101.param1 = "41"; Action101.param2 = "31"; Action101.param3 = "21"; Action101.param4 = "11.5"; Action101.nextID = 102; Action101.timeoutID = 902;
+                RobotAction Action102 = new RobotAction(102); Action102.cmd = EnumCmd.MvtSimple_MoveInMM; Action102.cmdType = EnumCmdType.CmdType_Blocking; Action102.param1 = "42"; Action102.param2 = "32"; Action102.param3 = "22"; Action102.param4 = "12"; Action102.nextID = 103; Action102.timeoutID = 903;
+                RobotAction Action103 = new RobotAction(103); Action103.cmd = EnumCmd.Mvt_UsePivotMode; Action103.cmdType = EnumCmdType.CmdType_NonBlocking; Action103.param1 = "43"; Action103.param2 = "33"; Action103.param3 = "23"; Action103.param4 = "13"; Action103.nextID = 104; Action103.timeoutID = 904;
+                RobotAction Action200 = new RobotAction(200); Action200.cmd = EnumCmd.Mvt_UseSpline; Action200.cmdType = EnumCmdType.CmdType_NonBlocking; Action200.param1 = "44"; Action200.param2 = "34"; Action200.param3 = "24"; Action200.param4 = "14"; Action103.nextID = -1; Action200.timeoutID = 905;
 
                 SubStrategy subStrategyExport1 = new SubStrategy("Export Strategy 1");
                 SubStrategy subStrategyExport2 = new SubStrategy("Export Strategy 2");
@@ -295,7 +295,7 @@ namespace Tester_Strategy
                 subStrategyExport1.AddAction(Action100); subStrategyExport1.AddAction(Action101);
                 subStrategyExport2.AddAction(Action102); subStrategyExport2.AddAction(Action103); subStrategyExport2.AddAction(Action200);
 
-                Strategy testExportStrategy = new Strategy("ExportStrategy");
+                Strategy testExportStrategy = new Strategy("EXPORT_STRATEGY");
                 testExportStrategy.AddSubStrategy(subStrategyExport1); testExportStrategy.AddSubStrategy(subStrategyExport2);
 
                 testExportStrategy.Export("./Data/TestOutputStrategy.c", "./patternFiles/ImportPatternFile.spattern");
@@ -313,6 +313,7 @@ namespace Tester_Strategy
                 Strategy testImportStrategy = new Strategy("ImportStrategy");
 
                 testImportStrategy.Import("./Data/TestOutputStrategy.c", "./patternFiles/ImportPatternFile.spattern");
+                testExportStrategy.Export("./Data/TestOutputStrategy_2.c", "./patternFiles/ImportPatternFile.spattern");
                 if (true)
                 {
                     Console.Write(" Ok\n");
