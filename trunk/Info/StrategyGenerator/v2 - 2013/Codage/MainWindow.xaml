@@ -4,7 +4,8 @@
         Title="MainWindow"
         Height="300"
         Width="300"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        xmlns:UC="clr-namespace:StrategyGenerator2.View"
+        >
     
     <Window.Resources>
         <ResourceDictionary>
@@ -14,15 +15,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid x:Name="LayoutRoot">
-
-        <TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="{Binding Welcome}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" />
-
+    <Grid x:Name="MainGrid">
+        <UC:View1 Margin="0,0,0,0" x:Name="view11" />
     </Grid>
 </Window>

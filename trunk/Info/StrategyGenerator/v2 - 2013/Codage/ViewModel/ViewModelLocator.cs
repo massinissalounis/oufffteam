@@ -109,8 +109,11 @@ namespace StrategyGenerator2.ViewModel
         /// </summary>
         public static void ClearMain()
         {
-            _main.Cleanup();
-            _main = null;
+            if (_main != null)
+            {
+                _main.Cleanup();
+                _main = null;
+            }
         }
 
         /// <summary>

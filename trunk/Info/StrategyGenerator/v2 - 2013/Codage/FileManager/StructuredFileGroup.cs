@@ -161,6 +161,14 @@ namespace StrategyGenerator2.FileManager
             return Ret;
         }
 
+        /// <summary>
+        /// Vide toutes les clés du groupe
+        /// </summary>
+        public void Clear()
+        {
+            _keys = null;
+        }
+
         // Private --------------------------------------------------------------------------------
         private uint _groupID = 0;                              // ID du groupe
         private List<StructuredFileKey> _keys = null;           // Contient toutes les clées du groupe considéré

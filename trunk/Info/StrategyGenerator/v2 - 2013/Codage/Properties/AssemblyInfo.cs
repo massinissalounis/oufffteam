@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("StrategyGenerator2")]
+[assembly: AssemblyTitle("Strategy Generator v2")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("StrategyGenerator2")]
-[assembly: AssemblyCopyright("Copyright ©")]
+[assembly: AssemblyCompany("OufffTEAM")]
+[assembly: AssemblyProduct("StrategyGenerator v2")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

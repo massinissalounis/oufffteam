@@ -10,7 +10,7 @@ namespace StrategyGenerator2
     {
         public MainWindow()
         {
-            InitializeComponent();
+            //InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
         }
     }

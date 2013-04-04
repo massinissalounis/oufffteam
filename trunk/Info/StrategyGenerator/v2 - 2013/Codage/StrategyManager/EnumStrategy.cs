@@ -32,20 +32,20 @@ namespace StrategyGenerator2.StrategyManager
 
     public enum EnumCmdType
     {
-        NotSet = 0,         // Undefined CmdType
-        Blocking,			// Command is a blocking action
-        NonBlocking,		// Command is a non-blocking action
+        CmdType_NotSet = 0,         // Undefined CmdType
+        CmdType_Blocking,			// Command is a blocking action
+        CmdType_NonBlocking,		// Command is a non-blocking action
     }
 
     public enum EnumActiveSensors
     {
         NotSet = 0,
         // Sensors COLLISION ____________________
-        COLLISION_NONE = 10,
-        COLLISION_FRONT = 11,
-        COLLISION_REAR = 12,
-        COLLISION_LEFT = 13,
-        COLLISION_RIGHT = 14,
+        APP_PARAM_STRATEGYFLAG_NONE = 10,
+        APP_PARAM_STRATEGYFLAG_COLLISION_FRONT = 11,
+        APP_PARAM_STRATEGYFLAG_COLLISION_REAR = 12,
+        APP_PARAM_STRATEGYFLAG_COLLISION_LEFT = 13,
+        APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT = 14,
     }
 
     public enum EnumStrategyFlags
