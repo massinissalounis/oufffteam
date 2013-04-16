@@ -11,7 +11,12 @@ namespace StrategyGenerator2
         public MainWindow()
         {
             //InitializeComponent();
-            Closing += (s, e) => ViewModelLocator.Cleanup();
+            Closing += (s, e) => CleanUp();
+        }
+
+        private void CleanUp()
+        {
+            return;
         }
     }
 }

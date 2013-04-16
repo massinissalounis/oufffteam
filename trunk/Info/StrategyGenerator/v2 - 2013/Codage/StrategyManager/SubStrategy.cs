@@ -313,6 +313,7 @@ namespace StrategyGenerator2.StrategyManager
             set { _subStrategyName = value; }
         }
 
+
           
         // Private functions ----------------------------------------------------------------------
         

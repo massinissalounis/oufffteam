@@ -14,12 +14,9 @@ using System.Windows.Shapes;
 
 namespace StrategyGenerator2.View
 {
-    /// <summary>
-    /// Logique d'interaction pour View1.xaml
-    /// </summary>
-    public partial class View1 : UserControl
+    public partial class SubStrategiesView : UserControl
     {
-        public View1()
+        public SubStrategiesView()
         {
             InitializeComponent();
         }

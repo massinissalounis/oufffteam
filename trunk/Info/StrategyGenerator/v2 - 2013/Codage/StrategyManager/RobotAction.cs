@@ -114,13 +114,13 @@ namespace StrategyGenerator2.StrategyManager
             if (CheckWheelValue("Test", "NOK") != "NOK")
                 Ret = false;
 
-            if (CheckAngleValue("360,55555", "NOK") != "0.6")
+            if (CheckAngleValue("361", "NOK") != "1")
                 Ret = false;
 
-            if (CheckAngleValue("-270.0", "NOK") != "90.0")
+            if (CheckAngleValue("-270", "NOK") != "90")
                 Ret = false;
 
-            if (CheckAngleValue(null, "0.0") != "0.0")
+            if (CheckAngleValue(null, "0") != "0")
                 Ret = false;
 
             if (CheckAngleValue("ERR", "NOK") != "NOK")
@@ -132,16 +132,16 @@ namespace StrategyGenerator2.StrategyManager
             if (CheckEnumCmdValue("Err", EnumCmd.NotSet) != EnumCmd.NotSet)
                 Ret = false;
 
-            if (CheckEnumCmdTypeValue("Blocking", EnumCmdType.CmdType_NotSet) != EnumCmdType.CmdType_Blocking)
+            if (CheckEnumCmdTypeValue("CmdType_Blocking", EnumCmdType.CmdType_NotSet) != EnumCmdType.CmdType_Blocking)
                 Ret = false;
 
-            if (CheckEnumCmdTypeValue("NonBlocking", EnumCmdType.CmdType_NotSet) != EnumCmdType.CmdType_NonBlocking)
+            if (CheckEnumCmdTypeValue("CmdType_NonBlocking", EnumCmdType.CmdType_NotSet) != EnumCmdType.CmdType_NonBlocking)
                 Ret = false;
 
             if (CheckEnumCmdTypeValue("ERR", EnumCmdType.CmdType_NotSet) != EnumCmdType.CmdType_NotSet)
                 Ret = false;
 
-            if (CheckEnumActiveSensorsValue("COLLISION_FRONT", EnumActiveSensors.NotSet) != EnumActiveSensors.APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
+            if (CheckEnumActiveSensorsValue("APP_PARAM_STRATEGYFLAG_COLLISION_FRONT", EnumActiveSensors.NotSet) != EnumActiveSensors.APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
                 Ret = false;
 
             if (CheckEnumActiveSensorsValue("ERR", EnumActiveSensors.NotSet) != EnumActiveSensors.NotSet)
@@ -780,37 +780,32 @@ namespace StrategyGenerator2.StrategyManager
         /// <returns>Retourne une valeur entre -180° et +180°</returns>
         private String CheckAngleValue(String valueToCheck, String defaultValue)
         {
-            String Ret = defaultValue;
-            double RetFloat = 0;
+            String ret = defaultValue;
+            int retInt = 0;
 
             try
             {
-                // Conversion du signe virgule vers point
-                valueToCheck = valueToCheck.Replace(".", ",");
 
-                RetFloat = Convert.ToDouble(valueToCheck);
+                retInt = Convert.ToInt32(valueToCheck);
 
                 // Verification des valeurs > 360°
-                while (RetFloat > 180)
-                    RetFloat = RetFloat - 360;
+                while (retInt > 180)
+                    retInt = retInt - 360;
 
                 // Verification des valeurs <= 360°
-                while (RetFloat <= -180)
-                    RetFloat = RetFloat + 360;
+                while (retInt <= -180)
+                    retInt = retInt + 360;
 
                 // Création de la chaine de retour
-                
-                Ret = RetFloat.ToString("N1");
+                ret = retInt.ToString();
 
-                // Conversion du signe point vers virgule
-                Ret = Ret.Replace(",", ".");
-            }
+               }
             catch
             {
-                Ret = defaultValue;
+                ret = defaultValue;
             }
 
-            return Ret;
+            return ret;
 
         }
 

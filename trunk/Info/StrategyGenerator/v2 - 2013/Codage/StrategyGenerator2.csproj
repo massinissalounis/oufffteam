@@ -90,10 +90,11 @@
     <Compile Include="StrategyManager\Strategy.cs" />
     <Compile Include="StrategyManager\SubStrategy.cs" />
     <Compile Include="Tools\DebugTool.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="View\View1.xaml.cs">
-      <DependentUpon>View1.xaml</DependentUpon>
+    <Compile Include="ViewModel\SubStrategiesRobot2VM.cs" />
+    <Compile Include="ViewModel\MainVM.cs" />
+    <Compile Include="ViewModel\SubStrategiesRobot1VM.cs" />
+    <Compile Include="View\SubStrategiesView.xaml.cs">
+      <DependentUpon>SubStrategiesView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -111,7 +112,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\View1.xaml">
+    <Page Include="View\SubStrategiesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -140,6 +141,22 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\Logo_OufffTeam_Ptt.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Generator>Res</Generator>
+    </Resource>
+    <Resource Include="Res\Logo_OufffTeam_Ptt.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Generator>Res</Generator>
+    </Resource>
+    <Resource Include="Res\Terrain.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CustomToolNamespace>Res</CustomToolNamespace>
+      <Generator>Res</Generator>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
