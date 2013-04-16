@@ -5,12 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              StartupUri="MainWindow.xaml"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             xmlns:root="clr-namespace:StrategyGenerator2.ViewModel"
+             >
     
     <Application.Resources>
-        <!--Global View Model Locator-->
-        <vm:ViewModelLocator x:Key="Locator"
-                             d:IsDataSource="True" />
+        <root:MainVM x:Key="MainVM"/>
+        <root:SubStrategiesRobot1VM x:Key="SubStrategiesRobot1VM"/>
+        <root:SubStrategiesRobot2VM x:Key="SubStrategiesRobot2VM"/>
     </Application.Resources>
     
 </Application>

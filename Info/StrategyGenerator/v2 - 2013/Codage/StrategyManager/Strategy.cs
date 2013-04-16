@@ -738,7 +738,22 @@ namespace StrategyGenerator2.StrategyManager
         /// </summary>
         public int DefaultPosA
         {
-            get { return Convert.ToInt32(_initialPos.param4); }
+            get 
+            {
+                try
+                {
+                    int res = 0;
+                    
+                    res = Convert.ToInt32(_initialPos.param4);
+
+                    return res;
+                }
+                catch (Exception ex)
+                {
+                    return 0;
+                }
+            }
+
             set
             {
                 if ((value >= -180) && (value <= 180))
