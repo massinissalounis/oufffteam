@@ -90,9 +90,13 @@
     <Compile Include="StrategyManager\Strategy.cs" />
     <Compile Include="StrategyManager\SubStrategy.cs" />
     <Compile Include="Tools\DebugTool.cs" />
+    <Compile Include="ViewModel\SubStrategiesVM.cs" />
     <Compile Include="ViewModel\SubStrategiesRobot2VM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\SubStrategiesRobot1VM.cs" />
+    <Compile Include="View\MainStrategyView.xaml.cs">
+      <DependentUpon>MainStrategyView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SubStrategiesView.xaml.cs">
       <DependentUpon>SubStrategiesView.xaml</DependentUpon>
     </Compile>
@@ -109,6 +113,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Skins\MainSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\MainStrategyView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

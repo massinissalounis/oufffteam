@@ -36,7 +36,9 @@
         </Border>
         
         <!-- SubStrategies -->
+        <UC:MainStrategyView Grid.Column="0" Grid.ColumnSpan="1" />
         <UC:SubStrategiesView Grid.Column="1" Grid.ColumnSpan="1" DataContext="{StaticResource SubStrategiesRobot1VM}" />
-        <UC:SubStrategiesView Grid.Column="5" Grid.ColumnSpan="1" DataContext="{StaticResource SubStrategiesRobot2VM}" />
+        <UC:SubStrategiesView Grid.Column="4" Grid.ColumnSpan="1" DataContext="{StaticResource SubStrategiesRobot1VM}" />
+        <UC:MainStrategyView Grid.Column="5" Grid.ColumnSpan="1" />
     </Grid>
 </Window>
