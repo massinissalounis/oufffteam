@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace StrategyGenerator2.ViewModel
 {
-    public class SubStrategiesRobot1VM : ViewModelBase
+    public class SubStrategiesRobot1VM : SubStrategiesVM
     {
         // Public ---------------------------------------------------------------------------------
         public SubStrategiesRobot1VM()
@@ -22,83 +22,7 @@ namespace StrategyGenerator2.ViewModel
 
 
         // Properties -----------------------------------------------------------------------------
-        public ObservableCollection<SubStrategy> ListSubStrategies 
-        {
-            get
-            {
-                ObservableCollection<SubStrategy> Ret = null;
-
-                if (_currentStrategy != null)
-                {
-                    if(_currentStrategy.GetAllSubStrategy() != null)
-                    {
-                        Ret = new ObservableCollection<SubStrategy>();
-                        foreach(SubStrategy currentSubStrategy in _currentStrategy.GetAllSubStrategy())
-                        {
-                            Ret.Add(currentSubStrategy);
-                        }
-                    }
-                }
-                return Ret;
-            }
-
-            set
-            {
-
-            }
-        }
-
-        public ObservableCollection<RobotAction> ListRobotAction
-        {
-            get
-            {
-                ObservableCollection<RobotAction> Ret = null;
-
-                if (_subStrategySelected != null)
-                {
-                    if (_subStrategySelected.Count() > 0)
-                    {
-                        Ret = new ObservableCollection<RobotAction>();
-                        foreach (RobotAction currentRobotAction in _subStrategySelected.GetAllActions())
-                        {
-                            Ret.Add(currentRobotAction);
-                        }
-                    }
-                }
-                return Ret;
-            }
-
-            set
-            {
-            }
-        }
-
-        public SubStrategy SelectedSubStrategy
-        {
-            get
-            { return null; }
-            set
-            {
-                _subStrategySelected = value;
-                RaisePropertyChanged("ListRobotAction");
-                return;
-            }
-        }
-
-        public RobotAction SelectedRobotAction
-        {
-            get
-            { return null; }
-            set
-            {
-                RobotAction val = value;
-                return;
-            }
-        }
 
         // Private --------------------------------------------------------------------------------
-        private MainModel _mainModel = null;
-        private Strategy _currentStrategy = null;
-        private SubStrategy _subStrategySelected = null;
     }
 }

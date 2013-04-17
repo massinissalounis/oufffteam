@@ -7,7 +7,7 @@ using StrategyGenerator2.StrategyManager;
 
 namespace StrategyGenerator2.Model
 {
-    class MainModel
+    public class MainModel
     {
         // Public ---------------------------------------------------------------------------------
         public static MainModel GetInstance
@@ -41,9 +41,11 @@ namespace StrategyGenerator2.Model
         }
 
         // Données private ------------------------------------------------------------------------
-        public Strategy strategyRobot1 = null;        // First robot or Robot Color A
-        public Strategy strategyRobot2 = null;        // Second robot or Robot Color B
+        public Strategy strategyRobot1 = null;              // First robot or Robot Color A
+        public Strategy strategyRobot2 = null;              // Second robot or Robot Color B
 
+        public RobotAction currentRobotAction1 = null;      // Action pour le Robot 1 à modifier 
+        public RobotAction currentRobotAction2 = null;      // Action pour le Robot 2 à modifier 
 
     }
 }
