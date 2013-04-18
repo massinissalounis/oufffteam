@@ -90,15 +90,21 @@
     <Compile Include="StrategyManager\Strategy.cs" />
     <Compile Include="StrategyManager\SubStrategy.cs" />
     <Compile Include="Tools\DebugTool.cs" />
+    <Compile Include="ViewModel\MainStrategyRobot2VM.cs" />
+    <Compile Include="ViewModel\MainStrategyRobot1VM.cs" />
+    <Compile Include="ViewModel\MainStrategyVM.cs" />
     <Compile Include="ViewModel\SubStrategiesVM.cs" />
     <Compile Include="ViewModel\SubStrategiesRobot2VM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\SubStrategiesRobot1VM.cs" />
-    <Compile Include="View\MainStrategyView.xaml.cs">
-      <DependentUpon>MainStrategyView.xaml</DependentUpon>
+    <Compile Include="View\RobotActionView.xaml.cs">
+      <DependentUpon>RobotActionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SubStrategiesView.xaml.cs">
       <DependentUpon>SubStrategiesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainStrategyView.xaml.cs">
+      <DependentUpon>MainStrategyView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -116,11 +122,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\MainStrategyView.xaml">
+    <Page Include="View\RobotActionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\SubStrategiesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\MainStrategyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

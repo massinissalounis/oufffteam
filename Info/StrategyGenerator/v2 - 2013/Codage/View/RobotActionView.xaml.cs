@@ -14,9 +14,9 @@ using System.Windows.Shapes;
 
 namespace StrategyGenerator2.View
 {
-    public partial class MainStrategyView : UserControl
+    public partial class RobotActionView : UserControl
     {
-        public MainStrategyView()
+        public RobotActionView()
         {
             InitializeComponent();
         }

@@ -13,6 +13,8 @@
         <root:MainVM x:Key="MainVM"/>
         <root:SubStrategiesRobot1VM x:Key="SubStrategiesRobot1VM"/>
         <root:SubStrategiesRobot2VM x:Key="SubStrategiesRobot2VM"/>
+        <root:MainStrategyRobot1VM x:Key="MainStrategyRobot1VM"/>
+        <root:MainStrategyRobot2VM x:Key="MainStrategyRobot2VM"/>
     </Application.Resources>
     
 </Application>
