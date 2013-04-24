@@ -90,6 +90,7 @@
     <Compile Include="StrategyManager\Strategy.cs" />
     <Compile Include="StrategyManager\SubStrategy.cs" />
     <Compile Include="Tools\DebugTool.cs" />
+    <Compile Include="ViewModel\RobotActionVM.cs" />
     <Compile Include="ViewModel\MainStrategyRobot2VM.cs" />
     <Compile Include="ViewModel\MainStrategyRobot1VM.cs" />
     <Compile Include="ViewModel\MainStrategyVM.cs" />

@@ -22,8 +22,16 @@ namespace StrategyGenerator2.Model
             }
         }
 
+        public event EventHandler RobotActionChanged = null;
+
 
         // Private --------------------------------------------------------------------------------
+        private void RaiseRobotActionChanged()
+        {
+            if (RobotActionChanged != null)
+                RobotActionChanged(this, new EventArgs());
+        }
+
         // Declaration du singleton
         private static MainModel _model;
 
@@ -40,12 +48,30 @@ namespace StrategyGenerator2.Model
             return;
         }
 
-        // Données private ------------------------------------------------------------------------
+        // Properties -----------------------------------------------------------------------------
+        public RobotAction selectedRobotAction
+        {
+            get
+            {
+                return _selectedRobotAction;
+            }
+            set
+            {
+                _selectedRobotAction = value;
+                RaiseRobotActionChanged();
+            }
+        }
+
+        // Données publiques ----------------------------------------------------------------------
         public Strategy strategyRobot1 = null;              // First robot or Robot Color A
         public Strategy strategyRobot2 = null;              // Second robot or Robot Color B
 
         public RobotAction currentRobotAction1 = null;      // Action pour le Robot 1 à modifier 
         public RobotAction currentRobotAction2 = null;      // Action pour le Robot 2 à modifier 
+
+        // Données private ------------------------------------------------------------------------
+        private RobotAction _selectedRobotAction = null;
+
 
     }
 }
