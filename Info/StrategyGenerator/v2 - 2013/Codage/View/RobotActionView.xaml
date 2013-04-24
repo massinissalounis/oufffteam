@@ -9,7 +9,7 @@
              xmlns:UC="clr-namespace:StrategyGenerator2.View"
              MinHeight="240" MinWidth="600" >
     <UserControl.DataContext>
-        <root:SubStrategiesVM/>
+        <root:RobotActionVM/>
     </UserControl.DataContext>
     <Grid x:Name="mainStrategyMainGrid">
         <Grid.RowDefinitions>
@@ -33,23 +33,21 @@
         <Label Grid.Column="2" Content="Robot 2 Pos" Height="28" Name="labelRobot2Pos" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" Grid.ColumnSpan="2" />
 
         <Label Content="Cmd : " Grid.Row="1" Height="25" Margin="0,0,0,0" Name="labelCmd" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
-        <ComboBox Grid.Column="1" Grid.Row="1" Margin="5,1,5,1" Name="comboBoxCmd" />
+        <ComboBox Grid.Column="1" Grid.Row="1" Margin="5,1,5,1" Name="comboBoxCmd" ItemsSource="{Binding ListCmd}" SelectedValue="{Binding SelectedCmd}"/>
 
         <Label Content="CmdType : " Grid.Row="2" Height="25" Margin="0,0,0,0" Name="labelCmdType" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
-        <ComboBox Grid.Column="1" Grid.Row="2" Height="23" Margin="5,1,5,1" Name="comboBoxCmdType" VerticalAlignment="Top">
-            <ComboBoxItem Content="a" />            <ComboBoxItem Content="b" />            <ComboBoxItem Content="c" />            <ComboBoxItem Content="d" />
-        </ComboBox>
+        <ComboBox Grid.Column="1" Grid.Row="2" Height="23" Margin="5,1,5,1" Name="comboBoxCmdType" VerticalAlignment="Top" ItemsSource="{Binding ListCmdType}" SelectedValue="{Binding SelectedCmdType}" />
 
         <Label Content="Param1 : " Grid.Row="3" Height="25" Margin="0,0,0,0" Name="labelParam1" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
-        <TextBox Grid.Column="1" Grid.Row="3" Height="23" Margin="5,1,5,1" Name="textBoxParam1" VerticalAlignment="Top" Grid.RowSpan="2" />
+        <TextBox Grid.Column="1" Grid.Row="3" Height="23" Margin="5,1,5,1" Name="textBoxParam1" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding Param1}" />
 
         <Label Content="Param2 : " Grid.Row="4" Height="25" Margin="0,0,0,0" Name="labelParam2" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
-        <TextBox Grid.Column="1" Grid.Row="4" Height="23" Margin="5,1,5,1" Name="textBoxParam2" VerticalAlignment="Top" Grid.RowSpan="2" />
+        <TextBox Grid.Column="1" Grid.Row="4" Height="23" Margin="5,1,5,1" Name="textBoxParam2" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding Param2}" />
 
         <Label Content="Param3 : " Grid.Row="5" Height="25" Margin="0,0,0,0" Name="labelParam3" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
-        <TextBox Grid.Column="1" Grid.Row="5" Height="23" Margin="5,1,5,1" Name="textBoxParam3" VerticalAlignment="Top" />
+        <TextBox Grid.Column="1" Grid.Row="5" Height="23" Margin="5,1,5,1" Name="textBoxParam3" VerticalAlignment="Top" Text="{Binding Param3}" />
 
         <Label Content="Param4 : " Grid.Row="6" Height="25" Margin="0,0,0,0" Name="labelParam4" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
-        <TextBox Grid.Column="1" Grid.Row="6" Height="23" Margin="5,1,5,1" Name="textBoxParam4" VerticalAlignment="Top" />
+        <TextBox Grid.Column="1" Grid.Row="6" Height="23" Margin="5,1,5,1" Name="textBoxParam4" VerticalAlignment="Top" Text="{Binding Param4}" />
     </Grid>
 </UserControl>

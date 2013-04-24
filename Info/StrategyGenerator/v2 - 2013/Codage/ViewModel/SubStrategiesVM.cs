@@ -107,6 +107,8 @@ namespace StrategyGenerator2.ViewModel
             set
             {
                 _selectedRobotAction = value;
+                _mainModel.selectedRobotAction = value;
+
                 return;
             }
         }
