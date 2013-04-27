@@ -219,7 +219,7 @@ void TaskMain_Main(void *p_arg)
 
 			// CASE 005 ---------------------------------------------------------------------------
 			case 5:		// Send Next Action
-				if(NotSet != NextCmd.Cmd)
+				if(Cmd_NotSet != NextCmd.Cmd)
 				{
 					memcpy(&CurrentCmd, &NextCmd,  sizeof(StructCmd));
 					memset(&NextCmd, 0, sizeof(StructCmd));
@@ -273,7 +273,7 @@ void TaskMain_Main(void *p_arg)
 						break;
 
 					// Nothing to do ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-					case NotSet:
+					case Cmd_NotSet:
 					case App_IfGoto_Strategy:
 					case App_IfGoto_System:
 						// This command are already done
