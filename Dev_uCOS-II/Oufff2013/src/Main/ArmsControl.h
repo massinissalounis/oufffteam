@@ -1,4 +1,4 @@
-// Control for the arms - Oufffteam 2012
+// Control for the arms - Oufffteam 2013
 // Pierre - Emmanuel GAILLARDON
 
 #ifndef  ARMSCONTROL_H

@@ -284,11 +284,22 @@ CPU_INT08U FPGA_LED2_Action (CPU_INT08U bit_value)
 	return reg;
 }
 
+
 CPU_INT08U BEACON_Read (void)
 {
 	CPU_INT08U reg;
 	reg = PMP_Read(BEACON_REGISTER);
 	return reg;
+}
+
+void SERVO_0_Write_Pulse (CPU_INT08U pulse_duration)
+{
+	PMP_Write(SERVO_0_REGISTER, pulse_duration);
+}
+
+void SERVO_1_Write_Pulse (CPU_INT08U pulse_duration)
+{
+	PMP_Write(SERVO_1_REGISTER, pulse_duration);
 }
 
 

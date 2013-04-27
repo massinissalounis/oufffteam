@@ -26,7 +26,7 @@
 #define  COLOR_SENSOR_3_REGISTER    0x0032
 #define  COLOR_SENSOR_4_REGISTER    0x0033
 
-#define  BEACON_REGISTER	    	0x0050
+#define  BEACON_REGISTER	    0x0050
 #define  GPIO_REGISTER              0x0060
 #define  SERVO_0_REGISTER           0x0070
 #define  SERVO_1_REGISTER           0x0071
@@ -83,5 +83,8 @@ CPU_INT16S QUADD_Read (void);
 CPU_INT16S QUADG_Read (void);
 
 CPU_INT08U GPIO_Action (CPU_INT08U bit_position, CPU_INT08U bit_value);
+
+void SERVO_0_Write_Pulse (CPU_INT08U pulse_duration);
+void SERVO_1_Write_Pulse (CPU_INT08U pulse_duration);
 
 void BSPFPGA_Reset(void);
