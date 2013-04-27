@@ -78,10 +78,11 @@
 #define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
 //#define APP_INIT_EXEC_STARTUP_SEQ			OS_TRUE		// Flag to indicate if we have to execute the start up sequence
 
-#define APP_GP2_LIMIT_FRONT_CENTER			250			// Threshold 
-#define APP_GP2_LIMIT_REAR_CENTER			250			// Threshold
+#define APP_GP2_LIMIT_FRONT					250			// Threshold 
+#define APP_GP2_LIMIT_REAR_INTERNAL			250			// Threshold
 #define APP_GP2_LIMIT_REAR_HOOP				250			// Threshold
-#define APP_GP2_LIMIT_FRONT_HOOP			250			// Threshold
+#define APP_GP2_LIMIT_REAR_LEFT_HOOP		250			// Threshold
+#define APP_GP2_LIMIT_REAR_RIGHT_HOOP		250			// Threshold
 
 /*
 *********************************************************************************************************

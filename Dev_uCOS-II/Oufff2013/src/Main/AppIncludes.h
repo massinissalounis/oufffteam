@@ -36,6 +36,7 @@
 #include    "bsp.h"
 #include	"bsp_fpga.h"
 #include 	"HoopsControl.h"
+#include	"TurbineControl.h"
 #include	"AppCustomTypes.h"		// Custom Types
 #include 	"AppGlobalFunc.h"
 #include	"AppGlobalVars.h"

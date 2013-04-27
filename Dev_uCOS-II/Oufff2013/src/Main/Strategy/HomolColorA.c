@@ -73,55 +73,16 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	switch(CurrentActionID)
 	{
 		// SUB_STRATEGY_BEGIN_LOOP
+	case 1:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 2;	TimeoutID = -1;	p->Cmd = MvtSimple_MoveInMM;	p->Param1 = DEFAULT_SPEED;		p->Param2 = -500;	p->Param3 = 0;	p->Param4 = 0;		break;	// SubStrategyName = 'SubStrategyName@gID'
+	case 2:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 3;	TimeoutID = -1;	p->Cmd = Sensors_SetHoopLevel;	p->Param1 = HOOP_LEVEL_DOWN;	p->Param2 = 0;		p->Param3 = 0;	p->Param4 = 0;		break;	// SubStrategyName = 'SubStrategyName@gID'
+	case 3:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 4;	TimeoutID = -1;	p->Cmd = MvtSimple_RotateInDeg;	p->Param1 = DEFAULT_SPEED;		p->Param2 = 500;	p->Param3 = 0;	p->Param4 = 180;	break;	// SubStrategyName = 'SubStrategyName@gID'
+	case 4:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 5;	TimeoutID = -1;	p->Cmd = MvtSimple_MoveInMM;	p->Param1 = DEFAULT_SPEED;		p->Param2 = -500;	p->Param3 = 0;	p->Param4 = 0;		break;	// SubStrategyName = 'SubStrategyName@gID'
+	case 5:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 6;	TimeoutID = -1;	p->Cmd = Sensors_SetHoopLevel;	p->Param1 = HOOP_LEVEL_UP;		p->Param2 = 0;		p->Param3 = 0;	p->Param4 = 0;		break;	// SubStrategyName = 'SubStrategyName@gID'
+	case 6:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 7;	TimeoutID = -1;	p->Cmd = App_Wait;				p->Param1 = 0;					p->Param2 = 0;		p->Param3 = 0;	p->Param4 = 250;	break;	// SubStrategyName = 'SubStrategyName@gID'
+	case 7:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	APP_PARAM_APPFLAG_NONE;	NextActionID = 8;	TimeoutID = -1;	p->Cmd = MvtSimple_MoveInMM;	p->Param1 = DEFAULT_SPEED;		p->Param2 = 250;	p->Param3 = 0;	p->Param4 = 0;		break;	// SubStrategyName = 'SubStrategyName@gID'
 
-		case 100:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 101;	TimeoutID = 901;	p->Cmd = App_Wait;	p->Param1 = 0;	p->Param2 = 30;	p->Param3 = 20;	p->Param4 = 10;	break;	// SubStrategyName = Export Strategy 1
-		case 101:		p->CmdType = CmdType_NonBlocking;	p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 102;	TimeoutID = 902;	p->Cmd = Mvt_UseMixedMode;	p->Param1 = 41;	p->Param2 = 31;	p->Param3 = 21;	p->Param4 = 11.5;	break;	// SubStrategyName = Export Strategy 1
-
-		case 102:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 103;	TimeoutID = 903;	p->Cmd = MvtSimple_MoveInMM;	p->Param1 = 42;	p->Param2 = 32;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = Export Strategy 2
-		case 103:		p->CmdType = CmdType_NonBlocking;	p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = -1;	TimeoutID = 904;	p->Cmd = Mvt_UsePivotMode;	p->Param1 = 43;	p->Param2 = RIGHT_WHEEL;	p->Param3 = NotUsed;	p->Param4 = 13.0;	break;	// SubStrategyName = Export Strategy 2
-		case 200:		p->CmdType = CmdType_NonBlocking;	p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = -1;	TimeoutID = 905;	p->Cmd = Mvt_UseSpline;	p->Param1 = 44;	p->Param2 = 34;	p->Param3 = 24;	p->Param4 = 14.0;	break;	// SubStrategyName = Export Strategy 2
 
 		// SUB_STRATEGY_END_LOOP
-
-		// StructuredFileLoopBegin
-		// LoopID = 1
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 2
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 3
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 4
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 5
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 6
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 7
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 8
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 9
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 10
-		// StructuredFileLoopEnd
 
 		default:
 			return ERR__NO_MORE_DATA_AVAILABLE;

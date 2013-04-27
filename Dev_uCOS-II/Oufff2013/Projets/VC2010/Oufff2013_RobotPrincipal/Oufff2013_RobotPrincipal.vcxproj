@@ -81,6 +81,7 @@
     <ClCompile Include="..\..\..\src\Main\TaskSensors.c" />
     <ClCompile Include="..\..\..\src\Main\TaskTempo.c" />
     <ClCompile Include="..\..\..\src\Main\TaskTest.c" />
+    <ClCompile Include="..\..\..\src\Main\TurbineControl.c" />
     <ClCompile Include="..\..\..\src\Microchip\PeripheralsLibs\PIC32INTlib.c" />
     <ClCompile Include="..\..\..\src\uC-LIB\lib_mem.c" />
     <ClCompile Include="..\..\..\src\uC-LIB\lib_str.c" />
@@ -125,6 +126,7 @@
     <ClInclude Include="..\..\..\src\Main\TaskSensors.h" />
     <ClInclude Include="..\..\..\src\Main\TaskTempo.h" />
     <ClInclude Include="..\..\..\src\Main\TaskTest.h" />
+    <ClInclude Include="..\..\..\src\Main\TurbineControl.h" />
     <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\adc10.h" />
     <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\CoreTimer.h" />
     <ClInclude Include="..\..\..\src\Microchip\PeripheralsLibs\i2c.h" />
@@ -146,6 +148,10 @@
     <ClInclude Include="..\..\..\src\uC-LIB\lib_str.h" />
     <ClInclude Include="..\..\..\src\uCOS-II\Ports\MIPS32-4K\Vectored-Interrupt\MPLAB-PIC32-GCC\os_cpu.h" />
     <ClInclude Include="..\..\..\src\uCOS-II\Source\ucos_ii.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\Main\Strategy\HomolColorA.spattern" />
+    <None Include="..\..\..\src\Main\Strategy\HomolColorB.spattern" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

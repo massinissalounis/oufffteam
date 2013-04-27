@@ -150,6 +150,9 @@
     <ClCompile Include="..\..\..\src\BSP_v2\bsp_iic.c">
       <Filter>Fichiers sources\BSP</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TurbineControl.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\DevCard\1602D.h">
@@ -296,5 +299,16 @@
     <ClInclude Include="..\..\..\src\BSP_v2\mini_libdef.h">
       <Filter>Fichiers d%27en-tête\BSP</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TurbineControl.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\Main\Strategy\HomolColorA.spattern">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </None>
+    <None Include="..\..\..\src\Main\Strategy\HomolColorB.spattern">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </None>
   </ItemGroup>
 </Project>

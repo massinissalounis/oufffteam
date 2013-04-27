@@ -248,7 +248,7 @@ void TaskMain_Main(void *p_arg)
 						MsgToPost.Cmd		= CurrentCmd.Cmd;
 						MsgToPost.CmdType	= CurrentCmd.CmdType;
 						MsgToPost.Param1	= CurrentCmd.Param1;
-						MsgToPost.Param2	= (int)(CurrentCmd.Param2);
+						MsgToPost.Param2	= 0;
 						MsgToPost.Param3	= 0;
 						MsgToPost.Param4	= 0;
 
@@ -336,6 +336,9 @@ void TaskMain_Main(void *p_arg)
 	#ifdef _TARGET_440H
 		Set_Line_Information( 2, 0, "XXX", 3);
 	#endif
+
+	// Start the funny action
+	TaskSensors_FunnyAction();
 
 	// Time is up : Wait for ever
 	while(OS_TRUE)
