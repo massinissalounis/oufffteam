@@ -28,6 +28,7 @@
 #define CURRENT_STATE__MOVING					0		// Current Odo state is moving
 #define CURRENT_STATE__STOP    					1       // Current Odo state is set to "STOP"
 
+#define NotUsed									-1		// Valeur à utiliser pour les paramètres non définis
 // ERROR CODES ###########################################################
 // Global ---------------------------------------
 #define ERR__NO_ERROR							0				// No error
@@ -47,7 +48,7 @@ typedef enum
 // Mvt Mode -------------------------------------
 typedef enum
 {
-	NotSet							= 0,	// Current Cmd is not set
+	Cmd_NotSet						= 0,	// Current Cmd is not set
 	// Command MVT ______________________
 	Mvt_UseAngleOnly				= 10,	// Use Asser Mode 1
 	Mvt_UseDistOnly					= 11,	// Use Asser Mode 2

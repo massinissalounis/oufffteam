@@ -37,8 +37,9 @@ INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
 // ------------------------------------------------------------------------------------------------
 INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 {
-	static int		NextActionID = 1;
+	static int		NextActionID = 0;
 	static int		TimeoutID = -1;
+	static int		SubStrategyReturnID = -1;
 	int				CurrentActionID = 0;
 	INT8U 			Err = 0;
 	OS_FLAGS		CurrentFlag = 0;
@@ -58,15 +59,29 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	else
 		CurrentActionID = NextActionID;
 
+	// Check if NextID must be change due to previous order
+	if(CurrentActionID <= 0)
+	{
+		// We have to check previous order
+		if(SubStrategyReturnID > 0)
+			CurrentActionID = SubStrategyReturnID;		// Change NextID to return to the correct ID after SubStrategy loop
+		else
+			CurrentActionID = 1;						// There is no pending action, we go to the first state
+	}
+
 	// Read Next Action
 	switch(CurrentActionID)
 	{
-		// StructuredFileLoopBegin
-		// LoopID = 0
-		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 2;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 2000;    		break;	
-		case 2:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 3;	p->Cmd = App_Wait;					p->Param1 = 0;    p->Param2 = 0;    	p->Param3 = 5;    p->Param4 = 0;    		break;	
-		case 3:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = -1;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = -2000;    		break;	
-		// StructuredFileLoopEnd
+		// SUB_STRATEGY_BEGIN_LOOP
+
+		case 100:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 101;	TimeoutID = 901;	p->Cmd = App_Wait;	p->Param1 = 0;	p->Param2 = 30;	p->Param3 = 20;	p->Param4 = 10;	break;	// SubStrategyName = Export Strategy 1
+		case 101:		p->CmdType = CmdType_NonBlocking;	p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 102;	TimeoutID = 902;	p->Cmd = Mvt_UseMixedMode;	p->Param1 = 41;	p->Param2 = 31;	p->Param3 = 21;	p->Param4 = 11.5;	break;	// SubStrategyName = Export Strategy 1
+
+		case 102:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 103;	TimeoutID = 903;	p->Cmd = MvtSimple_MoveInMM;	p->Param1 = 42;	p->Param2 = 32;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = Export Strategy 2
+		case 103:		p->CmdType = CmdType_NonBlocking;	p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = -1;	TimeoutID = 904;	p->Cmd = Mvt_UsePivotMode;	p->Param1 = 43;	p->Param2 = RIGHT_WHEEL;	p->Param3 = NotUsed;	p->Param4 = 13.0;	break;	// SubStrategyName = Export Strategy 2
+		case 200:		p->CmdType = CmdType_NonBlocking;	p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = -1;	TimeoutID = 905;	p->Cmd = Mvt_UseSpline;	p->Param1 = 44;	p->Param2 = 34;	p->Param3 = 24;	p->Param4 = 14.0;	break;	// SubStrategyName = Export Strategy 2
+
+		// SUB_STRATEGY_END_LOOP
 
 		// StructuredFileLoopBegin
 		// LoopID = 1
@@ -127,10 +142,13 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 		// Read the current Flags
 		CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
 
+		// If condition is true, we go to the ID given by Param2, otherwise, we use NextActionID
 		if((CurrentFlag & (p->Param1)) != 0)
 			NextActionID = (int)(p->Param2);
-		else
-			NextActionID = (int)(p->Param3);
+		
+		// In case of Param3 is > 0, we have a return ID to use once the goto action is done
+		if((int)(p->Param3) > 0)
+			SubStrategyReturnID = (int)(p->Param3);		
 
 		return StrategyColorA_GetNextAction(p);
 	}
@@ -141,10 +159,13 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 		// Read the current Flags
 		CurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
 
+		// If condition is true, we go to the ID given by Param2, otherwise, we use NextActionID
 		if((CurrentFlag & (p->Param1)) != 0)
 			NextActionID = (int)(p->Param2);
-		else
-			NextActionID = (int)(p->Param3);
+		
+		// In case of Param3 is > 0, we have a return ID to use once the goto action is done
+		if((int)(p->Param3) > 0)
+			SubStrategyReturnID = (int)(p->Param3);
 
 		return StrategyColorA_GetNextAction(p);
 	}
