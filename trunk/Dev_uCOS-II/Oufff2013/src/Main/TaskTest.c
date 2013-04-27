@@ -19,10 +19,9 @@ void TaskTest_Main(void *p_arg)
 {
 
 #ifdef APP_TASK_TEST_ENABLED
+	OSTimeDlyHMSM(0, 0, 5, 0);
 	AppDebugMsg("OUFFF TEAM 2013 : Test online <<<<<<<<<< WARNING !!! >>>>>>>>>>>\n");
 	
-	//TaskDebug_RegisterNewData(TASKDEBUG_ID_TEST, "Test");
-
 	// Main Loop
 	while(OS_TRUE)
 	{
@@ -30,7 +29,6 @@ void TaskTest_Main(void *p_arg)
 
 		// Test Code : End ________________________________________________________________________
 
-		// Attente avant le prochain message de debug	
 		OSTimeDlyHMSM(0, 0, 1, 0);
 	}
 #else

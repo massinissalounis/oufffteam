@@ -66,11 +66,11 @@
 #define APP_PARAM_APPFLAG_ACTION_STATUS			0x00000040	//	| 6 | Action status				| Action is done	| Action is running	| Soft			|
 #define APP_PARAM_APPFLAG_TIMER_STATUS			0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running 	| Soft			|	
 // GP2 Flag ______________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
-#define APP_PARAM_APPFLAG_GP2_INTERNAL_FRONT	0x00000100	//	| 8 | Internal Front Sensor		| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT				0x00000100	//	| 8 | Front Sensor				| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_INTERNAL_REAR		0x00000200	//	| 9 | Internal Rear sensor		| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_REAR_HOOP			0x00000400	//	|10 | Hoop Rear Sensor			| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_FRONT_HOOP		0x00000800	//	|11 | Hoop Front Sensor			| Active			| Inactive			| Hard			|	
-#define APP_PARAM_APPFLAG_GP2_5					0x00001000	//	|12 | GP2_5 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_REAR_LEFT_HOOP	0x00000800	//	|11 | Hoop Rear Left Sensor		| Active			| Inactive			| Hard			|	
+#define APP_PARAM_APPFLAG_GP2_REAR_RIGHT_HOOP	0x00001000	//	|12 | Hoop Rear Right Sensor	| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_6					0x00002000	//	|13 | GP2_6	(Not Used)			| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_7					0x00004000	//	|14 | GP2_7	(Not Used)			| Active			| Inactive			| Hard			|
 #define APP_PARAM_APPFLAG_GP2_8					0x00008000	//	|15 | GP2_8	(Not Used)			| Active			| Inactive			| Hard			|
@@ -126,7 +126,7 @@
 #define APP_PARAM_STRATEGYFLAG_COLLISION_REAR	0x02000000	//	|25 | Collision state (rear)	| Collision active  | Collision inactive| 
 #define APP_PARAM_STRATEGYFLAG_COLLISION_LEFT	0x04000000	//	|26 | Collision state (left)	| Collision active  | Collision inactive|
 #define APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT	0x08000000	//	|27 | Collision state (right)	| Collision active  | Collision inactive| 
-#define APP_PARAM_STRATEGYFLAG_FRONT_HOOPS_DOWN	0x10000000	//	|28 | Is front hoops down ?		| Hoops is down		| Hoops is up		|  
+#define APP_PARAM_STRATEGYFLAG_BIT28			0x10000000	//	|28 | Not Used					| -					| -					|
 #define APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN	0x20000000	//	|29 | Is rear hoops down ?		| Hoops is down		| Hoops is up		| 
 #define APP_PARAM_STRATEGYFLAG_BIT30			0x40000000	//	|30 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT31			0x80000000	//	|31 | Not Used					| -					| -					| 

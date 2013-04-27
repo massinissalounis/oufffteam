@@ -61,50 +61,9 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	// Read Next Action
 	switch(CurrentActionID)
 	{
-		// StructuredFileLoopBegin
-		// LoopID = 0
-		case 1:	p->CmdType = CmdType_Blocking;		p->ActiveSensorsFlag =	APP_PARAM_STRATEGYFLAG_NONE;	NextActionID = 1;	p->Cmd = MvtSimple_MoveInMM;		p->Param1 = DEFAULT_SPEED;    p->Param2 = 400;    		break;	
-		// StructuredFileLoopEnd
+		// SUB_STRATEGY_BEGIN_LOOP
 
-		// StructuredFileLoopBegin
-		// LoopID = 1
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 2
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 3
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 4
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 5
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 6
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 7
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 8
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 9
-		// StructuredFileLoopEnd
-
-		// StructuredFileLoopBegin
-		// LoopID = 10
-		// StructuredFileLoopEnd
+		// SUB_STRATEGY_END_LOOP
 
 		default:
 			return ERR__NO_MORE_DATA_AVAILABLE;

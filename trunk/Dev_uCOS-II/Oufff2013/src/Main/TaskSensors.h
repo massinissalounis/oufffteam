@@ -28,6 +28,7 @@ void TaskSensors_CheckBumpers();
 
 void TaskSensors_GenerateStrategyFlags();
 	// Generate all Strategy Flags associated to the TaskSensors task
+	// This function uses SystemFlags as input param to build the StrategyFlag (used by TaskMain for collision)
 
 void TaskSensors_Main(void *p_arg);
 	// Fonction principal du process de gestion des Sensors

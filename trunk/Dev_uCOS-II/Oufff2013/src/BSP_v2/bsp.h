@@ -80,8 +80,10 @@
 	//#define GP2_9						PIC_ADC_AN3 //AN3 NON CONNECTE NE PAS UTILISER
 	#define GP2_10						PIC_ADC_AN1
 
-	#define GP2_REAR_INTERNAL				GP2_3
-	#define GP2_REAR_HOOP					GP2_8
+	#define GP2_REAR_INTERNAL			GP2_3
+	#define GP2_REAR_HOOP				GP2_8
+	#define GP2_REAR_LEFT_HOOP			GP2_4
+	#define GP2_REAR_RIGHT_HOOP			GP2_5
 	#define GP2_FRONT					GP2_7
 	
 	#define IO_CLIC_1					IOPORT_G, BIT_0

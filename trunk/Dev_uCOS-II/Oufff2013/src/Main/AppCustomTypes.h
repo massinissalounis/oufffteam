@@ -16,11 +16,8 @@
 #define RIGHT_WHEEL								1		// Used for pivot mode
 #define LEFT_WHEEL								-1		// Used for pivot mode
 
-#define FRONT_HOOP								10		// Front Hoop
-#define REAR_HOOP								11		// Rear Hoop
-
-#define LEVEL_UP								20		// Level position (for hoop)
-#define LEVEL_DOWN								21		// Level position (for hoop)
+#define HOOP_LEVEL_UP							20		// Level position (for hoop)
+#define HOOP_LEVEL_DOWN							21		// Level position (for hoop)
 
 #define USE_CURRENT_VALUE						-9999	// Used into Cmd msg to indicate we want to keep current value 
 														// (Thus no computation is needed for this param)
