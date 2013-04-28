@@ -13,13 +13,14 @@
 
 #include "TaskTest.h"
 #include "AppGlobalVars.h"
+#include "TaskSensors.h"
 
 // ------------------------------------------------------------------------------------------------
 void TaskTest_Main(void *p_arg)
 {
 
 #ifdef APP_TASK_TEST_ENABLED
-	OSTimeDlyHMSM(0, 0, 5, 0);
+	OSTimeDlyHMSM(0, 0, 1, 0);
 	AppDebugMsg("OUFFF TEAM 2013 : Test online <<<<<<<<<< WARNING !!! >>>>>>>>>>>\n");
 	
 	// Main Loop
@@ -29,7 +30,7 @@ void TaskTest_Main(void *p_arg)
 
 		// Test Code : End ________________________________________________________________________
 
-		OSTimeDlyHMSM(0, 0, 1, 0);
+		OSTimeDlyHMSM(0, 0, 0, 250);
 	}
 #else
 	// Attente infinie	

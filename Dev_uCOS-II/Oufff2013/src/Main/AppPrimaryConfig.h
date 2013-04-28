@@ -72,17 +72,18 @@
 *                                            PRIMARY SETTINGS
 *********************************************************************************************************
 */
-#define APP_USE_DEBUG						1			// If defined, debug msg are sent to UART2.
+#define APP_USE_DEBUG								1			// If defined, debug msg are sent to UART2.
 
-#define APP_ESCAPE_ROBOT_SPEED				40			// Speed rate for escape seq		(0:No Move, 100: Full Speed)
-#define APP_INIT_USE_START_BUTTON			OS_TRUE		// Flag to indicate if we have to use start button or not
-//#define APP_INIT_EXEC_STARTUP_SEQ			OS_TRUE		// Flag to indicate if we have to execute the start up sequence
+#define APP_ESCAPE_ROBOT_SPEED						40			// Speed rate for escape seq		(0:No Move, 100: Full Speed)
+#define APP_INIT_USE_START_BUTTON					OS_TRUE		// Flag to indicate if we have to use start button or not
+//#define APP_INIT_EXEC_STARTUP_SEQ					OS_TRUE		// Flag to indicate if we have to execute the start up sequence
 
-#define APP_GP2_LIMIT_FRONT					250			// Threshold 
-#define APP_GP2_LIMIT_REAR_INTERNAL			250			// Threshold
-#define APP_GP2_LIMIT_REAR_HOOP				250			// Threshold
-#define APP_GP2_LIMIT_REAR_LEFT_HOOP		250			// Threshold
-#define APP_GP2_LIMIT_REAR_RIGHT_HOOP		250			// Threshold
+#define APP_GP2_LIMIT_FRONT							250			// Threshold 
+#define APP_GP2_LIMIT_REAR_INTERNAL					250			// Threshold
+#define APP_GP2_LIMIT_REAR_INTERNAL_LONG_DETECTION	80			// Threshold
+#define APP_GP2_LIMIT_REAR_HOOP						250			// Threshold
+#define APP_GP2_LIMIT_REAR_LEFT_HOOP				250			// Threshold
+#define APP_GP2_LIMIT_REAR_RIGHT_HOOP				250			// Threshold
 
 /*
 *********************************************************************************************************

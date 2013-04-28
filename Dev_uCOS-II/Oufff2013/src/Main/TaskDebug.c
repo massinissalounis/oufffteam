@@ -60,13 +60,11 @@ void TaskDebug_RegisterNewData(int debugID, const char *debugDescription)
 	char outputBuffer[255];
 	memset(outputBuffer, 0, sizeof(char) * 255);
 
-#ifdef TASKDEBUG_ENABLED
+	// Wait for the taskDebug is ok
 	while(OS_FALSE == IsDebugTaskRunning)
 	{
 		OSTimeDlyHMSM(0, 0, 1, 0);
 	}
-#endif
-
 
 	// Verification de l'indice pour l'enregistrement
 	if((debugID >=0) && (debugID < TASKDEBUG_MAX_MSG))
@@ -104,6 +102,9 @@ void TaskDebug_UnregisterData(int debugID)
 	char outputBuffer[255];
 	memset(outputBuffer, 0, sizeof(char) * 255);
 
+	if(IsDebugTaskRunning == OS_FALSE)
+		return;
+
 	// Verification de l'indice pour l'enregistrement
 	if((debugID >=0) && (debugID < TASKDEBUG_MAX_MSG))
 	{
@@ -127,6 +128,9 @@ void TaskDebug_UnregisterData(int debugID)
 // ------------------------------------------------------------------------------------------------
 void TaskDebug_UpdateValueInt(int debugID, int value)
 {
+	if(IsDebugTaskRunning == OS_FALSE)
+		return;
+
 	// Verification de l'indice 
 	if((debugID >=0) && (debugID < TASKDEBUG_MAX_MSG))
 	{
@@ -144,6 +148,9 @@ void TaskDebug_UpdateValueInt(int debugID, int value)
 // ------------------------------------------------------------------------------------------------
 void TaskDebug_UpdateValueFloat(int debugID, float value)
 {
+	if(IsDebugTaskRunning == OS_FALSE)
+		return;
+
 	// Verification de l'indice 
 	if((debugID >=0) && (debugID < TASKDEBUG_MAX_MSG))
 	{
@@ -161,6 +168,9 @@ void TaskDebug_UpdateValueFloat(int debugID, float value)
 // ------------------------------------------------------------------------------------------------
 void TaskDebug_UpdateValueAngle(int debugID, float value)
 {
+	if(IsDebugTaskRunning == OS_FALSE)
+		return;
+
 	// Verification de l'indice 
 	if((debugID >=0) && (debugID < TASKDEBUG_MAX_MSG))
 	{
@@ -178,6 +188,9 @@ void TaskDebug_UpdateValueAngle(int debugID, float value)
 // ------------------------------------------------------------------------------------------------
 void TaskDebug_UpdateValueBool(int debugID, BOOLEAN value)
 {
+	if(IsDebugTaskRunning == OS_FALSE)
+		return;
+
 	// Verification de l'indice 
 	if((debugID >=0) && (debugID < TASKDEBUG_MAX_MSG))
 	{
@@ -208,13 +221,7 @@ void TaskDebug_Main(void *p_arg)
 	// Task Initialisation
 	TaskDebug_Init();
 	
-	// Register debug data
-	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_X, "x");
-	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_Y, "y");
-	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_ANGLE, "angle");
-	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_FRONT, "GP2_F");
-	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_REAR, "GP2_R");
-
+	// All TaskDebug_RegisterNewData() must be set into Task_Main
 
 	// Main Loop
 	while(OS_TRUE)

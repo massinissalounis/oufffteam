@@ -46,14 +46,22 @@ void TaskSensors_CheckBumpers()
 #else
 	//GP2_REAR_INTERNAL *********************************************
 	GP2Data  = ADC_GetVal (GP2_REAR_INTERNAL);
-	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_REAR, GP2Data);
+	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_REAR_INTERNAL, GP2Data);
+	
 	if(GP2Data > APP_GP2_LIMIT_REAR_INTERNAL)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR, OS_FLAG_CLR, &Err); 
 
+	// Long detection for Rear Internal
+	if(GP2Data > APP_GP2_LIMIT_REAR_INTERNAL_LONG_DETECTION)
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR_LONG, OS_FLAG_SET, &Err); 
+	else
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR_LONG, OS_FLAG_CLR, &Err); 
+			
 	//GP2_REAR_HOOP *************************************************
 	GP2Data  = ADC_GetVal (GP2_REAR_HOOP);
+	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_REAR, GP2Data);
 
 	if(GP2Data > APP_GP2_LIMIT_REAR_HOOP)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_HOOP, OS_FLAG_SET, &Err); 
@@ -62,6 +70,7 @@ void TaskSensors_CheckBumpers()
 
 	//GP2_REAR_LEFT_HOOP ********************************************
 	GP2Data  = ADC_GetVal (GP2_REAR_LEFT_HOOP);
+	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_REAR_LEFT, GP2Data);
 
 	if(GP2Data > APP_GP2_LIMIT_REAR_LEFT_HOOP)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_LEFT_HOOP, OS_FLAG_SET, &Err); 
@@ -70,6 +79,7 @@ void TaskSensors_CheckBumpers()
 
 	//GP2_REAR_RIGHT_HOOP *******************************************
 	GP2Data  = ADC_GetVal (GP2_REAR_RIGHT_HOOP);
+	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_REAR_RIGHT, GP2Data);
 
 	if(GP2Data > APP_GP2_LIMIT_REAR_RIGHT_HOOP)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_RIGHT_HOOP, OS_FLAG_SET, &Err); 
@@ -78,6 +88,7 @@ void TaskSensors_CheckBumpers()
 
 	//GP2_FRONT *****************************************************
 	GP2Data  = ADC_GetVal (GP2_FRONT);
+	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_FRONT, GP2Data);
 
 	if(GP2Data > APP_GP2_LIMIT_FRONT)
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_SET, &Err); 
@@ -125,6 +136,26 @@ void TaskSensors_GenerateStrategyFlags()
 		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR, OS_FLAG_SET, &Err); 
 	else
 		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR, OS_FLAG_CLR, &Err); 
+
+	// Rear Sensors (Long Detection ) ######################################################
+	FlagsToCheck = 0;
+	// Hoops is down ---------------
+	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN) == APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN)
+	{
+		// we do nothing
+		FlagsToCheck = 0;
+	}
+	else
+	{
+		// Rear hoop is up, we use internal sensor for long detection
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_INTERNAL_REAR_LONG);
+	}
+		
+	// Check Sensors
+	if((SystemReadValue & FlagsToCheck) != 0)
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR_LONG, OS_FLAG_SET, &Err); 
+	else
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR_LONG, OS_FLAG_CLR, &Err); 
 
 	// Front Sensors #######################################################################
 	FlagsToCheck = 0;
@@ -250,8 +281,8 @@ void TaskSensors_Main(void *p_arg)
 				case Sensors_SetHoopLevel: 
 					switch(pCurrentMsg->Param1)
 					{
-					case HOOP_LEVEL_DOWN:	HOOP_Back_Down();	AppDebugMsg("HOOP_Down\n");	break;
-					case HOOP_LEVEL_UP:		HOOP_Back_Up();		AppDebugMsg("HOOP_Up\n");	break;
+					case HOOP_LEVEL_DOWN:	HOOP_Back_Down();	break;
+					case HOOP_LEVEL_UP:		HOOP_Back_Up();		break;
 					default:									break;
 					}
 
