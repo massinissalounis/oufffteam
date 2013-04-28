@@ -55,7 +55,11 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	// Set CurrentID to NextID
 	CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ACTION_TIMEOUT, OS_FLAG_WAIT_SET_ANY, &Err);
 	if(((CurrentFlag & APP_PARAM_APPFLAG_ACTION_TIMEOUT) == APP_PARAM_APPFLAG_ACTION_TIMEOUT) && (TimeoutID != -1))
+	{
 		CurrentActionID = TimeoutID;
+		// Clear Timeout Flag
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_TIMEOUT, OS_FLAG_CLR, &Err);
+	}
 	else
 		CurrentActionID = NextActionID;
 

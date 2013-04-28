@@ -124,10 +124,6 @@ void TaskMvt_Main(void *p_arg)
 
 	AppDebugMsg("OUFFF TEAM 2013 : Mvt online\n");
 
-#ifdef TASKDEBUG_ENABLED
-	TaskDebug_RegisterNewData(TASKDEBUG_ID_MVT_STATE, "Mvt State");
-#endif
-
 	// MAIN LOOP ==================================================================================
 	do
 	{
@@ -267,6 +263,10 @@ void TaskMvt_Main(void *p_arg)
 				{	// Back sensors are activated
 					NextState = 6;
 				}
+				else if((SensorsCurrentStatus & APP_PARAM_STRATEGYFLAG_COLLISION_REAR_LONG) != 0)
+				{	// Back sensors are activated with long detection value
+					NextState = 13;
+				}
 				else
 				{	// There is no sensor activated
 					NextState = 4;
@@ -297,7 +297,6 @@ void TaskMvt_Main(void *p_arg)
 
 			// CASE 005 ---------------------------------------------------------------------------
 			case 5:		// Escape Seq (Front)
-				LED_On(3);
 				// Ask for stopping Mvt
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
 				CollisionTimeout = 0;	// Clear the current timer
@@ -331,13 +330,11 @@ void TaskMvt_Main(void *p_arg)
 					TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
 					NextState = 9;
 				}
-				LED_Off(3);
 
 				break;
 
 			// CASE 006 ---------------------------------------------------------------------------
 			case 6:		// Escape Seq (Back)
-				LED_On(3);
 				// Ask for stopping Mvt
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
 				CollisionTimeout = 0;	// Clear the current timer
@@ -371,13 +368,11 @@ void TaskMvt_Main(void *p_arg)
 					TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
 					NextState = 9;
 				}
-				LED_Off(3);
 
 				break;
 
 			// CASE 007 ---------------------------------------------------------------------------
 			case 7:		// Escape Seq (Right)
-				LED_On(3);
 				// Ask for stopping Mvt
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
 				CollisionTimeout = 0;	// Clear the current timer
@@ -417,7 +412,6 @@ void TaskMvt_Main(void *p_arg)
 
 			// CASE 008 ---------------------------------------------------------------------------
 			case 8:		// Escape Seq (Left)
-				LED_On(3);
 				// Ask for stopping Mvt
 				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
 				CollisionTimeout = 0;	// Clear the current timer
@@ -451,7 +445,6 @@ void TaskMvt_Main(void *p_arg)
 					TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
 					NextState = 9;
 				}
-				LED_Off(3);
 
 				break;
 
@@ -560,6 +553,27 @@ void TaskMvt_Main(void *p_arg)
 					OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_TIMEOUT, OS_FLAG_CLR, &Err);
 				}
 				NextState = 1;
+				break;
+
+			// CASE 013 ---------------------------------------------------------------------------
+			case 13:		// Rear sensor (Long detection)
+				// Ask for stopping Mvt
+				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
+
+				// Set flag to indicate the last action finished with a timeout
+				OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_TIMEOUT, OS_FLAG_SET, &Err); 
+
+				// Indicates we are stopped if current action is a blocking mvt
+				if(CmdType_Blocking == CurrentCmd.CmdType)
+					OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err); 
+		
+				// Disable all current path
+				CurrentSetpoint = -1;
+				memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
+				CurrentActivatedSensors = APP_PARAM_APPFLAG_NONE;
+		
+				NextState = 1;
+	
 				break;
 
 			// CASE 253 ---------------------------------------------------------------------------
