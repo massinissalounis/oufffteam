@@ -64,7 +64,7 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 		CurrentActionID = NextActionID;
 
 	// Check if NextID must be change due to previous order
-	if(CurrentActionID <= 0)
+	if(CurrentActionID == 0)
 	{
 		// We have to check previous order
 		if(SubStrategyReturnID > 0)
