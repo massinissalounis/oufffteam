@@ -23,16 +23,16 @@ void ARMS_InitReg(void);
 void ARMS_SetSpeed(void);
 void ARMS_Open(void);
 void ARMS_Close(void);
-void ARMS_Push(void);
+void ARMS_Back(void);
 
-// ARM Left -----------------------------------------------------------------------------
+// ARM Back Left -----------------------------------------------------------------------------
 void ARM_Left_Open(void);
 void ARM_Left_Close(void);
-void ARM_Left_Push(void);
+void ARM_Left_Back(void);
 
-// ARM Right ----------------------------------------------------------------------------
+// ARM Back Right ----------------------------------------------------------------------------
 void ARM_Right_Open(void);
 void ARM_Right_Close(void);
-void ARM_Right_Push(void);
+void ARM_Right_Back(void);
 
 #endif // ARMSCONTROL_H
