@@ -23,13 +23,33 @@ namespace StrategyGenerator2.Model
         }
 
         public event EventHandler RobotActionChanged = null;
+        public event EventHandler RobotActionListChanged = null;
 
+        public void UpdateRobotActionList()
+        {
+            RaiseRobotActionListChanged();
+        }
+
+        public void ChangeCmdID(int oldValue, int newValue)
+        {
+            // On effectue l'action pour la stratégie actuellement selectionnée
+            if (_selectedStrategy != null)
+            {
+                _selectedStrategy.ChangeCmdID(oldValue, newValue);
+            }
+        }
 
         // Private --------------------------------------------------------------------------------
         private void RaiseRobotActionChanged()
         {
             if (RobotActionChanged != null)
                 RobotActionChanged(this, new EventArgs());
+        }
+
+        private void RaiseRobotActionListChanged()
+        {
+            if (RobotActionListChanged != null)
+                RobotActionListChanged(this, new EventArgs());
         }
 
         // Declaration du singleton
@@ -39,11 +59,8 @@ namespace StrategyGenerator2.Model
         private MainModel()
         {
             // Creation des objets pour la conception
-            strategyRobot1 = new Strategy("StrategyRobot_1");
-            strategyRobot2 = new Strategy("StrategyRobot_2");
-
-            strategyRobot1.Load("StrategyRobot_1");
-            strategyRobot2.Load("StrategyRobot_2");
+            strategyRobot1 = new Strategy("UnamedStrategy1");
+            strategyRobot2 = new Strategy("UnamedStrategy2");
 
             return;
         }
@@ -62,16 +79,38 @@ namespace StrategyGenerator2.Model
             }
         }
 
+        public Strategy selectedStrategy
+        {
+            get
+            {
+                return _selectedStrategy;
+            }
+            set
+            {
+                _selectedStrategy = value;
+            }
+        }
+
+        public SubStrategy selectedSubStrategy
+        {
+            get
+            {
+                return _selectedSubStrategy;
+            }
+            set
+            {
+                _selectedSubStrategy = value;
+            }
+        }
+
         // Données publiques ----------------------------------------------------------------------
         public Strategy strategyRobot1 = null;              // First robot or Robot Color A
         public Strategy strategyRobot2 = null;              // Second robot or Robot Color B
 
-        public RobotAction currentRobotAction1 = null;      // Action pour le Robot 1 à modifier 
-        public RobotAction currentRobotAction2 = null;      // Action pour le Robot 2 à modifier 
-
         // Données private ------------------------------------------------------------------------
         private RobotAction _selectedRobotAction = null;
-
+        private Strategy _selectedStrategy = null;
+        private SubStrategy _selectedSubStrategy = null;
 
     }
 }

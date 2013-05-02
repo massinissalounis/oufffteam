@@ -153,9 +153,9 @@ void TaskSensors_GenerateStrategyFlags()
 		
 	// Check Sensors
 	if((SystemReadValue & FlagsToCheck) != 0)
-		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR_LONG, OS_FLAG_SET, &Err); 
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_LONG_REAR, OS_FLAG_SET, &Err); 
 	else
-		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR_LONG, OS_FLAG_CLR, &Err); 
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_LONG_REAR, OS_FLAG_CLR, &Err); 
 
 	// Front Sensors #######################################################################
 	FlagsToCheck = 0;

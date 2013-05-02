@@ -1,0 +1,15 @@
+﻿<Window x:Class="StrategyGenerator2.StrategyManager.StrategyLoader"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Background="SkyBlue"
+        Title="Strategy Loader" Height="243" Width="222" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
+    <Grid>
+        <Label Content="Stratégies disponibles :" Height="25" Margin="5,0,5,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+        <ListBox Height="100" Margin="5,25,5,0" Name="listStrategies" VerticalAlignment="Top" SelectionChanged="listStrategies_SelectionChanged" PreviewMouseDown="listStrategies_PreviewMouseDown" MouseDoubleClick="listStrategies_MouseDoubleClick" />
+        <TextBox Height="23" Margin="50,130,5,0" Name="textBoxStrategyName" VerticalAlignment="Top" />
+        <Label Content="Nom :" Height="28" HorizontalAlignment="Left" Margin="5,128,0,0" Name="label1" VerticalAlignment="Top" />
+        <Button Content="Button" Height="23" Margin="30,165,30,0" Name="buttonValidate" VerticalAlignment="Top" Click="buttonValidate_Click" />
+        <TextBox Text="LabelError" Margin="0,0,0,0" Name="textBoxError" Foreground="Red" FontWeight="Bold" FontSize="25" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden" IsReadOnly="True" BorderBrush="{x:Null}" TextAlignment="Center" TextWrapping="Wrap" Background="#27000000"></TextBox>
+    </Grid>
+    
+</Window>

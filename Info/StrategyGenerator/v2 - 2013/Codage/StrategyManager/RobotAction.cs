@@ -18,7 +18,7 @@ namespace StrategyGenerator2.StrategyManager
             _param2 = "";                                   // Param 2
             _param3 = "";                                   // Param 3
             _param4 = "";                                   // Param 4
-            _activeSensors = EnumActiveSensors.NotSet;      // Sensors actifs durant le mouvement
+            _activeSensors = new ActiveSensors();           // Sensors actifs durant le mouvement (pas de sensor actif)
             _nextID = -1;                                   // Action suivante
             _timeoutID = -1;                                // Action à réaliser en cas de timeout
         }
@@ -27,12 +27,12 @@ namespace StrategyGenerator2.StrategyManager
         {
             _uID = ID;                                      // Identifiant unique pour l'action
             _cmd = EnumCmd.NotSet;                          // Commande
-            _cmdType = EnumCmdType.CmdType_NotSet;                  // Type de l'action à réaliser
+            _cmdType = EnumCmdType.CmdType_NotSet;          // Type de l'action à réaliser
             _param1 = "";                                   // Param 1
             _param2 = "";                                   // Param 2
             _param3 = "";                                   // Param 3
             _param4 = "";                                   // Param 4
-            _activeSensors = EnumActiveSensors.NotSet;      // Sensors actifs durant le mouvement
+            _activeSensors = new ActiveSensors();           // Sensors actifs durant le mouvement (pas de sensor actif)
             _nextID = -1;                                   // Action suivante
             _timeoutID = -1;                                // Action à réaliser en cas de timeout
         }
@@ -52,9 +52,9 @@ namespace StrategyGenerator2.StrategyManager
                 this.param2 = newValues.param2;
                 this.param3 = newValues.param3;
                 this.param4 = newValues.param4;
-                this.activeSensors = newValues.activeSensors;
                 this.nextID = newValues.nextID;
                 this.timeoutID = newValues.timeoutID;
+                this.activeSensors.ForceSensors(newValues.activeSensors.Activated);
             }
         }
 
@@ -78,7 +78,7 @@ namespace StrategyGenerator2.StrategyManager
             if (CheckIntValue("150", 0, 100, "NOK") != "NOK")
                 Ret = false;
 
-            if (CheckStrategyFlagsValue("NotSet", "NOK") != "NotSet")
+            if (CheckStrategyFlagsValue("NONE", "NOK") != "NONE")
                 Ret = false;
 
             if (CheckStrategyFlagsValue("Err", "NOK") != "NOK")
@@ -141,12 +141,6 @@ namespace StrategyGenerator2.StrategyManager
             if (CheckEnumCmdTypeValue("ERR", EnumCmdType.CmdType_NotSet) != EnumCmdType.CmdType_NotSet)
                 Ret = false;
 
-            if (CheckEnumActiveSensorsValue("APP_PARAM_STRATEGYFLAG_COLLISION_FRONT", EnumActiveSensors.NotSet) != EnumActiveSensors.APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
-                Ret = false;
-
-            if (CheckEnumActiveSensorsValue("ERR", EnumActiveSensors.NotSet) != EnumActiveSensors.NotSet)
-                Ret = false;
-
             return Ret;
         }
 
@@ -166,7 +160,7 @@ namespace StrategyGenerator2.StrategyManager
             Ret.AddKey(new StructuredFileKey(ExchangeTag.param2, _param2));
             Ret.AddKey(new StructuredFileKey(ExchangeTag.param3, _param3));
             Ret.AddKey(new StructuredFileKey(ExchangeTag.param4, _param4));
-            Ret.AddKey(new StructuredFileKey(ExchangeTag.activeSensors, _activeSensors.ToString()));
+            Ret.AddKey(new StructuredFileKey(ExchangeTag.activeSensors, _activeSensors.Activated));
             Ret.AddKey(new StructuredFileKey(ExchangeTag.nextID, _nextID));
             Ret.AddKey(new StructuredFileKey(ExchangeTag.timeoutID, _timeoutID));
 
@@ -236,7 +230,7 @@ namespace StrategyGenerator2.StrategyManager
                     currentKey = actionToImport.GetFirstKey(ExchangeTag.activeSensors);
                     if (currentKey != null)
                     {
-                        activeSensors = CheckEnumActiveSensorsValue(currentKey.valueString, EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE);
+                        activeSensors.ForceSensors(currentKey.valueString);
                     }
 
                     // Lecture du param nextID
@@ -329,12 +323,12 @@ namespace StrategyGenerator2.StrategyManager
                     // _______________________________________________________
                     case EnumCmd.App_IfGoto_Strategy:
                     case EnumCmd.App_IfGoto_System:
-                        _param1 = value;                                    // Test
+                        _param1 = value;                                        // Test
                         break;
 
                     // _______________________________________________________
                     case EnumCmd.App_SetStrategyFlags:
-                        _param1 = EnumStrategyFlags.NotSet.ToString();      // Flag à modifier
+                        _param1 = EnumAppParamStrategyFlags.NONE.ToString();      // Flag à modifier
                          break;
 
                     // _______________________________________________________
@@ -352,6 +346,11 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.Mvt_UsePivotMode:
                     case EnumCmd.MvtSimple_MoveInMM:
                         _param1 = CheckIntValue(value, 1, 100, "DEFAULT_SPEED");    // Vitesse du déplacement
+                        break;
+
+                    // _______________________________________________________
+                    case EnumCmd.Sensors_SetHoopLevel:
+                        _param1 = CheckHoopLevelValue(value, EnumSensorsHoopLevel.HOOP_LEVEL_UP);
                         break;
 
                     // _______________________________________________________
@@ -413,6 +412,7 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.Mvt_Stop:
                     case EnumCmd.NotSet:
                     case EnumCmd.Mvt_UseAngleOnly:
+                    case EnumCmd.Sensors_SetHoopLevel:
                     case EnumCmd.MvtSimple_RotateInDeg:
                     case EnumCmd.MvtSimple_RotateToAngleInDeg:
                     default:
@@ -455,6 +455,7 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.Mvt_UsePivotMode:
                     case EnumCmd.MvtSimple_MoveInMM:
                     case EnumCmd.App_SetStrategyFlags:
+                    case EnumCmd.Sensors_SetHoopLevel:
                     case EnumCmd.Mvt_Stop:
                     case EnumCmd.NotSet:
                     case EnumCmd.Mvt_UseAngleOnly:
@@ -494,6 +495,7 @@ namespace StrategyGenerator2.StrategyManager
                         break;
 
                     // _______________________________________________________
+                    case EnumCmd.Sensors_SetHoopLevel:
                     case EnumCmd.Mvt_UseDistOnly:
                     case EnumCmd.App_IfGoto_Strategy:
                     case EnumCmd.App_IfGoto_System:
@@ -511,7 +513,7 @@ namespace StrategyGenerator2.StrategyManager
         /// <summary>
         /// Accès au paramètre activeSensors
         /// </summary>
-        public EnumActiveSensors activeSensors
+        public ActiveSensors activeSensors
         {
             get { return _activeSensors; }
             set
@@ -528,7 +530,7 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.Mvt_UseDistOnly:
                     case EnumCmd.MvtSimple_MoveInMM:
                     case EnumCmd.Mvt_Stop:
-                        _activeSensors = value;
+                        _activeSensors.ForceSensors(value.Activated);
                         break;
 
                     // _______________________________________________________
@@ -538,8 +540,9 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.App_IfGoto_System:
                     case EnumCmd.App_SetStrategyFlags:
                     case EnumCmd.NotSet:
+                    case EnumCmd.Sensors_SetHoopLevel:
                     default:
-                        _activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;
+                        _activeSensors.DesactivateAllSensors();
                         break;
                 }
             }
@@ -556,11 +559,11 @@ namespace StrategyGenerator2.StrategyManager
                 // _______________________________________________________
                 case EnumCmd.App_IfGoto_Strategy:
                 case EnumCmd.App_IfGoto_System:
-                    param1 = "(true == true)";                         // Test
-                    param2 = "-1";                                     // nextID si le test est vrai
-                    param3 = "-1";                                     // nextID si le test est faux
-                    param4 = null;                                     // Not Used
-                    activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
+                    param1 = "(true == true)";                          // Test
+                    param2 = "-1";                                      // nextID si le test est vrai
+                    param3 = "-1";                                      // nextID si le test est faux
+                    param4 = null;                                      // Not Used
+                    activeSensors.DesactivateAllSensors();              // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -569,16 +572,16 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = "1000";                                   // Position en y
                     param3 = "-90";                                    // Angle
                     param4 = null;                                     // Not Set
-                    activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
+                    activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
                     
                 // _______________________________________________________
                 case EnumCmd.App_SetStrategyFlags:
-                    param1 = EnumStrategyFlags.NotSet.ToString();      // Flag à modifier
-                    param2 = "OS_FALSE";                               // Nouvelle valeur du flag
-                    param3 = null;                                     // Not Set
-                    param4 = null;                                     // Not Set
-                    activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
+                    param1 = EnumAppParamStrategyFlags.NONE.ToString();     // Flag à modifier
+                    param2 = "OS_FALSE";                                    // Nouvelle valeur du flag
+                    param3 = null;                                          // Not Set
+                    param4 = null;                                          // Not Set
+                    activeSensors.DesactivateAllSensors();                  // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -587,7 +590,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = "0";                                      // Temps d'attente en minute
                     param3 = "5";                                      // Temps d'attente en sec
                     param4 = "0";                                      // Temps d'attente en msec
-                    activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
+                    activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -596,7 +599,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = null;                                     // Not Used
                     param3 = null;                                     // Not Used
                     param4 = null;                                     // Not Used
-                    activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
+                    activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -607,7 +610,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = null;                                     // Not Used
                     param3 = null;                                     // Not Used
                     param4 = "0";                                      // Angle
-                    activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
+                    activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -616,7 +619,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = "1500";                                   // Position en x
                     param3 = "1000";                                   // Position en y
                     param4 = null;                                     // Not Used
-                    activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
+                    activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -626,7 +629,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = "1500";                                   // Position en x
                     param3 = "1000";                                   // Position en y
                     param4 = "0";                                      // Angle
-                    activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
+                    activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -635,7 +638,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = "RIGHT_WHEEL";                            // Roue bloquée
                     param3 = null;                                     // Not Used
                     param4 = "0";                                      // Angle
-                    activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
+                    activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
@@ -644,9 +647,18 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = "100";                                    // Distance en mm
                     param3 = null;                                     // Not Used
                     param4 = null;                                     // Not Used
-                    activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;  // Pas de sensors d'activé
+                    activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
+                // _______________________________________________________
+                case EnumCmd.Sensors_SetHoopLevel:
+                    param1 = EnumSensorsHoopLevel.HOOP_LEVEL_UP.ToString();     // Hauteur de la pince
+                    param2 = null;                                              // Not Used
+                    param3 = null;                                              // Not Used
+                    param4 = null;                                              // Not Used
+                    activeSensors.DesactivateAllSensors();                      // Pas de sensors d'activé
+                    break;
+            
                 // _______________________________________________________
                 case EnumCmd.NotSet:
                 default:
@@ -654,9 +666,9 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = null;                                     // Not Used
                     param3 = null;                                     // Not Used
                     param4 = null;                                     // Not Used
-                    activeSensors = EnumActiveSensors.NotSet;          // Not Used
+                    activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
-             }
+            }
         }
 
         /// <summary>
@@ -709,7 +721,7 @@ namespace StrategyGenerator2.StrategyManager
  
             try
             {
-                foreach(EnumStrategyFlags currentValue in Enum.GetValues(typeof(EnumStrategyFlags)))
+                foreach(EnumAppParamStrategyFlags currentValue in Enum.GetValues(typeof(EnumAppParamStrategyFlags)))
                 {
                     if(currentValue.ToString() == valueToCheck)
                         Ret = currentValue.ToString();
@@ -862,28 +874,28 @@ namespace StrategyGenerator2.StrategyManager
         }
 
         /// <summary>
-        /// Fonction pour verifier la valeur l'active sensors passé en paramètre
+        /// Fonction pour verifier la valeur de HOOP_LEVEL passé en paramètre
         /// </summary>
         /// <param name="valueToCheck">Valeur à tester</param>
         /// <param name="defaultValue">Valeur à utiliser en cas de valeur non valide</param>
-        /// <returns>ActiveSensors</returns>
-        private EnumActiveSensors CheckEnumActiveSensorsValue(String valueToCheck, EnumActiveSensors defaultValue)
+        /// <returns>Une chaine de caractère extraite de EnumSensorsHoopLevel</returns>
+        private String CheckHoopLevelValue(String valueToCheck, EnumSensorsHoopLevel defaultValue)
         {
-            EnumActiveSensors Ret = defaultValue;
-            
+            String Ret = defaultValue.ToString();
+
             try
             {
-                foreach (EnumActiveSensors currentValue in Enum.GetValues(typeof(EnumActiveSensors)))
+                foreach (EnumSensorsHoopLevel currentValue in Enum.GetValues(typeof(EnumSensorsHoopLevel)))
                 {
-                    if (currentValue.ToString() == valueToCheck)
-                        Ret = currentValue;
+                    if (currentValue.ToString().ToUpper() == valueToCheck.ToUpper())
+                        Ret = currentValue.ToString();
                 }
             }
             catch (Exception)
             {
-                Ret = defaultValue;
+                Ret = defaultValue.ToString();
             }
-
+            
             return Ret;
         }
 
@@ -895,13 +907,15 @@ namespace StrategyGenerator2.StrategyManager
         private String _param2;                         // Param 2
         private String _param3;                         // Param 3
         private String _param4;                         // Param 4
-        private EnumActiveSensors _activeSensors;       // Sensors actifs durant le mouvement
+        private ActiveSensors _activeSensors;           // Sensors actifs durant le mouvement
         private int _nextID;                            // Action suivante
         private int _timeoutID;                         // Action à réaliser en cas de timeout
 
         private struct ExchangeTag
         {
             public const String uID = "UID";
+            public const String nextID = "nextID";
+            public const String timeoutID = "timeoutID";
             public const String cmd = "Cmd";
             public const String cmdType = "CmdType";
             public const String param1 = "Param1";
@@ -909,8 +923,6 @@ namespace StrategyGenerator2.StrategyManager
             public const String param3 = "Param3";
             public const String param4 = "Param4";
             public const String activeSensors = "ActiveSensors";
-            public const String nextID = "nextID";
-            public const String timeoutID = "timeoutID";
         }
 
     }

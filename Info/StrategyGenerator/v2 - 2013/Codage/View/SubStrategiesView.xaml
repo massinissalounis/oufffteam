@@ -16,6 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
             <RowDefinition Height="150" />
+            <RowDefinition Height="25" />
             <RowDefinition />
             <RowDefinition Height="25" />
         </Grid.RowDefinitions>
@@ -26,23 +27,22 @@
         <!-- Menu -->
         <Menu Grid.Column="0" Grid.Row="0" Name="subStrategiesMainMenu" HorizontalAlignment="Stretch">
             <MenuItem Header="Sous-Stratégies">
-                <MenuItem Header="Charger une sous-stratégie"/>
-                <MenuItem Header="Créer une sous-stratégie"/>
-                <MenuItem Header="Sauvegarder toutes les sous-stratégies"/>
-                <MenuItem Header="Sauvegarder la sous-stratégie courante"/>
-                <MenuItem Header="Supprimer les sous-stratégies non utilisées"/>
+                <MenuItem Header="Charger une sous-stratégie" Command="{Binding ILoadNewSubStrategy}" />
+                <MenuItem Header="Créer une sous-stratégie" Command="{Binding ICreateNewStrategy}"/>
             </MenuItem>
          </Menu>
-        <ListBox Grid.Row="1" Margin="10,5,10,0" Name="listSubStrategies" ItemsSource="{Binding Path=ListSubStrategies}" SelectedItem="{Binding Path=SelectedSubStrategy, Mode=TwoWay}" SelectedIndex="{Binding Path=SelectedSubStrategyIndex, Mode=TwoWay}" >
+        <ListBox Grid.Row="1" Margin="10,5,10,0" Name="listSubStrategies" ItemsSource="{Binding Path=ListSubStrategies}" SelectedItem="{Binding Path=SelectedSubStrategy, Mode=TwoWay}" PreviewMouseDown="listSubStrategies_PreviewMouseDown"  >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ID}" />
+                        <TextBlock Text=":" />
                         <TextBlock Text="{Binding Name}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox Grid.Row="2" Margin="10,5,10,0" Name="listSubStrategyItems" ItemsSource="{Binding Path=ListRobotAction}" SelectedItem="{Binding Path=SelectedRobotAction, Mode=TwoWay}" SelectedIndex="{Binding Path=SelectedRobotActionIndex, Mode=TwoWay}" >
+        <ListBox Grid.Row="3" Margin="10,5,10,0" Name="listSubStrategyItems" ItemsSource="{Binding Path=ListRobotAction}" SelectedItem="{Binding Path=SelectedRobotAction, Mode=TwoWay}" PreviewMouseDown="listSubStrategyItems_PreviewMouseDown" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -58,6 +58,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Label Content="nID: NextID / tID: timeoutID" Grid.Row="3" Height="25" Margin="5,0,5,0" Name="label1" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="10" />
+        <Label Content="nID: NextID / tID: timeoutID" Grid.Row="4" Height="25" Margin="5,0,5,0" Name="label1" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="10" />
+        <Label Content="Nom :" Grid.Row="2" Grid.RowSpan="2" Height="28" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" FontSize="10" />
+        <TextBox Name="TextBoxSubStrategyName"  Grid.Row="2" Height="23" Margin="50,0,10,0" Text="{Binding SelectedSubStrategyName}" VerticalAlignment="Center" Background="{x:Null}" />
     </Grid>
 </UserControl>

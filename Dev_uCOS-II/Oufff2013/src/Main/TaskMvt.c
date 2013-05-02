@@ -263,7 +263,7 @@ void TaskMvt_Main(void *p_arg)
 				{	// Back sensors are activated
 					NextState = 6;
 				}
-				else if((SensorsCurrentStatus & APP_PARAM_STRATEGYFLAG_COLLISION_REAR_LONG) != 0)
+				else if((SensorsCurrentStatus & APP_PARAM_STRATEGYFLAG_COLLISION_LONG_REAR) != 0)
 				{	// Back sensors are activated with long detection value
 					NextState = 13;
 				}

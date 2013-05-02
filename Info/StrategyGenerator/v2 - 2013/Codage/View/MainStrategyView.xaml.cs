@@ -20,5 +20,10 @@ namespace StrategyGenerator2.View
         {
             InitializeComponent();
         }
+
+        private void listMainRobotAction_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            listMainRobotAction.SelectedIndex = -1;
+        }
     }
 }

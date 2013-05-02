@@ -129,7 +129,7 @@
 #define APP_PARAM_STRATEGYFLAG_COLLISION_REAR		0x02000000	//	|25 | Collision state (rear)	| Collision active  | Collision inactive| 
 #define APP_PARAM_STRATEGYFLAG_COLLISION_LEFT		0x04000000	//	|26 | Collision state (left)	| Collision active  | Collision inactive|
 #define APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT		0x08000000	//	|27 | Collision state (right)	| Collision active  | Collision inactive| 
-#define APP_PARAM_STRATEGYFLAG_COLLISION_REAR_LONG	0x10000000	//	|28 | Collision state (long det)| Collision active  | Collision inactive|
+#define APP_PARAM_STRATEGYFLAG_COLLISION_LONG_REAR	0x10000000	//	|28 | Collision state (long det)| Collision active  | Collision inactive|
 #define APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN		0x20000000	//	|29 | Is rear hoops down ?		| Hoop is down		| Hoop is up		| 
 #define APP_PARAM_STRATEGYFLAG_BIT30				0x40000000	//	|30 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT31				0x80000000	//	|31 | Not Used					| -					| -					| 

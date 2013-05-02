@@ -13,10 +13,18 @@ namespace StrategyGenerator2.StrategyManager
         /// Constructeur
         /// </summary>
         /// <param name="subStrategyName">Nom de la nouvelle stratégie</param>
-        public SubStrategy(String subStrategyName)
+        /// <param name="subStrategyID">ID pour la nouvelle sous-stratégie</param>
+        public SubStrategy(String subStrategyName, int subStrategyID)
         {
-            if (subStrategyName != null)
+            if ((subStrategyName != null) && (subStrategyID >= 0))
+            {
                 _subStrategyName = subStrategyName;
+                _subStrategyID = subStrategyID;
+
+                // Création du premier objet
+                _actions = new List<RobotAction>();
+                _actions.Add(GetFirstRobotAction());
+            }
         }
 
         /// <summary>
@@ -39,6 +47,7 @@ namespace StrategyGenerator2.StrategyManager
                 // Création des objets globaux
                 groupToAdd = new StructuredFileGroup(0);
                 groupToAdd.AddKey(new StructuredFileKey("SubStrategyName", _subStrategyName));
+                groupToAdd.AddKey(new StructuredFileKey("SubStrategyID", _subStrategyID));
 
                 // Ajout des objets
                 outputFile.AddGroup(groupToAdd);
@@ -80,8 +89,9 @@ namespace StrategyGenerator2.StrategyManager
         /// Le chargement d'un fichier détruit toutes les données précédemment sauvegardée
         /// </summary>
         /// <param name="filename">Nom du fichier pour charger le fichier</param>
+        /// <param name="forcedID">ID à utiliser à la place de l'ID du fichier</param>
         /// <returns>Retourne le nombre d'action chargée, -1 en cas d'erreur</returns>
-        public int Load(String filename)
+        public int Load(String filename, int forcedID)
         {
             int Ret = -1;
             StructuredFile inputFile = new StructuredFile();
@@ -106,12 +116,26 @@ namespace StrategyGenerator2.StrategyManager
                     currentKey = globalGroup.GetFirstKey("SubStrategyName");
                     if (currentKey != null)
                         _subStrategyName = currentKey.valueString;
+
+                    if (forcedID > 0)
+                    {
+                        // Un ID a été imposé, nous l'utilisons
+                        _subStrategyID = forcedID;
+                    }
+                    else
+                    {
+                        // Nous utilisons l'ID du fichier
+                        currentKey = globalGroup.GetFirstKey("SubStrategyID");
+                        if (currentKey != null)
+                            _subStrategyID = currentKey.valueInt;
+                    }
                 }
 
                 // Chargement des données liées aux actions
                 actionsGroup = inputFile.GetAllGroup();
                 if (actionsGroup != null)
                 {
+                    Ret = 0;
                     // Lecture de tous les groupes pour extraire les données liées aux actions
                     foreach (StructuredFileGroup currentGroup in actionsGroup)
                     {
@@ -125,9 +149,17 @@ namespace StrategyGenerator2.StrategyManager
                             if (currentAction.cmd != EnumCmd.NotSet)
                             {
                                 if (_actions == null)
+                                {
                                     _actions = new List<RobotAction>();
+                                }
+                                
+                                // Verification des ID
+                                currentAction.ID = CheckID(currentAction.ID);
+                                currentAction.nextID = CheckLinkID(currentAction.nextID);
+                                currentAction.timeoutID = CheckLinkID(currentAction.timeoutID);
 
                                 _actions.Add(currentAction);
+                                Ret = Ret + 1;
                             }
                         }
                     }
@@ -145,7 +177,8 @@ namespace StrategyGenerator2.StrategyManager
         public void Clear()
         {
             _subStrategyName = "Not Set";
-            _actions = null;
+            _actions = new List<RobotAction>();
+            _actions.Add(GetFirstRobotAction());
         }
 
         /// <summary>
@@ -190,10 +223,16 @@ namespace StrategyGenerator2.StrategyManager
             
             if (newAction != null)
             {
+                // Verification des ID
+                newAction.ID = CheckID(newAction.ID);
+                newAction.nextID = CheckLinkID(newAction.nextID);
+                newAction.timeoutID = CheckLinkID(newAction.timeoutID);
+
                 // On ajoute l'objet dans la liste
                 if (_actions == null)
                 {
                     _actions = new List<RobotAction>();
+                    _actions.Add(GetFirstRobotAction());
                     _actions.Add(newAction);
                 }
                 else
@@ -228,7 +267,7 @@ namespace StrategyGenerator2.StrategyManager
             bool Ret = false;
             List<RobotAction> newList = new List<RobotAction>();
 
-            if (_actions != null)
+            if ((_actions != null) && (actionID != (_subStrategyID * 100)))
             {
                 // On parcourt la liste actuelle
                 foreach (RobotAction currentRobotAction in _actions)
@@ -259,7 +298,11 @@ namespace StrategyGenerator2.StrategyManager
 
             if ((newAction != null) && (_actions != null) && (actionID > 0))
             {
-                // On verifie les ID
+                // Verification des ID
+                newAction.ID = CheckID(newAction.ID);
+                newAction.nextID = CheckLinkID(newAction.nextID);
+                newAction.timeoutID = CheckLinkID(newAction.timeoutID);
+
                 // On met à jour les données que si on modifie l'objet courant ou si le nouvel ID n'est pas utilisé
                 if ((newAction.ID == actionID) || (GetAction(newAction.ID) == null))
                 {
@@ -292,9 +335,13 @@ namespace StrategyGenerator2.StrategyManager
             return Ret;
         }
 
+        /// <summary>
+        /// Permet de retourner une copie de l'objet courant
+        /// </summary>
+        /// <returns>Une copie de l'objet courant</returns>
         public SubStrategy Clone()
         {
-            SubStrategy newObject = new SubStrategy(_subStrategyName);
+            SubStrategy newObject = new SubStrategy(_subStrategyName, _subStrategyID);
             if (_actions != null)
             {
                 foreach (RobotAction currentRobotAction in _actions)
@@ -306,6 +353,75 @@ namespace StrategyGenerator2.StrategyManager
             return newObject;
         }
 
+        /// <summary>
+        /// Recherche une RobotAction à partir d'un ID dans la sous-stratégie courante
+        /// </summary>
+        /// <param name="IDtoFind">ID de la RobotAction à trouver</param>
+        /// <returns>RobotAction recherchée ou null s'il n'est pas défini</returns>
+        public RobotAction FindRobotActionByID(int IDtoFind)
+        {
+            RobotAction Ret = null;
+
+            if (_actions != null)
+            {
+                foreach (RobotAction currentAction in _actions)
+                {
+                    if (currentAction.ID == IDtoFind)
+                        Ret = currentAction;
+                }
+            }
+
+            return Ret;
+        }
+
+        public void ChangeCmdID(int oldValue, int newValue)
+        {
+            if (_actions != null)
+            {
+                foreach (RobotAction currentAction in _actions)
+                {
+                    if ((currentAction.ID == oldValue) && (currentAction.ID % 100 != 0))
+                        currentAction.ID = newValue;
+
+                    if (currentAction.nextID == oldValue)
+                        currentAction.nextID = newValue;
+
+                    if (currentAction.timeoutID == oldValue)
+                        currentAction.timeoutID = newValue;
+                }
+            }
+        }
+
+        public int GetFreeID()
+        {
+            int Ret = _subStrategyID * 100;
+            Boolean isValid = false;
+
+            if (_actions != null)
+            {
+                while (isValid == false)
+                {
+                    Ret = Ret + 1;
+
+                    isValid = true;
+                    foreach (RobotAction currentRobotAction in _actions)
+                    {
+                        if (currentRobotAction.ID == Ret)
+                            isValid = false;
+                    }
+
+                    if (Ret > _subStrategyID * 100 + 99)
+                    {
+                        Ret = -1;
+                        isValid = true;
+                    }
+
+                }
+            }
+
+            return Ret;
+        }
+
         // Properties -----------------------------------------------------------------------------
         public String Name
         {
@@ -313,13 +429,82 @@ namespace StrategyGenerator2.StrategyManager
             set { _subStrategyName = value; }
         }
 
+        public String ID
+        {
+            get
+            {
+                int Ret = _subStrategyID * 100;
 
+                return Ret.ToString();
+            }
+
+            internal set { }
+        }
           
         // Private functions ----------------------------------------------------------------------
-        
+        private RobotAction GetFirstRobotAction()
+        {
+            RobotAction Ret = null;
+
+            if(_subStrategyID == 0)
+                Ret = new RobotAction(1);
+            else
+                Ret = new RobotAction(_subStrategyID * 100);
+
+            Ret.cmd = EnumCmd.App_Wait;
+            Ret.cmdType = EnumCmdType.CmdType_Blocking;
+            Ret.param1 = "0";
+            Ret.param2 = "0";
+            Ret.param3 = "0";
+            Ret.param4 = "1";
+            Ret.nextID = 0;
+
+            return Ret;
+        }
+
+        private int CheckID(int currentValue)
+        {
+            int Ret = 0;
+
+            // Il faut verifier l'ID
+            if ((currentValue >= _subStrategyID * 100) && (currentValue < (_subStrategyID + 1) * 100))
+            {
+                // Si nous sommes dans la gamme actuelle, l'ID reste inchangé
+                Ret = currentValue;
+            }
+            else
+            {
+                // Nous devons mettre à jour l'ID
+                Ret = currentValue % 100;
+
+                Ret = Ret + _subStrategyID * 100;
+            }
+
+            return Ret;
+        }
+
+        private int CheckLinkID(int currentValue)
+        {
+            int Ret = 0;
+
+            // Si nous faisons appelle à la stratégie principale, on ne change pas l'ID
+            if ((currentValue < 100) || (_subStrategyID == 0))
+            {
+                Ret = currentValue;
+            }
+            else
+            {
+                Ret = CheckID(currentValue);
+            }
+
+            return Ret;
+        }
+
+
         // Private --------------------------------------------------------------------------------
-        String _subStrategyName = "Not Set";                    // Nom de la stratégie
-        List<RobotAction> _actions = null;               // Regroupe toutes les actions de la strategy
+        String _subStrategyName = "Not Set";            // Nom de la stratégie
+        List<RobotAction> _actions = null;              // Regroupe toutes les actions de la strategy
+        int _subStrategyID = 1;                         // 
     }
 
 }

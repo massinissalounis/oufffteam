@@ -27,7 +27,7 @@ namespace StrategyGenerator2.StrategyManager
         App_SetStrategyFlags = 34,	                // Set the stratgey flags
         
         // Cmd SENSORS __________________________
-
+        Sensors_SetHoopLevel = 40,                  // Function to move Rear Hoop
     }
 
     public enum EnumCmdType
@@ -37,20 +37,59 @@ namespace StrategyGenerator2.StrategyManager
         CmdType_NonBlocking,		// Command is a non-blocking action
     }
 
-    public enum EnumActiveSensors
+    public enum EnumAppParamStrategyFlags
     {
-        NotSet = 0,
-        // Sensors COLLISION ____________________
-        APP_PARAM_STRATEGYFLAG_NONE = 10,
-        APP_PARAM_STRATEGYFLAG_COLLISION_FRONT = 11,
-        APP_PARAM_STRATEGYFLAG_COLLISION_REAR = 12,
-        APP_PARAM_STRATEGYFLAG_COLLISION_LEFT = 13,
-        APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT = 14,
+        NONE  = 0,
+        // Actions Done ______________________________________________					
+        BIT00 = 100,
+        BIT01 = 101,
+        BIT02 = 102,
+        BIT03 = 103,
+        BIT04 = 104,
+        BIT05 = 105,
+        BIT06 = 106,
+        BIT07 = 107,
+        BIT08 = 108,
+        BIT09 = 109,
+        BIT10 = 110,
+        BIT11 = 111,
+        BIT12 = 112,
+        BIT13 = 113,
+        BIT14 = 114,
+        BIT15 = 115,
+        // Valid Zone ______________________________________________					
+        BIT16 = 116,
+        BIT17 = 117,
+        BIT18 = 118,
+        BIT19 = 119,
+        BIT20 = 120,
+        BIT21 = 121,
+        BIT22 = 122,
+        BIT23 = 123,
+        // State Flag ______________________________________________					
+        // ReadOnly : COLLISION_FRONT = 124,
+        // ReadOnly : COLLISION_REAR = 125,
+        // ReadOnly : COLLISION_LEFT = 126,
+        // ReadOnly : COLLISION_RIGHT = 127,
+        // ReadOnly : COLLISION_REAR_LONG = 128,
+        REAR_HOOPS_DOWN = 129,
+        BIT30 = 130,
+        BIT31 = 131,
     }
 
-    public enum EnumStrategyFlags
+    public enum EnumCollisionSensors
     {
-        NotSet = 0,
+        COLLISION_FRONT = 124,
+        COLLISION_REAR = 125,
+        COLLISION_LEFT = 126,
+        COLLISION_RIGHT = 127,
+        COLLISION_LONG_REAR = 128
+    }
+
+    public enum EnumSensorsHoopLevel
+    {
+        HOOP_LEVEL_UP = 20,
+        HOOP_LEVEL_DOWN = 21,
     }
 
 }
