@@ -20,6 +20,7 @@
             <RowDefinition Height="25" />
             <RowDefinition Height="25" />
             <RowDefinition Height="25" />
+            <RowDefinition Height="25" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -29,25 +30,60 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
+        
+        
         <Label Content="Robot 1 Pos" Height="28" Name="labelRobot1Pos" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.ColumnSpan="2" Grid.RowSpan="2" />
         <Label Grid.Column="2" Content="Robot 2 Pos" Height="28" Name="labelRobot2Pos" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" Grid.ColumnSpan="2" />
 
-        <Label Content="Cmd : " Grid.Row="1" Height="25" Margin="0,0,0,0" Name="labelCmd" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
-        <ComboBox Grid.Column="1" Grid.Row="1" Margin="5,1,5,1" Name="comboBoxCmd" ItemsSource="{Binding ListCmd}" SelectedValue="{Binding SelectedCmd}"/>
+        <Label Content="Cmd : " Grid.Column="0" Grid.Row="2" Height="25" Margin="0,0,0,0" Name="labelCmd" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+        <ComboBox Grid.Column="1" Grid.Row="2" Margin="5,1,5,1" Name="comboBoxCmd" ItemsSource="{Binding ListCmd}" SelectedValue="{Binding SelectedCmd}" TabIndex="2" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="CmdType : " Grid.Row="2" Height="25" Margin="0,0,0,0" Name="labelCmdType" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
-        <ComboBox Grid.Column="1" Grid.Row="2" Height="23" Margin="5,1,5,1" Name="comboBoxCmdType" VerticalAlignment="Top" ItemsSource="{Binding ListCmdType}" SelectedValue="{Binding SelectedCmdType}" />
+        <Label Content="CmdType : " Grid.Column="0" Grid.Row="3" Height="25" Margin="0,0,0,0" Name="labelCmdType" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+        <ComboBox Grid.Column="1" Grid.Row="3" Height="23" Margin="5,1,5,1" Name="comboBoxCmdType" VerticalAlignment="Top" ItemsSource="{Binding ListCmdType}" SelectedValue="{Binding SelectedCmdType}" TabIndex="3" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="Param1 : " Grid.Row="3" Height="25" Margin="0,0,0,0" Name="labelParam1" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
-        <TextBox Grid.Column="1" Grid.Row="3" Height="23" Margin="5,1,5,1" Name="textBoxParam1" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding Param1}" />
+        <Label Content="Param1 : " Grid.Column="0" Grid.Row="4" Height="25" Margin="0,0,0,0" Name="labelParam1" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
+        <TextBox Grid.Column="1" Grid.Row="4" Height="23" Margin="5,1,5,1" Name="textBoxParam1" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding Param1}" TabIndex="4" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="Param2 : " Grid.Row="4" Height="25" Margin="0,0,0,0" Name="labelParam2" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
-        <TextBox Grid.Column="1" Grid.Row="4" Height="23" Margin="5,1,5,1" Name="textBoxParam2" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding Param2}" />
+        <Label Content="Param2 : " Grid.Column="0" Grid.Row="5" Height="25" Margin="0,0,0,0" Name="labelParam2" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
+        <TextBox Grid.Column="1" Grid.Row="5" Height="23" Margin="5,1,5,1" Name="textBoxParam2" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding Param2}" TabIndex="5" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="Param3 : " Grid.Row="5" Height="25" Margin="0,0,0,0" Name="labelParam3" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
-        <TextBox Grid.Column="1" Grid.Row="5" Height="23" Margin="5,1,5,1" Name="textBoxParam3" VerticalAlignment="Top" Text="{Binding Param3}" />
+        <Label Content="Param3 : " Grid.Column="0" Grid.Row="6" Height="25" Margin="0,0,0,0" Name="labelParam3" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
+        <TextBox Grid.Column="1" Grid.Row="6" Height="23" Margin="5,1,5,1" Name="textBoxParam3" VerticalAlignment="Top" Text="{Binding Param3}" TabIndex="6" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="Param4 : " Grid.Row="6" Height="25" Margin="0,0,0,0" Name="labelParam4" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
-        <TextBox Grid.Column="1" Grid.Row="6" Height="23" Margin="5,1,5,1" Name="textBoxParam4" VerticalAlignment="Top" Text="{Binding Param4}" />
+        <Label Content="Param4 : " Grid.Column="0" Grid.Row="7" Height="25" Margin="0,0,0,0" Name="labelParam4" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
+        <TextBox Grid.Column="1" Grid.Row="7" Height="23" Margin="5,1,5,1" Name="textBoxParam4" VerticalAlignment="Top" Text="{Binding Param4}" TabIndex="7" IsEnabled="{Binding isFormEnabled}" />
+
+        <Label Content="Cmd ID : " Grid.Column="0" Grid.Row="1" Height="25" Margin="0,0,0,0" Name="labelUID" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+        <TextBox Grid.Column="1" Grid.Row="1" Height="23" Margin="5,1,5,1" Name="textBoxCmd" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding CmdID}" TabIndex="1" IsEnabled="{Binding isFormEnabled}" />
+
+        <Label Content="Next ID : " Grid.Column="2" Grid.Row="1" Height="25" Margin="0,0,0,0" Name="labelNextID" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+        <TextBox Grid.Column="3" Grid.Row="1" Height="23" Margin="5,1,5,1" Name="textBoxNextID" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding NextID}" TabIndex="8" IsEnabled="{Binding isFormEnabled}" />
+
+        <Label Content="Timeout ID : " Grid.Column="2" Grid.Row="2" Height="25" Margin="0,0,0,0" Name="labelTimeoutID" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+        <TextBox Grid.Column="3" Grid.Row="2" Height="23" Margin="5,1,5,1" Name="textBoxTimeoutID" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding TimeoutID}" TabIndex="9" IsEnabled="{Binding isFormEnabled}" />
+
+        <Label Content="Active Sensors : " Grid.Column="2" Grid.RowSpan="5" Grid.Row="3" Name="labelActiveSensors" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalContentAlignment="Center" />
+        <ListBox Grid.Column="3" Grid.Row="3" Grid.RowSpan="5" Margin="5,1,5,1" Name="textBlock1" ItemsSource="{Binding Path=ListActiveSensors}" IsEnabled="{Binding isFormEnabled}" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding isActivated}" />
+                        <TextBlock Text=" " />
+                        <TextBlock Text="{Binding name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
+        <TextBlock Grid.Row="8" Name="textBlock2" Grid.ColumnSpan="4" Margin="0,5,0,0" TextAlignment="Center" Height="23" VerticalAlignment="Top">
+            <Button Width="50" Height="23" Content="Prev" IsEnabled="{Binding isFormEnabled}" />
+            <Label Content="" Height="23" Width="50" HorizontalAlignment="Left" Margin="0,0,0,0" />
+            <Button Width="100" Height="23" Content="Ajouter" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdAdd}" />
+            <Label Content="" Height="23" Width="50" HorizontalAlignment="Left" Margin="0,0,0,0" />
+            <Button Width="100" Height="23" Content="Mettre à jour" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdUpdate}" />
+            <Label Content="" Height="23" Width="50" HorizontalAlignment="Left" Margin="0,0,0,0" />
+            <Button Width="50" Height="23" Content="Next" IsEnabled="{Binding isFormEnabled}" />
+        </TextBlock>
+        
     </Grid>
 </UserControl>

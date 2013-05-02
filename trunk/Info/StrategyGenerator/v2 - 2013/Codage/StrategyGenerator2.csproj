@@ -75,6 +75,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="StrategyManager\StrategyLoader.xaml.cs">
+      <DependentUpon>StrategyLoader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FileManager\StructuredFileGroup.cs" />
     <Compile Include="FileManager\IFile.cs">
       <SubType>Code</SubType>
@@ -85,8 +88,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\MainModel.cs" />
+    <Compile Include="StrategyManager\ActiveSensors.cs" />
     <Compile Include="StrategyManager\RobotAction.cs" />
     <Compile Include="StrategyManager\EnumStrategy.cs" />
+    <Compile Include="StrategyManager\Sensors.cs" />
     <Compile Include="StrategyManager\Strategy.cs" />
     <Compile Include="StrategyManager\SubStrategy.cs" />
     <Compile Include="Tools\DebugTool.cs" />
@@ -107,6 +112,10 @@
     <Compile Include="View\MainStrategyView.xaml.cs">
       <DependentUpon>MainStrategyView.xaml</DependentUpon>
     </Compile>
+    <Page Include="StrategyManager\StrategyLoader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

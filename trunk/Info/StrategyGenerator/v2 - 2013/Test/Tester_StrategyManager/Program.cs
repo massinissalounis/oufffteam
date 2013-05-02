@@ -11,6 +11,77 @@ namespace Tester_Strategy
             bool Validated = true;
 
             // ############################################################################################################################
+            // ##### ActiveSensors
+            // ############################################################################################################################
+            #region ActiveSensors
+            ActiveSensors testActiveSensors = new ActiveSensors();
+
+            // Test 0200 : ActiveSensors __________________________________________________________________________________________________
+            try
+            {
+                DisplaySeparator();
+                Console.WriteLine("Test 0200 - Verification des objets ActiveSensors : \n");
+
+                if (testActiveSensors.Activated == "(APP_PARAM_STRATEGYFLAG_NONE)")
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                testActiveSensors.ActivateSensors("APP_PARAM_STRATEGYFLAG_COLLISION_FRONT");
+                testActiveSensors.ActivateSensors("APP_PARAM_STRATEGYFLAG_COLLISION_FRONT");
+                testActiveSensors.ActivateSensors("APP_PARAM_STRATEGYFLAG_COLLISION_REAR");
+                if (testActiveSensors.Activated == "(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_REAR)")
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                testActiveSensors.DesactivateSensors("APP_PARAM_STRATEGYFLAG_COLLISION_FRONT");
+                if (testActiveSensors.Activated == "(APP_PARAM_STRATEGYFLAG_COLLISION_REAR)")
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                testActiveSensors.DesactivateAllSensors();
+                if (testActiveSensors.Activated == "(APP_PARAM_STRATEGYFLAG_NONE)")
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+
+                testActiveSensors.ActivateSensors("APP_PARAM_STRATEGYFLAG_COLLISION_FRONT");
+                testActiveSensors.ForceSensors("APP_PARAM_STRATEGYFLAG_COLLISION_REAR");
+                if (testActiveSensors.Activated == "(APP_PARAM_STRATEGYFLAG_COLLISION_REAR)")
+                {
+                    Console.Write(" Ok\n");
+                }
+                else
+                {
+                    Console.Write(" Error !\n"); Validated = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Test 0200 Failed !!");
+                Console.WriteLine(ex.Message);
+                Validated = false;
+            }
+            #endregion
+            // ############################################################################################################################
             // ##### RobotAction
             // ############################################################################################################################
             #region RobotAction
@@ -45,7 +116,7 @@ namespace Tester_Strategy
                 testAction.timeoutID = 200;
 
                 StructuredFileGroup output = testAction.Export();
-                
+
 
                 if (output != null)
                 {
@@ -58,7 +129,7 @@ namespace Tester_Strategy
 
                 // ------------------------------------------------------------------------------------------
                 Console.WriteLine(" -> Test de la fonction d'import() : ");
-                testAction = new RobotAction(); 
+                testAction = new RobotAction();
                 StructuredFileGroup inputData = new StructuredFileGroup(10);
 
                 inputData.AddKey(new StructuredFileKey("Cmd", "Mvt_UseMixedMode"));
@@ -70,7 +141,7 @@ namespace Tester_Strategy
                 inputData.AddKey(new StructuredFileKey("ActiveSensors", "COLLISION_FRONT"));
                 inputData.AddKey(new StructuredFileKey("nextID", 10));
                 inputData.AddKey(new StructuredFileKey("timeoutID", 30));
-                
+
                 if (testAction.Import(inputData) == true)
                 {
                     Console.Write(" Ok\n");
@@ -99,8 +170,8 @@ namespace Tester_Strategy
                 DisplaySeparator();
                 // ------------------------------------------------------------------------------------------
 
-                SubStrategy strategy1 = new SubStrategy("Strategy 1");
-                SubStrategy strategy2 = new SubStrategy("Strategy 2");
+                SubStrategy strategy1 = new SubStrategy("Strategy 1", 1);
+                SubStrategy strategy2 = new SubStrategy("Strategy 2", 1);
 
                 // Creation de l'action 1
                 RobotAction Action1 = new RobotAction(1);
@@ -207,8 +278,8 @@ namespace Tester_Strategy
                 DisplaySeparator();
                 // ------------------------------------------------------------------------------------------
 
-                SubStrategy subStrategy1 = new SubStrategy("Strategy 1");
-                SubStrategy subStrategy2 = new SubStrategy("Strategy 2");
+                SubStrategy subStrategy1 = new SubStrategy("Strategy 1", 1);
+                SubStrategy subStrategy2 = new SubStrategy("Strategy 2", 1);
                 Strategy testStrategy = new Strategy("Strategy");
                 Strategy testLoadStrategy = new Strategy("LoadStrategy");
 
@@ -289,8 +360,8 @@ namespace Tester_Strategy
                 RobotAction Action103 = new RobotAction(103); Action103.cmd = EnumCmd.Mvt_UsePivotMode; Action103.cmdType = EnumCmdType.CmdType_NonBlocking; Action103.param1 = "43"; Action103.param2 = "33"; Action103.param3 = "23"; Action103.param4 = "13"; Action103.nextID = 104; Action103.timeoutID = 904;
                 RobotAction Action200 = new RobotAction(200); Action200.cmd = EnumCmd.Mvt_UseSpline; Action200.cmdType = EnumCmdType.CmdType_NonBlocking; Action200.param1 = "44"; Action200.param2 = "34"; Action200.param3 = "24"; Action200.param4 = "14"; Action103.nextID = -1; Action200.timeoutID = 905;
 
-                SubStrategy subStrategyExport1 = new SubStrategy("Export Strategy 1");
-                SubStrategy subStrategyExport2 = new SubStrategy("Export Strategy 2");
+                SubStrategy subStrategyExport1 = new SubStrategy("Export Strategy 1", 1);
+                SubStrategy subStrategyExport2 = new SubStrategy("Export Strategy 2", 1);
 
                 subStrategyExport1.AddAction(Action100); subStrategyExport1.AddAction(Action101);
                 subStrategyExport2.AddAction(Action102); subStrategyExport2.AddAction(Action103); subStrategyExport2.AddAction(Action200);

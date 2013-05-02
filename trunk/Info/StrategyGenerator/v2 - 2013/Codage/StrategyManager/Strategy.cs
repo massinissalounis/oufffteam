@@ -5,6 +5,8 @@ using System.Text;
 using System.IO;
 using StrategyGenerator2.Tools;
 using StrategyGenerator2.FileManager;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace StrategyGenerator2.StrategyManager
 {
@@ -20,16 +22,16 @@ namespace StrategyGenerator2.StrategyManager
 
             // Creation du premier objet pour la partie décisionnelle
             _subStrategies = new List<SubStrategy>();
-            _subStrategies.Add(new SubStrategy(PrivateConst.mainStrategyName));
+            _subStrategies.Add(new SubStrategy(PrivateConst.mainStrategyName, 0));
 
             // Creation de la position du robot initial
             _initialPos = new RobotAction(0);
-            _initialPos.cmdType = EnumCmdType.CmdType_Blocking;                     // Blocking Action
+            _initialPos.cmdType = EnumCmdType.CmdType_Blocking;             // Blocking Action
             _initialPos.cmd = EnumCmd.App_SetNewPos;                        // Defines the first robot position
             _initialPos.param2 = "0";                                       // X
             _initialPos.param3 = "0";                                       // Y
             _initialPos.param4 = "0";                                       // Angle
-            _initialPos.activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;   // Do not use bumpers
+            _initialPos.activeSensors.DesactivateAllSensors();              // Do not use bumpers
 
             // Creation de la vitesse par défaut 
             _defaultSpeed = 50;
@@ -98,15 +100,15 @@ namespace StrategyGenerator2.StrategyManager
         public void Clear()
         {
             _subStrategies = new List<SubStrategy>();
-            _subStrategies.Add(new SubStrategy(PrivateConst.mainStrategyName));
+            _subStrategies.Add(new SubStrategy(PrivateConst.mainStrategyName, 0));
 
             _initialPos = new RobotAction(0);
-            _initialPos.cmdType = EnumCmdType.CmdType_Blocking;                     // Blocking Action
+            _initialPos.cmdType = EnumCmdType.CmdType_Blocking;             // Blocking Action
             _initialPos.cmd = EnumCmd.App_SetNewPos;                        // Defines the first robot position
             _initialPos.param2 = "0";                                       // X
             _initialPos.param3 = "0";                                       // Y
             _initialPos.param4 = "0";                                       // Angle
-            _initialPos.activeSensors = EnumActiveSensors.APP_PARAM_STRATEGYFLAG_NONE;   // Do not use bumpers
+            _initialPos.activeSensors.DesactivateAllSensors();              // Do not use bumpers
 
             _defaultSpeed = 50;
         }
@@ -170,13 +172,25 @@ namespace StrategyGenerator2.StrategyManager
                         Directory.Delete(outputDir, true);
                     }
 
+                    while (Directory.Exists(outputDir) == true)
+                        Thread.Sleep(500);
+
                     // Creation du répertoire de sortie
-                    Directory.CreateDirectory(outputDir);
+                    while (Directory.Exists(outputDir) == false)
+                    {
+                        Thread.Sleep(1000);
+                        Directory.CreateDirectory(outputDir);
+                    }
 
                     // Sauvegarde des informations générales
                     StructuredFile mainFile = new StructuredFile();
                     StructuredFileGroup mainGroup = new StructuredFileGroup(0);
                     mainGroup.AddKey(new StructuredFileKey(PrivateConst.mainStrategyName, _strategyName));
+                    mainGroup.AddKey(new StructuredFileKey(PrivateConst.TAG_InitialPosX, _initialPos.param2));
+                    mainGroup.AddKey(new StructuredFileKey(PrivateConst.TAG_InitialPosY, _initialPos.param3));
+                    mainGroup.AddKey(new StructuredFileKey(PrivateConst.TAG_InitialPosA, _initialPos.param4));
+                    mainGroup.AddKey(new StructuredFileKey(PrivateConst.TAG_DefaultSpeed, _defaultSpeed));
+
 
                     mainFile.AddGroup(mainGroup);
                     mainFile.SaveTo(outputDir + _strategyName + ".strategy");
@@ -199,6 +213,7 @@ namespace StrategyGenerator2.StrategyManager
                 }
                 catch (Exception ex)
                 {
+                    MessageBox.Show("Erreur d'écriture de la stratégie !", "Strategy Generator", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     _debugTool.WriteLine("Strategy.cs = " + ex.Message);
                 }
             }
@@ -223,7 +238,6 @@ namespace StrategyGenerator2.StrategyManager
                 if (Directory.Exists(inputDir) == true)
                 {
                     // Chargement des données générale
-
                     mainFile.Load(inputDir + strategyName + ".strategy");
                     if (mainFile != null)
                     {
@@ -238,6 +252,34 @@ namespace StrategyGenerator2.StrategyManager
                                 _strategyName = currentKey.valueString;
                             else
                                 _strategyName = "NewStrategy";
+
+                            // InitPosX
+                            currentKey = currentGroup.GetFirstKey(PrivateConst.TAG_InitialPosX);
+                            if (currentKey != null)
+                                _initialPos.param2 = currentKey.valueString;
+                            else
+                                _initialPos.param2 = "1500";
+
+                            // InitPosY
+                            currentKey = currentGroup.GetFirstKey(PrivateConst.TAG_InitialPosY);
+                            if (currentKey != null)
+                                _initialPos.param3 = currentKey.valueString;
+                            else
+                                _initialPos.param3 = "1000";
+
+                            // InitPosA
+                            currentKey = currentGroup.GetFirstKey(PrivateConst.TAG_InitialPosA);
+                            if (currentKey != null)
+                                _initialPos.param4 = currentKey.valueString;
+                            else
+                                _initialPos.param4 = "0";
+
+                            // DefaultSpeed
+                            currentKey = currentGroup.GetFirstKey(PrivateConst.TAG_DefaultSpeed);
+                            if (currentKey != null)
+                                _defaultSpeed = currentKey.valueInt;
+                            else
+                                _defaultSpeed = 50;
                         }
 
                         // Lecture des sous-stratégies ----------------------------------------------------------------
@@ -247,8 +289,8 @@ namespace StrategyGenerator2.StrategyManager
                         foreach (String currentFile in inputFiles)
                         {
                             // Chargement du fichier
-                            currentSubStrategy = new SubStrategy("NewSubStrategy");
-                            currentSubStrategy.Load(currentFile);
+                            currentSubStrategy = new SubStrategy("NewSubStrategy", 1);
+                            currentSubStrategy.Load(currentFile, -1);
 
                             if (currentSubStrategy.Name == PrivateConst.mainStrategyName)
                                 _subStrategies[0] = currentSubStrategy;
@@ -576,7 +618,8 @@ namespace StrategyGenerator2.StrategyManager
                                         // Si la clé n'a pas été ajoutée, on l'ajoute
                                         if (isAdded == false)
                                         {
-                                            SubStrategy subStrategyToAdd = new SubStrategy(subStrategyName);
+                                            int subStrategyID = Convert.ToInt32(Math.Floor(actionToImport.ID / 100.0));
+                                            SubStrategy subStrategyToAdd = new SubStrategy(subStrategyName, subStrategyID);
                                             subStrategyToAdd.AddAction(actionToImport);
                                             _subStrategies.Add(subStrategyToAdd);
                                         }
@@ -680,6 +723,50 @@ namespace StrategyGenerator2.StrategyManager
             return Ret;
         }
 
+        /// <summary>
+        /// Recherche une RobotAction à partir d'un ID dans toute la stratégie
+        /// </summary>
+        /// <param name="IDtoFind">ID à trouver</param>
+        /// <returns>RobotAction recherchée ou null s'il n'est pas défini</returns>
+        public RobotAction FindRobotActionByID(int IDtoFind)
+        {
+            RobotAction Ret = null;
+
+            // On verifie s'il s'agit de la position initiale
+            if ((_initialPos != null) && (_initialPos.ID == IDtoFind))
+            {
+                Ret = _initialPos;
+            }
+
+            // Lecture des sous stratégies si elles sont définies
+            if (_subStrategies != null)
+            {
+                foreach (SubStrategy currentSubStrategy in _subStrategies)
+                {
+                    RobotAction objectFound = null;
+                    objectFound = currentSubStrategy.FindRobotActionByID(IDtoFind);
+
+                    // Si l'objet a été trouvé dans la sous stratégie, on la garde
+                    if (objectFound != null)
+                        Ret = objectFound;
+                }
+            }
+
+            return Ret;
+        }
+
+
+        public void ChangeCmdID(int oldValue, int newValue)
+        {
+            // Lecture des sous stratégies si elles sont définies
+            if (_subStrategies != null)
+            {
+                foreach (SubStrategy currentSubStrategy in _subStrategies)
+                {
+                    currentSubStrategy.ChangeCmdID(oldValue, newValue);
+                }
+            }
+        }
 
         // Properties -----------------------------------------------------------------------------
         public String Name
@@ -715,8 +802,7 @@ namespace StrategyGenerator2.StrategyManager
             get { return Convert.ToInt32(_initialPos.param2); }
             set
             {
-                if ((value >= 0) && (value <= 3000))
-                    _initialPos.param2 = value.ToString();
+                _initialPos.param2 = value.ToString();
             }
         }
 
@@ -728,8 +814,7 @@ namespace StrategyGenerator2.StrategyManager
             get { return Convert.ToInt32(_initialPos.param3); }
             set
             {
-                if ((value >= 0) && (value <= 2000))
-                    _initialPos.param3 = value.ToString();
+                _initialPos.param3 = value.ToString();
             }
         }
 
@@ -756,8 +841,7 @@ namespace StrategyGenerator2.StrategyManager
 
             set
             {
-                if ((value >= -180) && (value <= 180))
-                    _initialPos.param4 = value.ToString();
+               _initialPos.param4 = value.ToString();
             }
         }
 

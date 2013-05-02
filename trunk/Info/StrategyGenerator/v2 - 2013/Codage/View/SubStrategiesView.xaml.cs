@@ -20,5 +20,15 @@ namespace StrategyGenerator2.View
         {
             InitializeComponent();
         }
+
+        private void listSubStrategies_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            listSubStrategies.SelectedIndex = -1;
+        }
+
+        private void listSubStrategyItems_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            listSubStrategyItems.SelectedIndex = -1;
+        }
     }
 }
