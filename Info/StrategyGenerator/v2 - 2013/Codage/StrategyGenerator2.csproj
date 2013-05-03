@@ -94,6 +94,10 @@
     <Compile Include="StrategyManager\Sensors.cs" />
     <Compile Include="StrategyManager\Strategy.cs" />
     <Compile Include="StrategyManager\SubStrategy.cs" />
+    <Compile Include="StrategyViewer\DisplayPos.cs" />
+    <Compile Include="StrategyViewer\EnumStrategyViewer.cs" />
+    <Compile Include="StrategyViewer\RobotPos.cs" />
+    <Compile Include="StrategyViewer\StrategyDisplay.cs" />
     <Compile Include="Tools\DebugTool.cs" />
     <Compile Include="ViewModel\RobotActionVM.cs" />
     <Compile Include="ViewModel\MainStrategyRobot2VM.cs" />
@@ -103,6 +107,9 @@
     <Compile Include="ViewModel\SubStrategiesRobot2VM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\SubStrategiesRobot1VM.cs" />
+    <Compile Include="View\MapView.xaml.cs">
+      <DependentUpon>MapView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\RobotActionView.xaml.cs">
       <DependentUpon>RobotActionView.xaml</DependentUpon>
     </Compile>
@@ -131,6 +138,10 @@
     <Page Include="Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\MapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RobotActionView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -173,10 +184,12 @@
     <Resource Include="Res\Logo_OufffTeam_Ptt.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Generator>Res</Generator>
+      <CustomToolNamespace>Res</CustomToolNamespace>
     </Resource>
     <Resource Include="Res\Logo_OufffTeam_Ptt.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Generator>Res</Generator>
+      <CustomToolNamespace>Res</CustomToolNamespace>
     </Resource>
     <Resource Include="Res\Terrain.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -184,7 +197,18 @@
       <Generator>Res</Generator>
     </Resource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Res\RobotFermé.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Generator>Res</Generator>
+      <CustomToolNamespace>Res</CustomToolNamespace>
+    </Resource>
+    <Resource Include="Res\RobotOuvert.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <Generator>Res</Generator>
+      <CustomToolNamespace>Res</CustomToolNamespace>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

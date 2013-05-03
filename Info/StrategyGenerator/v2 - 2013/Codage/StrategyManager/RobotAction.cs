@@ -563,15 +563,17 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = "-1";                                      // nextID si le test est vrai
                     param3 = "-1";                                      // nextID si le test est faux
                     param4 = null;                                      // Not Used
+                    cmdType = EnumCmdType.CmdType_Blocking;             // Action Type
                     activeSensors.DesactivateAllSensors();              // Pas de sensors d'activé
                     break;
 
                 // _______________________________________________________
                 case EnumCmd.App_SetNewPos:
-                    param1 = "1500";                                   // Position en x
-                    param2 = "1000";                                   // Position en y
-                    param3 = "-90";                                    // Angle
-                    param4 = null;                                     // Not Set
+                    param1 = null;                                     // Not Set
+                    param2 = "1500";                                   // Position en x
+                    param3 = "1000";                                   // Position en y
+                    param4 = "-90";                                    // Angle
+                    cmdType = EnumCmdType.CmdType_Blocking;             // Action Type
                     activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
                     
@@ -581,6 +583,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = "OS_FALSE";                                    // Nouvelle valeur du flag
                     param3 = null;                                          // Not Set
                     param4 = null;                                          // Not Set
+                    cmdType = EnumCmdType.CmdType_Blocking;             // Action Type
                     activeSensors.DesactivateAllSensors();                  // Pas de sensors d'activé
                     break;
 
@@ -588,8 +591,9 @@ namespace StrategyGenerator2.StrategyManager
                 case EnumCmd.App_Wait:
                     param1 = "0";                                      // Temps d'attente en heure
                     param2 = "0";                                      // Temps d'attente en minute
-                    param3 = "5";                                      // Temps d'attente en sec
+                    param3 = "1";                                      // Temps d'attente en sec
                     param4 = "0";                                      // Temps d'attente en msec
+                    cmdType = EnumCmdType.CmdType_Blocking;             // Action Type
                     activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
@@ -599,6 +603,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = null;                                     // Not Used
                     param3 = null;                                     // Not Used
                     param4 = null;                                     // Not Used
+                    cmdType = EnumCmdType.CmdType_Blocking;             // Action Type
                     activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
@@ -610,6 +615,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = null;                                     // Not Used
                     param3 = null;                                     // Not Used
                     param4 = "0";                                      // Angle
+                    cmdType = EnumCmdType.CmdType_Blocking;             // Action Type
                     activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
@@ -619,6 +625,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = "1500";                                   // Position en x
                     param3 = "1000";                                   // Position en y
                     param4 = null;                                     // Not Used
+                    cmdType = EnumCmdType.CmdType_Blocking;             // Action Type
                     activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
@@ -629,6 +636,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = "1500";                                   // Position en x
                     param3 = "1000";                                   // Position en y
                     param4 = "0";                                      // Angle
+                    cmdType = EnumCmdType.CmdType_Blocking;             // Action Type
                     activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
@@ -638,6 +646,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = "RIGHT_WHEEL";                            // Roue bloquée
                     param3 = null;                                     // Not Used
                     param4 = "0";                                      // Angle
+                    cmdType = EnumCmdType.CmdType_Blocking;             // Action Type
                     activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
@@ -647,6 +656,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = "100";                                    // Distance en mm
                     param3 = null;                                     // Not Used
                     param4 = null;                                     // Not Used
+                    cmdType = EnumCmdType.CmdType_Blocking;             // Action Type
                     activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
 
@@ -656,6 +666,7 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = null;                                              // Not Used
                     param3 = null;                                              // Not Used
                     param4 = null;                                              // Not Used
+                    cmdType = EnumCmdType.CmdType_Blocking;             // Action Type
                     activeSensors.DesactivateAllSensors();                      // Pas de sensors d'activé
                     break;
             
@@ -666,11 +677,13 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = null;                                     // Not Used
                     param3 = null;                                     // Not Used
                     param4 = null;                                     // Not Used
+                    cmdType = EnumCmdType.CmdType_Blocking;             // Action Type
                     activeSensors.DesactivateAllSensors();             // Pas de sensors d'activé
                     break;
             }
         }
 
+ 
         /// <summary>
         /// Fonction pour verifier la valeur du paramètre Int
         /// </summary>

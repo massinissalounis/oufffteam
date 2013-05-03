@@ -32,8 +32,8 @@
         
         
         
-        <Label Content="Robot 1 Pos" Height="28" Name="labelRobot1Pos" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.ColumnSpan="2" Grid.RowSpan="2" />
-        <Label Grid.Column="2" Content="Robot 2 Pos" Height="28" Name="labelRobot2Pos" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" Grid.ColumnSpan="2" />
+        <Label Content="{Binding initPos}" Height="28" Name="labelRobot1Pos" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.ColumnSpan="2" Grid.RowSpan="2" />
+        <Label Grid.Column="2" Content="{Binding finalPos}" Height="28" Name="labelRobot2Pos" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" Grid.ColumnSpan="2" />
 
         <Label Content="Cmd : " Grid.Column="0" Grid.Row="2" Height="25" Margin="0,0,0,0" Name="labelCmd" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
         <ComboBox Grid.Column="1" Grid.Row="2" Margin="5,1,5,1" Name="comboBoxCmd" ItemsSource="{Binding ListCmd}" SelectedValue="{Binding SelectedCmd}" TabIndex="2" IsEnabled="{Binding isFormEnabled}" />

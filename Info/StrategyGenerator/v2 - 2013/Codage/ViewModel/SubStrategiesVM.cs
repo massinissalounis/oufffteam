@@ -10,6 +10,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using System.Windows.Forms;
 using System.IO;
+using StrategyGenerator2.StrategyViewer;
 
 namespace StrategyGenerator2.ViewModel
 {
@@ -149,6 +150,7 @@ namespace StrategyGenerator2.ViewModel
                 _mainModel.selectedRobotAction = value;
                 _mainModel.selectedStrategy = _currentStrategy;
                 _mainModel.selectedSubStrategy = _selectedSubStrategy;
+                _mainModel.selectedStrategyDisplay = _currentStrategyDisplay;
 
                 return;
             }
@@ -178,6 +180,7 @@ namespace StrategyGenerator2.ViewModel
         protected SubStrategy _selectedSubStrategy = null;          // Sous-strategie selectionnée
         protected RobotAction _currentRobotAction = null;
         protected RobotAction _firstRobotAction = null;
+        protected StrategyDisplay _currentStrategyDisplay = null;
 
         private void UpdateData(object sender, EventArgs e)
         {

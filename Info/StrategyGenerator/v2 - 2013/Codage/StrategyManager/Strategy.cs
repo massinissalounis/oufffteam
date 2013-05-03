@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using StrategyGenerator2.Tools;
 using StrategyGenerator2.FileManager;
+using StrategyGenerator2.StrategyViewer;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -766,6 +767,34 @@ namespace StrategyGenerator2.StrategyManager
                     currentSubStrategy.ChangeCmdID(oldValue, newValue);
                 }
             }
+        }
+
+        /// <summary>
+        /// Retourne tous les RobotAction de la MainStrategy et des sous stratégies
+        /// </summary>
+        /// <returns>une liste de RobotAction ou null si la stratégie n'est pas définie</returns>
+        public List<RobotAction> GetAllRobotAction()
+        {
+            List<RobotAction> Ret = null;
+
+            if (_subStrategies != null)
+            {
+                foreach (SubStrategy currentSubStrategy in _subStrategies)
+                {
+                    if (currentSubStrategy.GetAllActions() != null)
+                    {
+                        foreach (RobotAction currentRobotAction in currentSubStrategy.GetAllActions())
+                        {
+                            if (Ret == null)
+                                Ret = new List<RobotAction>();
+
+                            Ret.Add(currentRobotAction);
+                        }
+                    }
+                }
+            }
+
+            return Ret;
         }
 
         // Properties -----------------------------------------------------------------------------
