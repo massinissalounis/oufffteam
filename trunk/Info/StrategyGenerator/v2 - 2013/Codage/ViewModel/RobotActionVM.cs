@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using StrategyGenerator2.StrategyViewer;
 
 namespace StrategyGenerator2.ViewModel
 {
@@ -146,6 +147,7 @@ namespace StrategyGenerator2.ViewModel
                 if (_modifiedRobotAction != null)
                 {
                     _modifiedRobotAction.param1 = value;
+                    RaiseDisplayPropertyChanged();
                 }
 
                 return;
@@ -167,6 +169,7 @@ namespace StrategyGenerator2.ViewModel
                 if (_modifiedRobotAction != null)
                 {
                     _modifiedRobotAction.param2 = value;
+                    RaiseDisplayPropertyChanged();
                 }
 
                 return;
@@ -188,6 +191,7 @@ namespace StrategyGenerator2.ViewModel
                 if (_modifiedRobotAction != null)
                 {
                     _modifiedRobotAction.param3 = value;
+                    RaiseDisplayPropertyChanged();
                 }
 
                 return;
@@ -209,6 +213,7 @@ namespace StrategyGenerator2.ViewModel
                 if (_modifiedRobotAction != null)
                 {
                     _modifiedRobotAction.param4 = value;
+                    RaiseDisplayPropertyChanged();
                 }
 
                 return;
@@ -347,10 +352,78 @@ namespace StrategyGenerator2.ViewModel
             set { }
         }
 
+        public String initPos
+        {
+            get
+            {
+                String Ret = "";
+
+                if (_modifiedDisplayRobot != null)
+                {
+                    List<RobotPos> listInitPos = _modifiedDisplayRobot.GetInitialPos();
+                    if (listInitPos != null)
+                    {
+                        foreach (RobotPos currentRobotPos in listInitPos)
+                        {
+                            if (Ret != "")
+                                Ret = Ret + " ou ";
+
+                            Ret = Ret + "(";
+                            Ret = Ret + currentRobotPos.x;
+                            Ret = Ret + ",";
+                            Ret = Ret + currentRobotPos.y;
+                            Ret = Ret + ",";
+                            Ret = Ret + currentRobotPos.angle;
+                            Ret = Ret + ")";
+                        }
+                    }
+
+                }
+
+                return Ret;
+            }
+            set { }
+        }
+
+        public String finalPos
+        {
+            get
+            {
+                String Ret = "";
+
+                if (_modifiedDisplayRobot != null)
+                {
+                    List<RobotPos> listFinalPos = _modifiedDisplayRobot.GetOutputPos();
+                    if (listFinalPos != null)
+                    {
+                        foreach (RobotPos currentRobotPos in listFinalPos)
+                        {
+                            if (Ret != "")
+                                Ret = Ret + " ou ";
+
+                            Ret = Ret + "(";
+                            Ret = Ret + currentRobotPos.x;
+                            Ret = Ret + ",";
+                            Ret = Ret + currentRobotPos.y;
+                            Ret = Ret + ",";
+                            Ret = Ret + currentRobotPos.angle;
+                            Ret = Ret + ")";
+                        }
+                    }
+
+                }
+
+                return Ret;
+            }
+            set { }
+        }
+
         // Private --------------------------------------------------------------------------------
         private MainModel _mainModel = null;                        // Lien vers le model
         private RobotAction _currentRobotAction;                    // Action courante
         private RobotAction _modifiedRobotAction;                   // Action pour la mise à jour
+        private DisplayPos _modifiedDisplayRobot = null;             // Objet pour le rendu graphique
+
 
         private void UpdateData(object sender, EventArgs e)
         {
@@ -369,8 +442,24 @@ namespace StrategyGenerator2.ViewModel
                 _modifiedRobotAction.param4 = _currentRobotAction.param4;
                 _modifiedRobotAction.timeoutID = _currentRobotAction.timeoutID;
                 _modifiedRobotAction.activeSensors.ForceSensors(_currentRobotAction.activeSensors.Activated);
+
+                LoadDisplayPos();
             }
             RaisePropertyChangedGrouped();
+        }
+
+        private void LoadDisplayPos()
+        {
+            if ((_mainModel.selectedStrategyDisplay != null) && (_modifiedRobotAction != null))
+            {
+                DisplayPos currentDisplayPos = _mainModel.selectedStrategyDisplay.GetDisplayPosByID(_currentRobotAction.ID);
+
+                if (currentDisplayPos != null)
+                {
+                    _modifiedDisplayRobot = new DisplayPos(_modifiedRobotAction);
+                    _modifiedDisplayRobot.AddInitialPos(currentDisplayPos.GetInitialPos());
+                }
+            }
         }
 
         private void RaisePropertyChangedGrouped()
@@ -387,8 +476,16 @@ namespace StrategyGenerator2.ViewModel
             RaisePropertyChanged("ListActiveSensors");
             RaisePropertyChanged("isUpdateButtonEnabled");
             RaisePropertyChanged("isFormEnabled");
+            RaisePropertyChanged("initPos");
+            RaisePropertyChanged("finalPos");
 
             return;
+        }
+
+        private void RaiseDisplayPropertyChanged()
+        {
+            RaisePropertyChanged("initPos");
+            RaisePropertyChanged("finalPos");
         }
 
         private void ValidateParams()

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using StrategyGenerator2.FileManager;
 using StrategyGenerator2.StrategyManager;
+using StrategyGenerator2.StrategyViewer;
 
 namespace StrategyGenerator2.Model
 {
@@ -28,6 +29,20 @@ namespace StrategyGenerator2.Model
         public void UpdateRobotActionList()
         {
             RaiseRobotActionListChanged();
+
+            if (_selectedStrategy == null)
+            {
+                strategy1Display.ComputeRobotPos(strategyRobot1);
+                strategy2Display.ComputeRobotPos(strategyRobot2);
+            }
+            else
+            {
+                if (selectedStrategy.Name == strategyRobot1.Name)
+                    strategy1Display.ComputeRobotPos(strategyRobot1);
+
+                if (selectedStrategy.Name == strategyRobot2.Name)
+                    strategy2Display.ComputeRobotPos(strategyRobot2);
+            }
         }
 
         public void ChangeCmdID(int oldValue, int newValue)
@@ -103,14 +118,23 @@ namespace StrategyGenerator2.Model
             }
         }
 
+        public StrategyDisplay selectedStrategyDisplay
+        {
+            get { return _selectedStrategyDisplay; }
+            set { _selectedStrategyDisplay = value; }
+        }
+
         // Données publiques ----------------------------------------------------------------------
         public Strategy strategyRobot1 = null;              // First robot or Robot Color A
         public Strategy strategyRobot2 = null;              // Second robot or Robot Color B
+
+        public StrategyDisplay strategy1Display = new StrategyDisplay();
+        public StrategyDisplay strategy2Display = new StrategyDisplay();
 
         // Données private ------------------------------------------------------------------------
         private RobotAction _selectedRobotAction = null;
         private Strategy _selectedStrategy = null;
         private SubStrategy _selectedSubStrategy = null;
-
+        private StrategyDisplay _selectedStrategyDisplay = null;
     }
 }

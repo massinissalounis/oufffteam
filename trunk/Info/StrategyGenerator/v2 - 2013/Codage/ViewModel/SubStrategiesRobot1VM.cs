@@ -16,7 +16,10 @@ namespace StrategyGenerator2.ViewModel
             _mainModel = MainModel.GetInstance;
 
             if (_mainModel != null)
+            {
                 _currentStrategy = _mainModel.strategyRobot1;
+                _currentStrategyDisplay = _mainModel.strategy1Display;
+            }
         }
 
 
