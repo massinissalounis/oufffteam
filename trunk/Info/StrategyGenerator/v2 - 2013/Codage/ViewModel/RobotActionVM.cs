@@ -410,10 +410,130 @@ namespace StrategyGenerator2.ViewModel
                             Ret = Ret + ")";
                         }
                     }
-
                 }
 
                 return Ret;
+            }
+            set { }
+        }
+
+        public RobotPos Robot0
+        {
+            get
+            {
+                if (_modifiedDisplayRobot != null)
+                {
+                    return _modifiedDisplayRobot.GetOutputPos(0);
+                }
+                return new RobotPos();
+            }
+            set { }
+        }
+        public RobotPos Robot1
+        {
+            get
+            {
+                if (_modifiedDisplayRobot != null)
+                {
+                    return _modifiedDisplayRobot.GetOutputPos(1);
+                }
+                return new RobotPos();
+            }
+            set { }
+        }
+        public RobotPos Robot2
+        {
+            get
+            {
+                if (_modifiedDisplayRobot != null)
+                {
+                    return _modifiedDisplayRobot.GetOutputPos(2);
+                }
+                return new RobotPos();
+            }
+            set { }
+        }
+        public RobotPos Robot3
+        {
+            get
+            {
+                if (_modifiedDisplayRobot != null)
+                {
+                    return _modifiedDisplayRobot.GetOutputPos(3);
+                }
+                return new RobotPos();
+            }
+            set { }
+        }
+        public RobotPos Robot4
+        {
+            get
+            {
+                if (_modifiedDisplayRobot != null)
+                {
+                    return _modifiedDisplayRobot.GetOutputPos(4);
+                }
+                return new RobotPos();
+            }
+            set { }
+        }
+        public RobotPos Robot5
+        {
+            get
+            {
+                if (_modifiedDisplayRobot != null)
+                {
+                    return _modifiedDisplayRobot.GetOutputPos(5);
+                }
+                return new RobotPos();
+            }
+            set { }
+        }
+        public RobotPos Robot6
+        {
+            get
+            {
+                if (_modifiedDisplayRobot != null)
+                {
+                    return _modifiedDisplayRobot.GetOutputPos(6);
+                }
+                return new RobotPos();
+            }
+            set { }
+        }
+        public RobotPos Robot7
+        {
+            get
+            {
+                if (_modifiedDisplayRobot != null)
+                {
+                    return _modifiedDisplayRobot.GetOutputPos(7);
+                }
+                return new RobotPos();
+            }
+            set { }
+        }
+        public RobotPos Robot8
+        {
+            get
+            {
+                if (_modifiedDisplayRobot != null)
+                {
+                    return _modifiedDisplayRobot.GetOutputPos(8);
+                }
+                return new RobotPos();
+            }
+            set { }
+        }
+        public RobotPos Robot9
+        {
+            get
+            {
+                if (_modifiedDisplayRobot != null)
+                {
+                    return _modifiedDisplayRobot.GetOutputPos(9);
+                }
+                return new RobotPos();
             }
             set { }
         }
@@ -477,7 +597,7 @@ namespace StrategyGenerator2.ViewModel
             RaisePropertyChanged("isUpdateButtonEnabled");
             RaisePropertyChanged("isFormEnabled");
             RaisePropertyChanged("initPos");
-            RaisePropertyChanged("finalPos");
+            RaiseDisplayPropertyChanged();
 
             return;
         }
@@ -486,6 +606,16 @@ namespace StrategyGenerator2.ViewModel
         {
             RaisePropertyChanged("initPos");
             RaisePropertyChanged("finalPos");
+            RaisePropertyChanged("Robot0");
+            RaisePropertyChanged("Robot1");
+            RaisePropertyChanged("Robot2");
+            RaisePropertyChanged("Robot3");
+            RaisePropertyChanged("Robot4");
+            RaisePropertyChanged("Robot5");
+            RaisePropertyChanged("Robot6");
+            RaisePropertyChanged("Robot7");
+            RaisePropertyChanged("Robot8");
+            RaisePropertyChanged("Robot9");
         }
 
         private void ValidateParams()
@@ -529,6 +659,7 @@ namespace StrategyGenerator2.ViewModel
                     newRobotAction.nextID = _currentRobotAction.nextID;
                     _currentRobotAction.nextID = newID;
 
+                    _mainModel.selectedRobotAction = newRobotAction;
                     _mainModel.selectedSubStrategy.AddAction(newRobotAction);
                     _mainModel.UpdateRobotActionList();
                 }

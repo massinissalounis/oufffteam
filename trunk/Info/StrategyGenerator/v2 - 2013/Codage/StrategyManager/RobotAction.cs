@@ -258,6 +258,114 @@ namespace StrategyGenerator2.StrategyManager
             return Ret;
         }
 
+        public void ConvertColor()
+        {
+            int x,angle;
+
+            switch (_cmd)
+            {
+                // _______________________________________________________
+                case EnumCmd.App_SetNewPos:
+                    if (int.TryParse(param2, out x) == true)                                      // x
+                    {
+                        param2 = (3000 - x).ToString();
+                    }
+                    else
+                    {
+                        param4 = "1500";
+                    }
+                    
+                    if (int.TryParse(param4, out angle) == true)                                      // Angle
+                    {
+                        param4 = ((180 - angle) % 180).ToString();
+                    }
+                    else
+                    {
+                        param4 = "0";
+                    }
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.Mvt_UseAngleOnly:
+                case EnumCmd.MvtSimple_RotateInDeg:
+                case EnumCmd.MvtSimple_RotateToAngleInDeg:
+                    if (int.TryParse(param4, out angle) == true)                                      // Angle
+                    {
+                        param4 = ((180 - angle) % 180).ToString();
+                    }
+                    else
+                    {
+                        param4 = "0";
+                    }
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.Mvt_UseDistOnly:
+                    if (int.TryParse(param2, out x) == true)                                      // x
+                    {
+                        param2 = (3000 - x).ToString();
+                    }
+                    else
+                    {
+                        param4 = "1500";
+                    }
+                    
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.Mvt_UseMixedMode:
+                case EnumCmd.Mvt_UseSpline:
+                    if (int.TryParse(param2, out x) == true)                                      // x
+                    {
+                        param2 = (3000 - x).ToString();
+                    }
+                    else
+                    {
+                        param4 = "1500";
+                    }
+                    
+                    
+                    if (int.TryParse(param4, out angle) == true)                                      // Angle
+                    {
+                        param4 = ((180 - angle) % 180).ToString();
+                    }
+                    else
+                    {
+                        param4 = "0";
+                    }
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.Mvt_UsePivotMode:
+                    if (param2 == "RIGHT_WHEEL")
+                        param2 = "LEFT_WHEEL";
+                    else
+                        param2 = "RIGHT_WHEEL";                            // Roue bloquée
+
+                    if (int.TryParse(param4, out angle) == true)                                      // Angle
+                    {
+                        param4 = ((180 - angle) % 180).ToString();
+                    }
+                    else
+                    {
+                        param4 = "0";
+                    }
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.App_IfGoto_Strategy:
+                case EnumCmd.App_IfGoto_System:
+                case EnumCmd.App_SetStrategyFlags:
+                case EnumCmd.App_Wait:
+                case EnumCmd.Mvt_Stop:
+                case EnumCmd.MvtSimple_MoveInMM:
+                case EnumCmd.Sensors_SetHoopLevel:
+                case EnumCmd.NotSet:
+                default:
+                     break;
+            }
+        }
+
         // Properties -----------------------------------------------------------------------------
         /// <summary>
         /// La modification de la commande implique un chargement par défaut des paramètres

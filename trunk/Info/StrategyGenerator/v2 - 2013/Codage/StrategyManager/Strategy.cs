@@ -29,8 +29,8 @@ namespace StrategyGenerator2.StrategyManager
             _initialPos = new RobotAction(0);
             _initialPos.cmdType = EnumCmdType.CmdType_Blocking;             // Blocking Action
             _initialPos.cmd = EnumCmd.App_SetNewPos;                        // Defines the first robot position
-            _initialPos.param2 = "0";                                       // X
-            _initialPos.param3 = "0";                                       // Y
+            _initialPos.param2 = "1500";                                    // X
+            _initialPos.param3 = "1000";                                    // Y
             _initialPos.param4 = "0";                                       // Angle
             _initialPos.activeSensors.DesactivateAllSensors();              // Do not use bumpers
 

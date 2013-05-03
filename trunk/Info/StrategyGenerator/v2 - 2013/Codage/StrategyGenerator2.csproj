@@ -107,9 +107,6 @@
     <Compile Include="ViewModel\SubStrategiesRobot2VM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\SubStrategiesRobot1VM.cs" />
-    <Compile Include="View\MapView.xaml.cs">
-      <DependentUpon>MapView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\RobotActionView.xaml.cs">
       <DependentUpon>RobotActionView.xaml</DependentUpon>
     </Compile>
@@ -138,10 +135,6 @@
     <Page Include="Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\MapView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RobotActionView.xaml">
       <Generator>MSBuild:Compile</Generator>

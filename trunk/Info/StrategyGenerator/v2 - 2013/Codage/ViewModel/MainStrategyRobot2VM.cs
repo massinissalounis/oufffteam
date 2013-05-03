@@ -5,6 +5,7 @@ using StrategyGenerator2.View;
 using System.Collections.ObjectModel;
 using StrategyGenerator2.StrategyManager;
 using System.Collections.Generic;
+using System;
 
 namespace StrategyGenerator2.ViewModel
 {
@@ -19,6 +20,7 @@ namespace StrategyGenerator2.ViewModel
             {
                 _currentStrategy = _mainModel.strategyRobot2;
                 _currentStrategyDisplay = _mainModel.strategy2Display;
+                _mainModel.EConvertStrategy += new EventHandler(ConvertStrategy);
             }
         }
 
