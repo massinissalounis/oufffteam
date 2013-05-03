@@ -249,6 +249,26 @@ namespace StrategyGenerator2.StrategyViewer
             return _initialPos;
         }
 
+        public RobotPos GetOutputPos(int index)
+        {
+            RobotPos Ret = null;
+
+            if ((index >= 0) && (_initialPos != null) && (_initialPos.Count() > index))
+            {
+                List<RobotPos> resultList = GetOutputPos();
+
+                if ((resultList != null) && (resultList.Count() > index))
+                {
+                    Ret = resultList[index];
+                }
+            }
+
+            if (Ret == null)
+                Ret =  new RobotPos();
+            
+            return Ret;
+        }
+
         // Porperties -----------------------------------------------------------------------------
         public int actionID
         {
@@ -277,5 +297,6 @@ namespace StrategyGenerator2.StrategyViewer
         // Private --------------------------------------------------------------------------------
         private RobotAction _robotAction = null;
         private List<RobotPos> _initialPos = null;
+
     }
 }

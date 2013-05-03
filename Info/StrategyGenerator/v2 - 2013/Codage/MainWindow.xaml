@@ -31,14 +31,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <!-- Map -->
-        <UC:MapView Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2" />
-        
         <!-- SubStrategies -->
         <UC:MainStrategyView Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2" DataContext="{StaticResource MainStrategyRobot1VM}" />
         <UC:SubStrategiesView Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="2" DataContext="{StaticResource SubStrategiesRobot1VM}" />
         <UC:SubStrategiesView Grid.Column="4" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="2" DataContext="{StaticResource SubStrategiesRobot2VM}" />
         <UC:MainStrategyView Grid.Column="5" Grid.ColumnSpan="1" Grid.RowSpan="2" DataContext="{StaticResource MainStrategyRobot2VM}" />
-        <UC:RobotActionView Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="2" />
+        <UC:RobotActionView Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="3" />
     </Grid>
 </Window>

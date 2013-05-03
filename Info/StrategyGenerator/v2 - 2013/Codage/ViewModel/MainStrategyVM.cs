@@ -9,6 +9,8 @@ using GalaSoft.MvvmLight.Command;
 using System.Windows.Forms;
 using System.IO;
 using StrategyGenerator2.StrategyViewer;
+using System.Windows.Documents;
+using System.Collections.Generic;
 
 namespace StrategyGenerator2.ViewModel
 {
@@ -97,9 +99,19 @@ namespace StrategyGenerator2.ViewModel
 
         public ICommand ExportStrategy
         {
-           get
+            get
             {
                 return new RelayCommand(ExportCurrentStrategy);
+            }
+
+            set { }
+        }
+        
+        public ICommand IConvertStrategy
+        {
+            get
+            {
+                return new RelayCommand(ConvertStrategy);
             }
 
             set { }
@@ -134,6 +146,7 @@ namespace StrategyGenerator2.ViewModel
             set
             {
                 _currentStrategy.DefaultPosX = value;
+                _mainModel.UpdateRobotActionList();
             }
         }
         public int CurrentStrategyDefaultPosY
@@ -182,12 +195,25 @@ namespace StrategyGenerator2.ViewModel
             }
         }
 
+        public String ConvertStrategyVisibility
+        {
+            get 
+            {
+                if (_isStrategyConversionEnabled == true)
+                    return "Visible";
+                else
+                    return "Collapsed";
+            }
+            set { }
+        }
+
 
         // Private --------------------------------------------------------------------------------
         protected MainModel _mainModel = null;                      // Lien vers le model
         protected Strategy _currentStrategy = null;                 // Lien vers la stratégie actuelle
         protected RobotAction _currentRobotAction = null;           // Sauvegarde du RobotAction
         protected StrategyDisplay _currentStrategyDisplay = null;
+        protected Boolean _isStrategyConversionEnabled = false;
 
         private void UpdateData(object sender, EventArgs e)
         {
@@ -199,6 +225,26 @@ namespace StrategyGenerator2.ViewModel
             RaisePropertyChanged("CurrentStrategyDefaultSpeed");
 
             return;
+        }
+
+        public void ConvertStrategy(object sender, EventArgs e)
+        {
+            _currentStrategy.Clear();
+            _currentStrategy.Load(_mainModel.strategyRobot1.Name);
+
+            // Conversion des angles
+            List<RobotAction> ConvertAngle = _currentStrategy.GetAllRobotAction();
+
+            if (ConvertAngle != null)
+            {
+                foreach (RobotAction currentRobotAction in ConvertAngle)
+                {
+                    currentRobotAction.ConvertColor();
+                }
+            }
+
+            // Update 
+            _mainModel.UpdateRobotActionList();
         }
 
         private void LoadMainStrategyFile()
@@ -309,6 +355,20 @@ namespace StrategyGenerator2.ViewModel
 
             exportPatternWindow.Dispose();
             exportWindow.Dispose();
+        }
+
+        private void ConvertStrategy()
+        {
+            if (_isStrategyConversionEnabled == true)
+            {
+                // Affichage d'un message d'alerte
+                if (MessageBox.Show("Attention, la conversion de la stratégie va remplacer la stratégie de droite.\nContinuer ?", "Strategy Générator", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    // On peut effacer la stratégie de droite
+                    _mainModel.ConvertStrategy();
+                }
+            }
+
         }
 
     }

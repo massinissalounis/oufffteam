@@ -52,7 +52,7 @@ namespace StrategyGenerator2.StrategyViewer
                 // On ajoute tous les élements de la stratégie principale
                 foreach (DisplayPos current in _displayPos)
                 {
-                    if ((current.actionID > 1) && (current.actionID < 100))
+                    if ((current.actionID >= 1) && (current.actionID < 100))
                         nextList.Add(current);
                 }
 

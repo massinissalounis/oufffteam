@@ -32,6 +32,8 @@
                 <Separator/>
                 <MenuItem Header="Exporter" Command="{Binding ExportStrategy}" />
                 <MenuItem Header="Importer" Command="{Binding ImportStrategy}" />
+                <Separator Visibility="{Binding ConvertStrategyVisibility}"/>
+                <MenuItem Header="Convertir la Stratégie" Command="{Binding IConvertStrategy}" Visibility="{Binding ConvertStrategyVisibility}" />
             </MenuItem>
             <MenuItem Header="Save" Command="{Binding SaveStrategyFile}" />
         </Menu>

@@ -25,6 +25,7 @@ namespace StrategyGenerator2.Model
 
         public event EventHandler RobotActionChanged = null;
         public event EventHandler RobotActionListChanged = null;
+        public event EventHandler EConvertStrategy = null;
 
         public void UpdateRobotActionList()
         {
@@ -54,6 +55,12 @@ namespace StrategyGenerator2.Model
             }
         }
 
+        public void ConvertStrategy()
+        {
+            strategyRobot1.Save();
+            RaiseConvertStrategy();
+        }
+
         // Private --------------------------------------------------------------------------------
         private void RaiseRobotActionChanged()
         {
@@ -67,6 +74,13 @@ namespace StrategyGenerator2.Model
                 RobotActionListChanged(this, new EventArgs());
         }
 
+        private void RaiseConvertStrategy()
+        {
+            if (EConvertStrategy != null)
+                EConvertStrategy(this, new EventArgs());
+        }
+
+
         // Declaration du singleton
         private static MainModel _model;
 
@@ -76,6 +90,9 @@ namespace StrategyGenerator2.Model
             // Creation des objets pour la conception
             strategyRobot1 = new Strategy("UnamedStrategy1");
             strategyRobot2 = new Strategy("UnamedStrategy2");
+
+            strategy1Display.ComputeRobotPos(strategyRobot1);
+            strategy2Display.ComputeRobotPos(strategyRobot2);
 
             return;
         }

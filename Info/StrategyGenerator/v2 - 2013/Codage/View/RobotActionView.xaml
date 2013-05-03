@@ -7,12 +7,13 @@
              d:DesignHeight="240" d:DesignWidth="600"
              xmlns:root="clr-namespace:StrategyGenerator2.ViewModel"
              xmlns:UC="clr-namespace:StrategyGenerator2.View"
-             MinHeight="240" MinWidth="600" >
+             MinHeight="640" MinWidth="600" >
     <UserControl.DataContext>
         <root:RobotActionVM/>
     </UserControl.DataContext>
     <Grid x:Name="mainStrategyMainGrid">
         <Grid.RowDefinitions>
+            <RowDefinition Height="400" />
             <RowDefinition Height="25" />
             <RowDefinition Height="25" />
             <RowDefinition Height="25" />
@@ -30,40 +31,54 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="0,0,0,0">
+            <Border BorderBrush="Black" BorderThickness="1">
+                <Image Source="/StrategyGenerator2;component/Res/Terrain.png" Width="600" Height="400" />
+            </Border>
+            <Image Name="Robot0" Source="{Binding Robot0.Status}" Width="{Binding Robot0.Width}" Height="{Binding Robot0.Height}" Margin="{Binding Robot0.Margin}" Visibility="{Binding Robot0.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot0.CenterX}" CenterY="{Binding Robot0.CenterY}" Angle="{Binding Robot0.Angle}" /></Image.RenderTransform></Image>
+            <Image Name="Robot1" Source="{Binding Robot1.Status}" Width="{Binding Robot1.Width}" Height="{Binding Robot1.Height}" Margin="{Binding Robot1.Margin}" Visibility="{Binding Robot1.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot1.CenterX}" CenterY="{Binding Robot1.CenterY}" Angle="{Binding Robot1.Angle}" /></Image.RenderTransform></Image>
+            <Image Name="Robot2" Source="{Binding Robot2.Status}" Width="{Binding Robot2.Width}" Height="{Binding Robot2.Height}" Margin="{Binding Robot2.Margin}" Visibility="{Binding Robot2.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot2.CenterX}" CenterY="{Binding Robot2.CenterY}" Angle="{Binding Robot2.Angle}" /></Image.RenderTransform></Image>
+            <Image Name="Robot3" Source="{Binding Robot3.Status}" Width="{Binding Robot3.Width}" Height="{Binding Robot3.Height}" Margin="{Binding Robot3.Margin}" Visibility="{Binding Robot3.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot3.CenterX}" CenterY="{Binding Robot3.CenterY}" Angle="{Binding Robot3.Angle}" /></Image.RenderTransform></Image>
+            <Image Name="Robot4" Source="{Binding Robot4.Status}" Width="{Binding Robot4.Width}" Height="{Binding Robot4.Height}" Margin="{Binding Robot4.Margin}" Visibility="{Binding Robot4.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot4.CenterX}" CenterY="{Binding Robot4.CenterY}" Angle="{Binding Robot4.Angle}" /></Image.RenderTransform></Image>
+            <Image Name="Robot5" Source="{Binding Robot5.Status}" Width="{Binding Robot5.Width}" Height="{Binding Robot5.Height}" Margin="{Binding Robot5.Margin}" Visibility="{Binding Robot5.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot5.CenterX}" CenterY="{Binding Robot5.CenterY}" Angle="{Binding Robot5.Angle}" /></Image.RenderTransform></Image>
+            <Image Name="Robot6" Source="{Binding Robot6.Status}" Width="{Binding Robot6.Width}" Height="{Binding Robot6.Height}" Margin="{Binding Robot6.Margin}" Visibility="{Binding Robot6.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot6.CenterX}" CenterY="{Binding Robot6.CenterY}" Angle="{Binding Robot6.Angle}" /></Image.RenderTransform></Image>
+            <Image Name="Robot7" Source="{Binding Robot7.Status}" Width="{Binding Robot7.Width}" Height="{Binding Robot7.Height}" Margin="{Binding Robot7.Margin}" Visibility="{Binding Robot7.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot7.CenterX}" CenterY="{Binding Robot7.CenterY}" Angle="{Binding Robot7.Angle}" /></Image.RenderTransform></Image>
+            <Image Name="Robot8" Source="{Binding Robot8.Status}" Width="{Binding Robot8.Width}" Height="{Binding Robot8.Height}" Margin="{Binding Robot8.Margin}" Visibility="{Binding Robot8.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot8.CenterX}" CenterY="{Binding Robot8.CenterY}" Angle="{Binding Robot8.Angle}" /></Image.RenderTransform></Image>
+            <Image Name="Robot9" Source="{Binding Robot9.Status}" Width="{Binding Robot9.Width}" Height="{Binding Robot9.Height}" Margin="{Binding Robot9.Margin}" Visibility="{Binding Robot9.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot9.CenterX}" CenterY="{Binding Robot9.CenterY}" Angle="{Binding Robot9.Angle}" /></Image.RenderTransform></Image>
+        </Grid>
         
-        
-        <Label Content="{Binding initPos}" Height="28" Name="labelRobot1Pos" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.ColumnSpan="2" Grid.RowSpan="2" />
-        <Label Grid.Column="2" Content="{Binding finalPos}" Height="28" Name="labelRobot2Pos" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" Grid.ColumnSpan="2" />
+        <Label Content="{Binding initPos}" Height="28" Name="labelRobot1Pos" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1" />
+        <Label Grid.Column="2" Content="{Binding finalPos}" Height="28" Name="labelRobot2Pos" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" Grid.ColumnSpan="2" Grid.Row="1" />
 
-        <Label Content="Cmd : " Grid.Column="0" Grid.Row="2" Height="25" Margin="0,0,0,0" Name="labelCmd" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
-        <ComboBox Grid.Column="1" Grid.Row="2" Margin="5,1,5,1" Name="comboBoxCmd" ItemsSource="{Binding ListCmd}" SelectedValue="{Binding SelectedCmd}" TabIndex="2" IsEnabled="{Binding isFormEnabled}" />
+        <Label Content="Cmd : " Grid.Column="0" Grid.Row="3" Height="25" Margin="0,0,0,0" Name="labelCmd" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+        <ComboBox Grid.Column="1" Grid.Row="3" Margin="5,1,5,1" Name="comboBoxCmd" ItemsSource="{Binding ListCmd}" SelectedValue="{Binding SelectedCmd}" TabIndex="2" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="CmdType : " Grid.Column="0" Grid.Row="3" Height="25" Margin="0,0,0,0" Name="labelCmdType" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
-        <ComboBox Grid.Column="1" Grid.Row="3" Height="23" Margin="5,1,5,1" Name="comboBoxCmdType" VerticalAlignment="Top" ItemsSource="{Binding ListCmdType}" SelectedValue="{Binding SelectedCmdType}" TabIndex="3" IsEnabled="{Binding isFormEnabled}" />
+        <Label Content="CmdType : " Grid.Column="0" Grid.Row="4" Height="25" Margin="0,0,0,0" Name="labelCmdType" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+        <ComboBox Grid.Column="1" Grid.Row="4" Height="23" Margin="5,1,5,1" Name="comboBoxCmdType" VerticalAlignment="Top" ItemsSource="{Binding ListCmdType}" SelectedValue="{Binding SelectedCmdType}" TabIndex="3" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="Param1 : " Grid.Column="0" Grid.Row="4" Height="25" Margin="0,0,0,0" Name="labelParam1" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
-        <TextBox Grid.Column="1" Grid.Row="4" Height="23" Margin="5,1,5,1" Name="textBoxParam1" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding Param1}" TabIndex="4" IsEnabled="{Binding isFormEnabled}" />
+        <Label Content="Param1 : " Grid.Column="0" Grid.Row="5" Height="25" Margin="0,0,0,0" Name="labelParam1" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
+        <TextBox Grid.Column="1" Grid.Row="5" Height="23" Margin="5,1,5,1" Name="textBoxParam1" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding Param1}" TabIndex="4" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="Param2 : " Grid.Column="0" Grid.Row="5" Height="25" Margin="0,0,0,0" Name="labelParam2" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
-        <TextBox Grid.Column="1" Grid.Row="5" Height="23" Margin="5,1,5,1" Name="textBoxParam2" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding Param2}" TabIndex="5" IsEnabled="{Binding isFormEnabled}" />
+        <Label Content="Param2 : " Grid.Column="0" Grid.Row="6" Height="25" Margin="0,0,0,0" Name="labelParam2" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
+        <TextBox Grid.Column="1" Grid.Row="6" Height="23" Margin="5,1,5,1" Name="textBoxParam2" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding Param2}" TabIndex="5" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="Param3 : " Grid.Column="0" Grid.Row="6" Height="25" Margin="0,0,0,0" Name="labelParam3" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
-        <TextBox Grid.Column="1" Grid.Row="6" Height="23" Margin="5,1,5,1" Name="textBoxParam3" VerticalAlignment="Top" Text="{Binding Param3}" TabIndex="6" IsEnabled="{Binding isFormEnabled}" />
+        <Label Content="Param3 : " Grid.Column="0" Grid.Row="7" Height="25" Margin="0,0,0,0" Name="labelParam3" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
+        <TextBox Grid.Column="1" Grid.Row="7" Height="23" Margin="5,1,5,1" Name="textBoxParam3" VerticalAlignment="Top" Text="{Binding Param3}" TabIndex="6" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="Param4 : " Grid.Column="0" Grid.Row="7" Height="25" Margin="0,0,0,0" Name="labelParam4" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
-        <TextBox Grid.Column="1" Grid.Row="7" Height="23" Margin="5,1,5,1" Name="textBoxParam4" VerticalAlignment="Top" Text="{Binding Param4}" TabIndex="7" IsEnabled="{Binding isFormEnabled}" />
+        <Label Content="Param4 : " Grid.Column="0" Grid.Row="8" Height="25" Margin="0,0,0,0" Name="labelParam4" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.RowSpan="2" />
+        <TextBox Grid.Column="1" Grid.Row="8" Height="23" Margin="5,1,5,1" Name="textBoxParam4" VerticalAlignment="Top" Text="{Binding Param4}" TabIndex="7" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="Cmd ID : " Grid.Column="0" Grid.Row="1" Height="25" Margin="0,0,0,0" Name="labelUID" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
-        <TextBox Grid.Column="1" Grid.Row="1" Height="23" Margin="5,1,5,1" Name="textBoxCmd" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding CmdID}" TabIndex="1" IsEnabled="{Binding isFormEnabled}" />
+        <Label Content="Cmd ID : " Grid.Column="0" Grid.Row="2" Height="25" Margin="0,0,0,0" Name="labelUID" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+        <TextBox Grid.Column="1" Grid.Row="2" Height="23" Margin="5,1,5,1" Name="textBoxCmd" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding CmdID}" TabIndex="1" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="Next ID : " Grid.Column="2" Grid.Row="1" Height="25" Margin="0,0,0,0" Name="labelNextID" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
-        <TextBox Grid.Column="3" Grid.Row="1" Height="23" Margin="5,1,5,1" Name="textBoxNextID" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding NextID}" TabIndex="8" IsEnabled="{Binding isFormEnabled}" />
+        <Label Content="Next ID : " Grid.Column="2" Grid.Row="2" Height="25" Margin="0,0,0,0" Name="labelNextID" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+        <TextBox Grid.Column="3" Grid.Row="2" Height="23" Margin="5,1,5,1" Name="textBoxNextID" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding NextID}" TabIndex="8" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="Timeout ID : " Grid.Column="2" Grid.Row="2" Height="25" Margin="0,0,0,0" Name="labelTimeoutID" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
-        <TextBox Grid.Column="3" Grid.Row="2" Height="23" Margin="5,1,5,1" Name="textBoxTimeoutID" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding TimeoutID}" TabIndex="9" IsEnabled="{Binding isFormEnabled}" />
+        <Label Content="Timeout ID : " Grid.Column="2" Grid.Row="3" Height="25" Margin="0,0,0,0" Name="labelTimeoutID" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
+        <TextBox Grid.Column="3" Grid.Row="3" Height="23" Margin="5,1,5,1" Name="textBoxTimeoutID" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding TimeoutID}" TabIndex="9" IsEnabled="{Binding isFormEnabled}" />
 
-        <Label Content="Active Sensors : " Grid.Column="2" Grid.RowSpan="5" Grid.Row="3" Name="labelActiveSensors" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalContentAlignment="Center" />
-        <ListBox Grid.Column="3" Grid.Row="3" Grid.RowSpan="5" Margin="5,1,5,1" Name="textBlock1" ItemsSource="{Binding Path=ListActiveSensors}" IsEnabled="{Binding isFormEnabled}" >
+        <Label Content="Active Sensors : " Grid.Column="2" Grid.RowSpan="5" Grid.Row="4" Name="labelActiveSensors" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalContentAlignment="Center" />
+        <ListBox Grid.Column="3" Grid.Row="4" Grid.RowSpan="5" Margin="5,1,5,1" Name="textBlock1" ItemsSource="{Binding Path=ListActiveSensors}" IsEnabled="{Binding isFormEnabled}" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -75,15 +90,10 @@
             </ListBox.ItemTemplate>
 
         </ListBox>
-        <TextBlock Grid.Row="8" Name="textBlock2" Grid.ColumnSpan="4" Margin="0,5,0,0" TextAlignment="Center" Height="23" VerticalAlignment="Top">
-            <Button Width="50" Height="23" Content="Prev" IsEnabled="{Binding isFormEnabled}" />
-            <Label Content="" Height="23" Width="50" HorizontalAlignment="Left" Margin="0,0,0,0" />
+        <TextBlock Grid.Row="9" Name="textBlock2" Grid.ColumnSpan="4" Margin="0,5,0,0" TextAlignment="Center" Height="23" VerticalAlignment="Top">
             <Button Width="100" Height="23" Content="Ajouter" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdAdd}" />
-            <Label Content="" Height="23" Width="50" HorizontalAlignment="Left" Margin="0,0,0,0" />
+            <Label Content="" Height="23" Width="100" HorizontalAlignment="Left" Margin="0,0,0,0" />
             <Button Width="100" Height="23" Content="Mettre à jour" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdUpdate}" />
-            <Label Content="" Height="23" Width="50" HorizontalAlignment="Left" Margin="0,0,0,0" />
-            <Button Width="50" Height="23" Content="Next" IsEnabled="{Binding isFormEnabled}" />
         </TextBlock>
-        
     </Grid>
 </UserControl>

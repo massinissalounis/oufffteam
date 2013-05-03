@@ -19,6 +19,7 @@ namespace StrategyGenerator2.ViewModel
             {
                 _currentStrategy = _mainModel.strategyRobot1;
                 _currentStrategyDisplay = _mainModel.strategy1Display;
+                _isStrategyConversionEnabled = true;
             }
         }
 
