@@ -20,12 +20,12 @@ void ARMS_InitReg(void)
 	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_ARM_ID, AX12_REG_TORQUE_LIMIT, 0x00, 0x03);
 
 	// CW limits
-	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_ARM_ID, AX12_REG_CW_LIMIT, 0x40, 0x01);
-	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_ARM_ID, AX12_REG_CW_LIMIT, 0xE1, 0x00);
+	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_ARM_ID, AX12_REG_CW_LIMIT, 0xE1, 0x00); // 225 0xE1
+	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_ARM_ID, AX12_REG_CW_LIMIT, 0xBE, 0x00); // 190 0xBE
 
 	// CCW limits
-	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_ARM_ID, AX12_REG_CCW_LIMIT, 0x18, 0x03);
-	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_ARM_ID, AX12_REG_CCW_LIMIT, 0xB9, 0x02);
+	AX12_Write_Reg_2_Datas_Sync(AX12_LEFT_ARM_ID, AX12_REG_CCW_LIMIT, 0xFF, 0x03); // 1023 0x3FF
+	AX12_Write_Reg_2_Datas_Sync(AX12_RIGHT_ARM_ID, AX12_REG_CCW_LIMIT, 0xFF, 0x03); // 1023 0x3FF
 }
 
 void ARMS_SetSpeed(void)
@@ -42,7 +42,6 @@ void ARMS_Open(void)
 //	OSTimeDlyHMSM(0, 0, 1, 0);
 }
 
-
 void ARMS_Close(void)
 {
 	ARM_Right_Close();
@@ -50,7 +49,7 @@ void ARMS_Close(void)
 //	OSTimeDlyHMSM(0, 0, 0, 500);
 }
 
-void ARMS_Push(void)
+void ARMS_Back(void)
 {
 	ARM_Left_Back();
 	ARM_Right_Back();
@@ -61,36 +60,36 @@ void ARMS_Push(void)
 void ARM_Left_Open(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0x8F);
+	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x03, 0x5C); // 860 0x35C
 }
 
 void ARM_Left_Close(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x01, 0x86);
+	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x00, 0xF0); // 240  0xF0
 }
 
 void ARM_Left_Back(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x01, 0x9A);
+	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x03, 0x02); // 770  0x302
 }
 
 // ARM Right ----------------------------------------------------------------------------
 void ARM_Right_Open(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0x98);
+	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x01, 0x9A); // 410 0x19A
 }
 
 void ARM_Right_Close(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x02, 0x62);
+	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x03, 0xF2); // 1010 0x3F2
 }
 
 void ARM_Right_Back(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x02, 0x62);
+	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x02, 0xC6); // 710  0x2C6
 }
