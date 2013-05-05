@@ -29,7 +29,7 @@
 #define CONVERSION_MM_TO_INC_LEFT	(float)(21.4738)		// Coupe 2012 : (21.4085)
 
 // For an angle of = entraxe
-#define CONVERSION_RAD_TO_MM	(float)(273.1)
+#define CONVERSION_RAD_TO_MM	(float)(273)
 
 // For movement detection
 #define MOVEMENT_DETECTION_INTERVAL				20 // in 10ms

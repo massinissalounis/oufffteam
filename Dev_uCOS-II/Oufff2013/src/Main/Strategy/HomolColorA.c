@@ -26,8 +26,8 @@ INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
 
 	InitCmd->Cmd				= App_SetNewPos;
 	InitCmd->CmdType			= CmdType_Blocking;
-	InitCmd->Param2				= 0;	
-	InitCmd->Param3				= 0;	
+	InitCmd->Param2				= 1500;	
+	InitCmd->Param3				= 1000;	
 	InitCmd->Param4				= AppConvertDegInRad(0);
 	InitCmd->ActiveSensorsFlag		= APP_PARAM_STRATEGYFLAG_NONE;
 
@@ -78,10 +78,9 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	{
 		// SUB_STRATEGY_BEGIN_LOOP
 		case 1:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 2;	TimeoutID = -1;	p->Cmd = App_Wait;	p->Param1 = 0;	p->Param2 = 0;	p->Param3 = 0;	p->Param4 = 1;	break;	// SubStrategyName = MainStrategy
-		case 2:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 3;	TimeoutID = -1;	p->Cmd = Mvt_UseSpline;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 1000;	p->Param3 = 0;	p->Param4 = 0;	break;	// SubStrategyName = MainStrategy
-		case 3:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 4;	TimeoutID = -1;	p->Cmd = Mvt_UseSpline;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 0;	p->Param3 = 0;	p->Param4 = 0;	break;	// SubStrategyName = MainStrategy
-		case 4:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 5;	TimeoutID = -1;	p->Cmd = Mvt_UseSpline;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 1000;	p->Param3 = 0;	p->Param4 = 0;	break;	// SubStrategyName = MainStrategy
-		case 5:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = -1;	TimeoutID = -1;	p->Cmd = Mvt_UseSpline;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 0;	p->Param3 = 0;	p->Param4 = 0;	break;	// SubStrategyName = MainStrategy
+		case 2:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 3;	TimeoutID = -1;	p->Cmd = MvtSimple_MoveInMM;	p->Param1 = DEFAULT_SPEED;	p->Param2 = -300;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = MainStrategy
+		case 3:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 4;	TimeoutID = -1;	p->Cmd = Sensors_SetArmsStatus;	p->Param1 = ARM_FRONT;	p->Param2 = ARM_FRONT;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = MainStrategy
+		case 4:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 0;	TimeoutID = -1;	p->Cmd = MvtSimple_MoveInMM;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 300;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = MainStrategy
 
 		// SUB_STRATEGY_END_LOOP
 
