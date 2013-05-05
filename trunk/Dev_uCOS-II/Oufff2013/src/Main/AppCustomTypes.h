@@ -19,6 +19,10 @@
 #define HOOP_LEVEL_UP							20		// Level position (for hoop)
 #define HOOP_LEVEL_DOWN							21		// Level position (for hoop)
 
+#define ARM_OPEN								30		// Arm status (for right or Left arm)
+#define ARM_CLOSED								31		// Arm status (for right or Left arm)
+#define ARM_FRONT								32		// Arm status (for right or Left arm)
+
 #define USE_CURRENT_VALUE						-9999	// Used into Cmd msg to indicate we want to keep current value 
 														// (Thus no computation is needed for this param)
 
@@ -64,6 +68,7 @@ typedef enum
 	App_SetStrategyFlags			= 34,	// Set the stratgey flags
 	// Command SENSORS __________________
 	Sensors_SetHoopLevel			= 40,	// Configure the hoops status 
+	Sensors_SetArmsStatus			= 41,	// Configure the Arms status 
 }EnumCmd;
 
 typedef enum

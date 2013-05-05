@@ -62,9 +62,9 @@
 // General Coefficients
 // ------------------------------------------------------------------------------------------------
 #define MAX_MOTOR_COMMAND 		        32000	                            // doit être < à 32768
-#define PIVOT_APPROACH_PRECISION		 2.00
-#define ANGLE_VS_DISTANCE_RATIO	0.2											// n % used for angle on full scale
-#define ASSER_SAMPLING		10												// in ms
+#define PIVOT_APPROACH_PRECISION		2.00
+#define ANGLE_VS_DISTANCE_RATIO			0.2									// n % used for angle on full scale
+#define ASSER_SAMPLING					10									// in ms
 
 
 /*
@@ -97,7 +97,7 @@
 #define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
 #define APP_TASK_DEBUG_ENABLED							// Activate TaskDebug
 #define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
-//#define APP_TASK_TEST_ENABLED							// Activate TaskTest (Only for specific tests)
+#define APP_TASK_TEST_ENABLED							// Activate TaskTest (Only for specific tests)
 
 /*
 *********************************************************************************************************

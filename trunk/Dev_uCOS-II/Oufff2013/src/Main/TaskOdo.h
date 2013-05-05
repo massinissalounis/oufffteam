@@ -15,7 +15,7 @@
 // Conversion factor : determined imperically
 // !Calibration methodology!
 // 1- Measure increments of encoders for a know distance
-// Use several trials to average correctly and compute a first estimation of left and right factors : factor = distance (mm) / nb of incs
+// Use several trials to average correctly and compute a first estimation of left and right factors : factor = nb of incs / distance (mm)
 // 2- Measure entraxe to determine conversion factor for angle
 // 3- Do several trials to refine factors in angle
 // First correct angle in right line : if angle +, reduces left factor (because factor scales in 1/x)
@@ -24,13 +24,12 @@
 // current left factor --- coeff 2 ---> current right factor
 // new right factor = current right factor * coeff 1 * coeff2
 
-// For distance of 789.5 mm, we add 16902 increments on encoder right and 16922 increments on encoder left
-#define CONVERSION_MM_TO_INC_RIGHT  (float)(21.4338)
-#define CONVERSION_MM_TO_INC_LEFT	(float)(21.4085)
-
+// For distance of 2600 mm, we add 55771 increments on encoder right (21.4504) and 55832 increments on encoder left (21.4738)
+#define CONVERSION_MM_TO_INC_RIGHT  (float)(21.4504)		// Coupe 2012 : (21.4338)
+#define CONVERSION_MM_TO_INC_LEFT	(float)(21.4738)		// Coupe 2012 : (21.4085)
 
 // For an angle of = entraxe
-#define CONVERSION_RAD_TO_MM	(float)(273.0)
+#define CONVERSION_RAD_TO_MM	(float)(273.1)
 
 // For movement detection
 #define MOVEMENT_DETECTION_INTERVAL				20 // in 10ms
