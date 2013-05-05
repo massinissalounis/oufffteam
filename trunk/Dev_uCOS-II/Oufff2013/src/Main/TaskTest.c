@@ -26,11 +26,25 @@ void TaskTest_Main(void *p_arg)
 	// Main Loop
 	while(OS_TRUE)
 	{
-		// Test Code : Begin ______________________________________________________________________
-OSTimeDlyHMSM(0, 0, 5, 0);
-		TURBINE_On();
+
+		// Turbine Test Code : Begin ______________________________________________________________________
+//OSTimeDlyHMSM(0, 0, 5, 0);
+//		TURBINE_On();
+//OSTimeDlyHMSM(1, 0, 0, 0);
+		// Turbine Test Code : End ________________________________________________________________________
+
+		// Arms Test Code : Begin ______________________________________________________________________
+OSTimeDlyHMSM(0, 0, 2, 0);
+		ARMS_Close();
+OSTimeDlyHMSM(0, 0, 2, 0);
+		ARMS_Front();
+//OSTimeDlyHMSM(0, 0, 2, 0);
+//		ARMS_Open();
+//OSTimeDlyHMSM(0, 0, 2, 0);
+//		ARMS_Close();
 OSTimeDlyHMSM(1, 0, 0, 0);
-		// Test Code : End ________________________________________________________________________
+		// Arms Test Code : End ________________________________________________________________________
+
 
 		OSTimeDlyHMSM(0, 0, 0, 250);
 	}

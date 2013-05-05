@@ -205,6 +205,8 @@ void TaskSensors_Main(void *p_arg)
 	ARMS_InitReg();
 	HOOPS_SetSpeed();
 	ARMS_SetSpeed();
+
+	OSTimeDlyHMSM(0, 0, 2, 0);
 	TURBINE_Off();
 	HOOPS_Up();
 	ARMS_Close();
