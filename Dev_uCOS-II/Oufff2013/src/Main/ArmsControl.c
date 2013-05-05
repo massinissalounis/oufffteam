@@ -72,7 +72,7 @@ void ARM_Left_Close(void)
 void ARM_Left_Front(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
-	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x03, 0x02); // 770  0x302
+	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x02, 0x26); // 550  0x226
 }
 
 // ARM Right ----------------------------------------------------------------------------

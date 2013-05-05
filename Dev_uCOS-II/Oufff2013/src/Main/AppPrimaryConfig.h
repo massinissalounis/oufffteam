@@ -97,7 +97,7 @@
 #define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
 #define APP_TASK_DEBUG_ENABLED							// Activate TaskDebug
 #define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
-#define APP_TASK_TEST_ENABLED							// Activate TaskTest (Only for specific tests)
+//#define APP_TASK_TEST_ENABLED							// Activate TaskTest (Only for specific tests)
 
 /*
 *********************************************************************************************************
