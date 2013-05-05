@@ -202,9 +202,12 @@ void TaskSensors_Main(void *p_arg)
 	
 	// Task init : initialize all sensors
 	HOOPS_InitReg();
+	ARMS_InitReg();
 	HOOPS_SetSpeed();
+	ARMS_SetSpeed();
 	TURBINE_Off();
 	HOOPS_Up();
+	ARMS_Close();
 
 #ifdef	APP_INIT_EXEC_STARTUP_SEQ
 #endif
@@ -286,6 +289,29 @@ void TaskSensors_Main(void *p_arg)
 					default:									break;
 					}
 
+
+					if(CmdType_Blocking == pCurrentMsg->CmdType)
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
+					NextState = 1;
+					break;
+
+				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+				case Sensors_SetArmsStatus: 
+					switch(pCurrentMsg->Param1)
+					{
+					case ARM_OPEN:		ARM_Right_Open();		break;
+					case ARM_CLOSED:	ARM_Right_Close();		break;
+					case ARM_FRONT:		ARM_Right_Front();		break;
+					default:									break;
+					}
+
+					switch(pCurrentMsg->Param2)
+					{
+					case ARM_OPEN:		ARM_Left_Open();		break;
+					case ARM_CLOSED:	ARM_Left_Close();		break;
+					case ARM_FRONT:		ARM_Left_Front();		break;
+					default:									break;
+					}
 
 					if(CmdType_Blocking == pCurrentMsg->CmdType)
 						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);

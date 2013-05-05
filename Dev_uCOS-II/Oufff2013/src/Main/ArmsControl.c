@@ -49,10 +49,10 @@ void ARMS_Close(void)
 //	OSTimeDlyHMSM(0, 0, 0, 500);
 }
 
-void ARMS_Back(void)
+void ARMS_Front(void)
 {
-	ARM_Left_Back();
-	ARM_Right_Back();
+	ARM_Left_Front();
+	ARM_Right_Front();
 //	OSTimeDlyHMSM(0, 0, 0, 100);
 }
 
@@ -69,7 +69,7 @@ void ARM_Left_Close(void)
 	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x00, 0xF0); // 240  0xF0
 }
 
-void ARM_Left_Back(void)
+void ARM_Left_Front(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_LEFT_ARM_ID);
 	AX12_Write_Position_Sync(AX12_LEFT_ARM_ID, 0x03, 0x02); // 770  0x302
@@ -88,7 +88,7 @@ void ARM_Right_Close(void)
 	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x03, 0xF2); // 1010 0x3F2
 }
 
-void ARM_Right_Back(void)
+void ARM_Right_Front(void)
 {
 	AX12_Write_Torque_On_Sync (AX12_RIGHT_ARM_ID);
 	AX12_Write_Position_Sync(AX12_RIGHT_ARM_ID, 0x02, 0xC6); // 710  0x2C6

@@ -28,7 +28,7 @@ INT8U StrategyColorB_GetInitCmd(StructCmd *InitCmd)
 	InitCmd->CmdType			= CmdType_Blocking;
 	InitCmd->Param2				= 1000;	
 	InitCmd->Param3				= 1000;	
-	InitCmd->Param4				= AppConvertDegInRad(30);
+	InitCmd->Param4				= AppConvertDegInRad(0);
 	InitCmd->ActiveSensorsFlag		= APP_PARAM_STRATEGYFLAG_NONE;
 
 	return ERR__NO_ERROR;

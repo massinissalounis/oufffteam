@@ -256,11 +256,12 @@ void TaskMain_Main(void *p_arg)
 
 					// To TaskSensors ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 					case Sensors_SetHoopLevel:
+					case Sensors_SetArmsStatus:
 						// Copy data to MsgToPost
 						MsgToPost.Cmd		= CurrentCmd.Cmd;
 						MsgToPost.CmdType	= CurrentCmd.CmdType;
 						MsgToPost.Param1	= CurrentCmd.Param1;
-						MsgToPost.Param2	= 0;
+						MsgToPost.Param2	= (int)(CurrentCmd.Param2);
 						MsgToPost.Param3	= 0;
 						MsgToPost.Param4	= 0;
 

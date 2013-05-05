@@ -27,7 +27,9 @@ void TaskTest_Main(void *p_arg)
 	while(OS_TRUE)
 	{
 		// Test Code : Begin ______________________________________________________________________
-
+OSTimeDlyHMSM(0, 0, 5, 0);
+		TURBINE_On();
+OSTimeDlyHMSM(1, 0, 0, 0);
 		// Test Code : End ________________________________________________________________________
 
 		OSTimeDlyHMSM(0, 0, 0, 250);

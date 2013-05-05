@@ -223,6 +223,13 @@ void TaskDebug_Main(void *p_arg)
 	
 	// All TaskDebug_RegisterNewData() must be set into Task_Main
 
+#ifdef ODO_CALIBRATION
+	while(OS_TRUE)		
+	{
+		OSTimeDlyHMSM(1, 0, 0, 0);
+	}
+#endif
+
 	// Main Loop
 	while(OS_TRUE)
 	{
@@ -254,7 +261,7 @@ void TaskDebug_Main(void *p_arg)
 
 					// ________________________________________________________________________
 					case typeAngle:	 
-						buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) _debugInfo[i].value, (CPU_INT08U) 3, (CPU_INT08U) 1, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
+						buffer_ptr = (char*) Str_FmtNbr_32 ((CPU_FP32) _debugInfo[i].value, (CPU_INT08U) 3, (CPU_INT08U) 2, (CPU_BOOLEAN) DEF_YES, (CPU_BOOLEAN) DEF_YES, uart_buffer);
 						AppDebugMsg(buffer_ptr);
 						break;
 

@@ -153,6 +153,9 @@
     <ClCompile Include="..\..\..\src\Main\TurbineControl.c">
       <Filter>Fichiers sources\Main</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\ArmsControl.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\DevCard\1602D.h">
@@ -300,6 +303,9 @@
       <Filter>Fichiers d%27en-tête\BSP</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Main\TurbineControl.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\ArmsControl.h">
       <Filter>Fichiers d%27en-tête\Main</Filter>
     </ClInclude>
   </ItemGroup>
