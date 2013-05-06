@@ -75,12 +75,12 @@ namespace StrategyGenerator2.StrategyViewer
                             }
                             else
                             {
-                                outputPos.Add(new RobotPos(transX, transY, transA, EnumStatusFlag.RobotIsClosed));
+                                outputPos.Add(new RobotPos(transX, transY, transA, new RobotStatusFlag()));
                             }
                         }
                         else
                         {
-                            outputPos.Add(new RobotPos(0, 0, 0, EnumStatusFlag.RobotIsClosed));
+                            outputPos.Add(new RobotPos(1500, 1000, 0, new RobotStatusFlag()));
                         }
                         break;
 
@@ -96,7 +96,7 @@ namespace StrategyGenerator2.StrategyViewer
                         }
                         else
                         {
-                            outputPos.Add(new RobotPos(0, 0, 0, EnumStatusFlag.RobotIsClosed));
+                            outputPos.Add(new RobotPos(0, 0, 0, new RobotStatusFlag()));
                         }
                         break;
 
@@ -111,7 +111,7 @@ namespace StrategyGenerator2.StrategyViewer
                         }
                         else
                         {
-                            outputPos.Add(new RobotPos(0, 0, 0, EnumStatusFlag.RobotIsClosed));
+                            outputPos.Add(new RobotPos(0, 0, 0, new RobotStatusFlag()));
                         }
                         break;
 
@@ -126,7 +126,7 @@ namespace StrategyGenerator2.StrategyViewer
                         }
                         else
                         {
-                            outputPos.Add(new RobotPos(0, 0, 0, EnumStatusFlag.RobotIsClosed));
+                            outputPos.Add(new RobotPos(0, 0, 0, new RobotStatusFlag()));
                         }
                         break;
 
@@ -169,7 +169,7 @@ namespace StrategyGenerator2.StrategyViewer
                         }
                         else
                         {
-                            outputPos.Add(new RobotPos(0, 0, 0, EnumStatusFlag.RobotIsClosed));
+                            outputPos.Add(new RobotPos(0, 0, 0, new RobotStatusFlag()));
                         }
                         break;
 
@@ -187,7 +187,7 @@ namespace StrategyGenerator2.StrategyViewer
                         }
                         else
                         {
-                            outputPos.Add(new RobotPos(0, 0, 0, EnumStatusFlag.RobotIsClosed));
+                            outputPos.Add(new RobotPos(0, 0, 0, new RobotStatusFlag()));
                         }
 
                         break;
@@ -197,10 +197,43 @@ namespace StrategyGenerator2.StrategyViewer
                     case EnumCmd.Sensors_SetHoopLevel:
                         foreach (RobotPos currentRobotPos in _initialPos)
                         {
+                            RobotStatusFlag newStatus = new RobotStatusFlag(currentRobotPos.statusFlag);
                             if (_robotAction.param1 == EnumSensorsHoopLevel.HOOP_LEVEL_UP.ToString())
-                                outputPos.Add(new RobotPos(currentRobotPos.x, currentRobotPos.y, currentRobotPos.angle, EnumStatusFlag.RobotIsClosed));
+                            {
+                                newStatus.HoopStatus = EnumRobotStatusFlag.Closed;
+                                outputPos.Add(new RobotPos(currentRobotPos.x, currentRobotPos.y, currentRobotPos.angle, newStatus));
+                            }
                             else
-                                outputPos.Add(new RobotPos(currentRobotPos.x, currentRobotPos.y, currentRobotPos.angle, EnumStatusFlag.RobotIsOpen));
+                            {
+                                newStatus.HoopStatus = EnumRobotStatusFlag.Open;
+                                outputPos.Add(new RobotPos(currentRobotPos.x, currentRobotPos.y, currentRobotPos.angle, newStatus));
+                            }
+                        }
+                        break;
+
+                    // _______________________________________________________
+                    // Pas de modification sur la position du robot
+                    case EnumCmd.Sensors_SetArmsStatus:
+                        foreach (RobotPos currentRobotPos in _initialPos)
+                        {
+                            RobotStatusFlag newStatus = new RobotStatusFlag(currentRobotPos.statusFlag);
+
+                            if (_robotAction.param1 == "ARM_OPEN")
+                                newStatus.RightArmStatus = EnumRobotStatusFlag.Open;
+                            else if (_robotAction.param1 == "ARM_FRONT")
+                                newStatus.RightArmStatus = EnumRobotStatusFlag.Front;
+                            else
+                                newStatus.RightArmStatus = EnumRobotStatusFlag.Closed;
+
+                            if (_robotAction.param2 == "ARM_OPEN")
+                                newStatus.LeftArmStatus = EnumRobotStatusFlag.Open;
+                            else if (_robotAction.param2 == "ARM_FRONT")
+                                newStatus.LeftArmStatus = EnumRobotStatusFlag.Front;
+                            else
+                                newStatus.LeftArmStatus = EnumRobotStatusFlag.Closed;
+
+    
+                            outputPos.Add(new RobotPos(currentRobotPos.x, currentRobotPos.y, currentRobotPos.angle, newStatus));
                         }
                         break;
 

@@ -38,7 +38,7 @@ namespace StrategyGenerator2.StrategyViewer
                 currentRobotPos.x = currentStrategy.DefaultPosX;
                 currentRobotPos.y = currentStrategy.DefaultPosY;
                 currentRobotPos.angle = currentStrategy.DefaultPosA;
-                currentRobotPos.statusFlag = EnumStatusFlag.RobotIsClosed;
+                currentRobotPos.statusFlag = new RobotStatusFlag();
 
                 // Creation du premier élément
                 nextList.Clear();

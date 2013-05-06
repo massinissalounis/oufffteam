@@ -12,6 +12,7 @@
     <Application.Resources>
         <root:MainVM x:Key="MainVM"/>
         <root:RobotActionVM x:Key="RobotActionVM"/>
+        <root:HelperVM x:Key="HelperVM"/>
         <root:SubStrategiesRobot1VM x:Key="SubStrategiesRobot1VM"/>
         <root:SubStrategiesRobot2VM x:Key="SubStrategiesRobot2VM"/>
         <root:MainStrategyRobot1VM x:Key="MainStrategyRobot1VM"/>

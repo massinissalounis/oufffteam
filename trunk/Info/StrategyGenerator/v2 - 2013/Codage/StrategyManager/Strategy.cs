@@ -708,6 +708,9 @@ namespace StrategyGenerator2.StrategyManager
                 if(isUpdated == false)
                     _subStrategies.Add(newSubStrategy);
             }
+
+            if(_subStrategies != null)
+                _subStrategies.Sort(SubStrategy.ComparisonID);
         }
 
         /// <summary>
@@ -791,6 +794,23 @@ namespace StrategyGenerator2.StrategyManager
                             Ret.Add(currentRobotAction);
                         }
                     }
+                }
+            }
+
+            return Ret;
+        }
+
+        public Boolean isPresent(int IDtoFind)
+        {
+            Boolean Ret = false;
+            List<RobotAction> allRobotAction = GetAllRobotAction();
+
+            if (allRobotAction != null)
+            {
+                foreach (RobotAction currentRobotAction in allRobotAction)
+                {
+                    if (currentRobotAction.ID == IDtoFind)
+                        Ret = true;
                 }
             }
 

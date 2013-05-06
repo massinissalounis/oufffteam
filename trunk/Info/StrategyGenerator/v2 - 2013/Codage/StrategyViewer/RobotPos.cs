@@ -9,18 +9,19 @@ namespace StrategyGenerator2.StrategyViewer
     {
         public RobotPos()
         {
-            _x = 0;
-            _y = 0;
+            _x = -1;
+            _y = -1;
             _angle = 0;
-            _statusFlag = EnumStatusFlag.NotSet;
         }
 
-        public RobotPos(int x, int y, int angle, EnumStatusFlag statusFlag)
+        public RobotPos(int x, int y, int angle, RobotStatusFlag statusFlag)
         {
             _x = x;
             _y = y;
-            _angle = angle % 180;
-            _statusFlag = statusFlag;
+            _angle = angle % 360;
+            _statusFlag.HoopStatus = statusFlag.HoopStatus;
+            _statusFlag.LeftArmStatus = statusFlag.LeftArmStatus;
+            _statusFlag.RightArmStatus = statusFlag.RightArmStatus;
         }
 
         // Porperties -----------------------------------------------------------------------------
@@ -42,10 +43,18 @@ namespace StrategyGenerator2.StrategyViewer
             set { _angle = value; }
         }
 
-        public EnumStatusFlag statusFlag
+        public RobotStatusFlag statusFlag
         {
             get { return _statusFlag; }
-            set { _statusFlag = value; }
+            set 
+            {
+                if (value != null)
+                {
+                    _statusFlag.HoopStatus = value.HoopStatus;
+                    _statusFlag.LeftArmStatus = value.LeftArmStatus;
+                    _statusFlag.RightArmStatus = value.RightArmStatus;
+                }
+            }
         }
 
         public String Margin
@@ -57,10 +66,7 @@ namespace StrategyGenerator2.StrategyViewer
 
                 y = Math.Ceiling((2000 - _y - (RobotHeight / 2)) * 0.2);
                 
-                if(_statusFlag == EnumStatusFlag.RobotIsOpen)
-                    x = Math.Ceiling((_x - (OpenedRobotWidth / 2)) * 0.2);
-                else
-                    x = Math.Ceiling((_x - (ClosedRobotWidth / 2)) * 0.2);
+                x = Math.Ceiling((_x - (RobotWidth / 2)) * 0.2);
 
                 retX = Convert.ToInt32(x);
                 retY = Convert.ToInt32(y);
@@ -72,7 +78,7 @@ namespace StrategyGenerator2.StrategyViewer
 
         public String Visibility
         {
-            get { if (_statusFlag == EnumStatusFlag.NotSet) { return "Hidden"; } else { return "Visible"; } }
+            get { if ((_x < 0) || (_y < 0)) { return "Hidden"; } else { return "Visible"; } }
             set { }
         }
 
@@ -80,10 +86,7 @@ namespace StrategyGenerator2.StrategyViewer
         {
             get 
             {
-                if (_statusFlag == EnumStatusFlag.RobotIsOpen)
-                    return Convert.ToInt32(OpenedRobotWidth * 0.2);
-                else
-                    return Convert.ToInt32(ClosedRobotWidth * 0.2);
+                return Convert.ToInt32(RobotWidth * 0.2);
             }
             set { }
         }
@@ -98,22 +101,42 @@ namespace StrategyGenerator2.StrategyViewer
         {
             get
             {
-                if (_statusFlag == EnumStatusFlag.RobotIsOpen)
-                    return "/StrategyGenerator2;component/Res/RobotOuvert.png";
+                String Ret = "Robot_";
+                // Hoop Status
+                if (_statusFlag.HoopStatus == EnumRobotStatusFlag.Open)
+                    Ret = Ret + "HO_";
                 else
-                    return "/StrategyGenerator2;component/Res/RobotFermé.png";
+                    Ret = Ret + "HC_";
+
+                // Right Arm
+                if (_statusFlag.RightArmStatus == EnumRobotStatusFlag.Front)
+                    Ret = Ret + "RF_";
+                else if (_statusFlag.RightArmStatus == EnumRobotStatusFlag.Open)
+                    Ret = Ret + "RO_";
+                else
+                    Ret = Ret + "RC_";
+
+                // Left Arm
+                if (_statusFlag.LeftArmStatus == EnumRobotStatusFlag.Front)
+                    Ret = Ret + "LF";
+                else if (_statusFlag.LeftArmStatus == EnumRobotStatusFlag.Open)
+                    Ret = Ret + "LO";
+                else
+                    Ret = Ret + "LC";
+
+                // Final string
+                Ret = Ret + ".png";
+
+                return "/StrategyGenerator2;component/Res/" + Ret;
             }
-            set            { }
+            set { }
         }
 
         public int CenterX
         {
             get 
             {
-                if (_statusFlag == EnumStatusFlag.RobotIsOpen)
-                    return Convert.ToInt32(OpenedRobotWidth / 2 * 0.2);
-                else
-                    return Convert.ToInt32(ClosedRobotWidth / 2 * 0.2);
+                return Convert.ToInt32(RobotWidth / 2 * 0.2);
             }
             set { }
         }
@@ -134,12 +157,11 @@ namespace StrategyGenerator2.StrategyViewer
         int _x = 0;
         int _y = 0;
         int _angle = 0;
-        EnumStatusFlag _statusFlag = EnumStatusFlag.NotSet;
+        RobotStatusFlag _statusFlag = new RobotStatusFlag();
 
 
-        private const int RobotHeight = 295;
-        private const int OpenedRobotWidth = 705;
-        private const int ClosedRobotWidth = 195;
+        private const int RobotHeight = 465;
+        private const int RobotWidth = 705;
 
     }
 }

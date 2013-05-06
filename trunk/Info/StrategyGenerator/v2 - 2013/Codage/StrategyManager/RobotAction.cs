@@ -277,7 +277,7 @@ namespace StrategyGenerator2.StrategyManager
                     
                     if (int.TryParse(param4, out angle) == true)                                      // Angle
                     {
-                        param4 = ((180 - angle) % 180).ToString();
+                        param4 = ((180 - angle) % 360).ToString();
                     }
                     else
                     {
@@ -291,7 +291,7 @@ namespace StrategyGenerator2.StrategyManager
                 case EnumCmd.MvtSimple_RotateToAngleInDeg:
                     if (int.TryParse(param4, out angle) == true)                                      // Angle
                     {
-                        param4 = ((180 - angle) % 180).ToString();
+                        param4 = ((180 - angle) % 360).ToString();
                     }
                     else
                     {
@@ -327,7 +327,7 @@ namespace StrategyGenerator2.StrategyManager
                     
                     if (int.TryParse(param4, out angle) == true)                                      // Angle
                     {
-                        param4 = ((180 - angle) % 180).ToString();
+                        param4 = ((180 - angle) % 360).ToString();
                     }
                     else
                     {
@@ -344,12 +344,22 @@ namespace StrategyGenerator2.StrategyManager
 
                     if (int.TryParse(param4, out angle) == true)                                      // Angle
                     {
-                        param4 = ((180 - angle) % 180).ToString();
+                        param4 = ((180 - angle) % 360).ToString();
                     }
                     else
                     {
                         param4 = "0";
                     }
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.Sensors_SetArmsStatus:
+                    String oldParam1 = param1;
+                    String oldParam2 = param2;
+
+                    // Conversion
+                    param1 = oldParam2;
+                    param2 = oldParam1;
                     break;
 
                 // _______________________________________________________
@@ -363,6 +373,146 @@ namespace StrategyGenerator2.StrategyManager
                 case EnumCmd.NotSet:
                 default:
                      break;
+            }
+        }
+
+        public String GetCmdDescription()
+        {
+            String Ret = "";
+
+            switch (_cmd)
+            {
+                // _______________________________________________________
+                case EnumCmd.App_IfGoto_Strategy:
+                case EnumCmd.App_IfGoto_System:
+                    Ret = "Param 1 : Flag de Condition\n(Utiliser -1 pour un test toujours vrai)\n";
+                    Ret = Ret + "Param 2 : nextID si l'un des Flags de Condition est vrai\n";
+                    Ret = Ret + "Param 3 : nextID si l'un des Flags de Condition est fausse\n";
+                    Ret = Ret + "Param 4 : Not Used\n\n";
+                    Ret = Ret + "Rq : Si NextID > 0, cette valeur est utilisée\npour le retour de la sous-stratégie";
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.App_SetNewPos:
+                    Ret = "Param 1 : Not Used\n\n";
+                    Ret = Ret + "Param 2 : Position en x\n\n";
+                    Ret = Ret + "Param 3 : Position en y\n\n";
+                    Ret = Ret + "Param 4 : ANgle en °\n\n";
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.App_SetStrategyFlags:
+                    Ret = "Param 1 : Flag à modifier\n\n";
+                    Ret = Ret + "Param 2 : Valeur du Flag\n\n";
+                    Ret = Ret + "Param 3 : Not Used\n\n";
+                    Ret = Ret + "Param 4 : Not Used\n\n";
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.App_Wait:
+                    Ret = "Param 1 : Temps d'attente en heure\n\n";
+                    Ret = Ret + "Param 2 : Temps d'attente en minute\n\n";
+                    Ret = Ret + "Param 3 : Temps d'attente en sec\n\n";
+                    Ret = Ret + "Param 4 : attente en msec\n\n";
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.Mvt_Stop:
+                    Ret = "Param 1 : Not Used\n\n";
+                    Ret = Ret + "Param 2 : Not Used\n\n";
+                    Ret = Ret + "Param 3 : Not Used\n\n";
+                    Ret = Ret + "Param 4 : Not Used\n\n";
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.Mvt_UseAngleOnly:
+                case EnumCmd.MvtSimple_RotateInDeg:
+                case EnumCmd.MvtSimple_RotateToAngleInDeg:
+                    Ret = "Param 1 : Vitesse à utiliser\n(entre 0 et 100 % ou DEFAULT_SPEED)\n\n";
+                    Ret = Ret + "Param 2 : Not Used\n\n";
+                    Ret = Ret + "Param 3 : Not Used\n\n";
+                    Ret = Ret + "Param 4 : Angle en °\n\n";
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.Mvt_UseDistOnly:
+                    Ret = "Param 1 : Vitesse à utiliser\n(entre 0 et 100 % ou DEFAULT_SPEED)\n\n";
+                    Ret = Ret + "Param 2 : Position en x\n\n";
+                    Ret = Ret + "Param 3 : Position en y\n\n";
+                    Ret = Ret + "Param 4 : Not Used\n\n";
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.Mvt_UseMixedMode:
+                case EnumCmd.Mvt_UseSpline:
+                    Ret = "Param 1 : Vitesse à utiliser\n(entre 0 et 100 % ou DEFAULT_SPEED)\n\n";
+                    Ret = Ret + "Param 2 : Position en x\n\n";
+                    Ret = Ret + "Param 3 : Position en y\n\n";
+                    Ret = Ret + "Param 4 : Angle en °\n\n";
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.Mvt_UsePivotMode:
+                    Ret = "Param 1 : Vitesse à utiliser\n(entre 0 et 100 % ou DEFAULT_SPEED)\n\n";
+                    Ret = Ret + "Param 2 : Roue fixe (RIGHT_WHEEL ou LEFT_WHEEL)\n\n";
+                    Ret = Ret + "Param 3 : Not Used\n\n";
+                    Ret = Ret + "Param 4 : Angle en °\n\n";
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.MvtSimple_MoveInMM:
+                    Ret = "Param 1 : Vitesse à utiliser\n(entre 0 et 100 % ou DEFAULT_SPEED)\n\n";
+                    Ret = Ret + "Param 2 : Distance en mm\n\n";
+                    Ret = Ret + "Param 3 : Not Used\n\n";
+                    Ret = Ret + "Param 4 : Not Used\n\n";
+                    break;
+
+                // _______________________________________________________
+                case EnumCmd.Sensors_SetHoopLevel:
+                    Ret = "Param 1 : Hauteur de la pince \n(HOOP_LEVEL_UP ou HOOP_LEVEL_DOWN)\n\n";
+                    Ret = Ret + "Param 2 : Not Used\n\n";
+                    Ret = Ret + "Param 3 : Not Used\n\n";
+                    Ret = Ret + "Param 4 : Not Used\n\n";
+                    break;
+                
+                // _______________________________________________________
+                case EnumCmd.Sensors_SetArmsStatus:
+                    Ret = "Param 1 : Position du bras droit \n(ARM_OPEN, ARM_CLOSED ou ARM_FRONT)\n\n";
+                    Ret = Ret + "Param 2 : Position du bras gauche \n(ARM_OPEN, ARM_CLOSED ou ARM_FRONT)\n\n";
+                    Ret = Ret + "Param 3 : Not Used\n\n";
+                    Ret = Ret + "Param 4 : Not Used\n\n";
+                    break;
+               
+                // _______________________________________________________
+                case EnumCmd.NotSet:
+                default:
+                    Ret = "Param 1 : Not Used\n\n";
+                    Ret = Ret + "Param 2 : Not Used\n\n";
+                    Ret = Ret + "Param 3 : Not Used\n\n";
+                    Ret = Ret + "Param 4 : Not Used\n\n";
+                    break;
+            }
+
+            return Ret;
+        }
+
+        public static int ComparisonID(RobotAction firstRobotAction, RobotAction secondRobotAction)
+        {
+            if(firstRobotAction != null)
+            {
+                if(secondRobotAction != null)
+                {
+                    return (firstRobotAction.ID - secondRobotAction.ID);
+                }
+                else
+                    return 1;
+            }
+            else
+            {
+                if(secondRobotAction != null)
+                    return -1;
+                else
+                    return 0;
             }
         }
 
@@ -436,7 +586,7 @@ namespace StrategyGenerator2.StrategyManager
 
                     // _______________________________________________________
                     case EnumCmd.App_SetStrategyFlags:
-                        _param1 = EnumAppParamStrategyFlags.NONE.ToString();      // Flag à modifier
+                        _param1 = value;                                          // Flag à modifier
                          break;
 
                     // _______________________________________________________
@@ -461,6 +611,11 @@ namespace StrategyGenerator2.StrategyManager
                         _param1 = CheckHoopLevelValue(value, EnumSensorsHoopLevel.HOOP_LEVEL_UP);
                         break;
 
+                    // _______________________________________________________
+                    case EnumCmd.Sensors_SetArmsStatus:
+                        _param1 = CheckArmStatusValue(value, EnumSensorsArmStatus.ARM_CLOSED);
+                        break;
+                    
                     // _______________________________________________________
                     case EnumCmd.Mvt_Stop:
                     case EnumCmd.NotSet:
@@ -517,6 +672,11 @@ namespace StrategyGenerator2.StrategyManager
                         break;
 
                     // _______________________________________________________
+                    case EnumCmd.Sensors_SetArmsStatus:
+                        _param2 = CheckArmStatusValue(value, EnumSensorsArmStatus.ARM_CLOSED);
+                        break;
+
+                    // _______________________________________________________
                     case EnumCmd.Mvt_Stop:
                     case EnumCmd.NotSet:
                     case EnumCmd.Mvt_UseAngleOnly:
@@ -564,6 +724,7 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.MvtSimple_MoveInMM:
                     case EnumCmd.App_SetStrategyFlags:
                     case EnumCmd.Sensors_SetHoopLevel:
+                    case EnumCmd.Sensors_SetArmsStatus:
                     case EnumCmd.Mvt_Stop:
                     case EnumCmd.NotSet:
                     case EnumCmd.Mvt_UseAngleOnly:
@@ -604,6 +765,7 @@ namespace StrategyGenerator2.StrategyManager
 
                     // _______________________________________________________
                     case EnumCmd.Sensors_SetHoopLevel:
+                    case EnumCmd.Sensors_SetArmsStatus:
                     case EnumCmd.Mvt_UseDistOnly:
                     case EnumCmd.App_IfGoto_Strategy:
                     case EnumCmd.App_IfGoto_System:
@@ -649,6 +811,7 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.App_SetStrategyFlags:
                     case EnumCmd.NotSet:
                     case EnumCmd.Sensors_SetHoopLevel:
+                    case EnumCmd.Sensors_SetArmsStatus:
                     default:
                         _activeSensors.DesactivateAllSensors();
                         break;
@@ -667,7 +830,7 @@ namespace StrategyGenerator2.StrategyManager
                 // _______________________________________________________
                 case EnumCmd.App_IfGoto_Strategy:
                 case EnumCmd.App_IfGoto_System:
-                    param1 = "(true == true)";                          // Test
+                    param1 = "-1";                                      // Test
                     param2 = "-1";                                      // nextID si le test est vrai
                     param3 = "-1";                                      // nextID si le test est faux
                     param4 = null;                                      // Not Used
@@ -687,7 +850,7 @@ namespace StrategyGenerator2.StrategyManager
                     
                 // _______________________________________________________
                 case EnumCmd.App_SetStrategyFlags:
-                    param1 = EnumAppParamStrategyFlags.NONE.ToString();     // Flag à modifier
+                    param1 = "0";     // Flag à modifier
                     param2 = "OS_FALSE";                                    // Nouvelle valeur du flag
                     param3 = null;                                          // Not Set
                     param4 = null;                                          // Not Set
@@ -774,10 +937,20 @@ namespace StrategyGenerator2.StrategyManager
                     param2 = null;                                              // Not Used
                     param3 = null;                                              // Not Used
                     param4 = null;                                              // Not Used
-                    cmdType = EnumCmdType.CmdType_Blocking;             // Action Type
+                    cmdType = EnumCmdType.CmdType_Blocking;                     // Action Type
                     activeSensors.DesactivateAllSensors();                      // Pas de sensors d'activé
                     break;
-            
+
+                // _______________________________________________________
+                case EnumCmd.Sensors_SetArmsStatus:
+                    param1 = EnumSensorsArmStatus.ARM_CLOSED.ToString();     // Statut du bras droit
+                    param2 = EnumSensorsArmStatus.ARM_CLOSED.ToString();     // Statut du bras gauche
+                    param3 = null;                                           // Not Used
+                    param4 = null;                                           // Not Used
+                    cmdType = EnumCmdType.CmdType_Blocking;                  // Action Type
+                    activeSensors.DesactivateAllSensors();                      // Pas de sensors d'activé
+                    break;
+
                 // _______________________________________________________
                 case EnumCmd.NotSet:
                 default:
@@ -791,7 +964,6 @@ namespace StrategyGenerator2.StrategyManager
             }
         }
 
- 
         /// <summary>
         /// Fonction pour verifier la valeur du paramètre Int
         /// </summary>
@@ -1019,6 +1191,33 @@ namespace StrategyGenerator2.StrategyManager
             
             return Ret;
         }
+
+        /// <summary>
+        /// Fonction pour verifier la valeur de position pour les bras passé en paramètre
+        /// </summary>
+        /// <param name="valueToCheck">Valeur à tester</param>
+        /// <param name="defaultValue">Valeur à utiliser en cas de valeur non valide</param>
+        /// <returns>Une chaine de caractère extraite de EnumSensorsArmStatus</returns>
+        private String CheckArmStatusValue(String valueToCheck, EnumSensorsArmStatus defaultValue)
+        {
+            String Ret = defaultValue.ToString();
+
+            try
+            {
+                foreach (EnumSensorsArmStatus currentValue in Enum.GetValues(typeof(EnumSensorsArmStatus)))
+                {
+                    if (currentValue.ToString().ToUpper() == valueToCheck.ToUpper())
+                        Ret = currentValue.ToString();
+                }
+            }
+            catch (Exception)
+            {
+                Ret = defaultValue.ToString();
+            }
+
+            return Ret;
+        }
+
 
         // Private --------------------------------------------------------------------------------
         private int _uID;                               // Identifiant unique pour l'action

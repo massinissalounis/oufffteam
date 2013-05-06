@@ -168,6 +168,9 @@ namespace StrategyGenerator2.StrategyManager
 
             }
 
+            if (_actions != null)
+                _actions.Sort(RobotAction.ComparisonID);
+
             return Ret;
         }
 
@@ -254,8 +257,13 @@ namespace StrategyGenerator2.StrategyManager
                 Ret = true;
             }
 
+            if (_actions != null)
+                _actions.Sort(RobotAction.ComparisonID);
+
             return Ret;
         }
+
+
 
         /// <summary>
         /// Supprime l'objet ayant l'identifiant actionID
@@ -267,7 +275,7 @@ namespace StrategyGenerator2.StrategyManager
             bool Ret = false;
             List<RobotAction> newList = new List<RobotAction>();
 
-            if ((_actions != null) && (actionID != (_subStrategyID * 100)))
+            if ((_actions != null) && (actionID >1) && (actionID != (_subStrategyID * 100)))
             {
                 // On parcourt la liste actuelle
                 foreach (RobotAction currentRobotAction in _actions)
@@ -422,6 +430,7 @@ namespace StrategyGenerator2.StrategyManager
             return Ret;
         }
 
+
         // Properties -----------------------------------------------------------------------------
         public String Name
         {
@@ -498,6 +507,26 @@ namespace StrategyGenerator2.StrategyManager
             }
 
             return Ret;
+        }
+
+        public static int ComparisonID(SubStrategy firstSubStrategy, SubStrategy secondSubStrategy)
+        {
+            if (firstSubStrategy != null)
+            {
+                if (secondSubStrategy != null)
+                {
+                    return firstSubStrategy.ToString().CompareTo(secondSubStrategy.ToString());
+                }
+                else
+                    return 1;
+            }
+            else
+            {
+                if (secondSubStrategy != null)
+                    return -1;
+                else
+                    return 0;
+            }
         }
 
 

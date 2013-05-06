@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using StrategyGenerator2.StrategyViewer;
+using System.Windows;
 
 namespace StrategyGenerator2.ViewModel
 {
@@ -105,6 +106,8 @@ namespace StrategyGenerator2.ViewModel
                 {
                     _modifiedRobotAction.cmd = value;
                     RaisePropertyChangedGrouped();
+                    _mainModel.RobotActionDescription = _modifiedRobotAction.GetCmdDescription();
+                    _mainModel.UpdateCmdDescription();
                 }
                 return;
             }
@@ -288,6 +291,10 @@ namespace StrategyGenerator2.ViewModel
                         }
                     }
                 }
+
+                RaisePropertyChanged("nextIDColor");
+                RaisePropertyChanged("timeoutIDColor");
+
             }
         }
  
@@ -322,6 +329,10 @@ namespace StrategyGenerator2.ViewModel
                         }
                     }
                 }
+
+                RaisePropertyChanged("nextIDColor");
+                RaisePropertyChanged("timeoutIDColor");
+
             }
         }
 
@@ -351,6 +362,22 @@ namespace StrategyGenerator2.ViewModel
             get { return new RelayCommand(AddNewCmd); }
             set { }
         }
+        public ICommand CmdRemove
+        {
+            get { return new RelayCommand(RemoveCmd); }
+            set { }
+        }
+        public ICommand CmdNext
+        {
+            get { return new RelayCommand(NextCmd); }
+            set { }
+        }
+        public ICommand CmdPrev
+        {
+            get { return new RelayCommand(PrevCmd); }
+            set { }
+        }
+
 
         public String initPos
         {
@@ -538,12 +565,51 @@ namespace StrategyGenerator2.ViewModel
             set { }
         }
 
+        public String nextIDColor
+        {
+            get 
+            {
+                String Ret = "White";
+
+                if (_modifiedRobotAction.nextID == 0)
+                    Ret = "Yellow";
+
+                if (_modifiedRobotAction.ID == _modifiedRobotAction.nextID)
+                    Ret = "Orange";
+
+                if ((_mainModel.selectedStrategy != null) && (_modifiedRobotAction.nextID > 0) && (_mainModel.selectedStrategy.isPresent(_modifiedRobotAction.nextID) == false))
+                    Ret = "Red";
+
+                return Ret;
+            }
+            set { }
+        }
+        public String timeoutIDColor
+        {
+            get 
+            {
+                String Ret = "White";
+
+                if (_modifiedRobotAction.timeoutID == 0)
+                    Ret = "Yellow";
+
+                if (_modifiedRobotAction.ID == _modifiedRobotAction.timeoutID)
+                    Ret = "Orange";
+
+                if ((_mainModel.selectedStrategy != null) && (_modifiedRobotAction.timeoutID > 0) && (_mainModel.selectedStrategy.isPresent(_modifiedRobotAction.timeoutID) == false))
+                    Ret = "Red";
+
+                return Ret;
+            }
+            set { }
+        }
+
         // Private --------------------------------------------------------------------------------
         private MainModel _mainModel = null;                        // Lien vers le model
         private RobotAction _currentRobotAction;                    // Action courante
         private RobotAction _modifiedRobotAction;                   // Action pour la mise à jour
-        private DisplayPos _modifiedDisplayRobot = null;             // Objet pour le rendu graphique
-
+        private DisplayPos _modifiedDisplayRobot = null;            // Objet pour le rendu graphique
+        List<RobotAction> listPrevID = new List<RobotAction>();     // Liste pour revenir à la position précédente
 
         private void UpdateData(object sender, EventArgs e)
         {
@@ -564,6 +630,11 @@ namespace StrategyGenerator2.ViewModel
                 _modifiedRobotAction.activeSensors.ForceSensors(_currentRobotAction.activeSensors.Activated);
 
                 LoadDisplayPos();
+
+                if ((listPrevID.Count > 0) && (_currentRobotAction.ID != listPrevID[listPrevID.Count - 1].nextID))
+                {
+                    listPrevID.Clear();
+                }
             }
             RaisePropertyChangedGrouped();
         }
@@ -597,6 +668,8 @@ namespace StrategyGenerator2.ViewModel
             RaisePropertyChanged("isUpdateButtonEnabled");
             RaisePropertyChanged("isFormEnabled");
             RaisePropertyChanged("initPos");
+            RaisePropertyChanged("nextIDColor");
+            RaisePropertyChanged("timeoutIDColor");
             RaiseDisplayPropertyChanged();
 
             return;
@@ -663,6 +736,67 @@ namespace StrategyGenerator2.ViewModel
                     _mainModel.selectedSubStrategy.AddAction(newRobotAction);
                     _mainModel.UpdateRobotActionList();
                 }
+            }
+        }
+
+        private void RemoveCmd()
+        {
+            if (MessageBox.Show("Supprimer l'ID selectionné ?", "Strategy Manager", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                int oldID, newNextID, newTimeoutID;
+
+                if ((_mainModel.selectedStrategy != null) && (_mainModel.selectedSubStrategy != null) && (_mainModel.selectedRobotAction != null))
+                {
+                    newNextID = _mainModel.selectedRobotAction.nextID;
+                    newTimeoutID = _mainModel.selectedRobotAction.timeoutID;
+                    oldID = _mainModel.selectedRobotAction.ID;
+
+                    List<RobotAction> allRobotAction = _mainModel.selectedStrategy.GetAllRobotAction();
+
+                    if (allRobotAction != null)
+                    {
+                        foreach (RobotAction currentRobotAction in allRobotAction)
+                        {
+                            if (currentRobotAction.nextID == oldID)
+                                currentRobotAction.nextID = newNextID;
+
+                            if (currentRobotAction.timeoutID == oldID)
+                                currentRobotAction.timeoutID = newTimeoutID;
+                        }
+                    }
+
+                    _mainModel.selectedSubStrategy.RemoveAction(oldID);
+                    _mainModel.UpdateRobotActionList();
+                }
+            }
+        }
+
+        private void NextCmd()
+        {
+            if ((_mainModel.selectedStrategy != null) && (_currentRobotAction != null))
+            {
+                if (_currentRobotAction.nextID > 0)
+                {
+                    RobotAction Ret = _mainModel.selectedStrategy.FindRobotActionByID(_currentRobotAction.nextID);
+                    if (Ret != null)
+                    {
+                        listPrevID.Add(_mainModel.selectedRobotAction);
+                        _mainModel.selectedRobotAction = Ret;
+                        RaisePropertyChangedGrouped();
+                    }
+                }
+            }
+        }
+
+        private void PrevCmd()
+        {
+            if (listPrevID.Count > 0)
+            {
+                int prevValue = listPrevID[listPrevID.Count - 1].ID;
+                listPrevID.RemoveAt(listPrevID.Count - 1);
+
+                _mainModel.selectedRobotAction = _mainModel.selectedStrategy.FindRobotActionByID(prevValue);
+                RaisePropertyChangedGrouped();
             }
         }
     }
