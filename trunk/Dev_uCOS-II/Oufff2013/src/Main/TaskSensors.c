@@ -36,7 +36,7 @@ void TaskSensors_ReadColor()
 }
 
 // ------------------------------------------------------------------------------------------------
-# define GP2_FILTER_THRESHOLD 2 // Oui je suis un gros sale de mettre ca là et alors ....
+# define GP2_FILTER_THRESHOLD 4 // Oui je suis un gros sale de mettre ca là et alors ....
 
 void TaskSensors_CheckBumpers()
 {
