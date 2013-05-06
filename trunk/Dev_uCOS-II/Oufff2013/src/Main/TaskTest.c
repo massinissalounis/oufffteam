@@ -26,7 +26,8 @@ void TaskTest_Main(void *p_arg)
 	// Main Loop
 	while(OS_TRUE)
 	{
-		TaskSensors_CheckBumpers();
+		//TaskSensors_CheckBumpers();
+		//TaskSensors_GenerateStrategyFlags();
 		// Turbine Test Code : Begin ______________________________________________________________________
 //OSTimeDlyHMSM(0, 0, 5, 0);
 //		TURBINE_On();
