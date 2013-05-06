@@ -173,8 +173,8 @@ void TaskSensors_GenerateStrategyFlags()
 	// Hoops is down ---------------
 	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN) == APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN)
 	{
-		// Rear hoop is down, we use (rear + left + right) sensor
-		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_REAR_HOOP + APP_PARAM_APPFLAG_GP2_REAR_LEFT_HOOP + APP_PARAM_APPFLAG_GP2_REAR_RIGHT_HOOP);
+		// Rear hoop is down, we use hoop_rear  sensor
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_REAR_HOOP);
 	}
 	else
 	{
@@ -219,6 +219,46 @@ void TaskSensors_GenerateStrategyFlags()
 	else
 		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_FRONT, OS_FLAG_CLR, &Err); 
 	
+	// Left Sensors ########################################################################
+	FlagsToCheck = 0;
+	// Hoops is down ---------------
+	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN) == APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN)
+	{
+		// Rear hoop is down, we use (rear + left + right) sensor
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_REAR_LEFT_HOOP);
+	}
+	else
+	{
+		// Rear hoop is up, we use internal sensor
+		FlagsToCheck = (APP_PARAM_APPFLAG_NONE);
+	}
+		
+	// Check Sensors
+	if((SystemReadValue & FlagsToCheck) != 0)
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR, OS_FLAG_SET, &Err); 
+	else
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR, OS_FLAG_CLR, &Err); 
+
+	// Right Sensors ########################################################################
+	FlagsToCheck = 0;
+	// Hoops is down ---------------
+	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN) == APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN)
+	{
+		// Rear hoop is down, we use (rear + left + right) sensor
+		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_REAR_RIGHT_HOOP);
+	}
+	else
+	{
+		// Rear hoop is up, we use internal sensor
+		FlagsToCheck = (APP_PARAM_APPFLAG_NONE);
+	}
+		
+	// Check Sensors
+	if((SystemReadValue & FlagsToCheck) != 0)
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR, OS_FLAG_SET, &Err); 
+	else
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR, OS_FLAG_CLR, &Err); 
+
 }
 
 // ------------------------------------------------------------------------------------------------

@@ -99,23 +99,22 @@
 // STRATEGY FLAGS -----------------------------------------------------------------------------------------------------------------------
 // Value is defined as follow :									//	|Bit| Desctiption				| Value ON 			| Value OFF			|	
 // Actions Done ______________________________________________	//  |---|---------------------------|-------------------|-------------------|											
-#define APP_PARAM_STRATEGYFLAG_BIT00				0x00000001	//	| 0	| Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT01				0x00000002	//	| 1 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT02				0x00000004	//	| 2 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT03				0x00000008	//	| 3 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT04				0x00000010	//	| 4 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT05				0x00000020	//	| 5 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT06				0x00000040	//	| 6 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT07				0x00000080	//	| 7 | Not Used					| -					| -				 	| 	
-#define APP_PARAM_STRATEGYFLAG_BIT08				0x00000100	//	| 8 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT09				0x00000200	//	| 9 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_GLASS_1_DONE			0x00000001	//	| 0	| Strategy for 1st line		| It's done			| It's waiting		| 
+#define APP_PARAM_STRATEGYFLAG_GLASS_2_DONE			0x00000002	//	| 1 | Strategy for 3rd line		| It's done			| It's waiting		| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_1_TRY			0x00000004	//	| 2 | Closest gift				| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_1_DONE			0x00000008	//	| 3 | 							| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_2_TRY			0x00000010	//	| 4 | 							| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_2_DONE			0x00000020	//	| 5 | 							| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_3_TRY			0x00000040	//	| 6 |							| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_3_DONE			0x00000080	//	| 7 | 							| -					| -				 	| 	
+#define APP_PARAM_STRATEGYFLAG_GIFT_4_TRY			0x00000100	//	| 8 | Furtherst Gift			| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_4_DONE			0x00000200	//	| 9 | Furtherst Gift			| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT10				0x00000400	//	|10 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT11				0x00000800	//	|11 | Not Used					| -					| -					| 	
 #define APP_PARAM_STRATEGYFLAG_BIT12				0x00001000	//	|12 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT13				0x00002000	//	|13 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT14				0x00004000	//	|14 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT15				0x00008000	//	|15 | Not Used					| -					| -					| 
-// Valid Zone ______________________________________________	//  |---|---------------------------|-------------------|-------------------|														
 #define APP_PARAM_STRATEGYFLAG_BIT16				0x00010000	//	|16 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT17				0x00020000	//	|17 | Not Used					| -					| -					| 
 #define APP_PARAM_STRATEGYFLAG_BIT18				0x00040000	//	|18 | Not Used					| -					| -					| 
@@ -123,7 +122,7 @@
 #define APP_PARAM_STRATEGYFLAG_BIT20				0x00100000	//	|20 | Not Used					| -					| -					| 	
 #define APP_PARAM_STRATEGYFLAG_BIT21				0x00200000	//	|21 | Not Used					| -					| -					| 		
 #define APP_PARAM_STRATEGYFLAG_BIT22				0x00400000	//	|22 | Not Used					| -					| -					| 	
-#define APP_PARAM_STRATEGYFLAG_BIT23				0x00800000	//	|23 | Not Used					| -					| -					| 		
+#define APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT	0x00800000	//	|23 | Indicate SubStrategy Res	| SubStrategy OK	| SubStrategy NOK	| 		
 // State Flag ______________________________________________	//  |---|---------------------------|-------------------|-------------------|													
 #define APP_PARAM_STRATEGYFLAG_COLLISION_FRONT		0x01000000	//	|24 | Collision state (front)	| Collision active  | Collision inactive| 
 #define APP_PARAM_STRATEGYFLAG_COLLISION_REAR		0x02000000	//	|25 | Collision state (rear)	| Collision active  | Collision inactive| 
