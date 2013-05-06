@@ -36,8 +36,6 @@ void TaskSensors_ReadColor()
 }
 
 // ------------------------------------------------------------------------------------------------
-# define GP2_FILTER_THRESHOLD 4 // Oui je suis un gros sale de mettre ca là et alors ....
-
 void TaskSensors_CheckBumpers()
 {
 	INT8U	Err = 0;						// Var to get error status
@@ -59,9 +57,10 @@ void TaskSensors_CheckBumpers()
 	
 	if(GP2Data > APP_GP2_LIMIT_REAR_INTERNAL)
 	{
-		GP2_INTERNAL_REAR_Counter++;
 		if(GP2_INTERNAL_REAR_Counter>= GP2_FILTER_THRESHOLD)
-			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR, OS_FLAG_SET, &Err); 
+			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR, OS_FLAG_SET, &Err);
+		else
+			GP2_INTERNAL_REAR_Counter++;
 	}
 	else
 	{
@@ -72,9 +71,10 @@ void TaskSensors_CheckBumpers()
 	// Long detection for Rear Internal
 	if(GP2Data > APP_GP2_LIMIT_REAR_INTERNAL_LONG_DETECTION)
 	{
-		GP2_INTERNAL_REAR_LONG_Counter++;
 		if(GP2_INTERNAL_REAR_LONG_Counter>= GP2_FILTER_THRESHOLD)
 			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR_LONG, OS_FLAG_SET, &Err);
+		else
+			GP2_INTERNAL_REAR_LONG_Counter++;
 	}
 	else
 	{
@@ -88,9 +88,10 @@ void TaskSensors_CheckBumpers()
 
 	if(GP2Data > APP_GP2_LIMIT_REAR_HOOP)
 	{
-		GP2_REAR_HOOP_Counter++;
 		if(GP2_REAR_HOOP_Counter>=GP2_FILTER_THRESHOLD)
-			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_HOOP, OS_FLAG_SET, &Err); 
+			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_HOOP, OS_FLAG_SET, &Err);
+		else
+			GP2_REAR_HOOP_Counter++;
 	}
 	else
 	{
@@ -104,11 +105,13 @@ void TaskSensors_CheckBumpers()
 
 	if(GP2Data > APP_GP2_LIMIT_REAR_LEFT_HOOP)
 	{
-		GP2_LEFT_HOOP_Counter++;
+
 		if(GP2_LEFT_HOOP_Counter>= GP2_FILTER_THRESHOLD)
 		{
 			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_LEFT_HOOP, OS_FLAG_SET, &Err); 
 		}
+		else
+			GP2_LEFT_HOOP_Counter++;
 	}
 	else
 	{
@@ -122,11 +125,13 @@ void TaskSensors_CheckBumpers()
 
 	if(GP2Data > APP_GP2_LIMIT_REAR_RIGHT_HOOP)
 	{
-		GP2_RIGHT_HOOP_Counter++;
+
 		if(GP2_RIGHT_HOOP_Counter>= GP2_FILTER_THRESHOLD)
 		{
 			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_RIGHT_HOOP, OS_FLAG_SET, &Err);
 		}
+		else
+			GP2_RIGHT_HOOP_Counter++;
 	}
 	else
 	{
@@ -140,9 +145,10 @@ void TaskSensors_CheckBumpers()
 
 	if(GP2Data > APP_GP2_LIMIT_FRONT)
 	{
-		GP2_FRONT_Counter++;
 		if(GP2_FRONT_Counter>= GP2_FILTER_THRESHOLD)
 			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_SET, &Err);
+		else
+			GP2_FRONT_Counter++;
 	}
 	else
 	{

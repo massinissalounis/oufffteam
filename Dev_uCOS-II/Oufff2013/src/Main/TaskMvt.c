@@ -253,11 +253,11 @@ void TaskMvt_Main(void *p_arg)
 				}
 				else if((SensorsCurrentStatus & APP_PARAM_STRATEGYFLAG_COLLISION_LEFT) != 0)
 				{	// Left sensors are activated
-					NextState = 7;
+					NextState = 8;
 				}
 				else if((SensorsCurrentStatus & APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT) != 0)
 				{	// Right sensors are activated
-					NextState = 8;
+					NextState = 7;
 				}
 				else if((SensorsCurrentStatus & APP_PARAM_STRATEGYFLAG_COLLISION_REAR) != 0)
 				{	// Back sensors are activated
