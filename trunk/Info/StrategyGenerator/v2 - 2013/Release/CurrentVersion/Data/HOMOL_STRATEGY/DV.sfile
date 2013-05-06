@@ -2,6 +2,17 @@
 SubStrategyName = DV
 SubStrategyID = 2
 
+[Groupe 2000]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 1
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2010
+timeoutID = -1
+
 [Groupe 2010]
 Cmd = MvtSimple_RotateToAngleInDeg
 CmdType = CmdType_Blocking
@@ -21,6 +32,17 @@ Param2 = NotUsed
 Param3 = NotUsed
 Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2029
+timeoutID = -1
+
+[Groupe 2029]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 500
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 2030
 timeoutID = -1
 
@@ -28,10 +50,21 @@ timeoutID = -1
 Cmd = MvtSimple_MoveInMM
 CmdType = CmdType_Blocking
 Param1 = DEFAULT_SPEED
-Param2 = -100
+Param2 = -110
 Param3 = NotUsed
 Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
-nextID = 2200
+nextID = 2040
+timeoutID = -1
+
+[Groupe 2040]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 110
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = -1
 timeoutID = -1
 
