@@ -100,14 +100,17 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 		// Read the current Flags
 		CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
 
-		// If condition is true, we go to the ID given by Param2, otherwise, we use NextActionID
+		if(NextActionID >= 0)
+			SubStrategyReturnID = NextActionID;
+
+		// If condition is true, we go to the ID given by Param2, otherwise we use Param3
 		if((CurrentFlag & (p->Param1)) != 0)
 		{
 			NextActionID = (int)(p->Param2);
-		
-			// In case of Param3 is > 0, we have a return ID to use once the goto action is done
-			if((int)(p->Param3) > 0)
-				SubStrategyReturnID = (int)(p->Param3);		
+		}
+		else
+		{
+			NextActionID = (int)(p->Param3);
 		}
 
 		return StrategyColorA_GetNextAction(p);
@@ -119,16 +122,19 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 		// Read the current Flags
 		CurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
 
-		// If condition is true, we go to the ID given by Param2, otherwise, we use NextActionID
+		if(NextActionID >= 0)
+			SubStrategyReturnID = NextActionID;
+
+		// If condition is true, we go to the ID given by Param2, otherwise we use Param3
 		if((CurrentFlag & (p->Param1)) != 0)
 		{
 			NextActionID = (int)(p->Param2);
-		
-			// In case of Param3 is > 0, we have a return ID to use once the goto action is done
-			if((int)(p->Param3) > 0)
-				SubStrategyReturnID = (int)(p->Param3);
 		}
-
+		else
+		{
+			NextActionID = (int)(p->Param3);
+		}
+		
 		return StrategyColorA_GetNextAction(p);
 	}
 	
@@ -141,6 +147,8 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 			OSFlagPost(AppStrategyFlags, StrategyFlagsToSet, OS_FLAG_SET, &Err);
 		else
 			OSFlagPost(AppStrategyFlags, StrategyFlagsToSet, OS_FLAG_CLR, &Err);
+		
+		return StrategyColorA_GetNextAction(p);
 	}
 	
 	// Create the MvtSimple Command --------------------------------------
