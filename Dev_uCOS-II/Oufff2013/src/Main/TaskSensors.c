@@ -106,7 +106,9 @@ void TaskSensors_CheckBumpers()
 	{
 		GP2_LEFT_HOOP_Counter++;
 		if(GP2_LEFT_HOOP_Counter>= GP2_FILTER_THRESHOLD)
+		{
 			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_LEFT_HOOP, OS_FLAG_SET, &Err); 
+		}
 	}
 	else
 	{
@@ -122,7 +124,9 @@ void TaskSensors_CheckBumpers()
 	{
 		GP2_RIGHT_HOOP_Counter++;
 		if(GP2_RIGHT_HOOP_Counter>= GP2_FILTER_THRESHOLD)
+		{
 			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_RIGHT_HOOP, OS_FLAG_SET, &Err);
+		}
 	}
 	else
 	{
@@ -224,15 +228,10 @@ void TaskSensors_GenerateStrategyFlags()
 	// Hoops is down ---------------
 	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN) == APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN)
 	{
-		// Rear hoop is down, we use (rear + left + right) sensor
+		// Rear hoop is down, we use hoop sensor
 		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_REAR_LEFT_HOOP);
 	}
-	else
-	{
-		// Rear hoop is up, we use internal sensor
-		FlagsToCheck = (APP_PARAM_APPFLAG_NONE);
-	}
-		
+	
 	// Check Sensors
 	if((SystemReadValue & FlagsToCheck) != 0)
 		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_LEFT, OS_FLAG_SET, &Err); 
@@ -244,15 +243,10 @@ void TaskSensors_GenerateStrategyFlags()
 	// Hoops is down ---------------
 	if((StrategyReadValue & APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN) == APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN)
 	{
-		// Rear hoop is down, we use (rear + left + right) sensor
+		// Rear hoop is down, we use hoop sensor
 		FlagsToCheck = (APP_PARAM_APPFLAG_GP2_REAR_RIGHT_HOOP);
 	}
-	else
-	{
-		// Rear hoop is up, we use internal sensor
-		FlagsToCheck = (APP_PARAM_APPFLAG_NONE);
-	}
-		
+	
 	// Check Sensors
 	if((SystemReadValue & FlagsToCheck) != 0)
 		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT, OS_FLAG_SET, &Err); 
@@ -270,6 +264,31 @@ void TaskSensors_FunnyAction()
 	TURBINE_Off();
 	AppDebugMsg("End of Funny Action.\n");
 }
+
+// ------------------------------------------------------------------------------------------------
+void TaskSensors_SetHoopLevel(int hoopLevel)
+{
+	INT8U		Err;				// Var to get error status
+
+	switch(hoopLevel)
+	{
+		case HOOP_LEVEL_DOWN:	
+			HOOP_Back_Down();
+			OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN, OS_FLAG_SET, &Err);
+			break;
+
+		case HOOP_LEVEL_UP:		
+			HOOP_Back_Up();		
+			OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN, OS_FLAG_CLR, &Err);
+			break;
+
+		default:									
+			break;
+	}
+
+	return;
+}
+
 
 // ------------------------------------------------------------------------------------------------
 // TaskSensors_Main()
@@ -377,16 +396,11 @@ void TaskSensors_Main(void *p_arg)
 				{
 				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				case Sensors_SetHoopLevel: 
-					switch(pCurrentMsg->Param1)
-					{
-					case HOOP_LEVEL_DOWN:	HOOP_Back_Down();	break;
-					case HOOP_LEVEL_UP:		HOOP_Back_Up();		break;
-					default:									break;
-					}
-
+					TaskSensors_SetHoopLevel(pCurrentMsg->Param1);
 
 					if(CmdType_Blocking == pCurrentMsg->CmdType)
 						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);
+
 					NextState = 1;
 					break;
 
@@ -394,18 +408,18 @@ void TaskSensors_Main(void *p_arg)
 				case Sensors_SetArmsStatus: 
 					switch(pCurrentMsg->Param1)
 					{
-					case ARM_OPEN:		ARM_Right_Open();		break;
-					case ARM_CLOSED:	ARM_Right_Close();		break;
-					case ARM_FRONT:		ARM_Right_Front();		break;
-					default:									break;
+						case ARM_OPEN:		ARM_Right_Open();		break;
+						case ARM_CLOSED:	ARM_Right_Close();		break;
+						case ARM_FRONT:		ARM_Right_Front();		break;
+						default:									break;
 					}
 
 					switch(pCurrentMsg->Param2)
 					{
-					case ARM_OPEN:		ARM_Left_Open();		break;
-					case ARM_CLOSED:	ARM_Left_Close();		break;
-					case ARM_FRONT:		ARM_Left_Front();		break;
-					default:									break;
+						case ARM_OPEN:		ARM_Left_Open();		break;
+						case ARM_CLOSED:	ARM_Left_Close();		break;
+						case ARM_FRONT:		ARM_Left_Front();		break;
+						default:									break;
 					}
 
 					if(CmdType_Blocking == pCurrentMsg->CmdType)

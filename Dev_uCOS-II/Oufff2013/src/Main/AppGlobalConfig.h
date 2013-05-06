@@ -38,7 +38,7 @@
 #define TASKDEBUG_ID_GP2_REAR_RIGHT			8	// debugID = 5 (ne doit pas > TASKDEBUG_MAX_MSG)
 #define TASKDEBUG_ID_TEST					11	// debugID = 11(ne doit pas > TASKDEBUG_MAX_MSG)
 
-#define TASKDEBUG_ENABLED			OS_TRUE // Permet d'activer ou non les informations de debug
+//#define TASKDEBUG_ENABLED			OS_TRUE // Permet d'activer ou non les informations de debug
 
 #define TASKDEBUG_REFRESH_MS		500 // Time in ms between 2 displays of debug data (0 to 999)
 
