@@ -204,8 +204,8 @@ void PID_Initialization(void)
 	
 	wheel_right_pid_data.Kp = KP_WHEEL_R;
 	wheel_right_pid_data.Ki = KI_WHEEL_R;
-	wheel_left_pid_data.Kd = KD_WHEEL_R;	
-	wheel_left_pid_data.IMax = IMAX_WHEEL_R;	
+	wheel_right_pid_data.Kd = KD_WHEEL_R;	
+	wheel_right_pid_data.IMax = IMAX_WHEEL_R;	
 
 	for(i=0; i<PID_SUM_NB_SAMPLES; i++)
 	{
@@ -505,15 +505,10 @@ unsigned char mode_3_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 }
 
 // Pivot control motion in separated wheel control
-unsigned char mode_4_control_motion(StructPos *psetpoint, StructPos *pcurrent, float *raw_command_right, float *raw_command_left)
+unsigned char mode_4_control_motion(StructPos *psetpoint, StructPos *pcurrent, float speed, float *raw_command_right, float *raw_command_left)
 {
 	// setpoint.pivot_wheel // 0: left 1: right
 	// setpoint.pivot_angle
-	// CONVERSION_RAD_TO_MM
-	
-	// Fonction de conversion à faire par Fifi
-	// Donner dans le set point des positions de roues !
-	// Calculer la distance à parcourir par chacune des roues et la donner ... en inc ? en mm ? en rad avec un pivot ... à discuter avec Fifi.
 
 	CPU_INT16S error_right_wheel=0;
 	CPU_INT16S error_left_wheel=0;
@@ -535,8 +530,8 @@ unsigned char mode_4_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 	error_filtered_right_wheel = PID_Computation(&wheel_right_pid_data, (float) error_right_wheel);
 	error_filtered_left_wheel = PID_Computation(&wheel_left_pid_data, (float) error_left_wheel);
 
-	error_filtered_right_wheel = error_rescale (error_filtered_right_wheel, 1.0, SPEED_PIVOT);
-	error_filtered_left_wheel = error_rescale (error_filtered_left_wheel, 1.0, SPEED_PIVOT);	
+	error_filtered_right_wheel = error_rescale (error_filtered_right_wheel, 1.0, speed);
+	error_filtered_left_wheel = error_rescale (error_filtered_left_wheel, 1.0, speed);	
 
 	*raw_command_right = error_filtered_right_wheel;
 	*raw_command_left = error_filtered_left_wheel;
@@ -724,7 +719,7 @@ void TaskAsser_Main(void *p_arg)
 				end_movement_flag=mode_3_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
 				break;
 			case 4: // pivot
-				end_movement_flag=mode_4_control_motion(&setpoint, &TaskAsser_CurrentPos, &raw_command_right, &raw_command_left);
+				end_movement_flag=mode_4_control_motion(&setpoint, &TaskAsser_CurrentPos, distance_quadramp_data.speed_order, &raw_command_right, &raw_command_left);
 				break;
 			default:
 				break;
