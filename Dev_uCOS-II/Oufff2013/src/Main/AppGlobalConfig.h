@@ -240,7 +240,7 @@
 																		// If dist is under this value, command is not sent 
 																		// This limitation is made to prevent small moves (big angle and small length)
 
-#define APP_MVT_TIMEOUT_ENABLED					OS_FALSE				// OS_TRUE : Use Timeout action if we are blocked, OS_FALSE : We wait for ever if we are blocked
+#define APP_MVT_TIMEOUT_ENABLED					OS_TRUE				// OS_TRUE : Use Timeout action if we are blocked, OS_FALSE : We wait for ever if we are blocked
 #define APP_MVT_TIMEOUT							50						// Nb of iteration before considering position is unreachable
 #define APP_COLLISION_TIMEOUT					4						// Nb of iteration before considering position is unreachable due to obstacle
 

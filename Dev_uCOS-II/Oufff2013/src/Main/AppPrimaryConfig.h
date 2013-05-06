@@ -50,13 +50,13 @@
 // Speed control Coefficients 
 // ------------------------------------------------------------------------------------------------
 // Used in quadramp
-#define DEFAULT_SPEED_DISTANCE	0.30	// n % of maximum speed
-#define DEFAULT_ACC_DISTANCE	0.005	// n % of maximum speed per 10 ms
+#define DEFAULT_SPEED_DISTANCE	0.40	// n % of maximum speed
+#define DEFAULT_ACC_DISTANCE	0.025	// n % of maximum speed per 10 ms
 
 // Used in hold speed control
 #define SPEED_ANGLE		0.90 //0.9 	// n % of maximum speed
 
-#define SPEED_PIVOT		0.70 //0.9
+#define SPEED_PIVOT		0.60 //0.9
 
 // ------------------------------------------------------------------------------------------------
 // General Coefficients
@@ -97,7 +97,7 @@
 #define APP_TASK_SENSORS_ENABLED						// Activate TaskSensors
 #define APP_TASK_DEBUG_ENABLED							// Activate TaskDebug
 #define APP_TASK_TEMPO_ENABLED							// Activate TaskTempo
-//#define APP_TASK_TEST_ENABLED							// Activate TaskTest (Only for specific tests)
+#define APP_TASK_TEST_ENABLED							// Activate TaskTest (Only for specific tests)
 
 /*
 *********************************************************************************************************
