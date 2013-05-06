@@ -1,0 +1,114 @@
+[Groupe 0]
+SubStrategyName = V1
+SubStrategyID = 1
+
+[Groupe 1000]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 1
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 1010
+timeoutID = -1
+
+[Groupe 1010]
+Cmd = Mvt_UseSpline
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 1820
+Param3 = 547
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_LONG_REAR)
+nextID = 1100
+timeoutID = 1300
+
+[Groupe 1100]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 1110
+timeoutID = -1
+
+[Groupe 1110]
+Cmd = Sensors_SetHoopLevel
+CmdType = CmdType_Blocking
+Param1 = HOOP_LEVEL_DOWN
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 1120
+timeoutID = -1
+
+[Groupe 1120]
+Cmd = Mvt_UsePivotMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_PIVOT_SPEED
+Param2 = RIGHT_WHEEL
+Param3 = NotUsed
+Param4 = 90
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT)
+nextID = 1130
+timeoutID = -1
+
+[Groupe 1130]
+Cmd = Mvt_UsePivotMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_PIVOT_SPEED
+Param2 = LEFT_WHEEL
+Param3 = NotUsed
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT)
+nextID = 1140
+timeoutID = -1
+
+[Groupe 1140]
+Cmd = Mvt_UseSpline
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 700
+Param3 = 817
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
+nextID = 1150
+timeoutID = -1
+
+[Groupe 1150]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 280
+Param3 = 630
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT)
+nextID = 1160
+timeoutID = -1
+
+[Groupe 1160]
+Cmd = Mvt_UseSpline
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 500
+Param3 = 630
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = -1
+timeoutID = -1
+
+[Groupe 1300]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 150
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
+nextID = 1100
+timeoutID = -1
+
