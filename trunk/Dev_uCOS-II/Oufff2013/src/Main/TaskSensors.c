@@ -37,12 +37,18 @@ void TaskSensors_ReadColor()
 
 // ------------------------------------------------------------------------------------------------
 # define GP2_FILTER_THRESHOLD 2 // Oui je suis un gros sale de mettre ca là et alors ....
+
 void TaskSensors_CheckBumpers()
 {
 	INT8U	Err = 0;						// Var to get error status
 	CPU_INT16U  GP2Data;
 
-	static	INT8U	GP2_INTERNAL_READ_Counter = 0;
+	static	INT8U	GP2_INTERNAL_REAR_Counter = 0;
+	static	INT8U	GP2_INTERNAL_REAR_LONG_Counter = 0;
+	static	INT8U	GP2_REAR_HOOP_Counter = 0;
+	static	INT8U	GP2_LEFT_HOOP_Counter = 0;
+	static	INT8U	GP2_RIGHT_HOOP_Counter = 0;
+	static	INT8U	GP2_FRONT_Counter = 0;
 
 #ifdef _TARGET_440H
 
@@ -52,20 +58,27 @@ void TaskSensors_CheckBumpers()
 	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_REAR_INTERNAL, GP2Data);
 	
 	if(GP2Data > APP_GP2_LIMIT_REAR_INTERNAL)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR, OS_FLAG_SET, &Err); 
+	{
+		GP2_INTERNAL_REAR_Counter++;
+		if(GP2_INTERNAL_REAR_Counter>= GP2_FILTER_THRESHOLD)
+			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR, OS_FLAG_SET, &Err); 
+	}
 	else
+	{
+		GP2_INTERNAL_REAR_Counter = 0;
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR, OS_FLAG_CLR, &Err); 
+	}
 
 	// Long detection for Rear Internal
 	if(GP2Data > APP_GP2_LIMIT_REAR_INTERNAL_LONG_DETECTION)
 	{
-		GP2_INTERNAL_READ_Counter++;
-		if(GP2_INTERNAL_READ_Counter>= GP2_FILTER_THRESHOLD)
+		GP2_INTERNAL_REAR_LONG_Counter++;
+		if(GP2_INTERNAL_REAR_LONG_Counter>= GP2_FILTER_THRESHOLD)
 			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR_LONG, OS_FLAG_SET, &Err);
 	}
 	else
 	{
-		GP2_INTERNAL_READ_Counter = 0;
+		GP2_INTERNAL_REAR_LONG_Counter = 0;
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_INTERNAL_REAR_LONG, OS_FLAG_CLR, &Err); 
 	}	
 		
@@ -74,36 +87,64 @@ void TaskSensors_CheckBumpers()
 	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_REAR, GP2Data);
 
 	if(GP2Data > APP_GP2_LIMIT_REAR_HOOP)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_HOOP, OS_FLAG_SET, &Err); 
+	{
+		GP2_REAR_HOOP_Counter++;
+		if(GP2_REAR_HOOP_Counter>=GP2_FILTER_THRESHOLD)
+			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_HOOP, OS_FLAG_SET, &Err); 
+	}
 	else
+	{
+		GP2_REAR_HOOP_Counter = 0;
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_HOOP, OS_FLAG_CLR, &Err); 
+	}
 
 	//GP2_REAR_LEFT_HOOP ********************************************
 	GP2Data  = ADC_GetVal (GP2_REAR_LEFT_HOOP);
 	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_REAR_LEFT, GP2Data);
 
 	if(GP2Data > APP_GP2_LIMIT_REAR_LEFT_HOOP)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_LEFT_HOOP, OS_FLAG_SET, &Err); 
+	{
+		GP2_LEFT_HOOP_Counter++;
+		if(GP2_LEFT_HOOP_Counter>= GP2_FILTER_THRESHOLD)
+			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_LEFT_HOOP, OS_FLAG_SET, &Err); 
+	}
 	else
+	{
+		GP2_LEFT_HOOP_Counter = 0;
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_LEFT_HOOP, OS_FLAG_CLR, &Err); 
+	}
 
 	//GP2_REAR_RIGHT_HOOP *******************************************
 	GP2Data  = ADC_GetVal (GP2_REAR_RIGHT_HOOP);
 	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_REAR_RIGHT, GP2Data);
 
 	if(GP2Data > APP_GP2_LIMIT_REAR_RIGHT_HOOP)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_RIGHT_HOOP, OS_FLAG_SET, &Err); 
+	{
+		GP2_RIGHT_HOOP_Counter++;
+		if(GP2_RIGHT_HOOP_Counter>= GP2_FILTER_THRESHOLD)
+			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_RIGHT_HOOP, OS_FLAG_SET, &Err);
+	}
 	else
+	{
+		GP2_RIGHT_HOOP_Counter = 0;
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_REAR_RIGHT_HOOP, OS_FLAG_CLR, &Err); 
+	}
 
 	//GP2_FRONT *****************************************************
 	GP2Data  = ADC_GetVal (GP2_FRONT);
 	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_FRONT, GP2Data);
 
 	if(GP2Data > APP_GP2_LIMIT_FRONT)
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_SET, &Err); 
+	{
+		GP2_FRONT_Counter++;
+		if(GP2_FRONT_Counter>= GP2_FILTER_THRESHOLD)
+			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_SET, &Err);
+	}
 	else
-		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_CLR, &Err); 
+	{
+		GP2_FRONT_Counter = 0;
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_CLR, &Err);
+	}
 #endif
 }
 
