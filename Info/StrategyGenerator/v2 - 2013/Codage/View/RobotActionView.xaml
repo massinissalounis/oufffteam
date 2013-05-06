@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="240" d:DesignWidth="600"
+             d:DesignHeight="672" d:DesignWidth="600"
              xmlns:root="clr-namespace:StrategyGenerator2.ViewModel"
              xmlns:UC="clr-namespace:StrategyGenerator2.View"
              MinHeight="640" MinWidth="600" >
@@ -22,6 +22,7 @@
             <RowDefinition Height="25" />
             <RowDefinition Height="25" />
             <RowDefinition Height="25" />
+            <RowDefinition Height="35" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -33,7 +34,7 @@
         
         <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="0,0,0,0">
             <Border BorderBrush="Black" BorderThickness="1">
-                <Image Source="/StrategyGenerator2;component/Res/Terrain.png" Width="600" Height="400" />
+                <Image Name="MapPicture" Source="/StrategyGenerator2;component/Res/Terrain.png" Width="600" Height="400" Mouse.MouseMove="Image_MouseMove" />
             </Border>
             <Image Name="Robot0" Source="{Binding Robot0.Status}" Width="{Binding Robot0.Width}" Height="{Binding Robot0.Height}" Margin="{Binding Robot0.Margin}" Visibility="{Binding Robot0.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot0.CenterX}" CenterY="{Binding Robot0.CenterY}" Angle="{Binding Robot0.Angle}" /></Image.RenderTransform></Image>
             <Image Name="Robot1" Source="{Binding Robot1.Status}" Width="{Binding Robot1.Width}" Height="{Binding Robot1.Height}" Margin="{Binding Robot1.Margin}" Visibility="{Binding Robot1.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot1.CenterX}" CenterY="{Binding Robot1.CenterY}" Angle="{Binding Robot1.Angle}" /></Image.RenderTransform></Image>
@@ -45,6 +46,7 @@
             <Image Name="Robot7" Source="{Binding Robot7.Status}" Width="{Binding Robot7.Width}" Height="{Binding Robot7.Height}" Margin="{Binding Robot7.Margin}" Visibility="{Binding Robot7.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot7.CenterX}" CenterY="{Binding Robot7.CenterY}" Angle="{Binding Robot7.Angle}" /></Image.RenderTransform></Image>
             <Image Name="Robot8" Source="{Binding Robot8.Status}" Width="{Binding Robot8.Width}" Height="{Binding Robot8.Height}" Margin="{Binding Robot8.Margin}" Visibility="{Binding Robot8.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot8.CenterX}" CenterY="{Binding Robot8.CenterY}" Angle="{Binding Robot8.Angle}" /></Image.RenderTransform></Image>
             <Image Name="Robot9" Source="{Binding Robot9.Status}" Width="{Binding Robot9.Width}" Height="{Binding Robot9.Height}" Margin="{Binding Robot9.Margin}" Visibility="{Binding Robot9.Visibility}" HorizontalAlignment="Left" VerticalAlignment="Top"  ><Image.RenderTransform><RotateTransform CenterX="{Binding Robot9.CenterX}" CenterY="{Binding Robot9.CenterY}" Angle="{Binding Robot9.Angle}" /></Image.RenderTransform></Image>
+            <TextBlock Height="20" HorizontalAlignment="Left" Name="textBlock_MousePos" Text="TextBlock" VerticalAlignment="Top" Width="119" TextAlignment="Center" FontSize="10" Margin="242,0,0,0" Background="#CBFFFFFF" />
         </Grid>
         
         <Label Content="{Binding initPos}" Height="28" Name="labelRobot1Pos" VerticalAlignment="Top" HorizontalContentAlignment="Center" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1" />
@@ -72,10 +74,10 @@
         <TextBox Grid.Column="1" Grid.Row="2" Height="23" Margin="5,1,5,1" Name="textBoxCmd" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding CmdID}" TabIndex="1" IsEnabled="{Binding isFormEnabled}" />
 
         <Label Content="Next ID : " Grid.Column="2" Grid.Row="2" Height="25" Margin="0,0,0,0" Name="labelNextID" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
-        <TextBox Grid.Column="3" Grid.Row="2" Height="23" Margin="5,1,5,1" Name="textBoxNextID" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding NextID}" TabIndex="8" IsEnabled="{Binding isFormEnabled}" />
+        <TextBox Grid.Column="3" Grid.Row="2" Height="23" Margin="5,1,5,1" Name="textBoxNextID" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding NextID}" TabIndex="8" IsEnabled="{Binding isFormEnabled}" Background="{Binding nextIDColor}" />
 
         <Label Content="Timeout ID : " Grid.Column="2" Grid.Row="3" Height="25" Margin="0,0,0,0" Name="labelTimeoutID" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
-        <TextBox Grid.Column="3" Grid.Row="3" Height="23" Margin="5,1,5,1" Name="textBoxTimeoutID" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding TimeoutID}" TabIndex="9" IsEnabled="{Binding isFormEnabled}" />
+        <TextBox Grid.Column="3" Grid.Row="3" Height="23" Margin="5,1,5,1" Name="textBoxTimeoutID" VerticalAlignment="Top" Grid.RowSpan="2" Text="{Binding TimeoutID}" TabIndex="9" IsEnabled="{Binding isFormEnabled}" Background="{Binding timeoutIDColor}"  />
 
         <Label Content="Active Sensors : " Grid.Column="2" Grid.RowSpan="5" Grid.Row="4" Name="labelActiveSensors" HorizontalContentAlignment="Center" Margin="0,0,0,0" VerticalContentAlignment="Center" />
         <ListBox Grid.Column="3" Grid.Row="4" Grid.RowSpan="5" Margin="5,1,5,1" Name="textBlock1" ItemsSource="{Binding Path=ListActiveSensors}" IsEnabled="{Binding isFormEnabled}" >
@@ -90,10 +92,17 @@
             </ListBox.ItemTemplate>
 
         </ListBox>
-        <TextBlock Grid.Row="9" Name="textBlock2" Grid.ColumnSpan="4" Margin="0,5,0,0" TextAlignment="Center" Height="23" VerticalAlignment="Top">
+        <TextBlock Grid.Row="10" Grid.ColumnSpan="4" Margin="0,5,0,0" TextAlignment="Center" Height="23" VerticalAlignment="Top">
+            <Button Width="50" Height="23" Content="Prev" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdPrev}" Background="{x:Null}" />
+            <Label Content="" Height="23" Width="150" HorizontalAlignment="Left" Margin="0,0,0,0" Background="{x:Null}" />
+            <Button Width="100" Height="23" Content="Mettre à jour" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdUpdate}" Background="LightGreen" />
+            <Label Content="" Height="23" Width="150" HorizontalAlignment="Left" Margin="0,0,0,0" Background="{x:Null}" />
+            <Button Width="50" Height="23" Content="Next" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdNext}" Background="{x:Null}" />
+        </TextBlock>
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="4" Margin="0,5,0,0" TextAlignment="Center" Height="23" VerticalAlignment="Top">
             <Button Width="100" Height="23" Content="Ajouter" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdAdd}" />
-            <Label Content="" Height="23" Width="100" HorizontalAlignment="Left" Margin="0,0,0,0" />
-            <Button Width="100" Height="23" Content="Mettre à jour" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdUpdate}" />
+            <Label Content="" Height="23" Width="25" HorizontalAlignment="Left" Margin="0,0,0,0" Background="{x:Null}" />
+            <Button Width="100" Height="23" Content="Supprimer" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdRemove}" />
         </TextBlock>
     </Grid>
 </UserControl>

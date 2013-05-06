@@ -26,6 +26,7 @@ namespace StrategyGenerator2.Model
         public event EventHandler RobotActionChanged = null;
         public event EventHandler RobotActionListChanged = null;
         public event EventHandler EConvertStrategy = null;
+        public event EventHandler EUpdateCmdDescription = null;
 
         public void UpdateRobotActionList()
         {
@@ -61,6 +62,11 @@ namespace StrategyGenerator2.Model
             RaiseConvertStrategy();
         }
 
+        public void UpdateCmdDescription()
+        {
+            RaiseUpdateCmdDescription();
+        }
+
         // Private --------------------------------------------------------------------------------
         private void RaiseRobotActionChanged()
         {
@@ -80,6 +86,11 @@ namespace StrategyGenerator2.Model
                 EConvertStrategy(this, new EventArgs());
         }
 
+        private void RaiseUpdateCmdDescription()
+        {
+            if (EUpdateCmdDescription != null)
+                EUpdateCmdDescription(this, new EventArgs());
+        }
 
         // Declaration du singleton
         private static MainModel _model;
@@ -107,6 +118,11 @@ namespace StrategyGenerator2.Model
             set
             {
                 _selectedRobotAction = value;
+                if (_selectedRobotAction != null)
+                    RobotActionDescription = _selectedRobotAction.GetCmdDescription();
+                else
+                    RobotActionDescription = "";
+                RaiseUpdateCmdDescription();
                 RaiseRobotActionChanged();
             }
         }
@@ -147,6 +163,8 @@ namespace StrategyGenerator2.Model
 
         public StrategyDisplay strategy1Display = new StrategyDisplay();
         public StrategyDisplay strategy2Display = new StrategyDisplay();
+
+        public String RobotActionDescription = "";
 
         // Données private ------------------------------------------------------------------------
         private RobotAction _selectedRobotAction = null;

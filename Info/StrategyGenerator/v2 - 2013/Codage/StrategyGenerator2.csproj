@@ -95,10 +95,11 @@
     <Compile Include="StrategyManager\Strategy.cs" />
     <Compile Include="StrategyManager\SubStrategy.cs" />
     <Compile Include="StrategyViewer\DisplayPos.cs" />
-    <Compile Include="StrategyViewer\EnumStrategyViewer.cs" />
+    <Compile Include="StrategyViewer\SubObjectStrategyViewer.cs" />
     <Compile Include="StrategyViewer\RobotPos.cs" />
     <Compile Include="StrategyViewer\StrategyDisplay.cs" />
     <Compile Include="Tools\DebugTool.cs" />
+    <Compile Include="ViewModel\HelperVM.cs" />
     <Compile Include="ViewModel\RobotActionVM.cs" />
     <Compile Include="ViewModel\MainStrategyRobot2VM.cs" />
     <Compile Include="ViewModel\MainStrategyRobot1VM.cs" />
@@ -107,6 +108,9 @@
     <Compile Include="ViewModel\SubStrategiesRobot2VM.cs" />
     <Compile Include="ViewModel\MainVM.cs" />
     <Compile Include="ViewModel\SubStrategiesRobot1VM.cs" />
+    <Compile Include="View\HelperView.xaml.cs">
+      <DependentUpon>HelperView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\RobotActionView.xaml.cs">
       <DependentUpon>RobotActionView.xaml</DependentUpon>
     </Compile>
@@ -135,6 +139,10 @@
     <Page Include="Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\HelperView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RobotActionView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -191,16 +199,27 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Res\RobotFermé.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Generator>Res</Generator>
-      <CustomToolNamespace>Res</CustomToolNamespace>
-    </Resource>
-    <Resource Include="Res\RobotOuvert.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Generator>Res</Generator>
-      <CustomToolNamespace>Res</CustomToolNamespace>
-    </Resource>
+    <Resource Include="Res\Logo_OufffTeam_Gd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Res\Robot_HC_RC_LC.png" />
+    <Resource Include="Res\Robot_HC_RC_LF.png" />
+    <Resource Include="Res\Robot_HC_RC_LO.png" />
+    <Resource Include="Res\Robot_HC_RF_LC.png" />
+    <Resource Include="Res\Robot_HC_RF_LF.png" />
+    <Resource Include="Res\Robot_HC_RF_LO.png" />
+    <Resource Include="Res\Robot_HC_RO_LC.png" />
+    <Resource Include="Res\Robot_HC_RO_LF.png" />
+    <Resource Include="Res\Robot_HC_RO_LO.png" />
+    <Resource Include="Res\Robot_HO_RC_LC.png" />
+    <Resource Include="Res\Robot_HO_RC_LF.png" />
+    <Resource Include="Res\Robot_HO_RC_LO.png" />
+    <Resource Include="Res\Robot_HO_RF_LC.png" />
+    <Resource Include="Res\Robot_HO_RF_LF.png" />
+    <Resource Include="Res\Robot_HO_RF_LO.png" />
+    <Resource Include="Res\Robot_HO_RO_LC.png" />
+    <Resource Include="Res\Robot_HO_RO_LF.png" />
+    <Resource Include="Res\Robot_HO_RO_LO.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

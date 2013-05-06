@@ -28,6 +28,7 @@ namespace StrategyGenerator2.StrategyManager
         
         // Cmd SENSORS __________________________
         Sensors_SetHoopLevel = 40,                  // Function to move Rear Hoop
+        Sensors_SetArmsStatus = 41,                 // Function to set Arms position
     }
 
     public enum EnumCmdType
@@ -90,6 +91,13 @@ namespace StrategyGenerator2.StrategyManager
     {
         HOOP_LEVEL_UP = 20,
         HOOP_LEVEL_DOWN = 21,
+    }
+
+    public enum EnumSensorsArmStatus
+    {
+        ARM_OPEN = 30,
+        ARM_CLOSED = 31,
+        ARM_FRONT = 32,
     }
 
 }
