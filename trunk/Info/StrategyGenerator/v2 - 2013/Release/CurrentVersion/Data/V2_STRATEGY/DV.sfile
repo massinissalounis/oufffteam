@@ -1,0 +1,70 @@
+[Groupe 0]
+SubStrategyName = DV
+SubStrategyID = 3
+
+[Groupe 3000]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 1
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 3010
+timeoutID = -1
+
+[Groupe 3010]
+Cmd = MvtSimple_RotateToAngleInDeg
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT)
+nextID = 3020
+timeoutID = -1
+
+[Groupe 3020]
+Cmd = Sensors_SetHoopLevel
+CmdType = CmdType_Blocking
+Param1 = HOOP_LEVEL_UP
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 3029
+timeoutID = -1
+
+[Groupe 3029]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 500
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 3030
+timeoutID = -1
+
+[Groupe 3030]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -150
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 3040
+timeoutID = -1
+
+[Groupe 3040]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 150
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
+nextID = -1
+timeoutID = -1
+
