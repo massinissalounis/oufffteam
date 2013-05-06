@@ -235,9 +235,9 @@ void TaskSensors_GenerateStrategyFlags()
 		
 	// Check Sensors
 	if((SystemReadValue & FlagsToCheck) != 0)
-		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR, OS_FLAG_SET, &Err); 
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_LEFT, OS_FLAG_SET, &Err); 
 	else
-		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR, OS_FLAG_CLR, &Err); 
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_LEFT, OS_FLAG_CLR, &Err); 
 
 	// Right Sensors ########################################################################
 	FlagsToCheck = 0;
@@ -255,9 +255,9 @@ void TaskSensors_GenerateStrategyFlags()
 		
 	// Check Sensors
 	if((SystemReadValue & FlagsToCheck) != 0)
-		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR, OS_FLAG_SET, &Err); 
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT, OS_FLAG_SET, &Err); 
 	else
-		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_REAR, OS_FLAG_CLR, &Err); 
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT, OS_FLAG_CLR, &Err); 
 
 }
 
