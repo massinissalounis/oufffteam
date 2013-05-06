@@ -17,6 +17,7 @@
 #ifdef HOMOL_STRATEGY_ENABLED
 
 #define DEFAULT_SPEED (50)
+#define DEFAULT_PIVOT_SPEED	(20)
 
 // ------------------------------------------------------------------------------------------------
 INT8U StrategyColorA_GetInitCmd(StructCmd *InitCmd)
@@ -79,16 +80,17 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 		// SUB_STRATEGY_BEGIN_LOOP
 		case 1:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 100;	TimeoutID = -1;	p->Cmd = App_Wait;	p->Param1 = 0;	p->Param2 = 0;	p->Param3 = 0;	p->Param4 = 1;	break;	// SubStrategyName = MainStrategy
 
-		case 100:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 101;	TimeoutID = -1;	p->Cmd = App_Wait;	p->Param1 = 0;	p->Param2 = 0;	p->Param3 = 0;	p->Param4 = 1;	break;	// SubStrategyName = V1
-		case 101:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_LONG_REAR);	NextActionID = 110;	TimeoutID = 130;	p->Cmd = Mvt_UseSpline;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 1820;	p->Param3 = 547;	p->Param4 = 180;	break;	// SubStrategyName = V1
+		case 100:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 110;	TimeoutID = -1;	p->Cmd = App_Wait;	p->Param1 = 0;	p->Param2 = 0;	p->Param3 = 0;	p->Param4 = 1;	break;	// SubStrategyName = V1
+		case 101:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 110;	TimeoutID = 130;	p->Cmd = Mvt_UseSpline;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 1820;	p->Param3 = 547;	p->Param4 = 180;	break;	// SubStrategyName = V1
 		case 110:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 111;	TimeoutID = -1;	p->Cmd = App_Wait;	p->Param1 = 0;	p->Param2 = 0;	p->Param3 = 0;	p->Param4 = 0;	break;	// SubStrategyName = V1
 		case 111:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 112;	TimeoutID = -1;	p->Cmd = Sensors_SetHoopLevel;	p->Param1 = HOOP_LEVEL_DOWN;	p->Param2 = NotUsed;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = V1
-		case 112:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT);	NextActionID = 113;	TimeoutID = -1;	p->Cmd = Mvt_UsePivotMode;	p->Param1 = DEFAULT_PIVOT_SPEED;	p->Param2 = RIGHT_WHEEL;	p->Param3 = NotUsed;	p->Param4 = 90;	break;	// SubStrategyName = V1
-		case 113:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT);	NextActionID = 114;	TimeoutID = -1;	p->Cmd = Mvt_UsePivotMode;	p->Param1 = DEFAULT_PIVOT_SPEED;	p->Param2 = LEFT_WHEEL;	p->Param3 = NotUsed;	p->Param4 = 180;	break;	// SubStrategyName = V1
-		case 114:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT);	NextActionID = 115;	TimeoutID = -1;	p->Cmd = Mvt_UseSpline;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 700;	p->Param3 = 817;	p->Param4 = 180;	break;	// SubStrategyName = V1
-		case 115:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT);	NextActionID = 116;	TimeoutID = -1;	p->Cmd = Mvt_UseMixedMode;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 280;	p->Param3 = 630;	p->Param4 = 180;	break;	// SubStrategyName = V1
-		case 116:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_REAR);	NextActionID = -1;	TimeoutID = -1;	p->Cmd = Mvt_UseSpline;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 500;	p->Param3 = 630;	p->Param4 = 180;	break;	// SubStrategyName = V1
-		case 130:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT);	NextActionID = 110;	TimeoutID = -1;	p->Cmd = MvtSimple_MoveInMM;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 150;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = V1
+		case 112:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT);	NextActionID = 113;	TimeoutID = -1;	p->Cmd = Mvt_UsePivotMode;	p->Param1 = DEFAULT_PIVOT_SPEED;	p->Param2 = RIGHT_WHEEL;	p->Param3 = NotUsed;	p->Param4 = 90;	break;	// SubStrategyName = V1
+		case 113:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT);	NextActionID = -1;	TimeoutID = -1;	p->Cmd = Mvt_UsePivotMode;	p->Param1 = DEFAULT_PIVOT_SPEED;	p->Param2 = LEFT_WHEEL;	p->Param3 = NotUsed;	p->Param4 = 180;	break;	// SubStrategyName = V1
+		case 114:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 115;	TimeoutID = 140;	p->Cmd = Mvt_UseSpline;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 700;	p->Param3 = 817;	p->Param4 = 180;	break;	// SubStrategyName = V1
+		case 115:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 116;	TimeoutID = -1;	p->Cmd = Mvt_UseMixedMode;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 280;	p->Param3 = 630;	p->Param4 = 180;	break;	// SubStrategyName = V1
+		case 116:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = -1;	TimeoutID = -1;	p->Cmd = Mvt_UseSpline;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 500;	p->Param3 = 630;	p->Param4 = 180;	break;	// SubStrategyName = V1
+		case 130:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT);	NextActionID = 140;	TimeoutID = -1;	p->Cmd = MvtSimple_MoveInMM;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 150;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = V1
+		case 140:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT);	NextActionID = 115;	TimeoutID = -1;	p->Cmd = Mvt_UseMixedMode;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 1500;	p->Param3 = 547;	p->Param4 = 0;	break;	// SubStrategyName = V1
 
 		// SUB_STRATEGY_END_LOOP
 
@@ -113,11 +115,13 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 
 		// If condition is true, we go to the ID given by Param2, otherwise, we use NextActionID
 		if((CurrentFlag & (p->Param1)) != 0)
+		{
 			NextActionID = (int)(p->Param2);
 		
-		// In case of Param3 is > 0, we have a return ID to use once the goto action is done
-		if((int)(p->Param3) > 0)
-			SubStrategyReturnID = (int)(p->Param3);		
+			// In case of Param3 is > 0, we have a return ID to use once the goto action is done
+			if((int)(p->Param3) > 0)
+				SubStrategyReturnID = (int)(p->Param3);		
+		}
 
 		return StrategyColorA_GetNextAction(p);
 	}
@@ -130,11 +134,13 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 
 		// If condition is true, we go to the ID given by Param2, otherwise, we use NextActionID
 		if((CurrentFlag & (p->Param1)) != 0)
+		{
 			NextActionID = (int)(p->Param2);
 		
-		// In case of Param3 is > 0, we have a return ID to use once the goto action is done
-		if((int)(p->Param3) > 0)
-			SubStrategyReturnID = (int)(p->Param3);
+			// In case of Param3 is > 0, we have a return ID to use once the goto action is done
+			if((int)(p->Param3) > 0)
+				SubStrategyReturnID = (int)(p->Param3);
+		}
 
 		return StrategyColorA_GetNextAction(p);
 	}
