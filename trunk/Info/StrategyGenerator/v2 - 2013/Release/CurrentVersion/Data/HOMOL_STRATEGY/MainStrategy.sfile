@@ -13,3 +13,14 @@ ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 1000
 timeoutID = -1
 
+[Groupe 2]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 1
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 1000
+timeoutID = -1
+
