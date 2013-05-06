@@ -1,0 +1,37 @@
+[Groupe 0]
+SubStrategyName = DV
+SubStrategyID = 2
+
+[Groupe 2010]
+Cmd = MvtSimple_RotateToAngleInDeg
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT)
+nextID = 2020
+timeoutID = -1
+
+[Groupe 2020]
+Cmd = Sensors_SetHoopLevel
+CmdType = CmdType_Blocking
+Param1 = HOOP_LEVEL_UP
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2030
+timeoutID = -1
+
+[Groupe 2030]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -100
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2200
+timeoutID = -1
+
