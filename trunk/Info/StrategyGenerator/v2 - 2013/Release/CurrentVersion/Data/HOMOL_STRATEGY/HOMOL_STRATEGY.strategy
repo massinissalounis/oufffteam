@@ -1,8 +1,0 @@
-[Groupe 0]
-MainStrategy = HOMOL_STRATEGY
-InitialPosX = 97
-InitialPosY = 547
-InitialPosA = 180
-DefaultSpeed = 50
-DefaultPivotSpeed = 50
-
