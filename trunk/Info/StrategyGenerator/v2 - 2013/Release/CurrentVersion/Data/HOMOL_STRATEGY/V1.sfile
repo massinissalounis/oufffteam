@@ -21,10 +21,21 @@ Param2 = 1820
 Param3 = 547
 Param4 = 180
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_LONG_REAR)
-nextID = 1110
+nextID = 1100
 timeoutID = 1300
 
 [Groupe 1100]
+Cmd = Sensors_SetHoopLevel
+CmdType = CmdType_Blocking
+Param1 = HOOP_LEVEL_DOWN
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 1110
+timeoutID = -1
+
+[Groupe 1110]
 Cmd = App_Wait
 CmdType = CmdType_Blocking
 Param1 = 0
@@ -33,17 +44,6 @@ Param3 = 0
 Param4 = 500
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 1120
-timeoutID = -1
-
-[Groupe 1110]
-Cmd = Sensors_SetHoopLevel
-CmdType = CmdType_Blocking
-Param1 = HOOP_LEVEL_DOWN
-Param2 = NotUsed
-Param3 = NotUsed
-Param4 = NotUsed
-ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
-nextID = 1100
 timeoutID = -1
 
 [Groupe 1120]
@@ -109,7 +109,7 @@ Param2 = 150
 Param3 = NotUsed
 Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
-nextID = 1400
+nextID = 1100
 timeoutID = -1
 
 [Groupe 1400]
@@ -184,7 +184,7 @@ CmdType = CmdType_Blocking
 Param1 = DEFAULT_SPEED
 Param2 = 1500
 Param3 = 1000
-Param4 = 0
+Param4 = 180
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 2
 timeoutID = -1
