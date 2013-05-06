@@ -49,13 +49,13 @@ timeoutID = -1
 [Groupe 4025]
 Cmd = MvtSimple_MoveInMM
 CmdType = CmdType_Blocking
-Param1 = DEFAULT_SPEED
+Param1 = 40
 Param2 = 200
 Param3 = NotUsed
 Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
-nextID = 4035
-timeoutID = -1
+nextID = 4030
+timeoutID = 4035
 
 [Groupe 4030]
 Cmd = App_SetStrategyFlags
