@@ -1,0 +1,5 @@
+Carte Raspberry :
+
+root / OufffTe@m!
+
+IP eth : 192.168.0.200
