@@ -13,17 +13,6 @@ ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 4005
 timeoutID = -1
 
-[Groupe 4040]
-Cmd = MvtSimple_MoveInMM
-CmdType = CmdType_Blocking
-Param1 = DEFAULT_SPEED
-Param2 = -200
-Param3 = NotUsed
-Param4 = NotUsed
-ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
-nextID = 0
-timeoutID = -1
-
 [Groupe 4005]
 Cmd = App_SetStrategyFlags
 CmdType = CmdType_Blocking
@@ -65,7 +54,7 @@ Param2 = 200
 Param3 = NotUsed
 Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
-nextID = 4030
+nextID = 4035
 timeoutID = -1
 
 [Groupe 4030]
@@ -88,5 +77,16 @@ Param3 = NotUsed
 Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 4040
+timeoutID = -1
+
+[Groupe 4040]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -200
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
 timeoutID = -1
 
