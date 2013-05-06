@@ -17,6 +17,7 @@
 #ifdef 'StrategyName@0'_ENABLED
 
 #define DEFAULT_SPEED ('DefaultSpeed@0')
+#define DEFAULT_PIVOT_SPEED	('DefaultPivotSpeed@0')
 
 // ------------------------------------------------------------------------------------------------
 INT8U StrategyColorB_GetInitCmd(StructCmd *InitCmd)
@@ -101,11 +102,13 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 
 		// If condition is true, we go to the ID given by Param2, otherwise, we use NextActionID
 		if((CurrentFlag & (p->Param1)) != 0)
+		{
 			NextActionID = (int)(p->Param2);
 		
-		// In case of Param3 is > 0, we have a return ID to use once the goto action is done
-		if((int)(p->Param3) > 0)
-			SubStrategyReturnID = (int)(p->Param3);		
+			// In case of Param3 is > 0, we have a return ID to use once the goto action is done
+			if((int)(p->Param3) > 0)
+				SubStrategyReturnID = (int)(p->Param3);		
+		}
 
 		return StrategyColorB_GetNextAction(p);
 	}
@@ -118,11 +121,13 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 
 		// If condition is true, we go to the ID given by Param2, otherwise, we use NextActionID
 		if((CurrentFlag & (p->Param1)) != 0)
+		{
 			NextActionID = (int)(p->Param2);
 		
-		// In case of Param3 is > 0, we have a return ID to use once the goto action is done
-		if((int)(p->Param3) > 0)
-			SubStrategyReturnID = (int)(p->Param3);
+			// In case of Param3 is > 0, we have a return ID to use once the goto action is done
+			if((int)(p->Param3) > 0)
+				SubStrategyReturnID = (int)(p->Param3);
+		}
 
 		return StrategyColorB_GetNextAction(p);
 	}
