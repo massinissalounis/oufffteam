@@ -10,6 +10,6 @@ Param2 = 0
 Param3 = 0
 Param4 = 1
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
-nextID = 100
+nextID = 1000
 timeoutID = -1
 
