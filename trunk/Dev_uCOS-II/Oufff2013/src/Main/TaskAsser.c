@@ -544,6 +544,35 @@ unsigned char mode_4_control_motion(StructPos *psetpoint, StructPos *pcurrent, f
 	return end_movement_flag;
 }
 
+void pivot_setpoint_computation(StructPos *current, char pivot_wheel, StructPos *setpoint)
+{
+	float pivot_setpoint=0;
+
+	pivot_setpoint=setpoint->angle-current->angle;
+
+	if(pivot_setpoint>M_PI)
+		pivot_setpoint=pivot_setpoint-2*M_PI;
+	else
+	{
+		if(pivot_setpoint<-M_PI)
+			pivot_setpoint=pivot_setpoint+2*M_PI;
+	}
+
+	if(RIGHT_WHEEL == pivot_wheel)		// We lock the right wheel
+	{
+		setpoint->right_encoder	= current->right_encoder;
+		setpoint->left_encoder	= current->left_encoder + (CPU_INT16U)(pivot_setpoint * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_LEFT);
+	}
+	else if (LEFT_WHEEL == pivot_wheel)	// We lock the left wheel
+	{
+		setpoint->left_encoder	= current->left_encoder;
+		setpoint->right_encoder	= current->right_encoder + (CPU_INT16U)(pivot_setpoint * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_RIGHT);
+	}
+	else
+	{
+		AppDebugMsg("Ta mere suce des bites en enfer!\n");
+	}
+}
 
 
 // ------------------------------------------------------------------------------------------------
@@ -660,33 +689,9 @@ void TaskAsser_Main(void *p_arg)
 			// -------------------------------------------------------------
             case Mvt_UsePivotMode:
 				mode_control						= 4;	// Use Pivot Mode
-				if(RIGHT_WHEEL == CurrentCmd.Param2)		// We lock the right wheel
-				{
-					setpoint.right_encoder	= TaskAsser_CurrentPos.right_encoder;
 
-					if(fabs(CurrentCmd.Param4-TaskAsser_CurrentPos.angle)<M_PI)
-					{
-						setpoint.left_encoder	= TaskAsser_CurrentPos.left_encoder + (CPU_INT16U)((CurrentCmd.Param4-TaskAsser_CurrentPos.angle) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_LEFT);
-					}
-					else
-					{
-						setpoint.left_encoder	= TaskAsser_CurrentPos.left_encoder + (CPU_INT16U)((2*M_PI+CurrentCmd.Param4-TaskAsser_CurrentPos.angle) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_LEFT);
-					}
-				}
-				else if (LEFT_WHEEL == CurrentCmd.Param2)	// We lock the left wheel
-				{
-					if(fabs(CurrentCmd.Param4-TaskAsser_CurrentPos.angle)<M_PI)
-					{
-						setpoint.right_encoder	= TaskAsser_CurrentPos.right_encoder + (CPU_INT16U)((CurrentCmd.Param4-TaskAsser_CurrentPos.angle) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_RIGHT);
-					}
-					else
-					{
-						setpoint.right_encoder	= TaskAsser_CurrentPos.right_encoder + (CPU_INT16U)((2*M_PI+CurrentCmd.Param4-TaskAsser_CurrentPos.angle) * CONVERSION_RAD_TO_MM * CONVERSION_MM_TO_INC_RIGHT);
-					}
-
-					setpoint.left_encoder	= TaskAsser_CurrentPos.left_encoder;
-				}
-
+				setpoint.angle=CurrentCmd.Param4;
+				pivot_setpoint_computation(&TaskAsser_CurrentPos, CurrentCmd.Param2, &setpoint);
 				distance_quadramp_data.speed_order	= CurrentCmd.Param1 * 0.01;
 				break;
 
