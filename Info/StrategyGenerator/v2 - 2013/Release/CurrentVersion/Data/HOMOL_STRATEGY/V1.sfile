@@ -13,17 +13,6 @@ ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 1010
 timeoutID = -1
 
-[Groupe 1400]
-Cmd = Mvt_UseMixedMode
-CmdType = CmdType_Blocking
-Param1 = DEFAULT_SPEED
-Param2 = 1597
-Param3 = 547
-Param4 = 180
-ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT)
-nextID = 1150
-timeoutID = -1
-
 [Groupe 1010]
 Cmd = Mvt_UseSpline
 CmdType = CmdType_Blocking
@@ -121,5 +110,82 @@ Param3 = NotUsed
 Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
 nextID = 1400
+timeoutID = -1
+
+[Groupe 1400]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -150
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 1401
+timeoutID = -1
+
+[Groupe 1401]
+Cmd = MvtSimple_RotateInDeg
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = 90
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 1410
+timeoutID = -1
+
+[Groupe 1410]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 1597
+Param3 = 400
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT)
+nextID = 1411
+timeoutID = -1
+
+[Groupe 1411]
+Cmd = Mvt_UseSpline
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 280
+Param3 = 630
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
+nextID = 1160
+timeoutID = 1500
+
+[Groupe 1500]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -100
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 1501
+timeoutID = -1
+
+[Groupe 1501]
+Cmd = Sensors_SetHoopLevel
+CmdType = CmdType_Blocking
+Param1 = HOOP_LEVEL_UP
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 1502
+timeoutID = -1
+
+[Groupe 1502]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 1500
+Param3 = 1000
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2
 timeoutID = -1
 
