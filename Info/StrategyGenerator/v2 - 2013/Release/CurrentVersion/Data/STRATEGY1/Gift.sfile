@@ -1,0 +1,15 @@
+[Groupe 0]
+SubStrategyName = Gift
+SubStrategyID = 4
+
+[Groupe 4000]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 1
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+
