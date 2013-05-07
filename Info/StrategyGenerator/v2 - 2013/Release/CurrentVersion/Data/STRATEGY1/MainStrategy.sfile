@@ -406,7 +406,7 @@ Param2 = OS_FALSE
 Param3 = NotUsed
 Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
-nextID = 0
+nextID = 955
 timeoutID = -1
 
 [Groupe 955]
