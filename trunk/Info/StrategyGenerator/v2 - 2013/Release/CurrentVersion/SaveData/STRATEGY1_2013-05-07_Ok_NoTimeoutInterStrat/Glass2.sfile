@@ -1,0 +1,191 @@
+[Groupe 0]
+SubStrategyName = Glass2
+SubStrategyID = 2
+
+[Groupe 2000]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 1
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2010
+timeoutID = -1
+
+[Groupe 2010]
+Cmd = Mvt_UseSpline
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 1820
+Param3 = 1050
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_LONG_REAR)
+nextID = 2100
+timeoutID = 2300
+
+[Groupe 2100]
+Cmd = Sensors_SetHoopLevel
+CmdType = CmdType_Blocking
+Param1 = HOOP_LEVEL_DOWN
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2110
+timeoutID = -1
+
+[Groupe 2110]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 500
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2120
+timeoutID = -1
+
+[Groupe 2120]
+Cmd = Mvt_UsePivotMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_PIVOT_SPEED
+Param2 = LEFT_WHEEL
+Param3 = NotUsed
+Param4 = -90
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT)
+nextID = 2130
+timeoutID = -1
+
+[Groupe 2130]
+Cmd = Mvt_UsePivotMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_PIVOT_SPEED
+Param2 = RIGHT_WHEEL
+Param3 = NotUsed
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT)
+nextID = 2140
+timeoutID = -1
+
+[Groupe 2140]
+Cmd = Mvt_UseSpline
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 280
+Param3 = 1200
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
+nextID = 2150
+timeoutID = 2400
+
+[Groupe 2150]
+Cmd = Mvt_UseSpline
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 520
+Param3 = 1200
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 0
+timeoutID = -1
+
+[Groupe 2300]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 150
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
+nextID = 2100
+timeoutID = -1
+
+[Groupe 2400]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -150
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 2401
+timeoutID = -1
+
+[Groupe 2401]
+Cmd = MvtSimple_RotateInDeg
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = 90
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2410
+timeoutID = -1
+
+[Groupe 2410]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 1400
+Param3 = 550
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT)
+nextID = 2411
+timeoutID = -1
+
+[Groupe 2411]
+Cmd = Mvt_UseSpline
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 280
+Param3 = 630
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
+nextID = 2412
+timeoutID = 2500
+
+[Groupe 2412]
+Cmd = Mvt_UseSpline
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 500
+Param3 = 630
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 0
+timeoutID = -1
+
+[Groupe 2500]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -100
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 2501
+timeoutID = -1
+
+[Groupe 2501]
+Cmd = Sensors_SetHoopLevel
+CmdType = CmdType_Blocking
+Param1 = HOOP_LEVEL_UP
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2502
+timeoutID = -1
+
+[Groupe 2502]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 1500
+Param3 = 1000
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+
