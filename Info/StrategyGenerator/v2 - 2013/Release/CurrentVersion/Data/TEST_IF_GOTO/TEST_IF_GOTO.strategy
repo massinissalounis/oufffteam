@@ -1,0 +1,8 @@
+[Groupe 0]
+MainStrategy = TEST_IF_GOTO
+InitialPosX = 1500
+InitialPosY = 1000
+InitialPosA = 180
+DefaultSpeed = 50
+DefaultPivotSpeed = 50
+

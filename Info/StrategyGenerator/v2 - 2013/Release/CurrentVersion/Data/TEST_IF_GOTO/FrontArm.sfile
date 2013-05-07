@@ -1,0 +1,26 @@
+[Groupe 0]
+SubStrategyName = FrontArm
+SubStrategyID = 2
+
+[Groupe 2000]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 1
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2001
+timeoutID = -1
+
+[Groupe 2001]
+Cmd = Sensors_SetArmsStatus
+CmdType = CmdType_Blocking
+Param1 = ARM_FRONT
+Param2 = ARM_FRONT
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+
