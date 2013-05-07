@@ -28,6 +28,20 @@ namespace StrategyGenerator2.ViewModel
             set { }
         }
 
+
+        public String softwareVersion
+        {
+            get
+            {
+                if (_mainModel != null)
+                    return _mainModel.softwareVersion;
+                else
+                    return "Version NotSet";
+            }
+            set
+            { }
+        }
+
         // Private --------------------------------------------------------------------------------
         protected MainModel _mainModel = null;                      // Lien vers le model
 

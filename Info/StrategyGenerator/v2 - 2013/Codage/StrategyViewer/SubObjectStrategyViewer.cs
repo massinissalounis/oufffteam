@@ -30,6 +30,17 @@ namespace StrategyGenerator2.StrategyViewer
             }
         }
 
+        public String GetValueString()
+        {
+            String Ret = "";
+
+            Ret = Ret + _hoopStatus.ToString();
+            Ret = Ret + _leftArmStatus.ToString();
+            Ret = Ret + _rightArmStatus.ToString();
+
+            return Ret;
+        }
+
         // Public ---------------------------------------------------------------------------------
         public EnumRobotStatusFlag HoopStatus
         {

@@ -87,6 +87,16 @@ namespace StrategyGenerator2.ViewModel
             set { }
         }
 
+        public ICommand SaveToStrategyFile
+        {
+            get
+            {
+                return new RelayCommand(SaveToMainStrategyFile);
+            }
+
+            set { }
+        }
+
         public ICommand ImportStrategy
         {
            get
@@ -194,6 +204,21 @@ namespace StrategyGenerator2.ViewModel
                 _currentStrategy.DefaultSpeed = value;
             }
         }
+        public int CurrentStrategyDefaultPivotSpeed
+        {
+            get
+            {
+                if ((_currentStrategy != null) && (_currentStrategy.Name != "NotSet"))
+                    return _currentStrategy.DefaultPivotSpeed;
+                else
+                    return 0;
+            }
+
+            set
+            {
+                _currentStrategy.DefaultPivotSpeed = value;
+            }
+        }
 
         public String ConvertStrategyVisibility
         {
@@ -234,6 +259,10 @@ namespace StrategyGenerator2.ViewModel
 
             // Conversion des angles
             List<RobotAction> ConvertAngle = _currentStrategy.GetAllRobotAction();
+            
+            // Conversion de la position de départ
+            _currentStrategy.DefaultPosX = 3000 - _currentStrategy.DefaultPosX;
+            _currentStrategy.DefaultPosA = (180 - _currentStrategy.DefaultPosA) % 360;
 
             if (ConvertAngle != null)
             {
@@ -338,6 +367,9 @@ namespace StrategyGenerator2.ViewModel
 
             exportWindow.Filter = "C Files (*.c)|*.c|All files (*.*)|*.*";
             exportPatternWindow.Filter = "OufffTEAM StrategyFile|*.spattern";
+
+            //exportWindow.RestoreDirectory = true;
+            //exportPatternWindow.RestoreDirectory = true;
 
             exportWindow.CheckFileExists = false;
 

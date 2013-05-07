@@ -171,7 +171,16 @@ namespace StrategyGenerator2.ViewModel
             {
                 return new RelayCommand(CreateNewSubStrategy);
             }
-            set {}
+            set { }
+        }
+       
+        public ICommand ISortRobotActions
+        {
+            get
+            {
+                return new RelayCommand(Sort);
+            }
+            set { }
         }
 
         // Private --------------------------------------------------------------------------------
@@ -209,7 +218,7 @@ namespace StrategyGenerator2.ViewModel
                         foreach (SubStrategy currentSubStrategy in _currentStrategy.GetAllSubStrategy())
                         {
                             // Si l'ID actuel est déjà utilisé, on le rend invalid
-                            if (currentSubStrategy.ID == ((Ret * 100).ToString()))
+                            if (currentSubStrategy.ID == ((Ret * 1000).ToString()))
                             {
                                 isOK = false;
                             }
@@ -270,6 +279,18 @@ namespace StrategyGenerator2.ViewModel
                 _currentStrategy.AddSubStrategy(newSubStrategy);
                 _mainModel.UpdateRobotActionList();
             }
+        }
+
+        private void Sort()
+        {
+            if (_selectedSubStrategy != null)
+                _selectedSubStrategy.SortRobotActions();
+
+            if ((_currentStrategy != null) && (_currentStrategy.GetMainStrategy() != null))
+                _currentStrategy.GetMainStrategy().SortRobotActions();
+
+            if (_mainModel != null)
+                _mainModel.UpdateRobotActionList();
         }
     }
 }

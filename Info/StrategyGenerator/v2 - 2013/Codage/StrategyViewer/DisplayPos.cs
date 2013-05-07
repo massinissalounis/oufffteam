@@ -29,7 +29,7 @@ namespace StrategyGenerator2.StrategyViewer
                 // On verifie si la position n'existe pas déjà)
                 foreach (RobotPos currentRobotPos in _initialPos)
                 {
-                    if ((initialPos.x == currentRobotPos.x) && (initialPos.y == currentRobotPos.y) && (initialPos.angle == currentRobotPos.angle) && (initialPos.statusFlag == currentRobotPos.statusFlag))
+                    if ((initialPos.x == currentRobotPos.x) && (initialPos.y == currentRobotPos.y) && (initialPos.angle == currentRobotPos.angle) && (initialPos.statusFlag.GetValueString() == currentRobotPos.statusFlag.GetValueString()))
                         isNewData = false;
                 }
 
@@ -266,7 +266,7 @@ namespace StrategyGenerator2.StrategyViewer
                 // On verifie s'il n'est pas déjà présent
                 foreach (RobotPos currentRobotPos in Ret)
                 {
-                    if ((currentRobotPos.x == robotPosToChecked.x) && (currentRobotPos.y == robotPosToChecked.y) && (currentRobotPos.angle == robotPosToChecked.angle) && (currentRobotPos.statusFlag == robotPosToChecked.statusFlag))
+                    if ((currentRobotPos.x == robotPosToChecked.x) && (currentRobotPos.y == robotPosToChecked.y) && (currentRobotPos.angle == robotPosToChecked.angle) && (currentRobotPos.statusFlag.GetValueString() == robotPosToChecked.statusFlag.GetValueString()))
                         isAlreadyAdded = true;
                 }
 
@@ -286,7 +286,7 @@ namespace StrategyGenerator2.StrategyViewer
         {
             RobotPos Ret = null;
 
-            if ((index >= 0) && (_initialPos != null) && (_initialPos.Count() > index))
+            if ((index >= 0) && (_initialPos != null))
             {
                 List<RobotPos> resultList = GetOutputPos();
 

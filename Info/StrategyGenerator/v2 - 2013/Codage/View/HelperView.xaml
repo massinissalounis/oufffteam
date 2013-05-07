@@ -11,7 +11,13 @@
         <root:HelperVM/>
     </UserControl.DataContext>
     <Grid>
-        <TextBlock Margin="10,10,10,10" Text="{Binding HelperDescription}" TextAlignment="Center" />
-        <Image Source="/StrategyGenerator2;component/Res/Logo_OufffTeam_Ptt.png" Margin="0,150,0,0" Name="image1" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock Margin="10" Text="{Binding HelperDescription}" TextAlignment="Center" Grid.ColumnSpan="2" />
+        <Image Source="/StrategyGenerator2;component/Res/Logo_OufffTeam_Gd.png" Margin="0,150,0,0" Name="image1" Grid.ColumnSpan="1" MaxHeight="200" MaxWidth="200"/>
+        <Image Source="/StrategyGenerator2;component/Res/Logo_OufffTeam_Ptt.png" Margin="0,150,0,0" Name="image2" Grid.Column="1" Grid.ColumnSpan="1" MaxHeight="200" MaxWidth="200" />
+        <Label Content="{Binding softwareVersion}" Height="28" Margin="0,0,0,0" Name="label1" VerticalAlignment="Bottom" HorizontalContentAlignment="Center" />
     </Grid>
 </UserControl>
