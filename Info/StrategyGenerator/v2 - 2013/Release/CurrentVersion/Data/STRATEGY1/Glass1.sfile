@@ -88,7 +88,7 @@ Param3 = 630
 Param4 = 180
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT)
 nextID = 1160
-timeoutID = -1
+timeoutID = 1600
 
 [Groupe 1160]
 Cmd = Mvt_UseSpline
@@ -187,5 +187,38 @@ Param3 = 1000
 Param4 = 180
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 0
+timeoutID = -1
+
+[Groupe 1600]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -300
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 1601
+timeoutID = -1
+
+[Groupe 1601]
+Cmd = MvtSimple_RotateInDeg
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = 90
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 1610
+timeoutID = -1
+
+[Groupe 1610]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 1597
+Param3 = 400
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
+nextID = 1411
 timeoutID = -1
 
