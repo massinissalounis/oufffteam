@@ -36,6 +36,7 @@ namespace StrategyGenerator2.StrategyManager
 
             // Creation de la vitesse par défaut 
             _defaultSpeed = 50;
+            _defaultPivotSpeed = 50;
 
             _debugTool = new DebugTool(DebugTool.EDebugToolType.Console);
         }
@@ -157,13 +158,13 @@ namespace StrategyGenerator2.StrategyManager
             {
                 try
                 {
-                    String outputDir = "./" + PrivateConst.outputDir + _strategyName +"/";
+                    String outputDir = Directory.GetCurrentDirectory().ToString() + "/"+ PrivateConst.outputDir + _strategyName +"/";
 
                     // Verification du répertoire de sortie
-                    if (Directory.Exists("./" + PrivateConst.outputDir) != true)
+                    if (Directory.Exists(Directory.GetCurrentDirectory().ToString() + "/" + PrivateConst.outputDir) != true)
                     {
                         // Si le dossier n'existe pas, il faut le créer
-                        Directory.CreateDirectory("./" + PrivateConst.outputDir);
+                        Directory.CreateDirectory(Directory.GetCurrentDirectory().ToString() + "/" + PrivateConst.outputDir);
                     }
 
                     // Verification du sous répertoire de sortie
@@ -191,6 +192,7 @@ namespace StrategyGenerator2.StrategyManager
                     mainGroup.AddKey(new StructuredFileKey(PrivateConst.TAG_InitialPosY, _initialPos.param3));
                     mainGroup.AddKey(new StructuredFileKey(PrivateConst.TAG_InitialPosA, _initialPos.param4));
                     mainGroup.AddKey(new StructuredFileKey(PrivateConst.TAG_DefaultSpeed, _defaultSpeed));
+                    mainGroup.AddKey(new StructuredFileKey(PrivateConst.TAG_DefaultPivotSpeed, _defaultPivotSpeed));
 
 
                     mainFile.AddGroup(mainGroup);
@@ -204,10 +206,10 @@ namespace StrategyGenerator2.StrategyManager
                         currentSubStrategy.Save(outputDir + currentSubStrategy.Name + ".sfile");
 
                         // Verification du répertoire d'import
-                        if (Directory.Exists("./" + PrivateConst.outputDir) != true)
+                        if (Directory.Exists(Directory.GetCurrentDirectory().ToString() + "/" + PrivateConst.outputDir) != true)
                         {
                             // Si le dossier n'existe pas, il faut le créer
-                            Directory.CreateDirectory("./" + PrivateConst.outputDir);
+                            Directory.CreateDirectory(Directory.GetCurrentDirectory().ToString() + "/" + PrivateConst.outputDir);
                         }
 
                     }
@@ -228,7 +230,7 @@ namespace StrategyGenerator2.StrategyManager
         {
             try
             {
-                String inputDir = "./" + PrivateConst.outputDir + strategyName + "/";
+                String inputDir = Directory.GetCurrentDirectory().ToString() + "/" + PrivateConst.outputDir + strategyName + "/";
                 StructuredFile mainFile = new StructuredFile();
                 StructuredFileGroup currentGroup = null;
                 StructuredFileKey currentKey = null;
@@ -281,6 +283,13 @@ namespace StrategyGenerator2.StrategyManager
                                 _defaultSpeed = currentKey.valueInt;
                             else
                                 _defaultSpeed = 50;
+
+                            // DefaultPivotSpeed
+                            currentKey = currentGroup.GetFirstKey(PrivateConst.TAG_DefaultPivotSpeed);
+                            if (currentKey != null)
+                                _defaultPivotSpeed = currentKey.valueInt;
+                            else
+                                _defaultPivotSpeed = 50;
                         }
 
                         // Lecture des sous-stratégies ----------------------------------------------------------------
@@ -405,7 +414,8 @@ namespace StrategyGenerator2.StrategyManager
                         // Creation des données génériques
                         groupToAdd = new StructuredFileGroup(0);     // Creation du groupe générique
                         groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_StrategyName, _strategyName));
-                        groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_DefaultSpeed, _defaultSpeed));
+                        groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_DefaultSpeed, _defaultSpeed)); 
+                        groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_DefaultPivotSpeed, _defaultPivotSpeed));
                         groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_InitialPosX, _initialPos.param2));
                         groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_InitialPosY, _initialPos.param3));
                         groupToAdd.AddKey(new StructuredFileKey(PrivateConst.TAG_InitialPosA, _initialPos.param4));
@@ -647,6 +657,10 @@ namespace StrategyGenerator2.StrategyManager
                                     // Valeur par défaut
                                     currentKey = currentGroup.GetFirstKey(PrivateConst.TAG_DefaultSpeed);
                                     if (currentKey != null) { _defaultSpeed = currentKey.valueInt; }
+
+                                    // Valeur par défaut
+                                    currentKey = currentGroup.GetFirstKey(PrivateConst.TAG_DefaultPivotSpeed);
+                                    if (currentKey != null) { _defaultPivotSpeed = currentKey.valueInt; }
                                 }
                             }
                         }
@@ -708,9 +722,6 @@ namespace StrategyGenerator2.StrategyManager
                 if(isUpdated == false)
                     _subStrategies.Add(newSubStrategy);
             }
-
-            if(_subStrategies != null)
-                _subStrategies.Sort(SubStrategy.ComparisonID);
         }
 
         /// <summary>
@@ -843,6 +854,18 @@ namespace StrategyGenerator2.StrategyManager
             }
         }
 
+        public int DefaultPivotSpeed
+        {
+            get { return _defaultPivotSpeed; }
+            set
+            {
+                if ((value > 0) && (value <= 100))
+                {
+                    _defaultPivotSpeed = value;
+                }
+            }
+        }
+
         /// <summary>
         /// Valeur par défaut du robot en X en mm (entre 0 et 3000)
         /// </summary>
@@ -903,6 +926,7 @@ namespace StrategyGenerator2.StrategyManager
         private RobotAction _initialPos = null;                     // Position initial du robot dans cette stratégie
         private List<SubStrategy> _subStrategies = null;            // Toutes les sous stratégies 
         private int _defaultSpeed = 0;                              // Vitesse par défaut
+        private int _defaultPivotSpeed = 0;                         // Vitesse par défaut du pivot
         private DebugTool _debugTool;                               // Outil pour contrôler les informations de débug 
 
         private struct PrivateConst
@@ -918,6 +942,7 @@ namespace StrategyGenerator2.StrategyManager
             public const String TAG_InitialPosY = "InitialPosY";
             public const String TAG_InitialPosA = "InitialPosA";
             public const String TAG_DefaultSpeed = "DefaultSpeed";
+            public const String TAG_DefaultPivotSpeed = "DefaultPivotSpeed";
         }
     }
 }

@@ -166,6 +166,8 @@ namespace StrategyGenerator2.Model
 
         public String RobotActionDescription = "";
 
+        public String softwareVersion = "Version 2.10";
+
         // Données private ------------------------------------------------------------------------
         private RobotAction _selectedRobotAction = null;
         private Strategy _selectedStrategy = null;

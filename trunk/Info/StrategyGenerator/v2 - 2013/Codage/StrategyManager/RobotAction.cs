@@ -453,7 +453,7 @@ namespace StrategyGenerator2.StrategyManager
 
                 // _______________________________________________________
                 case EnumCmd.Mvt_UsePivotMode:
-                    Ret = "Param 1 : Vitesse à utiliser\n(entre 0 et 100 % ou DEFAULT_SPEED)\n\n";
+                    Ret = "Param 1 : Vitesse à utiliser\n(entre 0 et 100 % ou DEFAULT_PIVOT_SPEED)\n\n";
                     Ret = Ret + "Param 2 : Roue fixe (RIGHT_WHEEL ou LEFT_WHEEL)\n\n";
                     Ret = Ret + "Param 3 : Not Used\n\n";
                     Ret = Ret + "Param 4 : Angle en °\n\n";
@@ -601,9 +601,13 @@ namespace StrategyGenerator2.StrategyManager
                     case EnumCmd.Mvt_UseDistOnly:
                     case EnumCmd.Mvt_UseMixedMode:
                     case EnumCmd.Mvt_UseSpline:
-                    case EnumCmd.Mvt_UsePivotMode:
                     case EnumCmd.MvtSimple_MoveInMM:
                         _param1 = CheckIntValue(value, 1, 100, "DEFAULT_SPEED");    // Vitesse du déplacement
+                        break;
+
+                    // _______________________________________________________
+                    case EnumCmd.Mvt_UsePivotMode:
+                        _param1 = CheckIntValue(value, 1, 100, "DEFAULT_PIVOT_SPEED");    // Vitesse du déplacement
                         break;
 
                     // _______________________________________________________
@@ -760,7 +764,7 @@ namespace StrategyGenerator2.StrategyManager
 
                     // _______________________________________________________
                     case EnumCmd.App_Wait:
-                        _param4 = CheckIntValue(value, 0, 99, "0");             // Temps d'attente en msec
+                        _param4 = CheckIntValue(value, 0, 999, "0");             // Temps d'attente en msec
                         break;
 
                     // _______________________________________________________
@@ -913,7 +917,7 @@ namespace StrategyGenerator2.StrategyManager
 
                 // _______________________________________________________
                 case EnumCmd.Mvt_UsePivotMode:
-                    param1 = "DEFAULT_SPEED";                          // Vitesse du déplacement
+                    param1 = "DEFAULT_PIVOT_SPEED";                    // Vitesse du déplacement
                     param2 = "RIGHT_WHEEL";                            // Roue bloquée
                     param3 = null;                                     // Not Used
                     param4 = "0";                                      // Angle

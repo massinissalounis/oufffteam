@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using StrategyGenerator2.StrategyManager;
+using System.Windows;
 
 namespace StrategyGenerator2.StrategyViewer
 {
@@ -52,12 +53,16 @@ namespace StrategyGenerator2.StrategyViewer
                 // On ajoute tous les élements de la stratégie principale
                 foreach (DisplayPos current in _displayPos)
                 {
-                    if ((current.actionID >= 1) && (current.actionID < 100))
+                    if ((current.actionID >= 1) && (current.actionID < 1000))
                         nextList.Add(current);
                 }
 
-                while (nextList.Count() > 0)
+                int loopDetection = 0;
+
+                while ((nextList.Count() > 0) && (loopDetection < loopDetectionMaxValue))
                 {
+                    loopDetection = loopDetection + 1;
+
                     // Etape 1 : On transfert les données de la liste nextIDs vers currentIDs
                     List<DisplayPos> currentList = new List<DisplayPos>(nextList);
                     DisplayPos currentItem = null;
@@ -110,6 +115,9 @@ namespace StrategyGenerator2.StrategyViewer
                     currentList.Clear();
                     currentList = null;
                 }
+
+                if (loopDetection >= loopDetectionMaxValue)
+                    MessageBox.Show("Une Loop a été détectée dans la stratégie!\nLa génération de la trajectoire est stoppée.", "Strategy Générator", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
@@ -131,5 +139,6 @@ namespace StrategyGenerator2.StrategyViewer
 
         // Private --------------------------------------------------------------------------------
         private List<DisplayPos> _displayPos;
+        private const int loopDetectionMaxValue = 100000;
     }
 }

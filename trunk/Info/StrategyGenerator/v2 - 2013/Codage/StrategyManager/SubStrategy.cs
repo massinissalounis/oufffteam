@@ -168,10 +168,15 @@ namespace StrategyGenerator2.StrategyManager
 
             }
 
-            if (_actions != null)
-                _actions.Sort(RobotAction.ComparisonID);
+            SortRobotActions();
 
             return Ret;
+        }
+
+        public void SortRobotActions()
+        {
+            if (_actions != null)
+                _actions.Sort(RobotAction.ComparisonID);
         }
 
         /// <summary>
@@ -257,8 +262,7 @@ namespace StrategyGenerator2.StrategyManager
                 Ret = true;
             }
 
-            if (_actions != null)
-                _actions.Sort(RobotAction.ComparisonID);
+            SortRobotActions();
 
             return Ret;
         }
@@ -275,7 +279,7 @@ namespace StrategyGenerator2.StrategyManager
             bool Ret = false;
             List<RobotAction> newList = new List<RobotAction>();
 
-            if ((_actions != null) && (actionID >1) && (actionID != (_subStrategyID * 100)))
+            if ((_actions != null) && (actionID >1) && (actionID != (_subStrategyID * 1000)))
             {
                 // On parcourt la liste actuelle
                 foreach (RobotAction currentRobotAction in _actions)
@@ -388,7 +392,7 @@ namespace StrategyGenerator2.StrategyManager
             {
                 foreach (RobotAction currentAction in _actions)
                 {
-                    if ((currentAction.ID == oldValue) && (currentAction.ID % 100 != 0))
+                    if ((currentAction.ID == oldValue) && (currentAction.ID % 1000 != 0))
                         currentAction.ID = newValue;
 
                     if (currentAction.nextID == oldValue)
@@ -402,7 +406,7 @@ namespace StrategyGenerator2.StrategyManager
 
         public int GetFreeID()
         {
-            int Ret = _subStrategyID * 100;
+            int Ret = _subStrategyID * 1000;
             Boolean isValid = false;
 
             if (_actions != null)
@@ -418,7 +422,7 @@ namespace StrategyGenerator2.StrategyManager
                             isValid = false;
                     }
 
-                    if (Ret > _subStrategyID * 100 + 99)
+                    if (Ret > _subStrategyID * 1000 + 999)
                     {
                         Ret = -1;
                         isValid = true;
@@ -442,7 +446,7 @@ namespace StrategyGenerator2.StrategyManager
         {
             get
             {
-                int Ret = _subStrategyID * 100;
+                int Ret = _subStrategyID * 1000;
 
                 return Ret.ToString();
             }
@@ -458,7 +462,7 @@ namespace StrategyGenerator2.StrategyManager
             if(_subStrategyID == 0)
                 Ret = new RobotAction(1);
             else
-                Ret = new RobotAction(_subStrategyID * 100);
+                Ret = new RobotAction(_subStrategyID * 1000);
 
             Ret.cmd = EnumCmd.App_Wait;
             Ret.cmdType = EnumCmdType.CmdType_Blocking;
@@ -476,7 +480,7 @@ namespace StrategyGenerator2.StrategyManager
             int Ret = 0;
 
             // Il faut verifier l'ID
-            if ((currentValue >= _subStrategyID * 100) && (currentValue < (_subStrategyID + 1) * 100))
+            if ((currentValue >= _subStrategyID * 1000) && (currentValue < (_subStrategyID + 1) * 1000))
             {
                 // Si nous sommes dans la gamme actuelle, l'ID reste inchangé
                 Ret = currentValue;
@@ -484,9 +488,9 @@ namespace StrategyGenerator2.StrategyManager
             else
             {
                 // Nous devons mettre à jour l'ID
-                Ret = currentValue % 100;
+                Ret = currentValue % 1000;
 
-                Ret = Ret + _subStrategyID * 100;
+                Ret = Ret + _subStrategyID * 1000;
             }
 
             return Ret;
@@ -497,7 +501,7 @@ namespace StrategyGenerator2.StrategyManager
             int Ret = 0;
 
             // Si nous faisons appelle à la stratégie principale, on ne change pas l'ID
-            if ((currentValue < 100) || (_subStrategyID == 0))
+            if ((currentValue < 1000) || (_subStrategyID == 0))
             {
                 Ret = currentValue;
             }
@@ -515,7 +519,16 @@ namespace StrategyGenerator2.StrategyManager
             {
                 if (secondSubStrategy != null)
                 {
-                    return firstSubStrategy.ToString().CompareTo(secondSubStrategy.ToString());
+                    if (firstSubStrategy.Name == "MainStrategy")
+                    {
+                        return -1;
+                    }
+                    else if (secondSubStrategy.Name == "MainStrategy")
+                    {
+                        return -1;
+                    }
+                    else
+                        return firstSubStrategy.ToString().CompareTo(secondSubStrategy.ToString());
                 }
                 else
                     return 1;

@@ -21,12 +21,12 @@ namespace StrategyGenerator2.View
             InitializeComponent();
         }
 
-        private void Image_MouseMove(object sender, MouseEventArgs e)
+        private void MapGrid_MouseMove(object sender, MouseEventArgs e)
         {
             textBlock_MousePos.Text = "(X = ";
-            textBlock_MousePos.Text += (Math.Round(e.MouseDevice.GetPosition(MapPicture).X * 5)).ToString();
+            textBlock_MousePos.Text += (Math.Round(e.MouseDevice.GetPosition(MapGrid).X * 5)).ToString();
             textBlock_MousePos.Text += ", Y = ";
-            textBlock_MousePos.Text += (Math.Round(2000 - e.MouseDevice.GetPosition(MapPicture).Y * 5)).ToString();
+            textBlock_MousePos.Text += (Math.Round(2000 - e.MouseDevice.GetPosition(MapGrid).Y * 5)).ToString();
             textBlock_MousePos.Text += ")";
         }
     }

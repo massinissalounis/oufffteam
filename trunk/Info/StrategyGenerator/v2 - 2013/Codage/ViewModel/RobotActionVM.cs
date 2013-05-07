@@ -236,13 +236,13 @@ namespace StrategyGenerator2.ViewModel
             set
             {
                 int intValue = -1;
-                int currentSubStrategyID = _modifiedRobotAction.ID - (_modifiedRobotAction.ID % 100);
+                int currentSubStrategyID = _modifiedRobotAction.ID - (_modifiedRobotAction.ID % 1000);
 
                 // On verifie si la valeur est utilisable en integer
                 if (int.TryParse(value, out intValue) == true)
                 {
-                    // On verifie si on a la possibilité d'utiliser cette ID
-                    if ((intValue >= currentSubStrategyID) && (intValue < currentSubStrategyID + 100))
+                    // On verifie si on a la possibilité d'utiliser cet ID
+                    if ((intValue >= currentSubStrategyID) && (intValue < currentSubStrategyID + 1000))
                     {
                         // Sinon on verifie si la nouvelle valeur est utilisable
                         if (_mainModel.selectedStrategy.FindRobotActionByID(intValue) == null)
@@ -268,7 +268,7 @@ namespace StrategyGenerator2.ViewModel
             set
             {
                 int intValue = -1;
-                int currentSubStrategyID = _modifiedRobotAction.ID - (_modifiedRobotAction.ID % 100);
+                int currentSubStrategyID = _modifiedRobotAction.ID - (_modifiedRobotAction.ID % 1000);
 
                 // On verifie si la valeur est utilisable en integer
                 if (int.TryParse(value, out intValue) == true)
@@ -280,8 +280,8 @@ namespace StrategyGenerator2.ViewModel
                     }
                     else
                     {
-                        // On verifie si on a la possibilité d'utiliser cette ID
-                        if ((currentSubStrategyID == 0) || (intValue < 100) || ((intValue >= currentSubStrategyID) && (intValue < currentSubStrategyID + 100)))
+                        // On verifie si on a la possibilité d'utiliser cet ID
+                        if ((currentSubStrategyID == 0) || (intValue < 1000) || ((intValue >= currentSubStrategyID) && (intValue < currentSubStrategyID + 1000)))
                         {
                             // Sinon on verifie si la nouvelle valeur est utilisable
                             if (_mainModel.selectedStrategy.FindRobotActionByID(intValue) != null)
@@ -311,6 +311,7 @@ namespace StrategyGenerator2.ViewModel
             set
             {
                 int intValue = -1;
+                int currentSubStrategyID = _modifiedRobotAction.ID - (_modifiedRobotAction.ID % 1000);
 
                 // On verifie si la valeur est utilisable en integer
                 if (int.TryParse(value, out intValue) == true)
@@ -322,10 +323,14 @@ namespace StrategyGenerator2.ViewModel
                     }
                     else
                     {
-                        // Sinon on verifie si la nouvelle valeur est utilisable
-                        if (_mainModel.selectedStrategy.FindRobotActionByID(intValue) != null)
+                        // On verifie si on a la possibilité d'utiliser cet ID
+                        if ((currentSubStrategyID == 0) || (intValue < 1000) || ((intValue >= currentSubStrategyID) && (intValue < currentSubStrategyID + 1000)))
                         {
-                            _modifiedRobotAction.timeoutID = intValue;
+                            // Sinon on verifie si la nouvelle valeur est utilisable
+                            if (_mainModel.selectedStrategy.FindRobotActionByID(intValue) != null)
+                            {
+                                _modifiedRobotAction.timeoutID = intValue;
+                            }
                         }
                     }
                 }
@@ -696,7 +701,7 @@ namespace StrategyGenerator2.ViewModel
             // Mise à jour des paramètres
             if ((_modifiedRobotAction != null) && (_currentRobotAction != null))
             {
-                if ((_currentRobotAction.ID != _modifiedRobotAction.ID) && (_currentRobotAction.ID % 100 != 0))
+                if ((_currentRobotAction.ID != _modifiedRobotAction.ID) && (_currentRobotAction.ID % 1000 != 0))
                 {
                     // Mise à jour des données pour toutes la stratégies
                     _mainModel.ChangeCmdID(_currentRobotAction.ID, _modifiedRobotAction.ID);
