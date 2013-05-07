@@ -109,7 +109,7 @@ void TaskMain_Main(void *p_arg)
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_Y, "y");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_ANGLE, "angle");
 //	TaskDebug_RegisterNewData(TASKDEBUG_ID_MVT_STATE, "Mvt State");
-//	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_FRONT, "GP2_F");
+	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_FRONT, "GP2_F");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_REAR, "GP2_R");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_REAR_INTERNAL, "GP2_RI");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_REAR_LEFT, "GP2_RL");
@@ -250,7 +250,6 @@ void TaskMain_Main(void *p_arg)
 					case MvtSimple_MoveInMM:
 					case MvtSimple_RotateToAngleInDeg:
 					case Mvt_Stop:
-					case App_Wait:
 					case App_SetNewPos:
 						TaskMain_SendSetpointToTaskMvt(&CurrentCmd);
 						break;
@@ -270,10 +269,17 @@ void TaskMain_Main(void *p_arg)
 						AppPostQueueMsg(AppQueueSensors, &MsgToPost);
 						break;
 
+					// Wait action ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+					case App_Wait:
+						// Execute the wait command
+						OSTimeDlyHMSM(CurrentCmd.Param1, CurrentCmd.Param2, CurrentCmd.Param3, CurrentCmd.Param4);
+						CurrentCmd.CmdType = CmdType_NonBlocking;	// THis action is already done, it becomes a NonBlocking action
+						break;
+
 					// Change StrategyFlag ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 					case App_SetStrategyFlags:
 						// First we apply the readonly flag (for strategyflag state items)
-						NewStrategyFlag = (CurrentCmd.Param1 & (APP_PARAM_STRATEGYFLAG_ALL_ACTION + APP_PARAM_STRATEGYFLAG_ALL_VALID_ZONE));
+						NewStrategyFlag = (CurrentCmd.Param1 & (APP_PARAM_STRATEGYFLAG_ALL_ACTION));
 
 						// Apply the new value
 						if(OS_FALSE == (int)(CurrentCmd.Param2))
@@ -284,18 +290,21 @@ void TaskMain_Main(void *p_arg)
 						{
 							OSFlagPost(AppStrategyFlags, NewStrategyFlag, OS_FLAG_SET, &Err);
 						}
+						CurrentCmd.CmdType = CmdType_NonBlocking;	// This action is already done, it becomes a NonBlocking action
 						break;
 
 					// Nothing to do ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-					case Cmd_NotSet:
 					case App_IfGoto_Strategy:
 					case App_IfGoto_System:
-						// This command are already done
-						break;
+					case Cmd_NotSet:
+						CurrentCmd.CmdType = CmdType_NonBlocking;	// This action can't be blocking 
+					break;
 
 					// Destination not defined ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 					default:
 						AppDebugMsg("Current Msg has not a destination task\n");
+						CurrentCmd.CmdType = CmdType_NonBlocking;	// Prevent infinite Loop 
+
 						break;
 					}
 

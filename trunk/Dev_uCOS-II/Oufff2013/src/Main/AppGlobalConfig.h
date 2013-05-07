@@ -40,7 +40,7 @@
 
 #define TASKDEBUG_ENABLED			OS_TRUE // Permet d'activer ou non les informations de debug
 
-#define TASKDEBUG_REFRESH_MS		500 // Time in ms between 2 displays of debug data (0 to 999)
+#define TASKDEBUG_REFRESH_MS		250 // Time in ms between 2 displays of debug data (0 to 999)
 
 /*
 *********************************************************************************************************
@@ -143,8 +143,7 @@
 #define APP_PARAM_APPFLAG_ALL_SW				0x00FF0000	// All switches sensors
 #define APP_PARAM_APPFLAG_ALL_SENSORS			0x00FFFF00	// All external sensors
 #define APP_PARAM_APPFLAG_ALL_STATE				0xFF0000FF	// All state flags
-#define APP_PARAM_STRATEGYFLAG_ALL_ACTION		0x0000FFFF	// All strategy action
-#define APP_PARAM_STRATEGYFLAG_ALL_VALID_ZONE	0x00FF0000	// All valid zone
+#define APP_PARAM_STRATEGYFLAG_ALL_ACTION		0x00FFFFFF	// All strategy action
 #define APP_PARAM_STRATEGYFLAG_ALL_STATE		0xFF000000	// All state strategy flags
 
 // User defined groups
@@ -187,8 +186,8 @@
 #define	APP_TASK_ODO_STK_SIZE					300
 #define APP_TASK_ASSER_STK_SIZE	            	300
 #define APP_TASK_SENSORS_STK_SIZE	            300
-#define APP_TASK_MVT_STK_SIZE					300
-#define APP_TASK_MAIN_STK_SIZE					300
+#define APP_TASK_MVT_STK_SIZE					600
+#define APP_TASK_MAIN_STK_SIZE					600
 #define APP_TASK_DEBUG_STK_SIZE					600
 #define APP_TASK_TEMPO_STK_SIZE	            	300
 #define APP_TASK_TEST_STK_SIZE	            	300
@@ -242,6 +241,7 @@
 #define APP_MVT_TIMEOUT_ENABLED					OS_TRUE				// OS_TRUE : Use Timeout action if we are blocked, OS_FALSE : We wait for ever if we are blocked
 #define APP_MVT_TIMEOUT							50						// Nb of iteration before considering position is unreachable
 #define APP_COLLISION_TIMEOUT					4						// Nb of iteration before considering position is unreachable due to obstacle
+// TODO APP_MVT_TIMEOUT = 50
 
 /*
 *********************************************************************************************************
