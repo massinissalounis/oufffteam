@@ -79,15 +79,11 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 		}
 	}
 
-	OSTimeDlyHMSM(0, 0, 0, 5);
-
-	TaskDebug_UpdateValueInt(9, CurrentActionID);
-
 	// Read Next Action
 	switch(CurrentActionID)
 	{
 		// SUB_STRATEGY_BEGIN_LOOP
-		case 1:			p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 50;	TimeoutID = -1;	p->Cmd = App_Wait;	p->Param1 = 0;	p->Param2 = 0;	p->Param3 = 0;	p->Param4 = 1;	break;	// SubStrategyName = MainStrategy
+		case 1:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 50;	TimeoutID = -1;	p->Cmd = App_Wait;	p->Param1 = 0;	p->Param2 = 0;	p->Param3 = 0;	p->Param4 = 1;	break;	// SubStrategyName = MainStrategy
 		case 50:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 75;	TimeoutID = -1;	p->Cmd = App_IfGoto_Strategy;	p->Param1 = APP_PARAM_STRATEGYFLAG_GLASS_1_DONE;	p->Param2 = 100;	p->Param3 = 55;	p->Param4 = NotUsed;	break;	// SubStrategyName = MainStrategy
 		case 55:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 1000;	TimeoutID = -1;	p->Cmd = App_SetStrategyFlags;	p->Param1 = APP_PARAM_STRATEGYFLAG_GLASS_1_DONE;	p->Param2 = OS_TRUE;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = MainStrategy
 		case 75:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 0;	TimeoutID = -1;	p->Cmd = App_IfGoto_Strategy;	p->Param1 = -1;	p->Param2 = 3000;	p->Param3 = 0;	p->Param4 = NotUsed;	break;	// SubStrategyName = MainStrategy
@@ -145,7 +141,7 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 		case 1120:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT);	NextActionID = 1130;	TimeoutID = -1;	p->Cmd = Mvt_UsePivotMode;	p->Param1 = DEFAULT_PIVOT_SPEED;	p->Param2 = LEFT_WHEEL;	p->Param3 = NotUsed;	p->Param4 = 90;	break;	// SubStrategyName = Glass1
 		case 1130:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT);	NextActionID = 1140;	TimeoutID = -1;	p->Cmd = Mvt_UsePivotMode;	p->Param1 = DEFAULT_PIVOT_SPEED;	p->Param2 = RIGHT_WHEEL;	p->Param3 = NotUsed;	p->Param4 = 0;	break;	// SubStrategyName = Glass1
 		case 1140:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT);	NextActionID = 1150;	TimeoutID = 1400;	p->Cmd = Mvt_UseSpline;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 2300;	p->Param3 = 817;	p->Param4 = 0;	break;	// SubStrategyName = Glass1
-		case 1150:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT);	NextActionID = 1160;	TimeoutID = -1;	p->Cmd = Mvt_UseMixedMode;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 2720;	p->Param3 = 630;	p->Param4 = 0;	break;	// SubStrategyName = Glass1
+		case 1150:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT);	NextActionID = 1160;	TimeoutID = 1600;	p->Cmd = Mvt_UseMixedMode;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 2720;	p->Param3 = 630;	p->Param4 = 0;	break;	// SubStrategyName = Glass1
 		case 1160:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_REAR);	NextActionID = 0;	TimeoutID = -1;	p->Cmd = Mvt_UseSpline;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 2500;	p->Param3 = 630;	p->Param4 = 0;	break;	// SubStrategyName = Glass1
 		case 1300:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT);	NextActionID = 1100;	TimeoutID = -1;	p->Cmd = MvtSimple_MoveInMM;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 150;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = Glass1
 		case 1400:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_REAR);	NextActionID = 1401;	TimeoutID = -1;	p->Cmd = MvtSimple_MoveInMM;	p->Param1 = DEFAULT_SPEED;	p->Param2 = -150;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = Glass1
@@ -155,6 +151,9 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 		case 1500:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_REAR);	NextActionID = 1501;	TimeoutID = -1;	p->Cmd = MvtSimple_MoveInMM;	p->Param1 = DEFAULT_SPEED;	p->Param2 = -100;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = Glass1
 		case 1501:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 1502;	TimeoutID = -1;	p->Cmd = Sensors_SetHoopLevel;	p->Param1 = HOOP_LEVEL_UP;	p->Param2 = NotUsed;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = Glass1
 		case 1502:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 0;	TimeoutID = -1;	p->Cmd = Mvt_UseMixedMode;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 1500;	p->Param3 = 1000;	p->Param4 = 0;	break;	// SubStrategyName = Glass1
+		case 1600:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_REAR);	NextActionID = 1601;	TimeoutID = -1;	p->Cmd = MvtSimple_MoveInMM;	p->Param1 = DEFAULT_SPEED;	p->Param2 = -300;	p->Param3 = NotUsed;	p->Param4 = NotUsed;	break;	// SubStrategyName = Glass1
+		case 1601:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 1610;	TimeoutID = -1;	p->Cmd = MvtSimple_RotateInDeg;	p->Param1 = DEFAULT_SPEED;	p->Param2 = NotUsed;	p->Param3 = NotUsed;	p->Param4 = 90;	break;	// SubStrategyName = Glass1
+		case 1610:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_FRONT);	NextActionID = 1411;	TimeoutID = -1;	p->Cmd = Mvt_UseMixedMode;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 1403;	p->Param3 = 400;	p->Param4 = 0;	break;	// SubStrategyName = Glass1
 
 		case 2000:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_NONE);	NextActionID = 2010;	TimeoutID = -1;	p->Cmd = App_Wait;	p->Param1 = 0;	p->Param2 = 0;	p->Param3 = 0;	p->Param4 = 1;	break;	// SubStrategyName = Glass2
 		case 2010:		p->CmdType = CmdType_Blocking;	p->ActiveSensorsFlag =	(APP_PARAM_STRATEGYFLAG_COLLISION_LONG_REAR);	NextActionID = 2100;	TimeoutID = 2300;	p->Cmd = Mvt_UseSpline;	p->Param1 = DEFAULT_SPEED;	p->Param2 = 1180;	p->Param3 = 1050;	p->Param4 = 0;	break;	// SubStrategyName = Glass2
@@ -184,16 +183,17 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 	// Check for Wait command --------------------------------------------
 	if(App_Wait == p->Cmd)
 	{
-		// Execute the wait command
-		OSTimeDlyHMSM(p->Param1, p->Param2, p->Param3, p->Param4);
-		return StrategyColorB_GetNextAction(p);
+		// Nothing to do. All is done in TaskMain
 	}
 
-	// Check for conditionnal system command -----------------------------
-	if(App_IfGoto_System == p->Cmd)
+	// Check for conditionnal command -----------------------------
+	if((App_IfGoto_System == p->Cmd) || (App_IfGoto_Strategy == p->Cmd))
 	{
 		// Read the current Flags
-		CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
+		if(App_IfGoto_System == p->Cmd)
+			CurrentFlag = OSFlagAccept(AppFlags, APP_PARAM_APPFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
+		else
+			CurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
 
 		if(NextActionID >= 0)
 			SubStrategyReturnID = NextActionID;
@@ -207,43 +207,12 @@ INT8U StrategyColorB_GetNextAction(StructCmd *NextAction)
 		{
 			NextActionID = (int)(p->Param3);
 		}
-
-		return StrategyColorB_GetNextAction(p);
-	}
-	
-	// Check for conditionnal strategy command ---------------------------
-	if(App_IfGoto_Strategy == p->Cmd)
-	{
-		// Read the current Flags
-		CurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
-
-		if(NextActionID >= 0)
-			SubStrategyReturnID = NextActionID;
-		// If condition is true, we go to the ID given by Param2, otherwise we use Param3
-		if(((p->Param1 == -1) || (CurrentFlag & (p->Param1)) != 0))
-		{
-			NextActionID = (int)(p->Param2);
-		}
-
-		else
-		{
-			NextActionID = (int)(p->Param3);
-		}
-		
-		return StrategyColorB_GetNextAction(p);
 	}
 	
 	// Set / Clear Strategy Flags --------------------------------------
 	if(App_SetStrategyFlags == p->Cmd)
 	{
-		StrategyFlagsToSet = p->Param1;
-
-		if(p->Param2 != 0)
-			OSFlagPost(AppStrategyFlags, StrategyFlagsToSet, OS_FLAG_SET, &Err);
-		else
-			OSFlagPost(AppStrategyFlags, StrategyFlagsToSet, OS_FLAG_CLR, &Err);
-		
-		return StrategyColorB_GetNextAction(p);
+		// Nothing to do. All is done in TaskMain
 	}
 	
 	// Create the MvtSimple Command --------------------------------------
