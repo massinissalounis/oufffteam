@@ -362,6 +362,17 @@ Param2 = OS_FALSE
 Param3 = NotUsed
 Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 955
+timeoutID = -1
+
+[Groupe 955]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 600
+Param3 = 547
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 0
 timeoutID = -1
 
