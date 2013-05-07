@@ -32,13 +32,24 @@ Param2 = OS_TRUE
 Param3 = NotUsed
 Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 60
+timeoutID = -1
+
+[Groupe 60]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = OS_FALSE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 1000
 timeoutID = -1
 
 [Groupe 75]
 Cmd = App_IfGoto_Strategy
 CmdType = CmdType_Blocking
-Param1 = -1
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
 Param2 = 3000
 Param3 = 0
 Param4 = NotUsed
@@ -51,21 +62,10 @@ Cmd = App_IfGoto_Strategy
 CmdType = CmdType_Blocking
 Param1 = APP_PARAM_STRATEGYFLAG_GLASS_2_DONE
 Param2 = 150
-Param3 = 105
+Param3 = 110
 Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 125
-timeoutID = -1
-
-[Groupe 105]
-Cmd = App_SetStrategyFlags
-CmdType = CmdType_Blocking
-Param1 = APP_PARAM_STRATEGYFLAG_GLASS_2_DONE
-Param2 = OS_TRUE
-Param3 = NotUsed
-Param4 = NotUsed
-ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
-nextID = 110
 timeoutID = -1
 
 [Groupe 110]
@@ -75,6 +75,28 @@ Param1 = DEFAULT_SPEED
 Param2 = 600
 Param3 = 1100
 Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
+nextID = 115
+timeoutID = 150
+
+[Groupe 115]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_GLASS_2_DONE
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 117
+timeoutID = -1
+
+[Groupe 117]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = OS_FALSE
+Param3 = NotUsed
+Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 2000
 timeoutID = -1
@@ -82,7 +104,7 @@ timeoutID = -1
 [Groupe 125]
 Cmd = App_IfGoto_Strategy
 CmdType = CmdType_Blocking
-Param1 = -1
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
 Param2 = 3000
 Param3 = 0
 Param4 = NotUsed
@@ -128,11 +150,11 @@ Cmd = Mvt_UseMixedMode
 CmdType = CmdType_Blocking
 Param1 = DEFAULT_SPEED
 Param2 = 600
-Param3 = 300
+Param3 = 450
 Param4 = -90
-ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
 nextID = 4000
-timeoutID = -1
+timeoutID = 940
 
 [Groupe 175]
 Cmd = App_IfGoto_Strategy
@@ -170,7 +192,7 @@ timeoutID = -1
 [Groupe 205]
 Cmd = App_SetStrategyFlags
 CmdType = CmdType_Blocking
-Param1 = APP_PARAM_STRATEGYFLAG_GIFT_2_TRY
+Param1 = (APP_PARAM_STRATEGYFLAG_GIFT_2_TRY + APP_PARAM_STRATEGYFLAG_GLASS_2_DONE)
 Param2 = OS_TRUE
 Param3 = NotUsed
 Param4 = NotUsed
@@ -194,11 +216,11 @@ Cmd = Mvt_UseMixedMode
 CmdType = CmdType_Blocking
 Param1 = DEFAULT_SPEED
 Param2 = 1200
-Param3 = 300
+Param3 = 450
 Param4 = -90
-ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
 nextID = 4000
-timeoutID = -1
+timeoutID = 940
 
 [Groupe 225]
 Cmd = App_IfGoto_Strategy
@@ -260,11 +282,11 @@ Cmd = Mvt_UseMixedMode
 CmdType = CmdType_Blocking
 Param1 = DEFAULT_SPEED
 Param2 = 1800
-Param3 = 300
+Param3 = 450
 Param4 = -90
-ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
 nextID = 4000
-timeoutID = -1
+timeoutID = 940
 
 [Groupe 275]
 Cmd = App_IfGoto_Strategy
@@ -326,11 +348,11 @@ Cmd = Mvt_UseMixedMode
 CmdType = CmdType_Blocking
 Param1 = DEFAULT_SPEED
 Param2 = 2400
-Param3 = 300
+Param3 = 450
 Param4 = -90
-ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
 nextID = 4000
-timeoutID = -1
+timeoutID = 942
 
 [Groupe 325]
 Cmd = App_IfGoto_Strategy
@@ -351,8 +373,30 @@ Param2 = OS_TRUE
 Param3 = NotUsed
 Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
-nextID = 0
+nextID = 950
 timeoutID = -1
+
+[Groupe 940]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -200
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 0
+timeoutID = 0
+
+[Groupe 942]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -200
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 960
+timeoutID = 0
 
 [Groupe 950]
 Cmd = App_SetStrategyFlags
@@ -362,7 +406,7 @@ Param2 = OS_FALSE
 Param3 = NotUsed
 Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
-nextID = 955
+nextID = 0
 timeoutID = -1
 
 [Groupe 955]
@@ -370,8 +414,30 @@ Cmd = Mvt_UseMixedMode
 CmdType = CmdType_Blocking
 Param1 = DEFAULT_SPEED
 Param2 = 600
-Param3 = 547
+Param3 = 600
 Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = 960
+
+[Groupe 960]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 1500
+Param3 = 800
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
+nextID = 970
+timeoutID = 0
+
+[Groupe 970]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = (APP_PARAM_STRATEGYFLAG_GIFT_1_TRY + APP_PARAM_STRATEGYFLAG_GIFT_2_TRY + APP_PARAM_STRATEGYFLAG_GIFT_3_TRY + APP_PARAM_STRATEGYFLAG_GIFT_4_TRY)
+Param2 = OS_FALSE
+Param3 = NotUsed
+Param4 = NotUsed
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 0
 timeoutID = -1
