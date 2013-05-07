@@ -87,6 +87,17 @@ Param2 = 520
 Param3 = 1200
 Param4 = 180
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 2160
+timeoutID = -1
+
+[Groupe 2160]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 0
 timeoutID = -1
 
@@ -153,6 +164,17 @@ Param2 = 500
 Param3 = 630
 Param4 = 180
 ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 2420
+timeoutID = -1
+
+[Groupe 2420]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
 nextID = 0
 timeoutID = -1
 
