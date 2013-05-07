@@ -189,7 +189,7 @@
 #define APP_TASK_SENSORS_STK_SIZE	            300
 #define APP_TASK_MVT_STK_SIZE					300
 #define APP_TASK_MAIN_STK_SIZE					300
-#define APP_TASK_DEBUG_STK_SIZE					300
+#define APP_TASK_DEBUG_STK_SIZE					600
 #define APP_TASK_TEMPO_STK_SIZE	            	300
 #define APP_TASK_TEST_STK_SIZE	            	300
 

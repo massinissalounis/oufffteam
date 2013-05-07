@@ -111,8 +111,8 @@
 //#define AX12_REG_PROGRAMMING				// Use this flag for programming the default values into AX12
 //#define ODO_CALIBRATION					// Use this flag for testing the Odometry configuration
 
-#define HOMOL_STRATEGY_ENABLED			// Enable this option to use the homol strategy
-//#define TEST_IF_GOTO_ENABLED
+//#define HOMOL_STRATEGY_ENABLED			// Enable this option to use the homol strategy
+#define STRATEGY1_ENABLED
 
 #else
 #define DEV_CARD_STRATEGY_ENABLED
