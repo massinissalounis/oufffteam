@@ -74,6 +74,10 @@
     <ClCompile Include="..\..\..\src\Main\Strategy.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorA.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1ColorA.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1ColorB.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestIfGotoColorA.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestIfGotoColorB.c" />
     <ClCompile Include="..\..\..\src\Main\TaskAsser.c" />
     <ClCompile Include="..\..\..\src\Main\TaskDebug.c" />
     <ClCompile Include="..\..\..\src\Main\TaskMain.c" />
@@ -152,8 +156,8 @@
     <ClInclude Include="..\..\..\src\uCOS-II\Source\ucos_ii.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\src\Main\Strategy\HomolColorA.spattern" />
-    <None Include="..\..\..\src\Main\Strategy\HomolColorB.spattern" />
+    <None Include="..\..\..\src\Main\Strategy\PatternColorA.spattern" />
+    <None Include="..\..\..\src\Main\Strategy\PatternColorB.spattern" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

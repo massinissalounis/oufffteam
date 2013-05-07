@@ -69,9 +69,14 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 	{
 		// We have to check previous order
 		if(SubStrategyReturnID > 0)
+		{
 			CurrentActionID = SubStrategyReturnID;		// Change NextID to return to the correct ID after SubStrategy loop
+			SubStrategyReturnID = -1;
+		}
 		else
+		{
 			CurrentActionID = 1;						// There is no pending action, we go to the first state
+		}
 	}
 
 	// Read Next Action
@@ -104,7 +109,7 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 			SubStrategyReturnID = NextActionID;
 
 		// If condition is true, we go to the ID given by Param2, otherwise we use Param3
-		if((CurrentFlag & (p->Param1)) != 0)
+		if(((p->Param1 == -1) || (CurrentFlag & (p->Param1)) != 0))
 		{
 			NextActionID = (int)(p->Param2);
 		}
@@ -126,7 +131,7 @@ INT8U StrategyColorA_GetNextAction(StructCmd *NextAction)
 			SubStrategyReturnID = NextActionID;
 
 		// If condition is true, we go to the ID given by Param2, otherwise we use Param3
-		if((CurrentFlag & (p->Param1)) != 0)
+		if(((p->Param1 == -1) || (CurrentFlag & (p->Param1)) != 0))
 		{
 			NextActionID = (int)(p->Param2);
 		}

@@ -108,12 +108,13 @@ void TaskMain_Main(void *p_arg)
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_X, "x");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_Y, "y");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_ANGLE, "angle");
-	TaskDebug_RegisterNewData(TASKDEBUG_ID_MVT_STATE, "Mvt State");
-	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_FRONT, "GP2_F");
+//	TaskDebug_RegisterNewData(TASKDEBUG_ID_MVT_STATE, "Mvt State");
+//	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_FRONT, "GP2_F");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_REAR, "GP2_R");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_REAR_INTERNAL, "GP2_RI");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_REAR_LEFT, "GP2_RL");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_REAR_RIGHT, "GP2_RR");
+	TaskDebug_RegisterNewData(9, "ID");
 
 
 	// Wait for start signal

@@ -78,12 +78,6 @@
     <ClCompile Include="..\..\..\src\Main\TaskTempo.c">
       <Filter>Fichiers sources\Main</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorA.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\DevCard\1602D.c">
       <Filter>Fichiers sources\CarteDeDev</Filter>
     </ClCompile>
@@ -155,6 +149,24 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\Main\ArmsControl.c">
       <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestIfGotoColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestIfGotoColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1ColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1ColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -310,10 +322,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\src\Main\Strategy\HomolColorA.spattern">
+    <None Include="..\..\..\src\Main\Strategy\PatternColorA.spattern">
       <Filter>Fichiers sources\Main\Strategy</Filter>
     </None>
-    <None Include="..\..\..\src\Main\Strategy\HomolColorB.spattern">
+    <None Include="..\..\..\src\Main\Strategy\PatternColorB.spattern">
       <Filter>Fichiers sources\Main\Strategy</Filter>
     </None>
   </ItemGroup>

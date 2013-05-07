@@ -27,7 +27,7 @@ typedef enum
 typedef struct 
 {
 	EnumMsgType	msgType;			
-	char		description[13];	// 12 char pour info + 1 char de fin de chaine
+	char		description[17];	// 16 char pour info + 1 char de fin de chaine
 	float		value;				// Permet de stocker les valeurs à afficher
 }StructDebug;
 
