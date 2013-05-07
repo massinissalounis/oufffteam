@@ -1,0 +1,26 @@
+[Groupe 0]
+SubStrategyName = ArmClose
+SubStrategyID = 3
+
+[Groupe 3000]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 1
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 3001
+timeoutID = -1
+
+[Groupe 3001]
+Cmd = Sensors_SetArmsStatus
+CmdType = CmdType_Blocking
+Param1 = ARM_CLOSED
+Param2 = ARM_CLOSED
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+

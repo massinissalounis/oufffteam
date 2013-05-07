@@ -1,0 +1,48 @@
+[Groupe 0]
+SubStrategyName = MainStrategy
+SubStrategyID = 0
+
+[Groupe 1]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 1
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2
+timeoutID = -1
+
+[Groupe 2]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = OS_FALSE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 3
+timeoutID = -1
+
+[Groupe 3]
+Cmd = App_IfGoto_Strategy
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = 2000
+Param3 = 1000
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 4
+timeoutID = -1
+
+[Groupe 4]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 10
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = -1
+timeoutID = -1
+
