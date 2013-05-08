@@ -1,0 +1,8 @@
+[Groupe 0]
+MainStrategy = TEST_PINCE_90S
+InitialPosX = 1500
+InitialPosY = 1000
+InitialPosA = 0
+DefaultSpeed = 50
+DefaultPivotSpeed = 50
+

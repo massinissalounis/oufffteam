@@ -1,0 +1,169 @@
+[Groupe 0]
+SubStrategyName = MainStrategy
+SubStrategyID = 0
+
+[Groupe 1]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 1
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2
+timeoutID = -1
+
+[Groupe 2]
+Cmd = Sensors_SetHoopLevel
+CmdType = CmdType_Blocking
+Param1 = HOOP_LEVEL_DOWN
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 3
+timeoutID = -1
+
+[Groupe 3]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 1
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 4
+timeoutID = -1
+
+[Groupe 4]
+Cmd = Sensors_SetArmsStatus
+CmdType = CmdType_Blocking
+Param1 = ARM_FRONT
+Param2 = ARM_FRONT
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 5
+timeoutID = -1
+
+[Groupe 5]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 1
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 6
+timeoutID = -1
+
+[Groupe 6]
+Cmd = Sensors_SetHoopLevel
+CmdType = CmdType_Blocking
+Param1 = HOOP_LEVEL_DOWN
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 7
+timeoutID = -1
+
+[Groupe 7]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 1
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 8
+timeoutID = -1
+
+[Groupe 8]
+Cmd = Sensors_SetArmsStatus
+CmdType = CmdType_Blocking
+Param1 = ARM_OPEN
+Param2 = ARM_OPEN
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 9
+timeoutID = -1
+
+[Groupe 9]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 1
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 10
+timeoutID = -1
+
+[Groupe 10]
+Cmd = Sensors_SetHoopLevel
+CmdType = CmdType_Blocking
+Param1 = HOOP_LEVEL_DOWN
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 11
+timeoutID = -1
+
+[Groupe 11]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 1
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 12
+timeoutID = -1
+
+[Groupe 12]
+Cmd = Sensors_SetArmsStatus
+CmdType = CmdType_Blocking
+Param1 = ARM_CLOSED
+Param2 = ARM_OPEN
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 13
+timeoutID = -1
+
+[Groupe 13]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 1
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 14
+timeoutID = -1
+
+[Groupe 14]
+Cmd = Sensors_SetHoopLevel
+CmdType = CmdType_Blocking
+Param1 = HOOP_LEVEL_UP
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 15
+timeoutID = -1
+
+[Groupe 15]
+Cmd = Sensors_SetArmsStatus
+CmdType = CmdType_Blocking
+Param1 = ARM_CLOSED
+Param2 = ARM_CLOSED
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = -1
+timeoutID = -1
+
