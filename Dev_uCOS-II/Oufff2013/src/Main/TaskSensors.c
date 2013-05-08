@@ -47,6 +47,8 @@ void TaskSensors_CheckBumpers()
 	static	INT8U	GP2_LEFT_HOOP_Counter = 0;
 	static	INT8U	GP2_RIGHT_HOOP_Counter = 0;
 	static	INT8U	GP2_FRONT_Counter = 0;
+	static	INT8U	GP2_FRONT_LEFT_Counter = 0;
+	static	INT8U	GP2_FRONT_RIGHT_Counter = 0;
 
 #ifdef _TARGET_440H
 
@@ -155,6 +157,41 @@ void TaskSensors_CheckBumpers()
 		GP2_FRONT_Counter = 0;
 		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT, OS_FLAG_CLR, &Err);
 	}
+
+	//GP2_FRONT LEFT *****************************************************
+	GP2Data  = ADC_GetVal (GP2_FRONT_LEFT);
+	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_FRONT_LEFT, GP2Data);
+
+	if(GP2Data > APP_GP2_LIMIT_FRONT_LEFT)
+	{
+		if(GP2_FRONT_LEFT_Counter>= GP2_FILTER_THRESHOLD)
+			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT, OS_FLAG_SET, &Err);
+		else
+			GP2_FRONT_LEFT_Counter++;
+	}
+	else
+	{
+		GP2_FRONT_LEFT_Counter = 0;
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT, OS_FLAG_CLR, &Err);
+	}
+
+	//GP2_FRONT RIGHT *****************************************************
+	GP2Data  = ADC_GetVal (GP2_FRONT_RIGHT);
+	TaskDebug_UpdateValueInt(TASKDEBUG_ID_GP2_FRONT_RIGHT, GP2Data);
+
+	if(GP2Data > APP_GP2_LIMIT_FRONT_RIGHT)
+	{
+		if(GP2_FRONT_RIGHT_Counter>= GP2_FILTER_THRESHOLD)
+			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT, OS_FLAG_SET, &Err);
+		else
+			GP2_FRONT_RIGHT_Counter++;
+	}
+	else
+	{
+		GP2_FRONT_RIGHT_Counter = 0;
+		OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT, OS_FLAG_CLR, &Err);
+	}
+
 #endif
 }
 
@@ -229,6 +266,28 @@ void TaskSensors_GenerateStrategyFlags()
 	else
 		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_FRONT, OS_FLAG_CLR, &Err); 
 	
+	// Front Left Sensors #######################################################################
+	FlagsToCheck = 0;
+	// All cases ---------------
+	FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_LEFT);
+		
+	// Check Sensors
+	if((SystemReadValue & FlagsToCheck) != 0)
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_LEFT, OS_FLAG_SET, &Err); 
+	else
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_LEFT, OS_FLAG_CLR, &Err); 
+
+	// Front Right Sensors #######################################################################
+	FlagsToCheck = 0;
+	// All cases ---------------
+	FlagsToCheck = (APP_PARAM_APPFLAG_GP2_FRONT_RIGHT);
+		
+	// Check Sensors
+	if((SystemReadValue & FlagsToCheck) != 0)
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_RIGHT, OS_FLAG_SET, &Err); 
+	else
+		OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_RIGHT, OS_FLAG_CLR, &Err); 
+	
 	// Left Sensors ########################################################################
 	FlagsToCheck = 0;
 	// Hoops is down ---------------
@@ -278,7 +337,8 @@ void TaskSensors_SetHoopLevel(int hoopLevel)
 
 	switch(hoopLevel)
 	{
-		case HOOP_LEVEL_DOWN:	
+		case HOOP_LEVEL_DOWN:
+			ARMS_Close();
 			HOOP_Back_Down();
 			OSFlagPost(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN, OS_FLAG_SET, &Err);
 			break;
@@ -290,6 +350,34 @@ void TaskSensors_SetHoopLevel(int hoopLevel)
 
 		default:									
 			break;
+	}
+
+	return;
+}
+
+// ------------------------------------------------------------------------------------------------
+void TaskSensors_SetArmsStatus(int LeftArmStatus, int RightArmStatus)
+{
+	// The hoop must be closed if one of the two arms is FRONT or OPEN
+	if((LeftArmStatus != ARM_CLOSED) || (RightArmStatus != ARM_CLOSED))
+	{
+		HOOPS_Up();
+	}
+
+	switch(LeftArmStatus)
+	{
+		case ARM_OPEN:		ARM_Right_Open();		break;
+		case ARM_CLOSED:	ARM_Right_Close();		break;
+		case ARM_FRONT:		ARM_Right_Front();		break;
+		default:									break;
+	}
+
+	switch(RightArmStatus)
+	{
+		case ARM_OPEN:		ARM_Left_Open();		break;
+		case ARM_CLOSED:	ARM_Left_Close();		break;
+		case ARM_FRONT:		ARM_Left_Front();		break;
+		default:									break;
 	}
 
 	return;
@@ -324,8 +412,8 @@ void TaskSensors_Main(void *p_arg)
 
 	OSTimeDlyHMSM(0, 0, 2, 0);
 	TURBINE_Off();
-	HOOPS_Up();
-	ARMS_Close();
+	TaskSensors_SetHoopLevel(HOOP_LEVEL_UP);
+	TaskSensors_SetArmsStatus(ARM_CLOSED, ARM_CLOSED);
 
 #ifdef	APP_INIT_EXEC_STARTUP_SEQ
 #endif
@@ -412,21 +500,8 @@ void TaskSensors_Main(void *p_arg)
 
 				// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 				case Sensors_SetArmsStatus: 
-					switch(pCurrentMsg->Param1)
-					{
-						case ARM_OPEN:		ARM_Right_Open();		break;
-						case ARM_CLOSED:	ARM_Right_Close();		break;
-						case ARM_FRONT:		ARM_Right_Front();		break;
-						default:									break;
-					}
 
-					switch(pCurrentMsg->Param2)
-					{
-						case ARM_OPEN:		ARM_Left_Open();		break;
-						case ARM_CLOSED:	ARM_Left_Close();		break;
-						case ARM_FRONT:		ARM_Left_Front();		break;
-						default:									break;
-					}
+					TaskSensors_SetArmsStatus(pCurrentMsg->Param1, pCurrentMsg->Param2);
 
 					if(CmdType_Blocking == pCurrentMsg->CmdType)
 						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err);

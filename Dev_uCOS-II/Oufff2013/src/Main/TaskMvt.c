@@ -251,6 +251,14 @@ void TaskMvt_Main(void *p_arg)
 				{	// Front sensors are activated
 					NextState = 5;
 				}
+				else if((SensorsCurrentStatus & APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_LEFT) != 0)
+				{	// Front Left sensors are activated
+					NextState = 14;
+				}
+				else if((SensorsCurrentStatus & APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_RIGHT) != 0)
+				{	// Left sensors are activated
+					NextState = 15;
+				}
 				else if((SensorsCurrentStatus & APP_PARAM_STRATEGYFLAG_COLLISION_LEFT) != 0)
 				{	// Left sensors are activated
 					NextState = 8;
@@ -575,6 +583,82 @@ void TaskMvt_Main(void *p_arg)
 		
 				NextState = 1;
 	
+				break;
+
+			// CASE 014 ---------------------------------------------------------------------------
+			case 14:		// Escape Seq (Front Left)
+				// Ask for stopping Mvt
+				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
+				CollisionTimeout = 0;	// Clear the current timer
+
+				do
+				{
+					CollisionTimeout++;
+					OSTimeDlyHMSM(0, 0, 0, 500);
+					StrategyCurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
+				}while(((StrategyCurrentFlag & APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_LEFT) == APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_LEFT) && (CollisionTimeout < APP_COLLISION_TIMEOUT));
+
+				if(CollisionTimeout >= APP_COLLISION_TIMEOUT)
+				{
+						// Set flag to indicate the last action finished with a timeout
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_TIMEOUT, OS_FLAG_SET, &Err); 
+
+						// Indicates we are stopped if current action is a blocking mvt
+						if(CmdType_Blocking == CurrentCmd.CmdType)
+							OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err); 
+		
+						// Disable all current path
+						CurrentSetpoint = -1;
+						memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
+						CurrentActivatedSensors = APP_PARAM_APPFLAG_NONE;
+		
+						NextState = 1;
+				}
+				else
+				{
+					// Send again the expected position to TaskAsser
+					TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
+					NextState = 9;
+				}
+
+				break;
+
+			// CASE 015 ---------------------------------------------------------------------------
+			case 15:		// Escape Seq (Front Right)
+				// Ask for stopping Mvt
+				TaskMvt_SendSetpointToTaskAsser(&StopCmd);
+				CollisionTimeout = 0;	// Clear the current timer
+
+				do
+				{
+					CollisionTimeout++;
+					OSTimeDlyHMSM(0, 0, 0, 500);
+					StrategyCurrentFlag = OSFlagAccept(AppStrategyFlags, APP_PARAM_STRATEGYFLAG_ALL, OS_FLAG_WAIT_SET_ANY, &Err);
+				}while(((StrategyCurrentFlag & APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_RIGHT) == APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_RIGHT) && (CollisionTimeout < APP_COLLISION_TIMEOUT));
+
+				if(CollisionTimeout >= APP_COLLISION_TIMEOUT)
+				{
+						// Set flag to indicate the last action finished with a timeout
+						OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_TIMEOUT, OS_FLAG_SET, &Err); 
+
+						// Indicates we are stopped if current action is a blocking mvt
+						if(CmdType_Blocking == CurrentCmd.CmdType)
+							OSFlagPost(AppFlags, APP_PARAM_APPFLAG_ACTION_STATUS, OS_FLAG_SET, &Err); 
+		
+						// Disable all current path
+						CurrentSetpoint = -1;
+						memset(CurrentPath, 0,	APP_MOVING_SEQ_LEN * sizeof(StructCmd));
+						CurrentActivatedSensors = APP_PARAM_APPFLAG_NONE;
+		
+						NextState = 1;
+				}
+				else
+				{
+					// Send again the expected position to TaskAsser
+					TaskMvt_SendSetpointToTaskAsser(&LastSetpointSent);
+					NextState = 9;
+				}
+
 				break;
 
 			// CASE 253 ---------------------------------------------------------------------------

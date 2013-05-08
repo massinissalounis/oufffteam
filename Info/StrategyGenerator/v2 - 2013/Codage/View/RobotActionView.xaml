@@ -100,7 +100,9 @@
             <Button Width="50" Height="23" Content="Next" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdNext}" Background="{x:Null}" />
         </TextBlock>
         <TextBlock Grid.Row="9" Grid.ColumnSpan="4" Margin="0,5,0,0" TextAlignment="Center" Height="23" VerticalAlignment="Top">
-            <Button Width="100" Height="23" Content="Ajouter" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdAdd}" />
+            <Button Width="100" Height="23" Content="Ajouter Nouveau" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdAddNew}" />
+            <Label Content="" Height="23" Width="25" HorizontalAlignment="Left" Margin="0,0,0,0" Background="{x:Null}" />
+            <Button Width="100" Height="23" Content="Ajouter Après..." IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdAdd}" />
             <Label Content="" Height="23" Width="25" HorizontalAlignment="Left" Margin="0,0,0,0" Background="{x:Null}" />
             <Button Width="100" Height="23" Content="Supprimer" IsEnabled="{Binding isFormEnabled}" Command="{Binding CmdRemove}" />
         </TextBlock>

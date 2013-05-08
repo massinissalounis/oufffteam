@@ -327,7 +327,7 @@ namespace StrategyGenerator2.StrategyViewer
             set { }
         }
 
-        // Private --------------------------------------------------------------------------------
+         // Private --------------------------------------------------------------------------------
         private RobotAction _robotAction = null;
         private List<RobotPos> _initialPos = null;
 

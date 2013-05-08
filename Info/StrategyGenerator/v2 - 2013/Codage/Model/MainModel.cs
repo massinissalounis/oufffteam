@@ -5,6 +5,7 @@ using System.Text;
 using StrategyGenerator2.FileManager;
 using StrategyGenerator2.StrategyManager;
 using StrategyGenerator2.StrategyViewer;
+using System.Windows.Forms;
 
 namespace StrategyGenerator2.Model
 {
@@ -166,12 +167,15 @@ namespace StrategyGenerator2.Model
 
         public String RobotActionDescription = "";
 
-        public String softwareVersion = "Version 2.10";
+        public String softwareVersion = "Version 2.11";
 
         // Données private ------------------------------------------------------------------------
         private RobotAction _selectedRobotAction = null;
         private Strategy _selectedStrategy = null;
         private SubStrategy _selectedSubStrategy = null;
         private StrategyDisplay _selectedStrategyDisplay = null;
+
     }
 }
+
+

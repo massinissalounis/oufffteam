@@ -114,7 +114,8 @@ void TaskMain_Main(void *p_arg)
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_REAR_INTERNAL, "GP2_RI");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_REAR_LEFT, "GP2_RL");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_REAR_RIGHT, "GP2_RR");
-	TaskDebug_RegisterNewData(9, "ID");
+	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_FRONT_LEFT, "GP2_FL");
+	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_FRONT_RIGHT, "GP2_FR");
 
 
 	// Wait for start signal
@@ -360,6 +361,9 @@ void TaskMain_Main(void *p_arg)
 		Set_Line_Information( 2, 0, "XXX", 3);
 	#endif
 
+	// Close Hoop if closed
+	TaskSensors_SetHoopLevel(HOOP_LEVEL_UP);
+	
 	// Start the funny action
 	TaskSensors_FunnyAction();
 
