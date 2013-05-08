@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using StrategyGenerator2.ViewModel;
+using StrategyGenerator2.Model;
 
 namespace StrategyGenerator2
 {

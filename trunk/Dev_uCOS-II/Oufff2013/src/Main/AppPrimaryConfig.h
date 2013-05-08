@@ -79,6 +79,8 @@
 //#define APP_INIT_EXEC_STARTUP_SEQ					OS_TRUE		// Flag to indicate if we have to execute the start up sequence
 
 #define APP_GP2_LIMIT_FRONT							150			// Threshold 
+#define APP_GP2_LIMIT_FRONT_LEFT					150			// Threshold 
+#define APP_GP2_LIMIT_FRONT_RIGHT					150			// Threshold 
 #define APP_GP2_LIMIT_REAR_INTERNAL					150			// Threshold
 #define APP_GP2_LIMIT_REAR_INTERNAL_LONG_DETECTION	80			// Threshold
 #define APP_GP2_LIMIT_REAR_HOOP						250			// Threshold
@@ -112,7 +114,9 @@
 //#define ODO_CALIBRATION					// Use this flag for testing the Odometry configuration
 
 //#define HOMOL_STRATEGY_ENABLED			// Enable this option to use the homol strategy
-#define STRATEGY1_ENABLED
+//#define STRATEGY1_ENABLED
+#define STRATEGY2_ENABLED
+//#define TEST_PINCE_90S_ENABLED
 
 #else
 #define DEV_CARD_STRATEGY_ENABLED

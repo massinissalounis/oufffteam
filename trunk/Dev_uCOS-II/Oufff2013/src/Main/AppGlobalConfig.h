@@ -33,14 +33,16 @@
 #define TASKDEBUG_ID_MVT_STATE				3	// debugID = 3 (ne doit pas > TASKDEBUG_MAX_MSG)
 #define TASKDEBUG_ID_GP2_FRONT				4	// debugID = 4 (ne doit pas > TASKDEBUG_MAX_MSG)
 #define TASKDEBUG_ID_GP2_REAR				5	// debugID = 5 (ne doit pas > TASKDEBUG_MAX_MSG)
-#define TASKDEBUG_ID_GP2_REAR_INTERNAL		6	// debugID = 5 (ne doit pas > TASKDEBUG_MAX_MSG)
-#define TASKDEBUG_ID_GP2_REAR_LEFT			7	// debugID = 5 (ne doit pas > TASKDEBUG_MAX_MSG)
-#define TASKDEBUG_ID_GP2_REAR_RIGHT			8	// debugID = 5 (ne doit pas > TASKDEBUG_MAX_MSG)
+#define TASKDEBUG_ID_GP2_REAR_INTERNAL		6	// debugID = 6 (ne doit pas > TASKDEBUG_MAX_MSG)
+#define TASKDEBUG_ID_GP2_REAR_LEFT			7	// debugID = 7 (ne doit pas > TASKDEBUG_MAX_MSG)
+#define TASKDEBUG_ID_GP2_REAR_RIGHT			8	// debugID = 8 (ne doit pas > TASKDEBUG_MAX_MSG)
+#define TASKDEBUG_ID_GP2_FRONT_LEFT			9	// debugID = 9 (ne doit pas > TASKDEBUG_MAX_MSG)
+#define TASKDEBUG_ID_GP2_FRONT_RIGHT		10	// debugID = 10 (ne doit pas > TASKDEBUG_MAX_MSG)
 #define TASKDEBUG_ID_TEST					11	// debugID = 11(ne doit pas > TASKDEBUG_MAX_MSG)
 
-#define TASKDEBUG_ENABLED			OS_TRUE // Permet d'activer ou non les informations de debug
+#define TASKDEBUG_ENABLED					OS_TRUE // Permet d'activer ou non les informations de debug
 
-#define TASKDEBUG_REFRESH_MS		250 // Time in ms between 2 displays of debug data (0 to 999)
+#define TASKDEBUG_REFRESH_MS				250 // Time in ms between 2 displays of debug data (0 to 999)
 
 /*
 *********************************************************************************************************
@@ -57,81 +59,81 @@
 #define APP_PARAM_APPFLAG_NONE					0x00000000	//	Don't use sensor
 #define APP_PARAM_STRATEGYFLAG_NONE				0x00000000	//	Don't use flags
 
-// APP FLAGS --------------------------------------------------------------------------------------------------------------------------------------------
-// Value is defined as follow :									//	|Bit| Description				| Value ON 			| Value OFF			| Connection	|	
-// State Flag ________________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
-#define APP_PARAM_APPFLAG_START_BUTTON				0x00000001	//	| 0	| Start Button				| Pressed			| Not Pressed		| Hard			|
-#define APP_PARAM_APPFLAG_BIT01						0x00000002	//	| 1 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT02						0x00000004	//	| 2 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT03						0x00000008	//	| 3 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT04						0x00000010	//	| 4 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_ACTION_TIMEOUT			0x00000020	//	| 5 | Timeout status			| Timeout reached	| Timeout unreached	| Soft			|
-#define APP_PARAM_APPFLAG_ACTION_STATUS				0x00000040	//	| 6 | Action status				| Action is done	| Action is running	| Soft			|
-#define APP_PARAM_APPFLAG_TIMER_STATUS				0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running 	| Soft			|	
-// GP2 Flag __________________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
-#define APP_PARAM_APPFLAG_GP2_FRONT					0x00000100	//	| 8 | Front Sensor				| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_INTERNAL_REAR			0x00000200	//	| 9 | Internal Rear sensor		| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_REAR_HOOP				0x00000400	//	|10 | Hoop Rear Sensor			| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_REAR_LEFT_HOOP		0x00000800	//	|11 | Hoop Rear Left Sensor		| Active			| Inactive			| Hard			|	
-#define APP_PARAM_APPFLAG_GP2_REAR_RIGHT_HOOP		0x00001000	//	|12 | Hoop Rear Right Sensor	| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_INTERNAL_REAR_LONG	0x00002000	//	|13 | Internal Rear (long det)	| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_7						0x00004000	//	|14 | GP2_7	(Not Used)			| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_GP2_8						0x00008000	//	|15 | GP2_8	(Not Used)			| Active			| Inactive			| Hard			|
-// SW Flag ___________________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
-#define APP_PARAM_APPFLAG_SW_1						0x00010000	//	|16 | SW_1 (Not Used)			| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_2						0x00020000	//	|17 | SW_2 (Not Used)			| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_3						0x00040000	//	|18 | SW_3 (Not Used)			| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_4						0x00080000	//	|19 | SW_4 (Not Used)			| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_5						0x00100000	//	|20 | SW_5 (Not Used)			| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_6						0x00200000	//	|21 | SW_6 (Not Used)			| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_7						0x00400000	//	|22 | SW_7 (Not Used)			| Active			| Inactive			| Hard			|
-#define APP_PARAM_APPFLAG_SW_8						0x00800000	//	|23 | SW_8 (Not Used)			| Active			| Inactive			| Hard			|
-// State Flag ________________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
-#define APP_PARAM_APPFLAG_BIT24						0x01000000	//	|24 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT25						0x02000000	//	|25 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT26						0x04000000	//	|26 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT27						0x08000000	//	|27 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT28						0x10000000	//	|28 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT29						0x20000000	//	|29 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT30						0x40000000	//	|30 | Not Used					| -					| -					| -				|
-#define APP_PARAM_APPFLAG_BIT31						0x80000000	//	|31 | Not Used					| -					| -					| -				|
+// APP FLAGS ----------------------------------------------------------------------------------------------------------------------------------------------------
+// Value is defined as follow :										//	|Bit| Description				| Value ON 			| Value OFF			| Connection	|	
+// State Flag ____________________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
+#define APP_PARAM_APPFLAG_START_BUTTON					0x00000001	//	| 0	| Start Button				| Pressed			| Not Pressed		| Hard			|
+#define APP_PARAM_APPFLAG_BIT01							0x00000002	//	| 1 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT02							0x00000004	//	| 2 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT03							0x00000008	//	| 3 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT04							0x00000010	//	| 4 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_ACTION_TIMEOUT				0x00000020	//	| 5 | Timeout status			| Timeout reached	| Timeout unreached	| Soft			|
+#define APP_PARAM_APPFLAG_ACTION_STATUS					0x00000040	//	| 6 | Action status				| Action is done	| Action is running	| Soft			|
+#define APP_PARAM_APPFLAG_TIMER_STATUS					0x00000080	//	| 7 | Timer Status				| Time's Up			| Time's running 	| Soft			|	
+// GP2 Flag ______________________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
+#define APP_PARAM_APPFLAG_GP2_FRONT						0x00000100	//	| 8 | Front Sensor				| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_INTERNAL_REAR				0x00000200	//	| 9 | Internal Rear sensor		| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_REAR_HOOP					0x00000400	//	|10 | Hoop Rear Sensor			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_REAR_LEFT_HOOP			0x00000800	//	|11 | Hoop Rear Left Sensor		| Active			| Inactive			| Hard			|	
+#define APP_PARAM_APPFLAG_GP2_REAR_RIGHT_HOOP			0x00001000	//	|12 | Hoop Rear Right Sensor	| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_INTERNAL_REAR_LONG		0x00002000	//	|13 | Internal Rear (long det)	| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT_LEFT				0x00004000	//	|14 | Front Left Sensor			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_GP2_FRONT_RIGHT				0x00008000	//	|15 | Front Right Sensor		| Active			| Inactive			| Hard			|
+// SW Flag _______________________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
+#define APP_PARAM_APPFLAG_SW_1							0x00010000	//	|16 | SW_1 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_2							0x00020000	//	|17 | SW_2 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_3							0x00040000	//	|18 | SW_3 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_4							0x00080000	//	|19 | SW_4 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_5							0x00100000	//	|20 | SW_5 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_6							0x00200000	//	|21 | SW_6 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_7							0x00400000	//	|22 | SW_7 (Not Used)			| Active			| Inactive			| Hard			|
+#define APP_PARAM_APPFLAG_SW_8							0x00800000	//	|23 | SW_8 (Not Used)			| Active			| Inactive			| Hard			|
+// State Flag ____________________________________________________	//  |---|---------------------------|-------------------|-------------------|---------------|														
+#define APP_PARAM_APPFLAG_BIT24							0x01000000	//	|24 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT25							0x02000000	//	|25 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT26							0x04000000	//	|26 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT27							0x08000000	//	|27 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT28							0x10000000	//	|28 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT29							0x20000000	//	|29 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT30							0x40000000	//	|30 | Not Used					| -					| -					| -				|
+#define APP_PARAM_APPFLAG_BIT31							0x80000000	//	|31 | Not Used					| -					| -					| -				|
 
-// STRATEGY FLAGS -----------------------------------------------------------------------------------------------------------------------
-// Value is defined as follow :									//	|Bit| Desctiption				| Value ON 			| Value OFF			|	
-// Actions Done ______________________________________________	//  |---|---------------------------|-------------------|-------------------|											
-#define APP_PARAM_STRATEGYFLAG_GLASS_1_DONE			0x00000001	//	| 0	| Strategy for 1st line		| It's done			| It's waiting		| 
-#define APP_PARAM_STRATEGYFLAG_GLASS_2_DONE			0x00000002	//	| 1 | Strategy for 3rd line		| It's done			| It's waiting		| 
-#define APP_PARAM_STRATEGYFLAG_GIFT_1_TRY			0x00000004	//	| 2 | Closest gift				| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_GIFT_1_DONE			0x00000008	//	| 3 | 							| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_GIFT_2_TRY			0x00000010	//	| 4 | 							| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_GIFT_2_DONE			0x00000020	//	| 5 | 							| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_GIFT_3_TRY			0x00000040	//	| 6 |							| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_GIFT_3_DONE			0x00000080	//	| 7 | 							| -					| -				 	| 	
-#define APP_PARAM_STRATEGYFLAG_GIFT_4_TRY			0x00000100	//	| 8 | Furtherst Gift			| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_GIFT_4_DONE			0x00000200	//	| 9 | Furtherst Gift			| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT10				0x00000400	//	|10 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT11				0x00000800	//	|11 | Not Used					| -					| -					| 	
-#define APP_PARAM_STRATEGYFLAG_BIT12				0x00001000	//	|12 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT13				0x00002000	//	|13 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT14				0x00004000	//	|14 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT15				0x00008000	//	|15 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT16				0x00010000	//	|16 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT17				0x00020000	//	|17 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT18				0x00040000	//	|18 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT19				0x00080000	//	|19 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT20				0x00100000	//	|20 | Not Used					| -					| -					| 	
-#define APP_PARAM_STRATEGYFLAG_BIT21				0x00200000	//	|21 | Not Used					| -					| -					| 		
-#define APP_PARAM_STRATEGYFLAG_BIT22				0x00400000	//	|22 | Not Used					| -					| -					| 	
-#define APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT	0x00800000	//	|23 | Indicate SubStrategy Res	| SubStrategy OK	| SubStrategy NOK	| 		
-// State Flag ______________________________________________	//  |---|---------------------------|-------------------|-------------------|													
-#define APP_PARAM_STRATEGYFLAG_COLLISION_FRONT		0x01000000	//	|24 | Collision state (front)	| Collision active  | Collision inactive| 
-#define APP_PARAM_STRATEGYFLAG_COLLISION_REAR		0x02000000	//	|25 | Collision state (rear)	| Collision active  | Collision inactive| 
-#define APP_PARAM_STRATEGYFLAG_COLLISION_LEFT		0x04000000	//	|26 | Collision state (left)	| Collision active  | Collision inactive|
-#define APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT		0x08000000	//	|27 | Collision state (right)	| Collision active  | Collision inactive| 
-#define APP_PARAM_STRATEGYFLAG_COLLISION_LONG_REAR	0x10000000	//	|28 | Collision state (long det)| Collision active  | Collision inactive|
-#define APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN		0x20000000	//	|29 | Is rear hoops down ?		| Hoop is down		| Hoop is up		| 
-#define APP_PARAM_STRATEGYFLAG_BIT30				0x40000000	//	|30 | Not Used					| -					| -					| 
-#define APP_PARAM_STRATEGYFLAG_BIT31				0x80000000	//	|31 | Not Used					| -					| -					| 
+// STRATEGY FLAGS -------------------------------------------------------------------------------------------------------------------------------
+// Value is defined as follow :										//	|Bit| Desctiption				| Value ON 			| Value OFF			|	
+// Actions Done __________________________________________________	//  |---|---------------------------|-------------------|-------------------|											
+#define APP_PARAM_STRATEGYFLAG_GLASS_1_DONE				0x00000001	//	| 0	| Strategy for 1st line		| It's done			| It's waiting		| 
+#define APP_PARAM_STRATEGYFLAG_GLASS_2_DONE				0x00000002	//	| 1 | Strategy for 3rd line		| It's done			| It's waiting		| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_1_TRY				0x00000004	//	| 2 | Closest gift				| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_1_DONE				0x00000008	//	| 3 | 							| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_2_TRY				0x00000010	//	| 4 | 							| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_2_DONE				0x00000020	//	| 5 | 							| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_3_TRY				0x00000040	//	| 6 |							| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_3_DONE				0x00000080	//	| 7 | 							| -					| -				 	| 	
+#define APP_PARAM_STRATEGYFLAG_GIFT_4_TRY				0x00000100	//	| 8 | Furtherst Gift			| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_GIFT_4_DONE				0x00000200	//	| 9 | Furtherst Gift			| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT10					0x00000400	//	|10 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT11					0x00000800	//	|11 | Not Used					| -					| -					| 	
+#define APP_PARAM_STRATEGYFLAG_BIT12					0x00001000	//	|12 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT13					0x00002000	//	|13 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT14					0x00004000	//	|14 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT15					0x00008000	//	|15 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT16					0x00010000	//	|16 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT17					0x00020000	//	|17 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT18					0x00040000	//	|18 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT19					0x00080000	//	|19 | Not Used					| -					| -					| 
+#define APP_PARAM_STRATEGYFLAG_BIT20					0x00100000	//	|20 | Not Used					| -					| -					| 	
+#define APP_PARAM_STRATEGYFLAG_BIT21					0x00200000	//	|21 | Not Used					| -					| -					| 		
+#define APP_PARAM_STRATEGYFLAG_BIT22					0x00400000	//	|22 | Not Used					| -					| -					| 	
+#define APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT		0x00800000	//	|23 | Indicate SubStrategy Res	| SubStrategy OK	| SubStrategy NOK	| 		
+// State Flag __________________________________________________	//  |---|---------------------------|-------------------|-------------------|													
+#define APP_PARAM_STRATEGYFLAG_COLLISION_FRONT			0x01000000	//	|24 | Collision state (front)	| Collision active  | Collision inactive| 
+#define APP_PARAM_STRATEGYFLAG_COLLISION_REAR			0x02000000	//	|25 | Collision state (rear)	| Collision active  | Collision inactive| 
+#define APP_PARAM_STRATEGYFLAG_COLLISION_LEFT			0x04000000	//	|26 | Collision state (left)	| Collision active  | Collision inactive|
+#define APP_PARAM_STRATEGYFLAG_COLLISION_RIGHT			0x08000000	//	|27 | Collision state (right)	| Collision active  | Collision inactive| 
+#define APP_PARAM_STRATEGYFLAG_COLLISION_LONG_REAR		0x10000000	//	|28 | Collision state (long det)| Collision active  | Collision inactive|
+#define APP_PARAM_STRATEGYFLAG_REAR_HOOPS_DOWN			0x20000000	//	|29 | Is rear hoops down ?		| Hoop is down		| Hoop is up		| 
+#define APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_LEFT		0x40000000	//	|30 | Collision state (left)	| Collision active  | Collision inactive| 
+#define APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_RIGHT	0x80000000	//	|31 | Collision state (left)	| Collision active  | Collision inactive| 
 
 // Groups ------------------------------------------------------------------------------------------------
 // Sensors Groups

@@ -74,17 +74,19 @@ namespace StrategyGenerator2.StrategyManager
         // ReadOnly : COLLISION_RIGHT = 127,
         // ReadOnly : COLLISION_REAR_LONG = 128,
         REAR_HOOPS_DOWN = 129,
-        BIT30 = 130,
-        BIT31 = 131,
+        // ReadOnly : COLLISION_FRONT_LEFT = 130,
+        // ReadOnly : COLLISION_FRONT_RIGHT = 131,
     }
 
     public enum EnumCollisionSensors
     {
-        COLLISION_FRONT = 124,
-        COLLISION_REAR = 125,
-        COLLISION_LEFT = 126,
-        COLLISION_RIGHT = 127,
-        COLLISION_LONG_REAR = 128
+        COLLISION_FRONT = 201,
+        COLLISION_FRONT_LEFT = 202,
+        COLLISION_FRONT_RIGHT = 203,
+        COLLISION_LEFT = 204,
+        COLLISION_RIGHT = 205,
+        COLLISION_REAR = 206,
+        COLLISION_LONG_REAR = 207,
     }
 
     public enum EnumSensorsHoopLevel

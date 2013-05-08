@@ -367,6 +367,11 @@ namespace StrategyGenerator2.ViewModel
             get { return new RelayCommand(AddNewCmd); }
             set { }
         }
+        public ICommand CmdAddNew
+        {
+            get { return new RelayCommand(AddNewCmdNotLinked); }
+            set { }
+        }
         public ICommand CmdRemove
         {
             get { return new RelayCommand(RemoveCmd); }
@@ -718,6 +723,16 @@ namespace StrategyGenerator2.ViewModel
                 _currentRobotAction.activeSensors.ForceSensors(_modifiedRobotAction.activeSensors.Activated);
             }
 
+            // Tri les liste selectionnée
+            if (_mainModel != null)
+            {
+                if (_mainModel.selectedSubStrategy != null)
+                    _mainModel.selectedSubStrategy.SortRobotActions();
+
+                if ((_mainModel.selectedStrategy != null) && (_mainModel.selectedStrategy.GetMainStrategy() != null))
+                    _mainModel.selectedStrategy.GetMainStrategy().SortRobotActions();
+            }
+
             _mainModel.UpdateRobotActionList();
         }
 
@@ -736,6 +751,28 @@ namespace StrategyGenerator2.ViewModel
                     newRobotAction.cmd = EnumCmd.App_Wait;
                     newRobotAction.nextID = _currentRobotAction.nextID;
                     _currentRobotAction.nextID = newID;
+
+                    _mainModel.selectedRobotAction = newRobotAction;
+                    _mainModel.selectedSubStrategy.AddAction(newRobotAction);
+                    _mainModel.UpdateRobotActionList();
+                }
+            }
+        }
+
+        private void AddNewCmdNotLinked()
+        {           
+            int newID = -1;
+            RobotAction newRobotAction = null;
+
+            if (_mainModel.selectedSubStrategy != null)
+            {
+                newID = _mainModel.selectedSubStrategy.GetFreeID();
+
+                if (newID > 0)
+                {
+                    newRobotAction = new RobotAction(newID);
+                    newRobotAction.cmd = EnumCmd.App_Wait;
+                    newRobotAction.nextID = -1;
 
                     _mainModel.selectedRobotAction = newRobotAction;
                     _mainModel.selectedSubStrategy.AddAction(newRobotAction);
