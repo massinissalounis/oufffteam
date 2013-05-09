@@ -168,6 +168,12 @@
     <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1ColorB.c">
       <Filter>Fichiers sources\Main\Strategy</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestEvitement_ColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestEvitement_ColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\DevCard\1602D.h">
@@ -285,9 +291,6 @@
       <Filter>Fichiers d%27en-tête\Main</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Main\AppPrimaryConfig.h">
-      <Filter>Fichiers d%27en-tête\Main</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\Main\AppSecondaryConfig.h">
       <Filter>Fichiers d%27en-tête\Main</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\src\Main\HoopsControl.h">

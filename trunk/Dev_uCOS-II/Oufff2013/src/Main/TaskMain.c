@@ -105,9 +105,9 @@ void TaskMain_Main(void *p_arg)
 #endif
 
 	// Register debug data
-	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_X, "x");
-	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_Y, "y");
-	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_ANGLE, "angle");
+//	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_X, "x");
+//	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_Y, "y");
+//	TaskDebug_RegisterNewData(TASKDEBUG_ID_POS_ANGLE, "angle");
 //	TaskDebug_RegisterNewData(TASKDEBUG_ID_MVT_STATE, "Mvt State");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_FRONT, "GP2_F");
 	TaskDebug_RegisterNewData(TASKDEBUG_ID_GP2_REAR, "GP2_R");

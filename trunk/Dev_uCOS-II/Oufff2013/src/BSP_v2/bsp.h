@@ -69,7 +69,7 @@
 	
 	// correspondance GP2_x avec la pin PIC_ADC_xx de la carte mère
 	
-	#define GP2_1						PIC_ADC_AN0
+	//#define GP2_1						PIC_ADC_AN0 Semble chier a fond dans la colle !!!!
 	#define GP2_2						PIC_ADC_AN2
 	#define GP2_3						PIC_ADC_AN4
 	#define GP2_4						PIC_ADC_AN6
@@ -80,11 +80,11 @@
 	//#define GP2_9						PIC_ADC_AN3 //AN3 NON CONNECTE NE PAS UTILISER
 	#define GP2_10						PIC_ADC_AN1
 
-	#define GP2_FRONT_LEFT				GP2_1
 	#define GP2_FRONT_RIGHT				GP2_2
 	#define GP2_FRONT					GP2_3
 	#define GP2_REAR_LEFT_HOOP			GP2_4
 	#define GP2_REAR_RIGHT_HOOP			GP2_5
+	#define GP2_FRONT_LEFT				GP2_6
 	#define GP2_REAR_INTERNAL			GP2_7
 	#define GP2_REAR_HOOP				GP2_8
 	
