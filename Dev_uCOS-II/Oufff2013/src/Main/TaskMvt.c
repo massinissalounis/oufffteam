@@ -277,7 +277,6 @@ void TaskMvt_Main(void *p_arg)
 				}
 				else
 				{	// There is no sensor activated
-					
 					NextState = 4;
 				}
 

@@ -79,8 +79,8 @@
 //#define APP_INIT_EXEC_STARTUP_SEQ					OS_TRUE		// Flag to indicate if we have to execute the start up sequence
 
 #define APP_GP2_LIMIT_FRONT							150			// Threshold 
-#define APP_GP2_LIMIT_FRONT_LEFT					150			// Threshold 
-#define APP_GP2_LIMIT_FRONT_RIGHT					150			// Threshold 
+#define APP_GP2_LIMIT_FRONT_LEFT					200			// Threshold 
+#define APP_GP2_LIMIT_FRONT_RIGHT					200			// Threshold 
 #define APP_GP2_LIMIT_REAR_INTERNAL					150			// Threshold
 #define APP_GP2_LIMIT_REAR_INTERNAL_LONG_DETECTION	80			// Threshold
 #define APP_GP2_LIMIT_REAR_HOOP						250			// Threshold
@@ -88,7 +88,7 @@
 #define APP_GP2_LIMIT_REAR_RIGHT_HOOP				250			// Threshold
 
 #define GP2_FILTER_THRESHOLD 4
-
+#define GP2_FILTER_THRESHOLD_SHORT 2
 /*
 *********************************************************************************************************
 *                                            TASK MANAGING
@@ -117,6 +117,7 @@
 //#define STRATEGY1_ENABLED
 #define STRATEGY2_ENABLED
 //#define TEST_PINCE_90S_ENABLED
+//#define TEST_EVITEMENT_ENABLED
 
 #else
 #define DEV_CARD_STRATEGY_ENABLED

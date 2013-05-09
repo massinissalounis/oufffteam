@@ -164,7 +164,7 @@ void TaskSensors_CheckBumpers()
 
 	if(GP2Data > APP_GP2_LIMIT_FRONT_LEFT)
 	{
-		if(GP2_FRONT_LEFT_Counter>= GP2_FILTER_THRESHOLD)
+		if(GP2_FRONT_LEFT_Counter>= GP2_FILTER_THRESHOLD_SHORT)
 			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_LEFT, OS_FLAG_SET, &Err);
 		else
 			GP2_FRONT_LEFT_Counter++;
@@ -181,7 +181,7 @@ void TaskSensors_CheckBumpers()
 
 	if(GP2Data > APP_GP2_LIMIT_FRONT_RIGHT)
 	{
-		if(GP2_FRONT_RIGHT_Counter>= GP2_FILTER_THRESHOLD)
+		if(GP2_FRONT_RIGHT_Counter>= GP2_FILTER_THRESHOLD_SHORT)
 			OSFlagPost(AppFlags, APP_PARAM_APPFLAG_GP2_FRONT_RIGHT, OS_FLAG_SET, &Err);
 		else
 			GP2_FRONT_RIGHT_Counter++;

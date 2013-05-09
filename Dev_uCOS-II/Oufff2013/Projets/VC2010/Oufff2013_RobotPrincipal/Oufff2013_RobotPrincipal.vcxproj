@@ -76,6 +76,8 @@
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1ColorA.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1ColorB.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestEvitement_ColorA.c" />
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestEvitement_ColorB.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\TestIfGotoColorA.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\TestIfGotoColorB.c" />
     <ClCompile Include="..\..\..\src\Main\TaskAsser.c" />
@@ -117,7 +119,6 @@
     <ClInclude Include="..\..\..\src\Main\AppGlobalVars.h" />
     <ClInclude Include="..\..\..\src\Main\AppIncludes.h" />
     <ClInclude Include="..\..\..\src\Main\AppPrimaryConfig.h" />
-    <ClInclude Include="..\..\..\src\Main\AppSecondaryConfig.h" />
     <ClInclude Include="..\..\..\src\Main\ArmsControl.h" />
     <ClInclude Include="..\..\..\src\Main\HoopsControl.h" />
     <ClInclude Include="..\..\..\src\Main\LibMoving.h" />
