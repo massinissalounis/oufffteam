@@ -1,0 +1,37 @@
+[Groupe 0]
+SubStrategyName = MainStrategy
+SubStrategyID = 0
+
+[Groupe 1]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 1
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2
+timeoutID = -1
+
+[Groupe 2]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 500
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT)
+nextID = 100
+timeoutID = -1
+
+[Groupe 100]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 1
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = -1
+timeoutID = -1
+
