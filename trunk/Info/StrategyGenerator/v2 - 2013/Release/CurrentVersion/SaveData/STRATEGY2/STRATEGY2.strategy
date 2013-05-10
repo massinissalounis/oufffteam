@@ -1,0 +1,8 @@
+[Groupe 0]
+MainStrategy = STRATEGY2
+InitialPosX = 97
+InitialPosY = 547
+InitialPosA = 180
+DefaultSpeed = 60
+DefaultPivotSpeed = 50
+
