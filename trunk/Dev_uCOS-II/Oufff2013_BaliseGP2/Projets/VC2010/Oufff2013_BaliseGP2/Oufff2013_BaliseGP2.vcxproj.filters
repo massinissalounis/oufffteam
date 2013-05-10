@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Fichiers sources\Main">
+      <UniqueIdentifier>{d9e93fab-4cd3-4b17-92b5-a761315b4df1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Main\Strategy">
+      <UniqueIdentifier>{1fdf1323-7b3f-4bac-9041-920d185fc89f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\BSP_v2">
+      <UniqueIdentifier>{f1687867-6587-4f70-b107-bb54c2a1057e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Main">
+      <UniqueIdentifier>{f7a499e9-d132-46d3-b045-4ad3d6caf21e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Main\Strategy">
+      <UniqueIdentifier>{8f3d6a97-fe86-4a86-b9ba-029ad8d3d1d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\BSP_v2">
+      <UniqueIdentifier>{fcdc8e44-401e-44b8-bede-c5523af43f72}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\Main\App.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\App_DEBUG_BSP_v2.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\AppGlobalFunc.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\AppHooks.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\ArmsControl.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\HoopsControl.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\LibMoving.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskAsser.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskDebug.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskMain.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskMvt.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskOdo.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskSensors.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskTempo.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TaskTest.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\TurbineControl.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\XBEEControl.c">
+      <Filter>Fichiers sources\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1ColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1ColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy2ColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy2ColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestBrasPinceA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestBrasPinceB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestEvitement_ColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestEvitement_ColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestIfGotoColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestIfGotoColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestPince90s_ColorA.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Main\Strategy\TestPince90s_ColorB.c">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Oufff2013\src\BSP_v2\bsp_iic.c">
+      <Filter>Fichiers sources\BSP_v2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Oufff2013\src\BSP_v2\bsp.c">
+      <Filter>Fichiers sources\BSP_v2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\Oufff2013\src\BSP_v2\bsp_fpga.c">
+      <Filter>Fichiers sources\BSP_v2</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\src\Main\Strategy\PatternColorA.spattern">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </None>
+    <None Include="..\..\..\src\Main\Strategy\PatternColorB.spattern">
+      <Filter>Fichiers sources\Main\Strategy</Filter>
+    </None>
+    <None Include="..\..\..\..\Oufff2013\src\BSP_v2\bsp_a.S">
+      <Filter>Fichiers sources\BSP_v2</Filter>
+    </None>
+    <None Include="..\..\..\..\Oufff2013\src\BSP_v2\crt0.S">
+      <Filter>Fichiers sources\BSP_v2</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\src\Main\App.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppCustomTypes.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppGlobalConfig.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppGlobalFunc.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppGlobalVars.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppIncludes.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppPrimaryConfig.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\AppPrimaryConfig_DEBUG_BSP_v2.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\ArmsControl.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\HoopsControl.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\LibMoving.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\os_cfg.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\Strategy.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskAsser.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskDebug.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskMain.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskMvt.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskOdo.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskSensors.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskTempo.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TaskTest.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\TurbineControl.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\XBEEControl.h">
+      <Filter>Fichiers d%27en-tête\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\Main\Strategy\StrategyFromColor.h">
+      <Filter>Fichiers d%27en-tête\Main\Strategy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP_v2\bsp.h">
+      <Filter>Fichiers d%27en-tête\BSP_v2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP_v2\bsp_fpga.h">
+      <Filter>Fichiers d%27en-tête\BSP_v2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP_v2\bsp_iic.h">
+      <Filter>Fichiers d%27en-tête\BSP_v2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP_v2\bsp_peripherals.h">
+      <Filter>Fichiers d%27en-tête\BSP_v2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\BSP_v2\mini_libdef.h">
+      <Filter>Fichiers d%27en-tête\BSP_v2</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
