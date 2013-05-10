@@ -1,0 +1,455 @@
+[Groupe 0]
+SubStrategyName = MainStrategy
+SubStrategyID = 0
+
+[Groupe 1]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 1
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 50
+timeoutID = -1
+
+[Groupe 50]
+Cmd = App_IfGoto_Strategy
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_GLASS_1_DONE
+Param2 = 100
+Param3 = 55
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 75
+timeoutID = -1
+
+[Groupe 55]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_GLASS_1_DONE
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 60
+timeoutID = -1
+
+[Groupe 60]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = OS_FALSE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 1000
+timeoutID = -1
+
+[Groupe 75]
+Cmd = App_IfGoto_Strategy
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = 3000
+Param3 = 0
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+
+[Groupe 100]
+Cmd = App_IfGoto_Strategy
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_GLASS_2_DONE
+Param2 = 150
+Param3 = 110
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 125
+timeoutID = -1
+
+[Groupe 110]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 600
+Param3 = 1100
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_RIGHT)
+nextID = 115
+timeoutID = 150
+
+[Groupe 115]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_GLASS_2_DONE
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 117
+timeoutID = -1
+
+[Groupe 117]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = OS_FALSE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 2000
+timeoutID = -1
+
+[Groupe 125]
+Cmd = App_IfGoto_Strategy
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = 3000
+Param3 = 0
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+
+[Groupe 150]
+Cmd = App_IfGoto_Strategy
+CmdType = CmdType_Blocking
+Param1 = (APP_PARAM_STRATEGYFLAG_GIFT_1_DONE + APP_PARAM_STRATEGYFLAG_GIFT_1_TRY)
+Param2 = 200
+Param3 = 155
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 175
+timeoutID = -1
+
+[Groupe 155]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_GIFT_1_TRY
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 160
+timeoutID = -1
+
+[Groupe 160]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = OS_FALSE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 165
+timeoutID = -1
+
+[Groupe 165]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 600
+Param3 = 450
+Param4 = -90
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_RIGHT)
+nextID = 4000
+timeoutID = 940
+
+[Groupe 175]
+Cmd = App_IfGoto_Strategy
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = 180
+Param3 = 0
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+
+[Groupe 180]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_GIFT_1_DONE
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+
+[Groupe 200]
+Cmd = App_IfGoto_Strategy
+CmdType = CmdType_Blocking
+Param1 = (APP_PARAM_STRATEGYFLAG_GIFT_2_DONE + APP_PARAM_STRATEGYFLAG_GIFT_2_TRY)
+Param2 = 250
+Param3 = 205
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 225
+timeoutID = -1
+
+[Groupe 205]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = (APP_PARAM_STRATEGYFLAG_GIFT_2_TRY + APP_PARAM_STRATEGYFLAG_GLASS_2_DONE)
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 210
+timeoutID = -1
+
+[Groupe 210]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = OS_FALSE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 215
+timeoutID = -1
+
+[Groupe 215]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 1200
+Param3 = 450
+Param4 = -90
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_RIGHT)
+nextID = 4000
+timeoutID = 940
+
+[Groupe 225]
+Cmd = App_IfGoto_Strategy
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = 230
+Param3 = 0
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+
+[Groupe 230]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_GIFT_2_DONE
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+
+[Groupe 250]
+Cmd = App_IfGoto_Strategy
+CmdType = CmdType_Blocking
+Param1 = (APP_PARAM_STRATEGYFLAG_GIFT_3_DONE + APP_PARAM_STRATEGYFLAG_GIFT_3_TRY)
+Param2 = 300
+Param3 = 255
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 275
+timeoutID = -1
+
+[Groupe 255]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_GIFT_3_TRY
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 260
+timeoutID = -1
+
+[Groupe 260]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = OS_FALSE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 265
+timeoutID = -1
+
+[Groupe 265]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 1800
+Param3 = 450
+Param4 = -90
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_RIGHT)
+nextID = 4000
+timeoutID = 940
+
+[Groupe 275]
+Cmd = App_IfGoto_Strategy
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = 280
+Param3 = 0
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+
+[Groupe 280]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_GIFT_3_DONE
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+
+[Groupe 300]
+Cmd = App_IfGoto_Strategy
+CmdType = CmdType_Blocking
+Param1 = (APP_PARAM_STRATEGYFLAG_GIFT_4_DONE + APP_PARAM_STRATEGYFLAG_GIFT_4_TRY)
+Param2 = 950
+Param3 = 305
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 325
+timeoutID = -1
+
+[Groupe 305]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_GIFT_4_TRY
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 310
+timeoutID = -1
+
+[Groupe 310]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = OS_FALSE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 315
+timeoutID = -1
+
+[Groupe 315]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 2400
+Param3 = 450
+Param4 = -90
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_RIGHT)
+nextID = 4000
+timeoutID = 942
+
+[Groupe 325]
+Cmd = App_IfGoto_Strategy
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = 330
+Param3 = 0
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+
+[Groupe 330]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_GIFT_4_DONE
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 335
+timeoutID = -1
+
+[Groupe 335]
+Cmd = MvtSimple_RotateToAngleInDeg
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = 180
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 950
+timeoutID = -1
+
+[Groupe 940]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -200
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 0
+timeoutID = 0
+
+[Groupe 942]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -200
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 960
+timeoutID = 0
+
+[Groupe 950]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = (APP_PARAM_STRATEGYFLAG_GIFT_1_TRY + APP_PARAM_STRATEGYFLAG_GIFT_2_TRY + APP_PARAM_STRATEGYFLAG_GIFT_3_TRY + APP_PARAM_STRATEGYFLAG_GIFT_4_TRY)
+Param2 = OS_FALSE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 955
+timeoutID = -1
+
+[Groupe 955]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 600
+Param3 = 600
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_RIGHT)
+nextID = 0
+timeoutID = 960
+
+[Groupe 960]
+Cmd = Mvt_UseMixedMode
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = 1500
+Param3 = 800
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_FRONT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_LEFT + APP_PARAM_STRATEGYFLAG_COLLISION_FRONT_RIGHT)
+nextID = 970
+timeoutID = 0
+
+[Groupe 970]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = (APP_PARAM_STRATEGYFLAG_GIFT_1_TRY + APP_PARAM_STRATEGYFLAG_GIFT_2_TRY + APP_PARAM_STRATEGYFLAG_GIFT_3_TRY + APP_PARAM_STRATEGYFLAG_GIFT_4_TRY)
+Param2 = OS_FALSE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+

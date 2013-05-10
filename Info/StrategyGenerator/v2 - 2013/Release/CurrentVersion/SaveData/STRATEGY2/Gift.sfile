@@ -1,0 +1,114 @@
+[Groupe 0]
+SubStrategyName = Gift
+SubStrategyID = 4
+
+[Groupe 4000]
+Cmd = App_Wait
+CmdType = CmdType_Blocking
+Param1 = 0
+Param2 = 0
+Param3 = 0
+Param4 = 1
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 4005
+timeoutID = -1
+
+[Groupe 4005]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = OS_FALSE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 4015
+timeoutID = -1
+
+[Groupe 4015]
+Cmd = Sensors_SetHoopLevel
+CmdType = CmdType_Blocking
+Param1 = HOOP_LEVEL_UP
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 4020
+timeoutID = -1
+
+[Groupe 4020]
+Cmd = Sensors_SetArmsStatus
+CmdType = CmdType_Blocking
+Param1 = ARM_FRONT
+Param2 = ARM_CLOSED
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 4025
+timeoutID = -1
+
+[Groupe 4025]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = 40
+Param2 = 350
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 4030
+timeoutID = 4035
+
+[Groupe 4030]
+Cmd = App_SetStrategyFlags
+CmdType = CmdType_Blocking
+Param1 = APP_PARAM_STRATEGYFLAG_SUBSTRATEGY_RESULT
+Param2 = OS_TRUE
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 4035
+timeoutID = -1
+
+[Groupe 4035]
+Cmd = Sensors_SetArmsStatus
+CmdType = CmdType_NonBlocking
+Param1 = ARM_CLOSED
+Param2 = ARM_CLOSED
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 4040
+timeoutID = -1
+
+[Groupe 4040]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -200
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 4045
+timeoutID = 4090
+
+[Groupe 4045]
+Cmd = MvtSimple_MoveInMM
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = -150
+Param3 = NotUsed
+Param4 = NotUsed
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_COLLISION_REAR)
+nextID = 0
+timeoutID = 4090
+
+[Groupe 4090]
+Cmd = MvtSimple_RotateToAngleInDeg
+CmdType = CmdType_Blocking
+Param1 = DEFAULT_SPEED
+Param2 = NotUsed
+Param3 = NotUsed
+Param4 = 0
+ActiveSensors = (APP_PARAM_STRATEGYFLAG_NONE)
+nextID = 0
+timeoutID = -1
+
