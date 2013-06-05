@@ -41,6 +41,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);_PRIMARY_ROBOT</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -75,18 +76,6 @@
     <ClCompile Include="..\..\..\src\Main\Strategy.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorA.c" />
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1ColorA.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1ColorB.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy2ColorA.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy2ColorB.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestBrasPinceA.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestBrasPinceB.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestEvitement_ColorA.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestEvitement_ColorB.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestIfGotoColorA.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestIfGotoColorB.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestPince90s_ColorA.c" />
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestPince90s_ColorB.c" />
     <ClCompile Include="..\..\..\src\Main\TaskAsser.c" />
     <ClCompile Include="..\..\..\src\Main\TaskDebug.c" />
     <ClCompile Include="..\..\..\src\Main\TaskDetection.c" />
