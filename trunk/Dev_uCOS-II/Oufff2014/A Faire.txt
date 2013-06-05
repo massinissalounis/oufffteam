@@ -1,1 +1,0 @@
-Modifier la gestion des collisions en créant un groupe de flags spécifiques pour les collisions (il faut les sortir du APP_STRATEGY_FLAGS)
