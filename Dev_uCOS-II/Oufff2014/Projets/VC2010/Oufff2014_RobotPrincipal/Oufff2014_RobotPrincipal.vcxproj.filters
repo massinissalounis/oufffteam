@@ -39,42 +39,6 @@
     <ClCompile Include="..\..\..\src\Main\Strategy\HomolColorB.c">
       <Filter>Fichiers sources\Main\Strategy</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1ColorA.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy1ColorB.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy2ColorA.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\Strategy2ColorB.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestBrasPinceA.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestBrasPinceB.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestEvitement_ColorA.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestEvitement_ColorB.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestIfGotoColorA.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestIfGotoColorB.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestPince90s_ColorA.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\Main\Strategy\TestPince90s_ColorB.c">
-      <Filter>Fichiers sources\Main\Strategy</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\BSP_v2\bsp.c">
       <Filter>Fichiers sources\BSP</Filter>
     </ClCompile>
