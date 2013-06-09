@@ -233,6 +233,7 @@ void __ISR(_TIMER_2_VECTOR, ipl6) TMR2_Handler(void)
 	mT2ClearIntFlag();
 	// QUAD LATCH
 	position_manager_timer_handler();
+	Beacon_Motor_Sampling();
 }
 
 

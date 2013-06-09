@@ -16,6 +16,7 @@
 
 #include "TaskAsser.h"
 #include "TaskOdo.h"
+#include "LibPID.h"
 
 INT8U	Debug_AsserRampState = 0;
 
@@ -107,188 +108,17 @@ INT16S motor_command_clipping(float command)
 }
 
 /////////////////////////////////////////////////////////////
-// FILTERS
-/////////////////////////////////////////////////////////////
-void QUADRAMP_Initialization(QUADRAMP_data *data, float acc, float speed, float approach)
-{
-	data->acceleration_order=acc;
-	data->speed_order=speed;
-	
-	data->final_approach_limit=approach;
-
-	data->origin=0.0;
-	data->acc_distance=0.0;
-
-	data->speed=0.0;
-
-	data->state=0;
-}
-
-float QUADRAMP_Compute(QUADRAMP_data *data, float dist2dest)
-{
-	float dist2dest_abs = abs(dist2dest);
-
-	switch(data->state)
-	{
-		case 0:
-			data->origin=dist2dest_abs; // Update the origin for the next movement
-			data->speed=data->speed_order; // Speed at the limit to ensure a good reactivity
-
-			if(dist2dest_abs > data->final_approach_limit)
-			{
-				data->speed=0; // Initialize the speed of the new movement
-				data->state=1; // Go into acc state
-			}
-			break;
-
-		case 1:
-			data->speed+=data->acceleration_order;
-
-			if(dist2dest_abs <= (data->origin - data->final_approach_limit/2) / 2)
-			{
-				data->state=3; // Go to decc state
-			}
-
-			if(data->speed>=data->speed_order)
-			{
-				data->speed=data->speed_order; // Limit the speed
-				data->acc_distance = data->origin - dist2dest_abs - data->final_approach_limit/2; // Store the distance requirement for the next decelleration
-				data->state=2; // Go to cte speed state
-			}
-			break;
-				
-		case 2:
-			data->speed=data->speed_order; // Update the speed
-
-			if(dist2dest_abs <= data->acc_distance)
-			{
-				data->state=3;
-			}
-			break;
-
-		case 3:
-			data->speed-=data->acceleration_order;
-
-			if(dist2dest_abs<=data->final_approach_limit)
-			{
-				data->state=0;
-			}
-			break;
-				
-		default:
-			break;	
-	}	
-
-	Debug_AsserRampState = data->state;
-	return data->speed;
-}
-
-void PID_Initialization(void)
-{
-	int i;
-
-	angle_pid_data.Kp = KP_ANGLE;
-	angle_pid_data.Ki = KI_ANGLE;
-	angle_pid_data.Kd = KD_ANGLE;
-	angle_pid_data.IMax = IMAX_ANGLE;
-
-	distance_pid_data.Kp = KP_DISTANCE;
-	distance_pid_data.Ki = KI_DISTANCE;
-	distance_pid_data.Kd = KD_DISTANCE;	
-	distance_pid_data.IMax = IMAX_DISTANCE;	
-	
-	wheel_left_pid_data.Kp = KP_WHEEL_L;
-	wheel_left_pid_data.Ki = KI_WHEEL_L;
-	wheel_left_pid_data.Kd = KD_WHEEL_L;	
-	wheel_left_pid_data.IMax = IMAX_WHEEL_L;
-	
-	wheel_right_pid_data.Kp = KP_WHEEL_R;
-	wheel_right_pid_data.Ki = KI_WHEEL_R;
-	wheel_right_pid_data.Kd = KD_WHEEL_R;	
-	wheel_right_pid_data.IMax = IMAX_WHEEL_R;	
-
-	for(i=0; i<PID_SUM_NB_SAMPLES; i++)
-	{
-		angle_pid_data.error_old[i]=0.0;
-		distance_pid_data.error_old[i]=0.0;
-		wheel_right_pid_data.error_old[i]=0.0;
-		wheel_left_pid_data.error_old[i]=0.0;
-	}
-
-	angle_pid_data.current_error_old = 0;
-	distance_pid_data.current_error_old = 0;
-	wheel_right_pid_data.current_error_old = 0;
-	wheel_left_pid_data.current_error_old = 0;
-}
-
-float PID_Computation(PID_data * pid_data, float error)
-{
-	float P,I,D;
-	float filtered_error;
-	float errDif;
-	int last;
-
-	filtered_error = 0.0;
-	
-	//Compute Sum
-	//sum of all errors of the MAX_D_PERIOD previous period
-	pid_data->error_sum -= pid_data->error_old[pid_data->current_error_old]; // Substract oldest value
-	pid_data->error_sum += error; // Add newest value
-
-	//bound integration values
-	if(pid_data->error_sum > pid_data->IMax)
-	{
-		pid_data->error_sum = pid_data->IMax;
-	}
-	else if(pid_data->error_sum < -pid_data->IMax)
-	{
-		pid_data->error_sum = -pid_data->IMax;
-	}
-
-	//if we are at the begining of the rotating buffer
-	//we have to take a value at the end of it
-	if(PID_D_PERIOD > pid_data->current_error_old)
-	{
-		last = PID_SUM_NB_SAMPLES + pid_data->current_error_old - PID_D_PERIOD;
-	}
-	else
-	{
-		last = pid_data->current_error_old - PID_D_PERIOD;
-	}
-
-	//differential of the error over the period	
-	errDif = error - pid_data->error_old[last];
-
-	//stock last values of the error, so we can
-	//differentiate over a custom period
-	pid_data->error_old[pid_data->current_error_old]=error;
-
-	pid_data->current_error_old++;
-	if(pid_data->current_error_old >= PID_SUM_NB_SAMPLES)
-	{
-		pid_data->current_error_old = 0; //restart at the beginning of the buffer
-	}
-
-	index_old_debug = pid_data->current_error_old;
-	error_old_debug = pid_data->error_old[last];
-	error_current_debug = error;
-
-	P = error * pid_data->Kp;
-	I = pid_data->error_sum * pid_data->Ki;
-	D = errDif * pid_data->Kd;
-	
-	D_debug = D;
-	P_debug = P;
-	I_debug = I;
-
-	filtered_error = P + I + D;
-
-	return filtered_error;
-}
-
-/////////////////////////////////////////////////////////////
 // MOTION CONTROL
 /////////////////////////////////////////////////////////////
+
+void PIDs_Initialization()
+{
+	int i;
+	PID_Initialization(&angle_pid_data, KP_ANGLE, KI_ANGLE, KD_ANGLE, IMAX_ANGLE);
+	PID_Initialization(&distance_pid_data, KP_DISTANCE, KI_DISTANCE, KD_DISTANCE, IMAX_DISTANCE);
+	PID_Initialization(&wheel_left_pid_data, KP_WHEEL_L, KI_WHEEL_L, KD_WHEEL_L, IMAX_WHEEL_L);
+	PID_Initialization(&wheel_right_pid_data, KP_WHEEL_R, KI_WHEEL_R, KD_WHEEL_R, IMAX_WHEEL_R);
+}
 
 void init_control_motion()
 {
@@ -302,7 +132,7 @@ void init_control_motion()
 	memset(&TaskAsser_CurrentPos, 0, sizeof(StructPos));
 
 	// init PID
-	PID_Initialization();
+	PIDs_Initialization();
 	
 	QUADRAMP_Initialization(&distance_quadramp_data, DEFAULT_ACC_DISTANCE, DEFAULT_SPEED_DISTANCE, DISTANCE_ALPHA_ONLY);
 }

@@ -24,13 +24,13 @@
 #define  BSP_CLK_FREQ               80E6
 
 // TMR2 --> Odometer
-#define  TMR2_TICK					10E-3
+#define  TMR2_TICK				10E-3
 #define  TMR2_PRESCALER				256
 #define  TMR2_RELOAD				TMR2_TICK*BSP_CLK_FREQ/TMR2_PRESCALER
 
 // TMR3 --> PWM generation
 #define  TMR3_FREQUENCY				30E3
-#define  TMR3_TICK					1/TMR3_FREQUENCY
+#define  TMR3_TICK				1/TMR3_FREQUENCY
 #define  TMR3_PRESCALER				1
 #define  TMR3_RELOAD				TMR3_TICK*BSP_CLK_FREQ/TMR3_PRESCALER
 
