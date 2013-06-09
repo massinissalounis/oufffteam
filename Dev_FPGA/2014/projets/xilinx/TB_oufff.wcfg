@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="D:/Oufff_Team/SVN/Dev_FPGA/2013/projets/xilinx/PMP_TB_isim_par.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="pmp_tb" />
+            <top_module name="std_logic_1164" />
+            <top_module name="std_logic_arith" />
+            <top_module name="std_logic_unsigned" />
+            <top_module name="textio" />
+            <top_module name="vcomponents" />
+            <top_module name="vital_primitives" />
+            <top_module name="vital_timing" />
+            <top_module name="vpackage" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="11" />
+   <wvobject fp_name="group79" type="group">
+      <obj_property name="label">FPGA</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/pmp_tb/fpga_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_clk</obj_property>
+         <obj_property name="ObjectShortName">fpga_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/reset" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group78" type="group">
+      <obj_property name="label">PIC</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/pmp_tb/pic_pb_clk" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">pic_pb_clk</obj_property>
+         <obj_property name="ObjectShortName">pic_pb_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/pic_addr" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">pic_addr[15:0]</obj_property>
+         <obj_property name="ObjectShortName">pic_addr[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/pic_pmdin" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">pic_pmdin[7:0]</obj_property>
+         <obj_property name="ObjectShortName">pic_pmdin[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group85" type="group">
+      <obj_property name="label">PMP</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/pmp_tb/pic_pmp_pmalh" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">pic_pmp_pmalh</obj_property>
+         <obj_property name="ObjectShortName">pic_pmp_pmalh</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/pic_pmp_pmall" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">pic_pmp_pmall</obj_property>
+         <obj_property name="ObjectShortName">pic_pmp_pmall</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/pic_pmp_pmrd" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">pic_pmp_pmrd</obj_property>
+         <obj_property name="ObjectShortName">pic_pmp_pmrd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/pic_pmp_pmwr" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">pic_pmp_pmwr</obj_property>
+         <obj_property name="ObjectShortName">pic_pmp_pmwr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/pic_pmdin" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">pic_pmdin[7:0]</obj_property>
+         <obj_property name="ObjectShortName">pic_pmdin[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/pic_pmp_pmd" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">pic_pmp_pmd[7:0]</obj_property>
+         <obj_property name="ObjectShortName">pic_pmp_pmd[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/bus_d" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">bus_d[7:0]</obj_property>
+         <obj_property name="ObjectShortName">bus_d[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group88" type="group">
+      <obj_property name="label">LED</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/pmp_tb/DUT/led_interface_led_register" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">led_interface_led_register[7:0]</obj_property>
+         <obj_property name="ObjectShortName">led_interface_led_register[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/led1" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">led1</obj_property>
+         <obj_property name="ObjectShortName">led1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/led2" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">led2</obj_property>
+         <obj_property name="ObjectShortName">led2</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group90" type="group">
+      <obj_property name="label">RESET</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/pmp_tb/DUT/hard_soft_reset_0" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">hard_soft_reset_0</obj_property>
+         <obj_property name="ObjectShortName">hard_soft_reset_0</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group95" type="group">
+      <obj_property name="label">ENCODER_1</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/pmp_tb/DUT/ENCODER1_interface_counter_R/count_latch" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">count_latch</obj_property>
+         <obj_property name="ObjectShortName">count_latch</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/ENCODER1_interface_counter_R/a_temp" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">a_temp[2:0]</obj_property>
+         <obj_property name="ObjectShortName">a_temp[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/ENCODER1_interface_counter_R/b_temp" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">b_temp[2:0]</obj_property>
+         <obj_property name="ObjectShortName">b_temp[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/ENCODER1_interface_counter_R/count_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">count_out[15:0]</obj_property>
+         <obj_property name="ObjectShortName">count_out[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/ENCODER1_interface_counter_R/tmp" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">tmp[15:0]</obj_property>
+         <obj_property name="ObjectShortName">tmp[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/ENCODER1_interface_counter_L/count_out" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">count_out[15:0]</obj_property>
+         <obj_property name="ObjectShortName">count_out[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/ENCODER1_interface_counter_L/tmp" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">tmp[15:0]</obj_property>
+         <obj_property name="ObjectShortName">tmp[15:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_pha2" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_pha2</obj_property>
+         <obj_property name="ObjectShortName">fpga_pha2</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_phb1" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_phb1</obj_property>
+         <obj_property name="ObjectShortName">fpga_phb1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_phb2" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_phb2</obj_property>
+         <obj_property name="ObjectShortName">fpga_phb2</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_pha1" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_pha1</obj_property>
+         <obj_property name="ObjectShortName">fpga_pha1</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group97" type="group">
+      <obj_property name="label">AX12_1</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/data_tosend" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">data_tosend[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_tosend[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/busy" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">busy</obj_property>
+         <obj_property name="ObjectShortName">busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Baud_Rate_Gen/count" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">count[7:0]</obj_property>
+         <obj_property name="ObjectShortName">count[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Baud_Rate_Gen/baud_rate" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">baud_rate</obj_property>
+         <obj_property name="ObjectShortName">baud_rate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/baud_rate" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">baud_rate</obj_property>
+         <obj_property name="ObjectShortName">baud_rate</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_gpio_8" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_gpio_8</obj_property>
+         <obj_property name="ObjectShortName">fpga_gpio_8</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Transmitter/br_edge_0" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">br_edge_0</obj_property>
+         <obj_property name="ObjectShortName">br_edge_0</obj_property>
+      </wvobject>
+      <wvobject fp_name="group127" type="group">
+         <obj_property name="label">TRANSMITTER</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Transmitter/counter_data" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">counter_data[3:0]</obj_property>
+            <obj_property name="ObjectShortName">counter_data[3:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Transmitter/busy" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">busy</obj_property>
+            <obj_property name="ObjectShortName">busy</obj_property>
+         </wvobject>
+         <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Transmitter/send" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">send</obj_property>
+            <obj_property name="ObjectShortName">send</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group123" type="group">
+         <obj_property name="label">RECEIVER</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Receiver/busy" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">busy</obj_property>
+            <obj_property name="ObjectShortName">busy</obj_property>
+         </wvobject>
+         <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Receiver/int_datareceived" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">int_datareceived</obj_property>
+            <obj_property name="ObjectShortName">int_datareceived</obj_property>
+         </wvobject>
+         <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Receiver/rx" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">rx</obj_property>
+            <obj_property name="ObjectShortName">rx</obj_property>
+         </wvobject>
+         <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Receiver/clock_uart" type="logic" db_ref_id="1">
+            <obj_property name="ElementShortName">clock_uart</obj_property>
+            <obj_property name="ObjectShortName">clock_uart</obj_property>
+         </wvobject>
+         <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Receiver/buffer_received" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">buffer_received[7:0]</obj_property>
+            <obj_property name="ObjectShortName">buffer_received[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/data_received" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">data_received[7:0]</obj_property>
+            <obj_property name="ObjectShortName">data_received[7:0]</obj_property>
+            <obj_property name="Radix">BINARYRADIX</obj_property>
+         </wvobject>
+         <wvobject fp_name="/pmp_tb/DUT/AX12_1_interface_UART/Receiver/counter_data" type="array" db_ref_id="1">
+            <obj_property name="ElementShortName">counter_data[3:0]</obj_property>
+            <obj_property name="ObjectShortName">counter_data[3:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group105" type="group">
+      <obj_property name="label">COLOR</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_gpio_0" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_gpio_0</obj_property>
+         <obj_property name="ObjectShortName">fpga_gpio_0</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/color_sensor_1_half_period_counter" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">color_sensor_1_half_period_counter[7:0]</obj_property>
+         <obj_property name="ObjectShortName">color_sensor_1_half_period_counter[7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/color_sensor_1_period_reg" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">color_sensor_1_period_reg[7:0]</obj_property>
+         <obj_property name="ObjectShortName">color_sensor_1_period_reg[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_servo_5" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_servo_5</obj_property>
+         <obj_property name="ObjectShortName">fpga_servo_5</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_servo_3" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_servo_3</obj_property>
+         <obj_property name="ObjectShortName">fpga_servo_3</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/color_control_gpio_register" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">color_control_gpio_register[7:0]</obj_property>
+         <obj_property name="ObjectShortName">color_control_gpio_register[7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group112" type="group">
+      <obj_property name="label">BEACONs</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_gpio_4" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_gpio_4</obj_property>
+         <obj_property name="ObjectShortName">fpga_gpio_4</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_gpio_2" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_gpio_2</obj_property>
+         <obj_property name="ObjectShortName">fpga_gpio_2</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_gpio_9" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_gpio_9</obj_property>
+         <obj_property name="ObjectShortName">fpga_gpio_9</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_gpio_6" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_gpio_6</obj_property>
+         <obj_property name="ObjectShortName">fpga_gpio_6</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group117" type="group">
+      <obj_property name="label">GPIO</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/pmp_tb/DUT/gpios_gpio_register" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">gpios_gpio_register[7:0]</obj_property>
+         <obj_property name="ObjectShortName">gpios_gpio_register[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_gpio_1" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_gpio_1</obj_property>
+         <obj_property name="ObjectShortName">fpga_gpio_1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_gpio_3" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_gpio_3</obj_property>
+         <obj_property name="ObjectShortName">fpga_gpio_3</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_gpio_7" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_gpio_7</obj_property>
+         <obj_property name="ObjectShortName">fpga_gpio_7</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group121" type="group">
+      <obj_property name="label">SERVO</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_servo_9" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_servo_9</obj_property>
+         <obj_property name="ObjectShortName">fpga_servo_9</obj_property>
+      </wvobject>
+      <wvobject fp_name="/pmp_tb/DUT/fpga_servo_7" type="logic" db_ref_id="1">
+         <obj_property name="ElementShortName">fpga_servo_7</obj_property>
+         <obj_property name="ObjectShortName">fpga_servo_7</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

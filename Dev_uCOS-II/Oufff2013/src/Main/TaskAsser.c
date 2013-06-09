@@ -662,7 +662,7 @@ void TaskAsser_Main(void *p_arg)
 			case MvtSimple_MoveInMM:
 			case MvtSimple_RotateToAngleInDeg:
             case Mvt_UseMixedMode:
-			case Mvt_UseSpline:
+			case Mvt_Use/Volumes/DATA/Users/pcrack/Documents/Robot/SVN/Dev_uCOS-II/Oufff2013/src/BSP_v2/bsp.cSpline:
 				mode_control						= 3;	// Use Mixed Mode
 				setpoint.angle						= CurrentCmd.Param4;
 				setpoint.x							= CurrentCmd.Param2;

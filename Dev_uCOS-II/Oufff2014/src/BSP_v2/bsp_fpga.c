@@ -284,14 +284,6 @@ CPU_INT08U FPGA_LED2_Action (CPU_INT08U bit_value)
 	return reg;
 }
 
-
-CPU_INT08U BEACON_Read (void)
-{
-	CPU_INT08U reg;
-	reg = PMP_Read(BEACON_REGISTER);
-	return reg;
-}
-
 void SERVO_0_Write_Pulse (CPU_INT08U pulse_duration)
 {
 	PMP_Write(SERVO_0_REGISTER, pulse_duration);
@@ -300,6 +292,55 @@ void SERVO_0_Write_Pulse (CPU_INT08U pulse_duration)
 void SERVO_1_Write_Pulse (CPU_INT08U pulse_duration)
 {
 	PMP_Write(SERVO_1_REGISTER, pulse_duration);
+}
+
+CPU_INT08U BEACON_MOTOR_Latch (void)
+{
+	PMP_Write(BEACON_ENCODER_LATCH_REGISTER,0xFF);
+}
+
+CPU_INT16S BEACON_MOTOR_Read (void)
+{
+	CPU_INT16S value;
+	value = PMP_Read(BEACON_ENCODER_MSB_REGISTER) <<8;
+	value = value | PMP_Read(BEACON_ENCODER_LSB_REGISTER);
+	return value;
+}
+
+void BEACON_MOTOR_Write_PWM (CPU_INT08U pulse_duration)
+{
+	PMP_Write(BEACON_MOTOR_PERIOD_REGISTER, pulse_duration);
+}
+
+CPU_INT8U BEACON_STATUS_Read (void)
+{
+	CPU_INT8U value;
+	value = PMP_Read(BEACON_STATUS_REGISTER);
+	return value;
+}
+
+CPU_INT16U BEACON_POSITION_REG (INT8U indix)
+{
+	CPU_INT16U value;
+	CPU_INT8U Address_MSB;
+	CPU_INT8U Address_LSB;
+	
+	switch(indix)
+	{
+		case 0: Address_MSB=BEACON_0_MSB_REGISTER; Address_LSB=BEACON_0_LSB_REGISTER; break;
+		case 1: Address_MSB=BEACON_1_MSB_REGISTER; Address_LSB=BEACON_1_LSB_REGISTER; break;
+		case 2: Address_MSB=BEACON_2_MSB_REGISTER; Address_LSB=BEACON_2_LSB_REGISTER; break;
+		case 3: Address_MSB=BEACON_3_MSB_REGISTER; Address_LSB=BEACON_3_LSB_REGISTER; break;
+		case 4: Address_MSB=BEACON_4_MSB_REGISTER; Address_LSB=BEACON_4_LSB_REGISTER; break;
+		case 5: Address_MSB=BEACON_5_MSB_REGISTER; Address_LSB=BEACON_5_LSB_REGISTER; break;
+		case 6: Address_MSB=BEACON_6_MSB_REGISTER; Address_LSB=BEACON_6_LSB_REGISTER; break;
+		case 7: Address_MSB=BEACON_7_MSB_REGISTER; Address_LSB=BEACON_7_LSB_REGISTER; break;
+		default: Address_MSB=0xFF; Address_LSB=0xFF; break;
+	}
+		
+	value = PMP_Read(Address_MSB) <<8;
+	value = value | PMP_Read(Address_LSB);
+	return value;
 }
 
 
