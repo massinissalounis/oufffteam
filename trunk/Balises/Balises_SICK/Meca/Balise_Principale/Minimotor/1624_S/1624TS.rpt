@@ -1,0 +1,91 @@
+*****************************************************************
+      SolidWorks Corporation - IGES Processor Status Report
+*****************************************************************
+=================================================================
+General Information
+=================================================================
+Sending System Product I.D.  : E:\WORK\MISC\DI\MOTORS\2011-11-25\1624TS.prt
+Receiving System Product I.D.: E:\WORK\MISC\DI\MOTORS\2011-11-25\1624TS.prt
+File Name                    : E:\WORK\MISC\DI\MOTORS\2011-11-25\1624TS.igs
+Sending System               : NX V7.5
+Preprocessor Version         : SIEMENS PLM Software NX 7.5
+File Creation Date           : 20111221.230317
+Model Creation Date          : 20121127.235100
+Units                        : MM
+Model Space Scale            : 1
+Author                       : 
+Organization                 : 
+
+
+=================================================================
+Entity Processing Information
+=================================================================
+ERROR:   DE#   319, TYPE   144: Problem encountered in outer trimming loop.
+WARNING: DE#   319, TYPE   144: Error repaired by using 3D trim curves.
+ERROR:   DE#   837, TYPE   144: Problem encountered in outer trimming loop.
+WARNING: DE#   837, TYPE   144: Error repaired by using 3D trim curves.
+ERROR:   DE#   907, TYPE   144: Problem encountered in outer trimming loop.
+WARNING: DE#   907, TYPE   144: Error repaired by using 3D trim curves.
+ERROR:   DE#   923, TYPE   144: Problem encountered in outer trimming loop.
+WARNING: DE#   923, TYPE   144: Error repaired by using 3D trim curves.
+ERROR:   DE#   939, TYPE   144: Problem encountered in outer trimming loop.
+WARNING: DE#   939, TYPE   144: Error repaired by using 3D trim curves.
+ERROR:   DE#  1881, TYPE   144: Problem encountered in outer trimming loop.
+WARNING: DE#  1881, TYPE   144: Error repaired by using 3D trim curves.
+
+
+=================================================================
+Precision analysis of IGES file:
+=================================================================
+  Most prevalent number of significant digits:              14
+  Highest number of significant digits:                     14
+  Average number of significant digits:                7.98034
+  Maximum distance to origin:                          38.2357
+  Minimum distance to origin:                     2.72189e-014
+  Effective number of significant digits:                   14
+
+
+=================================================================
+Entity Summary
+=================================================================
+-----------------------------------------------------------------
+Type Name                                         Count Converted
+---- ----                                         ----- ---------
+100  Arc                                            140       140
+102  Composite curve                                 76        76
+106  Copious data                                    41        41
+108  Plane                                           44        44
+110  Line                                           162       162
+116  Point                                            1         1
+124  Transformation matrix                           18        18
+126  Rational B-spline curve                        205       205
+128  Rational B-spline surface                       52        52
+142  Curve on a parametric surface                   55        55
+144  Trimmed parametric surface                      42        42
+202  Angular dimension                                1         0
+206  Diameter dimension                               1         0
+210  General label                                    1         0
+212  General note                                    20        20
+214  Leader (Arrow)                                  38        38
+216  Linear dimension                                17        17
+228  General symbol                                   1         0
+314  Color definition                                 5         5
+402  Associativity instance                          11        11
+404  Drawing                                          1         0
+406  Property                                        24        24
+410  View                                            11         0
+_________________________________________________________________
+
+
+=================================================================
+Result Summary
+=================================================================
+SolidWorks Feature Type                Count
+-----------------------                -----
+Solid feature(s)                       1
+Surface feature(s)                     0
+Curve/Sketch feature(s)                0
+--------------------------------------------
+Start time: dimanche, mai 26, 2013 20:40:18
+Finish time: dimanche, mai 26, 2013 20:40:20
+Processing time: 0 days, 00 hours, 00 mins, 02 secs
