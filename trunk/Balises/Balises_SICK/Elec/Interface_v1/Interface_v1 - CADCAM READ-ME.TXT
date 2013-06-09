@@ -1,0 +1,45 @@
+LABCENTER PROTEUS TOOL INFORMATION FILE
+=======================================
+
+In case of difficulty, please e-mail support@labcenter.co.uk
+
+Tool set up for Proteus layout 'Interface_v1.LYT'.
+CADCAM generated at 17:31:33 on mardi 4 juin 2013.
+
+File List
+---------
+Bottom Copper           : Interface_v1 - CADCAM Bottom Copper.TXT
+Drill                   : Interface_v1 - CADCAM Drill.TXT
+
+Photoplotter Setup
+------------------
+Format: RS274X, ASCII, 2.4, imperial, absolute, eob=*, LZO
+Notes:  D=Diameter, S=Side, W=Width, H=Height
+
+D10	CIRCLE	D=1.27mm                                    DRAW
+D11	CIRCLE	D=0.76mm                                    DRAW
+D12	CIRCLE	D=0.3mm                                     DRAW
+D13	CIRCLE	D=1.02mm                                    DRAW
+D14	CIRCLE	D=1.52mm                                    DRAW
+D15	CIRCLE	D=1.52mm                                    FLASH
+D16	SQUARE	S=2.03mm                                    FLASH
+D17	CIRCLE	D=6.35mm                                    FLASH
+D18	CIRCLE	D=3.05mm                                    FLASH
+D19	CIRCLE	D=1.78mm                                    FLASH
+D70	CIRCLE	D=2.03mm                                    FLASH
+D71	CIRCLE	D=0.2mm                                     DRAW
+D20	CIRCLE	D=0.0635mm                                  DRAW
+
+NC Drill Setup
+--------------
+Format: ASCII, 2.4, imperial, absolute, eob=<CR><LF>, no zero suppression.
+Notes:  Tool sizes are diameters. Layer sets are in brackets - 0=TOP, 15=BOTTOM, 1-14=INNER.
+
+T01	0.51mm (0-15)
+T02	1.02mm (0-15)
+T03	3mm (0-15)
+T04	1.52mm (0-15)
+T05	0.76mm (0-15)
+
+
+[END OF FILE]
