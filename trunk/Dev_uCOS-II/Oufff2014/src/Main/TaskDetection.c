@@ -67,7 +67,7 @@ void TaskDetection_Main(void *p_arg)
 	CPU_INT16S motor_position=0;
 	CPU_INT08U beacon_status=0;
 	
-	CPU_INT16S impact_positions[8];
+	CPU_INT16S raw_positions[8];
 	
 	PID_Initialization(&beacon_motor_pid_data, KP_BEACON_MOTOR_SPEED, KI_BEACON_MOTOR_SPEED, KD_BEACON_MOTOR_SPEED, IMAX_BEACON_MOTOR_SPEED);
 	
@@ -97,8 +97,15 @@ void TaskDetection_Main(void *p_arg)
 		else
 		{
 
+			for(i=0; i<=7; i++)
+			{
+				raw_positions[i]=BEACON_POSITION_REG_Read(i);
+			}
 			
-			CPU_INT16U BEACON_POSITION_REG (INT8U indix);
+			// Impact identification
+			// Validity checks
+			// Reference identification
+			// Compute distance/angle
 		}
 		
 
