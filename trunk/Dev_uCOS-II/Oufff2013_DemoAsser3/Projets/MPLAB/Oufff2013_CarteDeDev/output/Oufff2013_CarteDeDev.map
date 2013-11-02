@@ -1,0 +1,2489 @@
+Archive member included because of file (symbol)
+
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(memcpy.o)
+                              objects\AppGlobalFunc.o (memcpy)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(memset.o)
+                              objects\App.o (memset)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strcpy.o)
+                              objects\TaskDebug.o (strcpy)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strncpy.o)
+                              objects\TaskDebug.o (strncpy)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o)
+                              objects\TaskMain.o (sprintf)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-bootstrap-exception-handler.o)
+                              objects\crt0.o (_bootstrap_exception_handler)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-reset.o)
+                              objects\crt0.o (_on_reset)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-bootstrap.o)
+                              objects\crt0.o (_on_bootstrap)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-nmi-handler.o)
+                              objects\crt0.o (_nmi_handler)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o) (vfprintf)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobdata.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o) (_libc_data)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobdata.o) (_filbuf_simple)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o) (_io_strfuncs)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(fputc.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o) (fputc)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_getc.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o) (_mon_getc)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_write.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o) (_mon_write)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strlen.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o) (strlen)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(errno.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o) (errno)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_putc.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_write.o) (_mon_putc)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(mod32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o) (modf)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o)
+                              objects\TaskAsser.o (pow)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_acos32.o)
+                              objects\TaskAsser.o (acos)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(cos32.o)
+                              objects\TaskAsser.o (cos)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(sin32.o)
+                              objects\TaskAsser.o (sin)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(reduct32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(cos32.o) (reduct)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(sincos32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(cos32.o) (sincon)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_atan2f.o)
+                              objects\LibMoving.o (atan2f)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(func32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(cos32.o) (sigmax)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(dp32.o)
+                              objects\AppGlobalFunc.o (dpsub)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_sqrt.o)
+                              objects\TaskAsser.o (sqrt)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fp32.o)
+                              objects\AppGlobalFunc.o (fpsub)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fpcos32.o)
+                              objects\LibMoving.o (cosf)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fpsin32.o)
+                              objects\LibMoving.o (sinf)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fpreduct32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fpcos32.o) (fpreduct)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(sincof32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fpcos32.o) (_sincof)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(s_lib_ver.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o) (math_errhandling)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(pow32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o) (__mchp_pow)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(log32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(pow32.o) (exlog)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(acos32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_acos32.o) (__mchp_acos)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(asncon32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(acos32.o) (_asncon)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fparc32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_atan2f.o) (__mchp_atan2f)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fpsqrt32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fparc32.o) (fpexsqrt)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(sqrt32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(acos32.o) (exsqrt)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(exp32.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(pow32.o) (exexp)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_disable_interrupts_lib.o)
+                              objects\os_core.o (INTDisableInterrupts)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_mv_int_lib.o)
+                              objects\bsp.o (INTEnableSystemMultiVectoredInt)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_restore_interrupts_lib.o)
+                              objects\os_core.o (INTRestoreInterrupts)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(puts_uartx_lib.o)
+                              objects\AppGlobalFunc.o (putsUART2)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_analog_in_lib.o)
+                              objects\bsp.o (PORTSetPinsAnalogIn)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_in_lib.o)
+                              objects\bsp.o (PORTSetPinsDigitalIn)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_out_lib.o)
+                              objects\bsp.o (PORTSetPinsDigitalOut)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_read_bits_lib.o)
+                              objects\bsp.o (PORTReadBits)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_clear_bits_lib.o)
+                              objects\bsp.o (PORTClearBits)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_bits_lib.o)
+                              objects\bsp.o (PORTSetBits)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_toggle_bits_lib.o)
+                              objects\bsp.o (PORTToggleBits)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(open_core_timer_lib.o)
+                              objects\bsp.o (OpenCoreTimer)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(update_core_timer_lib.o)
+                              objects\bsp.o (UpdateCoreTimer)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_interrupts_lib.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_mv_int_lib.o) (INTEnableInterrupts)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral_32MX440F512H.a(_ports_tbl_libp.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_analog_in_lib.o) (PortRegTbl)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(isinf.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o) (isinf)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4\libgcc.a(_udivdi3.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o) (__udivdi3)
+C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4\libgcc.a(_umoddi3.o)
+                              C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o) (__umoddi3)
+
+Allocating common symbols
+Common symbol       size              file
+
+OSTmrFreeList       0x4               objects\os_core.o
+QUADD_delta         0x2               objects\TaskOdo.o
+OSTmrWheelTbl       0x40              objects\os_core.o
+AppStrategyFlags    0x4               objects\App.o
+QUADG_delta         0x2               objects\TaskOdo.o
+OSLockNesting       0x1               objects\os_core.o
+OSTmrSemSignal      0x4               objects\os_core.o
+OSRunning           0x1               objects\os_core.o
+OSIdleCtr           0x4               objects\os_core.o
+OSTmrUsed           0x2               objects\os_core.o
+QUADG_data_old      0x2               objects\TaskOdo.o
+OSPrioHighRdy       0x1               objects\os_core.o
+OSFlagTbl           0x8c              objects\os_core.o
+OSTmrTbl            0x340             objects\os_core.o
+AppMsgStk           0x80              objects\App.o
+error_debug_5       0x4               objects\TaskAsser.o
+OSPrioCur           0x1               objects\os_core.o
+setpoint            0x14              objects\TaskAsser.o
+OSTCBList           0x4               objects\os_core.o
+OSMemTbl            0xb4              objects\os_core.o
+OSTickStepState     0x1               objects\os_core.o
+_debugInfo          0xc0              objects\TaskDebug.o
+TaskAsser_CurrentPos
+                    0x14              objects\TaskAsser.o
+OSCtxSwCtr          0x4               objects\os_core.o
+QUADD_data_old      0x2               objects\TaskOdo.o
+AppFlags            0x4               objects\App.o
+OSTmrFree           0x2               objects\os_core.o
+QUADG_data          0x2               objects\TaskOdo.o
+P_debug             0x4               objects\TaskAsser.o
+angle_pid_data      0x24              objects\TaskAsser.o
+OSTCBFreeList       0x4               objects\os_core.o
+wheel_left_pid_data
+                    0x24              objects\TaskAsser.o
+error_current_debug
+                    0x4               objects\TaskAsser.o
+OSTaskCtr           0x1               objects\os_core.o
+App_CmdToTaskAsser  0x1c              objects\App.o
+OSMemFreeList       0x4               objects\os_core.o
+OSQTbl              0x60              objects\os_core.o
+OSTCBHighRdy        0x4               objects\os_core.o
+TaskOdo_CurrentPos  0x14              objects\TaskOdo.o
+OSQFreeList         0x4               objects\os_core.o
+App_CmdToTaskMvtId  0x4               objects\App.o
+OSRdyGrp            0x1               objects\os_core.o
+D_debug             0x4               objects\TaskAsser.o
+error_debug_2       0x4               objects\TaskAsser.o
+OSRdyTbl            0x8               objects\os_core.o
+error_debug_1       0x4               objects\TaskAsser.o
+distance_quadramp_data
+                    0x1c              objects\TaskAsser.o
+AppQSensorsStk      0x20              objects\App.o
+wheel_right_pid_data
+                    0x24              objects\TaskAsser.o
+OSTmrTaskStk        0x200             objects\os_core.o
+QUADD_data          0x2               objects\TaskOdo.o
+OSEventFreeList     0x4               objects\os_core.o
+error_old_debug     0x4               objects\TaskAsser.o
+AppCurrentColor     0x4               objects\App.o
+App_CmdToTaskMvt    0x1c              objects\App.o
+OSIntNesting        0x1               objects\os_core.o
+error_debug_4       0x4               objects\TaskAsser.o
+OSTCBCur            0x4               objects\os_core.o
+I_debug             0x4               objects\TaskAsser.o
+AppQueueSensors     0x4               objects\App.o
+index_old_debug     0x4               objects\TaskAsser.o
+OSTmrTime           0x4               objects\os_core.o
+error_debug_3       0x4               objects\TaskAsser.o
+App_CmdToTaskAsserId
+                    0x4               objects\App.o
+OSTime              0x4               objects\os_core.o
+OSTmrSem            0x4               objects\os_core.o
+OSTaskIdleStk       0x200             objects\os_core.o
+OSEventTbl          0x168             objects\os_core.o
+OSTCBTbl            0x7e0             objects\os_core.o
+distance_pid_data   0x24              objects\TaskAsser.o
+OSFlagFreeList      0x4               objects\os_core.o
+OSTCBPrioTbl        0x100             objects\os_core.o
+
+Microchip PIC32 Memory-Usage Report
+
+kseg0 Program-Memory Usage
+section                    address  length [bytes]      (dec)  Description
+-------                 ----------  -------------------------  -----------
+.text                   0x9d000000        0x2066c      132716  Application's executable code 
+.rodata                 0x9d020670          0xcf0        3312  Read-only constant data 
+.eh_frame               0x9d021360           0x50          80  Stack unwind info 
+.data                   0x9d0213b0          0x45c        1116  Data-initialization template 
+.sdata                  0x9d02180c            0xc          12  Small data-initialization template 
+.gen_excpt              0x9d021818          0x1c4         452   
+.timer_handler          0x9d0219dc          0x1b0         432   
+.bsp_cnisr              0x9d021b8c          0x1a0         416   
+.bsp_adcisr             0x9d021d2c          0x1a0         416   
+      Total kseg0_program_mem used  :     0x21ec8      138952  26.5% of 0x80000
+
+kseg0 Boot-Memory Usage
+section                    address  length [bytes]      (dec)  Description
+-------                 ----------  -------------------------  -----------
+         Total kseg0_boot_mem used  :           0           0  <1% of 0x970
+
+Exception-Memory Usage 
+section                    address  length [bytes]      (dec)  Description
+-------                 ----------  -------------------------  -----------
+.app_excpt              0x9fc01180           0x10          16  General-Exception handler 
+.vector_0               0x9fc01200           0x10          16  Interrupt Vector 0 
+.vector_8               0x9fc01300            0x8           8  Interrupt Vector 8 
+.vector_24              0x9fc01500            0x8           8  Interrupt Vector 24 
+.vector_26              0x9fc01540           0x10          16  Interrupt Vector 26 
+.vector_27              0x9fc01560           0x10          16  Interrupt Vector 27 
+          Total exception_mem used  :        0x50          80  2.0% of 0x1000
+
+kseg1 Boot-Memory Usage
+section                    address  length [bytes]      (dec)  Description
+-------                 ----------  -------------------------  -----------
+.reset                  0xbfc00000          0x1d8         472  Reset handler 
+.bev_excpt              0xbfc00380           0x10          16  BEV-Exception handler 
+         Total kseg1_boot_mem used  :       0x1e8         488  41.8% of 0x490
+        --------------------------------------------------------------------------
+         Total Program Memory used  :     0x22100      139520  26.2% of 0x81e00
+        --------------------------------------------------------------------------
+
+
+kseg1 Data-Memory Usage
+section                    address  length [bytes]      (dec)  Description
+-------                 ----------  -------------------------  -----------
+.data                   0xa0000000          0x45c        1116  Initialized data 
+.sdata                  0xa000045c            0xc          12  Small initialized data 
+.sbss                   0xa0000468          0x108         264  Small uninitialized data 
+.bss                    0xa0000570         0x3c70       15472  Uninitialized data 
+.stack                  0xa00041e0          0x400        1024  Minimum space reserved for stack 
+         Total kseg1_data_mem used  :      0x45e0       17888  54.6% of 0x8000
+        --------------------------------------------------------------------------
+            Total Data Memory used  :      0x45e0       17888  54.6% of 0x8000
+        --------------------------------------------------------------------------
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+kseg0_program_mem 0x9d000000         0x00080000         xr
+kseg0_boot_mem   0x9fc00490         0x00000970
+exception_mem    0x9fc01000         0x00001000
+kseg1_boot_mem   0xbfc00000         0x00000490
+debug_exec_mem   0xbfc02000         0x00000ff0
+config3          0xbfc02ff0         0x00000004
+config2          0xbfc02ff4         0x00000004
+config1          0xbfc02ff8         0x00000004
+config0          0xbfc02ffc         0x00000004
+kseg1_data_mem   0xa0000000         0x00008000         w !x
+sfrs             0xbf800000         0x00100000
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD objects\cpu_a.o
+LOAD objects\lib_mem.o
+LOAD objects\lib_str.o
+LOAD objects\os_cpu_a.o
+LOAD objects\os_cpu_c.o
+LOAD objects\os_dbg.o
+LOAD objects\os_core.o
+LOAD objects\os_flag.o
+LOAD objects\os_mbox.o
+LOAD objects\os_mem.o
+LOAD objects\os_mutex.o
+LOAD objects\os_q.o
+LOAD objects\os_sem.o
+LOAD objects\os_task.o
+LOAD objects\os_time.o
+LOAD objects\os_tmr.o
+LOAD objects\App.o
+LOAD objects\AppGlobalFunc.o
+LOAD objects\AppHooks.o
+LOAD objects\LibMoving.o
+LOAD objects\TaskAsser.o
+LOAD objects\TaskMain.o
+LOAD objects\TaskMvt.o
+LOAD objects\TaskOdo.o
+LOAD objects\TaskSensors.o
+LOAD objects\ArmsControl.o
+LOAD objects\TaskTempo.o
+LOAD objects\Strategy.o
+LOAD objects\HomolColorA.o
+LOAD objects\HomolColorB.o
+LOAD objects\1602D.o
+LOAD objects\HoopsControl.o
+LOAD objects\TaskDebug.o
+LOAD objects\XBEEControl.o
+LOAD objects\bsp.o
+LOAD objects\bsp_a.o
+LOAD objects\bsp_fpga.o
+LOAD objects\crt0.o
+LOAD objects\DevCardA.o
+LOAD objects\DevCardB.o
+LOAD objects\TaskTest.o
+                0x00000001                __MPLAB_BUILD = 0x1
+LOAD C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4\libgcc.a
+START GROUP
+LOAD C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a
+LOAD C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a
+LOAD C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libe.a
+LOAD C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libdsp.a
+LOAD C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a
+LOAD C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral_32MX440F512H.a
+END GROUP
+LOAD C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4\libgcc.a
+                0x00000400                PROVIDE (_min_stack_size, 0x400)
+                0x00000000                PROVIDE (_min_heap_size, 0x0)
+LOAD C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib/./proc/32MX440F512H\processor.o
+                0x00000001                PROVIDE (_vector_spacing, 0x1)
+                0x9fc01000                _ebase_address = 0x9fc01000
+                0xbfc00000                _RESET_ADDR = 0xbfc00000
+                0xbfc00380                _BEV_EXCPT_ADDR = 0xbfc00380
+                0xbfc00480                _DBG_EXCPT_ADDR = 0xbfc00480
+                0xbfc02000                _DBG_CODE_ADDR = 0xbfc02000
+                0x9fc01180                _GEN_EXCPT_ADDR = (_ebase_address + 0x180)
+
+.config_BFC02FF0
+ *(.config_BFC02FF0)
+
+.config_BFC02FF4
+                0xbfc02ff4        0x4
+ *(.config_BFC02FF4)
+ .config_BFC02FF4
+                0xbfc02ff4        0x4 objects\App.o
+
+.config_BFC02FF8
+                0xbfc02ff8        0x4
+ *(.config_BFC02FF8)
+ .config_BFC02FF8
+                0xbfc02ff8        0x4 objects\App.o
+
+.config_BFC02FFC
+                0xbfc02ffc        0x4
+ *(.config_BFC02FFC)
+ .config_BFC02FFC
+                0xbfc02ffc        0x4 objects\App.o
+
+.reset          0xbfc00000      0x1d8
+ *(.reset)
+ .reset         0xbfc00000      0x1d8 objects\crt0.o
+                0xbfc00000                _reset
+
+.bev_excpt      0xbfc00380       0x10
+ *(.bev_handler)
+ .bev_handler   0xbfc00380       0x10 objects\crt0.o
+
+.dbg_excpt      0xbfc00480        0x0
+                0xbfc00480                . = (. + DEFINED (_DEBUGGER)?0x8:0x0)
+
+.dbg_code       0xbfc02000        0x0
+                0xbfc02000                . = (. + DEFINED (_DEBUGGER)?0xff0:0x0)
+
+.app_excpt      0x9fc01180       0x10
+ *(.gen_handler)
+ .gen_handler   0x9fc01180       0x10 objects\crt0.o
+
+.vector_0       0x9fc01200       0x10
+ *(.vector_0)
+ .vector_0      0x9fc01200       0x10 objects\crt0.o
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_0) <= (_vector_spacing << 0x5))), function at exception vector 0 too large)
+
+.vector_1       0x9fc01220        0x0
+ *(.vector_1)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_1) <= (_vector_spacing << 0x5))), function at exception vector 1 too large)
+
+.vector_2       0x9fc01240        0x0
+ *(.vector_2)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_2) <= (_vector_spacing << 0x5))), function at exception vector 2 too large)
+
+.vector_3       0x9fc01260        0x0
+ *(.vector_3)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_3) <= (_vector_spacing << 0x5))), function at exception vector 3 too large)
+
+.vector_4       0x9fc01280        0x0
+ *(.vector_4)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_4) <= (_vector_spacing << 0x5))), function at exception vector 4 too large)
+
+.vector_5       0x9fc012a0        0x0
+ *(.vector_5)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_5) <= (_vector_spacing << 0x5))), function at exception vector 5 too large)
+
+.vector_6       0x9fc012c0        0x0
+ *(.vector_6)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_6) <= (_vector_spacing << 0x5))), function at exception vector 6 too large)
+
+.vector_7       0x9fc012e0        0x0
+ *(.vector_7)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_7) <= (_vector_spacing << 0x5))), function at exception vector 7 too large)
+
+.vector_8       0x9fc01300        0x8
+ *(.vector_8)
+ .vector_8      0x9fc01300        0x8 objects\bsp.o
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_8) <= (_vector_spacing << 0x5))), function at exception vector 8 too large)
+
+.vector_9       0x9fc01320        0x0
+ *(.vector_9)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_9) <= (_vector_spacing << 0x5))), function at exception vector 9 too large)
+
+.vector_10      0x9fc01340        0x0
+ *(.vector_10)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_10) <= (_vector_spacing << 0x5))), function at exception vector 10 too large)
+
+.vector_11      0x9fc01360        0x0
+ *(.vector_11)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_11) <= (_vector_spacing << 0x5))), function at exception vector 11 too large)
+
+.vector_12      0x9fc01380        0x0
+ *(.vector_12)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_12) <= (_vector_spacing << 0x5))), function at exception vector 12 too large)
+
+.vector_13      0x9fc013a0        0x0
+ *(.vector_13)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_13) <= (_vector_spacing << 0x5))), function at exception vector 13 too large)
+
+.vector_14      0x9fc013c0        0x0
+ *(.vector_14)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_14) <= (_vector_spacing << 0x5))), function at exception vector 14 too large)
+
+.vector_15      0x9fc013e0        0x0
+ *(.vector_15)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_15) <= (_vector_spacing << 0x5))), function at exception vector 15 too large)
+
+.vector_16      0x9fc01400        0x0
+ *(.vector_16)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_16) <= (_vector_spacing << 0x5))), function at exception vector 16 too large)
+
+.vector_17      0x9fc01420        0x0
+ *(.vector_17)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_17) <= (_vector_spacing << 0x5))), function at exception vector 17 too large)
+
+.vector_18      0x9fc01440        0x0
+ *(.vector_18)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_18) <= (_vector_spacing << 0x5))), function at exception vector 18 too large)
+
+.vector_19      0x9fc01460        0x0
+ *(.vector_19)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_19) <= (_vector_spacing << 0x5))), function at exception vector 19 too large)
+
+.vector_20      0x9fc01480        0x0
+ *(.vector_20)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_20) <= (_vector_spacing << 0x5))), function at exception vector 20 too large)
+
+.vector_21      0x9fc014a0        0x0
+ *(.vector_21)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_21) <= (_vector_spacing << 0x5))), function at exception vector 21 too large)
+
+.vector_22      0x9fc014c0        0x0
+ *(.vector_22)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_22) <= (_vector_spacing << 0x5))), function at exception vector 22 too large)
+
+.vector_23      0x9fc014e0        0x0
+ *(.vector_23)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_23) <= (_vector_spacing << 0x5))), function at exception vector 23 too large)
+
+.vector_24      0x9fc01500        0x8
+ *(.vector_24)
+ .vector_24     0x9fc01500        0x8 objects\bsp.o
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_24) <= (_vector_spacing << 0x5))), function at exception vector 24 too large)
+
+.vector_25      0x9fc01520        0x0
+ *(.vector_25)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_25) <= (_vector_spacing << 0x5))), function at exception vector 25 too large)
+
+.vector_26      0x9fc01540       0x10
+ *(.vector_26)
+ .vector_26     0x9fc01540       0x10 objects\bsp_a.o
+                0x9fc01540                _bsp_cnint
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_26) <= (_vector_spacing << 0x5))), function at exception vector 26 too large)
+
+.vector_27      0x9fc01560       0x10
+ *(.vector_27)
+ .vector_27     0x9fc01560       0x10 objects\bsp_a.o
+                0x9fc01560                _bsp_adcint
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_27) <= (_vector_spacing << 0x5))), function at exception vector 27 too large)
+
+.vector_28      0x9fc01580        0x0
+ *(.vector_28)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_28) <= (_vector_spacing << 0x5))), function at exception vector 28 too large)
+
+.vector_29      0x9fc015a0        0x0
+ *(.vector_29)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_29) <= (_vector_spacing << 0x5))), function at exception vector 29 too large)
+
+.vector_30      0x9fc015c0        0x0
+ *(.vector_30)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_30) <= (_vector_spacing << 0x5))), function at exception vector 30 too large)
+
+.vector_31      0x9fc015e0        0x0
+ *(.vector_31)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_31) <= (_vector_spacing << 0x5))), function at exception vector 31 too large)
+
+.vector_32      0x9fc01600        0x0
+ *(.vector_32)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_32) <= (_vector_spacing << 0x5))), function at exception vector 32 too large)
+
+.vector_33      0x9fc01620        0x0
+ *(.vector_33)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_33) <= (_vector_spacing << 0x5))), function at exception vector 33 too large)
+
+.vector_34      0x9fc01640        0x0
+ *(.vector_34)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_34) <= (_vector_spacing << 0x5))), function at exception vector 34 too large)
+
+.vector_35      0x9fc01660        0x0
+ *(.vector_35)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_35) <= (_vector_spacing << 0x5))), function at exception vector 35 too large)
+
+.vector_36      0x9fc01680        0x0
+ *(.vector_36)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_36) <= (_vector_spacing << 0x5))), function at exception vector 36 too large)
+
+.vector_37      0x9fc016a0        0x0
+ *(.vector_37)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_37) <= (_vector_spacing << 0x5))), function at exception vector 37 too large)
+
+.vector_38      0x9fc016c0        0x0
+ *(.vector_38)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_38) <= (_vector_spacing << 0x5))), function at exception vector 38 too large)
+
+.vector_39      0x9fc016e0        0x0
+ *(.vector_39)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_39) <= (_vector_spacing << 0x5))), function at exception vector 39 too large)
+
+.vector_40      0x9fc01700        0x0
+ *(.vector_40)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_40) <= (_vector_spacing << 0x5))), function at exception vector 40 too large)
+
+.vector_41      0x9fc01720        0x0
+ *(.vector_41)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_41) <= (_vector_spacing << 0x5))), function at exception vector 41 too large)
+
+.vector_42      0x9fc01740        0x0
+ *(.vector_42)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_42) <= (_vector_spacing << 0x5))), function at exception vector 42 too large)
+
+.vector_43      0x9fc01760        0x0
+ *(.vector_43)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_43) <= (_vector_spacing << 0x5))), function at exception vector 43 too large)
+
+.vector_44      0x9fc01780        0x0
+ *(.vector_44)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_44) <= (_vector_spacing << 0x5))), function at exception vector 44 too large)
+
+.vector_45      0x9fc017a0        0x0
+ *(.vector_45)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_45) <= (_vector_spacing << 0x5))), function at exception vector 45 too large)
+
+.vector_46      0x9fc017c0        0x0
+ *(.vector_46)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_46) <= (_vector_spacing << 0x5))), function at exception vector 46 too large)
+
+.vector_47      0x9fc017e0        0x0
+ *(.vector_47)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_47) <= (_vector_spacing << 0x5))), function at exception vector 47 too large)
+
+.vector_48      0x9fc01800        0x0
+ *(.vector_48)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_48) <= (_vector_spacing << 0x5))), function at exception vector 48 too large)
+
+.vector_49      0x9fc01820        0x0
+ *(.vector_49)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_49) <= (_vector_spacing << 0x5))), function at exception vector 49 too large)
+
+.vector_50      0x9fc01840        0x0
+ *(.vector_50)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_50) <= (_vector_spacing << 0x5))), function at exception vector 50 too large)
+
+.vector_51      0x9fc01860        0x0
+ *(.vector_51)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_51) <= (_vector_spacing << 0x5))), function at exception vector 51 too large)
+
+.vector_52      0x9fc01880        0x0
+ *(.vector_52)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_52) <= (_vector_spacing << 0x5))), function at exception vector 52 too large)
+
+.vector_53      0x9fc018a0        0x0
+ *(.vector_53)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_53) <= (_vector_spacing << 0x5))), function at exception vector 53 too large)
+
+.vector_54      0x9fc018c0        0x0
+ *(.vector_54)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_54) <= (_vector_spacing << 0x5))), function at exception vector 54 too large)
+
+.vector_55      0x9fc018e0        0x0
+ *(.vector_55)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_55) <= (_vector_spacing << 0x5))), function at exception vector 55 too large)
+
+.vector_56      0x9fc01900        0x0
+ *(.vector_56)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_56) <= (_vector_spacing << 0x5))), function at exception vector 56 too large)
+
+.vector_57      0x9fc01920        0x0
+ *(.vector_57)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_57) <= (_vector_spacing << 0x5))), function at exception vector 57 too large)
+
+.vector_58      0x9fc01940        0x0
+ *(.vector_58)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_58) <= (_vector_spacing << 0x5))), function at exception vector 58 too large)
+
+.vector_59      0x9fc01960        0x0
+ *(.vector_59)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_59) <= (_vector_spacing << 0x5))), function at exception vector 59 too large)
+
+.vector_60      0x9fc01980        0x0
+ *(.vector_60)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_60) <= (_vector_spacing << 0x5))), function at exception vector 60 too large)
+
+.vector_61      0x9fc019a0        0x0
+ *(.vector_61)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_61) <= (_vector_spacing << 0x5))), function at exception vector 61 too large)
+
+.vector_62      0x9fc019c0        0x0
+ *(.vector_62)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_62) <= (_vector_spacing << 0x5))), function at exception vector 62 too large)
+
+.vector_63      0x9fc019e0        0x0
+ *(.vector_63)
+                0x00000001                ASSERT (((_vector_spacing == 0x0) || (SIZEOF (.vector_63) <= (_vector_spacing << 0x5))), function at exception vector 63 too large)
+
+.startup
+ *(.startup)
+
+.text           0x9d000000    0x2066c
+                0x9d000000                _text_begin = .
+ *(.text .stub .text.* .gnu.linkonce.t.*)
+ .text          0x9d000000       0x18 objects\cpu_a.o
+                0x9d00000c                CPU_SR_Restore
+                0x9d000000                CPU_SR_Save
+ .text          0x9d000018      0x668 objects\lib_mem.o
+                0x9d000404                Mem_Cmp
+                0x9d000018                Mem_Clr
+                0x9d00005c                Mem_Set
+                0x9d000210                Mem_Copy
+ .text          0x9d000680     0x10a4 objects\lib_str.o
+                0x9d000ba8                Str_Cmp
+                0x9d0006e8                Str_Copy
+                0x9d00127c                Str_Str
+                0x9d000d84                Str_Cmp_N
+                0x9d000a34                Str_Cat_N
+                0x9d000680                Str_Len
+                0x9d0007d4                Str_Copy_N
+                0x9d001090                Str_Char_N
+                0x9d000fbc                Str_Char
+                0x9d000900                Str_Cat
+                0x9d0013f0                Str_FmtNbr_32
+                0x9d0011a4                Str_Char_Last
+ .text          0x9d001724      0x1b4 objects\os_cpu_a.o
+                0x9d001724                OSStartHighRdy
+                0x9d0017f4                OSIntCtxSw
+ .text          0x9d0018d8      0x5cc objects\os_cpu_c.o
+                0x9d00191c                OSTaskCreateHook
+                0x9d0019bc                OSTaskStatHook
+                0x9d0018d8                OSInitHookBegin
+                0x9d001954                OSTaskDelHook
+                0x9d001e4c                OSTimeTickHook
+                0x9d001e14                OSTCBInitHook
+                0x9d0019ec                OSTaskStkInit
+                0x9d0018fc                OSInitHookEnd
+                0x9d001de4                OSTaskSwHook
+                0x9d00198c                OSTaskIdleHook
+ .text          0x9d001ea4      0x23c objects\os_dbg.o
+                0x9d001ea4                OSDebugInit
+ .text          0x9d0020e0     0x2114 objects\os_core.o
+                0x9d002358                OSEventPendMulti
+                0x9d002ab8                OSIntEnter
+                0x9d003ec4                OS_TCBInit
+                0x9d00353c                OS_EventTaskRemove
+                0x9d0020e0                OSEventNameGet
+                0x9d002b04                OSIntExit
+                0x9d003ab8                OS_MemCopy
+                0x9d003b30                OS_Sched
+                0x9d0035d8                OS_EventTaskRemoveMulti
+                0x9d003408                OS_EventTaskWaitMulti
+                0x9d003a58                OS_MemClr
+                0x9d003194                OS_EventTaskRdy
+                0x9d002cd8                OSSchedUnlock
+                0x9d003174                OS_Dummy
+                0x9d0021f8                OSEventNameSet
+                0x9d00331c                OS_EventTaskWait
+                0x9d003de8                OS_TaskStatStkChk
+                0x9d002e3c                OSStart
+                0x9d002eac                OSTimeTick
+                0x9d002c20                OSSchedLock
+                0x9d003c80                OS_StrCopy
+                0x9d002a30                OSInit
+                0x9d003d04                OS_StrLen
+                0x9d003150                OSVersion
+                0x9d0036c4                OS_EventWaitListInit
+                0x9d003d60                OS_TaskIdle
+ .text          0x9d0041f4     0x1c10 objects\os_flag.o
+                0x9d00546c                OSFlagPendGetFlagsRdy
+                0x9d0041f4                OSFlagAccept
+                0x9d005d50                OS_FlagUnlink
+                0x9d005b78                OS_FlagInit
+                0x9d005950                OSFlagQuery
+                0x9d0054fc                OSFlagPost
+                0x9d0045d0                OSFlagCreate
+                0x9d004724                OSFlagDel
+                0x9d004ccc                OSFlagPend
+                0x9d004b4c                OSFlagNameSet
+                0x9d004a14                OSFlagNameGet
+ .text          0x9d005e04      0x7b4 objects\os_mem.o
+                0x9d0064d8                OS_MemInit
+                0x9d0060bc                OSMemNameGet
+                0x9d005f9c                OSMemGet
+                0x9d0062c8                OSMemPut
+                0x9d005e04                OSMemCreate
+                0x9d0063e0                OSMemQuery
+                0x9d00619c                OSMemNameSet
+ .text          0x9d0065b8     0x12f4 objects\os_mutex.o
+                0x9d0065b8                OSMutexAccept
+                0x9d006d40                OSMutexPend
+                0x9d0069b0                OSMutexDel
+                0x9d0067a4                OSMutexCreate
+                0x9d0075b4                OSMutexQuery
+                0x9d007308                OSMutexPost
+ .text          0x9d0078ac     0x14a4 objects\os_q.o
+                0x9d007f50                OSQFlush
+                0x9d0078ac                OSQAccept
+                0x9d0084b8                OSQPost
+                0x9d00800c                OSQPend
+                0x9d008694                OSQPostFront
+                0x9d007a00                OSQCreate
+                0x9d008874                OSQPostOpt
+                0x9d007c2c                OSQDel
+                0x9d008310                OSQPendAbort
+                0x9d008c9c                OS_QInit
+                0x9d008b0c                OSQQuery
+ .text          0x9d008d50      0xcc4 objects\os_sem.o
+                0x9d009228                OSSemPend
+                0x9d008d50                OSSemAccept
+                0x9d0094a0                OSSemPendAbort
+                0x9d009648                OSSemPost
+                0x9d008e2c                OSSemCreate
+                0x9d0097c4                OSSemQuery
+                0x9d009900                OSSemSet
+                0x9d008f44                OSSemDel
+ .text          0x9d009a14     0x1c34 objects\os_task.o
+                0x9d00a158                OSTaskCreateExt
+                0x9d009f18                OSTaskCreate
+                0x9d009a14                OSTaskChangePrio
+                0x9d00a3d0                OSTaskDel
+                0x9d00ab5c                OSTaskNameSet
+                0x9d00a7b0                OSTaskDelReq
+                0x9d00ad60                OSTaskResume
+                0x9d00a99c                OSTaskNameGet
+                0x9d00aff0                OSTaskStkChk
+                0x9d00b450                OSTaskQuery
+                0x9d00b5c4                OS_TaskStkClr
+                0x9d00b224                OSTaskSuspend
+ .text          0x9d00b648      0x604 objects\os_time.o
+                0x9d00bbc0                OSTimeSet
+                0x9d00b648                OSTimeDly
+                0x9d00b770                OSTimeDlyHMSM
+                0x9d00b8a0                OSTimeDlyResume
+                0x9d00bb34                OSTimeGet
+ .text          0x9d00bc4c     0x1270 objects\os_tmr.o
+                0x9d00c764                OSTmrSignal
+                0x9d00bdd4                OSTmrDel
+                0x9d00c08c                OSTmrRemainGet
+                0x9d00c298                OSTmrStateGet
+                0x9d00c8bc                OSTmr_Init
+                0x9d00c370                OSTmrStart
+                0x9d00c4f8                OSTmrStop
+                0x9d00bc4c                OSTmrCreate
+                0x9d00bf54                OSTmrNameGet
+ .text          0x9d00cebc      0x6c8 objects\App.o
+                0x9d00d2a8                AppCreateIPCS
+                0x9d00d49c                AppInitVar
+                0x9d00cebc                main
+                0x9d00cf64                AppTaskStart
+ .text          0x9d00d584      0x520 objects\AppGlobalFunc.o
+                0x9d00d768                AppConvertRadInDeg
+                0x9d00d7f4                AppConvertDegInRad
+                0x9d00d88c                AppCheckAngleInRad
+                0x9d00d5ec                AppPostQueueMsg
+                0x9d00da6c                AppGetCurrentPos
+                0x9d00d9b4                AppCheckAngleInDeg
+                0x9d00d584                AppDebugMsg
+ .text          0x9d00daa4       0xec objects\AppHooks.o
+                0x9d00db2c                App_TaskSwHook
+                0x9d00db70                App_TimeTickHook
+                0x9d00dac8                App_TaskDelHook
+                0x9d00daa4                App_TaskCreateHook
+                0x9d00db0c                App_TaskStatHook
+                0x9d00daec                App_TaskIdleHook
+                0x9d00db4c                App_TCBInitHook
+ .text          0x9d00db90     0x1530 objects\LibMoving.o
+                0x9d00eda0                LibMoving_IsSetpointReached
+                0x9d00ded8                LibMoving_ComputeNewPath
+                0x9d00dcc4                LibMoving_RotateInDeg
+                0x9d00dddc                LibMoving_RotateToAngleInDeg
+                0x9d00db90                LibMoving_MoveInMM
+                0x9d00e230                LibMoving_CreateEscapeSeq
+ .text          0x9d00f0c0     0x2338 objects\TaskAsser.o
+                0x9d00f0c0                right_motor_control
+                0x9d00ffc0                scalar_product_between_robot_and_direction
+                0x9d00fea8                distance_between_two_points
+                0x9d00f14c                left_motor_control
+                0x9d00f7fc                PID_Computation
+                0x9d00fd00                angle_between_two_points
+                0x9d00fa7c                init_control_motion
+                0x9d010694                mode_3_control_motion
+                0x9d00f1d8                motor_command_clipping
+                0x9d00f5f4                PID_Initialization
+                0x9d010250                distance_by_vector_projection_angle_between_robot_and_direction
+                0x9d00fb34                error_rescale
+                0x9d010424                mode_1_control_motion
+                0x9d010538                mode_2_control_motion
+                0x9d00f2fc                QUADRAMP_Compute
+                0x9d0108f8                mode_4_control_motion
+                0x9d010ad8                TaskAsser_Main
+                0x9d010108                vector_product_between_robot_and_direction
+                0x9d00f27c                QUADRAMP_Initialization
+ .text          0x9d0113f8      0x708 objects\TaskMain.o
+                0x9d0113f8                TaskMain_SendSetpointToTaskMvt
+                0x9d011474                TaskMain_Main
+ .text          0x9d011b00     0x1174 objects\TaskMvt.o
+                0x9d011b00                TaskMvt_SendSetpointToTaskAsser
+                0x9d011ca0                TaskMvt_Main
+ .text          0x9d012c74      0xa4c objects\TaskOdo.o
+                0x9d012e74                position_manager_process
+                0x9d012cd8                encoders_calibration_measure
+                0x9d012c74                init_position_manager
+                0x9d013288                position_manager_timer_handler
+                0x9d013444                TaskOdo_GetCurrentPos
+                0x9d0134dc                TaskOdo_SetCurrentPos
+                0x9d0132c4                movement_detection
+                0x9d013574                TaskOdo_Main
+ .text          0x9d0136c0      0xa80 objects\TaskSensors.o
+                0x9d013a58                TaskSensors_ArmsInit
+                0x9d013b60                TaskSensors_ArmsClose
+                0x9d013c30                TaskSensors_ArmsUngrab
+                0x9d013bfc                TaskSensors_ArmsCloseTotem
+                0x9d013b2c                TaskSensors_ArmsOpenUp
+                0x9d013bc8                TaskSensors_ArmsOpenTotem
+                0x9d01375c                TaskSensors_CheckBumpers
+                0x9d013c84                TaskSensors_Main
+                0x9d013710                TaskSensors_ReadColor
+                0x9d0136c0                TaskSensors_IsStartButtonPressed
+                0x9d0139fc                TaskSensors_ArmsSetStatus
+                0x9d013aa8                TaskSensors_ArmsDeployment
+                0x9d013780                TaskSensors_GenerateStrategyFlags
+                0x9d013b94                TaskSensors_ArmsOpenOneCD
+                0x9d013c64                TaskSensors_ElevatorDown
+                0x9d013af8                TaskSensors_ArmsOpenDown
+ .text          0x9d014140      0x1a8 objects\ArmsControl.o
+                0x9d014140                ARMS_InitReg
+                0x9d014288                ARM_Right_Open
+                0x9d014180                ARMS_Open
+                0x9d0142a8                ARM_Right_Close
+                0x9d014268                ARM_Left_Push
+                0x9d0141f0                ARMS_Push
+                0x9d014248                ARM_Left_Close
+                0x9d0141b8                ARMS_Close
+                0x9d0142c8                ARM_Right_Push
+                0x9d014228                ARM_Left_Open
+                0x9d014160                ARMS_SetSpeed
+ .text          0x9d0142e8      0x124 objects\TaskTempo.o
+                0x9d0142e8                TaskTempo_Main
+ .text          0x9d01440c      0x174 objects\Strategy.o
+                0x9d01440c                Strategy_GetInitCmd
+                0x9d0144d0                Strategy_GetNextAction
+ .text          0x9d014580      0x884 objects\1602D.o
+                0x9d01483c                InitByInstru
+                0x9d014580                DelayMs
+                0x9d0145e8                Delay300Ns
+                0x9d014b40                ReadData
+                0x9d0149d4                WriteData
+                0x9d014778                WriteAdress
+                0x9d01491c                WriteCommand
+                0x9d014c68                ReadStr
+                0x9d014648                LightLCD
+                0x9d014bec                WriteStr
+                0x9d0146e0                InitLCDPins
+                0x9d014ce4                LCD_check_busy
+                0x9d014d30                Set_Line_Information
+                0x9d014a90                ReadCommand
+ .text          0x9d014e04      0x30c objects\HoopsControl.o
+                0x9d015044                HOOP_Front_Down
+                0x9d014e04                HOOPS_InitReg
+                0x9d014f3c                HOOPS_SetSpeed
+                0x9d014fc4                HOOPS_Down
+                0x9d014ffc                HOOP_Front_Up
+                0x9d014f94                HOOPS_Up
+                0x9d01508c                HOOP_Back_Up
+                0x9d0150c8                HOOP_Back_Down
+ .text          0x9d015110      0xb24 objects\TaskDebug.o
+                0x9d0151ec                TaskDebug_RegisterNewData
+                0x9d015110                TaskDebug_Init
+                0x9d0153e4                TaskDebug_UnregisterData
+                0x9d01552c                TaskDebug_UpdateValueInt
+                0x9d0158f8                TaskDebug_Main
+                0x9d0156d4                TaskDebug_UpdateValueAngle
+                0x9d015614                TaskDebug_UpdateValueFloat
+                0x9d0157f4                TaskDebug_UpdateValueBool
+ .text          0x9d015c34       0x8c objects\XBEEControl.o
+                0x9d015ca0                XBEE_SendPosition
+                0x9d015c54                XBEE_Rx_handler
+                0x9d015c34                XBEE_Init
+ .text          0x9d015cc0     0x1264 objects\bsp.o
+                0x9d0165ac                Tmr_Init
+                0x9d015cc0                GP2_Init
+                0x9d016894                LS2_UART_Init
+                0x9d016028                PWM_Init
+                0x9d016188                PMP_Init
+                0x9d016a68                ADC_IntInit
+                0x9d016d28                BSP_CNHandler
+                0x9d016d08                PB_IntInit
+                0x9d015d00                CLIC_Init
+                0x9d016e28                BSP_IntDisAll
+                0x9d01651c                LED_Init
+                0x9d015e50                START_Init
+                0x9d015f90                PWM_M0_SetDC
+                0x9d016a88                ADC_GetVal
+                0x9d015d58                CLIC_state
+                0x9d016c68                ADC_TmrInit
+                0x9d016434                LED_Toggle
+                0x9d016068                TMR2_Handler
+                0x9d016ce8                PB_Config
+                0x9d0161a8                PMP_Write
+                0x9d015e70                START_State
+                0x9d016cb0                PB_Init
+                0x9d015ea4                COLOR_Init
+                0x9d016d60                BSP_Dly
+                0x9d0169c8                ADC_Config
+                0x9d016200                IO_M0_SetDirection
+                0x9d015ce0                GP2_Read
+                0x9d016ee4                LCD_Init
+                0x9d0168e8                BSP_ADCHandler
+                0x9d0167cc                LS1_UART_Init
+                0x9d016e58                BSP_InitIntCtrl
+                0x9d016698                UART_Handler
+                0x9d016678                BSP_Except_Handler
+                0x9d01634c                LED_Off
+                0x9d016550                BSP_IO_Init
+                0x9d016228                IO_M1_SetDirection
+                0x9d016914                ADC_Init
+                0x9d0161d8                PMP_Read
+                0x9d016e94                BSP_InitIO
+                0x9d016634                BSP_TickISR_Handler
+                0x9d015ec4                COLOR_Read
+                0x9d016250                LED_On
+                0x9d015ef8                PWM_M1_SetDC
+                0x9d016048                TMR2_Init
+ .text          0x9d016f24      0xc3c objects\bsp_fpga.o
+                0x9d017b08                BSPFPGA_Reset
+                0x9d017acc                BEACON_Read
+                0x9d01784c                QUADD_Read
+                0x9d016f60                AX12_UART_Busy
+                0x9d016fc0                AX12_UART_Write
+                0x9d017310                AX12_Dual_Write_Torque_On_Sync
+                0x9d017448                AX12_Write_Torque_On_Sync
+                0x9d0177d0                QUAD_Latch
+                0x9d016f24                AX12_UART_Read_Status
+                0x9d0171d4                AX12_Write_Position_Sync
+                0x9d017034                AX12_Dual_Write_Position_Sync
+                0x9d017a3c                FPGA_LED2_Action
+                0x9d0179ac                FPGA_LED1_Action
+                0x9d0178a4                QUADG_Read
+                0x9d017808                QUAD_Wait_for_Latch
+                0x9d017680                AX12_Write_Reg_2_Datas_Sync
+                0x9d017550                AX12_Write_Reg_Sync
+                0x9d0178fc                GPIO_Action
+ .text          0x9d017b60      0x570 objects\DevCardA.o
+                0x9d017b60                StrategyColorA_GetInitCmd
+                0x9d017c14                StrategyColorA_GetNextAction
+ .text          0x9d0180d0       0x70 objects\DevCardB.o
+                0x9d0180d0                StrategyColorB_GetInitCmd
+                0x9d018108                StrategyColorB_GetNextAction
+ .text          0x9d018140      0x12c objects\TaskTest.o
+                0x9d018140                TaskTest_Main
+ .text          0x9d01826c      0x168 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(memcpy.o)
+                0x9d01826c                memcpy
+ .text          0x9d0183d4       0xa8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(memset.o)
+                0x9d0183d4                memset
+ .text          0x9d01847c      0x1a0 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strcpy.o)
+                0x9d01847c                strcpy
+ .text.strncpy  0x9d01861c       0xd0 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strncpy.o)
+                0x9d01861c                strncpy
+ .text.__vsnprintf
+                0x9d0186ec       0x60 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o)
+                0x9d0186ec                __vsnprintf
+ .text.vsprintf
+                0x9d01874c       0x2c C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o)
+                0x9d01874c                vsprintf
+ .text.sprintf  0x9d018778       0x34 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o)
+                0x9d018778                sprintf
+ .text._bootstrap_exception_handler
+                0x9d0187ac        0x8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-bootstrap-exception-handler.o)
+                0x9d0187ac                _bootstrap_exception_handler
+ .text._on_reset
+                0x9d0187b4        0x8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-reset.o)
+                0x9d0187b4                _on_reset
+ .text._on_bootstrap
+                0x9d0187bc        0x8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-bootstrap.o)
+                0x9d0187bc                _on_bootstrap
+ .text          0x9d0187c4       0x18 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-nmi-handler.o)
+                0x9d0187c4                _nmi_handler
+ .text.__sputn  0x9d0187dc       0x6c C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+ .text.repl     0x9d018848       0x74 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+ .text._outcnvrt
+                0x9d0188bc       0xe4 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+ .text.rounded  0x9d0189a0      0x134 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+ .text.vfprintf
+                0x9d018ad4     0x1554 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+                0x9d018ad4                vfprintf
+ .text.vprintf  0x9d01a028       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+                0x9d01a028                vprintf
+ .text._filbuf_simple
+                0x9d01a058       0x48 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+                0x9d01a058                _filbuf_simple
+ .text._fflush_simple
+                0x9d01a0a0       0x6c C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+                0x9d01a0a0                _fflush_simple
+ .text._flsbuf_simple
+                0x9d01a10c       0xdc C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+                0x9d01a10c                _flsbuf_simple
+ .text._fwrite_simple
+                0x9d01a1e8       0x84 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+                0x9d01a1e8                _fwrite_simple
+ .text._fsync_simple
+                0x9d01a26c       0x34 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+                0x9d01a26c                _fsync_simple
+ .text._filbuf_string
+                0x9d01a2a0        0x8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+ .text._flsbuf_string
+                0x9d01a2a8        0x8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+ .text._fflush_string
+                0x9d01a2b0        0x8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+ .text._fwrite_string
+                0x9d01a2b8        0x8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+ .text._fsync_string
+                0x9d01a2c0        0x8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+ .text.fputc    0x9d01a2c8       0xac C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(fputc.o)
+                0x9d01a2c8                fputc
+ .text.putc     0x9d01a374       0x1c C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(fputc.o)
+                0x9d01a374                putc
+ .text.putchar  0x9d01a390       0x24 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(fputc.o)
+                0x9d01a390                putchar
+ .text._mon_getc
+                0x9d01a3b4        0x8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_getc.o)
+                0x9d01a3b4                _mon_getc
+ .text._mon_write
+                0x9d01a3bc       0x4c C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_write.o)
+                0x9d01a3bc                _mon_write
+ .text          0x9d01a408      0x168 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strlen.o)
+                0x9d01a408                strlen
+ .text._mon_putc
+                0x9d01a570       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_putc.o)
+                0x9d01a570                _mon_putc
+ .text          0x9d01a598      0x5c8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(mod32.o)
+                0x9d01a8dc                __mchp_ldexp
+                0x9d01a598                dpfmod
+                0x9d01aa44                modf
+                0x9d01a598                fmod
+                0x9d01a8dc                dpldexp
+                0x9d01aa44                dpmodf
+                0x9d01a838                dpfrexp
+                0x9d01a838                frexp
+ .text.pow      0x9d01ab60      0x17c C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o)
+                0x9d01ab60                pow
+ .text.acos     0x9d01acdc       0xac C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_acos32.o)
+                0x9d01acdc                acos
+ .text          0x9d01ad88      0x1a0 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(cos32.o)
+                0x9d01ad88                cos
+                0x9d01ad88                dpcos
+ .text          0x9d01af28      0x198 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(sin32.o)
+                0x9d01af28                dpsin
+                0x9d01af28                sin
+ .text          0x9d01b0c0      0x1b4 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(reduct32.o)
+                0x9d01b0c0                reduct
+ .text.atan2f   0x9d01b274       0xb4 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_atan2f.o)
+                0x9d01b274                atan2f
+ .text          0x9d01b328      0x5d4 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(func32.o)
+                0x9d01b4fc                exadd
+                0x9d01b430                exmul
+                0x9d01b328                sigmax
+                0x9d01b698                exdiv
+                0x9d01b5e8                exsub
+ .text          0x9d01b8fc     0x1128 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(dp32.o)
+                0x9d01c9ac                fabs
+                0x9d01c870                __eqdf2
+                0x9d01c870                __gtdf2
+                0x9d01b8fc                dpsub
+                0x9d01c504                __floatsidf
+                0x9d01c870                __ltdf2
+                0x9d01c578                ultodp
+                0x9d01bd28                dpmul
+                0x9d01c66c                dptofp
+                0x9d01c7ec                __fixunsdfsi
+                0x9d01c870                dpcmp
+                0x9d01c5c8                __extendsfdf2
+                0x9d01b904                __adddf3
+                0x9d01c7ec                dptoul
+                0x9d01c050                dpdiv
+                0x9d01c504                litodp
+                0x9d01c764                __fixdfsi
+                0x9d01c870                __ledf2
+                0x9d01c5c8                fptodp
+                0x9d01c994                __negdf2
+                0x9d01b904                dpadd
+                0x9d01c050                __divdf3
+                0x9d01bd28                __muldf3
+                0x9d01c66c                __truncdfsf2
+                0x9d01c870                __nedf2
+                0x9d01c764                dptoli
+                0x9d01c9c8                nan
+                0x9d01c9ac                dpfabs
+                0x9d01c870                __gedf2
+                0x9d01c9c8                dpnan
+                0x9d01b8fc                __subdf3
+ .text.sqrt     0x9d01ca24       0x80 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_sqrt.o)
+                0x9d01ca24                sqrt
+ .text          0x9d01caa4      0x8ec C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fp32.o)
+                0x9d01ced0                __divsf3
+                0x9d01d0fc                sitofp
+                0x9d01d1a4                __fixsfsi
+                0x9d01ced0                fpdiv
+                0x9d01caa4                __subsf3
+                0x9d01d1a4                fptoli
+                0x9d01d290                __lesf2
+                0x9d01d324                fabsf
+                0x9d01d290                __nesf2
+                0x9d01d158                uitofp
+                0x9d01d290                __gtsf2
+                0x9d01d21c                fptoui
+                0x9d01d324                fpfabs
+                0x9d01d0fc                __floatsisf
+                0x9d01d1a4                fptosi
+                0x9d01d344                fpnan
+                0x9d01d290                __eqsf2
+                0x9d01caac                fpadd
+                0x9d01d334                __negsf2
+                0x9d01d290                __ltsf2
+                0x9d01caa4                fpsub
+                0x9d01d290                fpcmp
+                0x9d01cd18                __mulsf3
+                0x9d01d290                __gesf2
+                0x9d01d344                nanf
+                0x9d01d0fc                litofp
+                0x9d01cd18                fpmul
+                0x9d01d21c                __fixunssfsi
+                0x9d01caac                __addsf3
+                0x9d01d21c                fptoul
+                0x9d01d158                ultofp
+ .text          0x9d01d390      0x114 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fpcos32.o)
+                0x9d01d390                fpcos
+                0x9d01d390                cosf
+ .text          0x9d01d4a4      0x118 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fpsin32.o)
+                0x9d01d4a4                fpsin
+                0x9d01d4a4                sinf
+ .text          0x9d01d5bc      0x108 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fpreduct32.o)
+                0x9d01d5bc                fpreduct
+ .text          0x9d01d6c4      0x520 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(pow32.o)
+                0x9d01d6c4                __mchp_pow
+                0x9d01d6c4                dppow
+ .text          0x9d01dbe4      0x5d8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(log32.o)
+                0x9d01decc                dplog
+                0x9d01e028                dplog10
+                0x9d01e028                __mchp_log10
+                0x9d01decc                __mchp_log
+                0x9d01dbe4                exlog
+ .text          0x9d01e1bc      0x35c C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(acos32.o)
+                0x9d01e1bc                dpacos
+                0x9d01e1bc                __mchp_acos
+ .text          0x9d01e518      0xa08 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fparc32.o)
+                0x9d01ed1c                fpacos
+                0x9d01eb44                __mchp_asinf
+                0x9d01e864                fpatan
+                0x9d01e518                fpexatan
+                0x9d01ed1c                __mchp_acosf
+                0x9d01e864                atanf
+                0x9d01e900                fpatan2
+                0x9d01eb44                fpasin
+                0x9d01e900                __mchp_atan2f
+ .text          0x9d01ef20      0x2a0 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fpsqrt32.o)
+                0x9d01f018                __mchp_sqrtf
+                0x9d01ef20                fpexsqrt
+                0x9d01f018                fpsqrt
+ .text          0x9d01f1c0      0x5bc C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(sqrt32.o)
+                0x9d01f458                __mchp_sqrt
+                0x9d01f1c0                exsqrt
+                0x9d01f458                dpsqrt
+ .text          0x9d01f77c      0x340 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(exp32.o)
+                0x9d01f77c                exexp
+                0x9d01f960                dpexp
+                0x9d01f960                __mchp_exp
+ .text.INTDisableInterrupts
+                0x9d01fabc        0x8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_disable_interrupts_lib.o)
+                0x9d01fabc                INTDisableInterrupts
+ .text.INTEnableSystemMultiVectoredInt
+                0x9d01fac4       0x34 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_mv_int_lib.o)
+                0x9d01fac4                INTEnableSystemMultiVectoredInt
+ .text.INTRestoreInterrupts
+                0x9d01faf8       0x1c C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_restore_interrupts_lib.o)
+                0x9d01faf8                INTRestoreInterrupts
+ .text.putsUART1
+                0x9d01fb14       0x50 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(puts_uartx_lib.o)
+                0x9d01fb14                putsUART1
+ .text.putsUART2
+                0x9d01fb64       0x50 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(puts_uartx_lib.o)
+                0x9d01fb64                putsUART2
+ .text.PORTSetPinsAnalogIn
+                0x9d01fbb4       0x34 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_analog_in_lib.o)
+                0x9d01fbb4                PORTSetPinsAnalogIn
+ .text.PORTSetPinsDigitalIn
+                0x9d01fbe8       0x3c C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_in_lib.o)
+                0x9d01fbe8                PORTSetPinsDigitalIn
+ .text.PORTSetPinsDigitalOut
+                0x9d01fc24       0x3c C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_out_lib.o)
+                0x9d01fc24                PORTSetPinsDigitalOut
+ .text.PORTReadBits
+                0x9d01fc60       0x24 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_read_bits_lib.o)
+                0x9d01fc60                PORTReadBits
+ .text.PORTClearBits
+                0x9d01fc84       0x24 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_clear_bits_lib.o)
+                0x9d01fc84                PORTClearBits
+ .text.PORTSetBits
+                0x9d01fca8       0x24 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_bits_lib.o)
+                0x9d01fca8                PORTSetBits
+ .text.PORTToggleBits
+                0x9d01fccc       0x24 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_toggle_bits_lib.o)
+                0x9d01fccc                PORTToggleBits
+ .text.OpenCoreTimer
+                0x9d01fcf0        0xc C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(open_core_timer_lib.o)
+                0x9d01fcf0                OpenCoreTimer
+ .text.UpdateCoreTimer
+                0x9d01fcfc       0x10 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(update_core_timer_lib.o)
+                0x9d01fcfc                UpdateCoreTimer
+ .text.INTEnableInterrupts
+                0x9d01fd0c        0x8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_interrupts_lib.o)
+                0x9d01fd0c                INTEnableInterrupts
+ .text.isnan    0x9d01fd14       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(isinf.o)
+                0x9d01fd14                isnan
+ .text.isinf    0x9d01fd3c       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(isinf.o)
+                0x9d01fd3c                isinf
+ .text          0x9d01fd64      0x47c C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4\libgcc.a(_udivdi3.o)
+                0x9d01fd64                __udivdi3
+ .text          0x9d0201e0      0x48c C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4\libgcc.a(_umoddi3.o)
+                0x9d0201e0                __umoddi3
+ *(.text.*personality*)
+ *(.gnu.warning)
+ *(.mips16.fn.*)
+ *(.mips16.call.*)
+                0x9d02066c                _text_end = .
+
+.rodata         0x9d020670      0xcf0
+ *(.rodata .rodata.* .gnu.linkonce.r.*)
+ .rodata        0x9d020670        0x8 objects\lib_str.o
+ .rodata        0x9d020678       0x70 objects\os_dbg.o
+                0x9d0206c0                OSTaskNameSize
+                0x9d020698                OSMboxEn
+                0x9d0206a8                OSQEn
+                0x9d0206e6                OSDataSize
+                0x9d0206de                OSTmrSize
+                0x9d0206e4                OSTmrWheelTblSize
+                0x9d020686                OSEventSize
+                0x9d0206c4                OSTaskStatStkSize
+                0x9d0206ae                OSRdyTblSize
+                0x9d020692                OSFlagMax
+                0x9d0206cc                OSTCBSize
+                0x9d0206b2                OSStkWidth
+                0x9d0206a6                OSPtrSize
+                0x9d020688                OSEventTblSize
+                0x9d0206aa                OSQMax
+                0x9d02068a                OSFlagEn
+                0x9d0206d0                OSTimeTickHookEn
+                0x9d020694                OSFlagNameSize
+                0x9d0206ac                OSQSize
+                0x9d020696                OSLowestPrio
+                0x9d0206dc                OSTmrCfgTicksPerSec
+                0x9d020684                OSEventEn
+                0x9d0206d8                OSTmrCfgNameSize
+                0x9d0206ba                OSTaskIdleStkSize
+                0x9d0206ce                OSTicksPerSec
+                0x9d0206d2                OSVersionNbr
+                0x9d02067c                OSEndiannessTest
+                0x9d02068c                OSFlagGrpSize
+                0x9d020680                OSEventMax
+                0x9d0206b6                OSTaskCreateExtEn
+                0x9d0206b0                OSSemEn
+                0x9d0206c2                OSTaskStatEn
+                0x9d02069c                OSMemMax
+                0x9d020678                OSDebugEn
+                0x9d02068e                OSFlagNodeSize
+                0x9d0206d6                OSTmrCfgMax
+                0x9d0206be                OSTaskMax
+                0x9d0206e2                OSTmrWheelSize
+                0x9d0206b8                OSTaskDelEn
+                0x9d0206d4                OSTmrEn
+                0x9d02069e                OSMemNameSize
+                0x9d0206ca                OSTCBPrioTblMax
+                0x9d0206c6                OSTaskStatStkChkEn
+                0x9d02069a                OSMemEn
+                0x9d0206a4                OSMutexEn
+                0x9d0206a0                OSMemSize
+                0x9d0206a2                OSMemTblSize
+                0x9d0206bc                OSTaskProfileEn
+                0x9d020682                OSEventNameSize
+                0x9d0206c8                OSTaskSwHookEn
+                0x9d020690                OSFlagWidth
+                0x9d0206da                OSTmrCfgWheelSize
+                0x9d0206b4                OSTaskCreateEn
+                0x9d0206e0                OSTmrTblSize
+ .rodata        0x9d0206e8      0x110 objects\os_core.o
+                0x9d0206e8                OSUnMapTbl
+ .rodata        0x9d0207f8       0x28 objects\os_tmr.o
+ .rodata        0x9d020820      0x1c8 objects\App.o
+ .rodata        0x9d0209e8       0x68 objects\AppGlobalFunc.o
+ .rodata        0x9d020a50       0x90 objects\LibMoving.o
+ .rodata        0x9d020ae0      0x160 objects\TaskAsser.o
+ .rodata        0x9d020c40       0xe8 objects\TaskMain.o
+ .rodata        0x9d020d28       0x40 objects\TaskMvt.o
+ .rodata        0x9d020d68      0x110 objects\TaskOdo.o
+ .rodata        0x9d020e78       0x48 objects\TaskSensors.o
+ .rodata        0x9d020ec0       0x40 objects\TaskTempo.o
+ .rodata        0x9d020f00      0x140 objects\TaskDebug.o
+ .rodata        0x9d021040       0x10 objects\XBEEControl.o
+ .rodata        0x9d021050       0xa0 objects\bsp.o
+ .rodata        0x9d0210f0       0x14 objects\DevCardA.o
+ *fill*         0x9d021104        0x4 00
+ .rodata        0x9d021108       0x80 objects\TaskTest.o
+ .rodata        0x9d021188      0x114 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+ *fill*         0x9d02129c        0x4 00
+ .rodata.cst8   0x9d0212a0       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+                                 0x30 (size before relaxing)
+ .rodata.str1.4
+                0x9d0212c8       0x1b C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+                                 0x1c (size before relaxing)
+ *fill*         0x9d0212e3        0x1 00
+ .rodata        0x9d0212e4       0x14 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobdata.o)
+                0x9d0212e4                _io_funcs
+ .rodata        0x9d0212f8       0x14 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+                0x9d0212f8                _io_strfuncs
+ *fill*         0x9d02130c        0x4 00
+ .rodata.cst8   0x9d021310        0x8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o)
+ .rodata.cst8   0x9d021318        0x0 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_acos32.o)
+                                  0x8 (size before relaxing)
+ .rodata        0x9d021318       0x48 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral_32MX440F512H.a(_ports_tbl_libp.o)
+                0x9d021318                PortRegTbl
+ *(.rodata1)
+                0x9d021360                . = ALIGN (0x4)
+
+.sdata2         0x9d021360        0x0
+ *(.sdata2 .sdata2.* .gnu.linkonce.s2.*)
+                0x9d021360                . = ALIGN (0x4)
+
+.sbss2          0x9d021360        0x0
+ *(.sbss2 .sbss2.* .gnu.linkonce.sb2.*)
+                0x9d021360                . = ALIGN (0x4)
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame       0x9d021360       0x50
+ *(.eh_frame)
+ .eh_frame      0x9d021360       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4\libgcc.a(_udivdi3.o)
+ .eh_frame      0x9d021380       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4\libgcc.a(_umoddi3.o)
+
+.dbg_data       0xa0000000        0x0
+                0xa0000000                . = (. + DEFINED (_DEBUGGER)?0x200:0x0)
+
+.data           0xa0000000      0x45c load address 0x9d0213b0
+                0xa0000000                _data_begin = .
+ *(.data .data.* .gnu.linkonce.d.*)
+ .data          0xa0000000       0xd4 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobdata.o)
+ .data          0xa00000d4       0x70 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(sincos32.o)
+                0xa00000d4                sincon
+                0xa000010c                coscon
+ .data          0xa0000144       0x24 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(sincof32.o)
+                0xa0000144                _sincof
+                0xa0000154                _coscof
+ .data          0xa0000168        0x4 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(s_lib_ver.o)
+                0xa0000168                math_errhandling
+ .data          0xa000016c       0xe8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(log32.o)
+ .data          0xa0000254       0x68 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(asncon32.o)
+                0xa0000254                _asncon
+ .data          0xa00002bc      0x100 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(fparc32.o)
+ .data          0xa00003bc       0xa0 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(exp32.o)
+ *(.gnu.linkonce.d.*personality*)
+ *(.data1)
+                0x9d0213b0                _data_image_begin = LOADADDR (.data)
+
+.eh_frame
+ *(.eh_frame)
+                0xa0008450                _gp = (ALIGN (0x10) + 0x7ff0)
+
+.got
+ *(.got.plt)
+ *(.got)
+
+.sdata          0xa000045c        0xc load address 0x9d02180c
+                0xa000045c                _sdata_begin = .
+ *(.sdata .sdata.* .gnu.linkonce.s.*)
+ .sdata         0xa000045c        0x8 objects\DevCardA.o
+ .sdata         0xa0000464        0x4 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobdata.o)
+                0xa0000464                _libc_data
+                0xa0000468                _sdata_end = .
+
+.lit8
+ *(.lit8)
+
+.lit4
+ *(.lit4)
+                0xa0000468                . = ALIGN (0x4)
+                0xa0000468                _data_end = .
+                0xa0000468                _bss_begin = .
+
+.sbss           0xa0000468      0x108
+                0xa0000468                _sbss_begin = .
+ *(.dynsbss)
+ *(.sbss .sbss.* .gnu.linkonce.sb.*)
+ .sbss          0xa0000468        0x2 objects\os_cpu_c.o
+ *fill*         0xa000046a        0x2 00
+ .sbss          0xa000046c       0x14 objects\App.o
+                0xa000047c                App_MutexPMP
+                0xa0000478                App_MutexUART2
+                0xa000046c                App_MutexCmdToTaskMvt
+                0xa0000474                App_MutexUART1
+                0xa0000470                App_MutexCmdToTaskAsser
+ .sbss          0xa0000480        0x1 objects\AppGlobalFunc.o
+ .sbss          0xa0000481        0x1 objects\TaskAsser.o
+                0xa0000481                Debug_AsserRampState
+ .sbss          0xa0000482        0x1 objects\TaskMain.o
+                0xa0000482                Debug_MainState
+ .sbss          0xa0000483        0x1 objects\TaskMvt.o
+                0xa0000483                Debug_MvtState
+ .sbss          0xa0000484       0x30 objects\TaskOdo.o
+                0xa0000484                SemOdo
+                0xa0000488                MutexCurrentPos
+ .sbss          0xa00004b4        0x1 objects\TaskDebug.o
+                0xa00004b4                IsDebugTaskRunning
+ *fill*         0xa00004b5        0x3 00
+ .sbss          0xa00004b8        0x4 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(errno.o)
+                0xa00004b8                errno
+ *(.scommon)
+ .scommon       0xa00004bc       0x64 objects\os_core.o
+                0xa00004bc                OSTmrFreeList
+                0xa00004c0                OSLockNesting
+                0xa00004c4                OSTmrSemSignal
+                0xa00004c8                OSRunning
+                0xa00004cc                OSIdleCtr
+                0xa00004d0                OSTmrUsed
+                0xa00004d2                OSPrioHighRdy
+                0xa00004d3                OSPrioCur
+                0xa00004d4                OSTCBList
+                0xa00004d8                OSTickStepState
+                0xa00004dc                OSCtxSwCtr
+                0xa00004e0                OSTmrFree
+                0xa00004e4                OSTCBFreeList
+                0xa00004e8                OSTaskCtr
+                0xa00004ec                OSMemFreeList
+                0xa00004f0                OSTCBHighRdy
+                0xa00004f4                OSQFreeList
+                0xa00004f8                OSRdyGrp
+                0xa00004fc                OSRdyTbl
+                0xa0000504                OSEventFreeList
+                0xa0000508                OSIntNesting
+                0xa000050c                OSTCBCur
+                0xa0000510                OSTmrTime
+                0xa0000514                OSTime
+                0xa0000518                OSTmrSem
+                0xa000051c                OSFlagFreeList
+ .scommon       0xa0000520       0x18 objects\App.o
+                0xa0000520                AppStrategyFlags
+                0xa0000524                AppFlags
+                0xa0000528                App_CmdToTaskMvtId
+                0xa000052c                AppCurrentColor
+                0xa0000530                AppQueueSensors
+                0xa0000534                App_CmdToTaskAsserId
+ .scommon       0xa0000538       0x2c objects\TaskAsser.o
+                0xa0000538                error_debug_5
+                0xa000053c                P_debug
+                0xa0000540                error_current_debug
+                0xa0000544                D_debug
+                0xa0000548                error_debug_2
+                0xa000054c                error_debug_1
+                0xa0000550                error_old_debug
+                0xa0000554                error_debug_4
+                0xa0000558                I_debug
+                0xa000055c                index_old_debug
+                0xa0000560                error_debug_3
+ .scommon       0xa0000564        0xc objects\TaskOdo.o
+                0xa0000564                QUADD_delta
+                0xa0000566                QUADG_delta
+                0xa0000568                QUADG_data_old
+                0xa000056a                QUADD_data_old
+                0xa000056c                QUADG_data
+                0xa000056e                QUADD_data
+                0xa0000570                _sbss_end = .
+
+.bss            0xa0000570     0x3c70
+ *(.dynbss)
+ *(.bss .bss.* .gnu.linkonce.b.*)
+ .bss           0xa0000570     0x2580 objects\App.o
+ .bss           0xa0002af0       0x88 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobdata.o)
+ .bss           0xa0002b78       0x80 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+ *(COMMON)
+ COMMON         0xa0002bf8     0x1368 objects\os_core.o
+                0xa0002bf8                OSTmrWheelTbl
+                0xa0002c38                OSFlagTbl
+                0xa0002cc4                OSTmrTbl
+                0xa0003004                OSMemTbl
+                0xa00030b8                OSQTbl
+                0xa0003118                OSTmrTaskStk
+                0xa0003318                OSTaskIdleStk
+                0xa0003518                OSEventTbl
+                0xa0003680                OSTCBTbl
+                0xa0003e60                OSTCBPrioTbl
+ COMMON         0xa0003f60       0xd8 objects\App.o
+                0xa0003f60                AppMsgStk
+                0xa0003fe0                App_CmdToTaskAsser
+                0xa0003ffc                AppQSensorsStk
+                0xa000401c                App_CmdToTaskMvt
+ COMMON         0xa0004038       0xd4 objects\TaskAsser.o
+                0xa0004038                setpoint
+                0xa000404c                TaskAsser_CurrentPos
+                0xa0004060                angle_pid_data
+                0xa0004084                wheel_left_pid_data
+                0xa00040a8                distance_quadramp_data
+                0xa00040c4                wheel_right_pid_data
+                0xa00040e8                distance_pid_data
+ COMMON         0xa000410c       0x14 objects\TaskOdo.o
+                0xa000410c                TaskOdo_CurrentPos
+ COMMON         0xa0004120       0xc0 objects\TaskDebug.o
+                0xa0004120                _debugInfo
+                0xa00041e0                . = ALIGN (0x4)
+                0xa00041e0                . = ALIGN (0x4)
+                0xa00041e0                _end = .
+                0xa00041e0                _bss_end = .
+
+.heap           0xa00041e0        0x0
+                0xa00041e0                _heap = .
+                0xa00041e0                . = (. + _min_heap_size)
+
+.stack          0xa00041e0      0x400
+                0xa00045e0                . = (. + _min_stack_size)
+ *fill*         0xa00041e0      0x400 00
+
+.ramfunc        0xa0004800        0x0 load address 0x9d021818
+                0xa0004800                _ramfunc_begin = .
+ *(.ramfunc .ramfunc.*)
+                0xa0004800                . = ALIGN (0x4)
+                0xa0004800                _ramfunc_end = .
+                0x9d021818                _ramfunc_image_begin = LOADADDR (.ramfunc)
+                0x00000000                _ramfunc_length = SIZEOF (.ramfunc)
+                0x00004800                _bmxdkpba_address = (_ramfunc_begin - 0xa0000000)
+                0x00008000                _bmxdudba_address = 0x8000
+                0x00008000                _bmxdupba_address = 0x8000
+                0xa0008000                _stack = (_ramfunc_length > 0x0)?(_ramfunc_begin - 0x4):0xa0008000
+                0x00000001                ASSERT (((_min_stack_size + _min_heap_size) <= (_stack - _heap)), Not enough space to allocate both stack and heap.  Reduce heap and/or stack size.)
+
+.pdr            0x00000000     0x31a0
+ *(.pdr)
+ .pdr           0x00000000       0x40 objects\cpu_a.o
+ .pdr           0x00000040       0x80 objects\lib_mem.o
+ .pdr           0x000000c0      0x180 objects\lib_str.o
+ .pdr           0x00000240       0x80 objects\os_cpu_a.o
+ .pdr           0x000002c0      0x140 objects\os_cpu_c.o
+ .pdr           0x00000400       0x20 objects\os_dbg.o
+ .pdr           0x00000420      0x400 objects\os_core.o
+ .pdr           0x00000820      0x1a0 objects\os_flag.o
+ .pdr           0x000009c0       0xe0 objects\os_mem.o
+ .pdr           0x00000aa0       0xe0 objects\os_mutex.o
+ .pdr           0x00000b80      0x160 objects\os_q.o
+ .pdr           0x00000ce0      0x100 objects\os_sem.o
+ .pdr           0x00000de0      0x180 objects\os_task.o
+ .pdr           0x00000f60       0xa0 objects\os_time.o
+ .pdr           0x00001000      0x220 objects\os_tmr.o
+ .pdr           0x00001220       0x80 objects\App.o
+ .pdr           0x000012a0       0xe0 objects\AppGlobalFunc.o
+ .pdr           0x00001380       0xe0 objects\AppHooks.o
+ .pdr           0x00001460       0xc0 objects\LibMoving.o
+ .pdr           0x00001520      0x260 objects\TaskAsser.o
+ .pdr           0x00001780       0x40 objects\TaskMain.o
+ .pdr           0x000017c0       0x40 objects\TaskMvt.o
+ .pdr           0x00001800      0x100 objects\TaskOdo.o
+ .pdr           0x00001900      0x200 objects\TaskSensors.o
+ .pdr           0x00001b00      0x160 objects\ArmsControl.o
+ .pdr           0x00001c60       0x20 objects\TaskTempo.o
+ .pdr           0x00001c80       0x40 objects\Strategy.o
+ .pdr           0x00001cc0      0x1c0 objects\1602D.o
+ .pdr           0x00001e80      0x100 objects\HoopsControl.o
+ .pdr           0x00001f80      0x100 objects\TaskDebug.o
+ .pdr           0x00002080       0x60 objects\XBEEControl.o
+ .pdr           0x000020e0      0x5c0 objects\bsp.o
+ .pdr           0x000026a0       0x80 objects\bsp_a.o
+ .pdr           0x00002720      0x240 objects\bsp_fpga.o
+ .pdr           0x00002960       0x80 objects\crt0.o
+ .pdr           0x000029e0       0x40 objects\DevCardA.o
+ .pdr           0x00002a20       0x40 objects\DevCardB.o
+ .pdr           0x00002a60       0x20 objects\TaskTest.o
+ .pdr           0x00002a80       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(memcpy.o)
+ .pdr           0x00002aa0       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(memset.o)
+ .pdr           0x00002ac0       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strcpy.o)
+ .pdr           0x00002ae0       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strncpy.o)
+ .pdr           0x00002b00       0x60 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o)
+ .pdr           0x00002b60       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-bootstrap-exception-handler.o)
+ .pdr           0x00002b80       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-reset.o)
+ .pdr           0x00002ba0       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-bootstrap.o)
+ .pdr           0x00002bc0       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-nmi-handler.o)
+ .pdr           0x00002be0       0xc0 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+ .pdr           0x00002ca0       0xa0 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+ .pdr           0x00002d40       0xa0 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+ .pdr           0x00002de0       0x60 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(fputc.o)
+ .pdr           0x00002e40       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_getc.o)
+ .pdr           0x00002e60       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_write.o)
+ .pdr           0x00002e80       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strlen.o)
+ .pdr           0x00002ea0       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_putc.o)
+ .pdr           0x00002ec0       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o)
+ .pdr           0x00002ee0       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_acos32.o)
+ .pdr           0x00002f00       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_atan2f.o)
+ .pdr           0x00002f20       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_sqrt.o)
+ .pdr           0x00002f40       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_disable_interrupts_lib.o)
+ .pdr           0x00002f60       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_mv_int_lib.o)
+ .pdr           0x00002f80       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_restore_interrupts_lib.o)
+ .pdr           0x00002fa0       0x40 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(puts_uartx_lib.o)
+ .pdr           0x00002fe0       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_analog_in_lib.o)
+ .pdr           0x00003000       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_in_lib.o)
+ .pdr           0x00003020       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_out_lib.o)
+ .pdr           0x00003040       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_read_bits_lib.o)
+ .pdr           0x00003060       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_clear_bits_lib.o)
+ .pdr           0x00003080       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_bits_lib.o)
+ .pdr           0x000030a0       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_toggle_bits_lib.o)
+ .pdr           0x000030c0       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(open_core_timer_lib.o)
+ .pdr           0x000030e0       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(update_core_timer_lib.o)
+ .pdr           0x00003100       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_interrupts_lib.o)
+ .pdr           0x00003120       0x40 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(isinf.o)
+ .pdr           0x00003160       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4\libgcc.a(_udivdi3.o)
+ .pdr           0x00003180       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4\libgcc.a(_umoddi3.o)
+
+.reginfo        0x00000000       0x18
+ *(.reginfo)
+ .reginfo       0x00000000       0x18 objects\cpu_a.o
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x00000000     0x19d2
+ *(.comment)
+ .comment       0x00000000       0x4d objects\lib_mem.o
+ .comment       0x0000004d       0x4d objects\lib_str.o
+ .comment       0x0000009a       0x4d objects\os_cpu_c.o
+ .comment       0x000000e7       0x4d objects\os_dbg.o
+ .comment       0x00000134       0x4d objects\os_core.o
+ .comment       0x00000181       0x4d objects\os_flag.o
+ .comment       0x000001ce       0x4d objects\os_mbox.o
+ .comment       0x0000021b       0x4d objects\os_mem.o
+ .comment       0x00000268       0x4d objects\os_mutex.o
+ .comment       0x000002b5       0x4d objects\os_q.o
+ .comment       0x00000302       0x4d objects\os_sem.o
+ .comment       0x0000034f       0x4d objects\os_task.o
+ .comment       0x0000039c       0x4d objects\os_time.o
+ .comment       0x000003e9       0x4d objects\os_tmr.o
+ .comment       0x00000436       0x4d objects\App.o
+ .comment       0x00000483       0x4d objects\AppGlobalFunc.o
+ .comment       0x000004d0       0x4d objects\AppHooks.o
+ .comment       0x0000051d       0x4d objects\LibMoving.o
+ .comment       0x0000056a       0x4d objects\TaskAsser.o
+ .comment       0x000005b7       0x4d objects\TaskMain.o
+ .comment       0x00000604       0x4d objects\TaskMvt.o
+ .comment       0x00000651       0x4d objects\TaskOdo.o
+ .comment       0x0000069e       0x4d objects\TaskSensors.o
+ .comment       0x000006eb       0x4d objects\ArmsControl.o
+ .comment       0x00000738       0x4d objects\TaskTempo.o
+ .comment       0x00000785       0x4d objects\Strategy.o
+ .comment       0x000007d2       0x4d objects\HomolColorA.o
+ .comment       0x0000081f       0x4d objects\HomolColorB.o
+ .comment       0x0000086c       0x4d objects\1602D.o
+ .comment       0x000008b9       0x4d objects\HoopsControl.o
+ .comment       0x00000906       0x4d objects\TaskDebug.o
+ .comment       0x00000953       0x4d objects\XBEEControl.o
+ .comment       0x000009a0       0x4d objects\bsp.o
+ .comment       0x000009ed       0x4d objects\bsp_fpga.o
+ .comment       0x00000a3a       0x4d objects\DevCardA.o
+ .comment       0x00000a87       0x4d objects\DevCardB.o
+ .comment       0x00000ad4       0x4d objects\TaskTest.o
+ .comment       0x00000b21       0x56 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(memset.o)
+ .comment       0x00000b77       0x56 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strcpy.o)
+ .comment       0x00000bcd       0x9d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strncpy.o)
+ .comment       0x00000c6a       0x9f C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o)
+ .comment       0x00000d09       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-bootstrap-exception-handler.o)
+ .comment       0x00000d56       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-reset.o)
+ .comment       0x00000da3       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-bootstrap.o)
+ .comment       0x00000df0       0x9f C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+ .comment       0x00000e8f       0xa0 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobdata.o)
+ .comment       0x00000f2f       0xa1 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+ .comment       0x00000fd0       0xa2 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+ .comment       0x00001072       0x9d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(fputc.o)
+ .comment       0x0000110f       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_getc.o)
+ .comment       0x0000115c       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_write.o)
+ .comment       0x000011a9       0x56 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strlen.o)
+ .comment       0x000011ff       0x9b C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(errno.o)
+ .comment       0x0000129a       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_putc.o)
+ .comment       0x000012e7       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o)
+ .comment       0x00001334       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_acos32.o)
+ .comment       0x00001381       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_atan2f.o)
+ .comment       0x000013ce       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_sqrt.o)
+ .comment       0x0000141b       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(s_lib_ver.o)
+ .comment       0x00001468       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_disable_interrupts_lib.o)
+ .comment       0x000014b5       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_mv_int_lib.o)
+ .comment       0x00001502       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_restore_interrupts_lib.o)
+ .comment       0x0000154f       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(puts_uartx_lib.o)
+ .comment       0x0000159c       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_analog_in_lib.o)
+ .comment       0x000015e9       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_in_lib.o)
+ .comment       0x00001636       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_out_lib.o)
+ .comment       0x00001683       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_read_bits_lib.o)
+ .comment       0x000016d0       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_clear_bits_lib.o)
+ .comment       0x0000171d       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_bits_lib.o)
+ .comment       0x0000176a       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_toggle_bits_lib.o)
+ .comment       0x000017b7       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(open_core_timer_lib.o)
+ .comment       0x00001804       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(update_core_timer_lib.o)
+ .comment       0x00001851       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_interrupts_lib.o)
+ .comment       0x0000189e       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral_32MX440F512H.a(_ports_tbl_libp.o)
+ .comment       0x000018eb       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(isinf.o)
+ .comment       0x00001938       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4\libgcc.a(_udivdi3.o)
+ .comment       0x00001985       0x4d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4\libgcc.a(_umoddi3.o)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0xa70
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x20 objects\cpu_a.o
+ .debug_aranges
+                0x00000020       0x20 objects\lib_mem.o
+ .debug_aranges
+                0x00000040       0x20 objects\lib_str.o
+ .debug_aranges
+                0x00000060       0x30 objects\os_cpu_a.o
+ .debug_aranges
+                0x00000090       0x20 objects\os_cpu_c.o
+ .debug_aranges
+                0x000000b0       0x20 objects\os_dbg.o
+ .debug_aranges
+                0x000000d0       0x20 objects\os_core.o
+ .debug_aranges
+                0x000000f0       0x20 objects\os_flag.o
+ .debug_aranges
+                0x00000110       0x20 objects\os_mem.o
+ .debug_aranges
+                0x00000130       0x20 objects\os_mutex.o
+ .debug_aranges
+                0x00000150       0x20 objects\os_q.o
+ .debug_aranges
+                0x00000170       0x20 objects\os_sem.o
+ .debug_aranges
+                0x00000190       0x20 objects\os_task.o
+ .debug_aranges
+                0x000001b0       0x20 objects\os_time.o
+ .debug_aranges
+                0x000001d0       0x20 objects\os_tmr.o
+ .debug_aranges
+                0x000001f0       0x20 objects\App.o
+ .debug_aranges
+                0x00000210       0x20 objects\AppGlobalFunc.o
+ .debug_aranges
+                0x00000230       0x20 objects\AppHooks.o
+ .debug_aranges
+                0x00000250       0x20 objects\LibMoving.o
+ .debug_aranges
+                0x00000270       0x20 objects\TaskAsser.o
+ .debug_aranges
+                0x00000290       0x20 objects\TaskMain.o
+ .debug_aranges
+                0x000002b0       0x20 objects\TaskMvt.o
+ .debug_aranges
+                0x000002d0       0x20 objects\TaskOdo.o
+ .debug_aranges
+                0x000002f0       0x20 objects\TaskSensors.o
+ .debug_aranges
+                0x00000310       0x20 objects\ArmsControl.o
+ .debug_aranges
+                0x00000330       0x20 objects\TaskTempo.o
+ .debug_aranges
+                0x00000350       0x20 objects\Strategy.o
+ .debug_aranges
+                0x00000370       0x20 objects\1602D.o
+ .debug_aranges
+                0x00000390       0x20 objects\HoopsControl.o
+ .debug_aranges
+                0x000003b0       0x20 objects\TaskDebug.o
+ .debug_aranges
+                0x000003d0       0x20 objects\XBEEControl.o
+ .debug_aranges
+                0x000003f0       0x20 objects\bsp.o
+ .debug_aranges
+                0x00000410       0x38 objects\bsp_a.o
+ .debug_aranges
+                0x00000448       0x20 objects\bsp_fpga.o
+ .debug_aranges
+                0x00000468       0x38 objects\crt0.o
+ .debug_aranges
+                0x000004a0       0x20 objects\DevCardA.o
+ .debug_aranges
+                0x000004c0       0x20 objects\DevCardB.o
+ .debug_aranges
+                0x000004e0       0x20 objects\TaskTest.o
+ .debug_aranges
+                0x00000500       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strncpy.o)
+ .debug_aranges
+                0x00000528       0x38 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o)
+ .debug_aranges
+                0x00000560       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-bootstrap-exception-handler.o)
+ .debug_aranges
+                0x00000588       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-reset.o)
+ .debug_aranges
+                0x000005b0       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-bootstrap.o)
+ .debug_aranges
+                0x000005d8       0x50 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+ .debug_aranges
+                0x00000628       0x48 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+ .debug_aranges
+                0x00000670       0x48 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+ .debug_aranges
+                0x000006b8       0x38 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(fputc.o)
+ .debug_aranges
+                0x000006f0       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_getc.o)
+ .debug_aranges
+                0x00000718       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_write.o)
+ .debug_aranges
+                0x00000740       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_putc.o)
+ .debug_aranges
+                0x00000768       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o)
+ .debug_aranges
+                0x00000790       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_acos32.o)
+ .debug_aranges
+                0x000007b8       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_atan2f.o)
+ .debug_aranges
+                0x000007e0       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_sqrt.o)
+ .debug_aranges
+                0x00000808       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_disable_interrupts_lib.o)
+ .debug_aranges
+                0x00000830       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_mv_int_lib.o)
+ .debug_aranges
+                0x00000858       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_restore_interrupts_lib.o)
+ .debug_aranges
+                0x00000880       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(puts_uartx_lib.o)
+ .debug_aranges
+                0x000008b0       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_analog_in_lib.o)
+ .debug_aranges
+                0x000008d8       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_in_lib.o)
+ .debug_aranges
+                0x00000900       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_out_lib.o)
+ .debug_aranges
+                0x00000928       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_read_bits_lib.o)
+ .debug_aranges
+                0x00000950       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_clear_bits_lib.o)
+ .debug_aranges
+                0x00000978       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_bits_lib.o)
+ .debug_aranges
+                0x000009a0       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_toggle_bits_lib.o)
+ .debug_aranges
+                0x000009c8       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(open_core_timer_lib.o)
+ .debug_aranges
+                0x000009f0       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(update_core_timer_lib.o)
+ .debug_aranges
+                0x00000a18       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_interrupts_lib.o)
+ .debug_aranges
+                0x00000a40       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(isinf.o)
+
+.debug_pubnames
+                0x00000000     0x27e5
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000       0x43 objects\lib_mem.o
+ .debug_pubnames
+                0x00000043       0xba objects\lib_str.o
+ .debug_pubnames
+                0x000000fd       0xcd objects\os_cpu_c.o
+ .debug_pubnames
+                0x000001ca      0x3b2 objects\os_dbg.o
+ .debug_pubnames
+                0x0000057c      0x414 objects\os_core.o
+ .debug_pubnames
+                0x00000990       0xd0 objects\os_flag.o
+ .debug_pubnames
+                0x00000a60       0x7c objects\os_mem.o
+ .debug_pubnames
+                0x00000adc       0x76 objects\os_mutex.o
+ .debug_pubnames
+                0x00000b52       0xa9 objects\os_q.o
+ .debug_pubnames
+                0x00000bfb       0x8a objects\os_sem.o
+ .debug_pubnames
+                0x00000c85       0xe5 objects\os_task.o
+ .debug_pubnames
+                0x00000d6a       0x62 objects\os_time.o
+ .debug_pubnames
+                0x00000dcc       0xa1 objects\os_tmr.o
+ .debug_pubnames
+                0x00000e6d      0x181 objects\App.o
+ .debug_pubnames
+                0x00000fee       0xa7 objects\AppGlobalFunc.o
+ .debug_pubnames
+                0x00001095       0xa3 objects\AppHooks.o
+ .debug_pubnames
+                0x00001138       0xbf objects\LibMoving.o
+ .debug_pubnames
+                0x000011f7      0x3ae objects\TaskAsser.o
+ .debug_pubnames
+                0x000015a5       0x5b objects\TaskMain.o
+ .debug_pubnames
+                0x00001600       0x5a objects\TaskMvt.o
+ .debug_pubnames
+                0x0000165a      0x183 objects\TaskOdo.o
+ .debug_pubnames
+                0x000017dd      0x1e4 objects\TaskSensors.o
+ .debug_pubnames
+                0x000019c1       0xd1 objects\ArmsControl.o
+ .debug_pubnames
+                0x00001a92       0x25 objects\TaskTempo.o
+ .debug_pubnames
+                0x00001ab7       0x45 objects\Strategy.o
+ .debug_pubnames
+                0x00001afc       0xec objects\1602D.o
+ .debug_pubnames
+                0x00001be8       0x9d objects\HoopsControl.o
+ .debug_pubnames
+                0x00001c85      0x112 objects\TaskDebug.o
+ .debug_pubnames
+                0x00001d97       0x4a objects\XBEEControl.o
+ .debug_pubnames
+                0x00001de1      0x2c5 objects\bsp.o
+ .debug_pubnames
+                0x000020a6      0x1ac objects\bsp_fpga.o
+ .debug_pubnames
+                0x00002252       0x51 objects\DevCardA.o
+ .debug_pubnames
+                0x000022a3       0x51 objects\DevCardB.o
+ .debug_pubnames
+                0x000022f4       0x24 objects\TaskTest.o
+ .debug_pubnames
+                0x00002318       0x1e C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strncpy.o)
+ .debug_pubnames
+                0x00002336       0x3b C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o)
+ .debug_pubnames
+                0x00002371       0x33 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-bootstrap-exception-handler.o)
+ .debug_pubnames
+                0x000023a4       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-reset.o)
+ .debug_pubnames
+                0x000023c4       0x24 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-bootstrap.o)
+ .debug_pubnames
+                0x000023e8       0x2b C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+ .debug_pubnames
+                0x00002413       0x70 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+ .debug_pubnames
+                0x00002483       0x31 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(fputc.o)
+ .debug_pubnames
+                0x000024b4       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_getc.o)
+ .debug_pubnames
+                0x000024d4       0x21 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_write.o)
+ .debug_pubnames
+                0x000024f5       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_putc.o)
+ .debug_pubnames
+                0x00002515       0x1a C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o)
+ .debug_pubnames
+                0x0000252f       0x1b C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_acos32.o)
+ .debug_pubnames
+                0x0000254a       0x1d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_atan2f.o)
+ .debug_pubnames
+                0x00002567       0x1b C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_sqrt.o)
+ .debug_pubnames
+                0x00002582       0x2b C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_disable_interrupts_lib.o)
+ .debug_pubnames
+                0x000025ad       0x36 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_mv_int_lib.o)
+ .debug_pubnames
+                0x000025e3       0x2b C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_restore_interrupts_lib.o)
+ .debug_pubnames
+                0x0000260e       0x2e C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(puts_uartx_lib.o)
+ .debug_pubnames
+                0x0000263c       0x2a C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_analog_in_lib.o)
+ .debug_pubnames
+                0x00002666       0x2b C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_in_lib.o)
+ .debug_pubnames
+                0x00002691       0x2c C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_out_lib.o)
+ .debug_pubnames
+                0x000026bd       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_read_bits_lib.o)
+ .debug_pubnames
+                0x000026e0       0x24 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_clear_bits_lib.o)
+ .debug_pubnames
+                0x00002704       0x22 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_bits_lib.o)
+ .debug_pubnames
+                0x00002726       0x25 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_toggle_bits_lib.o)
+ .debug_pubnames
+                0x0000274b       0x24 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(open_core_timer_lib.o)
+ .debug_pubnames
+                0x0000276f       0x26 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(update_core_timer_lib.o)
+ .debug_pubnames
+                0x00002795       0x2a C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_interrupts_lib.o)
+ .debug_pubnames
+                0x000027bf       0x26 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(isinf.o)
+
+.debug_info     0x00000000    0x14605
+ *(.debug_info .gnu.linkonce.wi.*)
+ .debug_info    0x00000000       0xa5 objects\cpu_a.o
+ .debug_info    0x000000a5      0x516 objects\lib_mem.o
+ .debug_info    0x000005bb      0x82f objects\lib_str.o
+ .debug_info    0x00000dea       0xba objects\os_cpu_a.o
+ .debug_info    0x00000ea4      0x842 objects\os_cpu_c.o
+ .debug_info    0x000016e6     0x1318 objects\os_dbg.o
+ .debug_info    0x000029fe     0x18bf objects\os_core.o
+ .debug_info    0x000042bd      0xe32 objects\os_flag.o
+ .debug_info    0x000050ef      0x15f objects\os_mbox.o
+ .debug_info    0x0000524e      0x654 objects\os_mem.o
+ .debug_info    0x000058a2      0xb29 objects\os_mutex.o
+ .debug_info    0x000063cb      0xce3 objects\os_q.o
+ .debug_info    0x000070ae      0xa47 objects\os_sem.o
+ .debug_info    0x00007af5      0xe26 objects\os_task.o
+ .debug_info    0x0000891b      0x88b objects\os_time.o
+ .debug_info    0x000091a6      0xac0 objects\os_tmr.o
+ .debug_info    0x00009c66      0xb04 objects\App.o
+ .debug_info    0x0000a76a      0x88b objects\AppGlobalFunc.o
+ .debug_info    0x0000aff5      0x758 objects\AppHooks.o
+ .debug_info    0x0000b74d      0x8be objects\LibMoving.o
+ .debug_info    0x0000c00b     0x1542 objects\TaskAsser.o
+ .debug_info    0x0000d54d      0x931 objects\TaskMain.o
+ .debug_info    0x0000de7e      0xab0 objects\TaskMvt.o
+ .debug_info    0x0000e92e      0x7e7 objects\TaskOdo.o
+ .debug_info    0x0000f115      0xac0 objects\TaskSensors.o
+ .debug_info    0x0000fbd5      0x2d0 objects\ArmsControl.o
+ .debug_info    0x0000fea5      0x2fd objects\TaskTempo.o
+ .debug_info    0x000101a2      0x589 objects\Strategy.o
+ .debug_info    0x0001072b      0x1a1 objects\HomolColorA.o
+ .debug_info    0x000108cc      0x1a1 objects\HomolColorB.o
+ .debug_info    0x00010a6d      0x532 objects\1602D.o
+ .debug_info    0x00010f9f      0x296 objects\HoopsControl.o
+ .debug_info    0x00011235      0x595 objects\TaskDebug.o
+ .debug_info    0x000117ca      0x228 objects\XBEEControl.o
+ .debug_info    0x000119f2      0xe01 objects\bsp.o
+ .debug_info    0x000127f3       0x9d objects\bsp_a.o
+ .debug_info    0x00012890      0x7c8 objects\bsp_fpga.o
+ .debug_info    0x00013058       0x9c objects\crt0.o
+ .debug_info    0x000130f4      0x6c2 objects\DevCardA.o
+ .debug_info    0x000137b6      0x53f objects\DevCardB.o
+ .debug_info    0x00013cf5      0x1ef objects\TaskTest.o
+ .debug_info    0x00013ee4       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strncpy.o)
+ .debug_info    0x00013f14       0x54 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o)
+ .debug_info    0x00013f68       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-bootstrap-exception-handler.o)
+ .debug_info    0x00013f98       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-reset.o)
+ .debug_info    0x00013fc8       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-bootstrap.o)
+ .debug_info    0x00013ff8       0x8a C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+ .debug_info    0x00014082       0x78 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+ .debug_info    0x000140fa       0x73 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+ .debug_info    0x0001416d       0x54 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(fputc.o)
+ .debug_info    0x000141c1       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_getc.o)
+ .debug_info    0x000141f1       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_write.o)
+ .debug_info    0x00014221       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_putc.o)
+ .debug_info    0x00014251       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o)
+ .debug_info    0x00014281       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_acos32.o)
+ .debug_info    0x000142b1       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_atan2f.o)
+ .debug_info    0x000142e1       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_sqrt.o)
+ .debug_info    0x00014311       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_disable_interrupts_lib.o)
+ .debug_info    0x00014341       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_mv_int_lib.o)
+ .debug_info    0x00014371       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_restore_interrupts_lib.o)
+ .debug_info    0x000143a1       0x42 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(puts_uartx_lib.o)
+ .debug_info    0x000143e3       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_analog_in_lib.o)
+ .debug_info    0x00014413       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_in_lib.o)
+ .debug_info    0x00014443       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_out_lib.o)
+ .debug_info    0x00014473       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_read_bits_lib.o)
+ .debug_info    0x000144a3       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_clear_bits_lib.o)
+ .debug_info    0x000144d3       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_bits_lib.o)
+ .debug_info    0x00014503       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_toggle_bits_lib.o)
+ .debug_info    0x00014533       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(open_core_timer_lib.o)
+ .debug_info    0x00014563       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(update_core_timer_lib.o)
+ .debug_info    0x00014593       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_interrupts_lib.o)
+ .debug_info    0x000145c3       0x42 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(isinf.o)
+
+.debug_abbrev   0x00000000     0x2f84
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000       0x14 objects\cpu_a.o
+ .debug_abbrev  0x00000014       0xf5 objects\lib_mem.o
+ .debug_abbrev  0x00000109      0x102 objects\lib_str.o
+ .debug_abbrev  0x0000020b       0x10 objects\os_cpu_a.o
+ .debug_abbrev  0x0000021b      0x14a objects\os_cpu_c.o
+ .debug_abbrev  0x00000365      0x10a objects\os_dbg.o
+ .debug_abbrev  0x0000046f      0x240 objects\os_core.o
+ .debug_abbrev  0x000006af      0x199 objects\os_flag.o
+ .debug_abbrev  0x00000848       0x42 objects\os_mbox.o
+ .debug_abbrev  0x0000088a      0x1b3 objects\os_mem.o
+ .debug_abbrev  0x00000a3d      0x1a0 objects\os_mutex.o
+ .debug_abbrev  0x00000bdd      0x18b objects\os_q.o
+ .debug_abbrev  0x00000d68      0x18b objects\os_sem.o
+ .debug_abbrev  0x00000ef3      0x18c objects\os_task.o
+ .debug_abbrev  0x0000107f      0x15c objects\os_time.o
+ .debug_abbrev  0x000011db      0x1ac objects\os_tmr.o
+ .debug_abbrev  0x00001387      0x172 objects\App.o
+ .debug_abbrev  0x000014f9      0x14b objects\AppGlobalFunc.o
+ .debug_abbrev  0x00001644       0xd7 objects\AppHooks.o
+ .debug_abbrev  0x0000171b      0x123 objects\LibMoving.o
+ .debug_abbrev  0x0000183e      0x1f6 objects\TaskAsser.o
+ .debug_abbrev  0x00001a34      0x13b objects\TaskMain.o
+ .debug_abbrev  0x00001b6f      0x175 objects\TaskMvt.o
+ .debug_abbrev  0x00001ce4      0x19c objects\TaskOdo.o
+ .debug_abbrev  0x00001e80      0x199 objects\TaskSensors.o
+ .debug_abbrev  0x00002019       0x57 objects\ArmsControl.o
+ .debug_abbrev  0x00002070       0xf8 objects\TaskTempo.o
+ .debug_abbrev  0x00002168       0xd0 objects\Strategy.o
+ .debug_abbrev  0x00002238       0x42 objects\HomolColorA.o
+ .debug_abbrev  0x0000227a       0x42 objects\HomolColorB.o
+ .debug_abbrev  0x000022bc      0x11a objects\1602D.o
+ .debug_abbrev  0x000023d6       0x57 objects\HoopsControl.o
+ .debug_abbrev  0x0000242d      0x132 objects\TaskDebug.o
+ .debug_abbrev  0x0000255f       0x7d objects\XBEEControl.o
+ .debug_abbrev  0x000025dc      0x1b2 objects\bsp.o
+ .debug_abbrev  0x0000278e       0x10 objects\bsp_a.o
+ .debug_abbrev  0x0000279e      0x11c objects\bsp_fpga.o
+ .debug_abbrev  0x000028ba       0x10 objects\crt0.o
+ .debug_abbrev  0x000028ca      0x116 objects\DevCardA.o
+ .debug_abbrev  0x000029e0       0xb2 objects\DevCardB.o
+ .debug_abbrev  0x00002a92       0x7e objects\TaskTest.o
+ .debug_abbrev  0x00002b10       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strncpy.o)
+ .debug_abbrev  0x00002b33       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o)
+ .debug_abbrev  0x00002b56       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-bootstrap-exception-handler.o)
+ .debug_abbrev  0x00002b79       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-reset.o)
+ .debug_abbrev  0x00002b9c       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-bootstrap.o)
+ .debug_abbrev  0x00002bbf       0x58 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+ .debug_abbrev  0x00002c17        0x1 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobdata.o)
+ .debug_abbrev  0x00002c18       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+ .debug_abbrev  0x00002c3b       0x21 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+ .debug_abbrev  0x00002c5c       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(fputc.o)
+ .debug_abbrev  0x00002c7f       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_getc.o)
+ .debug_abbrev  0x00002ca2       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_write.o)
+ .debug_abbrev  0x00002cc5        0x1 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(errno.o)
+ .debug_abbrev  0x00002cc6       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_putc.o)
+ .debug_abbrev  0x00002ce9       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o)
+ .debug_abbrev  0x00002d0c       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_acos32.o)
+ .debug_abbrev  0x00002d2f       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_atan2f.o)
+ .debug_abbrev  0x00002d52       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_sqrt.o)
+ .debug_abbrev  0x00002d75        0x1 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(s_lib_ver.o)
+ .debug_abbrev  0x00002d76       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_disable_interrupts_lib.o)
+ .debug_abbrev  0x00002d99       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_mv_int_lib.o)
+ .debug_abbrev  0x00002dbc       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_restore_interrupts_lib.o)
+ .debug_abbrev  0x00002ddf       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(puts_uartx_lib.o)
+ .debug_abbrev  0x00002e02       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_analog_in_lib.o)
+ .debug_abbrev  0x00002e25       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_in_lib.o)
+ .debug_abbrev  0x00002e48       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_out_lib.o)
+ .debug_abbrev  0x00002e6b       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_read_bits_lib.o)
+ .debug_abbrev  0x00002e8e       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_clear_bits_lib.o)
+ .debug_abbrev  0x00002eb1       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_bits_lib.o)
+ .debug_abbrev  0x00002ed4       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_toggle_bits_lib.o)
+ .debug_abbrev  0x00002ef7       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(open_core_timer_lib.o)
+ .debug_abbrev  0x00002f1a       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(update_core_timer_lib.o)
+ .debug_abbrev  0x00002f3d       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_interrupts_lib.o)
+ .debug_abbrev  0x00002f60        0x1 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral_32MX440F512H.a(_ports_tbl_libp.o)
+ .debug_abbrev  0x00002f61       0x23 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(isinf.o)
+
+.debug_line     0x00000000     0x6503
+ *(.debug_line)
+ .debug_line    0x00000000       0x66 objects\cpu_a.o
+ .debug_line    0x00000066      0x199 objects\lib_mem.o
+ .debug_line    0x000001ff      0x272 objects\lib_str.o
+ .debug_line    0x00000471      0x1d5 objects\os_cpu_a.o
+ .debug_line    0x00000646      0x200 objects\os_cpu_c.o
+ .debug_line    0x00000846      0x1a5 objects\os_dbg.o
+ .debug_line    0x000009eb      0x47e objects\os_core.o
+ .debug_line    0x00000e69      0x3b8 objects\os_flag.o
+ .debug_line    0x00001221       0x96 objects\os_mbox.o
+ .debug_line    0x000012b7      0x204 objects\os_mem.o
+ .debug_line    0x000014bb      0x2ea objects\os_mutex.o
+ .debug_line    0x000017a5      0x320 objects\os_q.o
+ .debug_line    0x00001ac5      0x278 objects\os_sem.o
+ .debug_line    0x00001d3d      0x399 objects\os_task.o
+ .debug_line    0x000020d6      0x1c9 objects\os_time.o
+ .debug_line    0x0000229f      0x307 objects\os_tmr.o
+ .debug_line    0x000025a6      0x24a objects\App.o
+ .debug_line    0x000027f0      0x214 objects\AppGlobalFunc.o
+ .debug_line    0x00002a04      0x161 objects\AppHooks.o
+ .debug_line    0x00002b65      0x2bd objects\LibMoving.o
+ .debug_line    0x00002e22      0x40b objects\TaskAsser.o
+ .debug_line    0x0000322d      0x208 objects\TaskMain.o
+ .debug_line    0x00003435      0x311 objects\TaskMvt.o
+ .debug_line    0x00003746      0x257 objects\TaskOdo.o
+ .debug_line    0x0000399d      0x2af objects\TaskSensors.o
+ .debug_line    0x00003c4c       0xf1 objects\ArmsControl.o
+ .debug_line    0x00003d3d      0x17d objects\TaskTempo.o
+ .debug_line    0x00003eba      0x15c objects\Strategy.o
+ .debug_line    0x00004016       0x96 objects\HomolColorA.o
+ .debug_line    0x000040ac       0x96 objects\HomolColorB.o
+ .debug_line    0x00004142      0x1b2 objects\1602D.o
+ .debug_line    0x000042f4      0x121 objects\HoopsControl.o
+ .debug_line    0x00004415      0x1f5 objects\TaskDebug.o
+ .debug_line    0x0000460a       0xea objects\XBEEControl.o
+ .debug_line    0x000046f4      0x2f9 objects\bsp.o
+ .debug_line    0x000049ed      0x15d objects\bsp_a.o
+ .debug_line    0x00004b4a      0x206 objects\bsp_fpga.o
+ .debug_line    0x00004d50       0xf3 objects\crt0.o
+ .debug_line    0x00004e43      0x1fa objects\DevCardA.o
+ .debug_line    0x0000503d      0x164 objects\DevCardB.o
+ .debug_line    0x000051a1       0xf3 objects\TaskTest.o
+ .debug_line    0x00005294       0x86 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strncpy.o)
+ .debug_line    0x0000531a       0x88 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o)
+ .debug_line    0x000053a2       0xa4 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-bootstrap-exception-handler.o)
+ .debug_line    0x00005446       0x91 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-reset.o)
+ .debug_line    0x000054d7       0x95 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-bootstrap.o)
+ .debug_line    0x0000556c       0x88 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+ .debug_line    0x000055f4       0x8a C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+ .debug_line    0x0000567e       0x8b C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+ .debug_line    0x00005709       0x86 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(fputc.o)
+ .debug_line    0x0000578f       0x8a C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_getc.o)
+ .debug_line    0x00005819       0x8b C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_write.o)
+ .debug_line    0x000058a4       0x8a C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_putc.o)
+ .debug_line    0x0000592e       0x91 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o)
+ .debug_line    0x000059bf       0x8d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_acos32.o)
+ .debug_line    0x00005a4c       0x8d C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_atan2f.o)
+ .debug_line    0x00005ad9       0x8b C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_sqrt.o)
+ .debug_line    0x00005b64       0xa9 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_disable_interrupts_lib.o)
+ .debug_line    0x00005c0d       0xa4 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_mv_int_lib.o)
+ .debug_line    0x00005cb1       0xa9 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_restore_interrupts_lib.o)
+ .debug_line    0x00005d5a       0x9e C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(puts_uartx_lib.o)
+ .debug_line    0x00005df8       0xac C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_analog_in_lib.o)
+ .debug_line    0x00005ea4       0xad C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_in_lib.o)
+ .debug_line    0x00005f51       0xae C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_out_lib.o)
+ .debug_line    0x00005fff       0xa3 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_read_bits_lib.o)
+ .debug_line    0x000060a2       0xa4 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_clear_bits_lib.o)
+ .debug_line    0x00006146       0xa2 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_bits_lib.o)
+ .debug_line    0x000061e8       0xa5 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_toggle_bits_lib.o)
+ .debug_line    0x0000628d       0xa4 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(open_core_timer_lib.o)
+ .debug_line    0x00006331       0xa6 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(update_core_timer_lib.o)
+ .debug_line    0x000063d7       0xa8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_interrupts_lib.o)
+ .debug_line    0x0000647f       0x84 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(isinf.o)
+
+.debug_frame    0x00000000     0x303c
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x84 objects\lib_mem.o
+ .debug_frame   0x00000084      0x16c objects\lib_str.o
+ .debug_frame   0x000001f0      0x144 objects\os_cpu_c.o
+ .debug_frame   0x00000334       0x2c objects\os_dbg.o
+ .debug_frame   0x00000360      0x3d4 objects\os_core.o
+ .debug_frame   0x00000734      0x1a8 objects\os_flag.o
+ .debug_frame   0x000008dc       0xf0 objects\os_mem.o
+ .debug_frame   0x000009cc       0xec objects\os_mutex.o
+ .debug_frame   0x00000ab8      0x170 objects\os_q.o
+ .debug_frame   0x00000c28      0x110 objects\os_sem.o
+ .debug_frame   0x00000d38      0x18c objects\os_task.o
+ .debug_frame   0x00000ec4       0xb0 objects\os_time.o
+ .debug_frame   0x00000f74      0x220 objects\os_tmr.o
+ .debug_frame   0x00001194       0x90 objects\App.o
+ .debug_frame   0x00001224       0xf0 objects\AppGlobalFunc.o
+ .debug_frame   0x00001314       0xd4 objects\AppHooks.o
+ .debug_frame   0x000013e8       0xd8 objects\LibMoving.o
+ .debug_frame   0x000014c0      0x2a4 objects\TaskAsser.o
+ .debug_frame   0x00001764       0x50 objects\TaskMain.o
+ .debug_frame   0x000017b4       0x50 objects\TaskMvt.o
+ .debug_frame   0x00001804      0x110 objects\TaskOdo.o
+ .debug_frame   0x00001914      0x208 objects\TaskSensors.o
+ .debug_frame   0x00001b1c      0x150 objects\ArmsControl.o
+ .debug_frame   0x00001c6c       0x30 objects\TaskTempo.o
+ .debug_frame   0x00001c9c       0x50 objects\Strategy.o
+ .debug_frame   0x00001cec      0x1c4 objects\1602D.o
+ .debug_frame   0x00001eb0      0x110 objects\HoopsControl.o
+ .debug_frame   0x00001fc0      0x108 objects\TaskDebug.o
+ .debug_frame   0x000020c8       0x68 objects\XBEEControl.o
+ .debug_frame   0x00002130      0x574 objects\bsp.o
+ .debug_frame   0x000026a4      0x250 objects\bsp_fpga.o
+ .debug_frame   0x000028f4       0x58 objects\DevCardA.o
+ .debug_frame   0x0000294c       0x50 objects\DevCardB.o
+ .debug_frame   0x0000299c       0x30 objects\TaskTest.o
+ .debug_frame   0x000029cc       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strncpy.o)
+ .debug_frame   0x000029ec       0x58 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o)
+ .debug_frame   0x00002a44       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-bootstrap-exception-handler.o)
+ .debug_frame   0x00002a64       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-reset.o)
+ .debug_frame   0x00002a84       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-bootstrap.o)
+ .debug_frame   0x00002aa4       0xf8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+ .debug_frame   0x00002b9c       0x98 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+ .debug_frame   0x00002c34       0x60 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+ .debug_frame   0x00002c94       0x60 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(fputc.o)
+ .debug_frame   0x00002cf4       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_getc.o)
+ .debug_frame   0x00002d14       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_write.o)
+ .debug_frame   0x00002d44       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_putc.o)
+ .debug_frame   0x00002d64       0x38 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o)
+ .debug_frame   0x00002d9c       0x34 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_acos32.o)
+ .debug_frame   0x00002dd0       0x34 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_atan2f.o)
+ .debug_frame   0x00002e04       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_sqrt.o)
+ .debug_frame   0x00002e34       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_disable_interrupts_lib.o)
+ .debug_frame   0x00002e54       0x28 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_mv_int_lib.o)
+ .debug_frame   0x00002e7c       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_restore_interrupts_lib.o)
+ .debug_frame   0x00002e9c       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(puts_uartx_lib.o)
+ .debug_frame   0x00002ecc       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_analog_in_lib.o)
+ .debug_frame   0x00002eec       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_in_lib.o)
+ .debug_frame   0x00002f0c       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_out_lib.o)
+ .debug_frame   0x00002f2c       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_read_bits_lib.o)
+ .debug_frame   0x00002f4c       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_clear_bits_lib.o)
+ .debug_frame   0x00002f6c       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_bits_lib.o)
+ .debug_frame   0x00002f8c       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_toggle_bits_lib.o)
+ .debug_frame   0x00002fac       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(open_core_timer_lib.o)
+ .debug_frame   0x00002fcc       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(update_core_timer_lib.o)
+ .debug_frame   0x00002fec       0x20 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_interrupts_lib.o)
+ .debug_frame   0x0000300c       0x30 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(isinf.o)
+
+.debug_str      0x00000000     0x17fd
+ *(.debug_str)
+ .debug_str     0x00000000       0x15 objects\lib_mem.o
+ .debug_str     0x00000015       0x5a objects\lib_str.o
+ .debug_str     0x0000006f       0x12 objects\os_cpu_c.o
+ .debug_str     0x00000081       0x2b objects\os_dbg.o
+ .debug_str     0x000000ac       0x46 objects\os_core.o
+ .debug_str     0x000000f2       0x4e objects\os_flag.o
+ .debug_str     0x00000140       0x12 objects\os_mbox.o
+ .debug_str     0x00000152       0x2c objects\os_mem.o
+ .debug_str     0x0000017e       0x36 objects\os_mutex.o
+ .debug_str     0x000001b4       0x36 objects\os_q.o
+ .debug_str     0x000001ea       0x36 objects\os_sem.o
+ .debug_str     0x00000220       0x23 objects\os_task.o
+ .debug_str     0x00000243       0x1f objects\os_time.o
+ .debug_str     0x00000262       0x30 objects\os_tmr.o
+ .debug_str     0x00000292       0x12 objects\App.o
+ .debug_str     0x000002a4       0x2b objects\AppGlobalFunc.o
+ .debug_str     0x000002cf       0x12 objects\AppHooks.o
+ .debug_str     0x000002e1       0x3e objects\LibMoving.o
+ .debug_str     0x0000031f      0x12b objects\TaskAsser.o
+ .debug_str     0x0000044a       0x12 objects\TaskMain.o
+ .debug_str     0x0000045c       0x3f objects\TaskMvt.o
+ .debug_str     0x0000049b       0x48 objects\TaskOdo.o
+ .debug_str     0x000004e3       0x12 objects\TaskSensors.o
+ .debug_str     0x000004f5       0x12 objects\ArmsControl.o
+ .debug_str     0x00000507       0x12 objects\TaskTempo.o
+ .debug_str     0x00000519       0x1f objects\Strategy.o
+ .debug_str     0x00000538       0x12 objects\HomolColorA.o
+ .debug_str     0x0000054a       0x12 objects\HomolColorB.o
+ .debug_str     0x0000055c        0x7 objects\1602D.o
+ .debug_str     0x00000563       0x12 objects\HoopsControl.o
+ .debug_str     0x00000575       0x2d objects\TaskDebug.o
+ .debug_str     0x000005a2       0x12 objects\XBEEControl.o
+ .debug_str     0x000005b4       0x29 objects\bsp.o
+ .debug_str     0x000005dd       0x52 objects\bsp_fpga.o
+ .debug_str     0x0000062f       0x12 objects\DevCardA.o
+ .debug_str     0x00000641       0x12 objects\DevCardB.o
+ .debug_str     0x00000653       0x12 objects\TaskTest.o
+ .debug_str     0x00000665       0xb8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(strncpy.o)
+ .debug_str     0x0000071d       0x80 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(sprintf.o)
+                                 0xcf (size before relaxing)
+ .debug_str     0x0000079d       0xa4 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-bootstrap-exception-handler.o)
+                                 0xeb (size before relaxing)
+ .debug_str     0x00000841       0x7e C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-reset.o)
+                                 0xc5 (size before relaxing)
+ .debug_str     0x000008bf       0x86 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(default-on-bootstrap.o)
+                                 0xcd (size before relaxing)
+ .debug_str     0x00000945       0x9b C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_doprnt.o)
+                                 0xe2 (size before relaxing)
+ .debug_str     0x000009e0       0xb7 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobfuncs.o)
+                                 0xfe (size before relaxing)
+ .debug_str     0x00000a97       0xb8 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_iobstring.o)
+                                 0xff (size before relaxing)
+ .debug_str     0x00000b4f       0x77 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(fputc.o)
+                                 0xc3 (size before relaxing)
+ .debug_str     0x00000bc6       0x77 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_getc.o)
+                                 0xbe (size before relaxing)
+ .debug_str     0x00000c3d       0x79 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_write.o)
+                                 0xc0 (size before relaxing)
+ .debug_str     0x00000cb6       0x77 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(_mon_putc.o)
+                                 0xbe (size before relaxing)
+ .debug_str     0x00000d2d       0x74 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_pow.o)
+                                 0xbb (size before relaxing)
+ .debug_str     0x00000da1       0x75 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_acos32.o)
+                                 0xbc (size before relaxing)
+ .debug_str     0x00000e16       0x77 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_atan2f.o)
+                                 0xbe (size before relaxing)
+ .debug_str     0x00000e8d       0x73 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libm.a(w_sqrt.o)
+                                 0xba (size before relaxing)
+ .debug_str     0x00000f00       0xa1 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_disable_interrupts_lib.o)
+                                 0xe8 (size before relaxing)
+ .debug_str     0x00000fa1       0xa7 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_mv_int_lib.o)
+                                 0xee (size before relaxing)
+ .debug_str     0x00001048       0xa1 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_restore_interrupts_lib.o)
+                                 0xe8 (size before relaxing)
+ .debug_str     0x000010e9       0x95 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(puts_uartx_lib.o)
+                                 0xdc (size before relaxing)
+ .debug_str     0x0000117e       0xa3 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_analog_in_lib.o)
+                                 0xea (size before relaxing)
+ .debug_str     0x00001221       0xa5 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_in_lib.o)
+                                 0xec (size before relaxing)
+ .debug_str     0x000012c6       0xa7 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_pins_digital_out_lib.o)
+                                 0xee (size before relaxing)
+ .debug_str     0x0000136d       0x93 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_read_bits_lib.o)
+                                 0xda (size before relaxing)
+ .debug_str     0x00001400       0x95 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_clear_bits_lib.o)
+                                 0xdc (size before relaxing)
+ .debug_str     0x00001495       0x91 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_set_bits_lib.o)
+                                 0xd8 (size before relaxing)
+ .debug_str     0x00001526       0x97 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(port_toggle_bits_lib.o)
+                                 0xde (size before relaxing)
+ .debug_str     0x000015bd       0x95 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(open_core_timer_lib.o)
+                                 0xdc (size before relaxing)
+ .debug_str     0x00001652       0x99 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(update_core_timer_lib.o)
+                                 0xe0 (size before relaxing)
+ .debug_str     0x000016eb       0x9f C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libmchp_peripheral.a(int_enable_interrupts_lib.o)
+                                 0xe6 (size before relaxing)
+ .debug_str     0x0000178a       0x73 C:/Program Files (x86)/Microchip/MPLAB C32/bin/../lib/gcc/pic32mx/3.4.4/../../../../pic32mx/lib\libc.a(isinf.o)
+                                 0xba (size before relaxing)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+/DISCARD/
+ *(.note.GNU-stack)
+OUTPUT(./output\Oufff2013_CarteDeDev.elf elf32-tradlittlemips)
+
+.mdebug.abi32   0x9d021818        0x0
+
+.gen_excpt      0x9d021818      0x1c4
+ .gen_excpt     0x9d021818      0x1c4 objects\os_cpu_a.o
+                0x9d021818                OSCtxSw
+
+.timer_handler  0x9d0219dc      0x1b0
+ .timer_handler
+                0x9d0219dc      0x1b0 objects\os_cpu_a.o
+                0x9d0219dc                CoreTimerIntHandler
+
+.bsp_cnisr      0x9d021b8c      0x1a0
+ .bsp_cnisr     0x9d021b8c      0x1a0 objects\bsp_a.o
+                0x9d021b8c                BSP_CNISR
+
+.bsp_adcisr     0x9d021d2c      0x1a0
+ .bsp_adcisr    0x9d021d2c      0x1a0 objects\bsp_a.o
+                0x9d021d2c                BSP_ADCISR
+
+.rel.dyn        0x9d021ecc        0x0
